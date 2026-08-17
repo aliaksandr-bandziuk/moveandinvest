@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>moveandinvest.com — три визуальных направления</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --doc-bg: #12130F;
+    --doc-panel: #1B1D18;
+    --doc-text: #E8E6DF;
+    --doc-muted: #9A9A90;
+    --doc-rule: #2E312A;
+    --doc-accent: #C9F27A;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--doc-bg);
+    color: var(--doc-text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .wrap { max-width: 1680px; margin: 0 auto; padding: 48px 32px 96px; }
+
+  /* ---------- doc header ---------- */
+
+  .doc-head { max-width: 860px; margin-bottom: 40px; }
+  .doc-kicker {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--doc-accent); font-weight: 600; margin-bottom: 14px;
+  }
+  .doc-head h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: clamp(30px, 4vw, 44px); line-height: 1.15;
+    font-weight: 600; margin: 0 0 18px; letter-spacing: -.01em;
+  }
+  .doc-head p { color: var(--doc-muted); margin: 0 0 14px; font-size: 16px; }
+  .doc-head strong { color: var(--doc-text); font-weight: 600; }
+
+  .notes {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px; margin: 32px 0 56px;
+  }
+  .note {
+    border: 1px solid var(--doc-rule); border-radius: 10px;
+    padding: 18px 20px; background: var(--doc-panel);
+  }
+  .note h3 {
+    margin: 0 0 8px; font-size: 12px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--doc-accent); font-weight: 600;
+  }
+  .note p { margin: 0; font-size: 14px; color: var(--doc-muted); line-height: 1.65; }
+  .note p + p { margin-top: 10px; }
+  .note b { color: var(--doc-text); font-weight: 600; }
+
+  /* ---------- grid of directions ---------- */
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 1400px) { .grid { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; } }
+
+  .col-head { margin-bottom: 14px; }
+  .col-head .tag {
+    display: inline-block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--doc-bg); background: var(--doc-accent); font-weight: 700;
+    padding: 3px 9px; border-radius: 4px; margin-bottom: 10px;
+  }
+  .col-head h2 { margin: 0 0 6px; font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+  .col-head p { margin: 0; font-size: 13.5px; color: var(--doc-muted); line-height: 1.6; }
+
+  /* ---------- the mock itself ---------- */
+
+  .mock {
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--doc-rule);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  }
+
+  .p-a {
+    --paper:#FAF8F4; --surface:#FFFFFF; --ink:#16150F; --muted:#5C594E;
+    --rule:#E2DDD2; --accent:#1E5B45; --accent-soft:#E9F0EC; --on-accent:#FFFFFF;
+    --font-display:"Source Serif 4", Georgia, serif;
+    --font-body:Inter, system-ui, sans-serif;
+    --radius:4px; --display-weight:600; --display-tracking:-.015em;
+  }
+  .p-b {
+    --paper:#FBF6EF; --surface:#FFFFFF; --ink:#201812; --muted:#6B5B4C;
+    --rule:#EADFD1; --accent:#A8502C; --accent-soft:#F7E8DE; --on-accent:#FFFFFF;
+    --font-display:Lora, Georgia, serif;
+    --font-body:"IBM Plex Sans", system-ui, sans-serif;
+    --radius:10px; --display-weight:600; --display-tracking:-.005em;
+  }
+  .p-c {
+    --paper:#F6F7F9; --surface:#FFFFFF; --ink:#0E1420; --muted:#59637A;
+    --rule:#E1E5EC; --accent:#1C3D8F; --accent-soft:#E7ECF8; --on-accent:#FFFFFF;
+    --font-display:Inter, system-ui, sans-serif;
+    --font-body:Inter, system-ui, sans-serif;
+    --radius:3px; --display-weight:700; --display-tracking:-.03em;
+  }
+
+  .site-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 14px 22px; border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .wordmark {
+    font-family: var(--font-display); font-weight: 700; font-size: 16px;
+    letter-spacing: var(--display-tracking); color: var(--ink);
+  }
+  .p-c .wordmark { letter-spacing: -.04em; }
+  .wordmark span { color: var(--accent); }
+  .site-nav { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+  .lang { display: flex; gap: 4px; }
+  .lang i {
+    font-style: normal; font-size: 10.5px; font-weight: 600; letter-spacing: .06em;
+    padding: 3px 7px; border-radius: var(--radius); color: var(--muted);
+    border: 1px solid var(--rule);
+  }
+  .lang i.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+
+  .hero { padding: 34px 22px 30px; background: var(--surface); border-bottom: 1px solid var(--rule); }
+  .eyebrow {
+    font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--accent); margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    font-size: 30px; line-height: 1.12; margin: 0 0 14px; color: var(--ink);
+  }
+  .hero p { margin: 0 0 20px; font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 46ch; }
+  .cta-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; font-size: 13px; font-weight: 600;
+    padding: 10px 16px; border-radius: var(--radius);
+    background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent);
+  }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+
+  .section { padding: 26px 22px; }
+  .section + .section { border-top: 1px solid var(--rule); }
+  .section-title {
+    font-family: var(--font-display); font-size: 17px; font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking); margin: 0 0 4px; color: var(--ink);
+  }
+  .section-sub { font-size: 12.5px; color: var(--muted); margin: 0 0 16px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th {
+    text-align: left; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; padding: 0 8px 8px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  td { padding: 10px 8px 10px 0; border-bottom: 1px solid var(--rule); color: var(--ink); vertical-align: middle; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .p-c td.num { font-family: "JetBrains Mono", monospace; font-size: 11px; }
+  tr:last-child td { border-bottom: none; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-weight: 600; font-size: 12px; white-space: nowrap;
+  }
+  .chip::before {
+    content: ""; width: 9px; height: 9px; border-radius: 2px;
+    background: var(--c); flex: none;
+  }
+  .p-b .chip::before { border-radius: 50%; }
+  .chip.off { color: var(--muted); }
+  .chip.off::before { opacity: .4; }
+
+  .table-note { font-size: 10.5px; color: var(--muted); margin: 12px 0 0; line-height: 1.5; }
+
+  .partner {
+    background: var(--accent-soft); border-radius: var(--radius);
+    padding: 20px; border: 1px solid var(--rule);
+  }
+  .partner h4 {
+    font-family: var(--font-display); font-size: 16px; font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking); margin: 0 0 8px; color: var(--ink);
+  }
+  .partner p { margin: 0 0 14px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  .partner .stats { display: flex; gap: 22px; margin-bottom: 16px; }
+  .partner .stat b {
+    display: block; font-family: var(--font-display); font-size: 22px;
+    font-weight: 700; color: var(--accent); letter-spacing: -.02em; line-height: 1.1;
+  }
+  .p-c .partner .stat b { font-family: "JetBrains Mono", monospace; font-size: 20px; }
+  .partner .stat span { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+  /* ---------- palette + type specimen ---------- */
+
+  .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sw { flex: 1 1 78px; min-width: 78px; }
+  .sw i { display: block; height: 46px; border-radius: var(--radius); border: 1px solid var(--rule); }
+  .sw b { display: block; font-size: 10px; font-weight: 600; margin-top: 6px; color: var(--ink); }
+  .sw code { display: block; font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: var(--muted); }
+
+  .specimen p { margin: 0 0 10px; color: var(--ink); }
+  .sp-display { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 26px; letter-spacing: var(--display-tracking); line-height: 1.15; }
+  .sp-h { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 17px; }
+  .sp-body { font-size: 13.5px; line-height: 1.65; color: var(--muted); }
+  .sp-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+  .font-names { font-size: 11px; color: var(--muted); margin-top: 14px; font-family: "JetBrains Mono", monospace; }
+
+  .verdict {
+    margin-top: 14px; border-left: 2px solid var(--doc-accent);
+    padding: 2px 0 2px 14px; font-size: 13px; color: var(--doc-muted); line-height: 1.65;
+  }
+  .verdict b { color: var(--doc-text); font-weight: 600; }
+
+  .doc-foot {
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--doc-rule);
+    max-width: 860px; color: var(--doc-muted); font-size: 14px; line-height: 1.7;
+  }
+  .doc-foot h3 { color: var(--doc-text); font-size: 16px; margin: 0 0 10px; font-weight: 600; }
+  .doc-foot b { color: var(--doc-text); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc-head">
+    <div class="doc-kicker">moveandinvest.com · выбор визуального направления</div>
+    <h1>Три направления на реальных элементах, а не на абстрактных квадратиках</h1>
+    <p>Каждая колонка — одно связное решение: палитра, типографика, тон. Внутри показаны те блоки, которые действительно будут на сайте: шапка с переключателем языков, герой, сравнительная таблица стран, партнёрский блок. Смотри не на красоту, а на вопрос <strong>«так выглядит проект, которому юрист ответит на письмо?»</strong></p>
+    <p>Выбираешь одну колонку целиком. Смешивать акцент из одной с типографикой из другой можно, но тогда решать придётся ещё раз — и, скорее всего, дольше.</p>
+  </header>
+
+  <div class="notes">
+    <div class="note">
+      <h3>Общее для всех трёх</h3>
+      <p>Никакого золота и тёмно-синего с фотографией виллы на закате — это флаг категории, так выглядят сотни визовых контор. Во всех вариантах главный визуальный элемент — <b>сравнительная таблица</b>, а не фотография.</p>
+      <p>Это не эстетический каприз: страница, построенная вокруг структурированного сравнения, отдаёт AI-движкам ровно то, что они цитируют.</p>
+    </div>
+    <div class="note">
+      <h3>Ограничение мультиязычности</h3>
+      <p>EN + RU + PL означает, что шрифт обязан покрывать <b>кириллицу и Latin Extended</b> (ł ą ę ż ś ć ń ó ź). Это вычёркивает половину модных дисплейных шрифтов: Fraunces, Instrument Serif, Geist — кириллицы нет.</p>
+      <p>Все шрифты ниже проверены на все три языка, образцы видны в каждой колонке.</p>
+    </div>
+    <div class="note">
+      <h3>Цветовые чипы стран</h3>
+      <p>Сквозной приём во всех трёх вариантах: пять юрисдикций получают по своему приглушённому цвету, который живёт в навигации, таблицах и карточках.</p>
+      <p>Стоит ноль, работает годами: за два визита человек начинает узнавать Грецию по цвету строки. Кипр показан выключенным — он отложен.</p>
+    </div>
+    <div class="note">
+      <h3>Чего здесь намеренно нет</h3>
+      <p>Логотипа-иконки. На старте — только начертание названия. Иконку рисуют, когда есть что сокращать до квадрата: приложение, фавикон в лентах, мерч.</p>
+      <p>Цифры в таблицах — <b>условные</b>, поставлены для объёма. Перед публикацией проверяются по первоисточникам.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- ============ A ============ -->
+    <section>
+      <div class="col-head">
+        <span class="tag">Вариант A</span>
+        <h2>Journal — редакционное</h2>
+        <p>Исследовательское издание, а не брокер. Бумажный фон, серифные заголовки, тонкие линейки, глубокий зелёный вместо золота. Максимальная дистанция от категории.</p>
+      </div>
+
+      <div class="mock p-a">
+        <div class="site-head">
+          <div class="wordmark">move<span>&amp;</span>invest</div>
+          <div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div>
+        </div>
+
+        <div class="hero">
+          <div class="eyebrow">Independent research</div>
+          <h1>Where to move, and what it actually costs</h1>
+          <p>Residency routes, tax regimes and property rules in five jurisdictions — compared side by side, updated as the laws change.</p>
+          <div class="cta-row">
+            <a class="btn">Compare countries</a>
+            <a class="btn ghost">For partners</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3 class="section-title">Residency by investment, 2026</h3>
+          <p class="section-sub">Minimum thresholds and time to a first permit</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+          <p class="table-note">Figures are illustrative placeholders for this mock-up.</p>
+        </div>
+
+        <div class="section">
+          <div class="partner">
+            <h4>For partners</h4>
+            <p>We qualify every enquiry on country, budget and timeline before it reaches you. No raw form fills.</p>
+            <div class="stats">
+              <div class="stat"><b>5</b><span>jurisdictions</span></div>
+              <div class="stat"><b>3</b><span>qualifying questions</span></div>
+            </div>
+            <a class="btn">Request terms</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sp-label">Палитра</div>
+          <div class="swatches">
+            <div class="sw"><i style="background:#FAF8F4"></i><b>paper</b><code>#FAF8F4</code></div>
+            <div class="sw"><i style="background:#16150F"></i><b>ink</b><code>#16150F</code></div>
+            <div class="sw"><i style="background:#5C594E"></i><b>muted</b><code>#5C594E</code></div>
+            <div class="sw"><i style="background:#1E5B45"></i><b>accent</b><code>#1E5B45</code></div>
+            <div class="sw"><i style="background:#E9F0EC"></i><b>soft</b><code>#E9F0EC</code></div>
+            <div class="sw"><i style="background:#E2DDD2"></i><b>rule</b><code>#E2DDD2</code></div>
+          </div>
+        </div>
+
+        <div class="section specimen">
+          <div class="sp-label">Типографика · EN / RU / PL</div>
+          <p class="sp-display">Golden Visa</p>
+          <p class="sp-h">Налоги для экспата в Португалии</p>
+          <p class="sp-h">Zakup nieruchomości przez cudzoziemca</p>
+          <p class="sp-body">Резидентство за инвестиции — не одна программа, а пять разных режимов с разной ценой входа, сроками и налоговыми последствиями. Мы сравниваем их по одинаковым критериям.</p>
+          <div class="font-names">Source Serif 4 · Inter</div>
+        </div>
+      </div>
+
+      <div class="verdict"><b>Читается как:</b> аналитический центр, который знает предмет. <b>Риск:</b> может показаться суховатым для человека, который мечтает о доме у моря, а не изучает налоговый режим.</div>
+    </section>
+
+    <!-- ============ B ============ -->
+    <section>
+      <div class="col-head">
+        <span class="tag">Вариант B</span>
+        <h2>Mediterranean — тёплое</h2>
+        <p>Та же структура, но человечнее: песочная база, терракотовый акцент, мягкие скругления. Средиземноморье намёком, без единой фотографии побережья.</p>
+      </div>
+
+      <div class="mock p-b">
+        <div class="site-head">
+          <div class="wordmark">move<span>&amp;</span>invest</div>
+          <div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div>
+        </div>
+
+        <div class="hero">
+          <div class="eyebrow">Five countries, one guide</div>
+          <h1>Move somewhere better. Know what it costs first.</h1>
+          <p>Residency, tax and property in Portugal, Greece, Malta and the UAE — explained by people who did it, compared like a spreadsheet.</p>
+          <div class="cta-row">
+            <a class="btn">Compare countries</a>
+            <a class="btn ghost">For partners</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3 class="section-title">Residency by investment, 2026</h3>
+          <p class="section-sub">Minimum thresholds and time to a first permit</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+          <p class="table-note">Figures are illustrative placeholders for this mock-up.</p>
+        </div>
+
+        <div class="section">
+          <div class="partner">
+            <h4>For partners</h4>
+            <p>We qualify every enquiry on country, budget and timeline before it reaches you. No raw form fills.</p>
+            <div class="stats">
+              <div class="stat"><b>5</b><span>jurisdictions</span></div>
+              <div class="stat"><b>3</b><span>qualifying questions</span></div>
+            </div>
+            <a class="btn">Request terms</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sp-label">Палитра</div>
+          <div class="swatches">
+            <div class="sw"><i style="background:#FBF6EF"></i><b>paper</b><code>#FBF6EF</code></div>
+            <div class="sw"><i style="background:#201812"></i><b>ink</b><code>#201812</code></div>
+            <div class="sw"><i style="background:#6B5B4C"></i><b>muted</b><code>#6B5B4C</code></div>
+            <div class="sw"><i style="background:#A8502C"></i><b>accent</b><code>#A8502C</code></div>
+            <div class="sw"><i style="background:#F7E8DE"></i><b>soft</b><code>#F7E8DE</code></div>
+            <div class="sw"><i style="background:#EADFD1"></i><b>rule</b><code>#EADFD1</code></div>
+          </div>
+        </div>
+
+        <div class="section specimen">
+          <div class="sp-label">Типографика · EN / RU / PL</div>
+          <p class="sp-display">Golden Visa</p>
+          <p class="sp-h">Налоги для экспата в Португалии</p>
+          <p class="sp-h">Zakup nieruchomości przez cudzoziemca</p>
+          <p class="sp-body">Резидентство за инвестиции — не одна программа, а пять разных режимов с разной ценой входа, сроками и налоговыми последствиями. Мы сравниваем их по одинаковым критериям.</p>
+          <div class="font-names">Lora · IBM Plex Sans</div>
+        </div>
+      </div>
+
+      <div class="verdict"><b>Читается как:</b> проводник, которому доверяют частные лица. <b>Риск:</b> терракота ближе к «лайфстайлу» — юрист может считать проект блогом, а не бизнес-партнёром.</div>
+    </section>
+
+    <!-- ============ C ============ -->
+    <section>
+      <div class="col-head">
+        <span class="tag">Вариант C</span>
+        <h2>Data desk — технократичное</h2>
+        <p>Ни одного серифа. Плотная сетка, моноширинные цифры, чернильно-синий. Выглядит как аналитический продукт, а не как контент-сайт.</p>
+      </div>
+
+      <div class="mock p-c">
+        <div class="site-head">
+          <div class="wordmark">move<span>&amp;</span>invest</div>
+          <div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div>
+        </div>
+
+        <div class="hero">
+          <div class="eyebrow">Updated weekly</div>
+          <h1>Residency, tax and property data for five jurisdictions</h1>
+          <p>Every threshold, deadline and tax rate in one comparable dataset. Sourced, dated, and revised when the rules change.</p>
+          <div class="cta-row">
+            <a class="btn">Open the dataset</a>
+            <a class="btn ghost">For partners</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3 class="section-title">Residency by investment, 2026</h3>
+          <p class="section-sub">Minimum thresholds and time to a first permit</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+          <p class="table-note">Figures are illustrative placeholders for this mock-up.</p>
+        </div>
+
+        <div class="section">
+          <div class="partner">
+            <h4>For partners</h4>
+            <p>We qualify every enquiry on country, budget and timeline before it reaches you. No raw form fills.</p>
+            <div class="stats">
+              <div class="stat"><b>5</b><span>jurisdictions</span></div>
+              <div class="stat"><b>3</b><span>qualifying questions</span></div>
+            </div>
+            <a class="btn">Request terms</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="sp-label">Палитра</div>
+          <div class="swatches">
+            <div class="sw"><i style="background:#F6F7F9"></i><b>paper</b><code>#F6F7F9</code></div>
+            <div class="sw"><i style="background:#0E1420"></i><b>ink</b><code>#0E1420</code></div>
+            <div class="sw"><i style="background:#59637A"></i><b>muted</b><code>#59637A</code></div>
+            <div class="sw"><i style="background:#1C3D8F"></i><b>accent</b><code>#1C3D8F</code></div>
+            <div class="sw"><i style="background:#E7ECF8"></i><b>soft</b><code>#E7ECF8</code></div>
+            <div class="sw"><i style="background:#E1E5EC"></i><b>rule</b><code>#E1E5EC</code></div>
+          </div>
+        </div>
+
+        <div class="section specimen">
+          <div class="sp-label">Типографика · EN / RU / PL</div>
+          <p class="sp-display">Golden Visa</p>
+          <p class="sp-h">Налоги для экспата в Португалии</p>
+          <p class="sp-h">Zakup nieruchomości przez cudzoziemca</p>
+          <p class="sp-body">Резидентство за инвестиции — не одна программа, а пять разных режимов с разной ценой входа, сроками и налоговыми последствиями. Мы сравниваем их по одинаковым критериям.</p>
+          <div class="font-names">Inter · JetBrains Mono</div>
+        </div>
+      </div>
+
+      <div class="verdict"><b>Читается как:</b> инструмент, а не медиа. <b>Риск:</b> холодно для верха воронки — человек, который пока только думает о переезде, ждёт объяснения, а не дашборда.</div>
+    </section>
+
+  </div>
+
+  <footer class="doc-foot">
+    <h3>Что дальше</h3>
+    <p>Назови букву — и я соберу под неё <b>файл токенов для Tailwind v4</b> (CSS-переменные, типографическая шкала, отступы, состояния компонентов) плюс подключение шрифтов через <b>next/font</b> с самохостингом и корректными сабсетами latin, latin-ext и cyrillic. Это ровно тот слой, который потом не переделывается: палитру можно поменять в одном файле за пять минут, а вот выбор «серифное издание против дата-продукта» меняет вёрстку целиком.</p>
+    <p>Два соображения к твоему стеку, чтобы решить сразу. Первое: <b>чипы стран должны жить в Sanity как поле документа страны</b>, а не в коде — иначе при добавлении шестой юрисдикции придётся править фронт. Второе: <b>переключатель языков не должен быть флагами</b> — русскоязычная аудитория живёт в десятке стран, флаг привяжет язык к государству и будет врать. Только коды: EN / RU / PL.</p>
+    <p>Моя ставка, если спросишь: <b>A</b>. Она дальше всех от категории, дешевле всех в производстве и единственная из трёх одинаково хорошо выглядит и на длинной статье, и на партнёрской странице. B я бы держал в резерве как источник тепла — её акцент можно позже подмешать в A точечно.</p>
+  </footer>
+
+</div>
+</body>
+</html>

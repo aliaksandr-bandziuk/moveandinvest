@@ -1,0 +1,35 @@
+// Default state is VISIBLE. The travelling start state is only applied when
+// data-js="on" is present, which React adds on hydration — so a crawler, a
+// reader with JS off, or a failed bundle all get plain, readable content
+// rather than an empty page waiting for an event that never fires.
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal[data-js="on"][data-shown="false"] {
+    opacity: 0;
+  }
+
+  .reveal[data-js="on"][data-shown="false"][data-from="below"] {
+    transform: translate3d(0, var(--space-5), 0);
+  }
+
+  .reveal[data-js="on"][data-shown="false"][data-from="left"] {
+    transform: translate3d(calc(-1 * var(--space-5)), 0, 0);
+  }
+
+  .reveal[data-js="on"][data-shown="false"][data-from="right"] {
+    transform: translate3d(var(--space-5), 0, 0);
+  }
+
+  .reveal[data-js="on"] {
+    // Only opacity and transform are animated — both composited, neither
+    // triggers layout, so a reveal on a long table costs nothing per frame.
+    transition:
+      opacity 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--reveal-order, 0) * 90ms);
+  }
+}

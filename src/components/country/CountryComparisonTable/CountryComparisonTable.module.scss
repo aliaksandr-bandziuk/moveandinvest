@@ -1,0 +1,84 @@
+@use "../../../styles/mixins";
+
+// Horizontal scroll rather than a stacked card layout on narrow screens:
+// stacking a comparison table destroys the one thing it is for — reading down
+// a column. The browser makes a scrollable region keyboard-reachable itself.
+//
+// min-width: 0 is load-bearing. Grid and flex children default to
+// min-width:auto, so without it the 44rem table below drags its parent wider
+// than a phone viewport and the page is clipped instead of the table
+// scrolling. Found by rendering at 390px, not by reading the CSS.
+.scroll {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  // Fades the right edge while there is more table to reach, so a cut-off
+  // column reads as "keep going" rather than as a broken layout. Pure CSS,
+  // no scroll listener: `local` attachment makes the two white panels scroll
+  // with the content while the two shadows stay pinned to the box.
+  background:
+    linear-gradient(to right, var(--color-bg) 30%, rgb(255 255 255 / 0%)) left center,
+    linear-gradient(to left, var(--color-bg) 30%, rgb(255 255 255 / 0%)) right center,
+    radial-gradient(farthest-side at 0 50%, rgb(14 20 32 / 10%), rgb(14 20 32 / 0%)) left center,
+    radial-gradient(farthest-side at 100% 50%, rgb(14 20 32 / 10%), rgb(14 20 32 / 0%)) right center;
+  background-repeat: no-repeat;
+  background-size: 2.5rem 100%, 2.5rem 100%, 0.75rem 100%, 0.75rem 100%;
+  background-attachment: local, local, scroll, scroll;
+  background-color: var(--color-bg);
+}
+
+.table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+// The heading above the table says the same thing visibly, so this exists
+// purely for assistive technology.
+.caption {
+  @include mixins.visually-hidden;
+}
+
+.table thead th {
+  @include mixins.eyebrow;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  padding: 0 var(--space-5) var(--space-3) 0;
+  color: var(--color-text-muted);
+  text-align: start;
+  white-space: nowrap;
+  // The one heavy rule in the table: it separates labels from data. Every
+  // other line is a hairline.
+  border-bottom: var(--border-hairline) solid var(--color-text);
+}
+
+.table tbody td,
+.table tbody th {
+  padding: var(--space-4) var(--space-5) var(--space-4) 0;
+  text-align: start;
+  font-weight: var(--font-weight-regular);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+  vertical-align: middle;
+}
+
+.rowHead {
+  white-space: nowrap;
+}
+
+.table tbody tr:hover td,
+.table tbody tr:hover th {
+  background-color: var(--color-row-hover);
+}
+
+// A jurisdiction with no published page stays in the table rather than
+// disappearing from it: telling the reader Cyprus exists and is not covered
+// is more honest than a table that silently omits it. Muted text, never
+// opacity — a half-transparent row is the "unfinished" look this direction
+// rejects.
+.table tbody tr[data-status="planned"] td,
+.table tbody tr[data-status="paused"] td {
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,156 @@
+@use "../../../styles/mixins";
+
+.section {
+  padding-block: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-9);
+  }
+}
+
+.head {
+  margin-bottom: var(--space-6);
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-text-muted);
+}
+
+.heading {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  max-width: 18ch;
+}
+
+.intro {
+  max-width: var(--measure-wide);
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+  color: var(--color-text-muted);
+}
+
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--border-hairline) solid var(--color-text);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 10rem 1fr 27rem;
+    gap: var(--space-6);
+    align-items: center;
+  }
+}
+
+.name {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.track {
+  display: flex;
+  height: 1.25rem;
+  min-width: 0;
+}
+
+.advertised,
+.extras {
+  display: block;
+  height: 100%;
+  // Grow from the left rather than fade in: the block is about a number
+  // getting bigger, and the motion should say the same thing.
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.advertised {
+  background-color: var(--color-accent);
+}
+
+// The lightest step of the same hue, not a second colour: this is one
+// quantity split into two parts, which is a sequential relationship. A
+// contrasting hue here would imply two unrelated categories.
+.extras {
+  background-color: #ecc0c6;
+}
+
+// Animation is opt-in twice over: only when JS has marked the block, and only
+// when the reader has not asked for reduced motion. The resting state in the
+// cascade is the finished one, so nothing depends on an event that may never
+// arrive.
+@media (prefers-reduced-motion: no-preference) {
+  [data-js="on"][data-inview="false"] .advertised,
+  [data-js="on"][data-inview="false"] .extras {
+    transform: scaleX(0);
+  }
+
+  [data-js="on"] .advertised,
+  [data-js="on"] .extras {
+    transition: transform 760ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  [data-js="on"] .extras {
+    // Starts as the advertised bar finishes, so the second segment reads as
+    // "and then this on top" rather than as part of the same block.
+    transition-delay: 420ms;
+  }
+}
+
+.figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+
+  // Three columns rather than space-between: with a flex row the third
+  // figure wrapped onto its own line and the block stopped reading as one
+  // set of three. Equal tracks also line the labels up down the whole table.
+  @include mixins.breakpoint-up(lg) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--fs-small);
+}
+
+.figureLabel {
+  @include mixins.eyebrow;
+
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+}
+
+.total {
+  font-weight: var(--font-weight-medium);
+}
+
+.note {
+  margin-top: var(--space-5);
+  max-width: var(--measure-wide);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}

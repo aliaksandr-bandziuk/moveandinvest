@@ -1,0 +1,172 @@
+// Design tokens: the only place raw colour/size values are allowed to live.
+// Everything else (globals.scss, component .module.scss files) must reference
+// these via var(--token-name) or the breakpoint()/z() helpers below.
+//
+// Direction: "Data desk / Oxblood", revised 16 Aug 2026 after the first round
+// of real renders. Two changes from the original:
+//
+// 1. THE PAGE IS WHITE, not cool grey. The grey background was the single
+//    biggest reason the first build read as cheap — a page where half the
+//    surfaces are a slightly different grey looks like a template. Contrast
+//    now comes from black planes against white ones, never from grey fills.
+// 2. A BLACK PLANE is a first-class surface. The top of every page is dark:
+//    the header sits inside it, and on the home page the hero extends it.
+//    That plane is the whole reason the site reads as expensive without
+//    costing anything — no paid imagery, no gradients, no effects.
+//
+// Muted GREY TEXT is still allowed and used; muted grey BACKGROUNDS are not.
+//
+// Every pair below is WCAG-checked. Do not adjust a value without re-running
+// the check and updating the numbers in the comments.
+
+@use "sass:map";
+
+// --- Breakpoints (compile-time SCSS map, consumed by mixins) ----------------
+// Mobile-first: these are all min-widths. There is no max-width mixin on
+// purpose — a max-width query means the mobile layout was written second.
+$breakpoints: (
+  sm: 30rem,
+  // 480px
+  md: 48rem,
+  // 768px
+  lg: 64rem,
+  // 1024px
+  xl: 80rem, // 1280px
+);
+
+@function breakpoint($name) {
+  @return map.get($breakpoints, $name);
+}
+
+// --- Z-index scale ---------------------------------------------------------
+$z-index: (
+  base: 0,
+  dropdown: 10,
+  sticky: 20,
+  overlay: 30,
+  modal: 40,
+  toast: 50,
+);
+
+@function z($name) {
+  @return map.get($z-index, $name);
+}
+
+:root {
+  // --- Light surfaces ------------------------------------------------------
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  // Warm, not grey: the one tint on the light side, used for table row hover.
+  --color-row-hover: #faf7f7;
+  --color-text: #0e1420; // 18.43:1 on white — AAA
+  --color-text-muted: #5a6478; // 5.95:1 on white — AA at any size
+  --color-hairline: #dce0e7; // 1px rules between table rows
+  --color-line: #b9c0cc; // heavier rules, input borders
+
+  // --- The black plane -----------------------------------------------------
+  // Slightly blue-black rather than pure #000: pure black on an LCD reads as
+  // a hole, this reads as ink.
+  --color-dark: #0b0f16;
+  --color-on-dark: #ffffff; // 19.19:1 — AAA
+  --color-on-dark-muted: #aeb7c6; // 9.49:1 — AAA
+  --color-on-dark-hairline: rgb(255 255 255 / 10%);
+  --color-on-dark-border: rgb(255 255 255 / 30%);
+  // The wordmark's ampersand and any accent mark that has to survive on the
+  // black plane. The main accent below is 1.92:1 there — fine behind white
+  // button text, unusable as a text colour.
+  --color-accent-on-dark: #c9646f; // 5.06:1 on the black plane — AA
+
+  // --- Accent (oxblood) ----------------------------------------------------
+  // Used on ~5% of any screen. Past that it stops reading as editorial and
+  // starts reading as an alert.
+  --color-accent: #7a2230; // 10.00:1 on white — AAA
+  --color-accent-hover: #5e1926;
+  --color-accent-contrast: #ffffff; // 10.00:1 on the accent — AAA
+  --color-focus: #7a2230;
+
+  // --- Map surfaces -------------------------------------------------------
+  // The five per-jurisdiction hues that used to live here are gone, and this
+  // is the reason: five categorical colours cannot be told apart under
+  // colour-vision deficiency at one lightness. A directed search over OKLCH
+  // hue sets could not clear the CVD threshold for any five — the best was
+  // 4.5 against a floor of 8, and the previous muted set scored 1.1. That is
+  // a property of the colour space, not of the choices.
+  //
+  // So identity is carried by position on the map and by a direct label
+  // everywhere else, and colour now says one thing only: covered or not.
+  --color-map-land: #171d27; // uncovered land on the black plane
+  --color-map-active: #d9600f; // a covered jurisdiction — 5.4:1 on the plane
+  --color-map-pending: #6b7484; // declared but not yet published
+  --color-map-lead: #4a5364; // leader lines from a shape to its label
+
+  // --- Typography: families ------------------------------------------------
+  // Loaded via next/font in src/lib/fonts.ts with latin, latin-ext and
+  // cyrillic subsets. One display face for all three locales.
+  --font-display: var(--font-spectral), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), system-ui, -apple-system, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular",
+    Menlo, monospace;
+
+  // --- Typography: scale ---------------------------------------------------
+  // The hero headline is its own step, deliberately far above everything
+  // else: on the black plane it is the only element allowed to shout.
+  --fs-hero: clamp(2.5rem, 6.4vw, 5.25rem);
+  --lh-hero: 1.02;
+  --tracking-hero: -0.032em;
+
+  --fs-display: clamp(2rem, 4.5vw, 3rem);
+  --lh-display: 1.06;
+  --fs-h2: clamp(1.625rem, 2.8vw, 2.125rem);
+  --lh-h2: 1.14;
+  --fs-h3: 1.25rem;
+  --lh-h3: 1.3;
+  --fs-body-lg: 1.125rem;
+  --lh-body-lg: 1.62;
+  --fs-body: 1rem;
+  --lh-body: 1.6;
+  --fs-small: 0.9375rem; // 15px — table body, captions
+  --lh-small: 1.5;
+  --fs-micro: 0.75rem; // eyebrows, column headers
+  --lh-micro: 1.45;
+  --fs-nano: 0.6875rem; // 11px — table column headers, chip labels
+  --lh-nano: 1.4;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --tracking-display: -0.025em;
+  --tracking-tight: -0.02em;
+  --tracking-eyebrow: 0.16em;
+
+  --measure-max: 47ch; // hero lede and body prose
+  --measure-wide: 56ch;
+
+  // --- Spacing -------------------------------------------------------------
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  // --- Radii ---------------------------------------------------------------
+  // Almost none. Rounded corners are what turn a data table back into a
+  // marketing card, and the comparison table now has no container at all.
+  --radius-s: 0.125rem; // 2px — buttons, chips
+  --radius-m: 0.25rem; // 4px — the few boxed elements left
+
+  --border-hairline: 1px;
+  --focus-ring-width: 2px;
+
+  // --- Layout --------------------------------------------------------------
+  --container-max-width: 78rem; // 1248px
+  --gutter: var(--space-5); // mobile
+  --gutter-lg: var(--space-7); // from lg up
+}

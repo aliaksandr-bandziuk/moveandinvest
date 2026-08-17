@@ -1,0 +1,43 @@
+{
+  "name": "moveandinvest",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=24.14.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typegen": "sanity schema extract && sanity typegen generate",
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "publish": "tsx --env-file=.env.local scripts/publish.ts",
+    "inspect": "tsx --env-file=.env.local scripts/inspect.ts",
+    "facts": "tsx --env-file=.env.local scripts/facts.ts",
+    "enquiries": "tsx --env-file=.env.local scripts/enquiries.ts"
+  },
+  "dependencies": {
+    "@sanity/client": "^7.16.0",
+    "@sanity/document-internationalization": "^6.2.15",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.3.0",
+    "next": "16.2.10",
+    "next-intl": "^4.13.1",
+    "next-sanity": "^13.1.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sanity": "^6.3.0",
+    "styled-components": "^6.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "sass": "^1.101.0",
+    "tsx": "^4.23.0",
+    "typescript": "^5"
+  }
+}

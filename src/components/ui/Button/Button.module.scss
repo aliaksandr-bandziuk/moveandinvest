@@ -1,0 +1,83 @@
+@use "../../../styles/mixins";
+
+// Mobile first: full width and centred by default, because a phone CTA that
+// is only as wide as its label is a smaller tap target than it needs to be.
+// From sm up it shrinks to its content.
+.button {
+  display: block;
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  border: var(--border-hairline) solid transparent;
+  border-radius: var(--radius-s);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+
+  @include mixins.breakpoint-up(sm) {
+    display: inline-block;
+    width: auto;
+  }
+}
+
+// --- On the white plane -----------------------------------------------------
+.onLight {
+  @include mixins.focus-ring;
+}
+
+.onLight.primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+}
+
+.onLight.ghost {
+  background-color: transparent;
+  border-color: var(--color-line);
+  color: var(--color-text);
+
+  &:hover {
+    border-color: var(--color-text);
+  }
+}
+
+// --- On the black plane -----------------------------------------------------
+.onDark {
+  @include mixins.focus-ring-on-dark;
+}
+
+// The oxblood fill is only 1.92:1 against the black plane, so the button's
+// own edge is quiet — but its white label is 10:1 on the fill, which is what
+// actually carries it. Deliberate: a lighter fill would pull the accent past
+// the 5%-of-screen budget the direction allows.
+.onDark.primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+}
+
+.onDark.ghost {
+  background-color: transparent;
+  border-color: var(--color-on-dark-border);
+  color: var(--color-on-dark);
+
+  &:hover {
+    border-color: var(--color-on-dark);
+  }
+}

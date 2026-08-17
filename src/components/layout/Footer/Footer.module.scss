@@ -1,0 +1,227 @@
+@use "../../../styles/mixins";
+
+// The page opens on a black plane and closes on one. The section above the
+// footer is the enquiry form, also dark, so the two would merge into a single
+// unbroken black run — the hairline at the top of the invitation strip is
+// what keeps them two things.
+.footer {
+  margin-top: auto;
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+// --- Storey one: the invitation ---------------------------------------------
+
+.invite {
+  border-top: var(--border-hairline) solid var(--color-on-dark-border);
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-hairline);
+  padding-block: var(--space-5);
+}
+
+.inviteRow {
+  display: grid;
+  gap: var(--space-4);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+.inviteText {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: 1.375rem;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  max-width: 44ch;
+}
+
+// The light-plane accent is 1.92:1 against the black plane and unusable here;
+// `--color-accent-on-dark` exists for exactly this.
+.email {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-small);
+  color: var(--color-on-dark);
+  text-decoration: none;
+  border-bottom: var(--border-hairline) solid var(--color-accent-on-dark);
+  padding-bottom: 0.1rem;
+  justify-self: start;
+  white-space: nowrap;
+}
+
+.email:hover {
+  color: var(--color-accent-on-dark);
+}
+
+.email:focus-visible {
+  @include mixins.focus-ring-on-dark;
+}
+
+// --- Storey two: the watermark ----------------------------------------------
+// The coefficient below was measured, not guessed: the word was rendered at
+// eight viewport widths and its box compared with the container's inner
+// width. It fills 88–95% of the container across 390–1920px — the variation
+// is the gutter stepping up at lg, and on a watermark it does not matter.
+//
+// `overflow: hidden` is the safety net. Viewport units include the scrollbar
+// on desktop while the container's width does not, so a vw-sized word can
+// overhang by a dozen pixels and give the WHOLE PAGE a horizontal scrollbar.
+// Clipping a few pixels of a decorative word is the cheaper failure.
+.watermarkWrap {
+  padding-block: var(--space-6);
+  overflow: hidden;
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-7);
+  }
+}
+
+.watermark {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  // Not var(--fs-*): none of the type scale's steps go anywhere near this,
+  // and this is the one element on the site sized to fit its container rather
+  // than to sit on the scale.
+  font-size: min(15.6vw, 12.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  // One step off the plane. A watermark that can be read at a glance is a
+  // heading; this one has to be found rather than read, which is also why it
+  // is aria-hidden in the markup.
+  color: #171d27;
+  user-select: none;
+}
+
+.amp {
+  color: #232b38;
+}
+
+// --- Storey three: the links ------------------------------------------------
+
+.groups {
+  display: grid;
+  gap: var(--space-6);
+  padding-top: var(--space-2);
+
+  @include mixins.breakpoint-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+
+.group {
+  min-width: 0;
+}
+
+.groupTitle {
+  @include mixins.eyebrow;
+
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-dark-muted);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-hairline);
+}
+
+.links {
+  margin: 0;
+  margin-top: var(--space-3);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+}
+
+.link {
+  color: var(--color-on-dark);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-accent-on-dark);
+}
+
+.link:focus-visible {
+  @include mixins.focus-ring-on-dark;
+}
+
+// Listed, marked, and not a link. The same rule the comparison table follows
+// for a jurisdiction with no page yet: show what the site will cover, never
+// pretend it already does, and never send anyone to a 404.
+.pending {
+  color: var(--color-map-pending);
+}
+
+.soon {
+  @include mixins.figure-text;
+
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-inline-start: var(--space-2);
+  border: var(--border-hairline) solid currentcolor;
+  border-radius: var(--radius-s);
+  padding: 0.05rem 0.3rem;
+  white-space: nowrap;
+}
+
+// --- The legal line ---------------------------------------------------------
+
+.bottom {
+  margin-top: var(--space-7);
+  padding-block: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-on-dark-hairline);
+  display: grid;
+  gap: var(--space-4);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: var(--space-6);
+  }
+}
+
+.disclaimer {
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-on-dark-muted);
+  max-width: 64ch;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-on-dark-muted);
+}
+
+.credit {
+  white-space: nowrap;
+}
+
+.creditLink {
+  color: var(--color-on-dark);
+  text-decoration: none;
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-border);
+  padding-bottom: 0.05rem;
+}
+
+.creditLink:hover {
+  color: var(--color-accent-on-dark);
+  border-bottom-color: var(--color-accent-on-dark);
+}
+
+.creditLink:focus-visible {
+  @include mixins.focus-ring-on-dark;
+}

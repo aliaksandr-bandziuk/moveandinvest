@@ -1,0 +1,36 @@
+@use "../../../styles/mixins";
+
+// Lives on the black plane, so every value here is an on-dark one.
+.switcher {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.item,
+.current {
+  @include mixins.focus-ring-on-dark;
+
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  border-radius: var(--radius-s);
+  font-family: var(--font-body);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  color: var(--color-on-dark-muted);
+}
+
+.item:hover {
+  border-color: var(--color-on-dark);
+  color: var(--color-on-dark);
+}
+
+// Inverted rather than tinted: the accent is unreadable on this background,
+// and a filled white chip is the clearest "you are here" available.
+.current {
+  background-color: var(--color-on-dark);
+  border-color: var(--color-on-dark);
+  color: var(--color-dark);
+}

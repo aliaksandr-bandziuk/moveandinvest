@@ -1,0 +1,137 @@
+@use "../../../styles/mixins";
+
+// Retoned twice. First for the white-page/black-plane system, which removed
+// the tinted panel — it was the last grey-ish fill on the page. Then again
+// when the block was compressed into a single bordered box: this section sits
+// between the FAQ and the enquiry form, and it is the only block on the page
+// addressed to somebody other than the reader.
+.section {
+  padding-block: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-8);
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-text-muted);
+}
+
+// One rule around both halves rather than a fill: an outline reads as an
+// aside, a filled panel reads as a second hero. The divider between them is a
+// hairline, lighter than the frame, so the box stays one object rather than
+// two boxes touching.
+.box {
+  border: var(--border-hairline) solid var(--color-text);
+  display: grid;
+
+  @include mixins.breakpoint-up(lg) {
+    // 8/4, not 6/6: the left side carries a heading and a paragraph, the
+    // right a four-word list. Equal columns would leave the right half empty
+    // and set the paragraph too narrow.
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+.main {
+  padding: var(--space-5);
+  min-width: 0;
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-6);
+  }
+}
+
+.side {
+  padding: var(--space-5);
+  min-width: 0;
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-6);
+    border-top: 0;
+    border-inline-start: var(--border-hairline) solid var(--color-hairline);
+  }
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  max-width: 22ch;
+}
+
+.body {
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body-lg);
+  color: var(--color-text-muted);
+  max-width: 56ch;
+}
+
+// A link with a rule, not a filled button. The enquiry form directly below
+// has the page's only filled call to action, and two of them in a row make
+// the reader choose between them — a choice this block should never win.
+.cta {
+  display: inline-block;
+  margin-top: var(--space-5);
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.15rem;
+}
+
+.cta:hover {
+  color: var(--color-accent);
+}
+
+.cta:focus-visible {
+  @include mixins.focus-ring;
+}
+
+.sideLabel {
+  @include mixins.eyebrow;
+
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.qualifiers {
+  margin: 0;
+  margin-top: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.qualifier {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: var(--space-2);
+  align-items: baseline;
+  padding-block: var(--space-2);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+  font-size: var(--fs-small);
+}
+
+.qualifier:last-child {
+  border-bottom: 0;
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+}

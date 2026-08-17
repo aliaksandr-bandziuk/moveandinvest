@@ -1,0 +1,316 @@
+@use "../../../styles/mixins";
+
+.section {
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  padding-block: var(--space-8);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-9);
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent-on-dark);
+  margin-bottom: var(--space-6);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-on-dark-muted);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-7);
+
+  @include mixins.breakpoint-up(lg) {
+    // 4fr / 8fr, not 6/6: the questions are short lines and the readout
+    // carries five figures plus a paragraph. Equal columns would leave the
+    // left one half empty and wrap the right one.
+    grid-template-columns: 4fr 8fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+// Both columns are grid children, and a grid child defaults to
+// min-width: auto — which lets the widest unbreakable figure inside the
+// readout push the whole track wider than the viewport on a phone.
+.ask,
+.answer {
+  min-width: 0;
+}
+
+.heading {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  max-width: 16ch;
+}
+
+.lede {
+  margin-top: var(--space-4);
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  max-width: 40ch;
+}
+
+.questions {
+  margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-6);
+}
+
+.question {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.legend {
+  @include mixins.eyebrow;
+
+  padding: 0;
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-3);
+}
+
+.qIndex {
+  @include mixins.figure-text;
+}
+
+.options {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+}
+
+// The input stays in the accessibility tree and keeps keyboard behaviour —
+// arrow keys move between options in the group for free. Only the painted
+// box is ours.
+.input {
+  @include mixins.visually-hidden;
+}
+
+.option {
+  display: block;
+  position: relative;
+  padding-left: var(--space-6);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+  cursor: pointer;
+}
+
+.option::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.3em;
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+}
+
+// A square, not a circle, and filled rather than ringed: at 12px a filled
+// square is unambiguous at a glance and needs no second colour.
+.input:checked + .option {
+  color: var(--color-on-dark);
+}
+
+.input:checked + .option::before {
+  background-color: var(--color-map-active);
+  border-color: var(--color-map-active);
+}
+
+.input:focus-visible + .option::before {
+  @include mixins.focus-ring-on-dark;
+}
+
+// Only ever seen with JS on and nothing answered yet, so its copy must not
+// mention the list of all five below — that list is exactly what the JS-on
+// rules hide.
+//
+// It also reserves roughly the height a readout will occupy. Without that the
+// panel is a thin strip, the first answer makes the page jump by several
+// hundred pixels, and the reader loses their place in the questions.
+.placeholder {
+  display: none;
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  padding: var(--space-6);
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  max-width: var(--measure-wide);
+
+  @include mixins.breakpoint-up(lg) {
+    max-width: none;
+    min-block-size: 30rem;
+  }
+}
+
+.readout {
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  padding: var(--space-5);
+  min-width: 0;
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-6);
+  }
+}
+
+// Without JS every jurisdiction is visible, so they need separating. With JS
+// only one is ever on screen and the margin is irrelevant.
+.readout + .readout {
+  margin-top: var(--space-4);
+}
+
+// Not an eyebrow, though it sits where one would. Eyebrows are labels — two
+// or three uppercase words. This is a sentence, and the compromise state's
+// sentence is a long one; set in letterspaced caps it wrapped to two lines
+// and shouted the least interesting thing on the panel.
+.count {
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  margin-bottom: var(--space-3);
+  max-width: 56ch;
+}
+
+// Server-rendered empty, filled only when there are answers to describe.
+.count:empty,
+.cut:empty {
+  display: none;
+}
+
+.name {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-hero);
+}
+
+.rows {
+  margin: 0;
+  margin-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-on-dark-hairline);
+}
+
+.rows div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding-block: var(--space-3);
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-hairline);
+}
+
+.rows dt {
+  @include mixins.eyebrow;
+
+  font-size: var(--fs-nano);
+  color: var(--color-on-dark-muted);
+}
+
+.rows dd {
+  margin: 0;
+  text-align: end;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+// Mono and tabular-nums belong to figures only. "No personal income tax" set
+// in JetBrains Mono reads as a code sample, and the row it sits in stops
+// looking like part of the same table as the euro amounts above it.
+.figure dd {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-body);
+}
+
+.total dd {
+  font-weight: var(--font-weight-medium);
+}
+
+.cut {
+  margin-top: var(--space-5);
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  max-width: var(--measure-wide);
+}
+
+.cta {
+  display: inline-block;
+  margin-top: var(--space-5);
+  background-color: var(--color-on-dark);
+  color: var(--color-dark);
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--radius-s);
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.cta:hover {
+  background-color: var(--color-on-dark-muted);
+}
+
+.cta:focus-visible {
+  @include mixins.focus-ring-on-dark;
+}
+
+.pending {
+  margin-top: var(--space-5);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-on-dark-muted);
+}
+
+// --- JS-on states -----------------------------------------------------------
+// Everything above describes the page as it arrives from the server: all five
+// readouts visible, placeholder hidden. These four rules are the only thing
+// the control's `data-js` attribute buys, and they are additive — remove them
+// and the block is still usable.
+
+[data-js="on"] .placeholder {
+  display: block;
+}
+
+[data-js="on"][data-answered="yes"] .placeholder {
+  display: none;
+}
+
+[data-js="on"] .readout {
+  display: none;
+}
+
+[data-js="on"] .readout[data-active] {
+  display: block;
+}
+
+// The readout goes from display:none to display:block, which restarts the
+// animation for free — no class toggling, no timers.
+@media (prefers-reduced-motion: no-preference) {
+  [data-js="on"] .readout[data-active] {
+    animation: swap 320ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+}
+
+@keyframes swap {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

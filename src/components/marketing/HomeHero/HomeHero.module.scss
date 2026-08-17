@@ -1,0 +1,142 @@
+@use "../../../styles/mixins";
+
+// Mobile first throughout: the base block is the phone, breakpoint-up adds.
+
+// --- The black plane --------------------------------------------------------
+.plane {
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  padding-block: var(--space-7) var(--space-8);
+
+  @include mixins.breakpoint-up(md) {
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  // Tightened from the first pass: at 96/112 the plane filled a laptop
+  // viewport entirely and the table began exactly past the fold, so a reader
+  // saw a statement and no evidence. This keeps the top of the table visible
+  // on a 900px-tall screen while leaving the headline room to be the loudest
+  // thing on the page.
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-8) var(--space-9);
+  }
+}
+
+.meta {
+  @include mixins.eyebrow;
+
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-5);
+
+  @include mixins.breakpoint-up(md) {
+    margin-bottom: var(--space-6);
+    // Only from md up: on a phone this line is long enough to need two, and
+    // forcing one would shrink it below a readable size.
+    white-space: nowrap;
+  }
+}
+
+.meta b {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-on-dark);
+}
+
+.heading {
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--tracking-hero);
+  max-width: 16ch;
+  color: var(--color-on-dark);
+}
+
+.rule {
+  width: 5rem;
+  height: var(--border-hairline);
+  background-color: var(--color-accent-on-dark);
+  margin-block: var(--space-6) var(--space-5);
+
+  @include mixins.breakpoint-up(md) {
+    width: 7rem;
+    margin-block: var(--space-7) var(--space-6);
+  }
+}
+
+.intro {
+  @include mixins.measure;
+
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-6);
+
+  @include mixins.breakpoint-up(md) {
+    font-size: var(--fs-body-lg);
+    margin-bottom: var(--space-7);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  // Full-width stacked buttons are the correct phone pattern; side by side
+  // from sm up, where two labels fit on one line without wrapping.
+  @include mixins.breakpoint-up(sm) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+// --- The white plane --------------------------------------------------------
+.data {
+  padding-block: var(--space-7) var(--space-8);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-8) var(--space-9);
+  }
+}
+
+.sectionTitle {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  margin-bottom: var(--space-2);
+}
+
+.sectionIntro {
+  max-width: var(--measure-wide);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.source {
+  margin-top: var(--space-5);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+.pending {
+  padding-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-text);
+}
+
+.pendingLabel {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.pendingNote {
+  max-width: var(--measure-max);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+}

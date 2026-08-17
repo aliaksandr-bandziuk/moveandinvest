@@ -1,0 +1,189 @@
+@use "../../../styles/mixins";
+
+.section {
+  padding-block: var(--space-8);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-9);
+  }
+}
+
+// The client wrapper. It carries `data-js`, and the rules that reveal the
+// filter hang off this class rather off a bare attribute selector — a global
+// `[data-js="on"]` would also match the route finder's wrapper further up the
+// page, which sets the same attribute for its own reasons.
+.root {
+  display: contents;
+}
+
+.top {
+  display: grid;
+  gap: var(--space-5);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: var(--space-7);
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-text-muted);
+}
+
+.heading {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  max-width: 18ch;
+}
+
+// --- Filter -----------------------------------------------------------------
+// Hidden until the enhancer marks the block. A control that does nothing is a
+// broken control; the full list without it is simply the list.
+
+.filter {
+  display: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.root[data-js="on"] .filter {
+  display: block;
+}
+
+.filterLegend {
+  @include mixins.visually-hidden;
+}
+
+.chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.input {
+  @include mixins.visually-hidden;
+}
+
+.chip {
+  display: block;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  padding: 0.5rem 0.85rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.input:checked + .chip {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+.input:focus-visible + .chip {
+  @include mixins.focus-ring;
+}
+
+// --- The list ---------------------------------------------------------------
+// A <dl>: each question is a term and each answer its definition. Not a
+// styling choice — it is the markup that says "these two belong together",
+// which is exactly what the FAQPage schema alongside it also says.
+
+.list {
+  margin: 0;
+  margin-top: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-text);
+}
+
+.item {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+  min-width: 0;
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-7);
+  }
+}
+
+// The `hidden` attribute is applied by the filter, and it does NOT win on its
+// own: the UA stylesheet's `[hidden] { display: none }` is a type-less rule
+// that any class setting `display` overrides — which `.item` above does. So
+// the filter silently did nothing until this rule existed. Every element in
+// this project that both sets `display` and can be hidden needs its own pair.
+.item[hidden] {
+  display: none;
+}
+
+.question {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--tracking-tight);
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+}
+
+.answer {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body-lg);
+  max-width: 62ch;
+}
+
+// Server-rendered empty and hidden while empty: with no filter applied there
+// is no count to state, and "6 of 6" is noise.
+//
+// Not an eyebrow, though it sits where a label would. It is a full sentence,
+// and letterspaced caps at sentence length shout the least interesting thing
+// on the block — the same correction the route finder's counter needed.
+.count {
+  margin-top: var(--space-4);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+  max-width: var(--measure-wide);
+}
+
+.count:empty {
+  display: none;
+}
+
+.note {
+  margin-top: var(--space-5);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+  max-width: var(--measure-wide);
+}

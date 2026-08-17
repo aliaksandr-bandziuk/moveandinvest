@@ -1,0 +1,15 @@
+@use "../../../styles/mixins";
+
+.link {
+  display: inline-flex;
+  border-radius: var(--radius-s);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  @include mixins.focus-ring;
+}

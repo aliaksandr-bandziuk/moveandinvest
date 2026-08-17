@@ -1,0 +1,70 @@
+@use "../../../styles/mixins";
+
+// Full width without any 100vw arithmetic: this element is not inside
+// `.container`, so it is already as wide as the page. The `100vw` trick that
+// full-bleeds an element out of a centred container is exactly what puts a
+// horizontal scrollbar on a desktop page, because 100vw counts the scrollbar
+// and the document width does not.
+.divider {
+  background-color: var(--color-dark);
+}
+
+// The moving window. An ordinary in-flow block — nothing here is animated.
+.frame {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 10 / 4;
+  // Bounds the frame on a wide screen. At 10/4 this only binds past ~1150px,
+  // so the mobile height below never reaches it.
+  max-block-size: 26rem;
+  overflow: hidden;
+  // The operative property. clip-path clips the subtree at paint time, which
+  // is what makes a position:fixed child obey THIS box; overflow:hidden alone
+  // does not clip a fixed descendant. Both are kept — overflow is what
+  // handles the reduced-motion fallback below.
+  clip-path: inset(0);
+}
+
+@include mixins.breakpoint-up(md) {
+  .frame {
+    aspect-ratio: 12 / 5;
+  }
+}
+
+.image {
+  position: fixed;
+  inset: 0;
+  // Percentages on a fixed element resolve against the viewport, so this is
+  // exactly viewport-sized — and unlike 100vw/100dvh it cannot overshoot by
+  // the width of a scrollbar.
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+// The whole effect, switched off, in one place.
+//
+// It is a mixin rather than two rules inside the media query because there is
+// a second, likelier reason to reach for it: if the reveal turns out to
+// misbehave in some engine — WebKit is the one to watch, and it could not be
+// tested here — this is the switch, and turning it on is adding one selector
+// rather than duplicating the rules. What is left is an ordinary cropped
+// photograph in a band, which is a perfectly good block.
+@mixin static-crop {
+  .frame {
+    clip-path: none;
+  }
+
+  .image {
+    position: absolute;
+  }
+}
+
+// Not a nicety. A full-viewport image sliding under a window is exactly the
+// kind of large-area motion that triggers vestibular symptoms, and this block
+// carries no information — so when a reader has asked for less motion it
+// becomes an ordinary cropped photograph and loses nothing.
+@media (prefers-reduced-motion: reduce) {
+  @include static-crop;
+}

@@ -1,0 +1,129 @@
+@use "../../styles/tokens";
+@use "../../styles/mixins";
+
+// --- Reset ------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+// `clip`, not `hidden`: a non-visible overflow-x paired with the default
+// visible overflow-y forces overflow-y to compute as `auto` on the same
+// element, turning html and body into two independent scroll containers.
+html,
+body {
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+// --- Container --------------------------------------------------------------
+// Mobile-first: the gutter is the small one by default and widens from lg up.
+// A real global class rather than a mixin so exactly one copy exists sitewide.
+// Never combine it with a component that sets its own inline padding.
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-inline: var(--gutter-lg);
+  }
+}
+
+// --- Base typography --------------------------------------------------------
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Weight is pinned on every heading. The UA stylesheet sets its own bold on
+// h1–h6 and a used value beats inheritance, so leaving it unset is how a
+// heading ends up in browser-synthesised faux bold.
+//
+// Colour is NOT set here. Headings inherit, so the same element renders black
+// on a white section and white inside the dark plane with no override — which
+// is what stops a "dark hero" from needing its own copy of every heading rule.
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--tracking-tight);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+// Every figure on the site — table cells, stat blocks, inline amounts.
+[data-figure] {
+  @include mixins.figure-text;
+}

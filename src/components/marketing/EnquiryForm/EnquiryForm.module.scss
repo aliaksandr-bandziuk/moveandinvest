@@ -1,0 +1,358 @@
+@use "../../../styles/mixins";
+
+.section {
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  padding-block: var(--space-8);
+  // The form is the page's last chance; a reader arriving from a CTA lands
+  // on the heading, not mid-fieldset.
+  scroll-margin-block-start: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-9);
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent-on-dark);
+  margin-bottom: var(--space-3);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-on-dark-muted);
+}
+
+.heading {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  max-width: 16ch;
+}
+
+.visuallyHidden {
+  @include mixins.visually-hidden;
+}
+
+// Off-screen rather than display:none: a bot that parses CSS skips a hidden
+// input, and one that does not, fills this one.
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// --- The fork ---------------------------------------------------------------
+// Two cards, ONE radio group spanning both. "Country chosen" is not a mode
+// that reveals a hidden question — it is whichever card holds the checked
+// input, which is why the whole thing needs no JavaScript and cannot fall out
+// of sync with what will be submitted.
+
+.fork {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  margin-top: var(--space-7);
+  display: grid;
+  gap: var(--space-4);
+
+  @include mixins.breakpoint-up(lg) {
+    // Not 1fr 1fr: the left card holds five options and the right two, and
+    // equal columns leave the right one two-thirds empty.
+    grid-template-columns: 7fr 5fr;
+  }
+}
+
+.card {
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  padding: var(--space-5);
+  min-width: 0;
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-6);
+  }
+}
+
+// :has() is what makes the fork work without a line of script. Where it is
+// unsupported the cards simply never invert — the chips still show which
+// option is selected, so the form stays usable rather than ambiguous.
+.card:has(input:checked) {
+  background-color: var(--color-on-dark);
+  color: var(--color-dark);
+  border-color: var(--color-on-dark);
+}
+
+.cardIndex {
+  @include mixins.eyebrow;
+
+  color: var(--color-on-dark-muted);
+}
+
+.card:has(input:checked) .cardIndex {
+  color: var(--color-accent);
+}
+
+.cardTitle {
+  margin-top: var(--space-4);
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+
+.cardBody {
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark-muted);
+  max-width: 40ch;
+}
+
+.card:has(input:checked) .cardBody {
+  color: var(--color-text-muted);
+}
+
+.card .chips {
+  margin-top: var(--space-5);
+}
+
+// --- Chips ------------------------------------------------------------------
+
+.chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.input {
+  @include mixins.visually-hidden;
+}
+
+.chip {
+  display: block;
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  border-radius: var(--radius-s);
+  padding: 0.5rem 0.85rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+  cursor: pointer;
+}
+
+.input:checked + .chip {
+  background-color: var(--color-on-dark);
+  border-color: var(--color-on-dark);
+  color: var(--color-dark);
+}
+
+.input:focus-visible + .chip {
+  @include mixins.focus-ring-on-dark;
+}
+
+// Inside an inverted card the plane is white, so every chip flips with it.
+.card:has(input:checked) .chip {
+  border-color: var(--color-line);
+  color: var(--color-text-muted);
+}
+
+.card:has(input:checked) .input:checked + .chip {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+.card:has(input:checked) .input:focus-visible + .chip {
+  @include mixins.focus-ring;
+}
+
+// --- The rest of the form ---------------------------------------------------
+
+.rest {
+  margin-top: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-on-dark-border);
+  padding-top: var(--space-6);
+  display: grid;
+  gap: var(--space-6);
+}
+
+.group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.legend {
+  @include mixins.eyebrow;
+
+  display: block;
+  padding: 0;
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-3);
+}
+
+.hint {
+  margin-top: var(--space-3);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-on-dark-muted);
+  max-width: var(--measure-wide);
+}
+
+.fieldLabel {
+  @include mixins.eyebrow;
+
+  display: block;
+  font-size: var(--fs-nano);
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-2);
+}
+
+.textarea,
+.text {
+  inline-size: 100%;
+  background-color: transparent;
+  border: 0;
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-border);
+  color: var(--color-on-dark);
+  padding-block: 0.55rem;
+  font-family: inherit;
+  font-size: var(--fs-body);
+}
+
+.textarea {
+  min-block-size: 7rem;
+  resize: vertical;
+  line-height: var(--lh-body);
+}
+
+.textarea:focus-visible,
+.text:focus-visible {
+  @include mixins.focus-ring-on-dark;
+
+  border-bottom-color: var(--color-on-dark);
+}
+
+.pair {
+  display: grid;
+  gap: var(--space-5);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.send {
+  display: grid;
+  gap: var(--space-5);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+.consent {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+.consent label {
+  cursor: pointer;
+}
+
+// A real checkbox, sized up and recoloured rather than replaced: this is the
+// one control on the page with legal weight, and a custom-drawn box that
+// silently fails to reflect its state is not a risk worth taking for looks.
+.checkbox {
+  inline-size: 1rem;
+  block-size: 1rem;
+  flex: none;
+  margin-block-start: 0.2em;
+  accent-color: var(--color-map-active);
+}
+
+.checkbox:focus-visible {
+  @include mixins.focus-ring-on-dark;
+}
+
+.fine {
+  margin-top: var(--space-4);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-on-dark-muted);
+  max-width: var(--measure-wide);
+}
+
+.button {
+  background-color: var(--color-on-dark);
+  color: var(--color-dark);
+  border: 0;
+  border-radius: var(--radius-s);
+  padding: 0.95rem 1.7rem;
+  font-family: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-on-dark-muted);
+}
+
+.button:focus-visible {
+  @include mixins.focus-ring-on-dark;
+}
+
+// --- Result panels ----------------------------------------------------------
+// Ids, not classes, and :global() around them because CSS Modules scopes id
+// selectors too — the redirect from the route handler targets the literal
+// `#enquiry-sent`, so the selector here has to stay literal as well.
+
+.result {
+  display: none;
+  margin-top: var(--space-7);
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  padding: var(--space-6);
+}
+
+:global(#enquiry-sent):target,
+:global(#enquiry-error):target {
+  display: block;
+}
+
+// A sent form is not something to look at again — and leaving it on screen
+// invites a second submission of the same enquiry. The target is the client
+// wrapper rather than the form itself: the form is nested inside it, so it is
+// not a sibling of the panel and the ~ combinator would never reach it.
+:global(#enquiry-sent):target ~ .formWrap {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent-on-dark);
+}
+
+.resultTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.resultBody {
+  margin-top: var(--space-3);
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  max-width: var(--measure-wide);
+}

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data desk v2 — серифные заголовки, четыре акцента, проверка шрифтов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Alegreya:wght@400;700&family=EB+Garamond:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=PT+Serif:wght@400;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --doc-bg:#12130F; --doc-panel:#1B1D18; --doc-text:#E8E6DF;
+    --doc-muted:#9A9A90; --doc-rule:#2E312A; --doc-accent:#C9F27A;
+  }
+  body {
+    margin:0; background:var(--doc-bg); color:var(--doc-text);
+    font-family:Inter, system-ui, sans-serif; font-size:15px; line-height:1.6;
+  }
+  .wrap { max-width:1680px; margin:0 auto; padding:48px 32px 96px; }
+
+  .doc-head { max-width:880px; margin-bottom:36px; }
+  .doc-kicker { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--doc-accent); font-weight:600; margin-bottom:14px; }
+  .doc-head h1 { font-family:Spectral, Georgia, serif; font-size:clamp(30px,4vw,44px); line-height:1.15; font-weight:600; margin:0 0 18px; letter-spacing:-.01em; }
+  .doc-head p { color:var(--doc-muted); margin:0 0 14px; font-size:16px; }
+  .doc-head strong { color:var(--doc-text); font-weight:600; }
+
+  h2.part {
+    font-family:Spectral, Georgia, serif; font-size:26px; font-weight:600;
+    margin:64px 0 6px; letter-spacing:-.01em; padding-top:28px; border-top:1px solid var(--doc-rule);
+  }
+  h2.part:first-of-type { border-top:none; padding-top:0; }
+  p.part-sub { color:var(--doc-muted); margin:0 0 28px; max-width:78ch; }
+  p.part-sub b { color:var(--doc-text); font-weight:600; }
+
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; align-items:start; }
+  @media (max-width:1500px){ .grid4 { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:900px){ .grid4 { grid-template-columns:1fr; } }
+
+  .col-head { margin-bottom:12px; }
+  .col-head .tag { display:inline-block; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--doc-bg); background:var(--doc-accent); font-weight:700; padding:3px 9px; border-radius:4px; margin-bottom:9px; }
+  .col-head .tag.dim { background:var(--doc-rule); color:var(--doc-muted); }
+  .col-head h3 { margin:0 0 5px; font-size:18px; font-weight:600; letter-spacing:-.01em; }
+  .col-head p { margin:0; font-size:13px; color:var(--doc-muted); line-height:1.55; }
+
+  /* ---- shared data-desk shell ---- */
+  .mock {
+    --paper:#F6F7F9; --surface:#FFFFFF; --ink:#0E1420; --muted:#59637A; --rule:#E1E5EC; --on-accent:#FFFFFF;
+    border-radius:6px; overflow:hidden; border:1px solid var(--doc-rule);
+    background:var(--paper); color:var(--ink);
+    font-family:Inter, system-ui, sans-serif;
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+  }
+  .v-oxblood  { --accent:#7A2230; --accent-soft:#F6E9EA; }
+  .v-graphite { --accent:#1A1D24; --accent-soft:#ECEEF1; --signal:#C2410C; }
+  .v-green    { --accent:#17563F; --accent-soft:#E6EFEA; }
+  .v-blue     { --accent:#1C3D8F; --accent-soft:#E7ECF8; }
+
+  .site-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 18px; border-bottom:1px solid var(--rule); background:var(--surface); }
+  .wordmark { font-family:Spectral, Georgia, serif; font-weight:700; font-size:16px; letter-spacing:-.01em; color:var(--ink); }
+  .wordmark span { color:var(--accent); }
+  .lang { display:flex; gap:4px; }
+  .lang i { font-style:normal; font-size:10px; font-weight:600; letter-spacing:.06em; padding:3px 6px; border-radius:3px; color:var(--muted); border:1px solid var(--rule); }
+  .lang i.on { background:var(--accent); color:var(--on-accent); border-color:var(--accent); }
+
+  .hero { padding:28px 18px 26px; background:var(--surface); border-bottom:1px solid var(--rule); }
+  .eyebrow { font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--accent); margin-bottom:11px; }
+  .v-graphite .eyebrow { color:var(--signal); }
+  .hero h1 { font-family:Spectral, Georgia, serif; font-weight:600; letter-spacing:-.015em; font-size:26px; line-height:1.15; margin:0 0 12px; color:var(--ink); }
+  .hero p { margin:0 0 18px; font-size:13px; color:var(--muted); line-height:1.6; }
+  .cta-row { display:flex; gap:8px; flex-wrap:wrap; }
+  .btn { display:inline-block; font-size:12.5px; font-weight:600; padding:9px 14px; border-radius:3px; background:var(--accent); color:var(--on-accent); border:1px solid var(--accent); }
+  .btn.ghost { background:transparent; color:var(--ink); border-color:var(--rule); }
+
+  .section { padding:22px 18px; }
+  .section + .section { border-top:1px solid var(--rule); }
+  .section-title { font-family:Spectral, Georgia, serif; font-size:16px; font-weight:600; letter-spacing:-.01em; margin:0 0 3px; color:var(--ink); }
+  .section-sub { font-size:11.5px; color:var(--muted); margin:0 0 14px; }
+
+  table { width:100%; border-collapse:collapse; font-size:11.5px; }
+  th { text-align:left; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:600; padding:0 6px 7px 0; border-bottom:1px solid var(--rule); }
+  td { padding:9px 6px 9px 0; border-bottom:1px solid var(--rule); color:var(--ink); }
+  td.num { font-family:"JetBrains Mono", monospace; font-size:10.5px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tr:last-child td { border-bottom:none; }
+  .chip { display:inline-flex; align-items:center; gap:6px; font-weight:600; font-size:11.5px; white-space:nowrap; }
+  .chip::before { content:""; width:8px; height:8px; border-radius:2px; background:var(--c); flex:none; }
+  .chip.off { color:var(--muted); } .chip.off::before { opacity:.4; }
+
+  .partner { background:var(--accent-soft); border-radius:3px; padding:17px; border:1px solid var(--rule); }
+  .partner h4 { font-family:Spectral, Georgia, serif; font-size:15px; font-weight:600; margin:0 0 7px; color:var(--ink); }
+  .partner p { margin:0 0 12px; font-size:11.5px; color:var(--muted); line-height:1.55; }
+  .partner .stats { display:flex; gap:18px; margin-bottom:13px; }
+  .partner .stat b { display:block; font-family:"JetBrains Mono", monospace; font-size:19px; font-weight:700; color:var(--accent); line-height:1.1; }
+  .partner .stat span { font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+
+  .swatches { display:flex; gap:6px; }
+  .sw { flex:1; }
+  .sw i { display:block; height:38px; border-radius:3px; border:1px solid var(--rule); }
+  .sw code { display:block; font-family:"JetBrains Mono", monospace; font-size:9px; color:var(--muted); margin-top:5px; }
+
+  .verdict { margin-top:12px; border-left:2px solid var(--doc-accent); padding:2px 0 2px 12px; font-size:12.5px; color:var(--doc-muted); line-height:1.6; }
+  .verdict.dim { border-left-color:var(--doc-rule); }
+  .verdict b { color:var(--doc-text); font-weight:600; }
+
+  /* ---- serif specimens ---- */
+  .specimens { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:20px; }
+  .spec {
+    background:#FFFFFF; color:#0E1420; border-radius:6px; padding:24px 22px;
+    border:1px solid var(--doc-rule); box-shadow:0 14px 32px rgba(0,0,0,.3);
+  }
+  .spec .name { font-family:"JetBrains Mono", monospace; font-size:10.5px; letter-spacing:.06em; color:#59637A; margin-bottom:16px; text-transform:uppercase; }
+  .spec .en { font-size:30px; line-height:1.1; margin:0 0 10px; font-weight:600; letter-spacing:-.015em; }
+  .spec .ru { font-size:22px; line-height:1.2; margin:0 0 8px; font-weight:600; letter-spacing:-.01em; }
+  .spec .pl { font-size:22px; line-height:1.2; margin:0 0 14px; font-weight:600; letter-spacing:-.01em; }
+  .spec .body { font-size:13.5px; line-height:1.65; color:#3A4252; margin:0 0 14px; }
+  .spec .char { font-size:12px; color:#59637A; border-top:1px solid #E1E5EC; padding-top:12px; margin:0; }
+  .spec .char b { color:#0E1420; }
+  .f-spectral .en, .f-spectral .ru, .f-spectral .pl, .f-spectral .body { font-family:Spectral, serif; }
+  .f-literata .en, .f-literata .ru, .f-literata .pl, .f-literata .body { font-family:Literata, serif; }
+  .f-alegreya .en, .f-alegreya .ru, .f-alegreya .pl, .f-alegreya .body { font-family:Alegreya, serif; }
+  .f-garamond .en, .f-garamond .ru, .f-garamond .pl, .f-garamond .body { font-family:"EB Garamond", serif; }
+  .f-source .en, .f-source .ru, .f-source .pl, .f-source .body { font-family:"Source Serif 4", serif; }
+
+  /* ---- two-font strategy demo ---- */
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:1000px){ .split { grid-template-columns:1fr; } }
+  .demo { background:#FFFFFF; color:#0E1420; border-radius:6px; padding:26px 24px; border:1px solid var(--doc-rule); box-shadow:0 14px 32px rgba(0,0,0,.3); }
+  .demo .lbl { font-family:"JetBrains Mono", monospace; font-size:10.5px; letter-spacing:.06em; color:#59637A; text-transform:uppercase; margin-bottom:18px; }
+  .demo .row { border-top:1px solid #E1E5EC; padding-top:16px; margin-top:16px; }
+  .demo .row:first-of-type { border-top:none; padding-top:0; margin-top:0; }
+  .demo .flag { font-family:"JetBrains Mono", monospace; font-size:9.5px; color:#8A93A5; letter-spacing:.08em; margin-bottom:8px; }
+  .h-instrument { font-family:"Instrument Serif", serif; font-weight:400; font-size:38px; line-height:1.05; margin:0; letter-spacing:-.01em; }
+  .h-ptserif { font-family:"PT Serif", serif; font-weight:700; font-size:31px; line-height:1.15; margin:0; letter-spacing:-.015em; }
+  .h-spectral { font-family:Spectral, serif; font-weight:600; font-size:33px; line-height:1.12; margin:0; letter-spacing:-.015em; }
+  .demo .cost { font-size:13px; color:#3A4252; line-height:1.65; margin:20px 0 0; border-top:1px solid #E1E5EC; padding-top:16px; }
+  .demo .cost b { color:#0E1420; }
+
+  .doc-foot { margin-top:64px; padding-top:28px; border-top:1px solid var(--doc-rule); max-width:880px; color:var(--doc-muted); font-size:14px; line-height:1.7; }
+  .doc-foot h3 { color:var(--doc-text); font-size:16px; margin:0 0 10px; font-weight:600; }
+  .doc-foot b { color:var(--doc-text); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc-head">
+    <div class="doc-kicker">moveandinvest.com · итерация 2</div>
+    <h1>Data desk с серифными заголовками. И честный ответ про два шрифта</h1>
+    <p>Три вопроса, три части. <strong>Первая</strong> — синий действительно самый попсовый акцент из возможных, вот четыре варианта на одной и той же основе. <strong>Вторая</strong> — пять серифов с кириллицей, чтобы увидеть, что поддержка русского ничего не отнимает. <strong>Третья</strong> — демонстрация того, во что реально обходится идея «латиница классным шрифтом, кириллица заменителем».</p>
+    <p>Заголовки во всех макетах уже серифные — Spectral. Основа Data desk не менялась: холодный нейтральный фон, плотная сетка, моноширинные цифры.</p>
+  </header>
+
+  <h2 class="part">Часть 1. Четыре акцента на одной основе</h2>
+  <p class="part-sub">Меняется только акцентный цвет — фон, типографика и сетка идентичны, чтобы сравнивать одну переменную, а не четыре. Синий оставлен последним для сравнения: это то, что ты видел вчера.</p>
+
+  <div class="grid4">
+
+    <section>
+      <div class="col-head">
+        <span class="tag">C1</span>
+        <h3>Oxblood</h3>
+        <p>Финансовая пресса: FT, ежегодные отчёты, аналитические записки. Редкий цвет в этой нише, и единственный, который дружит с серифом по-настоящему.</p>
+      </div>
+      <div class="mock v-oxblood">
+        <div class="site-head"><div class="wordmark">move<span>&amp;</span>invest</div><div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div></div>
+        <div class="hero">
+          <div class="eyebrow">Updated weekly</div>
+          <h1>Residency, tax and property across five jurisdictions</h1>
+          <p>Every threshold, deadline and rate in one comparable dataset. Sourced, dated, revised when the rules change.</p>
+          <div class="cta-row"><a class="btn">Open the dataset</a><a class="btn ghost">For partners</a></div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Residency by investment</h4>
+          <p class="section-sub">Minimum thresholds, 2026</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+        </div>
+        <div class="section"><div class="partner">
+          <h4>For partners</h4>
+          <p>Every enquiry is qualified on country, budget and timeline before it reaches you.</p>
+          <div class="stats"><div class="stat"><b>5</b><span>jurisdictions</span></div><div class="stat"><b>3</b><span>questions</span></div></div>
+          <a class="btn">Request terms</a>
+        </div></div>
+        <div class="section"><div class="swatches">
+          <div class="sw"><i style="background:#F6F7F9"></i><code>#F6F7F9</code></div>
+          <div class="sw"><i style="background:#0E1420"></i><code>#0E1420</code></div>
+          <div class="sw"><i style="background:#7A2230"></i><code>#7A2230</code></div>
+          <div class="sw"><i style="background:#F6E9EA"></i><code>#F6E9EA</code></div>
+        </div></div>
+      </div>
+      <div class="verdict"><b>Читается как:</b> издание с редакцией и ответственностью за цифры. <b>Риск:</b> тёмно-красный требует дисциплины — если использовать его больше чем на 5% площади, становится тревожным.</div>
+    </section>
+
+    <section>
+      <div class="col-head">
+        <span class="tag">C2</span>
+        <h3>Graphite + сигнал</h3>
+        <p>Акцент — сам чёрный. Цвет появляется только там, где что-то интерактивно или требует внимания. Самый строгий и самый дешёвый в поддержке.</p>
+      </div>
+      <div class="mock v-graphite">
+        <div class="site-head"><div class="wordmark">move<span>&amp;</span>invest</div><div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div></div>
+        <div class="hero">
+          <div class="eyebrow">Updated weekly</div>
+          <h1>Residency, tax and property across five jurisdictions</h1>
+          <p>Every threshold, deadline and rate in one comparable dataset. Sourced, dated, revised when the rules change.</p>
+          <div class="cta-row"><a class="btn">Open the dataset</a><a class="btn ghost">For partners</a></div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Residency by investment</h4>
+          <p class="section-sub">Minimum thresholds, 2026</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+        </div>
+        <div class="section"><div class="partner">
+          <h4>For partners</h4>
+          <p>Every enquiry is qualified on country, budget and timeline before it reaches you.</p>
+          <div class="stats"><div class="stat"><b>5</b><span>jurisdictions</span></div><div class="stat"><b>3</b><span>questions</span></div></div>
+          <a class="btn">Request terms</a>
+        </div></div>
+        <div class="section"><div class="swatches">
+          <div class="sw"><i style="background:#F6F7F9"></i><code>#F6F7F9</code></div>
+          <div class="sw"><i style="background:#1A1D24"></i><code>#1A1D24</code></div>
+          <div class="sw"><i style="background:#C2410C"></i><code>#C2410C</code></div>
+          <div class="sw"><i style="background:#ECEEF1"></i><code>#ECEEF1</code></div>
+        </div></div>
+      </div>
+      <div class="verdict"><b>Читается как:</b> швейцарская техническая документация. Максимально далеко от категории. <b>Риск:</b> нечего запоминать — узнаваемость придётся строить целиком на типографике и структуре.</div>
+    </section>
+
+    <section>
+      <div class="col-head">
+        <span class="tag">C3</span>
+        <h3>Deep green</h3>
+        <p>Тот же зелёный, что в редакционном варианте A, но на холодной дата-основе. Институциональный, спокойный, без ассоциации с деньгами в лоб.</p>
+      </div>
+      <div class="mock v-green">
+        <div class="site-head"><div class="wordmark">move<span>&amp;</span>invest</div><div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div></div>
+        <div class="hero">
+          <div class="eyebrow">Updated weekly</div>
+          <h1>Residency, tax and property across five jurisdictions</h1>
+          <p>Every threshold, deadline and rate in one comparable dataset. Sourced, dated, revised when the rules change.</p>
+          <div class="cta-row"><a class="btn">Open the dataset</a><a class="btn ghost">For partners</a></div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Residency by investment</h4>
+          <p class="section-sub">Minimum thresholds, 2026</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+        </div>
+        <div class="section"><div class="partner">
+          <h4>For partners</h4>
+          <p>Every enquiry is qualified on country, budget and timeline before it reaches you.</p>
+          <div class="stats"><div class="stat"><b>5</b><span>jurisdictions</span></div><div class="stat"><b>3</b><span>questions</span></div></div>
+          <a class="btn">Request terms</a>
+        </div></div>
+        <div class="section"><div class="swatches">
+          <div class="sw"><i style="background:#F6F7F9"></i><code>#F6F7F9</code></div>
+          <div class="sw"><i style="background:#0E1420"></i><code>#0E1420</code></div>
+          <div class="sw"><i style="background:#17563F"></i><code>#17563F</code></div>
+          <div class="sw"><i style="background:#E6EFEA"></i><code>#E6EFEA</code></div>
+        </div></div>
+      </div>
+      <div class="verdict"><b>Читается как:</b> исследовательский институт. <b>Риск:</b> зелёный на холодном сером слегка глушится — на тёплой бумаге варианта A он звучал сильнее.</div>
+    </section>
+
+    <section>
+      <div class="col-head">
+        <span class="tag dim">C0 · было</span>
+        <h3>Ink blue</h3>
+        <p>Тот самый синий. Оставлен для сравнения — посмотри на него после трёх предыдущих, а не до.</p>
+      </div>
+      <div class="mock v-blue">
+        <div class="site-head"><div class="wordmark">move<span>&amp;</span>invest</div><div class="lang"><i class="on">EN</i><i>RU</i><i>PL</i></div></div>
+        <div class="hero">
+          <div class="eyebrow">Updated weekly</div>
+          <h1>Residency, tax and property across five jurisdictions</h1>
+          <p>Every threshold, deadline and rate in one comparable dataset. Sourced, dated, revised when the rules change.</p>
+          <div class="cta-row"><a class="btn">Open the dataset</a><a class="btn ghost">For partners</a></div>
+        </div>
+        <div class="section">
+          <h4 class="section-title">Residency by investment</h4>
+          <p class="section-sub">Minimum thresholds, 2026</p>
+          <table>
+            <tr><th>Jurisdiction</th><th>From</th><th>Permit</th></tr>
+            <tr><td><span class="chip" style="--c:#2E6F5E">Portugal</span></td><td class="num">€500,000</td><td class="num">6–9 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#2B5C8A">Greece</span></td><td class="num">€250,000</td><td class="num">2–4 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#8C3F5D">Malta</span></td><td class="num">€300,000</td><td class="num">4–6 mo</td></tr>
+            <tr><td><span class="chip" style="--c:#6B5B2E">UAE</span></td><td class="num">AED 2M</td><td class="num">3–6 wk</td></tr>
+            <tr><td><span class="chip off" style="--c:#A8641E">Cyprus</span></td><td class="num">—</td><td class="num">soon</td></tr>
+          </table>
+        </div>
+        <div class="section"><div class="partner">
+          <h4>For partners</h4>
+          <p>Every enquiry is qualified on country, budget and timeline before it reaches you.</p>
+          <div class="stats"><div class="stat"><b>5</b><span>jurisdictions</span></div><div class="stat"><b>3</b><span>questions</span></div></div>
+          <a class="btn">Request terms</a>
+        </div></div>
+        <div class="section"><div class="swatches">
+          <div class="sw"><i style="background:#F6F7F9"></i><code>#F6F7F9</code></div>
+          <div class="sw"><i style="background:#0E1420"></i><code>#0E1420</code></div>
+          <div class="sw"><i style="background:#1C3D8F"></i><code>#1C3D8F</code></div>
+          <div class="sw"><i style="background:#E7ECF8"></i><code>#E7ECF8</code></div>
+        </div></div>
+      </div>
+      <div class="verdict dim"><b>Честно:</b> да, попсовый. Не клише золотой визы, но клише B2B-доверия — банки, страховые, юрфирмы, SaaS. Безопасно и безлико.</div>
+    </section>
+
+  </div>
+
+  <h2 class="part">Часть 2. Серифы, которые умеют кириллицу</h2>
+  <p class="part-sub">Проверено по метаданным Google Fonts, не по памяти: у всех пяти в покрытии есть <b>cyrillic</b> и <b>latin-ext</b>. Смотри на русскую и польскую строки — именно там шрифты рассыпаются, а не на английском заголовке.</p>
+
+  <div class="specimens">
+
+    <div class="spec f-spectral">
+      <div class="name">Spectral · Production Type</div>
+      <p class="en">Golden Visa</p>
+      <p class="ru">Налоги для экспата</p>
+      <p class="pl">Zakup nieruchomości</p>
+      <p class="body">Резидентство за инвестиции — не одна программа, а пять режимов с разной ценой входа и налоговыми последствиями.</p>
+      <p class="char"><b>Характер:</b> современный, слегка технический сериф с низким контрастом. Спроектирован для экрана. Кириллица сделана вместе с латиницей, не пришита позже.</p>
+    </div>
+
+    <div class="spec f-literata">
+      <div class="name">Literata · TypeTogether</div>
+      <p class="en">Golden Visa</p>
+      <p class="ru">Налоги для экспата</p>
+      <p class="pl">Zakup nieruchomości</p>
+      <p class="body">Резидентство за инвестиции — не одна программа, а пять режимов с разной ценой входа и налоговыми последствиями.</p>
+      <p class="char"><b>Характер:</b> книжный, тёплый, крупная строчная. Делался для Google Play Books, то есть под длинное чтение. Оптическая ось — читается лучше всех на статьях.</p>
+    </div>
+
+    <div class="spec f-alegreya">
+      <div class="name">Alegreya · Huerta Tipográfica</div>
+      <p class="en">Golden Visa</p>
+      <p class="ru">Налоги для экспата</p>
+      <p class="pl">Zakup nieruchomości</p>
+      <p class="body">Резидентство за инвестиции — не одна программа, а пять режимов с разной ценой входа и налоговыми последствиями.</p>
+      <p class="char"><b>Характер:</b> самый живой из пяти, с заметным ритмом и каллиграфическим наклоном деталей. Даёт индивидуальность, но спорит с холодной сеткой Data desk.</p>
+    </div>
+
+    <div class="spec f-garamond">
+      <div class="name">EB Garamond · Georg Duffner</div>
+      <p class="en">Golden Visa</p>
+      <p class="ru">Налоги для экспата</p>
+      <p class="pl">Zakup nieruchomości</p>
+      <p class="body">Резидентство за инвестиции — не одна программа, а пять режимов с разной ценой входа и налоговыми последствиями.</p>
+      <p class="char"><b>Характер:</b> классическая антиква, высокий контраст, мелкая строчная. Красив в крупном кегле, слабеет в интерфейсе. Кириллица есть, но она заметно новее рисунка латиницы.</p>
+    </div>
+
+    <div class="spec f-source">
+      <div class="name">Source Serif 4 · Adobe</div>
+      <p class="en">Golden Visa</p>
+      <p class="ru">Налоги для экспата</p>
+      <p class="pl">Zakup nieruchomości</p>
+      <p class="body">Резидентство за инвестиции — не одна программа, а пять режимов с разной ценой входа и налоговыми последствиями.</p>
+      <p class="char"><b>Характер:</b> нейтральный рабочий сериф без выраженного темперамента. Безопасный выбор: не мешает, но и не запоминается.</p>
+    </div>
+
+  </div>
+
+  <h2 class="part">Часть 3. Два шрифта под два алфавита — что это стоит на самом деле</h2>
+  <p class="part-sub">Слева — твоя идея в чистом виде: латиница «классным» шрифтом без кириллицы (Instrument Serif), русский — заменителем (PT Serif). Справа — один шрифт на оба алфавита (Spectral). Обрати внимание не на красоту, а на <b>рост строчных букв, контраст штриха и плотность</b>: это то, что ломает сетку.</p>
+
+  <div class="split">
+
+    <div class="demo">
+      <div class="lbl">Два шрифта · Instrument Serif + PT Serif</div>
+      <div class="row">
+        <div class="flag">EN · Instrument Serif 400</div>
+        <p class="h-instrument">Where to move, and what it costs</p>
+      </div>
+      <div class="row">
+        <div class="flag">RU · PT Serif 700 — заменитель</div>
+        <p class="h-ptserif">Куда переехать и сколько это стоит</p>
+      </div>
+      <div class="row">
+        <div class="flag">PL · Instrument Serif 400</div>
+        <p class="h-instrument">Dokąd się przeprowadzić i ile to kosztuje</p>
+      </div>
+      <p class="cost"><b>Что видно:</b> английская строка изящная и высококонтрастная, русская — плотная и утилитарная. Это два разных бренда на одном домене. Чтобы свести их, придётся держать <b>отдельную типографическую шкалу на локаль</b>: свои размеры, интерлиньяж и трекинг для RU, потому что при одинаковом кегле PT Serif выглядит крупнее и тяжелее. Каждый компонент тестируется дважды, каждый новый язык — ещё одна шкала.</p>
+    </div>
+
+    <div class="demo">
+      <div class="lbl">Один шрифт · Spectral</div>
+      <div class="row">
+        <div class="flag">EN · Spectral 600</div>
+        <p class="h-spectral">Where to move, and what it costs</p>
+      </div>
+      <div class="row">
+        <div class="flag">RU · Spectral 600</div>
+        <p class="h-spectral">Куда переехать и сколько это стоит</p>
+      </div>
+      <div class="row">
+        <div class="flag">PL · Spectral 600</div>
+        <p class="h-spectral">Dokąd się przeprowadzić i ile to kosztuje</p>
+      </div>
+      <p class="cost"><b>Что видно:</b> одна интонация на трёх языках, одна шкала, один набор компонентов. Кириллица здесь не «заменитель» — она нарисована в том же проекте, с тем же ростом строчных и тем же контрастом. Ощущение «пожертвовали ради русского» не возникает, потому что ничем не жертвовали.</p>
+    </div>
+
+  </div>
+
+  <footer class="doc-foot">
+    <h3>Где идея с двумя шрифтами всё-таки работает</h3>
+    <p>Не отбрасываю её целиком — просто она уместна в другом месте. Разные шрифты на локаль оправданы, когда алфавиты <b>структурно несовместимы</b>: арабский, иврит, деванагари, CJK. Там выбора нет, там это норма. Латиница и кириллица — родственные системы с общей метрикой, и хороших шрифтов, где обе нарисованы одним человеком, десятки. Разделять их — платить настоящую цену за воображаемую выгоду.</p>
+    <p>Если хочется по-настоящему характерный сериф, а не компромисс, правильный ход — не разделять алфавиты, а <b>взять шрифт у студии, для которой кириллица родная</b>. У type.today, Brownfox, CSTM Fonts есть редакционные антиквы, где русский нарисован первым, а латиница подгонялась к нему. Стоят они порядка сотни-двух евро за начертание — на фоне проекта, который должен приносить деньги, это не расход. Бесплатный компромисс — Spectral или Literata из части 2.</p>
+    <p><b>Моя ставка:</b> C1 Oxblood + Spectral в заголовках + Inter в тексте + JetBrains Mono на цифрах. Тёмно-красный с серифом даёт то самое ощущение издания с редакцией, при этом он редок в нише и не читается ни как золотая виза, ни как банк. C2 Graphite — сильная альтернатива, если решишь, что цвет вообще не нужен.</p>
+    <p>Назови финальный вариант — соберу файл токенов под Tailwind v4, подключение через next/font с сабсетами latin, latin-ext, cyrillic, и схему полей под Sanity для чипов стран.</p>
+  </footer>
+
+</div>
+</body>
+</html>

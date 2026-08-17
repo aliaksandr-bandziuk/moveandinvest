@@ -1,0 +1,200 @@
+@use "../../../styles/mixins";
+
+.section {
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  padding-block: var(--space-7) var(--space-8);
+  overflow-x: clip;
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-9) var(--space-9);
+  }
+}
+
+.head {
+  margin-bottom: var(--space-6);
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent-on-dark);
+  margin-bottom: var(--space-3);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-on-dark-muted);
+}
+
+.heading {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  color: var(--color-on-dark);
+  max-width: 20ch;
+}
+
+.intro {
+  max-width: var(--measure-wide);
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-dark-muted);
+}
+
+// Full bleed: the map is the widest object on the site and gains nothing from
+// the container's gutters.
+.stage {
+  position: relative;
+  width: 100%;
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+// Uncovered land: one flat value, never coloured. It is context, not data.
+.base path {
+  fill: var(--color-map-land);
+  stroke: var(--color-dark);
+  stroke-width: 0.6;
+}
+
+// Every covered jurisdiction takes the same accent — see the component's own
+// comment for why five hues were rejected.
+.shape {
+  fill: var(--color-map-active);
+  stroke: var(--color-dark);
+  stroke-width: 0.7;
+}
+
+.shape[data-status="planned"],
+.shape[data-status="paused"] {
+  fill: var(--color-map-pending);
+}
+
+.leads line {
+  stroke: var(--color-map-lead);
+  stroke-width: 1;
+}
+
+.leads circle {
+  fill: var(--color-map-lead);
+}
+
+// Annotations exist only where there is room for them. Below lg the list
+// underneath carries the same content — it is not a fallback, it is the
+// phone layout.
+.annotation {
+  display: none;
+
+  @include mixins.breakpoint-up(lg) {
+    display: block;
+    position: absolute;
+    transform: translateY(-100%);
+    width: 14rem;
+    margin: 0;
+    padding-bottom: var(--space-1);
+    border-bottom: var(--border-hairline) solid var(--color-on-dark-border);
+  }
+}
+
+.annotation[data-align="right"] {
+  @include mixins.breakpoint-up(lg) {
+    transform: translate(-100%, -100%);
+    text-align: end;
+  }
+}
+
+.annotationName {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+  color: var(--color-on-dark);
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.annotationFigures {
+  margin-top: var(--space-1);
+  font-size: var(--fs-micro);
+  color: var(--color-on-dark-muted);
+}
+
+.annotation[data-status="planned"] .annotationName,
+.annotation[data-status="paused"] .annotationName {
+  color: var(--color-on-dark-muted);
+}
+
+// --- The list: the phone layout, and the accessible reading order ----------
+.list {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--border-hairline) solid var(--color-on-dark-border);
+
+  @include mixins.breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  padding-block: var(--space-4);
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-hairline);
+}
+
+.mark {
+  align-self: center;
+  width: 9px;
+  height: 9px;
+  background-color: var(--color-map-active);
+}
+
+.listItem[data-status="planned"] .mark,
+.listItem[data-status="paused"] .mark {
+  background-color: var(--color-map-pending);
+}
+
+.listName {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-on-dark);
+}
+
+.listFigures {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  font-size: var(--fs-small);
+  color: var(--color-on-dark-muted);
+}
+
+.listLabel {
+  @include mixins.eyebrow;
+
+  font-size: var(--fs-nano);
+  color: var(--color-on-dark-muted);
+}
+
+.note {
+  margin-top: var(--space-5);
+  max-width: var(--measure-wide);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-on-dark-muted);
+}

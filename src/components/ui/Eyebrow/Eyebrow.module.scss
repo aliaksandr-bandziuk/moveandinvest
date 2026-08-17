@@ -1,0 +1,15 @@
+@use "../../../styles/mixins";
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  margin-bottom: var(--space-3);
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+.plain {
+  color: var(--color-text-muted);
+}

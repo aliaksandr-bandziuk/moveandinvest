@@ -1,0 +1,28 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-regular);
+  color: inherit;
+  white-space: nowrap;
+}
+
+// One accent for every covered jurisdiction, muted ink for one that is not.
+// The square marks coverage; the name beside it carries identity. Per-country
+// hues were retired — see _tokens.scss for the measurements behind that.
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-accent);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.muted .dot {
+  background-color: var(--color-line);
+}

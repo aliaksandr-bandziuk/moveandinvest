@@ -1,0 +1,124 @@
+@use "../../../styles/mixins";
+
+// Mobile first: one column, no stickiness, tighter rhythm. Everything below
+// breakpoint-up(lg) is the phone layout.
+// Light. It was on the black plane until the jurisdiction map below it took
+// that treatment: hero, method and map in a row would have made three black
+// bands with one white strip between them, and the plane stops being an event
+// when it is the background.
+.section {
+  padding-block: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-9);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    // 5 / 7 rather than 6 / 6: an even split makes two columns of equal weight,
+    // and this block has a subject and its evidence, not two peers.
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-8);
+  }
+}
+
+// Stretches to the row height by default (no align-items: start on the grid),
+// which is what gives the sticky child below room to travel.
+.headColumn {
+  min-width: 0;
+}
+
+.headInner {
+  @include mixins.breakpoint-up(lg) {
+    position: sticky;
+    // Clears the top edge without a sticky site header to account for — the
+    // header scrolls away with the page by design.
+    top: var(--space-7);
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.index {
+  @include mixins.figure-text;
+
+  color: var(--color-text-muted);
+}
+
+.heading {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  max-width: 18ch;
+}
+
+.intro {
+  max-width: 34ch;
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+  color: var(--color-text-muted);
+}
+
+.list {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding-block: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  // The first rule is the heavy one, exactly like the head row of the table:
+  // it says "the set starts here", and the hairlines inside only separate.
+  &:first-child {
+    border-top: var(--border-hairline) solid var(--color-text);
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  @include mixins.breakpoint-up(lg) {
+    padding-block: var(--space-6);
+  }
+}
+
+.number {
+  @include mixins.figure-text;
+
+  display: block;
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.pointTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  margin-bottom: var(--space-2);
+
+  @include mixins.breakpoint-up(md) {
+    font-size: 1.375rem;
+  }
+}
+
+.pointBody {
+  max-width: 60ch;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
