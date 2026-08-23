@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { mergeRouteAnswers } from "@/lib/routeAnswers";
 import {
   type Answers,
   type BudgetCeiling,
@@ -113,14 +114,7 @@ export function RouteFinderControl({
       // leave the tab, they expire when it closes, and nothing about the
       // page's caching changes. A failure here is silent by design — this is
       // a convenience, and neither block depends on it.
-      try {
-        window.sessionStorage.setItem(
-          "mi.routeAnswers",
-          JSON.stringify({ ...answers, jurisdiction: result.best.code }),
-        );
-      } catch {
-        // Private mode or storage disabled. Nothing to do and nothing lost.
-      }
+      mergeRouteAnswers({ ...answers, jurisdiction: result.best.code });
 
       const count = active.querySelector<HTMLElement>("[data-count]");
       if (count) {

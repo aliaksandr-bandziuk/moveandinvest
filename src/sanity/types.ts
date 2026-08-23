@@ -288,3 +288,50 @@ export interface PrivacyPage {
   sections: { heading: string; body: string }[];
   seo: SeoResult;
 }
+
+export interface SitemapDoc {
+  language?: string;
+  _updatedAt: string;
+  noIndex?: boolean;
+}
+
+export interface CountryPageResult {
+  _id: string;
+  title: string;
+  intro: string;
+  route: string;
+  minimumInvestment: string;
+  timeToPermit: string;
+  taxRegime: string;
+  costAdvertisedEur?: number | null;
+  costExtrasEur?: number | null;
+  sourceNote?: string | null;
+  body?: unknown;
+  seo: SeoResult;
+  countryId: string;
+  name: string;
+  code: string;
+  alternates: { language?: string; slug?: string }[];
+}
+
+export interface CountryFaqResult {
+  _id: string;
+  question: string;
+  answer: string;
+}
+
+export interface TableColumnsResult {
+  jurisdiction: string;
+  route: string;
+  minimumInvestment: string;
+  timeToPermit: string;
+  taxRegime: string;
+}
+
+export interface SitemapCountryDoc {
+  language?: string;
+  slug?: string;
+  _updatedAt: string;
+  countryId?: string;
+  noIndex?: boolean;
+}

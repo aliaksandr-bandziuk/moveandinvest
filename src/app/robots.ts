@@ -17,6 +17,14 @@ const NAMED_BOTS = [
   "Google-Extended",
 ];
 
+// EVERY PAGE WRITTEN FOR A READER IS OPEN. The three entries below are not
+// exceptions to that — none of them is a page written for a reader. /studio is
+// the CMS, /api/ is a form handler that answers a POST with a redirect, and
+// the styleguide is an internal reference for building the site. There is no
+// content held back here and no per-document noIndex set anywhere in the
+// dataset; if a page ever needs excluding, that flag is the mechanism, not
+// this list.
+//
 // The styleguide is listed under both shapes because the locale prefix is
 // part of the path for ru and pl: /styleguide and /ru/styleguide are two
 // different URLs, and a bare "/styleguide" entry would only cover the first.
@@ -33,6 +41,9 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: NAMED_BOTS, allow: "/", disallow: DISALLOWED_PATHS },
       { userAgent: "*", allow: "/", disallow: DISALLOWED_PATHS },
     ],
+    // src/app/sitemap.ts, which exists as of 23 Aug 2026 — until then this
+    // line pointed at a 404, which is a worse signal than no sitemap line at
+    // all: it tells a crawler to expect one and then wastes the fetch.
     sitemap: `${getSiteUrl()}/sitemap.xml`,
   };
 }

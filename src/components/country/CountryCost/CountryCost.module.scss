@@ -1,0 +1,72 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+}
+
+.body {
+  margin-top: var(--space-8);
+}
+
+.figures {
+  display: grid;
+  gap: var(--space-6);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-7);
+  }
+}
+
+.label {
+  @include mixins.eyebrow;
+
+  color: var(--color-text-muted);
+}
+
+.value {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-2);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+// The one that matters. Accent on the label, not on the figure: the number is
+// already the largest thing in the row, and colouring it too would spend the
+// accent twice on one idea.
+.real .label {
+  color: var(--color-accent);
+}
+
+.track {
+  display: flex;
+  margin-top: var(--space-7);
+  block-size: 0.75rem;
+  background-color: var(--color-hairline);
+}
+
+.advertised {
+  background-color: var(--color-text);
+}
+
+// The extras segment carries the accent because it is the part of the figure
+// nobody else publishes — the whole reason this block exists.
+.extras {
+  background-color: var(--color-accent);
+}
+
+.note {
+  margin-top: var(--space-5);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 78ch;
+}
+
+.noteLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+}

@@ -1,0 +1,123 @@
+@use "../../../styles/mixins";
+
+.body {
+  @include mixins.section-rhythm;
+}
+
+.prose {
+  // The one measure on this page. Everything above it is figures, which want
+  // the full container; this is prose, which does not.
+  max-width: 72ch;
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+
+  > * + * {
+    margin-top: var(--space-5);
+  }
+}
+
+.faq {
+  @include mixins.section-rhythm;
+
+  border-top: var(--border-hairline) solid var(--color-hairline);
+}
+
+.faqHeading {
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+}
+
+.faqList {
+  margin-top: var(--space-8);
+}
+
+.faqItem {
+  padding-block: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    // The same 6/5 spread the section heads use, so a question sits opposite
+    // its answer instead of above it — the page reads as one system.
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.question {
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  max-width: 30ch;
+}
+
+.answer {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 62ch;
+
+  @include mixins.breakpoint-up(lg) {
+    margin-top: 0;
+  }
+}
+
+// The closing ask, on the black plane so it reads as the end of the page
+// rather than one more section of it.
+.cta {
+  @include mixins.section-rhythm;
+
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.ctaInner {
+  display: grid;
+  gap: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-8);
+  }
+}
+
+.ctaHeading {
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+
+.ctaBody {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--color-on-dark-muted);
+  max-width: 62ch;
+}
+
+// Styled here rather than reusing Button: the CTA is a client component (it
+// writes the jurisdiction to sessionStorage on the way), and Button is a
+// server component. Same shape as Button's onDark variant, deliberately — if
+// that variant changes, this changes with it.
+.ctaButton {
+  @include mixins.tap-target;
+
+  justify-content: center;
+  min-block-size: 3rem;
+  padding-inline: var(--space-6);
+  background-color: var(--color-on-dark);
+  color: var(--color-dark);
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--color-on-dark-muted);
+  }
+}

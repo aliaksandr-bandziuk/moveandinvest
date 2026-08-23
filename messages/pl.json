@@ -54,10 +54,25 @@
     "stepLabel": "Krok"
   },
   "cookies": {
-    "label": "Wybór dotyczący cookie",
-    "body": "Chcielibyśmy używać analitycznych plików cookie, żeby widzieć, jak czytana jest strona. Do Twojej zgody nic się nie ładuje, a strona działa tak samo w obu przypadkach.",
+    "label": "O plikach cookie",
+    "body": "Używamy analitycznych plików cookie, żeby widzieć, jak czytana jest strona. Odmowa niczego nie psuje: strona działa tak samo w obu przypadkach, a zdanie można zmienić w każdej chwili.",
     "more": "Co mierzymy →",
     "accept": "Akceptuję",
     "decline": "Tylko niezbędne"
+  },
+  "country": {
+    "home": "Główna",
+    "breadcrumbLabel": "Ścieżka nawigacji",
+    "costEyebrow": "Prawdziwa liczba",
+    "costHeading": "Ile naprawdę kosztuje {name}",
+    "costIntro": "Próg to sama inwestycja. Podatki od przeniesienia, opłaty profesjonalne i urzędowe oraz pierwsze odnowienie nie są opcjonalne — płacą je wszyscy i za każdym razem.",
+    "costAdvertised": "Deklarowane",
+    "costExtras": "Cała reszta",
+    "costReal": "Realnie, pierwszy rok",
+    "costNoteLabel": "Źródła",
+    "faqHeading": "Częste pytania — {name}",
+    "ctaHeading": "Zapytaj o tę jurysdykcję",
+    "ctaBody": "W każdej jurysdykcji pracuje jeden partner i zgłoszenie trafia wyłącznie do niego — i tylko po zaznaczeniu zgody. Odpowiada człowiek, zwykle w ciągu jednego dnia roboczego.",
+    "ctaLabel": "Wyślij zgłoszenie"
   }
 }

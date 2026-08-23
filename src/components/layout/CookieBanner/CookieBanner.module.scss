@@ -1,55 +1,83 @@
 @use "../../../styles/mixins";
 
-// Fixed to the bottom, in the accent. It is the one element allowed to sit
-// over the page, and it earns that by being unavoidable: a consent request a
-// visitor can scroll past is one they can miss, and a missed banner is a
-// visitor who never gets to choose.
+// A CARD IN THE LOWER LEFT, not a strip across the bottom.
+//
+// The strip was the first attempt and it lost twice. On the black plane it was
+// the same colour as the hero behind it; repainted in the accent it was
+// visible but still a strip — and a strip at the foot of the window is the
+// shape every visitor has learnt to dismiss without reading, because that is
+// where cookie bars, chat bubbles and app prompts all live. It reads as
+// furniture.
+//
+// A tall card in the corner reads as a thing addressed to you. It costs more
+// of the screen, and that is the point: this is the one moment on the site
+// where a reader is asked to answer something, and it disappears the instant
+// they do.
 //
 // THIS BREAKS THE 5% ACCENT RULE ON PURPOSE, and it is the only element that
-// may. The rule exists so oxblood stays editorial instead of reading as an
-// alert — but this IS an alert, it is the single moment on the site where a
-// reader has to stop and answer something, and it removes itself the instant
-// they do. On the black plane it was the same colour as the hero behind it
-// and disappeared into the page, which is the failure this replaces.
+// may. The rule keeps oxblood editorial rather than alarming; this IS the
+// alert.
 //
-// It does NOT dim or block the page behind it. Blocking would make agreeing
-// the only way to read anything, which is the dark pattern this component
-// exists to avoid.
+// It still does NOT dim or block the page. Blocking would make agreeing the
+// only way to read anything, which is the dark pattern this component exists
+// to avoid — a visitor may ignore it, scroll, read the whole site and answer
+// later. What it may not be is invisible.
 .banner {
   position: fixed;
-  inset-block-end: 0;
-  inset-inline: 0;
   z-index: 40;
+  inset-block-end: var(--space-4);
+  inset-inline: var(--space-4);
   background-color: var(--color-accent);
   color: var(--color-accent-contrast);
-  // A hairline in the same white as the text: the banner sits against a white
-  // page as often as a dark one, and without it the accent bleeds into a
-  // light background at the edge.
-  border-block-start: var(--border-hairline) solid rgb(255 255 255 / 25%);
+  // A visible edge in every context: the card sits over white pages, over the
+  // black plane, and over the comparison table, and without it the corner
+  // dissolves against the darkest of them.
+  border: var(--border-hairline) solid rgb(255 255 255 / 30%);
+  // The one deliberate shadow on the site. Everything else here is flat — the
+  // design direction says so — but this element is the only one that is
+  // genuinely ABOVE the page rather than part of it, and a lift is how a
+  // reader is told that without being told.
+  box-shadow: 0 1.5rem 3rem rgb(11 15 22 / 28%);
+
+  @include mixins.breakpoint-up(md) {
+    // Anchored left, and only as wide as a column of text wants to be. Not
+    // centred: a centred modal is a modal, and this one does not block.
+    inset-inline-end: auto;
+    inset-block-end: var(--space-6);
+    inset-inline-start: var(--space-6);
+    inline-size: min(30rem, calc(100vw - var(--space-6) * 2));
+  }
 }
 
 .inner {
   display: grid;
   gap: var(--space-4);
-  max-width: var(--container-max-width);
-  margin-inline: auto;
-  padding: var(--space-5) var(--gutter);
+  padding: var(--space-5);
 
   @include mixins.breakpoint-up(md) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: var(--space-6);
+    padding: var(--space-6);
+    gap: var(--space-5);
   }
+}
+
+// A real heading rather than a first sentence in bold. It gives the card a
+// top edge to read from, it is what the region is labelled by, and it is half
+// of why the card is tall enough to notice.
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-accent-contrast);
 }
 
 .text {
   font-size: var(--fs-small);
-  line-height: 1.55;
-  // Full contrast rather than a muted tint: this is the one paragraph on the
+  line-height: 1.6;
+  // Full contrast rather than a muted tint. This is the one paragraph on the
   // site a reader is being asked to act on, and muting it to look calm is how
   // it stops being read.
   color: var(--color-accent-contrast);
-  max-width: 68ch;
 }
 
 .link {
@@ -62,25 +90,26 @@
   }
 }
 
+// Stacked and full width, not side by side. In a narrow card a row of two
+// would give each button about half a column and force the longer label to
+// wrap; stacked, both are the full width of the card and both are large
+// targets. Equal width is also the plainest possible statement that the two
+// answers are equally available.
 .actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: var(--space-3);
 }
 
-// One button style, two instances. The accepting one is filled and the
-// declining one is outlined, which is as far apart as they are allowed to
-// get: same size, same padding, same type, side by side and in that order so
-// the decline is not the afterthought at the end of a sentence.
 .button {
   @include mixins.tap-target;
 
   justify-content: center;
+  min-block-size: 3rem;
   padding-inline: var(--space-5);
   border: var(--border-hairline) solid rgb(255 255 255 / 55%);
   background: transparent;
   color: var(--color-accent-contrast);
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
 
@@ -89,6 +118,10 @@
   }
 }
 
+// The accepting one is filled and comes first in the stack; the refusal is
+// outlined and directly under it, the same width and the same height. Filled
+// versus outlined is as far apart as the two are allowed to get — a refusal
+// that is smaller, greyer or hidden behind a link is not a refusal.
 .primary {
   background-color: var(--color-accent-contrast);
   border-color: var(--color-accent-contrast);

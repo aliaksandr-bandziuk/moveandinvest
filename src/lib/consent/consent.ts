@@ -13,26 +13,29 @@
 // Framework-agnostic on purpose — no React import. The banner subscribes; a
 // plain script loader could call these directly.
 
-// TEMPORARY TESTING SWITCH, and it needs reading before it is used.
+// ⚠ TEMPORARY — ANALYTICS RUN BEFORE CONSENT. ONE LINE, FLIP IT BACK.
 //
-// Set NEXT_PUBLIC_ANALYTICS_DEFAULT=granted and the gate treats analytics as
-// granted for anyone who has not yet decided — so both tags load on the first
-// paint and can be verified end to end without clicking anything. The banner
-// still appears and a real choice still overrides this: declining writes a
-// stored "no" that beats the default on the next call.
+// Set to `false` and this file behaves as designed: nothing loads until the
+// visitor agrees. Set to `true`, as it is now, and Google Analytics and
+// Microsoft Clarity load for anyone who has not yet answered the banner.
 //
-// WHAT IT COSTS, stated once so nobody discovers it later. While this is on
-// for real visitors, the site loads Google Analytics and Microsoft Clarity
-// before consent. That makes the privacy policy false — it says, in three
-// languages, that nothing loads until you agree — and Clarity's half of it is
-// session recording on a page where people type their budget and their
-// circumstances into a form. It is a test switch, not a configuration: it
-// belongs in .env.local, or in a preview deployment, and it comes out of
-// production the moment the check is done.
+// It is `true` at the owner's explicit instruction, 23 Aug 2026, so the tags
+// can be verified end to end. It was an environment variable for one
+// revision; a constant replaced it because a variable that must be set
+// identically in .env.local and on the host is a variable that ends up set in
+// one of them and forgotten in the other.
 //
-// It is an environment variable rather than a constant so that turning it off
-// is a settings change and not a deploy — the fastest possible path back.
-const DEFAULT_GRANTED = process.env.NEXT_PUBLIC_ANALYTICS_DEFAULT === "granted";
+// WHILE THIS IS TRUE:
+//   * the privacy policy is false in three languages — it states that nothing
+//     loads before agreement;
+//   * Clarity may record a session on the page where a visitor types their
+//     budget and their circumstances into the enquiry form;
+//   * a stored decision still wins, so anyone who clicks "Only necessary"
+//     genuinely stops both tools.
+//
+// The last point is what keeps this recoverable rather than merely wrong: the
+// gate is intact, only its default is inverted.
+const LOAD_BEFORE_CONSENT = true;
 
 export type ConsentCategory = "analytics" | "marketing";
 
@@ -99,13 +102,13 @@ export function getConsent(): ConsentState | null {
 /** Whether a category is granted.
  *
  *  False before any decision — consent is never inferred from scrolling, from
- *  clicking through, or from silence. The one exception is the testing switch
+ *  clicking through, or from silence. The one exception is LOAD_BEFORE_CONSENT
  *  above, and it applies ONLY while no decision is stored: a visitor who has
- *  answered has answered, and the flag never overrides them. */
+ *  answered has answered, and the constant never overrides them. */
 export function hasConsent(category: ConsentCategory): boolean {
   const stored = getConsent();
   if (stored) return stored[category];
-  return DEFAULT_GRANTED && category === "analytics";
+  return LOAD_BEFORE_CONSENT && category === "analytics";
 }
 
 const consentListeners = new Set<(state: ConsentState | null) => void>();
@@ -182,11 +185,12 @@ export function runWhenConsented(category: ConsentCategory, loader: () => void):
     // module exists to prevent, so when it happens by configuration it says
     // so in the console of whoever is looking — including, eventually, on a
     // production deployment where the flag was left behind.
-    if (DEFAULT_GRANTED && getConsent() === null) {
+    if (LOAD_BEFORE_CONSENT && getConsent() === null) {
       console.warn(
-        `[consent] NEXT_PUBLIC_ANALYTICS_DEFAULT=granted — "${category}" loaded ` +
-          `WITHOUT a decision. Testing only: the privacy policy states nothing ` +
-          `loads before consent, and while this is set that is not true.`,
+        `[consent] LOAD_BEFORE_CONSENT is true — "${category}" loaded WITHOUT a ` +
+          `decision. Temporary, for verification: while this is set the privacy ` +
+          `policy's "nothing loads until you agree" is not true. ` +
+          `src/lib/consent/consent.ts`,
       );
     }
     loader();

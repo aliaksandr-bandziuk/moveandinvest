@@ -1,0 +1,33 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.route {
+  @include mixins.eyebrow;
+
+  margin-top: var(--space-6);
+  color: var(--color-accent-on-dark);
+}
+
+.title {
+  margin-top: var(--space-3);
+  font-size: var(--fs-display);
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+  // A measure, unlike the section heads: this is one heading with nothing
+  // beside it, and at 106rem an uncapped display line runs past 30 words.
+  max-width: 18ch;
+}
+
+.intro {
+  margin-top: var(--space-5);
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+  color: var(--color-on-dark-muted);
+  max-width: 62ch;
+}

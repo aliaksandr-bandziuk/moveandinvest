@@ -54,10 +54,25 @@
     "stepLabel": "Step"
   },
   "cookies": {
-    "label": "Cookie choice",
-    "body": "We would like to use analytics cookies to see how the site is used. Nothing loads until you agree, and the site works the same either way.",
+    "label": "Cookies",
+    "body": "We use analytics cookies to see how the site is read. Declining breaks nothing — every part of it works the same either way, and you can change your mind whenever you like.",
     "more": "What we measure →",
     "accept": "Accept",
     "decline": "Only necessary"
+  },
+  "country": {
+    "home": "Home",
+    "breadcrumbLabel": "Breadcrumb",
+    "costEyebrow": "The real number",
+    "costHeading": "What {name} actually costs",
+    "costIntro": "The threshold is the investment alone. Transfer taxes, professional and government fees and the first renewal are not optional — everyone pays them, every time.",
+    "costAdvertised": "Advertised",
+    "costExtras": "Everything else",
+    "costReal": "Real, first year",
+    "costNoteLabel": "Sources",
+    "faqHeading": "Questions about {name}",
+    "ctaHeading": "Ask about {name}",
+    "ctaBody": "One partner works in each jurisdiction, and an enquiry reaches only them — and only if you tick the consent box. A person replies, usually within one working day.",
+    "ctaLabel": "Send an enquiry"
   }
 }

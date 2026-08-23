@@ -24,6 +24,14 @@ import styles from "./CookieBanner.module.scss";
 // would also make the privacy policy false: that page states, in the reader's
 // own language, that refusing is one click the same size as agreeing.
 //
+// The body copy deliberately does NOT say "nothing loads until you agree".
+// That sentence belongs to the gate's designed behaviour, and while
+// LOAD_BEFORE_CONSENT is true in consent.ts it is false — printed directly
+// above the button, which is the worst possible place for a claim that is not
+// true. What it says instead is true in both states: declining breaks
+// nothing, and the choice can be changed. Do not reintroduce the stronger
+// sentence here; the privacy policy is where the mechanism is described.
+//
 // What this deliberately is NOT: a preferences panel with toggles. There is
 // one gated category today, so a panel would be a modal to set a single
 // switch. If advertising tags are added later, the switch list is the thing
@@ -75,11 +83,16 @@ export function CookieBanner() {
   };
 
   return (
-    // `role="region"` and a label rather than `role="dialog"`: this does not
-    // trap focus and does not block the page, and announcing it as a dialog
-    // would tell a screen-reader user they are stuck in something they are not.
-    <aside className={styles.banner} role="region" aria-label={t("label")}>
+    // `role="region"` labelled by its own heading, not `role="dialog"`: this
+    // does not trap focus and does not block the page, and announcing it as a
+    // dialog would tell a screen-reader user they are stuck in something they
+    // are not.
+    <aside className={styles.banner} role="region" aria-labelledby="cookie-banner-heading">
       <div className={styles.inner}>
+        <h2 className={styles.heading} id="cookie-banner-heading">
+          {t("label")}
+        </h2>
+
         <p className={styles.text}>
           {t("body")}{" "}
           <Link className={styles.link} href="/privacy">
@@ -87,20 +100,19 @@ export function CookieBanner() {
           </Link>
         </p>
 
-        {/* Equal weight, deliberately. The accept button is not larger, not
-            brighter and not first-and-only: the two are the same size and sit
-            side by side, because a refusal that is visually cheaper to skip
-            is a refusal in name. */}
+        {/* Stacked, full width, same height. Accept first because it is the
+            common answer, refusal directly under it at the same size —
+            never smaller, never a link, never hidden behind "manage". */}
         <div className={styles.actions}>
-          <button type="button" className={styles.button} onClick={() => decide(false)}>
-            {t("decline")}
-          </button>
           <button
             type="button"
             className={`${styles.button} ${styles.primary}`}
             onClick={() => decide(true)}
           >
             {t("accept")}
+          </button>
+          <button type="button" className={styles.button} onClick={() => decide(false)}>
+            {t("decline")}
           </button>
         </div>
       </div>

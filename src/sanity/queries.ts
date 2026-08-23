@@ -156,3 +156,102 @@ export const PRIVACY_PAGE_QUERY = groq`
     seo
   }
 `;
+
+// One query, run once per singleton type, for sitemap.ts. It returns every
+// language version of that type with the two things a sitemap entry needs —
+// when it last changed, and whether it is meant to be indexed at all.
+//
+// Rooted in the DOCUMENT rather than in a hand-written list of URLs: the URL
+// for a fixed route is already known in code, but "does this page exist in
+// Polish yet" and "when did it change" are only knowable from the dataset. A
+// sitemap that hardcodes both is one that lists a page nobody has written.
+export const SITEMAP_SINGLETON_QUERY = groq`
+  *[_type == $documentType] {
+    language,
+    _updatedAt,
+    "noIndex": seo.noIndex
+  }
+`;
+
+// --- Jurisdiction pages ------------------------------------------------------
+
+// Every published slug for one locale, for generateStaticParams. Rooted in
+// countryPage rather than in the `country` registry on purpose — this one is
+// the opposite case from COUNTRY_ROWS_QUERY: the table must list a
+// jurisdiction that has no page yet, and this must not build a route for one.
+export const COUNTRY_SLUGS_QUERY = groq`
+  *[_type == "countryPage" && language == $locale && defined(slug.current)]{
+    "slug": slug.current
+  }
+`;
+
+// One jurisdiction page, everything it renders, in a single request.
+//
+// `alternates` is the interesting part. All three language versions reference
+// the SAME `country` document, so the sibling URLs are derivable from that
+// reference alone — no translation-metadata document is involved, and there is
+// nothing to fall out of sync. The sibling project builds hreflang from
+// @sanity/document-internationalization's metadata and has to defend against
+// that document not existing; here the relationship the site already depends
+// on for the comparison table does the same job.
+export const COUNTRY_PAGE_QUERY = groq`
+  *[_type == "countryPage" && language == $locale && slug.current == $slug][0]{
+    _id,
+    title,
+    intro,
+    route,
+    minimumInvestment,
+    timeToPermit,
+    taxRegime,
+    costAdvertisedEur,
+    costExtrasEur,
+    sourceNote,
+    body,
+    seo,
+    "countryId": country._ref,
+    "name": country->name,
+    "code": country->code,
+    "alternates": *[_type == "countryPage" && country._ref == ^.country._ref && defined(slug.current)]{
+      language,
+      "slug": slug.current
+    }
+  }
+`;
+
+// The questions that belong to one jurisdiction: the ones tagged with it, plus
+// the general ones. An empty `jurisdictions` array means "applies to all five"
+// — see the field's own description — so an untagged question appears on every
+// jurisdiction page rather than on none.
+export const COUNTRY_FAQ_QUERY = groq`
+  *[_type == "faqItem" && language == $locale
+    && (count(jurisdictions) == 0 || $countryId in jurisdictions[]._ref)]
+    | order(order asc) {
+      _id,
+      question,
+      answer
+    }
+`;
+
+// The comparison table's own column labels, reused on the jurisdiction page's
+// facts strip. Fetched rather than duplicated in the message catalogue: the
+// strip shows the same four figures the table's columns show, and two places
+// naming the same figure differently is how "From" and "Threshold" end up on
+// one site.
+export const TABLE_COLUMNS_QUERY = groq`
+  *[_type == "homePage" && language == $locale][0].hero.columns
+`;
+
+export const COUNTRY_TAGS = ["countryPage", "country", "faqItem", "homePage"];
+
+// Every published jurisdiction page across every locale, for the sitemap.
+// Grouped there by `countryId`, which is what turns three documents into one
+// URL with two hreflang siblings.
+export const SITEMAP_COUNTRY_QUERY = groq`
+  *[_type == "countryPage" && defined(slug.current)]{
+    language,
+    "slug": slug.current,
+    _updatedAt,
+    "countryId": country._ref,
+    "noIndex": seo.noIndex
+  }
+`;

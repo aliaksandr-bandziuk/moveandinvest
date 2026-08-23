@@ -429,31 +429,49 @@ arrive, the panel is what grows, not the button count. The footer carries a
 control that reopens the banner — without it "withdraw at any time" is a
 sentence with nothing behind it.
 
-**It is oxblood, and it is the only element allowed to break the 5% accent
-rule.** On the black plane it was the same colour as the hero behind it and
-disappeared into the page. The rule exists so the accent stays editorial
-rather than reading as an alert; this IS the alert — the single moment a
-reader has to stop and answer something — and it removes itself the instant
-they do.
+**It is an oxblood CARD in the lower left, not a strip along the bottom, and
+it is the only element allowed to break the 5% accent rule.** The strip lost
+twice: on the black plane it was the colour of the hero behind it, and even
+repainted it was still a strip at the foot of the window — the shape every
+visitor has learnt to dismiss unread, because that is where cookie bars, chat
+bubbles and app prompts all live. A tall card in the corner reads as something
+addressed to you. It takes 13% of a 1440×900 viewport, which is the point, and
+it disappears the instant a button is pressed. It still does not dim or block
+the page: a visitor may ignore it, read the whole site and answer later —
+what it may not be is invisible.
 
-**`NEXT_PUBLIC_ANALYTICS_DEFAULT=granted` is a temporary testing switch**,
-added 23 Aug 2026 so both tags could be verified end to end without clicking
-through. It grants analytics ONLY while no decision is stored — a visitor who
-answers always beats it — and every load it causes prints a console warning
-naming the variable. **It belongs in `.env.local` or a preview deployment and
-not in production:** while it is set, the site loads Google Analytics and
-Clarity before consent, which makes the privacy policy false in three
-languages, and Clarity's half of that is session recording on the page where
-people type their budget and their circumstances into a form. It is an
-environment variable rather than a constant precisely so switching it off is a
-settings change, not a deploy.
+**⚠ `LOAD_BEFORE_CONSENT = true` in `src/lib/consent/consent.ts`, at the
+owner's instruction, 23 Aug 2026, so the tags can be verified.** While it is
+true, Google Analytics and Clarity load for anyone who has not yet answered
+the banner. It was an environment variable for one revision; a constant
+replaced it because a variable that must match in `.env.local` and on the host
+ends up set in one and forgotten in the other.
 
-Measured against the network, not reasoned about. With the flag unset: before
-any decision, zero requests to googletagmanager, google-analytics or
-clarity.ms; after "Only necessary" and a reload, still zero; after "Accept",
-both tags load. With the flag set to granted: both load with no decision AND
-the warning fires AND a stored refusal still produces zero on reload. Re-run
-both checks after touching anything in `src/lib/consent/`.
+**What it costs, so nobody has to rediscover it.** The privacy policy states
+in three languages that nothing loads before agreement — that sentence is
+false while this is true. Clarity may record a session on the page where a
+visitor types their budget and their circumstances into the enquiry form. The
+console prints a warning naming the constant and its file on every load it
+causes.
+
+**What still holds:** a stored decision always wins, so "Only necessary"
+genuinely stops both tools — measured. The gate is intact; only its default is
+inverted, which is what makes this one line to flip rather than a rebuild.
+
+**The banner's own copy must not carry the strong claim.** It says declining
+breaks nothing and the choice can be changed — true in either state. It does
+NOT say "nothing loads until you agree", because that sentence printed
+directly above the button would be a lie in the worst possible place. Leave it
+that way even after the constant goes back to `false`; the policy is where the
+mechanism is described.
+
+Measured against the network, not reasoned about. With `LOAD_BEFORE_CONSENT`
+false: before any decision, zero requests to googletagmanager,
+google-analytics or clarity.ms; after "Only necessary" and a reload, still
+zero; after "Accept", both load. With it true: both load with no decision, the
+warning fires, and a stored refusal still produces zero on the next load. Both
+states were checked. Re-run both after touching anything in
+`src/lib/consent/`.
 
 **OPEN, AND IT IS A PROMISE THE POLICY ALREADY MAKES:** the privacy page says
 session recording masks what a visitor types. Masking is a per-project setting
@@ -506,6 +524,109 @@ Every real hydration bug in the tree still surfaces.
 Do not "fix" a hydration warning by moving this flag onto the component that
 warns. That is how a real mismatch goes quiet. If a warning names something
 inside the app, it is ours.
+
+## robots.txt and the sitemap
+
+Both ported from the sibling `giuseppeiannone` project. `src/app/robots.ts`
+existed first; `src/app/sitemap.ts` landed 23 Aug 2026, and until it did the
+robots file advertised a sitemap that returned 404 — a worse signal than no
+sitemap line at all, because it tells a crawler to expect one and wastes the
+fetch.
+
+**Everything written for a reader is open.** The three disallowed paths are
+not exceptions: `/studio` is the CMS, `/api/` answers a POST with a redirect,
+and `/styleguide` is an internal reference for building the site. The
+styleguide is listed under two shapes — `/styleguide` and `/*/styleguide` —
+because the locale prefix is part of the path for ru and pl, and a bare entry
+would cover only the unprefixed one. No document in the dataset carries
+`seo.noIndex`; if a page ever needs holding back, that flag is the mechanism,
+not this list.
+
+**The environment decides at BUILD time, not per request.** `robots.ts` is a
+static route, so `isProductionDeployment()` is evaluated once when Vercel
+builds — which is correct, because Vercel sets `VERCEL_ENV` at build. Measured
+both ways: a build with `VERCEL_ENV=production` and `NEXT_PUBLIC_SITE_URL` set
+produces the full allow list plus the sitemap line; a build without them
+produces `User-Agent: * / Disallow: /`, so local dev and every preview
+deployment are uncrawlable without a separate toggle.
+
+**The sitemap is a list of routes paired with the Sanity type that owns each**
+(`ROUTES` in that file). Adding a page to the site is adding a line there. A
+language appears only if its own document exists AND is not noIndex, and the
+hreflang set is built from that same filtered list, so an indexable language
+never advertises a sibling being held out. `x-default` is added when the
+default locale survives — it has to be, because `buildMetadata` puts one in
+the page's own alternates and Search Console reports a mismatch between the
+two as an hreflang error.
+
+**Jurisdiction pages are in the sitemap as of 23 Aug 2026**, and they cannot
+go through `ROUTES`: their path is a slug that differs in every language, so
+their URLs come from the documents and the hreflang set is assembled by
+grouping on the `country` each references. That closed the 404s the sitemap
+work surfaced — the table and the footer had been linking to five pages that
+did not exist.
+
+## Jurisdiction pages
+
+`src/app/[locale]/[slug]`, built 23 Aug 2026, ported in shape from the sibling
+`giuseppeiannone` project's own `[slug]` route: static params from published
+slugs per locale, breadcrumbs rendered twice (visibly and as JSON-LD from one
+array), a facts strip under the hero, an FAQ scoped to the entity.
+
+**Simpler than the sibling in two places, both deliberate.** It resolves one
+document type, so there is no slug-collision arbitration and no second round
+trip. And hreflang comes from the shared `country` reference rather than from
+a `translation.metadata` document — all three language versions point at the
+same registry entry, which is the relationship the comparison table already
+depends on. The sibling has to defend against its metadata document not
+existing; here there is nothing that can be missing.
+
+**The facts strip's labels are fetched from the home page's own table column
+labels**, not written again in the message catalogue. The strip and the table
+show the same four figures, and two places naming the same figure are two
+places that eventually name it differently.
+
+**Three JSON-LD blocks, separate rather than one @graph** — WebPage,
+BreadcrumbList and FAQPage — so a malformed one invalidates only itself. The
+FAQPage is the point: an answer engine reads a table as prose it must parse
+and a FAQPage as an answer it can lift, and being quoted is the whole
+positioning. It is emitted only when questions are actually on the page;
+marking up questions a reader cannot see is what the format is policed for.
+
+**Version one renders no prose.** `body` is optional on `countryPage` and the
+section appears the day it is filled, no code change. Writing 1,200 words per
+jurisdiction per locale was rejected for now: every figure on this site is
+sourced and dated, and twelve unsourced essays would undo exactly that.
+
+**Interpolating a country name into a sentence is a case bug in two of the
+three languages.** "Вопросы про {name}" renders "про Греция" — the noun needs
+the accusative, and the registry stores the nominative. Every heading that
+takes `{name}` must therefore be phrased so the name sits in the nominative:
+"Частые вопросы — Греция", not "Вопросы про Грецию". Same in Polish. Caught by
+reading the rendered page, not by any check.
+
+**The closing CTA preselects the jurisdiction**, through the same channel the
+route finder already uses: it writes `{ jurisdiction: code }` into
+sessionStorage and `EnquiryPrefill` ticks the matching `where` radio from it.
+No query parameter, no change to the handler, and with JavaScript off the link
+still navigates — it simply arrives without the country ticked, which is the
+normal state of a form.
+
+That work moved the storage key into **`src/lib/routeAnswers.ts`**, and it
+stays there. Three components touch it now — the route finder writes, the form
+reads, the jurisdiction CTA merges — and a component barrel is not somewhere
+the other two may import from: `country/` reaching into `marketing/` by deep
+path is the dependency direction this file forbids. Before the move the key
+was a constant in one component and a bare string literal in another, one
+rename away from a silent break: the form would just stop prefilling and
+nothing would error.
+
+`mergeRouteAnswers` merges and never replaces. Measured both ways: from a
+jurisdiction page cold the form arrives with the country ticked; with the
+route finder answered first, the budget, the deadline and the priority all
+survive and only the jurisdiction is overwritten — which is the right
+precedence, since the page a reader is standing on beats a suggestion they
+were shown earlier.
 
 ## Links that do not exist yet
 

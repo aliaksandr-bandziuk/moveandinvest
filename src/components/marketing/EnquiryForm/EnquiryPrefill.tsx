@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { readRouteAnswers } from "@/lib/routeAnswers";
 
-/** Written by the route finder (section 05), read here. */
-export const ROUTE_ANSWERS_KEY = "mi.routeAnswers";
+// The key and the shape moved to src/lib/routeAnswers.ts when a third caller
+// appeared — the jurisdiction pages' closing link. Re-exported here for one
+// release so nothing importing the old name breaks silently.
+export { ROUTE_ANSWERS_KEY } from "@/lib/routeAnswers";
 
 /** Maps a route-finder answer value to this form's value for the same idea. */
 const BUDGET: Record<string, string> = {
@@ -48,22 +51,9 @@ export function EnquiryPrefill({
     const root = ref.current;
     if (!root) return;
 
-    let stored: string | null = null;
-    try {
-      stored = window.sessionStorage.getItem(ROUTE_ANSWERS_KEY);
-    } catch {
-      // Private mode, or storage disabled by policy. Not an error worth
-      // reporting: the form works, it just starts empty.
-      return;
-    }
-    if (!stored) return;
-
-    let answers: Record<string, string>;
-    try {
-      answers = JSON.parse(stored) as Record<string, string>;
-    } catch {
-      return;
-    }
+    // Private mode, storage disabled, a malformed value — all three come back
+    // as an empty object. The form works, it just starts empty.
+    const answers = readRouteAnswers();
 
     const check = (name: string, value: string | undefined) => {
       if (!value) return;

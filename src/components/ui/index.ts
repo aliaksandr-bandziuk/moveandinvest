@@ -1,3 +1,4 @@
+export { Breadcrumbs, type Crumb } from "./Breadcrumbs";
 export { Button } from "./Button";
 export { Chip } from "./Chip";
 export { CountUp } from "./CountUp";

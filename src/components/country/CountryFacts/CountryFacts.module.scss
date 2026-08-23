@@ -1,0 +1,43 @@
+@use "../../../styles/mixins";
+
+// Sits directly under the hero on the black plane, as part of the same band —
+// no rhythm padding at the top, because the hero already provided it and a gap
+// here would split one thought into two blocks.
+.section {
+  padding-block-end: var(--space-9);
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-6);
+  padding-top: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-on-dark-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7) var(--space-8);
+  }
+
+  // Four across only from lg: at md the tax regime string is a sentence, and
+  // four columns turn it into six wrapped lines beside three short ones.
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.label {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent-on-dark);
+}
+
+.value {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-lg);
+  line-height: 1.35;
+  color: var(--color-on-dark);
+}

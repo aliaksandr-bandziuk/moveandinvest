@@ -1,0 +1,50 @@
+@use "../../../styles/mixins";
+
+.nav {
+  font-size: var(--fs-micro);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  @include mixins.eyebrow;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.link {
+  @include mixins.tap-target;
+
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: currentColor;
+}
+
+.divider {
+  opacity: 0.5;
+}
+
+.onLight {
+  color: var(--color-text-muted);
+
+  .link:hover {
+    color: var(--color-accent);
+  }
+}
+
+.onDark {
+  color: var(--color-on-dark-muted);
+
+  .link:hover {
+    color: var(--color-on-dark);
+  }
+}
