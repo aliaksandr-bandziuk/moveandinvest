@@ -1,7 +1,8 @@
 @use "../../../styles/mixins";
 
 .link {
-  display: inline-flex;
+  @include mixins.tap-target;
+
   border-radius: var(--radius-s);
   text-decoration: none;
 

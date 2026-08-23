@@ -12,16 +12,21 @@
 //    than shuffling.
 //
 // 2. BUDGET IS CHECKED AGAINST THE REAL TOTAL, not the advertised threshold.
-//    That is the payoff of section 04: Malta advertises €300,000 and costs
-//    €418,000, so a reader with a €300,000 ceiling should not be shown Malta.
+//    That is the payoff of section 04, and verification made it sharper:
+//    Malta advertises €375,000 and costs €501,000, because the government
+//    contribution, the administrative fee and the 5% stamp duty are not
+//    optional. A reader with a €500,000 ceiling should not be shown Malta.
 //
 // 3. MISSING DATA NEVER DISQUALIFIES. A jurisdiction whose speed band has not
 //    been filled yet passes that condition instead of failing it. The site's
 //    standing rule is that it never silently drops a jurisdiction for want of
 //    a field — the comparison table does the same with em dashes.
 
-/** A ceiling the reader is willing to go up to, not a band they sit in. */
-export type BudgetCeiling = "300" | "500" | "any";
+/** A ceiling the reader is willing to go up to, not a band they sit in.
+ *  Rebanded 23 Aug 2026 when the figures were verified: the old €300,000 rung
+ *  matched nothing at all once Greece's threshold turned out to be €400,000
+ *  and Malta's €375,000 plus €99,500 of government charges. */
+export type BudgetCeiling = "500" | "800" | "any";
 /** The latest the reader can accept a first permit. Also a ceiling. */
 export type SpeedNeed = "fast" | "half-year" | "any";
 export type Priority = "passport" | "tax" | "speed";
@@ -54,8 +59,8 @@ export interface Answers {
 export type FailReason = "budget" | "speed" | "priority";
 
 const BUDGET_CEILING: Record<BudgetCeiling, number> = {
-  "300": 300_000,
   "500": 500_000,
+  "800": 800_000,
   any: Number.POSITIVE_INFINITY,
 };
 
@@ -165,8 +170,8 @@ export function rank(list: Jurisdiction[], answers: Answers): Ranking {
   // Secondary sort on the raw count, because the weights collide: missing on
   // budget alone and missing on both speed and priority both cost 3. Asking a
   // reader to move one thing beats asking them to move two, so the shorter
-  // list wins the tie — otherwise "up to €500k, fast, speed matters" answers
-  // Greece (slow AND strong at something else) over the UAE (€28k over).
+  // list wins the tie — otherwise "up to €500k, weeks, speed matters" answers
+  // Portugal (slow AND strong at something else) over the UAE, which fits.
   const nearest = [...scored].sort(
     (a, b) => cost(a.failed) - cost(b.failed) || a.failed.length - b.failed.length,
   )[0];

@@ -52,14 +52,43 @@
 // gutters: applying both is what squeezed the first hero into the middle of
 // the viewport.
 
-// Vertical rhythm between sections. padding-bottom only: each section brings
-// the gap that follows it, so two adjacent sections never compound.
-@mixin section {
-  padding-bottom: var(--space-8);
+// Vertical rhythm. Every numbered section on the site uses this and nothing
+// else, so the page has one spacing scale instead of eleven that drifted:
+// before this the same page ran 48px above the method block and 64px above
+// the route finder, and 96 everywhere on desktop except the partner teaser,
+// which sat at 64.
+//
+// Both sides, not padding-bottom only — which is what the first version of
+// this mixin did, and why nothing ever used it. Half the sections on this
+// site are a black plane, and a plane taking its top padding from the section
+// above would start its colour in the middle of the gap.
+@mixin section-rhythm {
+  padding-block: var(--space-8);
 
   @include breakpoint-up(lg) {
-    padding-bottom: var(--space-9);
+    padding-block: var(--space-9);
   }
+}
+
+// Anything a finger has to hit is at least 44px tall. Measured, not assumed:
+// before this the country links in the comparison table were 23px, the
+// language switcher 25px and every link in the footer 19px.
+//
+// The shortfall is made up with a minimum height rather than a bigger font —
+// the type is the right size, the box was not — and the box centres its
+// content so nothing moves on the page.
+//
+// inline-flex, not block: these are links inside lists and table rows, and a
+// block would stretch each one across its whole column, putting the hit area
+// over text it has nothing to do with.
+//
+// Not applied to a link sitting inside a sentence. There the hit area would
+// overlap the lines above and below, and the browser's own text handling is
+// better than anything a min-height can do.
+@mixin tap-target {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
 }
 
 // --- Typography helpers -----------------------------------------------------

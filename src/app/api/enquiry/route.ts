@@ -1,12 +1,23 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
+import { isRateLimited } from "@/lib/enquiry/rateLimit";
+import { sendEnquiryEmails, sendPartnerEmails } from "@/lib/enquiry/sender";
 import {
-  describeMissingConfig,
   type EnquiryPayload,
+  type PartnerEnquiryPayload,
   storeEnquiry,
+  storePartnerEnquiry,
 } from "@/sanity/enquiries";
 
-// Receives the home page enquiry form (section 08).
+// Receives BOTH forms on the site: the home page enquiry (section 08) and the
+// partner reply on /for-partners (section 05). A hidden `kind` field decides
+// which, and everything before that branch — honeypot, locale, the redirect
+// helper — is shared.
+//
+// One route rather than two on purpose. The spam trap, the allow-list
+// discipline and the 303-with-a-fragment answer are the parts that must never
+// drift, and a second route would be a second copy of all three: the copy
+// that gets forgotten when one of them is fixed.
 //
 // The form posts a normal multipart body and this handler answers with a
 // redirect, so the whole thing works with JavaScript disabled — the client
@@ -14,18 +25,54 @@ import {
 // fragment rather than a query parameter on purpose: a query parameter read
 // in a server component would make the home page dynamic, and the home page
 // is statically generated.
+//
+// TWO CHANNELS, AND ONE OF THEM IS ENOUGH. An enquiry is delivered if the
+// email left the building OR the document landed in the private dataset. It
+// is lost only if both failed, and only then does the visitor see an error.
+//
+// This replaced a store-then-notify design that treated the dataset as the
+// source of truth. That design assumed a second, private Sanity dataset, and
+// the project's plan does not allow one — so on 23 Aug 2026 the email became
+// the record rather than a notification about it. The dataset is now the
+// optional half: configure NEXT_PUBLIC_SANITY_ENQUIRIES_DATASET one day and
+// it starts being written with no change here; leave it unset and the site
+// works exactly as it does today.
+//
+// Which half carried it is written to the log every time, because "we have
+// the enquiry" and "we have it in two places" are different operational
+// facts and the difference is invisible from the outside.
+//
+// Both are awaited rather than fired and forgotten: a serverless function is
+// frozen the moment it answers, so an un-awaited send does not reliably leave
+// the machine. It costs the visitor a second on a form they submit once.
 
+// nodemailer needs Node APIs (net, tls) that the Edge runtime does not have.
+// Explicit even though Node is already the default for route handlers, so
+// this does not break quietly if that default ever changes.
 export const runtime = "nodejs";
 
 const ALLOWED = {
   where: new Set(["pt", "gr", "cy", "mt", "ae", "undecided", "other"]),
-  budget: new Set(["300", "500", "over500", "unknown"]),
+  budget: new Set(["500", "800", "over800", "unknown"]),
   timeline: new Set(["fast", "half-year", "year", "browsing"]),
   goals: new Set(["residency", "tax", "passport", "business", "property"]),
+  // Partner reply. The labels for these live in Sanity and can be reworded
+  // freely; these values cannot — adding an option means adding it here
+  // first, or the server silently drops it.
+  jurisdiction: new Set(["pt", "gr", "cy", "mt", "ae", "several"]),
+  organisation: new Set(["law-firm", "relocation", "developer", "estate-agent"]),
 };
 
 const MAX_SITUATION = 4000;
 const MAX_SHORT = 200;
+
+// x-forwarded-for's first entry, which is what a proxy in front of this puts
+// there. Spoofable by anyone who sends the header themselves — which is fine,
+// because the limit below is a speed bump, not an access control.
+function clientIp(request: NextRequest): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  return forwarded?.split(",")[0]?.trim() || "unknown";
+}
 
 function field(form: FormData, name: string): string {
   const value = form.get(name);
@@ -43,27 +90,153 @@ function looksLikeEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= MAX_SHORT;
 }
 
-function redirectTo(request: NextRequest, locale: string, fragment: string) {
+// TWO KINDS OF FAILURE, two fragments, and the difference matters more than
+// it looks. `#enquiry-error` means the visitor left out something only they
+// can supply — an address, the consent box. `#enquiry-failed` means WE broke:
+// the write did not land, or the address was rate limited. For a while there
+// was one panel for both, and when the enquiries dataset turned out to be
+// unconfigured the page told a person who had filled the form correctly that
+// their email address was missing. Blaming a visitor for our own outage is
+// how a lead leaves and does not come back, so the second panel says the
+// fault is ours and gives an address to write to instead.
+//
+// `target` is a path plus a fragment, relative to the locale root — "" plus
+// "#enquiry-sent" for the home page, "for-partners#partner-sent" for the
+// partner page. The fragment, not a query parameter: a query parameter read
+// in a server component would make that page dynamic, and both pages are
+// statically generated.
+function redirectTo(request: NextRequest, locale: string, target: string) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
-  const url = new URL(`${prefix}/${fragment}`, request.nextUrl.origin);
+  const url = new URL(`${prefix}/${target}`, request.nextUrl.origin);
   // 303: the browser must follow a POST's redirect with GET, otherwise a
   // refresh on the thank-you view re-submits the form.
   return NextResponse.redirect(url, 303);
 }
 
+// The partner reply on /for-partners. Two required fields and no consent
+// checkbox: a firm writing to us about its own commercial terms is not
+// handing over personal data about somebody else, which is what that checkbox
+// governs on the home page form.
+async function handlePartnerReply(
+  request: NextRequest,
+  form: FormData,
+  locale: string,
+) {
+  const email = field(form, "email").slice(0, MAX_SHORT);
+  const terms = field(form, "terms").slice(0, MAX_SITUATION);
+
+  // An address to reply to, and something to reply about. Everything else is
+  // optional: a firm that answers "we do not buy leads" in one line has told
+  // us exactly what the outbound wave was sent to find out.
+  if (!looksLikeEmail(email) || terms === "") {
+    return redirectTo(request, locale, "for-partners#partner-error");
+  }
+
+  const payload: PartnerEnquiryPayload = {
+    jurisdiction: oneOf(field(form, "jurisdiction"), ALLOWED.jurisdiction),
+    organisation: oneOf(field(form, "organisation"), ALLOWED.organisation),
+    name: field(form, "name").slice(0, MAX_SHORT),
+    email,
+    terms,
+    locale,
+    submittedAt: new Date().toISOString(),
+  };
+
+  // The dataset is optional; the email is not. `stored` is best effort and
+  // never decides the answer on its own.
+  let stored = false;
+  try {
+    stored = await storePartnerEnquiry(payload);
+  } catch (error) {
+    console.error("[enquiry] Partner reply write failed:", error);
+  }
+
+  const mailed = await sendPartnerEmails(payload);
+
+  if (!stored && !mailed.ok) {
+    // Nothing holds this reply but the log. Print it whole — it is the only
+    // remaining copy, and a partner who took the trouble to answer an
+    // outbound email is exactly who we cannot afford to drop.
+    console.error(
+      `[enquiry] Partner reply LOST — neither channel accepted it ` +
+        `(mail: ${mailed.reason ?? "unknown"}). Payload follows:`,
+    );
+    console.error(JSON.stringify(payload));
+    return redirectTo(request, locale, "for-partners#partner-failed");
+  }
+
+  console.log(`[enquiry] Partner reply — mailed: ${mailed.ok}, stored: ${stored}`);
+
+  return redirectTo(request, locale, "for-partners#partner-sent");
+}
+
 export async function POST(request: NextRequest) {
   const form = await request.formData();
+
+  const ip = clientIp(request);
 
   const rawLocale = field(form, "locale");
   const locale = routing.locales.includes(rawLocale as never)
     ? rawLocale
     : routing.defaultLocale;
 
-  // Honeypot. A hidden field no human ever sees; bots fill every input they
-  // find. Answer with the success redirect rather than an error — telling a
-  // bot which check it failed is how the next attempt passes.
-  if (field(form, "company") !== "") {
-    return redirectTo(request, locale, "#enquiry-sent");
+  const kind = field(form, "kind") === "partner" ? "partner" : "reader";
+
+  // Honeypot, checked before the branch so neither form can be built without
+  // it. A hidden field no human ever sees; bots fill every input they find.
+  // Answer with the success redirect rather than an error — telling a bot
+  // which check it failed is how the next attempt passes.
+  //
+  // THE FIELD NAME IS DELIBERATELY MEANINGLESS, and it has to stay that way.
+  //
+  // It was `company`, labelled "Company (leave empty)", until 23 Aug 2026,
+  // when the owner filled in the live form himself and got "Sent." while
+  // nothing was stored and no email was sent: Chrome's address autofill
+  // matched `company` to its `organization` token and filled the trap. The
+  // first fix renamed it to `ref`, which is better and still wrong in
+  // principle — anything that reads like a real field is something some
+  // browser, password manager or extension may one day decide to fill.
+  // `q7` reads like nothing, which is the entire specification.
+  //
+  // Three layers, because the name alone is not a guarantee:
+  //
+  //   1. a name no heuristic can match;
+  //   2. `readonly` on the input — Chrome will not autofill a readonly field
+  //      at all, and no human can reach it (off-screen, tabindex -1,
+  //      aria-hidden), while a script posting the form body directly is
+  //      completely unaffected by it;
+  //   3. autocomplete="off" plus the two password-manager opt-outs.
+  //
+  // Layer 2 costs a little catch rate: a bot that parses the HTML and skips
+  // readonly inputs will not trip the trap. That trade is deliberate and it
+  // is not close — spam in the dataset is an annoyance, a silently rejected
+  // enquiry is a lost client who thinks we ignored them.
+  if (field(form, "q7") !== "") {
+    console.warn(`[enquiry] Honeypot tripped — nothing stored, nothing sent. ip=${clientIp(request)}`);
+    return redirectTo(
+      request,
+      locale,
+      kind === "partner" ? "for-partners#partner-sent" : "#enquiry-sent",
+    );
+  }
+
+  // After the honeypot, so a bot that trips the trap does not also consume
+  // somebody else's allowance from a shared address, and before either
+  // branch, so both forms are covered by one check. A limited request is
+  // answered with the error fragment rather than a 429: the form has no
+  // JavaScript to read a status code with, and the error view already says
+  // "did not go through, try again".
+  if (isRateLimited(ip)) {
+    console.warn(`[enquiry] Rate limited. ip=${ip}`);
+    return redirectTo(
+      request,
+      locale,
+      kind === "partner" ? "for-partners#partner-failed" : "#enquiry-failed",
+    );
+  }
+
+  if (kind === "partner") {
+    return handlePartnerReply(request, form, locale);
   }
 
   const email = field(form, "email").slice(0, MAX_SHORT);
@@ -94,25 +267,29 @@ export async function POST(request: NextRequest) {
     submittedAt: new Date().toISOString(),
   };
 
+  let stored = false;
   try {
-    const stored = await storeEnquiry(payload);
-    if (!stored) {
-      // Losing an enquiry silently is the worst outcome this route has, so
-      // the terminal gets the whole payload and the reason. In production
-      // this is a misconfiguration that needs fixing within the hour.
-      console.error(
-        `[moveandinvest] Enquiry NOT stored — missing ${describeMissingConfig()}. ` +
-          `Create a private dataset, set NEXT_PUBLIC_SANITY_ENQUIRIES_DATASET and ` +
-          `SANITY_API_WRITE_TOKEN. Payload follows so it is not lost:`,
-      );
-      console.error(JSON.stringify(payload));
-      return redirectTo(request, locale, "#enquiry-error");
-    }
+    stored = await storeEnquiry(payload);
   } catch (error) {
-    console.error("[moveandinvest] Enquiry write failed:", error);
-    console.error(JSON.stringify(payload));
-    return redirectTo(request, locale, "#enquiry-error");
+    console.error("[enquiry] Enquiry write failed:", error);
   }
+
+  const mailed = await sendEnquiryEmails(payload);
+
+  if (!stored && !mailed.ok) {
+    // The worst outcome this route has. The log is the last copy, so it gets
+    // the whole payload and the reason — and the visitor gets the panel that
+    // says the fault is ours and gives them an address, rather than one that
+    // tells them to check the form they filled in correctly.
+    console.error(
+      `[enquiry] Enquiry LOST — neither channel accepted it ` +
+        `(mail: ${mailed.reason ?? "unknown"}). Payload follows:`,
+    );
+    console.error(JSON.stringify(payload));
+    return redirectTo(request, locale, "#enquiry-failed");
+  }
+
+  console.log(`[enquiry] Enquiry — mailed: ${mailed.ok}, stored: ${stored}`);
 
   return redirectTo(request, locale, "#enquiry-sent");
 }

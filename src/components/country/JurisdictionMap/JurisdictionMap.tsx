@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/ui";
+import { Reveal, SectionHead } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import type { CountryRow } from "../types";
 import styles from "./JurisdictionMap.module.scss";
@@ -68,11 +68,13 @@ export function JurisdictionMap({
     <section className={styles.section} id="jurisdictions">
       <div className={`container ${styles.head}`}>
         <Reveal>
-          <p className={styles.eyebrow}>
-            <span className={styles.index}>{index}</span> · {eyebrow}
-          </p>
-          <h2 className={styles.heading}>{heading}</h2>
-          {intro ? <p className={styles.intro}>{intro}</p> : null}
+          <SectionHead
+            index={index}
+            eyebrow={eyebrow}
+            heading={heading}
+            intro={intro}
+            tone="onDark"
+          />
         </Reveal>
       </div>
 

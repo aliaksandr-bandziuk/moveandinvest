@@ -14,17 +14,42 @@
   overflow-x: auto;
   // Fades the right edge while there is more table to reach, so a cut-off
   // column reads as "keep going" rather than as a broken layout. Pure CSS,
-  // no scroll listener: `local` attachment makes the two white panels scroll
-  // with the content while the two shadows stay pinned to the box.
+  // no scroll listener: `local` attachment makes the white panel scroll with
+  // the content while the shadow stays pinned to the box.
+  //
+  // The first version of this was invisible and stayed invisible for weeks:
+  // a 12px radial gradient at 10% black over white is below the threshold at
+  // which anything reads as an edge. Measured on a render at 390px, not
+  // guessed. It is wider and darker now, and the sentence under the table
+  // carries the actual message — a shadow is a hint, not an instruction.
   background:
-    linear-gradient(to right, var(--color-bg) 30%, rgb(255 255 255 / 0%)) left center,
-    linear-gradient(to left, var(--color-bg) 30%, rgb(255 255 255 / 0%)) right center,
-    radial-gradient(farthest-side at 0 50%, rgb(14 20 32 / 10%), rgb(14 20 32 / 0%)) left center,
-    radial-gradient(farthest-side at 100% 50%, rgb(14 20 32 / 10%), rgb(14 20 32 / 0%)) right center;
+    linear-gradient(to left, var(--color-bg), rgb(255 255 255 / 0%)) right center,
+    linear-gradient(to left, rgb(14 20 32 / 16%), rgb(14 20 32 / 0%)) right center;
   background-repeat: no-repeat;
-  background-size: 2.5rem 100%, 2.5rem 100%, 0.75rem 100%, 0.75rem 100%;
-  background-attachment: local, local, scroll, scroll;
+  background-size: 3rem 100%, 1rem 100%;
+  background-attachment: local, scroll;
   background-color: var(--color-bg);
+}
+
+// The one sentence that says what is off-screen. Hidden from lg up, where
+// nothing is: a control describing a state that does not exist is worse than
+// no control.
+.hint {
+  @include mixins.figure-text;
+
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-top: var(--space-4);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+
+  @include mixins.breakpoint-up(lg) {
+    display: none;
+  }
 }
 
 .table {
@@ -64,8 +89,32 @@
   vertical-align: middle;
 }
 
+// The jurisdiction column does not scroll away with the rest. A threshold
+// with no country name beside it is not a comparison, it is a number — and
+// on a phone the country is the first thing off-screen in a table read
+// left to right.
+//
+// The header cell needs the same treatment: sticky is per-cell, not
+// per-column, so leaving <thead> out slides the word "Jurisdiction" over the
+// rows below it.
+.rowHead,
+.table thead th:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  background-color: var(--color-bg);
+  // Above the scrolling cells, below nothing else — the table has no other
+  // stacking context.
+  z-index: 1;
+}
+
 .rowHead {
   white-space: nowrap;
+}
+
+// Hover has to reach the sticky cell too, or the highlighted row visibly
+// stops at the second column.
+.table tbody tr:hover .rowHead {
+  background-color: var(--color-row-hover);
 }
 
 .table tbody tr:hover td,

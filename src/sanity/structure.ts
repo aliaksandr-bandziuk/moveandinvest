@@ -9,6 +9,7 @@ export const SINGLETON_TYPES = new Set([
   "siteSettings",
   "homePage",
   "partnersPage",
+  "privacyPage",
 ]);
 
 // Types whose delete and duplicate actions are removed. Today that is
@@ -71,5 +72,6 @@ export const structure: StructureResolver = (S) =>
             .defaultOrdering([{ field: "order", direction: "asc" }]),
         ),
       S.divider(),
+      singletonListItem(S, "privacyPage", "Privacy policy"),
       singletonListItem(S, "siteSettings", "Site settings"),
     ]);

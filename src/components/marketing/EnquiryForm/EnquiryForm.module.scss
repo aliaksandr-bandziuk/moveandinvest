@@ -1,35 +1,12 @@
 @use "../../../styles/mixins";
 
 .section {
+  @include mixins.section-rhythm;
   background-color: var(--color-dark);
   color: var(--color-on-dark);
-  padding-block: var(--space-8);
   // The form is the page's last chance; a reader arriving from a CTA lands
   // on the heading, not mid-fieldset.
   scroll-margin-block-start: var(--space-6);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-9);
-  }
-}
-
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent-on-dark);
-  margin-bottom: var(--space-3);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-on-dark-muted);
-}
-
-.heading {
-  font-size: var(--fs-display);
-  line-height: var(--lh-display);
-  max-width: 16ch;
 }
 
 .visuallyHidden {
@@ -139,7 +116,9 @@
   display: block;
   border: var(--border-hairline) solid var(--color-on-dark-border);
   border-radius: var(--radius-s);
-  padding: 0.5rem 0.85rem;
+  // 0.62rem, not 0.5: at the smaller value the chip measured 41px and the
+  // floor for a tap target is 44.
+  padding: 0.62rem 0.85rem;
   font-size: var(--fs-small);
   line-height: var(--lh-small);
   color: var(--color-on-dark-muted);
@@ -355,4 +334,20 @@
   font-size: var(--fs-small);
   line-height: var(--lh-body);
   max-width: var(--measure-wide);
+}
+
+// The policy link on the fine-print line. Underlined rather than coloured:
+// the accent is spent elsewhere on this dark panel, and an underline reads as
+// a link at any contrast — which matters for a line a reader is meant to
+// follow BEFORE ticking the box above it, not after.
+.fineLink {
+  @include mixins.tap-target;
+
+  color: var(--color-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
 }

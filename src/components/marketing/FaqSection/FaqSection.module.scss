@@ -1,12 +1,8 @@
 @use "../../../styles/mixins";
 
 .section {
-  padding-block: var(--space-8);
+  @include mixins.section-rhythm;
   border-top: var(--border-hairline) solid var(--color-hairline);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-9);
-  }
 }
 
 // The client wrapper. It carries `data-js`, and the rules that reveal the
@@ -17,34 +13,11 @@
   display: contents;
 }
 
+// The filter moved inside the section head, so this is a plain block again.
+// It stays as a class because the client wrapper's `[data-js]` rules hang off
+// the tree below it.
 .top {
-  display: grid;
-  gap: var(--space-5);
-
-  @include mixins.breakpoint-up(lg) {
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: var(--space-7);
-  }
-}
-
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent);
-  margin-bottom: var(--space-3);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-text-muted);
-}
-
-.heading {
-  font-size: var(--fs-h2);
-  line-height: var(--lh-h2);
-  max-width: 18ch;
+  display: block;
 }
 
 // --- Filter -----------------------------------------------------------------
@@ -53,6 +26,7 @@
 
 .filter {
   display: none;
+  margin-top: var(--space-5);
   border: 0;
   padding: 0;
   margin: 0;
@@ -84,7 +58,9 @@
   display: block;
   border: var(--border-hairline) solid var(--color-line);
   border-radius: var(--radius-s);
-  padding: 0.5rem 0.85rem;
+  // 0.62rem, not 0.5: at the smaller value the chip measured 41px and the
+  // floor for a tap target is 44.
+  padding: 0.62rem 0.85rem;
   font-size: var(--fs-small);
   line-height: var(--lh-small);
   color: var(--color-text-muted);

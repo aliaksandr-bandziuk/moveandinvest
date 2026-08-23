@@ -15,34 +15,6 @@
   margin-bottom: var(--space-6);
 }
 
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent-on-dark);
-  margin-bottom: var(--space-3);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-on-dark-muted);
-}
-
-.heading {
-  font-size: var(--fs-display);
-  line-height: var(--lh-display);
-  color: var(--color-on-dark);
-  max-width: 20ch;
-}
-
-.intro {
-  max-width: var(--measure-wide);
-  margin-top: var(--space-4);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body-lg);
-  color: var(--color-on-dark-muted);
-}
-
 // Full bleed: the map is the widest object on the site and gains nothing from
 // the container's gutters.
 .stage {

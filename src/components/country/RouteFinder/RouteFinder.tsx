@@ -1,3 +1,6 @@
+import { InView, SectionHead } from "@/components/ui";
+import { COUNTRY_OUTLINES } from "../JurisdictionCards/countryOutlines";
+
 import type { Jurisdiction } from "./matching";
 import { realTotal } from "./matching";
 import { RouteFinderControl, type RouteFinderLabels } from "./RouteFinderControl";
@@ -81,16 +84,17 @@ export function RouteFinder({
   return (
     <section className={styles.section} id="route">
       <div className="container">
-        <p className={styles.eyebrow}>
-          <span className={styles.index}>{index}</span> · {eyebrow}
-        </p>
+        <SectionHead
+          index={index}
+          eyebrow={eyebrow}
+          heading={heading}
+          intro={intro}
+          tone="onDark"
+        />
 
         <RouteFinderControl jurisdictions={jurisdictions} labels={controlLabels}>
           <div className={styles.grid}>
             <div className={styles.ask}>
-              <h2 className={styles.heading}>{heading}</h2>
-              <p className={styles.lede}>{intro}</p>
-
               {/* A real <form>, and it has to be one: radio groups are scoped
                   to their form, and loose radios with the same `name` group
                   across the WHOLE document. Two blocks on a page — or one
@@ -132,8 +136,60 @@ export function RouteFinder({
               </form>
             </div>
 
-            <div className={styles.answer}>
-              <p className={styles.placeholder}>{placeholder}</p>
+            {/* InView, not a plain div: the outlines below draw themselves,
+                and a CSS animation with no trigger would have run on page
+                load — finishing several screens before anyone scrolled here.
+                The wrapper sets data-inview and the stylesheet decides what
+                that means, exactly as the cost bars in section 04 do. */}
+            <InView className={styles.answer}>
+              {/* The state every reader sees before their first click, so it
+                  carries content rather than a promise of content: the five
+                  jurisdictions, their outlines and their thresholds. Answering
+                  narrows it to one, which is the section's whole argument
+                  made visible.
+
+                  The outlines draw themselves — stroke-dasharray from the
+                  path's own length, which ships with the geometry, so this
+                  needs no JavaScript and no measurement in the browser. Under
+                  prefers-reduced-motion the final state is painted at once. */}
+              <div className={styles.placeholder}>
+                <ul className={styles.shortlist}>
+                  {jurisdictions.map((jurisdiction, i) => {
+                    const outline = COUNTRY_OUTLINES[jurisdiction.code];
+                    return (
+                      <li
+                        key={jurisdiction.id}
+                        className={styles.shortItem}
+                        data-code={jurisdiction.code}
+                        style={{ "--i": i } as React.CSSProperties}
+                      >
+                        {outline ? (
+                          <svg
+                            className={styles.shortShape}
+                            viewBox={outline.viewBox}
+                            aria-hidden="true"
+                            focusable="false"
+                            style={
+                              { "--len": outline.len } as React.CSSProperties
+                            }
+                          >
+                            <path d={outline.d} />
+                          </svg>
+                        ) : null}
+                        <span className={styles.shortName}>
+                          {jurisdiction.name}
+                        </span>
+                        <span className={styles.shortFigure}>
+                          {jurisdiction.advertised === null
+                            ? unverified
+                            : currency.format(jurisdiction.advertised)}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p className={styles.placeholderNote}>{placeholder}</p>
+              </div>
 
               {jurisdictions.map((jurisdiction) => {
                 const total = realTotal(jurisdiction);
@@ -199,7 +255,7 @@ export function RouteFinder({
                   </article>
                 );
               })}
-            </div>
+            </InView>
           </div>
         </RouteFinderControl>
       </div>

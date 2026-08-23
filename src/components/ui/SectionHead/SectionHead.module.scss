@@ -1,0 +1,110 @@
+@use "../../../styles/mixins";
+
+// A spread: the title on the left, the deck on the right, the two together
+// holding the full width of the container.
+//
+// This replaced a head that was one narrow column with the number hung in a
+// left margin, and it replaced it for a reason worth writing down. The
+// container was widened to 1700px and that width was never given a job: every
+// section capped something to a measure and left the remaining thousand
+// pixels empty, so the page read as a column of text floating in a wide
+// field, and the heading looked pushed right by an offset whose cause — the
+// number — was set at 1.1:1 and invisible. Both faults are the same fault.
+//
+// Mobile is one column in reading order: number, eyebrow, title, deck.
+.head {
+  display: grid;
+  gap: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    // 6/5, not half and half. The title is set three times the size of the
+    // deck beside it and needs fewer characters per line, so an equal split
+    // would wrap the title while leaving the deck short.
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+// A grid child defaults to min-width: auto, so one long unbroken word would
+// widen its track rather than wrap inside it.
+.text,
+.deck {
+  min-width: 0;
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.05em;
+  font-size: 2.5rem;
+  line-height: 0.8;
+  margin-bottom: var(--space-4);
+
+  @include mixins.breakpoint-up(lg) {
+    font-size: 4.5rem;
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+}
+
+.heading {
+  margin-top: var(--space-4);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  // Deliberately uncapped from lg up: the column IS the measure. A 15ch cap
+  // here left a 420px gutter between the title and the deck — the same empty
+  // field the spread exists to remove, moved to the middle.
+  max-width: 20ch;
+
+  @include mixins.breakpoint-up(lg) {
+    max-width: none;
+  }
+}
+
+// Not a caption. This column carries a real paragraph — four to seven lines —
+// and a section whose deck is two clauses will look emptier here than it did
+// in the old single column. That is the point: the layout obliges the copy.
+.intro {
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+  max-width: 58ch;
+}
+
+// --- Tones ------------------------------------------------------------------
+.onLight {
+  .number {
+    color: var(--color-section-number);
+  }
+
+  .eyebrow {
+    color: var(--color-accent);
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+  }
+}
+
+.onDark {
+  .number {
+    color: var(--color-section-number-on-dark);
+  }
+
+  .heading {
+    color: var(--color-on-dark);
+  }
+
+  .eyebrow {
+    color: var(--color-accent-on-dark);
+  }
+
+  .intro {
+    color: var(--color-on-dark-muted);
+  }
+}

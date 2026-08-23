@@ -1,0 +1,140 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+}
+
+.grid {
+  margin-top: var(--space-7);
+  display: grid;
+  gap: var(--space-6);
+
+  // 5/7: the card holds six short values, the notes six paragraphs. Equal
+  // columns would leave the card half empty and squeeze the prose.
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.card {
+  border: var(--border-hairline) solid var(--color-text);
+  padding: var(--space-5);
+
+  // The whole point of the layout: the sample stays on screen while the six
+  // notes scroll past it. `align-items: start` on the grid above is what
+  // makes this possible — a stretched grid item is full height and has
+  // nowhere to stick.
+  //
+  // Sticking is skipped below lg, where the card is simply the first thing
+  // read, and skipped for reduced motion — a block that detaches and travels
+  // is movement, whatever it is called.
+  @include mixins.breakpoint-up(lg) {
+    @media (prefers-reduced-motion: no-preference) {
+      position: sticky;
+      top: var(--space-5);
+    }
+  }
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: var(--border-hairline) solid var(--color-text);
+}
+
+.cardLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-text-muted);
+}
+
+.chip {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: var(--border-hairline) solid currentcolor;
+  padding: 0.1rem 0.4rem;
+  white-space: nowrap;
+}
+
+.sample {
+  margin-top: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+}
+
+// dt and dd wrapped in a div: in a grid the pair would otherwise become two
+// independent items and the gap would fall between key and value as well as
+// between rows.
+.sampleRow {
+  display: block;
+}
+
+.sampleKey {
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+.sampleValue {
+  margin-top: 0.1rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+.notes {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.note {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: var(--space-4);
+  padding-bottom: var(--space-5);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-micro);
+  line-height: 1.7;
+  color: var(--color-accent);
+}
+
+.noteTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.noteBody {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.closing {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+  max-width: 74ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

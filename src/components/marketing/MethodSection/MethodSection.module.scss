@@ -7,66 +7,12 @@
 // bands with one white strip between them, and the plane stops being an event
 // when it is the background.
 .section {
-  padding-block: var(--space-7);
+  @include mixins.section-rhythm;
   border-top: var(--border-hairline) solid var(--color-hairline);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-9);
-  }
 }
 
-.grid {
-  display: grid;
-  gap: var(--space-6);
-
-  @include mixins.breakpoint-up(lg) {
-    // 5 / 7 rather than 6 / 6: an even split makes two columns of equal weight,
-    // and this block has a subject and its evidence, not two peers.
-    grid-template-columns: 5fr 7fr;
-    gap: var(--space-8);
-  }
-}
-
-// Stretches to the row height by default (no align-items: start on the grid),
-// which is what gives the sticky child below room to travel.
-.headColumn {
-  min-width: 0;
-}
-
-.headInner {
-  @include mixins.breakpoint-up(lg) {
-    position: sticky;
-    // Clears the top edge without a sticky site header to account for — the
-    // header scrolls away with the page by design.
-    top: var(--space-7);
-  }
-}
-
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent);
-  margin-bottom: var(--space-3);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-text-muted);
-}
-
-.heading {
-  font-size: var(--fs-display);
-  line-height: var(--lh-display);
-  max-width: 18ch;
-}
-
-.intro {
-  max-width: 34ch;
-  margin-top: var(--space-4);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body-lg);
-  color: var(--color-text-muted);
+.head {
+  margin-bottom: var(--space-8);
 }
 
 .list {
@@ -76,6 +22,10 @@
   list-style: none;
 }
 
+// A ruled index rather than a stack of cards: number in the margin, short
+// title in a fixed column, explanation in the rest. The same three-column
+// grid as the cost rows below, and the first column is --margin-column, so
+// the numbers here line up with the section number above them.
 .item {
   padding-block: var(--space-5);
   border-top: var(--border-hairline) solid var(--color-hairline);
@@ -86,30 +36,45 @@
     border-top: var(--border-hairline) solid var(--color-text);
   }
 
-  &:last-child {
-    padding-bottom: 0;
-  }
-
   @include mixins.breakpoint-up(lg) {
     padding-block: var(--space-6);
   }
 }
 
+// The grid is here rather than on the <li> because Reveal renders a div
+// between them: a grid on the <li> would have one child, not three.
+.itemGrid {
+  display: grid;
+  gap: var(--space-3);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: var(--margin-column) 22rem minmax(0, 1fr);
+    gap: var(--space-7);
+    align-items: baseline;
+  }
+}
+
+// Display face, not mono: at this size a mono numeral reads as a code, and
+// this is the ornament of the section rather than a label on it.
 .number {
   @include mixins.figure-text;
 
   display: block;
-  font-size: var(--fs-nano);
-  line-height: var(--lh-nano);
-  letter-spacing: var(--tracking-eyebrow);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: 2rem;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
   color: var(--color-accent);
-  margin-bottom: var(--space-3);
+
+  @include mixins.breakpoint-up(lg) {
+    font-size: 2.5rem;
+  }
 }
 
 .pointTitle {
   font-size: var(--fs-h3);
-  line-height: var(--lh-h3);
-  margin-bottom: var(--space-2);
+  line-height: 1.2;
 
   @include mixins.breakpoint-up(md) {
     font-size: 1.375rem;
@@ -117,8 +82,8 @@
 }
 
 .pointBody {
-  max-width: 60ch;
-  font-size: var(--fs-small);
-  line-height: 1.6;
+  max-width: 56ch;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
   color: var(--color-text-muted);
 }

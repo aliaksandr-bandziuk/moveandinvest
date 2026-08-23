@@ -1,0 +1,96 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.steps {
+  margin-top: var(--space-7);
+  display: grid;
+  gap: 0;
+}
+
+.step {
+  display: grid;
+  // A fixed rail column rather than a flex gap: the dots must line up on a
+  // single axis whatever the text beside them does.
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.rail {
+  position: relative;
+}
+
+.dot {
+  display: block;
+  inline-size: 0.6rem;
+  block-size: 0.6rem;
+  border-radius: 50%;
+  background-color: var(--color-accent-on-dark);
+  // Aligns the dot with the cap height of the mono label beside it rather
+  // than with the top of its line box. The connecting line below subtracts
+  // the same value — keep them equal.
+  margin-block-start: 0.45rem;
+}
+
+// The connecting line, drawn from this dot down to the next one.
+//
+// The rail is a stretched grid item, so its bottom edge is the bottom of the
+// step's CONTENT box — one step's padding short of the next rail's top, and
+// another 0.45rem short of the next dot, which is offset by exactly that much
+// to sit on the mono label's cap height. Both offsets are named here rather
+// than eyeballed, so changing the padding or the dot alignment cannot leave a
+// gap that only shows up in a screenshot.
+$dot-offset: 0.45rem;
+
+.step:not(:last-child) .rail::after {
+  content: "";
+  position: absolute;
+  inset-block: 1.2rem calc(-1 * (var(--space-6) + #{$dot-offset}));
+  inset-inline-start: 0.25rem;
+  inline-size: var(--border-hairline);
+  background-color: var(--color-on-dark-border);
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
+}
+
+.stepTitle {
+  margin-top: var(--space-2);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  color: var(--color-on-dark);
+}
+
+.stepBody {
+  margin-top: var(--space-2);
+  max-width: 62ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+}
+
+.closing {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-on-dark-hairline);
+  max-width: 74ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+}

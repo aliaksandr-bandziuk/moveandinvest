@@ -1,37 +1,22 @@
 @use "../../../styles/mixins";
 
 .section {
+  @include mixins.section-rhythm;
   background-color: var(--color-dark);
   color: var(--color-on-dark);
-  padding-block: var(--space-8);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-9);
-  }
-}
-
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent-on-dark);
-  margin-bottom: var(--space-6);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-on-dark-muted);
 }
 
 .grid {
+  margin-top: var(--space-7);
   display: grid;
   gap: var(--space-7);
 
   @include mixins.breakpoint-up(lg) {
-    // 4fr / 8fr, not 6/6: the questions are short lines and the readout
-    // carries five figures plus a paragraph. Equal columns would leave the
-    // left one half empty and wrap the right one.
-    grid-template-columns: 4fr 8fr;
+    // The same 6/5 as the head above it, so the body sits under the spread
+    // rather than inventing its own proportion. The questions go two-across
+    // inside the left track; the readout is a defined object in the right
+    // one, not a panel stretched to whatever is left over.
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
     gap: var(--space-8);
     align-items: start;
   }
@@ -45,24 +30,19 @@
   min-width: 0;
 }
 
-.heading {
-  font-size: var(--fs-h2);
-  line-height: var(--lh-h2);
-  max-width: 16ch;
-}
-
-.lede {
-  margin-top: var(--space-4);
-  color: var(--color-on-dark-muted);
-  font-size: var(--fs-small);
-  line-height: var(--lh-body);
-  max-width: 40ch;
-}
-
+// The heading and the deck moved into the shared SectionHead above the grid,
+// so the form is now the only thing in this column and needs no offset.
 .questions {
-  margin-top: var(--space-6);
   display: grid;
   gap: var(--space-6);
+
+  // Two across. Three short question groups stacked in one column made the
+  // left half twice as tall as the readout beside it, and the difference was
+  // the black hole this section was reported for.
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-7);
+  }
 }
 
 .question {
@@ -89,7 +69,9 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: var(--space-2);
+  // Zero, not --space-2: the options now carry their own vertical padding for
+  // the tap target, and a gap on top of it would double the spacing.
+  gap: 0;
 }
 
 // The input stays in the accessibility tree and keeps keyboard behaviour —
@@ -99,9 +81,14 @@
   @include mixins.visually-hidden;
 }
 
+// The label IS the control — the radio itself is visually hidden — so the
+// label's box is the tap target. Text alone gave it a 23px height, half of
+// what a thumb needs. The vertical padding is what makes it tappable; the
+// `.options` gap is reduced by the same amount so the group does not grow.
 .option {
   display: block;
   position: relative;
+  padding-block: 0.7rem;
   padding-left: var(--space-6);
   font-size: var(--fs-small);
   line-height: var(--lh-small);
@@ -113,7 +100,9 @@
   content: "";
   position: absolute;
   inset-inline-start: 0;
-  inset-block-start: 0.3em;
+  // Measured from the label's padding box, so the option's own padding has to
+  // be added or the marker floats above the first line of text.
+  inset-block-start: calc(0.7rem + 0.3em);
   inline-size: 0.75rem;
   block-size: 0.75rem;
   border: var(--border-hairline) solid var(--color-on-dark-border);
@@ -134,26 +123,163 @@
   @include mixins.focus-ring-on-dark;
 }
 
-// Only ever seen with JS on and nothing answered yet, so its copy must not
-// mention the list of all five below — that list is exactly what the JS-on
-// rules hide.
+// The pre-answer state. Never empty: it holds the five jurisdictions with
+// their outlines and thresholds, and answering narrows them to one.
 //
-// It also reserves roughly the height a readout will occupy. Without that the
-// panel is a thin strip, the first answer makes the page jump by several
-// hundred pixels, and the reader loses their place in the questions.
+// It used to be a bordered rectangle 986×480 with two lines of text in it —
+// sized for the readout that would eventually fill it rather than for the
+// state it is in until somebody clicks. It is now 37rem by 18rem, a third of
+// the area, and it has something in it.
 .placeholder {
+  // Hidden as it arrives from the server: without JavaScript all five
+  // readouts are already on the page and a shortlist above them would say
+  // the same thing twice. `[data-js="on"]` below turns it back on.
   display: none;
   border: var(--border-hairline) solid var(--color-on-dark-border);
-  padding: var(--space-6);
-  color: var(--color-on-dark-muted);
-  font-size: var(--fs-small);
-  line-height: var(--lh-body);
-  max-width: var(--measure-wide);
+  padding: var(--space-5);
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-block-size: 18rem;
 
   @include mixins.breakpoint-up(lg) {
-    max-width: none;
-    min-block-size: 30rem;
+    padding: var(--space-6);
   }
+}
+
+// Three across, then five. Five cells only fit in a row once the box is wide
+// enough to give each one about 115px: below that "Португалия" at the label
+// size is wider than its cell and runs into the country beside it. Measured
+// at 390 and 1024, where it did exactly that.
+.shortlist {
+  list-style: none;
+  margin: 0;
+  // The UA indents every list by 40px; globals.scss zeroes margins, not
+  // padding.
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-4);
+  align-items: end;
+
+  @include mixins.breakpoint-up(lg) {
+    display: flex;
+    gap: var(--space-4);
+  }
+}
+
+.shortItem {
+  flex: 1;
+  min-width: 0;
+  // Belt to the grid's braces: a cell can still end up narrower than its
+  // longest word on a small phone, and a broken word beats a collision.
+  overflow-wrap: anywhere;
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  text-align: center;
+}
+
+.shortShape {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 3.25rem;
+  block-size: auto;
+  aspect-ratio: 200 / 140;
+
+  @include mixins.breakpoint-up(md) {
+    max-inline-size: 4.5rem;
+  }
+
+  // The resting state is the FINISHED drawing. A crawler, a reader with
+  // JavaScript off and anyone who asked for reduced motion all get five
+  // complete outlines; the animation is added on top, never depended on.
+  path {
+    fill: var(--identity, var(--color-map-pending));
+    stroke: var(--identity, var(--color-map-pending));
+    stroke-width: 1.2;
+    // Without this the stroke scales with the viewBox and Malta's hairline
+    // becomes a slab while Greece's disappears.
+    vector-effect: non-scaling-stroke;
+    // The length ships with the geometry — see countryOutlines.ts — so the
+    // draw needs no measurement in the browser and no JavaScript of its own.
+    stroke-dasharray: var(--len);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-js="on"][data-inview="false"] .shortShape path {
+    stroke-dashoffset: var(--len);
+    fill-opacity: 0;
+  }
+
+  // Staggered by index, so the five are drawn one after another rather than
+  // all at once — the eye follows a hand, not a shutter.
+  [data-js="on"][data-inview="true"] .shortShape path {
+    animation:
+      draw-outline 0.9s ease-out both,
+      fill-outline 0.5s ease-out both;
+    animation-delay: calc(var(--i) * 0.16s), calc(var(--i) * 0.16s + 0.75s);
+  }
+}
+
+@keyframes draw-outline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-outline {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+// The same four identity hues as the cards in section 03, and the same reason
+// for Cyprus having none: no checked figures, no colour.
+.shortItem[data-code="pt"] {
+  --identity: #22a894;
+}
+
+.shortItem[data-code="gr"] {
+  --identity: #5a7fe0;
+}
+
+.shortItem[data-code="mt"] {
+  --identity: #cf7a1e;
+}
+
+.shortItem[data-code="ae"] {
+  --identity: #c4517f;
+}
+
+.shortName {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
+}
+
+.shortFigure {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  color: var(--color-on-dark);
+  word-spacing: -0.25em;
+
+  @include mixins.breakpoint-up(md) {
+    font-size: var(--fs-small);
+  }
+}
+
+.placeholderNote {
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark-muted);
+  max-width: 44ch;
 }
 
 .readout {
@@ -280,7 +406,10 @@
 // and the block is still usable.
 
 [data-js="on"] .placeholder {
-  display: block;
+  // flex, not block: the shortlist sits at the top of the box and the note at
+  // the bottom, and `justify-content: space-between` above needs a flex
+  // container to act on.
+  display: flex;
 }
 
 [data-js="on"][data-answered="yes"] .placeholder {

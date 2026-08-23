@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/ui";
+import { Reveal, SectionHead } from "@/components/ui";
 import styles from "./MethodSection.module.scss";
 
 export interface MethodPoint {
@@ -32,26 +32,26 @@ export function MethodSection({
 }: MethodSectionProps) {
   return (
     <section className={styles.section} id="method">
-      <div className={`container ${styles.grid}`}>
-        <div className={styles.headColumn}>
-          {/* The sticky element is this inner div, not the grid item. A grid
-              item stretches to the row height, which leaves position:sticky
-              nothing to travel inside. */}
-          <div className={styles.headInner}>
-            <Reveal>
-              <p className={styles.eyebrow}>
-                <span className={styles.index}>{index}</span> · {eyebrow}
-              </p>
-              <h2 className={styles.heading}>{heading}</h2>
-              {intro ? <p className={styles.intro}>{intro}</p> : null}
-            </Reveal>
-          </div>
+      <div className="container">
+        <div className={styles.head}>
+          <Reveal>
+            <SectionHead
+              index={index}
+              eyebrow={eyebrow}
+              heading={heading}
+              intro={intro}
+            />
+          </Reveal>
         </div>
 
         <ol className={styles.list}>
           {points.map((point, i) => (
+            // The grid lives on the Reveal wrapper, not on the <li>. Reveal
+            // renders a div between the two, so a grid declared on the <li>
+            // would have exactly one child — the wrapper — and the three
+            // columns would never appear.
             <li key={point.title} className={styles.item}>
-              <Reveal order={i}>
+              <Reveal order={i} className={styles.itemGrid}>
                 <span className={styles.number} aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>

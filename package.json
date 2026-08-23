@@ -15,7 +15,9 @@
     "publish": "tsx --env-file=.env.local scripts/publish.ts",
     "inspect": "tsx --env-file=.env.local scripts/inspect.ts",
     "facts": "tsx --env-file=.env.local scripts/facts.ts",
-    "enquiries": "tsx --env-file=.env.local scripts/enquiries.ts"
+    "content": "tsx --env-file=.env.local scripts/content.ts",
+    "enquiries": "tsx --env-file=.env.local scripts/enquiries.ts",
+    "mailcheck": "tsx --env-file=.env.local scripts/mailcheck.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.16.0",
@@ -25,6 +27,7 @@
     "next": "16.2.10",
     "next-intl": "^4.13.1",
     "next-sanity": "^13.1.1",
+    "nodemailer": "^9.0.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sanity": "^6.3.0",
@@ -32,6 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

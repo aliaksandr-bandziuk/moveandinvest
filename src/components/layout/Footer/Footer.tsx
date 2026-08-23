@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { FOOTER_GROUPS } from "@/lib/footerNav";
+import { CookieSettingsButton } from "../CookieSettingsButton";
+
 import styles from "./Footer.module.scss";
 
 export interface FooterJurisdiction {
@@ -88,7 +90,17 @@ export async function Footer({
               <ul className={styles.links}>
                 {group.links.map((link) => (
                   <li key={link.key}>
-                    {link.href ? (
+                    {link.action === "cookies" ? (
+                      // The one entry that is a control rather than a
+                      // destination: it reopens the consent banner. Styled as
+                      // a link because that is what it looks like in a footer
+                      // list, and it is the route back that the privacy
+                      // policy promises exists.
+                      <CookieSettingsButton
+                        className={`${styles.link} ${styles.linkButton}`}
+                        label={t(`links.${link.key}`)}
+                      />
+                    ) : link.href ? (
                       <Link className={styles.link} href={link.href}>
                         {t(`links.${link.key}`)}
                       </Link>

@@ -1,4 +1,4 @@
-import { CountUp, InView } from "@/components/ui";
+import { CountUp, InView, SectionHead } from "@/components/ui";
 import styles from "./CostComparison.module.scss";
 
 export interface CostRow {
@@ -22,6 +22,8 @@ interface CostComparisonProps {
     real: string;
   };
   note: string;
+  /** Label for the source note, hung in the margin beside it. */
+  noteLabel: string;
   locale: string;
 }
 
@@ -41,6 +43,7 @@ export function CostComparison({
   rows,
   labels,
   note,
+  noteLabel,
   locale,
 }: CostComparisonProps) {
   // Rendering nothing is correct here, but silence is a bad diagnostic: from
@@ -69,11 +72,12 @@ export function CostComparison({
   return (
     <section className={styles.section} id="cost">
       <div className={`container ${styles.head}`}>
-        <p className={styles.eyebrow}>
-          <span className={styles.index}>{index}</span> · {eyebrow}
-        </p>
-        <h2 className={styles.heading}>{heading}</h2>
-        <p className={styles.intro}>{intro}</p>
+        <SectionHead
+          index={index}
+          eyebrow={eyebrow}
+          heading={heading}
+          intro={intro}
+        />
       </div>
 
       <InView className="container">
@@ -84,37 +88,46 @@ export function CostComparison({
               <li key={row.id} className={styles.row}>
                 <h3 className={styles.name}>{row.name}</h3>
 
-                <div
-                  className={styles.track}
-                  // The bar is a picture of the numbers beside it, which are
-                  // already readable — so it carries no separate label.
-                  aria-hidden="true"
-                >
-                  <span
-                    className={styles.advertised}
-                    style={{ width: `${(row.advertised / widest) * 100}%` }}
-                  />
-                  <span
-                    className={styles.extras}
-                    style={{ width: `${(row.extras / widest) * 100}%` }}
-                  />
+                <div>
+                  <div
+                    className={styles.track}
+                    // The bar is a picture of the numbers beside it, which are
+                    // already readable — so it carries no separate label.
+                    aria-hidden="true"
+                  >
+                    <span
+                      className={styles.advertised}
+                      style={{ width: `${(row.advertised / widest) * 100}%` }}
+                    />
+                    <span
+                      className={styles.extras}
+                      style={{ width: `${(row.extras / widest) * 100}%` }}
+                    />
+                  </div>
+
+                  <p className={styles.parts}>
+                    <span>
+                      {labels.advertised}{" "}
+                      <b>
+                        <CountUp value={row.advertised} locale={locale} currency="EUR">
+                          {currency.format(row.advertised)}
+                        </CountUp>
+                      </b>
+                    </span>
+                    <span>
+                      {labels.extras}{" "}
+                      <b>
+                        <CountUp value={row.extras} locale={locale} currency="EUR">
+                          {currency.format(row.extras)}
+                        </CountUp>
+                      </b>
+                    </span>
+                  </p>
                 </div>
 
-                <p className={styles.figures}>
-                  <span className={styles.figure}>
-                    <span className={styles.figureLabel}>{labels.advertised}</span>
-                    <CountUp value={row.advertised} locale={locale} currency="EUR">
-                      {currency.format(row.advertised)}
-                    </CountUp>
-                  </span>
-                  <span className={styles.figure}>
-                    <span className={styles.figureLabel}>{labels.extras}</span>
-                    <CountUp value={row.extras} locale={locale} currency="EUR">
-                      {currency.format(row.extras)}
-                    </CountUp>
-                  </span>
-                  <span className={`${styles.figure} ${styles.total}`}>
-                    <span className={styles.figureLabel}>{labels.real}</span>
+                <p className={styles.real}>
+                  <span className={styles.realLabel}>{labels.real}</span>
+                  <span className={styles.realValue}>
                     <CountUp value={total} locale={locale} currency="EUR">
                       {currency.format(total)}
                     </CountUp>
@@ -127,7 +140,10 @@ export function CostComparison({
       </InView>
 
       <div className="container">
-        <p className={styles.note}>{note}</p>
+        <div className={styles.note}>
+          <p className={styles.noteLabel}>{noteLabel}</p>
+          <p className={styles.noteBody}>{note}</p>
+        </div>
       </div>
     </section>
   );

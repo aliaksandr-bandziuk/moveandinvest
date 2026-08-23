@@ -21,6 +21,11 @@ export interface FooterLink {
   href?: string;
   /** Opens in a new tab. Only for targets outside this site. */
   external?: boolean;
+  /** Renders as a button that reopens the cookie banner instead of a link.
+   *  It has no href because it goes nowhere; it is here rather than hidden in
+   *  the footer component because the footer's links are data, and a control
+   *  that only exists in markup is one nobody finds when it has to move. */
+  action?: "cookies";
 }
 
 export interface FooterGroup {
@@ -61,6 +66,13 @@ export const FOOTER_GROUPS: FooterGroup[] = [
     links: [
       { key: "partners", href: "/for-partners" },
       { key: "sources" },
+      // Not a courtesy link. A site that takes an email address owes a
+      // reachable statement of what it does with it, and "reachable" means
+      // from every page, not only from beside the form.
+      { key: "privacy", href: "/privacy" },
+      // Withdrawing consent has to be as easy as giving it, and this is the
+      // only route back to the banner once a choice is stored.
+      { key: "cookies", action: "cookies" },
     ],
   },
 ];

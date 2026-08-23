@@ -22,6 +22,84 @@
   }
 }
 
+// Statement left, contents right. One column until lg, where the contents
+// list appears at all — see the note in the component.
+.planeGrid {
+  display: grid;
+  gap: var(--space-7);
+
+  @include mixins.breakpoint-up(lg) {
+    // 7/4 rather than 8/4: the headline is set to 14ch and a wider left track
+    // simply adds space between the two, not to the headline.
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: var(--space-9);
+    align-items: start;
+  }
+}
+
+// --- Contents ---------------------------------------------------------------
+.contents {
+  display: none;
+
+  @include mixins.breakpoint-up(lg) {
+    display: block;
+  }
+}
+
+.contentsLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent-on-dark);
+  // No optical nudge: this label and the meta line opposite it are set in
+  // the same face at the same size and both start at the top of their grid
+  // row, so they align on their own. Measured at 1920 — a 0.15em push here
+  // put the two four pixels apart.
+  margin-bottom: var(--space-4);
+}
+
+.contentsList {
+  list-style: none;
+  margin: 0;
+  // The UA indents every list by 40px; globals.scss zeroes margins, not
+  // padding.
+  padding: 0;
+  border-top: var(--border-hairline) solid var(--color-on-dark-border);
+}
+
+.contentsList li {
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-hairline);
+}
+
+.contentsLink {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: baseline;
+  // The whole row is the target, not the words: a 14px label is a small
+  // thing to hit even with a mouse.
+  padding-block: var(--space-4);
+  color: var(--color-on-dark);
+  text-decoration: none;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+
+  &:hover {
+    color: var(--color-accent-on-dark);
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.contentsIndex {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-dark-muted);
+}
+
 .meta {
   @include mixins.eyebrow;
 
@@ -46,7 +124,9 @@
   font-size: var(--fs-hero);
   line-height: var(--lh-hero);
   letter-spacing: var(--tracking-hero);
-  max-width: 16ch;
+  // 14ch, not 16: the statement shares the row with the contents now, and at
+  // 16ch the last line ran under the gutter on a 1440 screen.
+  max-width: 14ch;
   color: var(--color-on-dark);
 }
 
@@ -55,10 +135,29 @@
   height: var(--border-hairline);
   background-color: var(--color-accent-on-dark);
   margin-block: var(--space-6) var(--space-5);
+  transform-origin: left center;
 
   @include mixins.breakpoint-up(md) {
     width: 7rem;
     margin-block: var(--space-7) var(--space-6);
+  }
+}
+
+// The one stroke on the page that is drawn rather than revealed. It sits
+// inside the hero's Reveal, which fades the whole block in; this runs after
+// that has settled, so the two motions read as one gesture and not as two
+// things happening at once.
+//
+// Resting state is the finished rule, like everywhere else on this site: the
+// start state exists only where JavaScript has marked the block AND the
+// reader has not asked for less motion.
+@media (prefers-reduced-motion: no-preference) {
+  [data-js="on"][data-shown="false"] .rule {
+    transform: scaleX(0);
+  }
+
+  [data-js="on"] .rule {
+    transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 380ms;
   }
 }
 
@@ -91,25 +190,104 @@
 
 // --- The white plane --------------------------------------------------------
 .data {
-  padding-block: var(--space-7) var(--space-8);
+  // On the shared rhythm like every other section. It used to run tighter at
+  // the top to pull the table up under the statement, which cost 16px and
+  // broke the one thing the page needed more: a single spacing scale.
+  @include mixins.section-rhythm;
+}
 
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-8) var(--space-9);
+// --- The threshold summary --------------------------------------------------
+// Five cells, one per jurisdiction. A row on wide screens, a ruled list on a
+// phone — the same object either way, which is why the borders move rather
+// than the type.
+.summary {
+  list-style: none;
+  margin: 0;
+  // The UA gives every list a padding-inline-start of 40px and globals.scss
+  // zeroes margins but not padding.
+  padding: 0;
+  margin-top: var(--space-7);
+  display: grid;
+  gap: 0;
+  border-top: var(--border-hairline) solid var(--color-text);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(5, 1fr);
+    border-bottom: var(--border-hairline) solid var(--color-hairline);
   }
 }
 
-.sectionTitle {
-  font-size: var(--fs-h2);
-  line-height: var(--lh-h2);
-  margin-bottom: var(--space-2);
+.cell {
+  padding: var(--space-5) var(--space-4) var(--space-5) 0;
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+  min-width: 0;
+
+  // In a row the cells are separated by the frame above and below, not by a
+  // rule each; keeping the per-cell border would draw five stacked lines on
+  // top of the one that closes the block.
+  @include mixins.breakpoint-up(md) {
+    border-bottom: 0;
+  }
 }
 
-.sectionIntro {
-  max-width: var(--measure-wide);
-  font-size: var(--fs-small);
-  line-height: var(--lh-small);
+.cellName {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+}
+
+.cellFigure {
+  @include mixins.figure-text;
+
+  display: block;
+  margin-top: 0.35rem;
+  // Loud enough to be the thing that is read, small enough that it does not
+  // compete with the real-cost figure in section 04, which is the page's
+  // biggest number on purpose.
+  font-size: clamp(1.25rem, 1.7vw, 1.625rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  // Thin spaces inside a threshold read as gaps at this size.
+  word-spacing: -0.25em;
+}
+
+.cellSub {
+  @include mixins.figure-text;
+
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
   color: var(--color-text-muted);
-  margin-bottom: var(--space-6);
+}
+
+// Same rule the table uses for a jurisdiction with no published page: muted
+// text, never opacity.
+.cell[data-status="planned"],
+.cell[data-status="paused"] {
+  .cellName,
+  .cellFigure {
+    color: var(--color-text-muted);
+  }
+}
+
+.detailLabel {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-7);
+  // The table's own column heads are set in the same mono at the same size,
+  // so without this the label reads as a first row of the header rather than
+  // as a divider above it.
+  margin-bottom: var(--space-5);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 .source {

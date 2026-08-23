@@ -179,6 +179,7 @@ export default async function StyleguidePage({
         <h2>Comparison table</h2>
         <CountryComparisonTable
           caption="Residency by investment, 2026"
+          scrollHint="Two more columns: first permit and tax"
           columnLabels={{
             jurisdiction: "Jurisdiction",
             route: "Route",

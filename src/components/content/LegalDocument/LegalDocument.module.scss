@@ -1,0 +1,90 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // A NARROWER CONTAINER, and the one place on the site that gets one.
+  //
+  // The sitewide container is 106rem, and every other page earns that width by
+  // putting something in it — a spread head, a five-column table, a grid of
+  // cards. A policy has one column of prose and nothing to put beside it, so
+  // at full width it reads exactly like the fault this site spent a day
+  // fixing: a narrow column of text stuck to the left of an empty field.
+  //
+  // Overriding the token rather than adding a second container class: there is
+  // still exactly one `.container` compiled sitewide, it still centres itself,
+  // and the whitespace now sits symmetrically in the margins where it reads as
+  // a decision instead of as a mistake.
+  --container-max-width: 76rem;
+}
+
+// The date, sitting under the deck in the head's right column.
+.updated {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.updatedLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+}
+
+.updatedValue {
+  @include mixins.figure-text;
+}
+
+// --- The sections -----------------------------------------------------------
+// One column, not the 6/5 spread the rest of the site uses. A policy is read
+// in order rather than scanned, and a two-column layout is a layout that
+// invites the eye to jump — which is the one thing this page must not do.
+.list {
+  margin-top: var(--space-8);
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    // The number hangs in its own narrow track. This is the ONE place on the
+    // site where a hanging number is right: here it is a reference marker a
+    // reader can cite ("section 04 says…"), not a decorative index — which is
+    // exactly what it was in the section heads, where it made the layout look
+    // broken until it was moved inline.
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: var(--space-6);
+    padding-block: var(--space-7);
+  }
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--color-section-number);
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.body {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  // A measure, and a real one. This is the only page on the site that is read
+  // rather than scanned, so the line length matters more here than anywhere
+  // else — the container is wide enough to produce 140-character lines, which
+  // nobody finishes.
+  max-width: 74ch;
+}

@@ -1,0 +1,102 @@
+@use "../../../styles/mixins";
+
+// Fixed to the bottom, in the accent. It is the one element allowed to sit
+// over the page, and it earns that by being unavoidable: a consent request a
+// visitor can scroll past is one they can miss, and a missed banner is a
+// visitor who never gets to choose.
+//
+// THIS BREAKS THE 5% ACCENT RULE ON PURPOSE, and it is the only element that
+// may. The rule exists so oxblood stays editorial instead of reading as an
+// alert — but this IS an alert, it is the single moment on the site where a
+// reader has to stop and answer something, and it removes itself the instant
+// they do. On the black plane it was the same colour as the hero behind it
+// and disappeared into the page, which is the failure this replaces.
+//
+// It does NOT dim or block the page behind it. Blocking would make agreeing
+// the only way to read anything, which is the dark pattern this component
+// exists to avoid.
+.banner {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 40;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  // A hairline in the same white as the text: the banner sits against a white
+  // page as often as a dark one, and without it the accent bleeds into a
+  // light background at the edge.
+  border-block-start: var(--border-hairline) solid rgb(255 255 255 / 25%);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-4);
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding: var(--space-5) var(--gutter);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+.text {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  // Full contrast rather than a muted tint: this is the one paragraph on the
+  // site a reader is being asked to act on, and muting it to look calm is how
+  // it stops being read.
+  color: var(--color-accent-contrast);
+  max-width: 68ch;
+}
+
+.link {
+  color: var(--color-accent-contrast);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+// One button style, two instances. The accepting one is filled and the
+// declining one is outlined, which is as far apart as they are allowed to
+// get: same size, same padding, same type, side by side and in that order so
+// the decline is not the afterthought at the end of a sentence.
+.button {
+  @include mixins.tap-target;
+
+  justify-content: center;
+  padding-inline: var(--space-5);
+  border: var(--border-hairline) solid rgb(255 255 255 / 55%);
+  background: transparent;
+  color: var(--color-accent-contrast);
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-accent-contrast);
+  }
+}
+
+.primary {
+  background-color: var(--color-accent-contrast);
+  border-color: var(--color-accent-contrast);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+
+  &:hover {
+    background-color: rgb(255 255 255 / 88%);
+    border-color: rgb(255 255 255 / 88%);
+  }
+}

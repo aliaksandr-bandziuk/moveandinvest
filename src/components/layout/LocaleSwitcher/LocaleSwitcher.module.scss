@@ -9,9 +9,12 @@
 .item,
 .current {
   @include mixins.focus-ring-on-dark;
+  @include mixins.tap-target;
 
   margin: 0;
-  padding: var(--space-1) var(--space-2);
+  // Inline padding only; the height comes from the tap target above, so the
+  // three chips stay the size they look rather than the size they measured.
+  padding-inline: var(--space-3);
   border: var(--border-hairline) solid var(--color-on-dark-border);
   border-radius: var(--radius-s);
   font-family: var(--font-body);

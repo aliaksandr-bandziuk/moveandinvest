@@ -59,10 +59,34 @@ export function describeMissingConfig(): string | null {
   return missing.length > 0 ? missing.join(", ") : null;
 }
 
+export interface PartnerEnquiryPayload {
+  jurisdiction: string;
+  organisation: string;
+  name: string;
+  email: string;
+  terms: string;
+  locale: string;
+  submittedAt: string;
+}
+
 export async function storeEnquiry(payload: EnquiryPayload): Promise<boolean> {
   const client = getEnquiryClient();
   if (!client) return false;
 
   await client.create({ _type: "enquiry", ...payload });
+  return true;
+}
+
+// Same dataset, same client, different document type. A firm quoting its
+// terms and a person asking for help have almost no fields in common, and
+// merging them would make every field on both optional — see
+// schemaTypes/documents/partnerEnquiry.ts.
+export async function storePartnerEnquiry(
+  payload: PartnerEnquiryPayload,
+): Promise<boolean> {
+  const client = getEnquiryClient();
+  if (!client) return false;
+
+  await client.create({ _type: "partnerEnquiry", ...payload });
   return true;
 }

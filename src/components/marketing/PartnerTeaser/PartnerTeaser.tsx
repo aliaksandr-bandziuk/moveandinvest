@@ -1,10 +1,12 @@
+import { SectionHead } from "@/components/ui";
 import styles from "./PartnerTeaser.module.scss";
 
 interface PartnerTeaserProps {
   index: string;
   eyebrow: string;
   heading: string;
-  body: string;
+  /** The deck. Held in the CMS as `body` for historical reasons. */
+  intro: string;
   ctaLabel: string;
   ctaHref: string;
   /** Everything an enquiry has answered before it reaches a partner. */
@@ -32,7 +34,7 @@ export function PartnerTeaser({
   index,
   eyebrow,
   heading,
-  body,
+  intro,
   ctaLabel,
   ctaHref,
   qualifiers,
@@ -41,14 +43,15 @@ export function PartnerTeaser({
   return (
     <section className={styles.section} id="partners">
       <div className="container">
-        <p className={styles.eyebrow}>
-          <span className={styles.index}>{index}</span> · {eyebrow}
-        </p>
+        <SectionHead
+          index={index}
+          eyebrow={eyebrow}
+          heading={heading}
+          intro={intro}
+        />
 
         <div className={styles.box}>
           <div className={styles.main}>
-            <h2 className={styles.heading}>{heading}</h2>
-            <p className={styles.body}>{body}</p>
             <a className={styles.cta} href={ctaHref}>
               {ctaLabel}
               {/* Decoration: the link text already says where it goes, and a

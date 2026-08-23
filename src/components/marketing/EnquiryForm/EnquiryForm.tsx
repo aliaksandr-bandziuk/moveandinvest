@@ -1,4 +1,7 @@
 import { EnquiryPrefill } from "./EnquiryPrefill";
+import { SectionHead } from "@/components/ui";
+import { Link } from "@/i18n/navigation";
+
 import styles from "./EnquiryForm.module.scss";
 
 interface Option {
@@ -10,6 +13,7 @@ export interface EnquiryFormProps {
   index: string;
   eyebrow: string;
   heading: string;
+  intro: string;
   locale: string;
   fork: {
     chosenIndex: string;
@@ -30,9 +34,13 @@ export interface EnquiryFormProps {
   contact: { legend: string; name: string; email: string };
   consent: string;
   fine: string;
+  /** Label for the link to /privacy, rendered on the fine-print line. */
+  privacyLabel: string;
   submit: string;
   sent: { title: string; body: string };
   failed: { title: string; body: string };
+  /** Shown when the fault is OURS, not the visitor's. See the panel below. */
+  broke: { title: string; body: string };
   honeypot: string;
 }
 
@@ -56,6 +64,7 @@ export function EnquiryForm({
   index,
   eyebrow,
   heading,
+  intro,
   locale,
   fork,
   jurisdictions,
@@ -67,9 +76,11 @@ export function EnquiryForm({
   contact,
   consent,
   fine,
+  privacyLabel,
   submit,
   sent,
   failed,
+  broke,
   honeypot,
 }: EnquiryFormProps) {
   const radios = (name: string, options: Option[]) =>
@@ -94,10 +105,13 @@ export function EnquiryForm({
   return (
     <section className={styles.section} id="enquiry">
       <div className="container">
-        <p className={styles.eyebrow}>
-          <span className={styles.index}>{index}</span> · {eyebrow}
-        </p>
-        <h2 className={styles.heading}>{heading}</h2>
+        <SectionHead
+          index={index}
+          eyebrow={eyebrow}
+          heading={heading}
+          intro={intro}
+          tone="onDark"
+        />
 
         {/* Both panels are hidden until the redirect's fragment targets one
             of them; the success panel also hides the form, so a reader is
@@ -110,22 +124,41 @@ export function EnquiryForm({
           <h3 className={styles.resultTitle}>{failed.title}</h3>
           <p className={styles.resultBody}>{failed.body}</p>
         </div>
+        {/* A THIRD panel, because one error view for every failure told a
+            reader who had filled the form correctly that their email address
+            was missing. That happened here: the enquiries dataset was not
+            configured, the write failed, and the page blamed the visitor.
+            This one is shown when the fault is ours — nothing stored, or the
+            address rate limited — and it gives an address to write to, so a
+            lead survives an outage instead of leaving. */}
+        <div className={`${styles.result} ${styles.failed}`} id="enquiry-failed">
+          <h3 className={styles.resultTitle}>{broke.title}</h3>
+          <p className={styles.resultBody}>{broke.body}</p>
+        </div>
 
         <EnquiryPrefill className={styles.formWrap}>
           <form className={styles.form} method="post" action="/api/enquiry">
             <input type="hidden" name="locale" value={locale} />
 
-            {/* Honeypot: off-screen, never announced, never tab-reachable.
-                autoComplete="off" stops a password manager filling it and
-                turning a real person into a rejected bot. */}
+            {/* Honeypot. The name is meaningless ON PURPOSE — `company` was
+                filled by Chrome's address autofill and silently rejected a
+                real person, and any name that reads like a real field can
+                happen to match somebody's heuristic next. `readOnly` is the
+                layer that does not depend on the name at all: a browser will
+                not autofill a readonly input, and a script posting the body
+                directly does not care that it is there. Kept off-screen,
+                out of tab order and hidden from assistive tech. */}
             <div className={styles.honeypot} aria-hidden="true">
-              <label htmlFor="eq-company">{honeypot}</label>
+              <label htmlFor="eq-q7">{honeypot}</label>
               <input
                 type="text"
-                id="eq-company"
-                name="company"
+                id="eq-q7"
+                name="q7"
                 tabIndex={-1}
+                readOnly
                 autoComplete="off"
+                data-lpignore="true"
+                data-1p-ignore=""
               />
             </div>
 
@@ -252,7 +285,17 @@ export function EnquiryForm({
                     />
                     <label htmlFor="eq-consent">{consent}</label>
                   </p>
-                  <p className={styles.fine}>{fine}</p>
+                  {/* The policy link sits HERE, beside the consent box, and
+                      not only in the footer. Consent that cannot be read
+                      before it is given is not informed consent, and a
+                      reader is not going to hunt the footer for it while
+                      their cursor is on the checkbox. */}
+                  <p className={styles.fine}>
+                    {fine}{" "}
+                    <Link className={styles.fineLink} href="/privacy">
+                      {privacyLabel}
+                    </Link>
+                  </p>
                 </div>
                 <button className={styles.button} type="submit">
                   {submit}

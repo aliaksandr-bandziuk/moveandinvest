@@ -1,6 +1,9 @@
 export { CostComparison, type CostRow } from "./CostComparison";
 export { CountryChip } from "./CountryChip";
 export { CountryComparisonTable } from "./CountryComparisonTable";
+export { JurisdictionCards } from "./JurisdictionCards";
+// Superseded by JurisdictionCards in section 03 and left in place: the world
+// map is a finished component and putting it back is one import.
 export { JurisdictionMap } from "./JurisdictionMap";
 export {
   type Jurisdiction,

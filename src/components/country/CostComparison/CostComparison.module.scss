@@ -1,43 +1,12 @@
 @use "../../../styles/mixins";
 
 .section {
-  padding-block: var(--space-7);
+  @include mixins.section-rhythm;
   border-top: var(--border-hairline) solid var(--color-hairline);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-9);
-  }
 }
 
 .head {
-  margin-bottom: var(--space-6);
-}
-
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent);
-  margin-bottom: var(--space-3);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-text-muted);
-}
-
-.heading {
-  font-size: var(--fs-display);
-  line-height: var(--lh-display);
-  max-width: 18ch;
-}
-
-.intro {
-  max-width: var(--measure-wide);
-  margin-top: var(--space-4);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body-lg);
-  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
 }
 
 .rows {
@@ -49,26 +18,44 @@
 
 .row {
   display: grid;
-  gap: var(--space-3);
-  padding-block: var(--space-5);
+  gap: var(--space-4);
+  padding-block: var(--space-6);
   border-bottom: var(--border-hairline) solid var(--color-hairline);
 
+  // The name column matches --margin-column, so jurisdiction names line up
+  // with the section number hanging above them. The right column is fixed
+  // rather than fluid: the real figure is the loudest thing in the row and it
+  // must not drift away from the bar it belongs to as the page widens.
   @include mixins.breakpoint-up(lg) {
-    grid-template-columns: 10rem 1fr 27rem;
-    gap: var(--space-6);
+    // 14rem, not the 8rem margin column it used to inherit: that track was cut
+    // for a two-digit number and the section head no longer has a margin
+    // column to align with. The country name is set at 1.5rem and wrapped in
+    // it.
+    grid-template-columns: 14rem minmax(0, 1fr) 15rem;
+    gap: var(--space-7);
     align-items: center;
   }
 }
 
-.name {
-  font-size: var(--fs-h3);
-  line-height: var(--lh-h3);
+.row:hover {
+  background-color: var(--color-row-hover);
 }
 
+.name {
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+}
+
+// The remainder is now visible: the track runs the full width and the unspent
+// part stays hairline grey. Without it a row showed how much, but never how
+// much RELATIVE to the most expensive jurisdiction — which is the comparison
+// the block exists to make.
 .track {
   display: flex;
-  height: 1.25rem;
+  height: 0.5rem;
   min-width: 0;
+  background-color: var(--color-hairline);
 }
 
 .advertised,
@@ -81,15 +68,15 @@
   transform-origin: left center;
 }
 
+// Ink for the advertised threshold, accent for what is added on top: the
+// accent marks the part of the number nobody else publishes, which is the
+// only thing in this block worth colouring.
 .advertised {
-  background-color: var(--color-accent);
+  background-color: var(--color-text);
 }
 
-// The lightest step of the same hue, not a second colour: this is one
-// quantity split into two parts, which is a sequential relationship. A
-// contrasting hue here would imply two unrelated categories.
 .extras {
-  background-color: #ecc0c6;
+  background-color: var(--color-accent);
 }
 
 // Animation is opt-in twice over: only when JS has marked the block, and only
@@ -114,43 +101,78 @@
   }
 }
 
-.figures {
+// The two figures that make up the bar, set small and directly under it —
+// they are the arithmetic, not the finding.
+.parts {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-3);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-2) var(--space-5);
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+}
 
-  // Three columns rather than space-between: with a flex row the third
-  // figure wrapped onto its own line and the block stopped reading as one
-  // set of three. Equal tracks also line the labels up down the whole table.
+.parts b {
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text);
+}
+
+// The finding. Twice the size of anything else in the row, because the whole
+// section exists to say that this number and the advertised one are not the
+// same number.
+.real {
   @include mixins.breakpoint-up(lg) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
+    text-align: right;
   }
 }
 
-.figure {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  font-size: var(--fs-small);
-}
-
-.figureLabel {
+.realLabel {
   @include mixins.eyebrow;
 
   font-size: var(--fs-nano);
   color: var(--color-text-muted);
 }
 
-.total {
-  font-weight: var(--font-weight-medium);
+.realValue {
+  @include mixins.figure-text;
+
+  display: block;
+  margin-top: var(--space-1);
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  // Intl formats thousands with a narrow no-break space, which a monospace
+  // face renders at a full character width — at this size the number breaks
+  // into two words. Pulling the word spacing back closes it without touching
+  // the digits, which must stay on the mono grid to line up down the column.
+  word-spacing: -0.35em;
 }
 
+// Hung off the same margin column as the section number, with its own label:
+// a note that shows its grid reads as an apparatus, not as leftover text.
 .note {
-  margin-top: var(--space-5);
-  max-width: var(--measure-wide);
-  font-size: var(--fs-micro);
-  line-height: var(--lh-micro);
+  margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: var(--margin-column) 1fr;
+    gap: var(--space-7);
+  }
+}
+
+.noteLabel {
+  @include mixins.eyebrow;
+
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+}
+
+.noteBody {
+  max-width: 62ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
   color: var(--color-text-muted);
 }

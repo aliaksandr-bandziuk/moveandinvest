@@ -1,0 +1,222 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+}
+
+// One rule around questions and form together: they are one object, and the
+// third question is the prompt for the free-text field below it.
+.box {
+  margin-top: var(--space-7);
+  border: var(--border-hairline) solid var(--color-text);
+}
+
+// The one warm tint on the site outside table row hover, and it earns its
+// place by role rather than decoration: it separates the questions from the
+// form inside a single frame without a second border.
+.questions {
+  list-style: none;
+  background-color: var(--color-row-hover);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-4);
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-7);
+  }
+}
+
+.question {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+
+  p {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    font-size: var(--fs-h3);
+    line-height: 1.35;
+  }
+}
+
+.number {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-micro);
+  color: var(--color-accent);
+}
+
+.body {
+  padding: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-7);
+  }
+}
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.label {
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+  padding: 0;
+}
+
+.pair {
+  display: grid;
+  gap: var(--space-5);
+
+  @include mixins.breakpoint-up(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.text,
+.textarea {
+  inline-size: 100%;
+  padding: 0.7rem 0.85rem;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  background-color: var(--color-surface);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.textarea {
+  min-block-size: 7rem;
+}
+
+// --- Chips ------------------------------------------------------------------
+// The radio itself is visually hidden rather than display:none — a hidden
+// input is not focusable, and the keyboard has to be able to reach the group.
+.chips {
+  list-style: none;
+  // The UA gives every list a padding-inline-start of 40px. globals.scss
+  // zeroes margins but not padding, so a list that does not set it sits
+  // indented past the label above it. `.questions` escapes this only because
+  // its own `padding` shorthand happens to overwrite the same property.
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.input {
+  @include mixins.visually-hidden;
+}
+
+.chip {
+  display: block;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  // Same padding as the chips in the home page form, so the two forms have
+  // one tap target and not two that are almost the same.
+  // 0.62rem, not 0.5: at the smaller value the chip measured 41px and the
+  // floor for a tap target is 44.
+  padding: 0.62rem 0.85rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.input:checked + .chip {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.input:focus-visible + .chip {
+  @include mixins.focus-ring;
+}
+
+.submit {
+  justify-self: start;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: var(--border-hairline) solid var(--color-accent);
+  border-radius: var(--radius-s);
+  padding: 0.85rem 1.5rem;
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.fine {
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  max-width: 70ch;
+}
+
+// --- Honeypot ---------------------------------------------------------------
+// Off-screen, not display:none: a field that is not rendered is one a bot can
+// also detect is not rendered.
+.honeypot {
+  @include mixins.visually-hidden;
+}
+
+// --- Result panels ----------------------------------------------------------
+// :global() around the ids because CSS Modules scopes id selectors too, and
+// the route handler redirects to the literal `#partner-sent`.
+.result {
+  display: none;
+  margin-bottom: var(--space-6);
+  border: var(--border-hairline) solid var(--color-line);
+  padding: var(--space-5);
+}
+
+:global(#partner-sent):target,
+:global(#partner-error):target {
+  display: block;
+}
+
+// A sent form is not something to look at again, and leaving it on screen
+// invites a second copy of the same reply.
+:global(#partner-sent):target ~ .form {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent);
+}
+
+.resultTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.resultBody {
+  margin-top: var(--space-3);
+  max-width: var(--measure-wide);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}

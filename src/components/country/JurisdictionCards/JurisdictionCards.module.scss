@@ -1,0 +1,212 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+// --- Identity colours -------------------------------------------------------
+// Four hues, one per jurisdiction with published figures, chosen against a
+// validator rather than by eye. Every adjacent pair holds ΔE 16.3 under
+// deuteranopia and 18.3 under normal vision, all four clear the chroma floor
+// and the 3:1 contrast against the plane they sit on.
+//
+// The dark steps are lighter than the light ones on purpose and are not an
+// automatic tint: the plum at its light step measures 2.76:1 on this plane,
+// which is below the floor.
+//
+// Cyprus deliberately has none. It has no checked figures, so it carries the
+// muted status colour instead — a fifth hue would say it is covered.
+.card {
+  --identity: var(--color-map-pending);
+}
+
+li[data-code="pt"] .card {
+  --identity: #22a894;
+}
+
+li[data-code="gr"] .card {
+  --identity: #5a7fe0;
+}
+
+li[data-code="mt"] .card {
+  --identity: #cf7a1e;
+}
+
+li[data-code="ae"] .card {
+  --identity: #c4517f;
+}
+
+// --- The two rows -----------------------------------------------------------
+// Named for the grid, not for the cards in it. The first version called both
+// the list and the card `.big`, so the list's `grid-template-columns` landed
+// on the card as well and every small card became a three-column grid with
+// its labels wrapping. Found by rendering, not by reading.
+.gridTwo,
+.gridThree {
+  list-style: none;
+  margin: 0;
+  // The UA indents every list by 40px and globals.scss zeroes margins, not
+  // padding.
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.gridTwo {
+  margin-top: var(--space-7);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+}
+
+.gridThree {
+  margin-top: var(--space-4);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include mixins.breakpoint-up(lg) {
+    gap: var(--space-5);
+  }
+}
+
+// --- The card ---------------------------------------------------------------
+.card {
+  display: grid;
+  gap: var(--space-5);
+  block-size: 100%;
+  min-width: 0;
+  padding: var(--space-5);
+  border: var(--border-hairline) solid var(--color-on-dark-hairline);
+  color: inherit;
+  text-decoration: none;
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-6);
+  }
+}
+
+// The border takes the jurisdiction's own colour on hover rather than a
+// generic highlight: the card already has an identity, and using it is what
+// makes the colour read as meaning something.
+a.card:hover {
+  border-color: var(--identity);
+}
+
+a.card:focus-visible {
+  @include mixins.focus-ring;
+}
+
+// The two lead cards put the outline beside the figures rather than above
+// them: at half the row's width there is room, and it is what makes the row
+// read as a spread instead of as five equal tiles.
+.wide {
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+.text {
+  min-width: 0;
+}
+
+.shape {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  // Reserves the box before the path paints, so the card does not jump.
+  aspect-ratio: 200 / 140;
+
+  path {
+    fill: var(--identity);
+  }
+}
+
+// The three lower cards get a capped outline. Uncapped they run the full
+// width of the card, and Malta — fitted to its own box like every other
+// shape — ends up drawn twice the size of Portugal in the row above it. The
+// two lead cards keep a large outline: that difference is the density
+// contrast the row exists for.
+.card:not(.wide) .shape {
+  max-inline-size: 12rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  color: var(--color-on-dark);
+}
+
+.figure {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-2);
+  font-size: 1.375rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  // Thin spaces inside a threshold read as gaps at this size.
+  word-spacing: -0.25em;
+  color: var(--color-on-dark);
+}
+
+.wide .figure {
+  @include mixins.breakpoint-up(lg) {
+    font-size: 2.25rem;
+  }
+}
+
+.rows {
+  margin-top: var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+
+  dd {
+    text-align: end;
+  }
+}
+
+.key {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+// Muted text, never opacity — the same rule the comparison table follows for
+// a jurisdiction whose figures are not checked yet.
+.pending {
+  .name,
+  .figure {
+    color: var(--color-on-dark-muted);
+  }
+}
+
+.note {
+  max-width: var(--measure-wide);
+
+  margin-top: var(--space-6);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+}

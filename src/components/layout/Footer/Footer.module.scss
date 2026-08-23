@@ -42,12 +42,17 @@
 // `--color-accent-on-dark` exists for exactly this.
 .email {
   @include mixins.figure-text;
+  @include mixins.tap-target;
 
   font-size: var(--fs-small);
   color: var(--color-on-dark);
-  text-decoration: none;
-  border-bottom: var(--border-hairline) solid var(--color-accent-on-dark);
-  padding-bottom: 0.1rem;
+  // text-decoration, not border-bottom. The box is now 44px tall for the
+  // tap target, and a bottom border would have sat at the bottom of that
+  // box — a rule floating half a line under the address.
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-on-dark);
+  text-decoration-thickness: var(--border-hairline);
+  text-underline-offset: 0.25em;
   justify-self: start;
   white-space: nowrap;
 }
@@ -137,11 +142,16 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: var(--space-2);
+  // Zero, not --space-2: each link now carries a 44px tap target of its own,
+  // and a gap on top of that would make the footer nav twice as tall as the
+  // content in it.
+  gap: 0;
   font-size: var(--fs-small);
 }
 
 .link {
+  @include mixins.tap-target;
+
   color: var(--color-on-dark);
   text-decoration: none;
 }
@@ -157,7 +167,13 @@
 // Listed, marked, and not a link. The same rule the comparison table follows
 // for a jurisdiction with no page yet: show what the site will cover, never
 // pretend it already does, and never send anyone to a 404.
+// Not a tap target — it is not a link — but it stands in a list of links, and
+// without the same row height the "soon" entries bunch together while the
+// live ones are spread out, which reads as a broken column rather than as a
+// difference in status.
 .pending {
+  @include mixins.tap-target;
+
   color: var(--color-map-pending);
 }
 
@@ -224,4 +240,17 @@
 
 .creditLink:focus-visible {
   @include mixins.focus-ring-on-dark;
+}
+
+// The cookie control shares .link's appearance and needs a button's defaults
+// undone. Kept next to .link rather than in the component so the two can
+// never drift apart visually.
+.linkButton {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
 }

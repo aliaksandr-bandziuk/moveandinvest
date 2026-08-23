@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import {
-  Footer,
-  type FooterJurisdiction,
-  Header,
-  ScrollDivider,
-} from "@/components/layout";
+import { AnalyticsLoader, CookieBanner, Footer, Header, ScrollDivider, type FooterJurisdiction } from "@/components/layout";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
 import { getSiteUrl, isProductionDeployment } from "@/lib/site";
@@ -80,8 +75,22 @@ export default async function LocaleLayout({
   }));
 
   return (
-    <html lang={locale} className={fontVariables}>
-      <body>
+    // suppressHydrationWarning on these two elements only, and deliberately.
+    //
+    // The mismatch React reports here is `cz-shortcut-listen="true"` on
+    // <body> — an attribute a browser extension (ColorZilla, and several
+    // password managers do the same thing on <html>) writes into the DOM
+    // before React hydrates. Nothing in this repo can stop it: the server
+    // never emitted the attribute, the client did not either, and the visitor
+    // owns the extension. The warning is real but it is not ours, and left in
+    // place it buries the mismatches that ARE ours in the same console.
+    //
+    // The flag is one level deep: it silences a mismatch in THIS element's own
+    // attributes and text, and nothing below it. Header, Footer and every
+    // section still report hydration errors normally. Do not move it onto a
+    // component to make a warning go away — that is how a real bug goes quiet.
+    <html lang={locale} className={fontVariables} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {/* Messages here are UI chrome only — nav labels, button text, form
             validation. Page content always comes from Sanity (CLAUDE.md),
             never from the message catalogues. */}
@@ -107,6 +116,14 @@ export default async function LocaleLayout({
             contactEmail={settings?.contactEmail}
             jurisdictions={jurisdictions}
           />
+
+          {/* Both mounted once, here, and nowhere else. AnalyticsLoader
+              renders nothing — it is the wiring between the banner's stored
+              choice and the two vendor loaders, and neither loader creates a
+              script tag until that choice is yes. The banner renders nothing
+              during SSR either; see its own comment. */}
+          <AnalyticsLoader />
+          <CookieBanner />
         </NextIntlClientProvider>
       </body>
     </html>

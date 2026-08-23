@@ -7,9 +7,9 @@ export const ROUTE_ANSWERS_KEY = "mi.routeAnswers";
 
 /** Maps a route-finder answer value to this form's value for the same idea. */
 const BUDGET: Record<string, string> = {
-  "300": "300",
   "500": "500",
-  any: "over500",
+  "800": "800",
+  any: "over800",
 };
 const TIMELINE: Record<string, string> = {
   fast: "fast",

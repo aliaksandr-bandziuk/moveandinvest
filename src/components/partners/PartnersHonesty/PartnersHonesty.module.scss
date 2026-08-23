@@ -1,0 +1,81 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+}
+
+.groupLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+}
+
+// --- What we do not promise -------------------------------------------------
+.negative {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-text);
+}
+
+// --- What we do promise -----------------------------------------------------
+// The tonal shift is the point: a different surface says "this is a different
+// kind of statement", which no amount of extra wording would.
+.positive {
+  margin-top: var(--space-7);
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  padding: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-7);
+  }
+
+  .groupLabel {
+    color: var(--color-accent-on-dark);
+  }
+
+  .itemBody {
+    color: var(--color-on-dark-muted);
+  }
+}
+
+.items {
+  // globals.scss carries no list reset — every component that uses a list
+  // turns the marker off itself. Section 03 gets away without it only because
+  // `display: grid` on the <li> already stops it being a list-item box.
+  list-style: none;
+  margin-top: var(--space-5);
+  display: grid;
+  gap: var(--space-6);
+
+  // Two columns for the four caveats, three for the three commitments — each
+  // group fills its row rather than leaving a hole at the end of it.
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-7);
+  }
+}
+
+.positive .items {
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// h4, because these sit under the group's h3, which sits under the section's
+// h2. The heading level follows the outline; the size is set here and owes
+// nothing to the level.
+.itemTitle {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.itemBody {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

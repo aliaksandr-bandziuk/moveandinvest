@@ -6,25 +6,8 @@
 // between the FAQ and the enquiry form, and it is the only block on the page
 // addressed to somebody other than the reader.
 .section {
-  padding-block: var(--space-7);
+  @include mixins.section-rhythm;
   border-top: var(--border-hairline) solid var(--color-hairline);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-block: var(--space-8);
-  }
-}
-
-.eyebrow {
-  @include mixins.eyebrow;
-
-  color: var(--color-accent);
-  margin-bottom: var(--space-4);
-}
-
-.index {
-  @include mixins.figure-text;
-
-  color: var(--color-text-muted);
 }
 
 // One rule around both halves rather than a fill: an outline reads as an
@@ -32,6 +15,7 @@
 // hairline, lighter than the frame, so the box stays one object rather than
 // two boxes touching.
 .box {
+  margin-top: var(--space-6);
   border: var(--border-hairline) solid var(--color-text);
   display: grid;
 
@@ -64,24 +48,13 @@
   }
 }
 
-.heading {
-  font-size: var(--fs-h3);
-  line-height: var(--lh-h3);
-  max-width: 22ch;
-}
-
-.body {
-  margin-top: var(--space-3);
-  font-size: var(--fs-small);
-  line-height: var(--lh-body-lg);
-  color: var(--color-text-muted);
-  max-width: 56ch;
-}
 
 // A link with a rule, not a filled button. The enquiry form directly below
 // has the page's only filled call to action, and two of them in a row make
 // the reader choose between them — a choice this block should never win.
 .cta {
+  @include mixins.tap-target;
+
   display: inline-block;
   margin-top: var(--space-5);
   font-size: var(--fs-small);

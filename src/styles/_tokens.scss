@@ -95,6 +95,15 @@ $z-index: (
   // So identity is carried by position on the map and by a direct label
   // everywhere else, and colour now says one thing only: covered or not.
   --color-map-land: #171d27; // uncovered land on the black plane
+
+  // The big figure above each section's eyebrow. Measured, not eyeballed:
+  // 2.31:1 on white and 2.13:1 on the black plane. The first version used
+  // --color-hairline and --color-map-land, which land at 1.32:1 and 1.13:1 —
+  // the contrast of a rule, not of a mark. An element nobody can see still
+  // occupies its space, and the heading beside it then looks pushed around by
+  // nothing.
+  --color-section-number: #a3abba;
+  --color-section-number-on-dark: #3d4a5c;
   --color-map-active: #d9600f; // a covered jurisdiction — 5.4:1 on the plane
   --color-map-pending: #6b7484; // declared but not yet published
   --color-map-lead: #4a5364; // leader lines from a shape to its label
@@ -166,7 +175,19 @@ $z-index: (
   --focus-ring-width: 2px;
 
   // --- Layout --------------------------------------------------------------
-  --container-max-width: 78rem; // 1248px
-  --gutter: var(--space-5); // mobile
-  --gutter-lg: var(--space-7); // from lg up
+  // The container is sized by its GUTTERS, not by a fixed reading width: the
+  // padding grows with the viewport and the max-width is only a ceiling, so a
+  // wide screen gets a wide page rather than a 1248px column marooned in the
+  // middle of it. Prose does not sprawl with it — every text block carries its
+  // own --measure-*, which is what actually governs line length.
+  //
+  // 106rem = 1696px. At 1920 that leaves ~112px of air each side; at 1440 the
+  // ceiling never binds and the 4vw gutter decides.
+  --container-max-width: 106rem;
+  --gutter: clamp(1.25rem, 4vw, 5rem);
+
+  // Where a section needs to hang something in the left margin — a section
+  // number, a label — this is the width of that margin. Zero below lg, where
+  // there is no margin to hang anything in.
+  --margin-column: 8rem;
 }

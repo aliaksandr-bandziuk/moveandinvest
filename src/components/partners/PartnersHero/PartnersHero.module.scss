@@ -1,0 +1,112 @@
+@use "../../../styles/mixins";
+
+// Mobile first. The plane is the same surface as the home page hero, and the
+// header renders directly above it on the same background — so no top border
+// here either, the header's own hairline is the join.
+.plane {
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  padding-block: var(--space-7) var(--space-8);
+
+  @include mixins.breakpoint-up(md) {
+    padding-block: var(--space-8) var(--space-9);
+  }
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-5);
+
+  @include mixins.breakpoint-up(md) {
+    margin-bottom: var(--space-6);
+  }
+}
+
+// One step below the home page's --fs-hero. The home page headline is the
+// loudest thing on the site and stays that way; this one is a sentence with
+// real information in it, and at hero size it would run to five lines.
+// --fs-hero, not --fs-display. The section head was raised to 3.25rem when it
+// became a spread, and at --fs-display this page's own H1 capped at 3rem —
+// so every section below shouted louder than the headline above them.
+// Measured: 48px against 52px.
+.heading {
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--tracking-hero);
+  max-width: 16ch;
+  color: var(--color-on-dark);
+}
+
+.intro {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-dark-muted);
+  max-width: var(--measure-wide);
+  margin-block: var(--space-6) var(--space-7);
+
+  @include mixins.breakpoint-up(md) {
+    font-size: var(--fs-body-lg);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  @include mixins.breakpoint-up(sm) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.email {
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark);
+  border-bottom: var(--border-hairline) solid var(--color-on-dark-border);
+  padding-bottom: 0.15rem;
+
+  &:hover {
+    border-bottom-color: var(--color-accent-on-dark);
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring-on-dark;
+  }
+}
+
+.terms {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-on-dark-hairline);
+  display: grid;
+  gap: var(--space-5);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+// A dl in a grid needs the pair wrapped, or dt and dd become independent grid
+// items and the three columns fill with title, title, title, body, body, body.
+.term {
+  display: block;
+}
+
+.termTitle {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-dark);
+  margin-bottom: var(--space-1);
+}
+
+.termBody {
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+}

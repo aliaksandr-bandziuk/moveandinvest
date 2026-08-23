@@ -6,7 +6,7 @@ import {
   CostComparison,
   type CostRow,
   type Jurisdiction,
-  JurisdictionMap,
+  JurisdictionCards,
   type Priority,
   RouteFinder,
   type SpeedBand,
@@ -87,22 +87,11 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
+  // Two strings, and both are punctuation the route finder glues clauses
+  // with: ", " and ". ". They stay in the message catalogue on purpose —
+  // separators are not copy, and a CMS field holding ", " is an invitation to
+  // break a sentence. Everything a reader would call TEXT comes from Sanity.
   const t = await getTranslations("home");
-
-  // Six messages on this page deliberately keep their `{placeholders}`: they
-  // are templates handed to a client component, which fills them in from state
-  // the server has never seen. `t()` parses every message as ICU and throws
-  // FORMATTING_ERROR the moment a placeholder has no value — which is exactly
-  // what happened, six times, one per template. `t.raw` is the documented way
-  // to take a message as written.
-  const template = (key: string): string => {
-    const value: unknown = t.raw(key);
-    if (typeof value === "string") return value;
-    if (process.env.NODE_ENV !== "production") {
-      console.warn(`[moveandinvest] Missing or non-string message: home.${key}`);
-    }
-    return "";
-  };
 
   const [home, countries, faq] = await Promise.all([
     sanityFetch<HomePageResult | null>(HOME_PAGE_QUERY, { locale }, HOME_TAGS),
@@ -184,7 +173,7 @@ export default async function HomePage({
   // because nothing appears to change.
   const taggedCodes = new Set(faqEntries.flatMap((entry) => entry.codes));
   const faqFilters: FaqFilterOption[] = [
-    { value: "all", label: t("faqAll") },
+    { value: "all", label: home.faq.allLabel },
     ...countries
       .filter((c) => taggedCodes.has(c.code))
       .map((c) => ({ value: c.code, label: c.name })),
@@ -195,7 +184,23 @@ export default async function HomePage({
   // combined table would otherwise imply all five were verified together.
   const sourceNote =
     countries.find((c) => c.page?.sourceNote)?.page?.sourceNote ??
-    t("sourcePending");
+    home.hero.sourcePending;
+
+  // The hero's contents list. Every label is the eyebrow of the section it
+  // points at, read from the same document — so a section renamed in the
+  // studio renames itself here too, and there is no second list of section
+  // names anywhere in the codebase. The fragments are the ids the components
+  // set on their own <section> elements.
+  const contents = [
+    { index: "01", label: home.hero.tableEyebrow, href: "#comparison" },
+    { index: "02", label: home.method.eyebrow, href: "#method" },
+    { index: "03", label: home.map.eyebrow, href: "#jurisdictions" },
+    { index: "04", label: home.cost.eyebrow, href: "#cost" },
+    { index: "05", label: home.routeFinder.eyebrow, href: "#route" },
+    { index: "06", label: home.faq.eyebrow, href: "#faq" },
+    { index: "07", label: home.partnerTeaser.eyebrow, href: "#partners" },
+    { index: "08", label: home.enquiry.eyebrow, href: "#enquiry" },
+  ];
 
   // Structured data mirrors what the table already says in HTML. Both are
   // read: the markup by an answer engine parsing the page, this by a
@@ -253,123 +258,126 @@ export default async function HomePage({
       ) : null}
 
       <HomeHero
-        eyebrow={home.eyebrow}
-        heading={home.heading}
-        intro={home.intro}
-        primaryCta={home.primaryCta}
-        secondaryCta={home.secondaryCta}
-        tableCaption={home.comparisonHeading}
-        tableIntro={home.comparisonIntro}
-        columnLabels={{
-          jurisdiction: t("columns.jurisdiction"),
-          route: t("columns.route"),
-          minimumInvestment: t("columns.minimumInvestment"),
-          timeToPermit: t("columns.timeToPermit"),
-          taxRegime: t("columns.taxRegime"),
-        }}
+        eyebrow={home.hero.eyebrow}
+        heading={home.hero.heading}
+        intro={home.hero.intro}
+        primaryCta={home.hero.primaryCta}
+        secondaryCta={home.hero.secondaryCta}
+        contentsLabel={home.hero.contentsLabel}
+        contents={contents}
+        tableEyebrow={home.hero.tableEyebrow}
+        tableCaption={home.hero.tableHeading}
+        tableIntro={home.hero.tableIntro}
+        tableDetailLabel={home.hero.tableDetailLabel}
+        tableScrollHint={home.hero.tableScrollHint}
+        columnLabels={home.hero.columns}
         rows={hasPublishedData ? rows : []}
         sourceNote={sourceNote}
-        updatedLabel={t("updated")}
-        pendingLabel={t("pendingLabel")}
-        pendingNote={t("pendingNote")}
+        updatedLabel={home.hero.updatedLabel}
+        pendingLabel={home.hero.pendingLabel}
+        pendingNote={home.hero.pendingNote}
       />
 
       <MethodSection
         index="02"
-        eyebrow={t("methodEyebrow")}
-        heading={home.methodHeading}
-        intro={home.methodIntro}
-        points={home.methodPoints ?? []}
+        eyebrow={home.method.eyebrow}
+        heading={home.method.heading}
+        intro={home.method.intro}
+        points={home.method.points ?? []}
       />
 
-      <JurisdictionMap
+      {/* Replaced the world map that stood here — see the note at the top of
+          the component. The map is still in src/components/country and is
+          one import away if this turns out to be the wrong trade. */}
+      <JurisdictionCards
         index="03"
-        eyebrow={t("mapEyebrow")}
-        heading={t("mapHeading")}
-        intro={t("mapIntro")}
+        eyebrow={home.map.eyebrow}
+        heading={home.map.heading}
+        intro={home.map.intro}
+        note={home.map.note}
         rows={rows}
-        note={t("mapNote")}
-        fromLabel={t("columns.minimumInvestment")}
-        permitLabel={t("columns.timeToPermit")}
+        // Reusing the table's own column heads rather than adding three more
+        // fields that would have to say the same thing in three languages.
+        labels={home.hero.columns}
       />
 
       <CostComparison
         index="04"
-        eyebrow={t("costEyebrow")}
-        heading={t("costHeading")}
-        intro={t("costIntro")}
+        eyebrow={home.cost.eyebrow}
+        heading={home.cost.heading}
+        intro={home.cost.intro}
         rows={costRows}
         labels={{
-          advertised: t("costAdvertised"),
-          extras: t("costExtras"),
-          real: t("costReal"),
+          advertised: home.cost.advertisedLabel,
+          extras: home.cost.extrasLabel,
+          real: home.cost.realLabel,
         }}
-        note={t("costNote")}
+        noteLabel={home.cost.noteLabel}
+        note={home.cost.note}
         locale={locale}
       />
 
       <RouteFinder
         index="05"
-        eyebrow={t("routeEyebrow")}
-        heading={t("routeHeading")}
-        intro={t("routeIntro")}
+        eyebrow={home.routeFinder.eyebrow}
+        heading={home.routeFinder.heading}
+        intro={home.routeFinder.intro}
         locale={locale}
         jurisdictions={jurisdictions}
         questions={[
           {
             name: "budget",
             index: "01",
-            legend: t("routeQ.budget"),
+            legend: home.routeFinder.questions.budget.legend,
             options: [
-              { value: "300", label: t("routeQ.budget300") },
-              { value: "500", label: t("routeQ.budget500") },
-              { value: "any", label: t("routeQ.budgetAny") },
+              { value: "500", label: home.routeFinder.questions.budget.upTo500 },
+              { value: "800", label: home.routeFinder.questions.budget.upTo800 },
+              { value: "any", label: home.routeFinder.questions.budget.any },
             ],
           },
           {
             name: "speed",
             index: "02",
-            legend: t("routeQ.speed"),
+            legend: home.routeFinder.questions.speed.legend,
             options: [
-              { value: "fast", label: t("routeQ.speedFast") },
-              { value: "half-year", label: t("routeQ.speedHalf") },
-              { value: "any", label: t("routeQ.speedAny") },
+              { value: "fast", label: home.routeFinder.questions.speed.fast },
+              { value: "half-year", label: home.routeFinder.questions.speed.half },
+              { value: "any", label: home.routeFinder.questions.speed.any },
             ],
           },
           {
             name: "priority",
             index: "03",
-            legend: t("routeQ.priority"),
+            legend: home.routeFinder.questions.priority.legend,
             options: [
-              { value: "passport", label: t("routeQ.priorityPassport") },
-              { value: "tax", label: t("routeQ.priorityTax") },
-              { value: "speed", label: t("routeQ.prioritySpeed") },
+              { value: "passport", label: home.routeFinder.questions.priority.passport },
+              { value: "tax", label: home.routeFinder.questions.priority.tax },
+              { value: "speed", label: home.routeFinder.questions.priority.speed },
             ],
           },
         ]}
         figureLabels={{
-          advertised: t("routeAdvertised"),
-          extras: t("routeExtras"),
-          real: t("routeReal"),
-          permit: t("routePermit"),
-          tax: t("routeTax"),
+          advertised: home.routeFinder.rows.advertised,
+          extras: home.routeFinder.rows.extras,
+          real: home.routeFinder.rows.real,
+          permit: home.routeFinder.rows.permit,
+          tax: home.routeFinder.rows.tax,
         }}
-        ctaLabel={t("routeCta")}
-        pendingLabel={t("routePending")}
-        placeholder={t("routePlaceholder")}
-        unverified={t("routeUnverified")}
+        ctaLabel={home.routeFinder.ctaLabel}
+        pendingLabel={home.routeFinder.pending}
+        placeholder={home.routeFinder.placeholder}
+        unverified={home.routeFinder.unverified}
         controlLabels={{
-          count: template("routeCount"),
-          compromise: template("routeCompromise"),
-          relax: {
-            budget: t("routeRelaxBudget"),
-            speed: t("routeRelaxSpeed"),
-            priority: t("routeRelaxPriority"),
-          },
+          // Plain strings straight from Sanity. They still carry
+          // {placeholders}, but nothing parses them as ICU any more, so the
+          // FORMATTING_ERROR failure mode is gone rather than worked around.
+          count: home.routeFinder.templates.count,
+          compromise: home.routeFinder.templates.compromise,
+          relax: home.routeFinder.relaxWords,
           cut: {
-            budget: template("routeCutBudget"),
-            speed: template("routeCutSpeed"),
-            priority: template("routeCutPriority"),
+            budget: home.routeFinder.templates.cutBudget,
+            speed: home.routeFinder.templates.cutSpeed,
+            priority: home.routeFinder.templates.cutPriority,
           },
           join: t("routeJoin"),
           clauseJoin: t("routeClauseJoin"),
@@ -378,94 +386,102 @@ export default async function HomePage({
 
       <FaqSection
         index="06"
-        eyebrow={t("faqEyebrow")}
-        heading={t("faqHeading")}
+        eyebrow={home.faq.eyebrow}
+        heading={home.faq.heading}
+        intro={home.faq.intro}
         entries={faqEntries}
         filters={faqFilters}
-        filterLegend={t("faqFilterLegend")}
-        countTemplate={template("faqCount")}
-        note={t("faqNote")}
+        filterLegend={home.faq.filterLegend}
+        countTemplate={home.faq.countTemplate}
+        note={home.faq.note}
       />
 
       <PartnerTeaser
         index="07"
-        eyebrow={t("partnerEyebrow")}
-        heading={home.partnerTeaserHeading}
-        body={home.partnerTeaserBody}
-        ctaLabel={t("partnerCta")}
+        eyebrow={home.partnerTeaser.eyebrow}
+        heading={home.partnerTeaser.heading}
+        intro={home.partnerTeaser.body}
+        ctaLabel={home.partnerTeaser.ctaLabel}
         ctaHref="/for-partners"
-        qualifiersLabel={t("qualifiersLabel")}
-        qualifiers={[
-          t("qualifiers.jurisdiction"),
-          t("qualifiers.budget"),
-          t("qualifiers.timeline"),
-          t("qualifiers.goal"),
-        ]}
+        qualifiersLabel={home.partnerTeaser.qualifiersLabel}
+        qualifiers={home.partnerTeaser.qualifiers ?? []}
       />
       <EnquiryForm
         index="08"
-        eyebrow={t("enquiryEyebrow")}
-        heading={t("enquiryHeading")}
+        eyebrow={home.enquiry.eyebrow}
+        heading={home.enquiry.heading}
+        intro={home.enquiry.intro}
         locale={locale}
         fork={{
           chosenIndex: "01",
-          chosenTitle: t("enquiryForkChosen"),
-          chosenBody: t("enquiryForkChosenBody"),
+          chosenTitle: home.enquiry.fork.chosenLabel,
+          chosenBody: home.enquiry.fork.chosenBody,
           undecidedIndex: "02",
-          undecidedTitle: t("enquiryForkOpen"),
-          undecidedBody: t("enquiryForkOpenBody"),
+          undecidedTitle: home.enquiry.fork.openLabel,
+          undecidedBody: home.enquiry.fork.openBody,
         }}
         // Labels come from the registry, so the form and the table can never
         // disagree about which five jurisdictions exist.
         jurisdictions={countries.map((c) => ({ value: c.code, label: c.name }))}
         openOptions={[
-          { value: "undecided", label: t("enquiryUndecided") },
-          { value: "other", label: t("enquiryOther") },
+          { value: "undecided", label: home.enquiry.fork.undecidedOption },
+          { value: "other", label: home.enquiry.fork.otherOption },
         ]}
         budget={{
-          legend: t("enquiryBudget"),
+          legend: home.enquiry.budget.label,
           options: [
-            { value: "300", label: t("enquiryBudget300") },
-            { value: "500", label: t("enquiryBudget500") },
-            { value: "over500", label: t("enquiryBudgetOver") },
-            { value: "unknown", label: t("enquiryBudgetUnknown") },
+            { value: "500", label: home.enquiry.budget.upTo500 },
+            { value: "800", label: home.enquiry.budget.upTo800 },
+            { value: "over800", label: home.enquiry.budget.over800 },
+            { value: "unknown", label: home.enquiry.budget.unknown },
           ],
         }}
         timeline={{
-          legend: t("enquiryTimeline"),
+          legend: home.enquiry.timeline.label,
           options: [
-            { value: "fast", label: t("enquiryTimeFast") },
-            { value: "half-year", label: t("enquiryTimeHalf") },
-            { value: "year", label: t("enquiryTimeYear") },
-            { value: "browsing", label: t("enquiryTimeBrowsing") },
+            { value: "fast", label: home.enquiry.timeline.fast },
+            { value: "half-year", label: home.enquiry.timeline.halfYear },
+            { value: "year", label: home.enquiry.timeline.year },
+            { value: "browsing", label: home.enquiry.timeline.browsing },
           ],
         }}
         goals={{
-          legend: t("enquiryGoals"),
-          hint: t("enquiryGoalsHint"),
+          legend: home.enquiry.goals.label,
+          hint: home.enquiry.goals.hint,
           options: [
-            { value: "residency", label: t("enquiryGoalResidency") },
-            { value: "tax", label: t("enquiryGoalTax") },
-            { value: "passport", label: t("enquiryGoalPassport") },
-            { value: "business", label: t("enquiryGoalBusiness") },
-            { value: "property", label: t("enquiryGoalProperty") },
+            { value: "residency", label: home.enquiry.goals.residency },
+            { value: "tax", label: home.enquiry.goals.tax },
+            { value: "passport", label: home.enquiry.goals.passport },
+            { value: "business", label: home.enquiry.goals.business },
+            { value: "property", label: home.enquiry.goals.property },
           ],
         }}
         situation={{
-          legend: t("enquirySituation"),
-          hint: t("enquirySituationHint"),
+          legend: home.enquiry.contact.situationLabel,
+          hint: home.enquiry.contact.situationHint,
         }}
         contact={{
-          legend: t("enquiryContact"),
-          name: t("enquiryName"),
-          email: t("enquiryEmail"),
+          legend: home.enquiry.contact.contactLabel,
+          name: home.enquiry.contact.nameLabel,
+          email: home.enquiry.contact.emailLabel,
         }}
-        consent={t("enquiryConsent")}
-        fine={t("enquiryFine")}
-        submit={t("enquirySubmit")}
-        sent={{ title: t("enquirySentTitle"), body: t("enquirySentBody") }}
-        failed={{ title: t("enquiryFailedTitle"), body: t("enquiryFailedBody") }}
-        honeypot={t("enquiryHoneypot")}
+        consent={home.enquiry.contact.consentLabel}
+        fine={home.enquiry.fine}
+        privacyLabel={home.enquiry.privacyLabel}
+        submit={home.enquiry.contact.submitLabel}
+        sent={{
+          title: home.enquiry.result.sentTitle,
+          body: home.enquiry.result.sentBody,
+        }}
+        broke={{
+          title: home.enquiry.result.brokeTitle,
+          body: home.enquiry.result.brokeBody,
+        }}
+        failed={{
+          title: home.enquiry.result.failedTitle,
+          body: home.enquiry.result.failedBody,
+        }}
+        honeypot={home.enquiry.contact.honeypotLabel}
       />
     </main>
   );

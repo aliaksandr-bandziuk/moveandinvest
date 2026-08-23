@@ -1,3 +1,5 @@
+import { SectionHead } from "@/components/ui";
+
 import { FaqFilter } from "./FaqFilter";
 import styles from "./FaqSection.module.scss";
 
@@ -19,6 +21,7 @@ interface FaqSectionProps {
   index: string;
   eyebrow: string;
   heading: string;
+  intro: string;
   entries: FaqEntry[];
   /** Built by the caller: "all" plus every jurisdiction that has a question. */
   filters: FaqFilterOption[];
@@ -44,6 +47,7 @@ export function FaqSection({
   index,
   eyebrow,
   heading,
+  intro,
   entries,
   filters,
   filterLegend,
@@ -65,14 +69,17 @@ export function FaqSection({
       <div className="container">
         <FaqFilter className={styles.root} countTemplate={countTemplate}>
           <div className={styles.top}>
-            <div>
-              <p className={styles.eyebrow}>
-                <span className={styles.index}>{index}</span> · {eyebrow}
-              </p>
-              <h2 className={styles.heading}>{heading}</h2>
-            </div>
+            <SectionHead
+              index={index}
+              eyebrow={eyebrow}
+              heading={heading}
+              intro={intro}
+            >
+            {/* Passed as the head's children so it lands under the deck, in
+                the right half of the spread. Beside the head it would have
+                been a third column in a two-column grid.
 
-            {/* Rendered by the server but hidden until the enhancer marks the
+                Rendered by the server but hidden until the enhancer marks the
                 block. A visible control that does nothing is worse than no
                 control; a control that appears a frame late is not. */}
             <fieldset className={styles.filter}>
@@ -98,6 +105,7 @@ export function FaqSection({
                 })}
               </ul>
             </fieldset>
+            </SectionHead>
           </div>
 
           <dl className={styles.list}>

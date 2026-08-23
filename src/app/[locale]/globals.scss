@@ -58,18 +58,15 @@ textarea {
 }
 
 // --- Container --------------------------------------------------------------
-// Mobile-first: the gutter is the small one by default and widens from lg up.
-// A real global class rather than a mixin so exactly one copy exists sitewide.
-// Never combine it with a component that sets its own inline padding.
+// One rule, no breakpoint: --gutter is a clamp, so it scales with the
+// viewport continuously instead of stepping once at lg. A real global class
+// rather than a mixin so exactly one copy exists sitewide. Never combine it
+// with a component that sets its own inline padding.
 .container {
   width: 100%;
   max-width: var(--container-max-width);
   margin-inline: auto;
   padding-inline: var(--gutter);
-
-  @include mixins.breakpoint-up(lg) {
-    padding-inline: var(--gutter-lg);
-  }
 }
 
 // --- Base typography --------------------------------------------------------
