@@ -109,6 +109,11 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
           "One partner — the lawyer or adviser who works in the jurisdiction you chose — and only if you ticked the consent box. One partner per jurisdiction: your enquiry is never sent to several firms, never resold and never listed anywhere. Three suppliers process data on our behalf simply to run the site: Vercel Inc. hosts it, Hostinger handles the mailbox your enquiry arrives in, and Sanity serves the images. None of the measurement or advertising tools is ever sent what you wrote.",
       },
       {
+        heading: "The change list",
+        body:
+          "You can leave an email address on its own, without sending an enquiry, to be told when a rule changes. It is a separate purpose with a separate tick-box and separate consent: this address is never used to introduce you to a partner, and the enquiry consent is never read as permission to email you. We keep the address and, if you chose them, the jurisdictions you asked about — nothing else, no name, no page history. It stays until you leave, which takes one word in a reply to any of the emails; there is no confirmation step and nothing to justify. The list lives in the same mailbox as everything else and is not held by an email marketing service.",
+      },
+      {
         heading: "How long we keep it",
         body:
           "Your enquiry lives in our mailbox until you withdraw your consent or ask us to delete it. One line in reply to the confirmation email is enough, and it is not a support ticket — erasure is a right, not a favour. Once you ask, we delete our copy and ask the partner who received it to do the same.",
@@ -179,6 +184,11 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
           "Один партнёр — юрист или консультант, который работает в выбранной вами юрисдикции, — и только если вы поставили галочку согласия. Один партнёр на юрисдикцию: заявка не уходит в несколько фирм, не перепродаётся и нигде не публикуется. Три подрядчика обрабатывают данные по нашему поручению просто для работы сайта: Vercel Inc. его хостит, Hostinger обслуживает почтовый ящик, куда приходит заявка, Sanity отдаёт изображения. Ни одному инструменту измерения или рекламы то, что вы написали, не передаётся никогда.",
       },
       {
+        heading: "Список изменений",
+        body:
+          "Адрес почты можно оставить отдельно, не отправляя заявку, — чтобы получать письмо, когда меняется правило. Это отдельная цель с отдельной галочкой и отдельным согласием: этот адрес никогда не используется, чтобы свести вас с партнёром, а согласие в форме заявки никогда не читается как разрешение писать вам. Мы храним адрес и, если вы их выбрали, юрисдикции, по которым вы просили сообщать, — и больше ничего: ни имени, ни истории страниц. Он хранится, пока вы не уйдёте, а уход — это одно слово в ответ на любое из писем; шага подтверждения нет и обосновывать ничего не нужно. Список лежит в том же почтовом ящике, что и всё остальное, и не находится в сервисе email-рассылок.",
+      },
+      {
         heading: "Сколько храним",
         body:
           "Заявка лежит в нашем почтовом ящике до тех пор, пока вы не отзовёте согласие или не попросите её удалить. Достаточно одной строки в ответ на письмо-подтверждение, и это не заявка в поддержку: удаление — право, а не одолжение. После вашей просьбы мы удаляем свою копию и просим партнёра, который её получил, сделать то же самое.",
@@ -247,6 +257,11 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
         heading: "Kto jeszcze to widzi",
         body:
           "Jeden partner — prawnik lub doradca pracujący w wybranej przez Ciebie jurysdykcji — i tylko wtedy, gdy zaznaczyłeś zgodę. Jeden partner na jurysdykcję: zgłoszenie nie trafia do kilku firm, nie jest odsprzedawane ani nigdzie publikowane. Trzej dostawcy przetwarzają dane na nasze zlecenie po prostu po to, by strona działała: Vercel Inc. ją hostuje, Hostinger obsługuje skrzynkę, do której trafia zgłoszenie, Sanity serwuje obrazy. Żadnemu narzędziu pomiarowemu ani reklamowemu to, co napisałeś, nie jest przekazywane nigdy.",
+      },
+      {
+        heading: "Lista zmian",
+        body:
+          "Adres e-mail można zostawić osobno, bez wysyłania zgłoszenia — po to, by dostać wiadomość, gdy zmienia się przepis. To odrębny cel z odrębnym polem wyboru i odrębną zgodą: ten adres nigdy nie służy do skontaktowania Państwa z partnerem, a zgoda w formularzu zgłoszenia nigdy nie jest czytana jako pozwolenie na wysyłanie e-maili. Przechowujemy adres oraz, jeśli zostały wybrane, jurysdykcje, o których prosili Państwo informować — i nic poza tym: ani imienia, ani historii stron. Zostaje do momentu rezygnacji, a rezygnacja to jedno słowo w odpowiedzi na dowolny z listów; nie ma kroku potwierdzenia i niczego nie trzeba uzasadniać. Lista znajduje się w tej samej skrzynce co wszystko inne i nie jest przechowywana w serwisie do wysyłki e-maili.",
       },
       {
         heading: "Jak długo przechowujemy",

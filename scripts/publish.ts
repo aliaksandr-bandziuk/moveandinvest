@@ -1,21 +1,27 @@
 import { createClient } from "@sanity/client";
 
-// Promotes jurisdiction-page drafts to published.
+// Promotes drafts to published.
 //
-// `npm run seed` deliberately leaves every countryPage as a draft, because
-// each one carries investment thresholds, permit timelines and tax regimes
-// that have not been checked against a primary source yet. This script is the
-// explicit "I have looked at these and I accept them" step — it is not part of
-// seeding, and it is not something to run by reflex.
+// `npm run seed` deliberately leaves every jurisdiction page, property page and
+// FAQ answer as a draft, because each one carries investment thresholds, permit
+// timelines, tax regimes or statements about what a buyer may and may not do.
+// This script is the explicit "I have looked at these and I accept them" step —
+// it is not part of seeding, and it is not something to run by reflex.
 //
-//   npm run publish -- gr pt mt ae               # English pages for four codes
-//   npm run publish -- gr --locale ru            # the Russian Greece page
-//   npm run publish -- --all                     # every countryPage draft
-//   npm run publish -- --type faqItem --all      # every FAQ draft
+//   npm run publish -- gr pt mt ae                    # English pages, four codes
+//   npm run publish -- gr --locale ru                 # the Russian Greece page
+//   npm run publish -- --all                          # every countryPage draft
+//   npm run publish -- --type propertyPage --all      # every property page
+//   npm run publish -- --type faqItem --all           # every FAQ draft
 //
-// --type defaults to countryPage. Only types this script knows about are
-// accepted: promoting an arbitrary type by name is how a half-written
-// singleton reaches the live site.
+// --type defaults to countryPage. Only types listed in PUBLISHABLE below are
+// accepted: promoting an arbitrary type by name is how a half-written singleton
+// reaches the live site.
+//
+// ADDING A DOCUMENT TYPE THAT SEEDS AS A DRAFT MEANS ADDING IT TO THAT SET.
+// `propertyPage` shipped on 24 Aug 2026 with the seed writing twelve drafts and
+// this list still naming two types, so the only way to publish them was by hand
+// in Studio. The error message was at least honest about it.
 //
 // Needs SANITY_API_WRITE_TOKEN in .env.local. Create the token, run this,
 // delete the token.
@@ -63,11 +69,21 @@ interface DraftDoc {
   [key: string]: unknown;
 }
 
-const PUBLISHABLE = new Set(["countryPage", "faqItem"]);
+const PUBLISHABLE = new Set(["countryPage", "propertyPage", "faqItem"]);
+
+// Which types are addressed by jurisdiction code. `npm run publish -- gr pt`
+// builds ids from these; faqItem is keyed by question instead, which is why it
+// tells you to use --all.
+const CODE_ADDRESSED = new Set(["countryPage", "propertyPage"]);
 
 function parseArgs(argv: string[]) {
   const codes: string[] = [];
   let locale = "en";
+  // Whether the caller CHOSE a language or inherited the default. Worth
+  // tracking, because `npm run publish -- gr pt mt ae` promotes four documents
+  // and reports success — and the site then has English jurisdiction pages
+  // while the Russian and Polish ones 404. That is exactly what happened.
+  let localeExplicit = false;
   let all = false;
   let type = "countryPage";
 
@@ -88,17 +104,28 @@ function parseArgs(argv: string[]) {
       const next = argv[i + 1];
       if (!next) throw new Error("--locale needs a value, e.g. --locale ru");
       locale = next;
+      localeExplicit = true;
       i += 1;
     } else if (arg && !arg.startsWith("--")) {
       codes.push(arg);
     }
   }
 
-  return { codes, locale, all, type };
+  return { codes, locale, localeExplicit, all, type };
 }
 
 async function run() {
-  const { codes, locale, all, type } = parseArgs(process.argv.slice(2));
+  const { codes, locale, localeExplicit, all, type } = parseArgs(process.argv.slice(2));
+
+  // Said BEFORE the work, not after, because after it the line sits under a
+  // list of successes and reads as a footnote.
+  if (!all && !localeExplicit) {
+    console.log(
+      `No --locale given, so this publishes the "${locale}" documents ONLY.` +
+        ` The other two languages stay drafts and their pages 404.\n` +
+        `  every language at once:  npm run publish -- --all\n`,
+    );
+  }
 
   // Scoped to a known type on purpose. The singletons are already published
   // and nothing else in this dataset should be promoted by a script.
@@ -111,7 +138,9 @@ async function run() {
   if (!all && ids.length === 0) {
     console.error(
       `Nothing to do. Pass jurisdiction codes (gr pt mt ae) or --all.` +
-        (type === "faqItem" ? " FAQ drafts have no codes — use --all." : ""),
+        (CODE_ADDRESSED.has(type)
+          ? ""
+          : ` Drafts of type ${type} are not addressed by jurisdiction code — use --all.`),
     );
     process.exit(1);
   }

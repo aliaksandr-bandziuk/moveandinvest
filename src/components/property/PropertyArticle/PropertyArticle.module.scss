@@ -1,0 +1,165 @@
+@use "../../../styles/mixins";
+
+.hero {
+  @include mixins.section-rhythm;
+
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  margin-top: var(--space-6);
+  color: var(--color-accent-on-dark);
+}
+
+.title {
+  margin-top: var(--space-3);
+  font-size: var(--fs-display);
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+  max-width: 18ch;
+}
+
+.intro {
+  margin-top: var(--space-5);
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+  color: var(--color-on-dark-muted);
+  max-width: 62ch;
+}
+
+// --- Contents ---------------------------------------------------------------
+.contents {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-on-dark-hairline);
+}
+
+.contentsLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-on-dark-muted);
+}
+
+// Two columns from md up. Six items in one column on a wide screen is a list
+// with a lot of air on its right and a reader's eye travelling further than
+// the content justifies.
+.contentsList {
+  margin-top: var(--space-4);
+  list-style: none;
+  display: grid;
+  gap: var(--space-1);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-8);
+  }
+}
+
+.contentsLink {
+  @include mixins.tap-target;
+  @include mixins.focus-ring-on-dark;
+
+  gap: var(--space-3);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  color: var(--color-on-dark);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-accent-on-dark);
+  }
+}
+
+.contentsNumber {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-micro);
+  color: var(--color-section-number-on-dark);
+}
+
+// --- Sections ---------------------------------------------------------------
+// The same 6/5 spread the section heads use elsewhere: the heading sits
+// opposite its prose rather than above it, so the page reads as one system
+// with the jurisdiction pages.
+.section {
+  @include mixins.section-rhythm;
+
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  // The anchor from the contents list lands here. Without this the heading
+  // ends up flush against the top of the viewport with no air above it.
+  scroll-margin-top: var(--space-6);
+}
+
+.sectionInner {
+  @include mixins.breakpoint-up(lg) {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.heading {
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+}
+
+.prose {
+  margin-top: var(--space-5);
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+
+  @include mixins.breakpoint-up(lg) {
+    margin-top: 0;
+  }
+
+  > * + * {
+    margin-top: var(--space-5);
+  }
+
+  h3 {
+    color: var(--color-text);
+    font-size: var(--fs-h3);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-top: var(--space-7);
+  }
+}
+
+// --- Sources ----------------------------------------------------------------
+.sources {
+  @include mixins.section-rhythm;
+
+  border-top: var(--border-hairline) solid var(--color-hairline);
+  background-color: var(--color-row-hover);
+}
+
+.sourcesLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-text-muted);
+}
+
+.sourcesBody {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 72ch;
+}
+
+.crossLink {
+  margin-top: var(--space-6);
+  font-size: var(--fs-body);
+
+  a {
+    @include mixins.link;
+  }
+}

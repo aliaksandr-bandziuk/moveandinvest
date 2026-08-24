@@ -1,5 +1,10 @@
 import nodemailer from "nodemailer";
-import type { EnquiryPayload, PartnerEnquiryPayload } from "@/sanity/enquiries";
+import type {
+  EnquiryPayload,
+  PartnerEnquiryPayload,
+  SubscribePayload,
+} from "@/sanity/enquiries";
+import { getSiteUrl } from "@/lib/site";
 import { renderEmailHtml, renderEmailText, type EmailContent } from "./mailTemplate";
 
 // Email notification for both forms on the site. Ported from the sibling
@@ -84,6 +89,15 @@ function isLocale(value: string): value is Locale {
 // These maps must stay in step with ALLOWED in src/app/api/enquiry/route.ts.
 // A value there with no entry here renders as the raw value rather than
 // disappearing — legible enough to notice and fix, and never a silent gap.
+// The property brief's third question. Same decode map pattern as the rest:
+// the wire value is a stable token, the email says a Russian sentence.
+const PURPOSE: Record<string, string> = {
+  live: "жить самому",
+  let: "сдавать",
+  residency: "под ВНЖ",
+  unsure: "ещё не решил",
+};
+
 const WHERE: Record<string, string> = {
   pt: "Португалия",
   gr: "Греция",
@@ -160,18 +174,35 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
   const goals = payload.goals.map((goal) => decode(GOALS, goal)).join(", ");
   const locale = isLocale(payload.locale) ? payload.locale : "en";
 
+  const isBrief = payload.kind === "brief";
+
   return {
-    heading: "Новая заявка с сайта",
+    // The subject and the heading say which form it came from, because the
+    // two need different first moves: an enquiry from the home page is a
+    // conversation about a country, a brief is a specific shopping list to
+    // hand to one partner. Reading the fields to work out which one it is
+    // takes a second longer than reading the heading, every single time.
+    heading: isBrief ? "Бриф по недвижимости" : "Новая заявка с сайта",
     openingLine: payload.name
       ? `${payload.name} — ${payload.email}`
       : `Без имени — ${payload.email}`,
     primaryBlock: {
-      heading: "Случай",
+      heading: isBrief ? "Что ищет" : "Случай",
       lines: [
         { label: "Юрисдикция", value: decode(WHERE, payload.where) },
+        // Only the brief asks these. Included conditionally rather than shown
+        // as "—", so the internal email has no rows that mean nothing.
+        ...(isBrief
+          ? [
+              { label: "Город или район", value: payload.city || "не указан" },
+              { label: "Зачем", value: decode(PURPOSE, payload.purpose ?? "") },
+            ]
+          : []),
         { label: "Бюджет", value: decode(BUDGET, payload.budget) },
-        { label: "Срок", value: decode(TIMELINE, payload.timeline) },
-        { label: "Цели", value: goals || "—" },
+        ...(isBrief
+          ? []
+          : [{ label: "Срок", value: decode(TIMELINE, payload.timeline) }]),
+        ...(isBrief ? [] : [{ label: "Цели", value: goals || "—" }]),
         {
           label: "Своими словами",
           value: payload.situation || "Ничего не написал.",
@@ -270,11 +301,129 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
   };
 }
 
+const SUBSCRIBE_SUBJECT: Record<Locale, string> = {
+  en: "You are on the change list — moveandinvest",
+  ru: "Вы в списке изменений — moveandinvest",
+  pl: "Jesteś na liście zmian — moveandinvest",
+};
+
 const CONFIRMATION_SUBJECT: Record<Locale, string> = {
   en: "Your enquiry arrived — moveandinvest",
   ru: "Заявка получена — moveandinvest",
   pl: "Zgłoszenie dotarło — moveandinvest",
 };
+
+// The change list, to us. Two lines and a timestamp — there is nothing else
+// to say about it, and padding it with a "context" block would make a
+// two-field form look like an enquiry it is not.
+function buildSubscribeInternal(payload: SubscribePayload): EmailContent {
+  const locale = isLocale(payload.locale) ? payload.locale : "en";
+  const picked = payload.jurisdictions.length
+    ? payload.jurisdictions.map((code) => decode(WHERE, code)).join(", ")
+    : "все пять";
+
+  return {
+    heading: "Подписка на изменения",
+    openingLine: payload.email,
+    primaryBlock: {
+      heading: "Подписка",
+      lines: [
+        { label: "Юрисдикции", value: picked },
+        { label: "Язык страницы", value: LOCALE_LABEL[locale] },
+        { label: "Время", value: formatSubmittedAt(payload.submittedAt) },
+      ],
+    },
+    footNote:
+      "Адрес нужно перенести в список рассылки вручную: своего сервиса рассылки у проекта пока нет, " +
+      "и это письмо — единственная запись о подписке.",
+  };
+}
+
+// What the subscriber gets back, and it is the only email on this site that
+// has to survive being read twice: once now, and once in six months when the
+// person has forgotten who we are and wants out. So it says what they signed
+// up for and how to leave, in the same paragraph, without a tracking link.
+
+// --- The comparison PDF ------------------------------------------------------
+// One file per language, generated by `npm run pdf` from the same verified
+// figures the site renders. Absolute URL, because a relative href in an email
+// resolves against nothing.
+//
+// Gated behind the address on purpose, and it is worth being clear with
+// ourselves about what that does and does not mean: every figure in it is
+// already free on the site, unpaywalled, in the same three languages. What the
+// PDF adds is the form — four routes on one sheet, printable, the thing you
+// forward to whoever is deciding with you. So the exchange is an address for a
+// convenience, not an address for a fact, and the confirmation says so rather
+// than implying the reader has just unlocked something.
+//
+// NO PAGE COUNT IN THE LABEL. It said "2 pages" for exactly as long as it took
+// to look at the file, and a count maintained by hand in three languages is a
+// lie waiting for the next edit. "One sheet" is not a count but the promise
+// itself, and scripts/pdf.ts fails the build if the document stops keeping it.
+//
+// The word "four" IS a hand-maintained count — of CODES in scripts/pdf.ts,
+// which prints four of the five jurisdictions. It is repeated here, in
+// messages/*.json under `alerts`, and in the PDF's own title (derived there).
+// If Cyprus ever gets primary sources, all three move together.
+function comparisonLink(locale: Locale): { label: string; href: string } {
+  const href = `${getSiteUrl()}/comparison/${locale}.pdf`;
+
+  if (locale === "ru") return { label: "Сравнение четырёх маршрутов — один лист, PDF", href };
+  if (locale === "pl") return { label: "Porównanie czterech ścieżek — jedna kartka, PDF", href };
+  return { label: "The four routes compared — one printable sheet, PDF", href };
+}
+
+function buildSubscribeConfirmation(payload: SubscribePayload, locale: Locale): EmailContent {
+  if (locale === "ru") {
+    return {
+      heading: "Вы в списке",
+      openingLine: "Здравствуйте.",
+      bodyParagraphs: [
+        "Вы попросили сообщать, когда меняется правило. Именно это мы и будем присылать: короткое письмо, когда порог, налог или требование в одной из юрисдикций стало другим — со ссылкой на закон и датой. Не рассылку по расписанию и не новости.",
+        "Писем немного по простой причине: правила меняются нечасто. За 2026 год таких изменений набралось меньше десяти на пять стран.",
+        "Пока их нет — вот сравнение четырёх маршрутов на одном листе: порог, срок, налоговый режим и полная стоимость первого цикла, с датой проверки каждой цифры. Всё это есть и на сайте бесплатно; в PDF оно просто помещается на два листа и его можно распечатать или переслать.",
+        "Ничего, кроме адреса, мы не храним, и никому его не передаём.",
+      ],
+      link: comparisonLink("ru"),
+      footNote:
+        "Чтобы отписаться, ответьте на это письмо словом «отписаться» — этого достаточно, подтверждать ничего не нужно. " +
+        "moveandinvest не является юридической фирмой и не оказывает юридических, налоговых или инвестиционных консультаций.",
+    };
+  }
+
+  if (locale === "pl") {
+    return {
+      heading: "Jesteś na liście",
+      openingLine: "Dzień dobry.",
+      bodyParagraphs: [
+        "Poprosił(a) Pan/Pani o wiadomość, gdy zmienia się przepis. Dokładnie to będziemy wysyłać: krótki e-mail, gdy próg, podatek albo wymóg w jednej z jurysdykcji stanie się inny — z odesłaniem do ustawy i datą. Nie newsletter według harmonogramu i nie wiadomości branżowe.",
+        "Listów jest niewiele z prostego powodu: przepisy zmieniają się rzadko. W 2026 roku takich zmian zebrało się mniej niż dziesięć na pięć krajów.",
+        "Zanim przyjdzie pierwszy — oto porównanie czterech ścieżek na jednej kartce: próg, termin, reżim podatkowy i pełny koszt pierwszego cyklu, z datą sprawdzenia każdej liczby. Wszystko to jest też na stronie, za darmo; PDF po prostu mieści to na dwóch stronach i daje się wydrukować albo przesłać dalej.",
+        "Nie przechowujemy niczego poza adresem i nikomu go nie przekazujemy.",
+      ],
+      link: comparisonLink("pl"),
+      footNote:
+        "Aby się wypisać, wystarczy odpowiedzieć na ten e-mail słowem \u201ewypisz\u201d — nic nie trzeba potwierdzać. " +
+        "moveandinvest nie jest kancelarią prawną i nie świadczy porad prawnych, podatkowych ani inwestycyjnych.",
+    };
+  }
+
+  return {
+    heading: "You are on the list",
+    openingLine: "Hello.",
+    bodyParagraphs: [
+      "You asked to be told when a rule changes. That is exactly what this is: a short email when a threshold, a tax or a requirement in one of the jurisdictions becomes something else — with the statute and the date. Not a scheduled newsletter, and not industry news.",
+      "There will not be many, for a simple reason: rules do not change often. Across 2026 there have been fewer than ten such changes across five countries.",
+      "Until the first one arrives, here are the four routes on one sheet: the threshold, the timeline, the tax regime and the full cost of the first cycle, with the date each figure was checked. All of it is on the site too, free; the PDF just fits it onto two pages you can print or forward.",
+      "We keep nothing but the address, and pass it to nobody.",
+    ],
+    link: comparisonLink("en"),
+    footNote:
+      "To leave, reply to this email with the word \"unsubscribe\" — that is enough, nothing to confirm. " +
+      "moveandinvest is not a law firm and does not provide legal, tax or investment advice.",
+  };
+}
 
 // --- Sending -----------------------------------------------------------------
 function transporter() {
@@ -330,7 +479,7 @@ async function notify(subject: string, content: EmailContent, replyTo: string): 
  */
 export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendResult> {
   const result = await notify(
-    `Заявка с сайта — ${decode(WHERE, payload.where)}`,
+    `${payload.kind === "brief" ? "Бриф" : "Заявка с сайта"} — ${decode(WHERE, payload.where)}`,
     buildReaderInternal(payload),
     payload.email,
   );
@@ -350,6 +499,44 @@ export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendRe
   } catch (error) {
     console.error(
       "[enquiry] Confirmation to the reader failed (the notification was delivered):",
+      error instanceof Error ? error.message : error,
+    );
+  }
+
+  return result;
+}
+
+/**
+ * Notifies us about a new subscriber, then confirms to them. Never throws.
+ *
+ * Same order and the same swallow as the enquiry: the notification is the
+ * point, the courtesy on top of it must not be able to report the whole thing
+ * as failed. Here it matters more than usual — a subscriber whose confirmation
+ * bounced is still subscribed, and the alternative would be dropping them for
+ * an error on our side.
+ */
+export async function sendSubscribeEmails(payload: SubscribePayload): Promise<SendResult> {
+  const result = await notify(
+    "Подписка на изменения",
+    buildSubscribeInternal(payload),
+    payload.email,
+  );
+
+  if (!result.ok) return result;
+
+  try {
+    const locale = isLocale(payload.locale) ? payload.locale : "en";
+    const content = buildSubscribeConfirmation(payload, locale);
+    await transporter().sendMail({
+      from: EMAIL_USER,
+      to: payload.email,
+      subject: SUBSCRIBE_SUBJECT[locale],
+      html: renderEmailHtml(content),
+      text: renderEmailText(content),
+    });
+  } catch (error) {
+    console.error(
+      "[enquiry] Subscribe confirmation failed (we have the address):",
       error instanceof Error ? error.message : error,
     );
   }

@@ -74,5 +74,90 @@
     "ctaHeading": "Ask about {name}",
     "ctaBody": "One partner works in each jurisdiction, and an enquiry reaches only them — and only if you tick the consent box. A person replies, usually within one working day.",
     "ctaLabel": "Send an enquiry"
+  },
+  "notFound": {
+    "heading": "That page is not here",
+    "body": "Either the address has a typo in it, or the page moved when a jurisdiction was rewritten. The comparison table is the fastest way back in — it lists every jurisdiction the site covers, with a link to each.",
+    "homeLabel": "Go to the home page",
+    "comparisonLabel": "Compare jurisdictions"
+  },
+  "property": {
+    "eyebrow": "Buying property",
+    "contentsLabel": "On this page",
+    "sourceLabel": "Sources and date checked",
+    "whoMayBuy": "Who may buy, and where they may not",
+    "transactionCosts": "What the purchase costs on top of the price",
+    "steps": "The steps, and how long they take",
+    "annualCosts": "What is payable every year",
+    "shortLet": "Letting it out short-term",
+    "residencyLink": "How a purchase connects to residency",
+    "jurisdictionLinkLabel": "Residency, tax and the figures",
+    "propertyLinkLabel": "Buying property here"
+  },
+  "brief": {
+    "eyebrow": "Ask about a specific property",
+    "heading": "Tell us what you are looking for",
+    "intro": "Three answers are enough to start: a budget, a place, and what the property is for. It goes to the one partner who works in this jurisdiction, and they reply to you directly.",
+    "budgetLegend": "Budget",
+    "budget": {
+      "upTo500": "up to €500,000",
+      "upTo800": "up to €800,000",
+      "over800": "over €800,000",
+      "unknown": "not decided"
+    },
+    "purposeLegend": "What it is for",
+    "purpose": {
+      "live": "to live in",
+      "let": "to let out",
+      "residency": "for a residence permit",
+      "unsure": "not decided"
+    },
+    "cityLabel": "City or area",
+    "cityHint": "As specific as you can be. If you already know the answer changes with the district — as it does in Athens and in Lisbon — say which one.",
+    "notesLabel": "Anything else worth knowing",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "consentLabel": "I agree that this brief is passed to the partner who works in this jurisdiction.",
+    "honeypotLabel": "Leave this field empty",
+    "submitLabel": "Send the brief",
+    "fine": "We do not sell property and take no percentage of any transaction. Your brief goes to one partner, not to a list.",
+    "privacyLabel": "How we handle your data",
+    "sent": {
+      "title": "Sent.",
+      "body": "We pass it on within one working day. The reply comes from the partner, to the address you gave."
+    },
+    "error": {
+      "title": "That did not go through.",
+      "body": "An email address and the consent box are the two things we cannot proceed without. Everything else is optional."
+    },
+    "broke": {
+      "title": "That is on us.",
+      "body": "The brief did not reach us — the fault is at our end, not in what you filled in. Write to hello@moveandinvest.com and we will pick it up from there."
+    }
+  },
+  "alerts": {
+    "heading": "We write when a rule changes",
+    "body": "Not a newsletter. A short email when a threshold, a tax or a requirement in one of these jurisdictions becomes something else — with the statute and the date. There will not be many: across 2026 there have been fewer than ten such changes across five countries. The confirmation brings the four routes compared on one printable sheet.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "jurisdictionsLegend": "Which countries",
+    "jurisdictionsHint": "Optional. Leave them all unticked and you get all five.",
+    "consentLabel": "Send me an email when a rule changes. I can unsubscribe by replying to any of them.",
+    "honeypotLabel": "Leave this field empty",
+    "submitLabel": "Subscribe",
+    "fine": "We keep the address and nothing else, and pass it to nobody.",
+    "privacyLabel": "How we handle your data",
+    "sent": {
+      "title": "You are on the list.",
+      "body": "A confirmation is on its way, with the four-route comparison as a PDF. It also says what you signed up for and how to leave — one word in a reply."
+    },
+    "error": {
+      "title": "That did not go through.",
+      "body": "An email address and the checkbox are the two things we cannot proceed without."
+    },
+    "broke": {
+      "title": "That is on us.",
+      "body": "The subscription did not reach us — the fault is at our end. Write to hello@moveandinvest.com and we will add you by hand."
+    }
   }
 }

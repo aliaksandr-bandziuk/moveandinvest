@@ -1,12 +1,18 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { isRateLimited } from "@/lib/enquiry/rateLimit";
-import { sendEnquiryEmails, sendPartnerEmails } from "@/lib/enquiry/sender";
+import {
+  sendEnquiryEmails,
+  sendPartnerEmails,
+  sendSubscribeEmails,
+} from "@/lib/enquiry/sender";
 import {
   type EnquiryPayload,
   type PartnerEnquiryPayload,
   storeEnquiry,
   storePartnerEnquiry,
+  storeSubscribe,
+  type SubscribePayload,
 } from "@/sanity/enquiries";
 
 // Receives BOTH forms on the site: the home page enquiry (section 08) and the
@@ -56,6 +62,14 @@ const ALLOWED = {
   budget: new Set(["500", "800", "over800", "unknown"]),
   timeline: new Set(["fast", "half-year", "year", "browsing"]),
   goals: new Set(["residency", "tax", "passport", "business", "property"]),
+  // The property brief's third question. Same discipline as every other
+  // allow-list here: adding an option means adding it in this file first, or
+  // the server drops it without a word.
+  purpose: new Set(["live", "let", "residency", "unsure"]),
+  // The change list. Five real jurisdictions and nothing else: "undecided"
+  // and "other" are answers to a question about a plan, and this form asks
+  // what to send, not what the reader intends.
+  alerts: new Set(["pt", "gr", "cy", "mt", "ae"]),
   // Partner reply. The labels for these live in Sanity and can be reworded
   // freely; these values cannot — adding an option means adding it here
   // first, or the server silently drops it.
@@ -90,6 +104,26 @@ function looksLikeEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= MAX_SHORT;
 }
 
+// WHERE TO SEND THE VISITOR BACK TO, and the only place on this route where
+// user input reaches a URL.
+//
+// The property brief lives on twelve different pages, so unlike the two forms
+// that came before it, the redirect target cannot be a constant — the form
+// has to say which page it was submitted from. That makes it an open-redirect
+// hazard the moment the value is trusted, so it is not: only a bare slug is
+// accepted, matched against the same shape the slug field itself allows, and
+// anything else falls back to the home page. No slashes, no scheme, no dots,
+// no percent-encoding survives this.
+//
+// Returning the reader to the home page on a malformed value is deliberate:
+// the enquiry has already been delivered by the time this runs, and landing
+// somewhere real beats an error over a redirect target.
+const SLUG = /^[a-z0-9-]{1,96}$/;
+
+function safeReturnTo(value: string): string {
+  return SLUG.test(value) ? value : "";
+}
+
 // TWO KINDS OF FAILURE, two fragments, and the difference matters more than
 // it looks. `#enquiry-error` means the visitor left out something only they
 // can supply — an address, the consent box. `#enquiry-failed` means WE broke:
@@ -111,6 +145,63 @@ function redirectTo(request: NextRequest, locale: string, target: string) {
   // 303: the browser must follow a POST's redirect with GET, otherwise a
   // refresh on the thank-you view re-submits the form.
   return NextResponse.redirect(url, 303);
+}
+
+// The change list. One field, one checkbox, and its own consent.
+//
+// The consent here is NOT the enquiry's `consentToShare` and must never be
+// merged with it. That one is permission to pass a person's circumstances to a
+// third party; this one is permission to send them email. Different purposes,
+// different legal bases, different withdrawal — a single checkbox covering
+// both is the shape a regulator reads as bundled consent, and it would also be
+// dishonest to the reader.
+async function handleSubscribe(
+  request: NextRequest,
+  form: FormData,
+  locale: string,
+  back: (fragment: string) => string,
+) {
+  const email = field(form, "email").slice(0, MAX_SHORT);
+  const consent = form.get("consentToEmail") === "on";
+
+  if (!looksLikeEmail(email) || !consent) {
+    return redirectTo(request, locale, back("error"));
+  }
+
+  const payload: SubscribePayload = {
+    email,
+    jurisdictions: form
+      .getAll("alerts")
+      .filter((value): value is string => typeof value === "string")
+      .map((value) => oneOf(value, ALLOWED.alerts))
+      .filter(Boolean),
+    locale,
+    submittedAt: new Date().toISOString(),
+  };
+
+  let stored = false;
+  try {
+    stored = await storeSubscribe(payload);
+  } catch (error) {
+    console.error("[enquiry] Subscriber write failed:", error);
+  }
+
+  const mailed = await sendSubscribeEmails(payload);
+
+  if (!stored && !mailed.ok) {
+    // The address is the whole payload, so the log line IS the subscription
+    // if this happens. Printed for that reason and no other.
+    console.error(
+      `[enquiry] Subscriber LOST — neither channel accepted it ` +
+        `(mail: ${mailed.reason ?? "unknown"}). Payload follows:`,
+    );
+    console.error(JSON.stringify(payload));
+    return redirectTo(request, locale, back("failed"));
+  }
+
+  console.log(`[enquiry] Subscriber — mailed: ${mailed.ok}, stored: ${stored}`);
+
+  return redirectTo(request, locale, back("sent"));
 }
 
 // The partner reply on /for-partners. Two required fields and no consent
@@ -180,7 +271,28 @@ export async function POST(request: NextRequest) {
     ? rawLocale
     : routing.defaultLocale;
 
-  const kind = field(form, "kind") === "partner" ? "partner" : "reader";
+  const rawKind = field(form, "kind");
+  const kind =
+    rawKind === "partner"
+      ? "partner"
+      : rawKind === "brief"
+        ? "brief"
+        : rawKind === "subscribe"
+          ? "subscribe"
+          : "reader";
+
+  // The brief is submitted from a property page and returns to it. Everything
+  // else about it is a reader enquiry — same honeypot, same rate limit, same
+  // two delivery channels, same consent rule — which is why it is a branch
+  // here and not a second route.
+  // Both the brief and the change list live on many pages and come back to
+  // the one they were sent from. The enquiry block exists once, on the home
+  // page, so it needs no such thing.
+  const returnTo =
+    kind === "brief" || kind === "subscribe" ? safeReturnTo(field(form, "returnTo")) : "";
+  const readerTarget = (fragment: string) =>
+    kind === "brief" ? `${returnTo}#brief-${fragment}` : `#enquiry-${fragment}`;
+  const subscribeTarget = (fragment: string) => `${returnTo}#alerts-${fragment}`;
 
   // Honeypot, checked before the branch so neither form can be built without
   // it. A hidden field no human ever sees; bots fill every input they find.
@@ -216,7 +328,11 @@ export async function POST(request: NextRequest) {
     return redirectTo(
       request,
       locale,
-      kind === "partner" ? "for-partners#partner-sent" : "#enquiry-sent",
+      kind === "partner"
+        ? "for-partners#partner-sent"
+        : kind === "subscribe"
+          ? subscribeTarget("sent")
+          : readerTarget("sent"),
     );
   }
 
@@ -231,12 +347,20 @@ export async function POST(request: NextRequest) {
     return redirectTo(
       request,
       locale,
-      kind === "partner" ? "for-partners#partner-failed" : "#enquiry-failed",
+      kind === "partner"
+        ? "for-partners#partner-failed"
+        : kind === "subscribe"
+          ? subscribeTarget("failed")
+          : readerTarget("failed"),
     );
   }
 
   if (kind === "partner") {
     return handlePartnerReply(request, form, locale);
+  }
+
+  if (kind === "subscribe") {
+    return handleSubscribe(request, form, locale, subscribeTarget);
   }
 
   const email = field(form, "email").slice(0, MAX_SHORT);
@@ -247,7 +371,7 @@ export async function POST(request: NextRequest) {
   // anything yet is exactly who this block is for, and a required "budget"
   // would turn them away.
   if (!looksLikeEmail(email) || !consent) {
-    return redirectTo(request, locale, "#enquiry-error");
+    return redirectTo(request, locale, readerTarget("error"));
   }
 
   const payload: EnquiryPayload = {
@@ -260,6 +384,13 @@ export async function POST(request: NextRequest) {
       .map((value) => oneOf(value, ALLOWED.goals))
       .filter(Boolean),
     situation: field(form, "situation").slice(0, MAX_SITUATION),
+    // Only the brief sends these two. They stay on the shared payload rather
+    // than in a separate shape because everything downstream — the email
+    // template, the stored document, the log line — would otherwise need a
+    // second version of itself for a form that differs by two fields.
+    city: field(form, "city").slice(0, MAX_SHORT),
+    purpose: oneOf(field(form, "purpose"), ALLOWED.purpose),
+    kind: kind === "brief" ? "brief" : "enquiry",
     name: field(form, "name").slice(0, MAX_SHORT),
     email,
     consentToShare: consent,
@@ -286,10 +417,10 @@ export async function POST(request: NextRequest) {
         `(mail: ${mailed.reason ?? "unknown"}). Payload follows:`,
     );
     console.error(JSON.stringify(payload));
-    return redirectTo(request, locale, "#enquiry-failed");
+    return redirectTo(request, locale, readerTarget("failed"));
   }
 
-  console.log(`[enquiry] Enquiry — mailed: ${mailed.ok}, stored: ${stored}`);
+  console.log(`[enquiry] ${payload.kind} — mailed: ${mailed.ok}, stored: ${stored}`);
 
-  return redirectTo(request, locale, "#enquiry-sent");
+  return redirectTo(request, locale, readerTarget("sent"));
 }

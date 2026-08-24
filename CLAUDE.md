@@ -60,10 +60,10 @@ wrong sends the build in the wrong direction for days.
 - **No property half of the funnel.** The concept is relocation on top, property
   as the paying floor. Every section built so far addresses the relocator; a
   reader who has chosen a country and wants to look at property has nowhere to go.
-- **No audience capture.** The brief names owning the audience as the second
-  defence against partner dependency. Today the only way to give us an email is
-  to submit a full enquiry with consent to be passed on — a reader who is not
-  ready yet leaves no trace.
+- ~~No audience capture.~~ **Closed 24 Aug 2026** by the change list — see
+  "The change list" below. What is still missing is the second half of it: a
+  way to SEND to that list. The addresses arrive in a mailbox, and there is no
+  email service behind them.
 - ~~The figures are seeded, not verified.~~ **Verified 23 August 2026** against
   statutes, ministry tariffs and official fee schedules; the working, with a
   source and a date per figure, is `docs/figures-verification-2026-08-23.md`.
@@ -317,6 +317,57 @@ horizontal overflow has to walk element bounding boxes and compare `right`
 against `innerWidth`. The clip is deliberate and stays (it is what stops html
 and body becoming two independent scroll containers); the test is what changes.
 
+## A fixture may not improve on the response it stands in for
+
+The render harness (`/tmp/mi-render`, a copy of this repo whose
+`src/sanity/client.ts` answers every `sanityFetch` from `scripts/copy/`) exists
+because the cloud container cannot reach api.sanity.io. It is only worth having
+while its answers have the SAME SHAPE as the real ones, including their gaps.
+
+It broke that rule once, and the cost was six months of a visible defect. The
+fixture held a per-locale country name; the real query read the registry's
+single English `name`. So every measurement in the harness showed "Греция"
+while production showed "Greece" — on the comparison table, the cards, the map,
+the route finder, the footer and every heading on the jurisdiction page.
+Nothing in the type system could see it: both sides were `string`.
+
+Two rules follow. A fixture models the query, fallbacks and empty fields
+included — `readName` in that file mirrors the GROQ `select`/`coalesce` line
+for line, and if a language has no label the fixture must show the fallback,
+not the nice answer. And a GROQ change is checked against **groq-js**, which is
+already in `node_modules`: parse the exported query string, evaluate it over a
+handful of hand-written documents, and read the output. That is a measurement
+of the real query text, not of a JavaScript imitation of it, and it takes about
+a minute:
+
+```
+node -e "const {parse,evaluate}=require('groq-js'); …"
+```
+
+Both the localized name and its fallback were verified that way before the
+schema field was written.
+
+## Jurisdiction names: `name` is English, `label` is what a reader sees
+
+`country.name` is the registry's English name — Studio lists, and the fallback.
+`country.label` is an object of three strings and is what every component
+renders, resolved per locale in GROQ (`select` on `$locale`, `coalesce` back to
+`name`) rather than in six components.
+
+The label lives on the language-neutral `country` document, which is the one
+exception to that document's own rule, and Cyprus is the reason: it is
+`planned`, has no page in any language, and still appears in the table, on the
+map and in the footer — all driven from the registry precisely so a
+jurisdiction without a page cannot be dropped. A label on the page is a label
+Cyprus cannot have.
+
+The English label takes the short form where the site's prose does — "UAE",
+not "United Arab Emirates" — because the body copy says "the UAE" in every
+paragraph around the table.
+
+`npm run facts -- --write` writes the labels; `seed` cannot, since these
+documents were published long ago.
+
 ## Enquiry email: the email IS the record
 
 `/api/enquiry` calls `src/lib/enquiry/sender.ts` and `storeEnquiry`, and
@@ -420,6 +471,11 @@ sanctioned way to start a gated script, and the loaders create the elements
 themselves. A script tag mounted with an internal "if consented" check has
 already made its request by the time the check runs.
 
+**The banner and the policy are frozen as of 23 Aug 2026 by the owner's
+instruction.** Everything in this section describes what is there and why; none
+of it is an outstanding task. The two paragraphs below are the reasoning behind
+the current shape, kept so nobody re-derives it — not a proposal to change it.
+
 **The banner has two buttons and always will.** A bar with one OK button is
 not consent: consent must be prior and refusing must be as easy as accepting,
 so a single button makes leaving the only way to decline. "Only necessary" and
@@ -441,11 +497,19 @@ the page: a visitor may ignore it, read the whole site and answer later —
 what it may not be is invisible.
 
 **⚠ `LOAD_BEFORE_CONSENT = true` in `src/lib/consent/consent.ts`, at the
-owner's instruction, 23 Aug 2026, so the tags can be verified.** While it is
-true, Google Analytics and Clarity load for anyone who has not yet answered
-the banner. It was an environment variable for one revision; a constant
-replaced it because a variable that must match in `.env.local` and on the host
-ends up set in one and forgotten in the other.
+owner's instruction, 23 Aug 2026.** While it is true, Google Analytics and
+Clarity load for anyone who has not yet answered the banner. It was an
+environment variable for one revision; a constant replaced it because a
+variable that must match in `.env.local` and on the host ends up set in one and
+forgotten in the other.
+
+**THIS IS A STANDING DECISION, NOT A TAIL TO BE TIDIED.** The owner instructed
+on 23 Aug 2026 that the consent default, the banner and the privacy text stay
+exactly as they are until he says otherwise. Do not flip the constant, reword
+the policy or restyle the banner as a side effect of other work, and do not
+re-open the argument each session — it was made once, in full, and the costs
+are written out below so that a later session inherits the reasoning rather
+than the debate. The line changes when he asks for it.
 
 **What it costs, so nobody has to rediscover it.** The privacy policy states
 in three languages that nothing loads before agreement — that sentence is
@@ -473,13 +537,10 @@ warning fires, and a stored refusal still produces zero on the next load. Both
 states were checked. Re-run both after touching anything in
 `src/lib/consent/`.
 
-**OPEN, AND IT IS A PROMISE THE POLICY ALREADY MAKES:** the privacy page says
-session recording masks what a visitor types. Masking is a per-project setting
-in the Clarity dashboard (Settings → Masking; "Strict" masks all text and
-input) and no client-side code can set it. Until that is confirmed in the
-dashboard, the policy is claiming something this repo cannot deliver — and the
-thing at stake is somebody's budget and circumstances typed into the enquiry
-form.
+**Clarity masking: done, confirmed by the owner 23 Aug 2026.** The privacy page
+says session recording masks what a visitor types; masking is a per-project
+setting in the Clarity dashboard (Settings → Masking) that no client-side code
+can set, and it is switched on. Closed — do not raise it again.
 
 The policy's "nothing is switched on yet" section was deleted in the same
 commit that shipped the tags, which is the rule that section itself stated.
@@ -593,10 +654,69 @@ and a FAQPage as an answer it can lift, and being quoted is the whole
 positioning. It is emitted only when questions are actually on the page;
 marking up questions a reader cannot see is what the format is policed for.
 
-**Version one renders no prose.** `body` is optional on `countryPage` and the
-section appears the day it is filled, no code change. Writing 1,200 words per
-jurisdiction per locale was rejected for now: every figure on this site is
-sourced and dated, and twelve unsourced essays would undo exactly that.
+**Version one rendered no prose; the prose was written on 23 Aug 2026** and
+lives in `scripts/copy/jurisdictionBody.ts`, delivered to already-published
+documents by `npm run facts -- --write` alongside the figures. `body` stays
+optional on `countryPage`, so Cyprus — which has no entry — renders no heading
+over an empty column.
+
+Four rules govern that file, and they are the reason the pages are worth
+having:
+
+1. **Every claim comes from `docs/figures-verification-2026-08-23.md`.** A
+   sentence may not change here without that document changing in the same
+   commit. The alternative — essays written from memory under a site whose
+   position is "the figures are checked" — would undo the verification work
+   the same week it was done.
+2. **The same four sections, in the same order, on every page**: who it suits
+   and who it does not; what stands behind the headline figure; what changed
+   and when, with the date; what happens after the first permit. A reader
+   comparing two jurisdictions compares the same paragraph. Section three is
+   the one that earns the position — every competitor publishes a threshold,
+   almost none says which month it stopped being the old one.
+3. **About 550 words, not 1,500.** Length stopped being a ranking signal, and
+   padding a page whose substance is four figures and their conditions is how
+   a checked-numbers site starts reading like a filler one.
+4. **Sources are named in running text, not linked.** "art. 100 of Law
+   5038/2023" is quotable by an answer engine exactly as it stands; a link is
+   not, and a link also rots.
+
+**Copy is authored as text, not as JSON.** `scripts/copy/portable.ts` converts
+a three-token syntax — `## ` for h2, `### ` for h3, a blank line for a new
+block — into Portable Text. A Portable Text block is nine keys of scaffolding
+around one sentence, and twelve bodies written that way is a file nobody
+proofreads. Keys are derived from the position, never `Math.random()`, so
+re-running the script on unchanged copy produces byte-identical documents and
+Sanity records no spurious revision.
+
+**A space between two digits becomes a non-breaking space**, and that is not
+cosmetic. Russian and Polish group thousands with a space, so "€100 000" is one
+number containing a break opportunity — at 360px it duly broke, "€100" ending a
+line and "000 в год" starting the next. English is unaffected because it groups
+with a comma. Nothing in the type system or the linter can see this; it was
+caught by screenshotting the rendered Russian page at phone width.
+
+**The rule lives in `scripts/copy/typography.ts`, not in the converter.** It
+started inside `copy/portable.ts` and therefore protected exactly the strings
+that went through it — which meant the comparison table did not have it. The
+Greek tax cell ("Non-dom, €100 000 в год, отдельная инвестиция €500 000") never
+touches the converter and was breaking on the live Russian and Polish home
+pages; found on 24 Aug 2026 while looking at the PDF, then confirmed on the
+site with a `Range` over the text node and `getClientRects()` — a broken number
+spans two line boxes — rather than by eye.
+
+`COUNTRY_PAGES` and `SOURCE_NOTE` are now exported through `tightenDeep()` at
+the bottom of `copy/jurisdictions.ts`, so `seed`, `facts`, the PDF and anything
+written next get it without asking. **Do NOT type non-breaking spaces into the
+copy files**: they are invisible, and a file where some spaces are load-bearing
+is proofread wrongly forever after. `messages/*.json` still holds three plain
+ones per locale (the budget labels); measured, they do not break at any width
+the site renders, and hand-editing invisible characters there would cost more
+than it buys.
+
+Measured after wiring, 36 renders — four jurisdictions × three languages ×
+360/768/1440: one `h1` and four `h2`s each, 72–74 characters per line at 1440,
+no element overflowing the viewport, no number broken across a line.
 
 **Interpolating a country name into a sentence is a case bug in two of the
 three languages.** "Вопросы про {name}" renders "про Греция" — the noun needs
@@ -627,6 +747,415 @@ route finder answered first, the budget, the deadline and the priority all
 survive and only the jurisdiction is overwritten — which is the right
 precedence, since the page a reader is standing on beats a suggestion they
 were shown earlier.
+
+## Brand images: the favicon and the unfurl card
+
+Built 23 Aug 2026 by `scripts/og.ts` (`npx tsx scripts/og.ts`), which writes
+`src/app/icon.svg`, `src/app/apple-icon.png` and `public/og/{en,ru,pl}.png`.
+Both prerequisites are checked by the script and named in its error: a build
+must have run (the fonts are read out of `.next/static/media`) and playwright
+must be installed locally.
+
+**The mark is Spectral 600's own ampersand, as an outline.** Not drawn, not a
+different face: the wordmark in the header is `move&invest` with the ampersand
+in accent, so the ampersand alone is the only mark this site can have without
+inventing one. It ships as a path because a favicon is rasterised in a context
+that loads no fonts — an SVG icon naming a family gets the system serif or
+nothing. `scripts/og.ts` records the fontTools snippet that produced the path.
+The glyph is 44 of 64 units: measured at 16px, where 40 reads as a square with
+something in it and 48 crowds the edges.
+
+**Settled 23 Aug 2026, do not reopen.** Five alternatives were rendered at 16,
+24, 32 and 64 next to the wordmark — mirrored, turned (the Unicode ⅋), full
+bleed, cropped by the square, and inverted — after the owner noted the mark
+resembles a corporate seal. Two findings worth keeping: the resemblance comes
+from the composition (a small serif letter centred in a solid square), not from
+the ampersand, so mirroring does not touch it; and both mirrored forms stop
+reading as an ampersand at 16px and disagree with the header wordmark, whose
+ampersand is upright. The owner chose to keep the current mark.
+
+**One OG card per LANGUAGE, not per page.** The page's own title sits directly
+beside the image in every unfurl, so a card repeating the country name spends
+the only picture the reader gets on something already on screen. The card
+carries the home hero's headline — imported from `scripts/copy/home.ts`, not
+retyped — the wordmark, and the jurisdiction labels.
+
+**No figures on the card, ever.** A threshold baked into a PNG is a number
+`npm run facts` cannot correct. Everything else on this site can be fixed by
+running a script; an image cannot, and a stale figure is the one thing the
+positioning does not survive.
+
+**`playwright` is not in package.json and must not be.** It runs the generator
+and never the site. `scripts/playwright.d.ts` declares it untyped so
+`tsc --noEmit` still passes over a file that is not part of the app — delete
+that file if playwright is ever added properly.
+
+**`ogImage()` is repeated on every page that declares `openGraph`.** Next
+merges metadata shallowly: a child that sets `openGraph` replaces the parent's
+object whole, images included, so an image set once in the layout reaches no
+page that has its own. The Twitter card is written out for the same reason —
+Next does not derive one from openGraph, and without `summary_large_image` the
+picture is cropped to a small square.
+
+## The 404
+
+`src/app/[locale]/not-found.tsx`. It renders inside the locale layout, so the
+header, the footer and the language switcher are all still there — measured at
+360, 390, 768 and 1440: status 404, one `h1`, correct `<html lang>`, locale-
+correct links, nothing overflowing.
+
+**Measuring it needs `waitUntil: "networkidle"`.** With `domcontentloaded` the
+harness reads an intermediate document — Next serves the not-found shell with
+`id="__next_error__"` and the layout arrives after — and every assertion comes
+back empty, which looks exactly like a page that renders nothing. The 404 was
+briefly declared broken on that evidence.
+
+**It lists no jurisdictions and fetches nothing.** The footer directly below
+already lists all five in this locale from the registry, and a 404 is the page
+a crawler hits dozens of times an hour — a Sanity round trip on each buys a
+heading the message catalogue already has.
+
+It cannot move above the `[locale]` segment: `not-found.tsx` receives no
+params, and it resolves the language only because the locale layout called
+`setRequestLocale` for this request before anything threw.
+
+## Property pages: the buying half
+
+`propertyPage`, built 24 Aug 2026. One per jurisdiction per language, at its
+own top-level slug — `/property-in-greece`, `/nedvizhimost-v-gretsii`,
+`/nieruchomosci-w-grecji`.
+
+**It is a separate page, not a section of the jurisdiction page**, because the
+two questions belong to different people at different moments: "where should I
+move and what does it cost" against "I have chosen, what do I need to know
+before I sign". Folded together they make one page twice as long that answers
+neither first — which is the shape that stops being quotable.
+
+**It lives at the top level rather than under `/property/…`** because the query
+is "недвижимость в Греции" and a URL that answers it should say so. The first
+segment of `/property/greece` is a word no reader typed.
+
+**Six named fields, not a section array.** Same argument as `countryPage`'s
+four named comparison fields: a reader comparing Greece against Malta must be
+able to compare the SAME paragraph. The order is fixed in code — who may buy,
+what the purchase costs, the steps, what is payable every year, short-term
+letting, how it connects to residency.
+
+**The section headings come from the message catalogue, not from Sanity**, so
+all four pages in a language carry byte-identical headings. An editor who could
+retitle "Who may buy" on the Greece page alone would break the one promise
+these pages make. The bodies are Portable Text in Sanity; the headings are not
+editable content.
+
+**Every claim traces to `docs/property-verification-2026-08-24.md`** — same
+rule as the figures: a sentence may not change without that document changing
+in the same commit. That dossier marks its own gaps as NOT CONFIRMED, and a
+NOT CONFIRMED claim either does not reach the page or reaches it with the
+uncertainty stated. Notably: no end-to-end durations for Greece or Portugal
+(no government source publishes any), no Maltese short-let licence fee, and no
+answer on whether a Dubai owner-occupier pays the housing fee.
+
+### The slug route now resolves two document types
+
+`src/app/[locale]/[slug]` queries `countryPage` and `propertyPage` **in
+parallel** and the jurisdiction page wins a collision. Parallel, not
+sequential: a sequential lookup would make every property page pay for a miss
+on the jurisdiction query first, and property pages are half the routes.
+
+A collision is logged with both document ids. It can only happen by editorial
+mistake, and the correct number is zero — but a page that vanishes with no
+trace is the kind of bug that survives for months.
+
+`localizedPaths` now takes the alternates array rather than a document, so both
+types share one hreflang builder. Two copies would be two places for the
+x-default rule to drift, and the drift stays invisible until Search Console
+reports it weeks later.
+
+**The sitemap groups the two sets SEPARATELY**, even though they share a URL
+space and a `country`. Grouping them together would put `/greece` and
+`/property-in-greece` in one hreflang set — telling a search engine that the
+Russian version of the buying page is the English jurisdiction page, which is
+the exact mistake hreflang exists to prevent.
+
+**Breadcrumbs are three deep and the middle crumb is a real parent**: the
+jurisdiction page for the same country. That is the actual hierarchy, and it
+gives a reader who arrived from "property in Greece" one click to the residency
+figures. The crumb loses its link, not its place, when that page does not exist
+in the language.
+
+The two pages cross-link once each, in prose, at the end of the body — not a
+grid of "related pages" cards, which is what a site builds when it has nothing
+specific to point at.
+
+Measured after wiring, 12 renders — four jurisdictions × 360/768/1440: one
+`h1`, six `h2`s, six contents anchors all resolving to a section that exists,
+nothing overflowing, WebPage and BreadcrumbList emitted on each.
+
+### The prose, and the rule that shapes it
+
+`scripts/copy/propertyBody.ts` — 17,000 words across four jurisdictions and
+three languages, delivered by `npm run facts -- --write` to documents that are
+already published. The frame (slug, title, intro, sources) is in
+`scripts/copy/property.ts` and comes through `npm run seed`.
+
+**A DOCUMENT TYPE THAT SEEDS AS A DRAFT MUST BE ADDED TO `PUBLISHABLE` IN
+`scripts/publish.ts`.** `propertyPage` shipped with the seed writing twelve
+drafts and that set still naming two types, so the only way to publish them was
+by hand in Studio. `npm run inspect` now lists property pages and their
+per-language published counts for the same reason it lists jurisdiction pages:
+a type that seeds invisibly and publishes only by a second command needs a
+place that says out loud where it stands.
+
+**The hardest discipline in that file is the absence of durations.** Every
+competitor publishes "the whole process takes two to three months". No Greek or
+Portuguese government body publishes an end-to-end figure at all, and the
+numbers in circulation are consultants' estimates repeated until they sound
+official. Where a duration IS published it is here with its source: 35 days for
+a Maltese permit, 25 minutes at a Dubai trustee office, 60 working days for a
+Portuguese municipality to object, two months of life in a Greek engineer's
+certificate, 60 days to register a Dubai transfer. Where it is not, the page
+says nobody publishes it. That sentence is more useful to a buyer than a
+confident invention, and it is the only one of the two that stays true.
+
+The same rule covers the dossier's own gaps: the Maltese short-let licence fee
+in euro, whether a Dubai owner-occupier pays the housing fee, the tax year the
+new Greek rental scale starts from. Each is on the page AS an open question,
+named, rather than resolved by guesswork or quietly omitted.
+
+**Every section leads with what changes the reader's plan**, not with context.
+Malta's opens on the prohibition, not on the island. Portugal's cost section
+opens on the 7.5% surcharge. Greece's short-let section ends on the one fact
+that costs buyers the most — that the registration does not pass with the
+property.
+
+Measured on the real prose: 67 characters per line at the widest, no number
+broken across a line in any of the twelve pages at 360px.
+
+## The property brief
+
+The form at the foot of every property page, built 24 Aug 2026. Five fields,
+two of them required: budget, city, purpose, notes, name, email, consent.
+
+**It posts to `/api/enquiry` with `kind=brief`.** Not a second route. The
+honeypot, the rate limit, the two interchangeable delivery channels and the
+consent rule are the parts that must never drift, and a second route is a
+second copy of all four — the copy that gets forgotten when one of them is
+fixed. The route now has three reader-facing shapes and one handler.
+
+**The jurisdiction is a hidden field, not a question.** The page the reader is
+standing on has already answered it. The home page form asks because there it
+is genuinely open.
+
+**`returnTo` is the only place on that route where user input reaches a URL**,
+and it is the reason the brief needed care the other two forms did not: the
+form lives on twelve pages, so the redirect target cannot be a constant. It is
+matched against `^[a-z0-9-]{1,96}$` and anything else falls back to the locale
+root. Verified by measurement, not by reading: `https://evil.example`, `../..`
+and `ru/admin` all redirect to the home page, and a valid slug returns to its
+own page.
+
+**Two fields were added to the shared payload rather than a second shape.**
+`city` and `purpose` are optional on `EnquiryPayload`, and `kind` discriminates.
+The internal email changes its heading, its subject and two of its rows from
+that flag. A second payload type would have meant a second email template, a
+second stored document and a second log line, for a form that differs by two
+fields.
+
+### The bug this step found: the "our fault" panel was invisible
+
+Both older forms render three result panels — sent, your-mistake, our-mistake —
+and both stylesheets listed only the first two in the `:target` selector. So
+`#enquiry-failed` and `#partner-failed` existed in the markup, the route
+redirected to them, the browser scrolled to an invisible anchor, and a visitor
+whose enquiry had just been dropped saw a page that appeared to do nothing.
+
+That is worse than the fault the panel was written to replace: a page that
+blames the visitor at least tells them something happened. Measured with
+`getComputedStyle` on each id at its own fragment — three `block`, two `none` —
+and fixed in both stylesheets the same day.
+
+**Adding a result panel means adding it to the `:target` selector.** Nothing in
+the type system, the linter or the build can see this one; the only thing that
+catches it is navigating to the fragment and looking.
+
+## Measuring a lead
+
+`src/lib/analytics/lead.ts` and `components/layout/LeadTracking`, built 24 Aug
+2026. One GA4 `generate_lead` event and three Clarity calls per delivered lead,
+from all three forms.
+
+**The event fires on the RETURN, not on the click**, and that is forced by the
+architecture rather than chosen for elegance. Every form here is a plain HTML
+form that posts and gets a 303 back to a fragment — deliberate, so they work
+with JavaScript off — which means there is no moment in the browser where "the
+enquiry succeeded" is a return value. The only evidence is the fragment the
+server chose, and it arrives with a full page load.
+
+Two consequences to know before reading the numbers:
+
+- **It counts DELIVERED leads, not attempts.** The route only redirects to a
+  success fragment once a channel accepted the payload. A lost lead is not
+  counted as a lead, and a bot that trips the honeypot is not either — it gets
+  the success fragment but never wrote a stash.
+- **A visitor with JavaScript off is never counted.** Nothing can fix that
+  without breaking the no-JavaScript promise, and counting clicks instead would
+  count spam and failures too.
+
+**The stash is what makes it fire exactly once**, and it is why there is no
+"already fired" flag. `LeadTracking` writes one sessionStorage entry when the
+form is submitted and consumes it when the event fires. A refresh of the
+thank-you page finds nothing and sends nothing; a second genuine submission
+writes a fresh one and is counted. A flag would have had to guess which of
+those two it was looking at.
+
+**⚠ THE JURISDICTION IS NOT MEASURED, AND MUST NOT BE ADDED.** The first
+version of this sent it to GA4 and tagged the Clarity session with it. The
+privacy policy says, in three languages, in the section headed "what we do not
+do, whatever you agree to": *"If a tool one day records that an enquiry was
+submitted, it records that fact and nothing in it — not your email address,
+NOT THE JURISDICTION, not the budget, not a word of what you typed."*
+
+It was caught the same day, by re-reading the policy for an unrelated reason,
+and the code was changed rather than the sentence — the promise is one of the
+few things that distinguishes this site.
+
+What survives is `form_path`, which describes the submission and not its
+contents. On a property page it answers the same question anyway, because the
+country is in the URL. On the home page form the country is something the
+visitor chose inside the form, so it is not measured at all. That is the
+promise working, not a gap to close.
+
+**`hasConsent`, not `runWhenConsented` — the one place in the codebase that
+reaches a tag without subscribing.** `runWhenConsented` waits and fires when
+permission arrives, which is right for a loader and wrong for an event about a
+moment that has passed: a visitor who declines, sends a brief, and accepts
+cookies twenty minutes later would otherwise produce a lead event stamped to
+the acceptance, from another page. The event is dropped instead, and the
+subscription that would never have been released is not created.
+
+**GA4 custom parameters need registering as custom dimensions** in Admin →
+Custom definitions — `form_kind` and `form_path`, event-scoped.
+Until that is done the event count shows and the breakdown does not, which
+looks like a bug in this code and is not.
+
+Measured, six cases: a cold landing on the success fragment sends nothing; a
+submission whose delivery failed sends nothing; a success return with a stash
+sends exactly one event with the right three parameters; a reload sends
+nothing; another form's stash is not consumed; and consent gates it — accepted
+one, declined zero.
+
+## The change list
+
+The signup at the foot of every jurisdiction and property page, built 24 Aug
+2026. One field, one checkbox, an optional row of five jurisdictions.
+
+**The offer is what the site already does, and that is the whole design.** Not
+a newsletter and not tips: an email when a threshold, a tax or a requirement
+becomes something else, with the statute and the date. The verification
+dossiers are the evidence that the project actually tracks that, and an offer
+of "useful updates" would have been a promise with nothing behind it. The copy
+says out loud that there will not be many letters, because there will not be —
+fewer than ten changes across five countries in 2026.
+
+**Its consent is NOT the enquiry's consent, and the two may never be merged.**
+`consentToShare` is permission to pass a person's circumstances to a third
+party; `consentToEmail` is permission to send them email. Different purposes,
+different legal bases, different withdrawal. One checkbox covering both is the
+shape a regulator reads as bundled consent, and it would be dishonest to the
+reader besides.
+
+**It sits AFTER the larger ask on both page types**, never before. It is the
+exit for a reader who did not take the brief or the enquiry, and putting it
+first would make the larger ask look like the alternative to it. It is also
+visually lighter — light plane, one row — because two asks on one page compete
+and the loser should be the one that costs the reader least.
+
+**Unticked jurisdictions mean all five**, and the hint says so. A row of empty
+checkboxes reads as "you have chosen nothing" and would cost subscriptions.
+
+**The policy gained a section rather than the feature going out uncovered.**
+Collecting an address for a purpose the published policy does not describe is
+not a thing to fix later; `scripts/copy/privacy.ts` now has "The change list"
+in all three languages, and it states the separate consent, what is kept
+(address plus the jurisdictions, nothing else), and that leaving takes one word
+in a reply. The cookie banner and the consent default were NOT touched — that
+freeze holds.
+
+**There is no email service behind the list.** The address arrives as a
+notification in the same mailbox as everything else, and the internal email
+says out loud that it has to be moved to a list by hand. That is the honest
+state of it: `subscriber` exists as a schema type in the private dataset for
+the day that dataset is configured, and until then the email is the record —
+the same doctrine as the enquiry. Wire an ESP before the list is worth sending
+to, not after.
+
+## The comparison PDF
+
+`scripts/pdf.ts` → `npm run pdf` → `public/comparison/{en,ru,pl}.pdf`. ONE A4
+sheet: the four-question table, the cost bars, the source note, the Cyprus
+exclusion. Built 24 Aug 2026 as the second half of the change list's offer.
+
+**One sheet is a promise and the script enforces it.** The signup copy and the
+confirmation email both say "one printable sheet"; the first version spilled
+three lines onto a second page in all three languages and nobody would ever
+have reported it, because a PDF that opens is a PDF that looks fine. `npm run
+pdf` now reads `/Count` out of the page tree and throws, naming the languages,
+if any file is longer than one sheet. A miss prints "page count UNCHECKED"
+rather than passing silently.
+
+**The title counts CODES rather than saying a number.** It read "Five
+jurisdictions, compared" over a table of four, which is the exact artefact this
+project exists to be an alternative to — and it survived a full read because a
+number in a title is not where anyone looks. It is now derived, with
+`Intl.PluralRules` for the noun, because Russian and Polish change it between
+four and five. The word "four" is still typed by hand in the email label and in
+`messages/*.json`; if Cyprus ever gets primary sources, those move with CODES.
+
+**It is generated, never designed by hand, and the reason is the same one the
+site exists for.** Every figure is imported from the modules the site itself
+renders from — `scripts/copy/costs.ts` for the totals, `copy/jurisdictions.ts`
+for the table and the source note, `copy/home.ts` for the labels. So the PDF
+agrees with the site by construction, and correcting a threshold is one edit
+followed by one command. A hand-made file would go stale the first time a rule
+changed, with nothing to say that it had.
+
+**Regenerate it after `npm run facts -- --write`, in the same sitting.** That
+is the command that changes a figure, and a PDF that disagrees with the page it
+was derived from is worse than no PDF: it circulates, it gets forwarded, and it
+cannot be corrected in place. `npm run build` first — the fonts come out of
+`.next/static/media` via `scripts/embedFonts.ts`, shared with `scripts/og.ts`
+so a generated image and a generated document can never end up in different
+weights.
+
+**`FACTS` lives in `scripts/copy/costs.ts`, not in `scripts/facts.ts`.** It was
+moved there on 24 Aug 2026 because `facts.ts` throws at module load when
+`SANITY_API_WRITE_TOKEN` is unset — correct for a script that writes to live
+content, fatal for anything that only wants to read the numbers.
+
+**Cyprus is excluded, in print, with the reason printed.** The registry lists
+five jurisdictions and this document shows four. The dossier's conclusion is
+that Cyprus rests on secondary sources, and a PDF is the worst possible place
+to publish a number nobody has read from a primary one.
+
+**It is gated behind an address, and the gate is a convenience, not a fact.**
+Every figure in it is already free on the open pages in all three languages.
+What the PDF adds is form: four routes on one printable sheet. The confirmation
+email says exactly that rather than implying something has been unlocked —
+`comparisonLink()` in `src/lib/enquiry/sender.ts`, absolute URL from
+`getSiteUrl()`, because a relative href in an email resolves against nothing.
+
+**`/comparison/` is disallowed in robots.txt, and NOT because it is secret.**
+It is a second copy of open pages with worse markup and no internal links;
+indexed, it would compete with its own source for the query it was derived
+from. The exclusion protects the pages. That reason is written into
+`src/app/robots.ts` beside the entry, because "we gated it" is the wrong reason
+and someone will eventually try to write it there.
+
+**The email template gained a link slot for this, and it is a text link.** Not
+a coloured button: a filled cell with white text is the first thing a spam
+filter reads as marketing, and this is the quietest email the site sends. The
+bare URL is printed under the anchor so it survives a client that strips
+anchors, and `renderEmailText` prints label and URL on their own lines.
 
 ## Links that do not exist yet
 

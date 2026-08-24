@@ -11,6 +11,8 @@
 // in this file without updating that document in the same commit; a figure
 // with no traceable source is exactly what this site exists not to publish.
 
+import { tightenDeep } from "./typography";
+
 export type Locale = "en" | "ru" | "pl";
 
 export interface CountryPageSeed {
@@ -24,7 +26,7 @@ export interface CountryPageSeed {
   taxRegime: Record<Locale, string>;
 }
 
-export const COUNTRY_PAGES: CountryPageSeed[] = [
+const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
   {
     country: "country-pt",
     slug: { en: "portugal", ru: "portugaliya", pl: "portugalia" },
@@ -135,11 +137,44 @@ export const COUNTRY_PAGES: CountryPageSeed[] = [
   },
 ];
 
+// The name a reader sees, per language. Written onto the `country` registry
+// document rather than onto its pages — Cyprus has no page and still appears
+// in the table, on the map and in the footer. The field's own comment in
+// schemaTypes/documents/country.ts carries the argument for that exception.
+//
+// The English column takes the SHORT form wherever the site's own prose does:
+// the English body copy says "the UAE", the Russian "ОАЭ", the Polish "ZEA",
+// and a table whose widest cell reads "United Arab Emirates" while every
+// sentence around it says "the UAE" is a table written by a different hand.
+// The full name stays on the registry as `name` — what Studio lists, and what
+// an unfilled locale falls back to.
+export const COUNTRY_LABELS: Record<string, Record<Locale, string>> = {
+  pt: { en: "Portugal", ru: "Португалия", pl: "Portugalia" },
+  gr: { en: "Greece", ru: "Греция", pl: "Grecja" },
+  mt: { en: "Malta", ru: "Мальта", pl: "Malta" },
+  ae: { en: "UAE", ru: "ОАЭ", pl: "ZEA" },
+  cy: { en: "Cyprus", ru: "Кипр", pl: "Cypr" },
+};
+
 // Rendered directly under the cost bars and on every jurisdiction page. Its
 // job is to state the two conventions without which the figures compare
 // nothing: what was checked, and who the number is for.
-export const SOURCE_NOTE: Record<Locale, string> = {
+const SOURCE_NOTE_RAW: Record<Locale, string> = {
   en: "Verified against primary sources on 23 August 2026 — statutes, ministry tariffs and official fee schedules. Figures are for ONE main applicant and cover entry and the first renewal; dependants are priced differently in every jurisdiction and are not included. Amounts in euro; the UAE threshold is AED 2,000,000 converted at 4.288 on the same date.",
   ru: "Сверено с первоисточниками 23 августа 2026 года — законы, тарифы министерств и официальные таблицы сборов. Цифры даны на ОДНОГО основного заявителя и покрывают вход и первое продление; иждивенцы считаются в каждой юрисдикции по-своему и в суммы не входят. Всё в евро; порог ОАЭ — AED 2 000 000 по курсу 4,288 на ту же дату.",
   pl: "Zweryfikowane ze źródłami pierwotnymi 23 sierpnia 2026 — ustawy, taryfy ministerialne i oficjalne tabele opłat. Kwoty dotyczą JEDNEGO głównego wnioskodawcy i obejmują wejście oraz pierwsze odnowienie; osoby zależne są wyceniane inaczej w każdej jurysdykcji i nie są wliczone. Wszystko w euro; próg ZEA to AED 2 000 000 po kursie 4,288 z tego samego dnia.",
 };
+
+// The two exports above are published THROUGH `tightenDeep` rather than
+// directly, and the reason is a defect that was live on the site: the Greek
+// tax-regime cell reads "Non-dom, €100 000 в год, отдельная инвестиция
+// €500 000", and at 360px the Russian and Polish home pages broke it across
+// two lines — "€500" ending one line, "000" starting the next. The long-form
+// bodies never had this because copy/portable.ts has always replaced that
+// space; these strings do not go through any converter.
+//
+// Tightening HERE rather than in seed.ts, facts.ts and pdf.ts means a fourth
+// consumer cannot be written that forgets. See copy/typography.ts for why the
+// non-breaking spaces are not simply typed into the literals above.
+export const COUNTRY_PAGES: CountryPageSeed[] = tightenDeep(COUNTRY_PAGES_RAW);
+export const SOURCE_NOTE: Record<Locale, string> = tightenDeep(SOURCE_NOTE_RAW);

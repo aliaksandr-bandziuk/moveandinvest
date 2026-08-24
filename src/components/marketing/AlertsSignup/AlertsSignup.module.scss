@@ -1,0 +1,238 @@
+@use "../../../styles/mixins";
+
+// On the light plane, unlike the two forms it follows. That is the point of
+// the placement: the big ask has just happened on a black band, and this is
+// the quieter alternative for the reader who did not take it. Making it look
+// like a second dark band would read as the same ask repeated.
+.section {
+  @include mixins.section-rhythm;
+
+  border-top: var(--border-hairline) solid var(--color-hairline);
+  scroll-margin-block-start: var(--space-6);
+}
+
+// The same 6/5 spread the section heads use, so this sits inside the page's
+// grammar instead of introducing a third one.
+.inner {
+  @include mixins.breakpoint-up(lg) {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.intro {
+  min-width: 0;
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 20ch;
+}
+
+.body {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.formSide {
+  margin-top: var(--space-6);
+  min-width: 0;
+
+  @include mixins.breakpoint-up(lg) {
+    margin-top: 0;
+  }
+}
+
+.visuallyHidden {
+  @include mixins.visually-hidden;
+}
+
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Field and button on one line from sm up. The button does not shrink and the
+// field does — the reverse is how a submit button ends up two characters wide
+// on a narrow screen.
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.input {
+  @include mixins.focus-ring;
+
+  flex: 1 1 14rem;
+  min-inline-size: 0;
+  min-block-size: 2.75rem;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  padding: 0.7rem 0.85rem;
+  font-family: inherit;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+.button {
+  @include mixins.focus-ring;
+
+  flex: 0 0 auto;
+  min-block-size: 2.75rem;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: 0;
+  border-radius: var(--radius-s);
+  padding: 0.7rem 1.4rem;
+  font-family: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+}
+
+.group {
+  border: 0;
+  padding: 0;
+  margin: var(--space-5) 0 0;
+  min-width: 0;
+}
+
+.legend {
+  @include mixins.eyebrow;
+
+  padding: 0;
+  color: var(--color-text-muted);
+}
+
+.hint {
+  margin-top: var(--space-2);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.chips {
+  margin-top: var(--space-3);
+  list-style: none;
+  // `list-style: none` removes the marker, not the browser's padding.
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: block;
+  cursor: pointer;
+
+  input {
+    @include mixins.visually-hidden;
+  }
+
+  span {
+    display: block;
+    border: var(--border-hairline) solid var(--color-line);
+    border-radius: var(--radius-s);
+    padding: 0.62rem 0.85rem;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--color-text-muted);
+  }
+
+  input:checked + span {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+  }
+
+  input:focus-visible + span {
+    @include mixins.focus-ring;
+  }
+}
+
+.consent {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-top: var(--space-5);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  cursor: pointer;
+
+  input {
+    flex: 0 0 auto;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    margin-block-start: 0.15rem;
+  }
+}
+
+.fine {
+  margin-top: var(--space-4);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.fineLink {
+  @include mixins.link;
+}
+
+// --- Result panels ----------------------------------------------------------
+// Literal ids inside :global(), same as the other three forms — the route
+// redirects to `#alerts-sent` and CSS Modules would otherwise scope the id.
+// ALL THREE are listed here; the one that says the fault is ours was left out
+// of the equivalent list on two older forms and never displayed at all.
+.result {
+  display: none;
+  border: var(--border-hairline) solid var(--color-line);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+:global(#alerts-sent):target,
+:global(#alerts-error):target,
+:global(#alerts-failed):target {
+  display: block;
+}
+
+:global(#alerts-sent):target ~ .form {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent);
+}
+
+.resultTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+}
+
+.resultBody {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}

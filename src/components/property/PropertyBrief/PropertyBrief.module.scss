@@ -1,0 +1,266 @@
+@use "../../../styles/mixins";
+
+// The black plane again, so the brief reads as the end of the page in the
+// same way the enquiry block ends the home page and the CTA ends a
+// jurisdiction page. A reader who has scrolled through six sections of law
+// should be able to tell, without reading a word, that this is where the page
+// stops explaining and starts asking.
+.section {
+  @include mixins.section-rhythm;
+
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+  // A reader arriving from a link to #brief lands on the heading, not
+  // mid-fieldset.
+  scroll-margin-block-start: var(--space-6);
+}
+
+.eyebrow {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent-on-dark);
+}
+
+.heading {
+  margin-top: var(--space-3);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+
+.intro {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--color-on-dark-muted);
+  max-width: 58ch;
+}
+
+// Off-screen rather than display:none: a bot that parses CSS skips a hidden
+// input, and one that does not, fills this one.
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.form {
+  margin-top: var(--space-7);
+  max-width: 46rem;
+}
+
+.group {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+  min-width: 0;
+}
+
+.legend {
+  @include mixins.eyebrow;
+
+  padding: 0;
+  color: var(--color-on-dark-muted);
+}
+
+.chips {
+  margin-top: var(--space-3);
+  list-style: none;
+  // `list-style: none` removes the marker, not the browser's own
+  // padding-inline-start — without this the whole chip row sits 40px inside
+  // the container and lines up with nothing else on the page.
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+// The radio itself is visually hidden and its sibling span is the chip, so the
+// control stays a real radio for a keyboard and a screen reader while looking
+// like a button. Same construction as the home page form — deliberately, so
+// the two forms do not read as two different products.
+.chip {
+  display: block;
+  cursor: pointer;
+
+  input {
+    @include mixins.visually-hidden;
+  }
+
+  span {
+    display: block;
+    border: var(--border-hairline) solid var(--color-on-dark-border);
+    border-radius: var(--radius-s);
+    // 0.62rem, not 0.5: below that the chip measures 41px and the floor for a
+    // tap target is 44.
+    padding: 0.62rem 0.85rem;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--color-on-dark-muted);
+  }
+
+  input:checked + span {
+    background-color: var(--color-on-dark);
+    border-color: var(--color-on-dark);
+    color: var(--color-dark);
+  }
+
+  input:focus-visible + span {
+    @include mixins.focus-ring-on-dark;
+  }
+}
+
+.field {
+  margin-bottom: var(--space-6);
+  min-width: 0;
+}
+
+.label {
+  @include mixins.eyebrow;
+
+  display: block;
+  color: var(--color-on-dark-muted);
+}
+
+.hint {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+  max-width: 52ch;
+}
+
+.input,
+.textarea {
+  @include mixins.focus-ring-on-dark;
+
+  margin-top: var(--space-3);
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  background-color: transparent;
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  border-radius: var(--radius-s);
+  padding: 0.7rem 0.85rem;
+  color: var(--color-on-dark);
+  font-family: inherit;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+// Two columns from md up. Name and email are short and belong together; on a
+// phone they stack, because two 160px inputs side by side is how a form starts
+// truncating what people type into it.
+.pair {
+  @include mixins.breakpoint-up(md) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+
+.consent {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+  max-width: 58ch;
+  cursor: pointer;
+
+  input {
+    // Not shrunk by the flex row, and big enough to hit.
+    flex: 0 0 auto;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    margin-block-start: 0.15rem;
+  }
+}
+
+.button {
+  @include mixins.focus-ring-on-dark;
+
+  margin-top: var(--space-6);
+  background-color: var(--color-on-dark);
+  color: var(--color-dark);
+  border: 0;
+  border-radius: var(--radius-s);
+  padding: 0.95rem 1.7rem;
+  font-family: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-on-dark-muted);
+  }
+}
+
+.fine {
+  margin-top: var(--space-5);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark-muted);
+  max-width: 58ch;
+}
+
+.fineLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+// --- Result panels ----------------------------------------------------------
+// Ids, not classes, and :global() around them because CSS Modules scopes id
+// selectors too — the route handler redirects to the literal `#brief-sent`,
+// so the selector here has to stay literal as well.
+//
+// ALL THREE PANELS ARE IN THE SELECTOR. On the home page form the third one —
+// the one that says the fault is ours — was in the markup and missing from
+// here, so it never displayed at all and a visitor whose enquiry we had just
+// dropped saw a page that appeared to do nothing. Fixed there the same day
+// this was written; do not repeat it by adding a fourth panel above and
+// forgetting this list.
+.result {
+  display: none;
+  margin-top: var(--space-7);
+  border: var(--border-hairline) solid var(--color-on-dark-border);
+  padding: var(--space-6);
+}
+
+:global(#brief-sent):target,
+:global(#brief-error):target,
+:global(#brief-failed):target {
+  display: block;
+}
+
+// A sent form is not something to look at again, and leaving it on screen
+// invites a second submission of the same brief.
+:global(#brief-sent):target ~ .form {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent-on-dark);
+}
+
+.resultTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.resultBody {
+  margin-top: var(--space-3);
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  max-width: var(--measure-wide);
+}

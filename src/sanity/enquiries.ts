@@ -31,9 +31,30 @@ export interface EnquiryPayload {
   timeline: string;
   goals: string[];
   situation: string;
+  /** Property brief only: the city or area asked for. Empty on the home page
+   *  enquiry, which asks about a country rather than a street. */
+  city?: string;
+  /** Property brief only: live / let / residency / unsure. */
+  purpose?: string;
+  /** Which form this came from. "enquiry" is the home page block, "brief" a
+   *  property page. One payload rather than two, so the email template, the
+   *  stored document and the log line each stay single. */
+  kind?: "enquiry" | "brief";
   name: string;
   email: string;
   consentToShare: boolean;
+  locale: string;
+  submittedAt: string;
+}
+
+// The change-alert list. Two fields and a timestamp — deliberately the
+// smallest payload on the site, because an address given for one purpose
+// should not arrive attached to everything else the person was doing.
+export interface SubscribePayload {
+  email: string;
+  /** ISO alpha-2 codes the reader picked, or empty for "all five". Not
+   *  personal data about them; it is what they asked to be told about. */
+  jurisdictions: string[];
   locale: string;
   submittedAt: string;
 }
@@ -74,6 +95,17 @@ export async function storeEnquiry(payload: EnquiryPayload): Promise<boolean> {
   if (!client) return false;
 
   await client.create({ _type: "enquiry", ...payload });
+  return true;
+}
+
+// Same pattern again. Storing it is best effort; the email is the record,
+// exactly as it is for the other two forms — see the note at the top of
+// /api/enquiry/route.ts.
+export async function storeSubscribe(payload: SubscribePayload): Promise<boolean> {
+  const client = getEnquiryClient();
+  if (!client) return false;
+
+  await client.create({ _type: "subscriber", ...payload });
   return true;
 }
 

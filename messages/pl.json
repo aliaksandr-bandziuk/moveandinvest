@@ -74,5 +74,90 @@
     "ctaHeading": "Zapytaj o tę jurysdykcję",
     "ctaBody": "W każdej jurysdykcji pracuje jeden partner i zgłoszenie trafia wyłącznie do niego — i tylko po zaznaczeniu zgody. Odpowiada człowiek, zwykle w ciągu jednego dnia roboczego.",
     "ctaLabel": "Wyślij zgłoszenie"
+  },
+  "notFound": {
+    "heading": "Tej strony tu nie ma",
+    "body": "Albo w adresie jest literówka, albo strona zmieniła miejsce przy przepisywaniu jurysdykcji. Najszybszy powrót prowadzi przez tabelę porównawczą — wymienia wszystkie jurysdykcje serwisu, każdą z odnośnikiem.",
+    "homeLabel": "Na stronę główną",
+    "comparisonLabel": "Porównaj jurysdykcje"
+  },
+  "property": {
+    "eyebrow": "Zakup nieruchomości",
+    "contentsLabel": "Na tej stronie",
+    "sourceLabel": "Źródła i data weryfikacji",
+    "whoMayBuy": "Kto może kupić i gdzie nie wolno",
+    "transactionCosts": "Ile zakup kosztuje ponad cenę",
+    "steps": "Kroki i ile trwają",
+    "annualCosts": "Co płaci się co roku",
+    "shortLet": "Najem krótkoterminowy",
+    "residencyLink": "Jak zakup wiąże się z rezydencją",
+    "jurisdictionLinkLabel": "Rezydencja, podatki i liczby",
+    "propertyLinkLabel": "Zakup nieruchomości tutaj"
+  },
+  "brief": {
+    "eyebrow": "Zapytaj o konkretną nieruchomość",
+    "heading": "Napisz, czego szukasz",
+    "intro": "Na początek wystarczą trzy odpowiedzi: budżet, miejsce i po co ta nieruchomość. Brief trafia do jednego partnera pracującego w tej jurysdykcji, a on odpowiada bezpośrednio.",
+    "budgetLegend": "Budżet",
+    "budget": {
+      "upTo500": "do €500 000",
+      "upTo800": "do €800 000",
+      "over800": "powyżej €800 000",
+      "unknown": "jeszcze nie wiem"
+    },
+    "purposeLegend": "Po co",
+    "purpose": {
+      "live": "mieszkać samemu",
+      "let": "wynajmować",
+      "residency": "pod rezydencję",
+      "unsure": "jeszcze nie wiem"
+    },
+    "cityLabel": "Miasto lub okolica",
+    "cityHint": "Im konkretniej, tym lepiej. Jeśli już wiesz, że odpowiedź zależy od dzielnicy — jak w Atenach i w Lizbonie — podaj dzielnicę.",
+    "notesLabel": "Co jeszcze warto wiedzieć",
+    "nameLabel": "Imię",
+    "emailLabel": "E-mail",
+    "consentLabel": "Zgadzam się, by ten brief trafił do partnera pracującego w tej jurysdykcji.",
+    "honeypotLabel": "Zostaw to pole puste",
+    "submitLabel": "Wyślij brief",
+    "fine": "Nie sprzedajemy nieruchomości i nie bierzemy procentu od transakcji. Brief trafia do jednego partnera, nie na listę.",
+    "privacyLabel": "Jak obchodzimy się z danymi",
+    "sent": {
+      "title": "Wysłane.",
+      "body": "Przekażemy w ciągu jednego dnia roboczego. Odpowiedź przyjdzie od partnera, na podany adres."
+    },
+    "error": {
+      "title": "Nie wysłało się.",
+      "body": "Adres e-mail i zaznaczona zgoda — bez tych dwóch się nie da. Reszta jest nieobowiązkowa."
+    },
+    "broke": {
+      "title": "To po naszej stronie.",
+      "body": "Brief do nas nie dotarł i nie chodzi o to, co wypełniłeś. Napisz na hello@moveandinvest.com, a podejmiemy sprawę stamtąd."
+    }
+  },
+  "alerts": {
+    "heading": "Piszemy, gdy zmienia się przepis",
+    "body": "To nie newsletter. Krótki e-mail, gdy próg, podatek albo wymóg w jednej z jurysdykcji stanie się inny — z odesłaniem do ustawy i datą. Listów będzie niewiele: w 2026 roku takich zmian zebrało się mniej niż dziesięć na pięć krajów. W potwierdzeniu przyjdzie porównanie czterech ścieżek na jednej kartce.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "ty@przyklad.pl",
+    "jurisdictionsLegend": "Które kraje",
+    "jurisdictionsHint": "Nieobowiązkowe. Jeśli nie zaznaczysz żadnego, dostaniesz o wszystkich pięciu.",
+    "consentLabel": "Wysyłajcie e-mail, gdy zmienia się przepis. Mogę się wypisać, odpowiadając na dowolny z nich.",
+    "honeypotLabel": "Zostaw to pole puste",
+    "submitLabel": "Zapisz się",
+    "fine": "Przechowujemy wyłącznie adres i nikomu go nie przekazujemy.",
+    "privacyLabel": "Jak obchodzimy się z danymi",
+    "sent": {
+      "title": "Jesteś na liście.",
+      "body": "Potwierdzenie jest w drodze, a razem z nim porównanie czterech ścieżek w PDF. Napisano w nim też, na co się zapisałeś i jak odejść — jednym słowem w odpowiedzi."
+    },
+    "error": {
+      "title": "Nie wysłało się.",
+      "body": "Adres e-mail i zaznaczone pole — bez tych dwóch się nie da."
+    },
+    "broke": {
+      "title": "To po naszej stronie.",
+      "body": "Zapis do nas nie dotarł i nie chodzi o to, co wypełniłeś. Napisz na hello@moveandinvest.com, dopiszemy ręcznie."
+    }
   }
 }

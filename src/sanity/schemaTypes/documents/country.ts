@@ -24,9 +24,41 @@ export const country = defineType({
       name: "name",
       title: "Name",
       description:
-        "English name, used in Studio lists and as the fallback label. Translated labels come from the country page.",
+        "English name. Used in Studio lists, and as the fallback whenever the label below has no value for the locale being rendered.",
       type: "string",
       validation: (Rule) => Rule.required(),
+    }),
+    // The name a READER sees, in each language.
+    //
+    // It sits here and not on `countryPage`, even though it is translated
+    // copy, and that is the one exception to this file's own rule. The reason
+    // is Cyprus: it is `planned` and has no page in any language, yet it
+    // appears in the comparison table, on the map and in the footer — all of
+    // which are driven from this registry precisely so that a jurisdiction
+    // without a page cannot be silently dropped. A label that lives on the
+    // page is a label Cyprus cannot have.
+    //
+    // An object of three strings rather than three flat fields, so that adding
+    // a locale is one line here and one clause in the GROQ `select`.
+    //
+    // WHY IT EXISTS AT ALL, since `name` was here from the start: `name` is
+    // English, and every component that shows a jurisdiction reads it — the
+    // table, the cards, the map, the route finder, the footer, the breadcrumb
+    // and the headings on the jurisdiction page. The Russian home page said
+    // "Greece" and the Polish one "United Arab Emirates" from the day the
+    // table shipped until 23 Aug 2026.
+    defineField({
+      name: "label",
+      title: "Name by language",
+      description:
+        "What a reader sees. Leave a language empty and it falls back to the English name above — right for a name that is identical in that language, wrong for every other case.",
+      type: "object",
+      options: { columns: 3 },
+      fields: [
+        defineField({ name: "en", title: "English", type: "string" }),
+        defineField({ name: "ru", title: "Russian", type: "string" }),
+        defineField({ name: "pl", title: "Polish", type: "string" }),
+      ],
     }),
     defineField({
       name: "code",

@@ -3,7 +3,11 @@ import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getSiteUrl } from "@/lib/site";
 import { sanityFetchPublished } from "@/sanity/client";
-import { SITEMAP_COUNTRY_QUERY, SITEMAP_SINGLETON_QUERY } from "@/sanity/queries";
+import {
+  SITEMAP_COUNTRY_QUERY,
+  SITEMAP_PROPERTY_QUERY,
+  SITEMAP_SINGLETON_QUERY,
+} from "@/sanity/queries";
 import type { SitemapCountryDoc, SitemapDoc } from "@/sanity/types";
 
 // The sitemap, built the same way as the sibling `giuseppeiannone` project's:
@@ -50,7 +54,7 @@ function isLocale(value: unknown): value is (typeof routing.locales)[number] {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
 
-  const [results, countryDocs] = await Promise.all([
+  const [results, countryDocs, propertyDocs] = await Promise.all([
     Promise.all(
       ROUTES.map((route) =>
         sanityFetchPublished<SitemapDoc[]>(
@@ -61,6 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     ),
     sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_COUNTRY_QUERY, {}, ["countryPage"]),
+    sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_PROPERTY_QUERY, {}, ["propertyPage"]),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -111,39 +116,50 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // --- Jurisdiction pages ----------------------------------------------------
-  // Grouped by the country they reference, because that is what makes three
-  // documents one page in three languages. A jurisdiction with no page in a
-  // given language simply has no URL there, and no hreflang pointing at one.
-  const byCountry = new Map<string, SitemapCountryDoc[]>();
-  for (const doc of countryDocs) {
-    if (!doc.countryId || !doc.slug || !isLocale(doc.language) || doc.noIndex === true) continue;
-    const group = byCountry.get(doc.countryId) ?? [];
-    group.push(doc);
-    byCountry.set(doc.countryId, group);
-  }
-
-  for (const group of byCountry.values()) {
-    const languages: Record<string, string> = Object.fromEntries(
-      group.map((doc) => [
-        doc.language as string,
-        `${siteUrl}${getPathname({ href: `/${doc.slug}`, locale: doc.language as string })}`,
-      ]),
-    );
-
-    const defaultUrl = languages[routing.defaultLocale];
-    if (defaultUrl) {
-      languages["x-default"] = defaultUrl;
+  // --- Jurisdiction and property pages ---------------------------------------
+  // Both are grouped by the country they reference, because that is what makes
+  // three documents one page in three languages. A jurisdiction with no page in
+  // a given language simply has no URL there, and no hreflang pointing at one.
+  //
+  // The two sets are grouped SEPARATELY even though they share a URL space and
+  // a `country`. Grouping them together would put /greece and
+  // /property-in-greece in one hreflang set, telling a search engine that the
+  // Russian version of the buying page is the English jurisdiction page — the
+  // exact mistake hreflang exists to prevent.
+  const addGrouped = (docs: SitemapCountryDoc[]) => {
+    const byCountry = new Map<string, SitemapCountryDoc[]>();
+    for (const doc of docs) {
+      if (!doc.countryId || !doc.slug || !isLocale(doc.language) || doc.noIndex === true) continue;
+      const group = byCountry.get(doc.countryId) ?? [];
+      group.push(doc);
+      byCountry.set(doc.countryId, group);
     }
 
-    for (const doc of group) {
-      entries.push({
-        url: `${siteUrl}${getPathname({ href: `/${doc.slug}`, locale: doc.language as string })}`,
-        lastModified: doc._updatedAt,
-        alternates: { languages },
-      });
+    for (const group of byCountry.values()) {
+      const languages: Record<string, string> = Object.fromEntries(
+        group.map((doc) => [
+          doc.language as string,
+          `${siteUrl}${getPathname({ href: `/${doc.slug}`, locale: doc.language as string })}`,
+        ]),
+      );
+
+      const defaultUrl = languages[routing.defaultLocale];
+      if (defaultUrl) {
+        languages["x-default"] = defaultUrl;
+      }
+
+      for (const doc of group) {
+        entries.push({
+          url: `${siteUrl}${getPathname({ href: `/${doc.slug}`, locale: doc.language as string })}`,
+          lastModified: doc._updatedAt,
+          alternates: { languages },
+        });
+      }
     }
-  }
+  };
+
+  addGrouped(countryDocs);
+  addGrouped(propertyDocs);
 
   return entries;
 }

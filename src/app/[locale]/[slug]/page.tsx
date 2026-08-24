@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 import { PortableText } from "next-sanity";
+import { AlertsSignup, type AlertsSignupLabels } from "@/components/marketing";
 import {
   CountryCost,
   CountryFacts,
@@ -9,6 +11,12 @@ import {
   EnquiryCtaLink,
   type Fact,
 } from "@/components/country";
+import {
+  PropertyArticle,
+  PropertyBrief,
+  type PropertyBriefLabels,
+  type PropertySection,
+} from "@/components/property";
 import type { Crumb } from "@/components/ui";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -17,31 +25,52 @@ import {
   buildFaqPageJsonLd,
   buildJurisdictionPageJsonLd,
 } from "@/lib/jsonLd";
+import { ogImage } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import { resolveRobots } from "@/lib/site";
 import { sanityFetch, sanityFetchPublished } from "@/sanity/client";
 import {
   COUNTRY_FAQ_QUERY,
   COUNTRY_PAGE_QUERY,
+  COUNTRY_ROWS_QUERY,
   COUNTRY_SLUGS_QUERY,
   COUNTRY_TAGS,
+  PROPERTY_LINK_QUERY,
+  PROPERTY_PAGE_QUERY,
+  PROPERTY_SLUGS_QUERY,
+  PROPERTY_TAGS,
   TABLE_COLUMNS_QUERY,
 } from "@/sanity/queries";
 import type {
   CountryFaqResult,
   CountryPageResult,
+  CountryRowResult,
+  PropertyLinkResult,
+  PropertyPageResult,
   TableColumnsResult,
 } from "@/sanity/types";
 
 import styles from "./page.module.scss";
 
-// One jurisdiction. Ported in shape from the sibling `giuseppeiannone`
+// The top-level slug route, and it now resolves TWO document types: a
+// jurisdiction page (`countryPage`, "where do I move and what does it cost")
+// and a property page (`propertyPage`, "I have chosen, what do I need to know
+// before I sign"). Ported in shape from the sibling `giuseppeiannone`
 // project's [slug] route — static params from published slugs per locale,
 // breadcrumbs rendered twice (visibly and as JSON-LD), a facts strip under the
-// hero, an FAQ scoped to this entity — and deliberately simpler in two places.
+// hero, an FAQ scoped to this entity.
 //
-// It resolves ONE document type, so there is no slug-collision arbitration and
-// no second round trip to check a second type.
+// WHY BOTH LIVE HERE RATHER THAN UNDER /property/…: the Russian reader's query
+// is "недвижимость в Греции", and a URL that answers it should say so —
+// /nedvizhimost-v-gretsii, not /property/greece, whose first segment is a word
+// no reader typed. The cost is the arbitration below.
+//
+// ARBITRATION: both types are queried in parallel and the jurisdiction page
+// wins a collision. Two slugs can only collide by editorial mistake — they are
+// written in different files by the same hand — and if it ever happens, the
+// older and more linked-to page is the one that must not move. The loser is
+// logged rather than silently dropped, because a page that vanishes with no
+// trace is the kind of bug that survives for months.
 //
 // And hreflang comes from the shared `country` reference rather than from a
 // translation-metadata document. All three language versions point at the same
@@ -49,12 +78,33 @@ import styles from "./page.module.scss";
 // depends on; the sibling has to defend against its metadata document not
 // existing, and here there is nothing that can be missing.
 //
-// WHAT THIS PAGE DOES NOT DO YET: it renders no prose unless `body` is filled
-// in Sanity. That is the whole of the first version and it was chosen over
-// writing 1,200 words per jurisdiction per locale, because every figure on
-// this site is now sourced and dated, and twelve unsourced essays would undo
-// exactly that. The section appears the day the field is filled — no code
-// change.
+// Both types render prose only where a field is filled. A heading over an
+// empty column is the placeholder this site does not do, so a jurisdiction
+// whose Polish text has not been written yet simply has no prose section, and
+// a property page whose section 5 is unverified has no section 5.
+
+// Assembled once and used by both branches. It is a function rather than a
+// component prop-drill because the two branches build it from different
+// translators at different points, and the alternative was reading fifteen
+// message keys twice.
+function buildAlertsLabels(t: (key: string) => string): AlertsSignupLabels {
+  return {
+    heading: t("heading"),
+    body: t("body"),
+    emailLabel: t("emailLabel"),
+    emailPlaceholder: t("emailPlaceholder"),
+    jurisdictionsLegend: t("jurisdictionsLegend"),
+    jurisdictionsHint: t("jurisdictionsHint"),
+    consentLabel: t("consentLabel"),
+    honeypotLabel: t("honeypotLabel"),
+    submitLabel: t("submitLabel"),
+    fine: t("fine"),
+    privacyLabel: t("privacyLabel"),
+    sent: { title: t("sent.title"), body: t("sent.body") },
+    error: { title: t("error.title"), body: t("error.body") },
+    broke: { title: t("broke.title"), body: t("broke.body") },
+  };
+}
 
 async function getPage(locale: string, slug: string) {
   return sanityFetch<CountryPageResult | null>(
@@ -64,15 +114,54 @@ async function getPage(locale: string, slug: string) {
   );
 }
 
-// Builds the per-locale URLs for this jurisdiction from its own alternates.
-// The slug differs in every language — portugal / portugaliya / portugalia —
-// so this cannot be `getPathname` over routing.locales the way a fixed route
-// can. A language with no published page is simply absent, which is correct:
-// hreflang pointing at a 404 is worse than an incomplete set.
-function localizedPaths(page: CountryPageResult): Record<string, string> {
+async function getPropertyPage(locale: string, slug: string) {
+  return sanityFetch<PropertyPageResult | null>(
+    PROPERTY_PAGE_QUERY,
+    { locale, slug },
+    [...PROPERTY_TAGS, `propertyPage:${slug}`],
+  );
+}
+
+type Resolved =
+  | { kind: "jurisdiction"; page: CountryPageResult }
+  | { kind: "property"; page: PropertyPageResult };
+
+// Both types, one round trip's worth of latency. Not sequential: a sequential
+// lookup would make every property page pay for a miss on the jurisdiction
+// query first, and property pages are half the routes here.
+async function resolveSlug(locale: string, slug: string): Promise<Resolved | null> {
+  const [jurisdiction, property] = await Promise.all([
+    getPage(locale, slug),
+    getPropertyPage(locale, slug),
+  ]);
+
+  if (jurisdiction && property) {
+    console.error(
+      `[slug] Slug collision on /${locale}/${slug}: countryPage ${jurisdiction._id} and propertyPage ${property._id}. Serving the jurisdiction page; fix the slug in Studio.`,
+    );
+  }
+
+  if (jurisdiction) return { kind: "jurisdiction", page: jurisdiction };
+  if (property) return { kind: "property", page: property };
+  return null;
+}
+
+// The per-locale URLs for one entity, built from its own alternates. The slug
+// differs in every language — portugal / portugaliya / portugalia — so this
+// cannot be `getPathname` over routing.locales the way a fixed route can. A
+// language with no published page is simply absent, which is correct: hreflang
+// pointing at a 404 is worse than an incomplete set.
+//
+// It takes the alternates array rather than the document, so both page types
+// share it. They must: two copies of an hreflang builder is two places for the
+// x-default rule to drift, and the drift would be invisible until Search
+// Console reported it weeks later.
+function localizedPaths(
+  alternates: { language?: string; slug?: string }[],
+): Record<string, string> {
   const paths: Record<string, string> = {};
 
-  for (const alternate of page.alternates) {
+  for (const alternate of alternates) {
     if (!alternate.language || !alternate.slug) continue;
     if (!routing.locales.includes(alternate.language as never)) continue;
     paths[alternate.language] = getPathname({
@@ -85,13 +174,24 @@ function localizedPaths(page: CountryPageResult): Record<string, string> {
 }
 
 export async function generateStaticParams({ params }: { params: { locale: string } }) {
-  const pages = await sanityFetchPublished<{ slug: string }[]>(
-    COUNTRY_SLUGS_QUERY,
-    { locale: params.locale },
-    ["countryPage"],
-  );
+  const [countries, properties] = await Promise.all([
+    sanityFetchPublished<{ slug: string }[]>(
+      COUNTRY_SLUGS_QUERY,
+      { locale: params.locale },
+      ["countryPage"],
+    ),
+    sanityFetchPublished<{ slug: string }[]>(
+      PROPERTY_SLUGS_QUERY,
+      { locale: params.locale },
+      ["propertyPage"],
+    ),
+  ]);
 
-  return pages.map((page) => ({ slug: page.slug }));
+  // Deduplicated, because a collision would otherwise ask Next to prerender
+  // the same route twice.
+  const slugs = new Set([...countries, ...properties].map((page) => page.slug));
+
+  return [...slugs].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -100,11 +200,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const page = await getPage(locale, slug);
-  if (!page) return {};
+  const resolved = await resolveSlug(locale, slug);
+  if (!resolved) return {};
 
+  const { page } = resolved;
   const siteUrl = getSiteUrl();
-  const paths = localizedPaths(page);
+  // The two types build their alternates from the same relationship — the
+  // shared `country` reference — but from their own sibling documents, so a
+  // property page never advertises a jurisdiction page as its Polish version.
+  const paths = localizedPaths(page.alternates);
   const canonical = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
 
   const languages = Object.fromEntries(
@@ -133,8 +237,185 @@ export async function generateMetadata({
       siteName: "moveandinvest",
       locale,
       type: "article",
+      images: [ogImage(locale)],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.seo.metaTitle,
+      description: page.seo.metaDescription,
+      images: [ogImage(locale).url],
     },
   };
+}
+
+// The property branch of the route.
+//
+// It is a function rather than a second file because the two page types share
+// a URL space, and a reader of this route has to be able to see both outcomes
+// of the arbitration without opening another file.
+async function renderProperty({
+  locale,
+  slug,
+  page,
+}: {
+  locale: string;
+  slug: string;
+  page: PropertyPageResult;
+}) {
+  const [t, tCountry, tBrief, tAlerts, rows] = await Promise.all([
+    getTranslations("property"),
+    getTranslations("country"),
+    getTranslations("brief"),
+    getTranslations("alerts"),
+    // The five jurisdictions with their localized labels, from the registry —
+    // the same source the footer and the table use, so a sixth country appears
+    // in the change list the day it appears anywhere else.
+    sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, COUNTRY_TAGS),
+  ]);
+
+  const siteUrl = getSiteUrl();
+  const paths = localizedPaths(page.alternates);
+  const path = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
+
+  // The six, in the order the schema fixes. Filtered, not padded: a section
+  // whose field is empty does not exist on the page.
+  const sections: PropertySection[] = (
+    [
+      { id: "who-may-buy", heading: t("whoMayBuy"), body: page.whoMayBuy },
+      { id: "costs", heading: t("transactionCosts"), body: page.transactionCosts },
+      { id: "steps", heading: t("steps"), body: page.steps },
+      { id: "annual", heading: t("annualCosts"), body: page.annualCosts },
+      { id: "short-let", heading: t("shortLet"), body: page.shortLet },
+      { id: "residency", heading: t("residencyLink"), body: page.residencyLink },
+    ] satisfies PropertySection[]
+  ).filter((section) => Boolean(section.body));
+
+  // Three crumbs, not two, and the middle one is a real parent: the
+  // jurisdiction page for the same country. That is the actual hierarchy —
+  // "Greece" is the subject, "buying property" is one of two things this site
+  // says about it — and it gives a reader who arrived from a search for
+  // "property in Greece" a one-click route to the residency and tax figures.
+  // The middle crumb loses its link, not its place, when that page has not
+  // been written in this language.
+  const trail: Crumb[] = [
+    { name: tCountry("home"), href: "/" },
+    page.jurisdiction
+      ? { name: page.name, href: `/${page.jurisdiction.slug}` }
+      : { name: page.name },
+    { name: t("eyebrow") },
+  ];
+
+  const breadcrumbJsonLd = buildBreadcrumbListJsonLd([
+    { name: tCountry("home"), url: `${siteUrl}${getPathname({ href: "/", locale })}` },
+    ...(page.jurisdiction
+      ? [
+          {
+            name: page.name,
+            url: `${siteUrl}${getPathname({ href: `/${page.jurisdiction.slug}`, locale })}`,
+          },
+        ]
+      : []),
+    { name: page.title, url: `${siteUrl}${path}` },
+  ]);
+
+  const pageJsonLd = buildJurisdictionPageJsonLd({
+    url: `${siteUrl}${path}`,
+    name: page.title,
+    description: page.seo.metaDescription,
+    sourceNote: page.sourceNote,
+  });
+
+  // Assembled here rather than read inside the component, because the brief is
+  // a server component with no translator of its own and a props object keeps
+  // the whole label set visible in one place — including the three result
+  // panels, which are the easiest thing on a form to leave untranslated.
+  const briefLabels: PropertyBriefLabels = {
+    eyebrow: tBrief("eyebrow"),
+    heading: tBrief("heading"),
+    intro: tBrief("intro"),
+    budgetLegend: tBrief("budgetLegend"),
+    budget: {
+      upTo500: tBrief("budget.upTo500"),
+      upTo800: tBrief("budget.upTo800"),
+      over800: tBrief("budget.over800"),
+      unknown: tBrief("budget.unknown"),
+    },
+    purposeLegend: tBrief("purposeLegend"),
+    purpose: {
+      live: tBrief("purpose.live"),
+      let: tBrief("purpose.let"),
+      residency: tBrief("purpose.residency"),
+      unsure: tBrief("purpose.unsure"),
+    },
+    cityLabel: tBrief("cityLabel"),
+    cityHint: tBrief("cityHint"),
+    notesLabel: tBrief("notesLabel"),
+    nameLabel: tBrief("nameLabel"),
+    emailLabel: tBrief("emailLabel"),
+    consentLabel: tBrief("consentLabel"),
+    honeypotLabel: tBrief("honeypotLabel"),
+    submitLabel: tBrief("submitLabel"),
+    fine: tBrief("fine"),
+    privacyLabel: tBrief("privacyLabel"),
+    sent: { title: tBrief("sent.title"), body: tBrief("sent.body") },
+    error: { title: tBrief("error.title"), body: tBrief("error.body") },
+    broke: { title: tBrief("broke.title"), body: tBrief("broke.body") },
+  };
+
+  return (
+    <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
+      <PropertyArticle
+        trail={trail}
+        breadcrumbLabel={tCountry("breadcrumbLabel")}
+        eyebrow={t("eyebrow")}
+        title={page.title}
+        intro={page.intro}
+        sections={sections}
+        contentsLabel={t("contentsLabel")}
+        sourceLabel={t("sourceLabel")}
+        sourceNote={page.sourceNote ?? ""}
+        jurisdiction={
+          page.jurisdiction
+            ? {
+                label: t("jurisdictionLinkLabel"),
+                title: page.jurisdiction.title,
+                slug: page.jurisdiction.slug,
+              }
+            : null
+        }
+      />
+
+      <PropertyBrief
+        labels={briefLabels}
+        locale={locale}
+        code={page.code}
+        slug={slug}
+        privacyHref={getPathname({ href: "/privacy", locale })}
+      />
+
+      {/* After the brief, not before it. This is the exit for a reader who
+          did not take the larger ask, and putting it first would make the
+          larger ask the alternative. */}
+      <AlertsSignup
+        labels={buildAlertsLabels(tAlerts)}
+        locale={locale}
+        slug={slug}
+        jurisdictions={rows.map((row) => ({ code: row.code, name: row.name }))}
+        code={page.code}
+        privacyHref={getPathname({ href: "/privacy", locale })}
+        instance={`p-${page.code}`}
+      />
+    </main>
+  );
 }
 
 export default async function JurisdictionPage({
@@ -145,23 +426,40 @@ export default async function JurisdictionPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const page = await getPage(locale, slug);
-  if (!page) notFound();
+  const resolved = await resolveSlug(locale, slug);
+  if (!resolved) notFound();
+
+  if (resolved.kind === "property") {
+    return renderProperty({ locale, slug, page: resolved.page });
+  }
+
+  const page = resolved.page;
 
   // The FAQ needs the country id, which only the page document knows, so these
   // two cannot be parallelised with it — but they can with each other.
-  const [faq, columns, t] = await Promise.all([
+  const [faq, columns, propertyLink, t, tProperty, tAlerts, rows] = await Promise.all([
     sanityFetch<CountryFaqResult[]>(
       COUNTRY_FAQ_QUERY,
       { locale, countryId: page.countryId },
       COUNTRY_TAGS,
     ),
     sanityFetch<TableColumnsResult | null>(TABLE_COLUMNS_QUERY, { locale }, ["homePage"]),
+    // The buying half, if it has been written in this language. Null is the
+    // normal state for a jurisdiction whose property page does not exist yet,
+    // and the link is simply absent then.
+    sanityFetch<PropertyLinkResult | null>(
+      PROPERTY_LINK_QUERY,
+      { locale, countryId: page.countryId },
+      PROPERTY_TAGS,
+    ),
     getTranslations("country"),
+    getTranslations("property"),
+    getTranslations("alerts"),
+    sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, COUNTRY_TAGS),
   ]);
 
   const siteUrl = getSiteUrl();
-  const paths = localizedPaths(page);
+  const paths = localizedPaths(page.alternates);
   const path = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
 
   const trail: Crumb[] = [
@@ -250,6 +548,18 @@ export default async function JurisdictionPage({
             <div className={styles.prose}>
               <PortableText value={page.body as never} />
             </div>
+
+            {/* The buying half. Placed at the end of the prose rather than in
+                the hero: a reader who has just finished the "after the first
+                permit" section is the one for whom this is the next question,
+                and a reader who has not read anything yet is not. */}
+            {propertyLink ? (
+              <p className={styles.crossLink}>
+                <Link href={`/${propertyLink.slug}`}>
+                  {tProperty("propertyLinkLabel")} — {propertyLink.title}
+                </Link>
+              </p>
+            ) : null}
           </div>
         </section>
       ) : null}
@@ -291,6 +601,18 @@ export default async function JurisdictionPage({
           </EnquiryCtaLink>
         </div>
       </section>
+
+      {/* The quieter alternative to the CTA above it: a reader who is not
+          ready to be introduced to anybody can still leave an address. */}
+      <AlertsSignup
+        labels={buildAlertsLabels(tAlerts)}
+        locale={locale}
+        slug={slug}
+        jurisdictions={rows.map((row) => ({ code: row.code, name: row.name }))}
+        code={page.code}
+        privacyHref={getPathname({ href: "/privacy", locale })}
+        instance={`j-${page.code}`}
+      />
     </main>
   );
 }

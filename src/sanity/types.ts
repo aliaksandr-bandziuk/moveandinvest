@@ -335,3 +335,36 @@ export interface SitemapCountryDoc {
   countryId?: string;
   noIndex?: boolean;
 }
+
+/** One property page, everything the route renders. The six section fields are
+ *  `unknown` for the same reason `CountryPageResult.body` is: Portable Text is
+ *  handed straight to `<PortableText>`, and a hand-written interface for it
+ *  would be a second, weaker copy of a type that library already owns. */
+export interface PropertyPageResult {
+  _id: string;
+  title: string;
+  intro: string;
+  sourceNote?: string | null;
+  whoMayBuy?: unknown;
+  transactionCosts?: unknown;
+  steps?: unknown;
+  annualCosts?: unknown;
+  shortLet?: unknown;
+  residencyLink?: unknown;
+  seo: SeoResult;
+  countryId: string;
+  name: string;
+  code: string;
+  alternates: { language?: string; slug?: string }[];
+  /** The jurisdiction page for the same country and language. Null until it
+   *  exists there — the cross-link is then not rendered. */
+  jurisdiction?: { title: string; slug: string } | null;
+}
+
+/** The mirror link, read by the jurisdiction page. */
+export interface PropertyLinkResult {
+  title: string;
+  slug: string;
+}
+
+export type SitemapPropertyDoc = SitemapCountryDoc;

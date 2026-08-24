@@ -194,7 +194,10 @@
 }
 
 :global(#partner-sent):target,
-:global(#partner-error):target {
+:global(#partner-error):target,
+// Same omission as the home page form, same day, same fix: the panel that
+// says the fault is ours was in the markup and not in this selector.
+:global(#partner-failed):target {
   display: block;
 }
 

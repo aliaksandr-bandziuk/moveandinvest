@@ -121,3 +121,15 @@
     background-color: var(--color-on-dark-muted);
   }
 }
+
+// The link to the other half of the same jurisdiction. One destination, named
+// — not a grid of "related pages" cards, which is what a site builds when it
+// has nothing specific to point at.
+.crossLink {
+  margin-top: var(--space-7);
+  font-size: var(--fs-body);
+
+  a {
+    @include mixins.link;
+  }
+}

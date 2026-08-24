@@ -45,10 +45,24 @@ export interface EmailBlock {
   lines: (string | { label: string; value: string })[];
 }
 
+/** One link, under the paragraphs. Deliberately not a "button": a coloured
+ *  table cell with white text is the first thing a spam filter reads as
+ *  marketing, and the only email on this site that carries a link is the
+ *  quietest one we send. It is an underlined text link with the bare URL
+ *  printed under it, so it still works in the client that strips anchors and
+ *  in the client that shows the plain-text part. */
+export interface EmailLink {
+  label: string;
+  /** Absolute. A relative href in an email resolves against nothing. */
+  href: string;
+}
+
 export interface EmailContent {
   heading: string;
   openingLine: string;
   bodyParagraphs?: string[];
+  /** Rendered after the paragraphs, before the blocks. */
+  link?: EmailLink;
   /** The block that carries the substance. Rendered on a tinted panel. */
   primaryBlock?: EmailBlock;
   /** Quieter, below, for context about the submission rather than the person. */
@@ -101,6 +115,10 @@ export function renderEmailHtml(content: EmailContent): string {
     )
     .join("");
 
+  const link = content.link
+    ? `<tr><td style="padding:4px 0 20px;font-family:${BODY_FONT};font-size:15px;line-height:1.65;"><a href="${escapeHtml(content.link.href)}" style="color:${COLOR_ACCENT};text-decoration:underline;">${escapeHtml(content.link.label)}</a><br><span style="font-family:${MONO_FONT};font-size:12px;color:${COLOR_MUTED};">${escapeHtml(content.link.href)}</span></td></tr>`
+    : "";
+
   const primary = content.primaryBlock ? renderBlockHtml(content.primaryBlock, true) : "";
   const secondary = content.secondaryBlock ? renderBlockHtml(content.secondaryBlock, false) : "";
 
@@ -115,7 +133,7 @@ export function renderEmailHtml(content: EmailContent): string {
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr><td style="padding:0 0 6px;font-family:${HEADING_FONT};font-size:24px;line-height:1.2;color:${COLOR_INK};">${escapeHtml(content.heading)}</td></tr>
           <tr><td style="padding:0 0 20px;font-family:${BODY_FONT};font-size:15px;line-height:1.6;color:${COLOR_MUTED};">${escapeMultiline(content.openingLine)}</td></tr>
-          ${paragraphs}
+          ${paragraphs}${link}
         </table>
       </td></tr>
       <tr><td style="padding:4px 24px 0;">
@@ -135,6 +153,8 @@ export function renderEmailText(content: EmailContent): string {
   const out: string[] = ["move&invest", "", content.heading, "", content.openingLine];
 
   for (const p of content.bodyParagraphs ?? []) out.push("", p);
+
+  if (content.link) out.push("", `${content.link.label}:`, content.link.href);
 
   for (const block of [content.primaryBlock, content.secondaryBlock]) {
     if (!block) continue;

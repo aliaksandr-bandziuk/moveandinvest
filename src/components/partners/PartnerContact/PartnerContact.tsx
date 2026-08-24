@@ -1,3 +1,4 @@
+import { LeadTracking } from "@/components/layout";
 import { SectionHead } from "@/components/ui";
 
 import styles from "./PartnerContact.module.scss";
@@ -122,7 +123,13 @@ export function PartnerContact({
               <p className={styles.resultBody}>{brokeBody}</p>
             </div>
 
-            <form className={styles.form} method="post" action="/api/enquiry">
+            <LeadTracking
+              formId="partner-form"
+              successHash="partner-sent"
+              kind="partner"
+            />
+
+            <form id="partner-form" className={styles.form} method="post" action="/api/enquiry">
               <input type="hidden" name="locale" value={locale} />
               <input type="hidden" name="kind" value="partner" />
 

@@ -89,6 +89,72 @@ async function run() {
     );
   }
 
+  // Per-language totals, because the line above is twelve rows and the thing
+  // that actually matters about them is a comparison between three numbers.
+  //
+  // This exists because of a real morning: the English jurisdiction pages were
+  // live and the Russian and Polish ones 404'd, and the listing above had said
+  // so all along — twelve rows, four of them published, in a column nobody
+  // reads row by row. `npm run publish` defaults to `--locale en`, so
+  // publishing "the jurisdiction pages" publishes exactly one language and
+  // reports success.
+  const languages = ["en", "ru", "pl"];
+  console.log(`\npublished jurisdiction pages by language`);
+  const counts = languages.map((language) => ({
+    language,
+    n: pages.filter((p) => !p._id.startsWith("drafts.") && p.language === language).length,
+  }));
+  for (const { language, n } of counts) {
+    console.log(`  ${language}  ${n}`);
+  }
+  const most = Math.max(...counts.map((c) => c.n));
+  const behind = counts.filter((c) => c.n < most);
+  if (behind.length > 0) {
+    console.log(
+      `  ⚠ ${behind.map((c) => c.language).join(" and ")} behind ${most} — those pages 404 and the` +
+        ` comparison table shows the jurisdiction without a link.`,
+    );
+    console.log(`    Fix: npm run publish -- --all`);
+  }
+
+  // --- property pages -------------------------------------------------------
+  // Added 24 Aug 2026 with the type itself. The same per-language summary as
+  // above, for the same reason: twelve rows, and the thing that matters about
+  // them is a comparison between three numbers.
+  const properties = await client.fetch<CountryPageDoc[]>(
+    `*[_type == "propertyPage"] | order(_id asc){
+       _id, language, title, "slug": slug.current,
+       "countryRef": country._ref,
+       "countryName": *[_type == "country" && _id == ^.country._ref][0].name
+     }`,
+  );
+  console.log(`\npropertyPage (${properties.length})`);
+  for (const p of properties) {
+    const link = p.countryName ? `-> ${p.countryName}` : "-> REFERENCE DOES NOT RESOLVE";
+    console.log(
+      `  ${state(p._id)}  ${p._id.padEnd(38)} ${String(p.language).padEnd(3)} /${String(p.slug ?? "?").padEnd(26)} ${link}`,
+    );
+  }
+
+  if (properties.length > 0) {
+    console.log(`\npublished property pages by language`);
+    const propertyCounts = languages.map((language) => ({
+      language,
+      n: properties.filter((p) => !p._id.startsWith("drafts.") && p.language === language).length,
+    }));
+    for (const { language, n } of propertyCounts) {
+      console.log(`  ${language}  ${n}`);
+    }
+    const propertyMost = Math.max(...propertyCounts.map((c) => c.n));
+    const propertyBehind = propertyCounts.filter((c) => c.n < propertyMost);
+    if (propertyBehind.length > 0) {
+      console.log(
+        `  ⚠ ${propertyBehind.map((c) => c.language).join(" and ")} behind ${propertyMost} — those pages 404.`,
+      );
+      console.log(`    Fix: npm run publish -- --type propertyPage --all`);
+    }
+  }
+
   const singletons = await client.fetch<SingletonDoc[]>(
     `*[_type in ["siteSettings","homePage","partnersPage"]] | order(_id asc){ _id, _type, language }`,
   );

@@ -1,6 +1,7 @@
 import { createClient } from "@sanity/client";
 import { FAQ_ITEMS } from "./copy/faq";
-import { COUNTRY_PAGES, SOURCE_NOTE } from "./copy/jurisdictions";
+import { COUNTRY_LABELS, COUNTRY_PAGES, SOURCE_NOTE } from "./copy/jurisdictions";
+import { PROPERTY_PAGES } from "./copy/property";
 import { HOME_COPY } from "./copy/home";
 import { CONTACT_EMAIL, PARTNERS_COPY } from "./copy/partners";
 
@@ -128,6 +129,7 @@ for (const country of COUNTRIES) {
     _id: country.id,
     _type: "country",
     name: country.name,
+    label: COUNTRY_LABELS[country.code],
     code: country.code,
     accentColor: country.accentColor,
     status: country.status,
@@ -229,6 +231,37 @@ for (const page of COUNTRY_PAGES) {
 }
 
 
+// Property pages: created as DRAFTS, same policy and same reason as the
+// jurisdiction pages. These carry statements about what a buyer may and may
+// not do with a purchase, which is a heavier claim than a threshold, so they
+// are promoted deliberately rather than by seeding.
+//
+// The six section fields are NOT written here — they come from
+// copy/propertyBody.ts through `npm run facts`, exactly as the jurisdiction
+// bodies do. Seeding writes the frame; the prose lands on documents that are
+// already published, which is the only route a correction has to live content.
+for (const page of PROPERTY_PAGES) {
+  for (const locale of LOCALES) {
+    const code = page.country.replace("country-", "");
+    documents.push({
+      _id: `drafts.propertyPage-${code}-${locale}`,
+      _type: "propertyPage",
+      language: locale,
+      country: { _type: "reference", _ref: page.country },
+      title: page.title[locale],
+      slug: { _type: "slug", current: page.slug[locale] },
+      intro: page.intro[locale],
+      sourceNote: page.sourceNote[locale],
+      seo: {
+        _type: "seo",
+        metaTitle: page.metaTitle[locale],
+        metaDescription: page.metaDescription[locale],
+        noIndex: false,
+      },
+    });
+  }
+}
+
 // --- FAQ ---------------------------------------------------------------------
 // Created as DRAFTS, same policy as the jurisdiction pages and for the same
 // reason: several of these answers contain years and thresholds, and an
@@ -288,7 +321,7 @@ async function run() {
   // jurisdiction page that already exists as published is skipped; its content
   // is yours now, not the seed's.
   const publishedIds = await client.fetch<string[]>(
-    `*[_type in ["countryPage", "faqItem"]]._id`,
+    `*[_type in ["countryPage", "propertyPage", "faqItem"]]._id`,
   );
   const published = new Set(publishedIds);
 

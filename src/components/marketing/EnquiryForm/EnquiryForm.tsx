@@ -1,3 +1,4 @@
+import { LeadTracking } from "@/components/layout";
 import { EnquiryPrefill } from "./EnquiryPrefill";
 import { SectionHead } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
@@ -136,8 +137,13 @@ export function EnquiryForm({
           <p className={styles.resultBody}>{broke.body}</p>
         </div>
 
+        {/* Measurement only — renders nothing, and the form works identically
+            without it. See lib/analytics/lead.ts for why the event fires on
+            the return rather than on the click. */}
+        <LeadTracking formId="enquiry-form" successHash="enquiry-sent" kind="enquiry" />
+
         <EnquiryPrefill className={styles.formWrap}>
-          <form className={styles.form} method="post" action="/api/enquiry">
+          <form id="enquiry-form" className={styles.form} method="post" action="/api/enquiry">
             <input type="hidden" name="locale" value={locale} />
 
             {/* Honeypot. The name is meaningless ON PURPOSE — `company` was

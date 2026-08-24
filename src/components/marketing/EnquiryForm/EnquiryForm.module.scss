@@ -307,7 +307,14 @@
 }
 
 :global(#enquiry-sent):target,
-:global(#enquiry-error):target {
+:global(#enquiry-error):target,
+// The third panel was added to the markup and NOT to this selector, so from
+// the day it shipped until 24 Aug 2026 it was rendered and never displayed.
+// The route redirected to #enquiry-failed, the browser scrolled to an
+// invisible anchor, and a visitor whose enquiry we had just dropped saw a
+// page that appeared to do nothing at all — which is worse than the panel it
+// was written to replace. Adding a panel means adding it here.
+:global(#enquiry-failed):target {
   display: block;
 }
 

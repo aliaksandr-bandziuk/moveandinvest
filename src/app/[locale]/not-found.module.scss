@@ -1,0 +1,45 @@
+@use "../../styles/mixins";
+
+// Taller than a section, because this one is the whole page. `min-block-size`
+// on the main rather than a fixed height: the header and footer are already in
+// the flow above and below, and a viewport-height main would push the footer
+// off a phone screen.
+.main {
+  @include mixins.section-rhythm;
+
+  display: flex;
+  align-items: center;
+  min-block-size: 60vh;
+}
+
+.inner {
+  max-width: 46rem;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  margin-block-start: var(--space-3);
+}
+
+.body {
+  @include mixins.measure;
+
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-block-start: var(--space-4);
+}
+
+// Wraps rather than shrinking: two buttons with long Polish labels do not fit
+// one line on a 360px screen, and a button that has to wrap its own label is
+// the version this replaces.
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+}

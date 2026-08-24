@@ -63,10 +63,19 @@ export const SITE_SETTINGS_QUERY = groq`
 // the complete list of jurisdictions, and a planned one has no page yet. A
 // query rooted in countryPage would silently drop Cyprus from the table,
 // which is exactly the omission the design refuses to make.
+// The name is resolved per locale HERE rather than in the component, because
+// six components render it and every one of them would otherwise need the
+// same three-way fallback. GROQ cannot index an object by a parameter
+// (`label[$locale]` is not attribute access), hence the explicit select; the
+// coalesce is what makes the English `name` the fallback for a locale whose
+// label has not been filled.
 export const COUNTRY_ROWS_QUERY = groq`
   *[_type == "country"] | order(order asc) {
     _id,
-    name,
+    "name": coalesce(
+      select($locale == "ru" => label.ru, $locale == "pl" => label.pl, label.en),
+      name
+    ),
     code,
     accentColor,
     status,
@@ -209,7 +218,14 @@ export const COUNTRY_PAGE_QUERY = groq`
     body,
     seo,
     "countryId": country._ref,
-    "name": country->name,
+    "name": coalesce(
+      select(
+        $locale == "ru" => country->label.ru,
+        $locale == "pl" => country->label.pl,
+        country->label.en
+      ),
+      country->name
+    ),
     "code": country->code,
     "alternates": *[_type == "countryPage" && country._ref == ^.country._ref && defined(slug.current)]{
       language,
@@ -255,3 +271,77 @@ export const SITEMAP_COUNTRY_QUERY = groq`
     "noIndex": seo.noIndex
   }
 `;
+
+// --- Property pages ----------------------------------------------------------
+//
+// The buying half of each jurisdiction, at its own top-level URL. Everything
+// below mirrors the jurisdiction-page queries deliberately — same alternates
+// trick through the shared `country` reference, same localized label, same
+// sitemap shape — because the two page types are siblings and the day they
+// stop resolving hreflang the same way is the day one of them breaks quietly.
+
+export const PROPERTY_SLUGS_QUERY = groq`
+  *[_type == "propertyPage" && language == $locale && defined(slug.current)]{
+    "slug": slug.current
+  }
+`;
+
+export const PROPERTY_PAGE_QUERY = groq`
+  *[_type == "propertyPage" && language == $locale && slug.current == $slug][0]{
+    _id,
+    title,
+    intro,
+    sourceNote,
+    whoMayBuy,
+    transactionCosts,
+    steps,
+    annualCosts,
+    shortLet,
+    residencyLink,
+    seo,
+    "countryId": country._ref,
+    "name": coalesce(
+      select(
+        $locale == "ru" => country->label.ru,
+        $locale == "pl" => country->label.pl,
+        country->label.en
+      ),
+      country->name
+    ),
+    "code": country->code,
+    "alternates": *[_type == "propertyPage" && country._ref == ^.country._ref && defined(slug.current)]{
+      language,
+      "slug": slug.current
+    },
+    // The jurisdiction page for the same country and language, so the two
+    // halves link to each other. Null until that page exists in this language,
+    // and the link is simply not rendered then — a cross-link to a 404 is
+    // worse than no cross-link.
+    "jurisdiction": *[_type == "countryPage" && country._ref == ^.country._ref && language == $locale && defined(slug.current)][0]{
+      title,
+      "slug": slug.current
+    }
+  }
+`;
+
+// The mirror of the field above, read by the jurisdiction page so it can point
+// at its own buying page.
+export const PROPERTY_LINK_QUERY = groq`
+  *[_type == "propertyPage" && language == $locale && defined(slug.current)
+    && country._ref == $countryId][0]{
+    title,
+    "slug": slug.current
+  }
+`;
+
+export const SITEMAP_PROPERTY_QUERY = groq`
+  *[_type == "propertyPage" && defined(slug.current)]{
+    language,
+    "slug": slug.current,
+    _updatedAt,
+    "countryId": country._ref,
+    "noIndex": seo.noIndex
+  }
+`;
+
+export const PROPERTY_TAGS = ["propertyPage", "country"];
