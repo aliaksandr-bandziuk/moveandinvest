@@ -1,3 +1,4 @@
+import { Link } from "@/i18n/navigation";
 import { CountUp, InView, SectionHead } from "@/components/ui";
 
 import styles from "./CountryCost.module.scss";
@@ -11,6 +12,10 @@ interface CountryCostProps {
   labels: { advertised: string; extras: string; real: string };
   noteLabel: string;
   note: string;
+  /** The working behind these two figures, on /sources. Optional so the
+   *  component stays usable before that page existed — but on a page that
+   *  prints a cost, an unlinked claim of sourcing is weaker than a linked one. */
+  workingLink?: { href: string; label: string } | null;
   locale: string;
 }
 
@@ -35,6 +40,7 @@ export function CountryCost({
   labels,
   noteLabel,
   note,
+  workingLink = null,
   locale,
 }: CountryCostProps) {
   const total = advertised + extras;
@@ -89,6 +95,14 @@ export function CountryCost({
 
           <p className={styles.note}>
             <span className={styles.noteLabel}>{noteLabel}</span> {note}
+            {workingLink ? (
+              <>
+                {" "}
+                <Link className={styles.workingLink} href={workingLink.href}>
+                  {workingLink.label}
+                </Link>
+              </>
+            ) : null}
           </p>
         </InView>
       </div>

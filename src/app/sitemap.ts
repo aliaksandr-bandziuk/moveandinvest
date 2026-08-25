@@ -44,6 +44,9 @@ interface SingletonRoute {
 const ROUTES: SingletonRoute[] = [
   { href: "/", documentType: "homePage" },
   { href: "/for-partners", documentType: "partnersPage" },
+  { href: "/about", documentType: "aboutPage" },
+  { href: "/sources", documentType: "sourcesPage" },
+  { href: "/contacts", documentType: "contactsPage" },
   { href: "/privacy", documentType: "privacyPage" },
 ];
 

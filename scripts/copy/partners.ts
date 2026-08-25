@@ -1,3 +1,5 @@
+import { CONTROLLER } from "../../src/lib/controller";
+
 import type { Locale } from "./home";
 
 // The /for-partners copy, all three locales, in the shape partnersPage stores
@@ -67,7 +69,11 @@ export interface PartnersCopy {
   seo: { metaTitle: string; metaDescription: string };
 }
 
-export const CONTACT_EMAIL = "partners@moveandinvest.com";
+// Was a partners@ address of its own until 24 Aug 2026. There is one mailbox,
+// and a second address printed on a page nobody can answer is worse than no
+// address — a firm that replies to it and hears nothing concludes the project
+// is not real. See src/lib/controller.ts.
+export const CONTACT_EMAIL = CONTROLLER.email;
 
 
 export const PARTNERS_COPY: Record<Locale, PartnersCopy> = {

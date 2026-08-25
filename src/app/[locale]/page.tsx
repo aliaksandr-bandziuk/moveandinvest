@@ -21,6 +21,7 @@ import {
   PartnerTeaser,
 } from "@/components/marketing";
 import { buildMetadata } from "@/lib/metadata";
+import { organizationRef } from "@/lib/jsonLd";
 import { getSiteUrl } from "@/lib/site";
 import { sanityFetch } from "@/sanity/client";
 import {
@@ -212,11 +213,12 @@ export default async function HomePage({
     description: home.seo.metaDescription,
     url: getSiteUrl(),
     inLanguage: locale,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "moveandinvest",
-      url: getSiteUrl(),
-    },
+    // References rather than inline copies since 24 Aug 2026: the WebSite node
+    // and the Organization behind it are published in full on /about, and a
+    // JSON-LD graph is assembled across a site by @id. Restating them here
+    // would be two more copies to keep in step.
+    isPartOf: { "@id": `${getSiteUrl()}/#website` },
+    publisher: organizationRef(getSiteUrl()),
     about: publishedRows.map((row) => ({
       "@type": "Country",
       name: row.name,

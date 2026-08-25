@@ -53,16 +53,14 @@ export interface PrivacyCopy {
   seo: { metaTitle: string; metaDescription: string };
 }
 
-// The controller's own details. Language-neutral facts, so they are written
-// once rather than three times — a NIP translated into Polish is still the
-// same number, and a name spelled differently per locale is how a legal
-// identity stops being one.
-export const CONTROLLER = {
-  name: "Aliaksandr Bandziuk",
-  form: "JDG (jednoosobowa działalność gospodarcza), Poland",
-  nip: "9512630588",
-  email: "office@moveandinvest.com",
-} as const;
+// The controller's own details. Moved to src/lib/controller.ts on 24 Aug 2026,
+// when /about and the Organization node in the JSON-LD both started naming the
+// same entity — two of the three consumers are rendered by the app, which
+// cannot import from scripts/. Re-exported here so this file's own sentences
+// keep reading the way they always did.
+import { CONTROLLER } from "../../src/lib/controller";
+
+export { CONTROLLER };
 
 
 export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {

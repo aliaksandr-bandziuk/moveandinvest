@@ -15,16 +15,22 @@ interface Options {
   max?: number;
   /** Default true. Pass false for a field the design renders only if set. */
   required?: boolean;
+  /** The schema group this field belongs to. Added 24 Aug 2026 for the contact
+   *  page, whose forty-odd fields are unnavigable in one flat list — the same
+   *  problem `sectionField` solves for pages built out of sections. Optional:
+   *  a type with no `groups` passes nothing and Sanity ignores it. */
+  group?: string;
 }
 
 export function stringField(name: string, title: string, options: Options = {}) {
-  const { description, max = 90, required = true } = options;
+  const { description, max = 90, required = true, group } = options;
 
   return defineField({
     name,
     title,
     description,
     type: "string",
+    ...(group ? { group } : {}),
     validation: (Rule) => (required ? Rule.required().max(max) : Rule.max(max)),
   });
 }
@@ -34,7 +40,7 @@ export function textField(
   title: string,
   options: Options & { rows?: number } = {},
 ) {
-  const { description, max = 300, required = true, rows = 3 } = options;
+  const { description, max = 300, required = true, rows = 3, group } = options;
 
   return defineField({
     name,
@@ -42,6 +48,7 @@ export function textField(
     description,
     type: "text",
     rows,
+    ...(group ? { group } : {}),
     validation: (Rule) => (required ? Rule.required().max(max) : Rule.max(max)),
   });
 }

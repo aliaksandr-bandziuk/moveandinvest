@@ -59,6 +59,23 @@ export interface SubscribePayload {
   submittedAt: string;
 }
 
+/** A question from /contacts. Deliberately the smallest shape here: an
+ *  address, what they wrote, and the page's language.
+ *
+ *  IT IS NOT A LEAD, and keeping it a separate type is what stops it becoming
+ *  one by accident. An enquiry carries a jurisdiction, a budget, a timeline and
+ *  consent to be passed to a partner — that consent is what makes it passable
+ *  at all. A question carries none of those, so it may never be handed to
+ *  anybody: it is answered by us and it stops there. A shared shape with three
+ *  empty fields would eventually be routed like the thing it resembles. */
+export interface QuestionPayload {
+  name: string;
+  email: string;
+  message: string;
+  locale: string;
+  submittedAt: string;
+}
+
 /** Null when the enquiries dataset or the write token is not configured. */
 export function getEnquiryClient() {
   if (!projectId || !dataset || !token) return null;

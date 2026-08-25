@@ -4,3 +4,4 @@ export { FaqSection, type FaqEntry, type FaqFilterOption } from "./FaqSection";
 export { HomeHero } from "./HomeHero";
 export { MethodSection, type MethodPoint } from "./MethodSection";
 export { PartnerTeaser } from "./PartnerTeaser";
+export { ContactChannels, type ContactLabels } from "./ContactChannels";

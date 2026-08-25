@@ -289,6 +289,66 @@ export interface PrivacyPage {
   seo: SeoResult;
 }
 
+export interface AboutPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  /** Portable Text. `unknown` for the same reason every other body on this
+   *  site is: the renderer takes it, nothing here inspects it. */
+  method: unknown;
+  unverified: unknown;
+  money: unknown;
+  corrections: unknown;
+  notAdvice: unknown;
+  authorLabel: string;
+  authorNote: string;
+  /** Optional in the schema — a page with no portrait is a valid page. */
+  portraitAlt?: string | null;
+  seo: SeoResult;
+}
+
+export interface SourcesPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  howToRead: string;
+  seo: SeoResult;
+}
+
+export interface ContactsPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  channelsLabel: string;
+  emailLabel: string;
+  emailNote: string;
+  phoneLabel: string;
+  phoneNote: string;
+  whatsappLabel: string;
+  whatsappNote: string;
+  bookingLabel: string;
+  bookingNote: string;
+  bookingCta: string;
+  socialsLabel: string;
+  formHeading: string;
+  formBody: string;
+  nameLabel: string;
+  emailFieldLabel: string;
+  emailPlaceholder: string;
+  messageLabel: string;
+  honeypotLabel: string;
+  submitLabel: string;
+  fine: string;
+  privacyLabel: string;
+  sent: { title: string; body: string };
+  error: { title: string; body: string };
+  broke: { title: string; body: string };
+  enquiryLead: string;
+  enquiryCta: string;
+  identityLabel: string;
+  seo: SeoResult;
+}
+
 export interface SitemapDoc {
   language?: string;
   _updatedAt: string;

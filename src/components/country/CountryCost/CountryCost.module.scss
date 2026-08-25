@@ -70,3 +70,12 @@
 
   color: var(--color-accent);
 }
+
+// Inline, at the end of the source note rather than on its own line: it is the
+// same sentence continued — "here is where these figures came from, and here
+// is the working" — not a separate call to action.
+.workingLink {
+  @include mixins.link;
+
+  white-space: nowrap;
+}

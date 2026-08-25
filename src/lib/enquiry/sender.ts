@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import type {
   EnquiryPayload,
   PartnerEnquiryPayload,
+  QuestionPayload,
   SubscribePayload,
 } from "@/sanity/enquiries";
 import { getSiteUrl } from "@/lib/site";
@@ -425,6 +426,37 @@ function buildSubscribeConfirmation(payload: SubscribePayload, locale: Locale): 
   };
 }
 
+// A question from /contacts, to us.
+//
+// NO CONFIRMATION GOES BACK, and that is the difference from every other form
+// here. An enquiry and a subscription both promise something — a partner, an
+// email when a rule changes — so a confirmation is the receipt for a promise.
+// A question promises only an answer, and an automatic "we got your question"
+// arriving seconds before a human reply is noise at best and, at worst, the
+// thing that makes a real reply look automated too.
+function buildQuestionInternal(payload: QuestionPayload): EmailContent {
+  const locale = isLocale(payload.locale) ? payload.locale : "en";
+
+  return {
+    heading: "Вопрос со страницы контактов",
+    openingLine: payload.name ? `${payload.name} — ${payload.email}` : `Без имени — ${payload.email}`,
+    primaryBlock: {
+      heading: "Вопрос",
+      lines: [{ label: "Своими словами", value: payload.message }],
+    },
+    secondaryBlock: {
+      heading: "Контекст",
+      lines: [
+        { label: "Язык страницы", value: LOCALE_LABEL[locale] },
+        { label: "Время", value: formatSubmittedAt(payload.submittedAt) },
+      ],
+    },
+    footNote:
+      "Это вопрос, а не заявка: юрисдикции, бюджета и согласия на передачу партнёру здесь нет, " +
+      "поэтому передавать это письмо никому нельзя — на него отвечаем мы. Адрес в Reply-To.",
+  };
+}
+
 // --- Sending -----------------------------------------------------------------
 function transporter() {
   return nodemailer.createTransport({
@@ -557,4 +589,13 @@ export async function sendPartnerEmails(payload: PartnerEnquiryPayload): Promise
     buildPartnerInternal(payload),
     payload.email,
   );
+}
+
+/**
+ * Notifies us about a question from /contacts. Never throws.
+ *
+ * No confirmation to the sender — see buildQuestionInternal.
+ */
+export async function sendQuestionEmail(payload: QuestionPayload): Promise<SendResult> {
+  return notify("Вопрос со страницы контактов", buildQuestionInternal(payload), payload.email);
 }

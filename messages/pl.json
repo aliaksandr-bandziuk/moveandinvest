@@ -41,7 +41,9 @@
       "movingGuides": "Poradniki przeprowadzki",
       "costOfLiving": "Koszty życia",
       "partners": "Dla partnerów",
-      "sources": "Metoda i źródła",
+      "sources": "O projekcie",
+      "working": "Źródła i wyliczenia",
+      "contacts": "Kontakt",
       "privacy": "Prywatność",
       "cookies": "Wybór dotyczący cookie"
     }
@@ -132,7 +134,7 @@
     },
     "broke": {
       "title": "To po naszej stronie.",
-      "body": "Brief do nas nie dotarł i nie chodzi o to, co wypełniłeś. Napisz na hello@moveandinvest.com, a podejmiemy sprawę stamtąd."
+      "body": "Brief do nas nie dotarł i nie chodzi o to, co wypełniłeś. Napisz na {email}, a podejmiemy sprawę stamtąd."
     }
   },
   "alerts": {
@@ -157,7 +159,35 @@
     },
     "broke": {
       "title": "To po naszej stronie.",
-      "body": "Zapis do nas nie dotarł i nie chodzi o to, co wypełniłeś. Napisz na hello@moveandinvest.com, dopiszemy ręcznie."
+      "body": "Zapis do nas nie dotarł i nie chodzi o to, co wypełniłeś. Napisz na {email}, dopiszemy ręcznie."
     }
+  },
+  "about": {
+    "breadcrumb": "O projekcie",
+    "sections": {
+      "method": "Jak liczba trafia na tę stronę",
+      "unverified": "Czego tutaj nie sprawdzono",
+      "money": "Z czego utrzymuje się projekt",
+      "corrections": "Jeśli znalazłeś błąd",
+      "notAdvice": "Czym to nie jest"
+    }
+  },
+  "sources": {
+    "breadcrumb": "Źródła",
+    "subject": "Co twierdzi strona",
+    "verdict": "Werdykt",
+    "finding": "Co mówi źródło",
+    "sourcesLabel": "Źródła",
+    "official": "oficjalne",
+    "reproduction": "reprodukcja",
+    "verdicts": {
+      "confirmed": "potwierdzone",
+      "corrected": "poprawione",
+      "added": "uzupełnione",
+      "unverified": "niepotwierdzone",
+      "withdrawn": "uchylone"
+    },
+    "linkFromMethod": "Zobacz wyliczenia: każda liczba i jej źródło →",
+    "linkFromPage": "Zobacz wyliczenia →"
   }
 }

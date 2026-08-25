@@ -2,6 +2,9 @@ import { createClient } from "@sanity/client";
 import { HOME_COPY, LOCALES } from "./copy/home";
 import { CONTACT_EMAIL, PARTNERS_COPY } from "./copy/partners";
 import { PRIVACY_COPY } from "./copy/privacy";
+import { ABOUT_COPY } from "./copy/about";
+import { SOURCES_PAGE_COPY } from "./copy/sourcesPage";
+import { CONTACTS_COPY } from "./copy/contacts";
 
 // Writes the page copy from scripts/copy/ onto the homePage and partnersPage
 // documents that are ALREADY published, one patch per locale.
@@ -100,7 +103,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
 
   const docs = await client.fetch<Doc[]>(
-    `*[_type in ["homePage", "partnersPage", "privacyPage"]] | order(_id asc){ _id, _type }`,
+    `*[_type in ["homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage"]] | order(_id asc){ _id, _type }`,
   );
 
   if (docs.length === 0) {
@@ -119,6 +122,27 @@ async function run() {
     docs.filter((d) => d._type === "privacyPage").map((d) => d._id.replace(/^drafts\./, "")),
   );
 
+  // Same story one page later: /about was added on 24 Aug 2026, long after the
+  // seed, and for the same reason its three documents are generated whole
+  // rather than patched. The method page has no editor-authored state worth
+  // preserving either — a page that describes how figures are verified must
+  // agree with the file that verifies them, and two editable copies of that
+  // description is how it stops agreeing.
+  const existingAbout = new Set(
+    docs.filter((d) => d._type === "aboutPage").map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
+  // Same arrangement as /about and the policy: added after the seed, so its
+  // documents may not exist and createOrReplace is safe — every field is
+  // generated, there is no editor state to lose.
+  const existingSources = new Set(
+    docs.filter((d) => d._type === "sourcesPage").map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
+  const existingContacts = new Set(
+    docs.filter((d) => d._type === "contactsPage").map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
   const transaction = client.transaction();
   let planned = 0;
   const skipped: string[] = [];
@@ -131,6 +155,87 @@ async function run() {
 
     if (!isLocale) {
       skipped.push(doc._id);
+      continue;
+    }
+
+    if (doc._type === "contactsPage") {
+      const copy = CONTACTS_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          channelsLabel: copy.channelsLabel,
+          emailLabel: copy.emailLabel,
+          emailNote: copy.emailNote,
+          phoneLabel: copy.phoneLabel,
+          phoneNote: copy.phoneNote,
+          whatsappLabel: copy.whatsappLabel,
+          whatsappNote: copy.whatsappNote,
+          bookingLabel: copy.bookingLabel,
+          bookingNote: copy.bookingNote,
+          bookingCta: copy.bookingCta,
+          socialsLabel: copy.socialsLabel,
+          formHeading: copy.formHeading,
+          formBody: copy.formBody,
+          nameLabel: copy.nameLabel,
+          emailFieldLabel: copy.emailFieldLabel,
+          emailPlaceholder: copy.emailPlaceholder,
+          messageLabel: copy.messageLabel,
+          honeypotLabel: copy.honeypotLabel,
+          submitLabel: copy.submitLabel,
+          fine: copy.fine,
+          privacyLabel: copy.privacyLabel,
+          sent: copy.sent,
+          error: copy.error,
+          broke: copy.broke,
+          enquiryLead: copy.enquiryLead,
+          enquiryCta: copy.enquiryCta,
+          identityLabel: copy.identityLabel,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} contact`);
+      continue;
+    }
+
+    if (doc._type === "sourcesPage") {
+      const copy = SOURCES_PAGE_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          howToRead: copy.howToRead,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} sources / working`);
+      continue;
+    }
+
+    if (doc._type === "aboutPage") {
+      const copy = ABOUT_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          method: copy.method,
+          unverified: copy.unverified,
+          money: copy.money,
+          corrections: copy.corrections,
+          notAdvice: copy.notAdvice,
+          authorLabel: copy.authorLabel,
+          authorNote: copy.authorNote,
+          portraitAlt: copy.portraitAlt,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} about / method`);
       continue;
     }
 
@@ -216,6 +321,96 @@ async function run() {
       updatedLabel: copy.updatedLabel,
       updated: copy.updated,
       sections: keyed(copy.sections, "p"),
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `contactsPage-${locale}`;
+    if (existingContacts.has(id)) continue;
+
+    const copy = CONTACTS_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "contactsPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      channelsLabel: copy.channelsLabel,
+      emailLabel: copy.emailLabel,
+      emailNote: copy.emailNote,
+      phoneLabel: copy.phoneLabel,
+      phoneNote: copy.phoneNote,
+      whatsappLabel: copy.whatsappLabel,
+      whatsappNote: copy.whatsappNote,
+      bookingLabel: copy.bookingLabel,
+      bookingNote: copy.bookingNote,
+      bookingCta: copy.bookingCta,
+      socialsLabel: copy.socialsLabel,
+      formHeading: copy.formHeading,
+      formBody: copy.formBody,
+      nameLabel: copy.nameLabel,
+      emailFieldLabel: copy.emailFieldLabel,
+      emailPlaceholder: copy.emailPlaceholder,
+      messageLabel: copy.messageLabel,
+      honeypotLabel: copy.honeypotLabel,
+      submitLabel: copy.submitLabel,
+      fine: copy.fine,
+      privacyLabel: copy.privacyLabel,
+      sent: copy.sent,
+      error: copy.error,
+      broke: copy.broke,
+      enquiryLead: copy.enquiryLead,
+      enquiryCta: copy.enquiryCta,
+      identityLabel: copy.identityLabel,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `sourcesPage-${locale}`;
+    if (existingSources.has(id)) continue;
+
+    const copy = SOURCES_PAGE_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "sourcesPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      howToRead: copy.howToRead,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `aboutPage-${locale}`;
+    if (existingAbout.has(id)) continue;
+
+    const copy = ABOUT_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "aboutPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      method: copy.method,
+      unverified: copy.unverified,
+      money: copy.money,
+      corrections: copy.corrections,
+      notAdvice: copy.notAdvice,
+      authorLabel: copy.authorLabel,
+      authorNote: copy.authorNote,
+      portraitAlt: copy.portraitAlt,
       seo: { _type: "seo", ...copy.seo, noIndex: false },
     });
     planned += 1;

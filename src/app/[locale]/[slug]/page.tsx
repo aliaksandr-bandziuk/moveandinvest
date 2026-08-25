@@ -25,6 +25,7 @@ import {
   buildFaqPageJsonLd,
   buildJurisdictionPageJsonLd,
 } from "@/lib/jsonLd";
+import { CONTROLLER } from "@/lib/controller";
 import { ogImage } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import { resolveRobots } from "@/lib/site";
@@ -87,7 +88,12 @@ import styles from "./page.module.scss";
 // component prop-drill because the two branches build it from different
 // translators at different points, and the alternative was reading fifteen
 // message keys twice.
-function buildAlertsLabels(t: (key: string) => string): AlertsSignupLabels {
+// The signature takes VALUES as well as a key, because one of the fifteen
+// messages carries a {email} placeholder. Narrowing it back to (key) => string
+// is what would silently reintroduce a hard-typed address.
+function buildAlertsLabels(
+  t: (key: string, values?: Record<string, string>) => string,
+): AlertsSignupLabels {
   return {
     heading: t("heading"),
     body: t("body"),
@@ -102,7 +108,15 @@ function buildAlertsLabels(t: (key: string) => string): AlertsSignupLabels {
     privacyLabel: t("privacyLabel"),
     sent: { title: t("sent.title"), body: t("sent.body") },
     error: { title: t("error.title"), body: t("error.body") },
-    broke: { title: t("broke.title"), body: t("broke.body") },
+    // The address is a PLACEHOLDER, filled here from the one definition the
+    // project has. It used to be typed into all three catalogues as hello@,
+    // which no mailbox ever answered — see the note in src/lib/controller.ts.
+    // Filled on the SERVER and complete by the time it reaches the client, so
+    // this stays an ordinary t() call rather than the t.raw() template case.
+    broke: {
+      title: t("broke.title"),
+      body: t("broke.body", { email: CONTROLLER.email }),
+    },
   };
 }
 
@@ -359,7 +373,10 @@ async function renderProperty({
     privacyLabel: tBrief("privacyLabel"),
     sent: { title: tBrief("sent.title"), body: tBrief("sent.body") },
     error: { title: tBrief("error.title"), body: tBrief("error.body") },
-    broke: { title: tBrief("broke.title"), body: tBrief("broke.body") },
+    broke: {
+      title: tBrief("broke.title"),
+      body: tBrief("broke.body", { email: CONTROLLER.email }),
+    },
   };
 
   return (
@@ -437,7 +454,7 @@ export default async function JurisdictionPage({
 
   // The FAQ needs the country id, which only the page document knows, so these
   // two cannot be parallelised with it — but they can with each other.
-  const [faq, columns, propertyLink, t, tProperty, tAlerts, rows] = await Promise.all([
+  const [faq, columns, propertyLink, t, tProperty, tAlerts, tSources, rows] = await Promise.all([
     sanityFetch<CountryFaqResult[]>(
       COUNTRY_FAQ_QUERY,
       { locale, countryId: page.countryId },
@@ -455,6 +472,7 @@ export default async function JurisdictionPage({
     getTranslations("country"),
     getTranslations("property"),
     getTranslations("alerts"),
+    getTranslations("sources"),
     sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, COUNTRY_TAGS),
   ]);
 
@@ -536,6 +554,12 @@ export default async function JurisdictionPage({
           }}
           noteLabel={t("costNoteLabel")}
           note={page.sourceNote ?? ""}
+          // Deep-linked to this jurisdiction's own block, not to the top of
+          // /sources: a reader who wants the working for Greece should not
+          // land on Portugal's.
+          workingLink={
+            page.code ? { href: `/sources#${page.code}`, label: tSources("linkFromPage") } : null
+          }
           locale={locale}
         />
       ) : null}

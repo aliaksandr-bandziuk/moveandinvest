@@ -10,6 +10,9 @@ export const SINGLETON_TYPES = new Set([
   "homePage",
   "partnersPage",
   "privacyPage",
+  "aboutPage",
+  "sourcesPage",
+  "contactsPage",
 ]);
 
 // Types whose delete and duplicate actions are removed. Today that is
@@ -26,9 +29,18 @@ export const PROTECTED_TYPES = new Set([...SINGLETON_TYPES]);
 // `country` is absent on purpose — see its schema file: ISO code, chip
 // colour, sort order and status are language-neutral, and duplicating them
 // per locale is how one jurisdiction ends up two different greens.
+//
+// `propertyPage` was missing here until 24 Aug 2026 — an oversight from the
+// step that built the buying half, and one with no symptom on the site: the
+// four pages render correctly, because the route reads `language` off the
+// document and seeding writes it. What was broken was the STUDIO. Unregistered,
+// a property page gets no language switcher, so an editor who opens the
+// Portuguese one has no route to its Russian counterpart, and the plugin never
+// treats the three as one translation set.
 export const TRANSLATABLE_TYPES = new Set([
   ...PROTECTED_TYPES,
   "countryPage",
+  "propertyPage",
   "faqItem",
 ]);
 
@@ -63,6 +75,12 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Jurisdiction pages")
         .child(S.documentTypeList("countryPage").title("Jurisdiction pages")),
+      // Same oversight as TRANSLATABLE_TYPES above: the buying half had no
+      // pane at all, so four published documents were unreachable in the
+      // Studio. A page an editor cannot open is a page only a script can fix.
+      S.listItem()
+        .title("Property pages")
+        .child(S.documentTypeList("propertyPage").title("Property pages")),
       S.divider(),
       S.listItem()
         .title("FAQ")
@@ -72,6 +90,9 @@ export const structure: StructureResolver = (S) =>
             .defaultOrdering([{ field: "order", direction: "asc" }]),
         ),
       S.divider(),
+      singletonListItem(S, "aboutPage", "About the project"),
+      singletonListItem(S, "sourcesPage", "Sources and working"),
+      singletonListItem(S, "contactsPage", "Contact"),
       singletonListItem(S, "privacyPage", "Privacy policy"),
       singletonListItem(S, "siteSettings", "Site settings"),
     ]);

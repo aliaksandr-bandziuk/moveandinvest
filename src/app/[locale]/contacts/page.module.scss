@@ -1,0 +1,10 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // Between /about's 82rem and the full container: the channels list wants
+  // room to sit as a row rather than a column, and the form beside its
+  // explanation needs the same 5/6 spread the rest of the site uses.
+  --container-max-width: 88rem;
+}

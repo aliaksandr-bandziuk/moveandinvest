@@ -1,3 +1,5 @@
+import { aboutPage } from "./aboutPage";
+import { contactsPage } from "./contactsPage";
 import { country } from "./country";
 import { countryPage } from "./countryPage";
 import { faqItem } from "./faqItem";
@@ -6,6 +8,7 @@ import { partnersPage } from "./partnersPage";
 import { privacyPage } from "./privacyPage";
 import { propertyPage } from "./propertyPage";
 import { siteSettings } from "./siteSettings";
+import { sourcesPage } from "./sourcesPage";
 
 export const documentTypes = [
   // Singletons (one document per language each)
@@ -13,6 +16,9 @@ export const documentTypes = [
   homePage,
   partnersPage,
   privacyPage,
+  aboutPage,
+  sourcesPage,
+  contactsPage,
   // Jurisdictions: a language-neutral registry plus its translated pages
   country,
   countryPage,

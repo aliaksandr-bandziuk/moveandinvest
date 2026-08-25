@@ -10,6 +10,7 @@ import {
   PartnersJourney,
 } from "@/components/partners";
 import { getPathname } from "@/i18n/navigation";
+import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import { sanityFetch } from "@/sanity/client";
@@ -143,11 +144,11 @@ export default async function ForPartnersPage({
     description: page.seo.metaDescription,
     url,
     inLanguage: locale,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "moveandinvest",
-      url: getSiteUrl(),
-    },
+    // The comment below this object used to say the organisation is described
+    // once sitewide. It was not described anywhere until 24 Aug 2026; now it
+    // is, on /about, and these are references to it by @id.
+    isPartOf: { "@id": `${getSiteUrl()}/#website` },
+    publisher: organizationRef(getSiteUrl()),
   };
 
   return (
@@ -242,9 +243,9 @@ export default async function ForPartnersPage({
         />
       ) : null}
 
-      {/* WebPage, not Organization: this describes the document, and the
-          organisation is described once sitewide rather than restated on
-          every route. No FAQPage here — nothing on this page is a question
+      {/* WebPage, not Organization: this describes the document. The
+          organisation itself is published once, on /about, and referenced
+          from here by @id. No FAQPage here — nothing on this page is a question
           and answer pair, and marking up prose as one is how a rich result
           turns into a manual action. */}
       <script

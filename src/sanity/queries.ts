@@ -166,6 +166,55 @@ export const PRIVACY_PAGE_QUERY = groq`
   }
 `;
 
+// The method page. Its own document, sharing nothing with the others, so a
+// revalidation of one never invalidates the rest. `country` is deliberately
+// absent: the page names Cyprus and Malta in prose, not from the registry, and
+// tagging a document it does not read would make an unrelated edit rebuild it.
+export const ABOUT_TAGS = ["aboutPage", "siteSettings"];
+
+// NAMED FIELDS, unlike the policy's `sections[]`. The five blocks answer five
+// questions in one order and an editor may not reorder or drop one — see
+// aboutPage.ts. `portraitAlt` is optional at the schema level and so may come
+// back null; the component treats a missing portrait as "no portrait" rather
+// than rendering a broken image frame.
+export const ABOUT_PAGE_QUERY = groq`
+  *[_type == "aboutPage" && language == $locale][0]{
+    eyebrow, heading, intro,
+    method, unverified, money, corrections, notAdvice,
+    authorLabel, authorNote, portraitAlt,
+    seo
+  }
+`;
+
+// The sources page. Four fields and no body: everything else on that page is
+// the dataset in src/lib/sourceData.ts, which is code-owned on purpose — see
+// sourcesPage.ts.
+export const SOURCES_TAGS = ["sourcesPage", "siteSettings"];
+
+export const SOURCES_PAGE_QUERY = groq`
+  *[_type == "sourcesPage" && language == $locale][0]{
+    eyebrow, heading, intro, howToRead, seo
+  }
+`;
+
+// The contact page. The CHANNELS are not in here and never will be — they live
+// in src/lib/contactChannels.ts so that one definition feeds the page, the
+// ContactPoint in the JSON-LD and the footer at once. See contactsPage.ts.
+export const CONTACTS_TAGS = ["contactsPage", "siteSettings"];
+
+export const CONTACTS_PAGE_QUERY = groq`
+  *[_type == "contactsPage" && language == $locale][0]{
+    eyebrow, heading, intro,
+    channelsLabel, emailLabel, emailNote, phoneLabel, phoneNote,
+    whatsappLabel, whatsappNote, bookingLabel, bookingNote, bookingCta, socialsLabel,
+    formHeading, formBody, nameLabel, emailFieldLabel, emailPlaceholder,
+    messageLabel, honeypotLabel, submitLabel, fine, privacyLabel,
+    sent{ title, body }, error{ title, body }, broke{ title, body },
+    enquiryLead, enquiryCta, identityLabel,
+    seo
+  }
+`;
+
 // One query, run once per singleton type, for sitemap.ts. It returns every
 // language version of that type with the two things a sitemap entry needs —
 // when it last changed, and whether it is meant to be indexed at all.

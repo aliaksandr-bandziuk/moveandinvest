@@ -1,0 +1,45 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // Wider than /about's 82rem and much wider than the policy's 76rem: this
+  // page is a table with three columns, one of them paragraphs. It is the one
+  // long-form page here that earns close to the full container.
+  --container-max-width: 94rem;
+}
+
+// Under the deck, in the head's right column — the same slot /privacy uses for
+// its "last updated" line, and for the same reason: it is the first thing a
+// careful reader wants and the last thing they should have to hunt for.
+.howToRead {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.back {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+
+  a {
+    @include mixins.link;
+  }
+}
+
+// The date, once, at the foot. It is also stated in the deck; repeating it
+// here is deliberate — somebody who scrolled thirty-three rows to the bottom
+// should not have to scroll back up to find out when this was done.
+.checked {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-7);
+  padding-top: var(--space-4);
+  border-top: var(--border-hairline) solid var(--color-text);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}

@@ -4,11 +4,13 @@ import { isRateLimited } from "@/lib/enquiry/rateLimit";
 import {
   sendEnquiryEmails,
   sendPartnerEmails,
+  sendQuestionEmail,
   sendSubscribeEmails,
 } from "@/lib/enquiry/sender";
 import {
   type EnquiryPayload,
   type PartnerEnquiryPayload,
+  type QuestionPayload,
   storeEnquiry,
   storePartnerEnquiry,
   storeSubscribe,
@@ -204,6 +206,53 @@ async function handleSubscribe(
   return redirectTo(request, locale, back("sent"));
 }
 
+// A question from /contacts.
+//
+// NO CONSENT CHECKBOX, and the reason is the same one that exempts the partner
+// reply: consent on this site governs being passed to a third party, and a
+// question is never passed to anybody. Adding a checkbox that consents to
+// nothing would be consent theatre — and would make the real one, on the
+// enquiry form, look like the same ritual.
+//
+// It is also NOT STORED. The enquiries dataset holds leads; a question answered
+// and closed is correspondence, and correspondence belongs in a mailbox. That
+// means the email is the only channel, so unlike the enquiry there is no "one
+// of the two worked" — if the mail fails, the visitor is told plainly.
+async function handleQuestion(
+  request: NextRequest,
+  form: FormData,
+  locale: string,
+  back: (fragment: string) => string,
+) {
+  const email = field(form, "email").slice(0, MAX_SHORT);
+  const message = field(form, "message").slice(0, MAX_SITUATION);
+
+  if (!looksLikeEmail(email) || message.trim() === "") {
+    return redirectTo(request, locale, back("error"));
+  }
+
+  const payload: QuestionPayload = {
+    name: field(form, "name").slice(0, MAX_SHORT),
+    email,
+    message,
+    locale,
+    submittedAt: new Date().toISOString(),
+  };
+
+  const mailed = await sendQuestionEmail(payload);
+
+  if (!mailed.ok) {
+    // Metadata only. What they wrote is never printed — the standing rule for
+    // every path in this route, failure paths included.
+    console.error(`[enquiry] Question LOST (mail: ${mailed.reason ?? "unknown"}).`);
+    return redirectTo(request, locale, back("failed"));
+  }
+
+  console.log("[enquiry] Question — mailed: true");
+
+  return redirectTo(request, locale, back("sent"));
+}
+
 // The partner reply on /for-partners. Two required fields and no consent
 // checkbox: a firm writing to us about its own commercial terms is not
 // handing over personal data about somebody else, which is what that checkbox
@@ -279,7 +328,9 @@ export async function POST(request: NextRequest) {
         ? "brief"
         : rawKind === "subscribe"
           ? "subscribe"
-          : "reader";
+          : rawKind === "question"
+            ? "question"
+            : "reader";
 
   // The brief is submitted from a property page and returns to it. Everything
   // else about it is a reader enquiry — same honeypot, same rate limit, same
@@ -293,6 +344,8 @@ export async function POST(request: NextRequest) {
   const readerTarget = (fragment: string) =>
     kind === "brief" ? `${returnTo}#brief-${fragment}` : `#enquiry-${fragment}`;
   const subscribeTarget = (fragment: string) => `${returnTo}#alerts-${fragment}`;
+  // The question form exists once, on /contacts, so it needs no returnTo.
+  const questionTarget = (fragment: string) => `contacts#question-${fragment}`;
 
   // Honeypot, checked before the branch so neither form can be built without
   // it. A hidden field no human ever sees; bots fill every input they find.
@@ -332,7 +385,9 @@ export async function POST(request: NextRequest) {
         ? "for-partners#partner-sent"
         : kind === "subscribe"
           ? subscribeTarget("sent")
-          : readerTarget("sent"),
+          : kind === "question"
+            ? questionTarget("sent")
+            : readerTarget("sent"),
     );
   }
 
@@ -351,7 +406,9 @@ export async function POST(request: NextRequest) {
         ? "for-partners#partner-failed"
         : kind === "subscribe"
           ? subscribeTarget("failed")
-          : readerTarget("failed"),
+          : kind === "question"
+            ? questionTarget("failed")
+            : readerTarget("failed"),
     );
   }
 
@@ -361,6 +418,10 @@ export async function POST(request: NextRequest) {
 
   if (kind === "subscribe") {
     return handleSubscribe(request, form, locale, subscribeTarget);
+  }
+
+  if (kind === "question") {
+    return handleQuestion(request, form, locale, questionTarget);
   }
 
   const email = field(form, "email").slice(0, MAX_SHORT);

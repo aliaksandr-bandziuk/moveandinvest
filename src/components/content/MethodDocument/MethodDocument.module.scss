@@ -1,0 +1,172 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // Same override, same argument, as LegalDocument: one column of prose has
+  // nothing to put in a 106rem container, and at full width it reads as text
+  // stuck to the left of an empty field. Slightly wider than the policy's
+  // 76rem because this page carries sub-headings and a portrait, which need
+  // room the policy's single paragraphs do not.
+  --container-max-width: 82rem;
+}
+
+.list {
+  margin-top: var(--space-8);
+}
+
+.item {
+  padding-block: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    // The 6/5 spread the rest of the site uses, with the heading in the left
+    // track and the prose in the right. NOT the policy's hanging number: this
+    // page is scanned for one section, and a heading that sits beside its own
+    // text is far easier to skip past than one stacked above it.
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: var(--space-7);
+    padding-block: var(--space-8);
+  }
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+
+  @include mixins.breakpoint-up(md) {
+    // Sticks while its own long section scrolls past, so a reader four
+    // paragraphs into "what is not verified here" can still see which section
+    // they are in. `align-self: start` is what makes sticky work inside a grid
+    // cell — without it the cell stretches and there is nothing to stick to.
+    position: sticky;
+    top: var(--space-7);
+    align-self: start;
+  }
+}
+
+// --- The prose ---------------------------------------------------------------
+// Portable Text lands here as bare <p> and <h3>, so the spacing is set on the
+// children rather than on the components. Sub-headings exist on this page and
+// not in the policy: the sections are long enough that a reader needs entry
+// points inside them.
+// The grid's second column. It exists so the author block is INSIDE the prose
+// track rather than beside it — as a third child of `.item` it wrapped onto a
+// new grid row and rendered under the sticky heading, in the left track.
+.body {
+  margin-top: var(--space-4);
+
+  @include mixins.breakpoint-up(md) {
+    margin-top: 0;
+  }
+}
+
+.prose {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 74ch;
+
+  p + p {
+    margin-top: var(--space-4);
+  }
+
+  h2,
+  h3 {
+    margin-top: var(--space-6);
+    font-family: var(--font-display);
+    font-size: var(--fs-body-lg);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+
+  h2 + p,
+  h3 + p {
+    margin-top: var(--space-3);
+  }
+}
+
+// The one link out of a section's prose. Set apart from the paragraphs above
+// it rather than inlined into a sentence: it is the evidence for the whole
+// section, not a citation for one clause.
+.sectionLink {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+
+  a {
+    @include mixins.link;
+  }
+}
+
+// --- The author block --------------------------------------------------------
+// Inside the corrections section rather than at the top of the page — see the
+// component for why that placement is the argument rather than a layout
+// preference.
+.author {
+  margin: var(--space-6) 0 0;
+  padding: var(--space-5);
+  background: var(--color-row-hover);
+  display: grid;
+  gap: var(--space-4);
+  max-width: 74ch;
+
+  @include mixins.breakpoint-up(sm) {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+}
+
+.portrait {
+  // Fixed box, object-fit cover: the source is a square crop, but a
+  // photograph that arrives slightly off-square must not push the text column
+  // around. Width and height are also set on the element itself, so the space
+  // is reserved before the file loads and nothing below it jumps.
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 50%;
+
+  @include mixins.breakpoint-up(md) {
+    width: 9rem;
+    height: 9rem;
+  }
+}
+
+.authorText {
+  // figcaption is display:block by default and ignores the grid gap in some
+  // engines; this keeps its own rhythm independent of the parent.
+  margin: 0;
+}
+
+.authorLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+}
+
+.authorName {
+  margin-top: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-body-lg);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.authorIdentity {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-1);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.authorNote {
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}

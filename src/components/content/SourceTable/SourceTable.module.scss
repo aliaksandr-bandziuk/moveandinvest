@@ -1,0 +1,260 @@
+@use "../../../styles/mixins";
+
+.section {
+  padding-block: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    padding-block: var(--space-8);
+  }
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+// --- The table ---------------------------------------------------------------
+// A DELIBERATE DIVERGENCE FROM CountryComparisonTable, which scrolls
+// horizontally on narrow screens and argues — correctly, for itself — that
+// stacking a comparison table destroys the one thing it is for, reading down a
+// column. The data shape here is different: that table's cells are figures
+// ("€500,000", "90 days") and these are paragraphs. A 44rem minimum with two
+// prose columns would mean side-scrolling sentences, which nobody does.
+//
+// So this one stacks — and keeps the scan alive by pairing the subject and the
+// verdict chip on one line inside each card. Flicking down the cards still
+// shows the column of marks, which is the reading this page exists to support.
+.tableWrap {
+  margin-top: var(--space-5);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  text-align: left;
+}
+
+// Hidden BY DISPLAY on narrow screens, not by `visually-hidden`: each cell
+// carries its own data-label below, so a header row announced as well would
+// say every column name twice.
+.head {
+  display: none;
+
+  @include mixins.breakpoint-up(md) {
+    display: table-header-group;
+
+    th {
+      @include mixins.figure-text;
+
+      padding: 0 var(--space-4) var(--space-3) 0;
+      font-size: var(--fs-nano);
+      line-height: var(--lh-nano);
+      letter-spacing: var(--tracking-eyebrow);
+      text-transform: uppercase;
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-muted);
+      border-bottom: var(--border-hairline) solid var(--color-text);
+      vertical-align: bottom;
+    }
+
+    th:nth-child(1) {
+      width: 26%;
+    }
+
+    th:nth-child(2) {
+      width: 12%;
+    }
+  }
+}
+
+.row {
+  display: block;
+  padding-block: var(--space-4);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    display: table-row;
+    padding-block: 0;
+  }
+}
+
+.subject,
+.verdictCell,
+.finding {
+  display: block;
+
+  @include mixins.breakpoint-up(md) {
+    display: table-cell;
+    padding: var(--space-4) var(--space-4) var(--space-4) 0;
+    border-bottom: var(--border-hairline) solid var(--color-hairline);
+    vertical-align: top;
+  }
+}
+
+.subject {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+// On cards the chip sits directly under the subject with no label of its own:
+// the chip IS a label, and "Verdict: corrected" reads like a form field.
+.verdictCell {
+  margin-top: var(--space-2);
+
+  @include mixins.breakpoint-up(md) {
+    margin-top: 0;
+  }
+}
+
+.finding {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+
+  @include mixins.breakpoint-up(md) {
+    margin-top: 0;
+  }
+}
+
+// The data-label prefix, shown only where the header row is hidden. Applied to
+// the finding alone — the subject and the chip explain themselves.
+.finding::before {
+  @include mixins.figure-text;
+
+  content: attr(data-label);
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+
+  @include mixins.breakpoint-up(md) {
+    display: none;
+  }
+}
+
+// --- The verdict chip --------------------------------------------------------
+// TWO WEIGHTS, NOT FIVE COLOURS. Oxblood marks the two states where the site
+// was wrong or could not establish something; everything else is quiet. Five
+// distinct colours would turn a page of evidence into a dashboard, and would
+// also imply a precision of ranking between "confirmed" and "added" that does
+// not exist.
+//
+// The word is always present, so colour never carries meaning alone.
+.chip {
+  @include mixins.figure-text;
+
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  border: var(--border-hairline) solid currentcolor;
+  border-radius: var(--radius-s);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text-muted);
+}
+
+// The site said something else. The most common mark on this page, and the
+// reason anybody should believe the rest of it.
+.corrected {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
+// No primary source publishes it, so nothing is stated.
+.unverified {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+// The thing itself no longer exists.
+.withdrawn {
+  color: var(--color-text);
+}
+
+// .confirmed and .added inherit the quiet default and are declared for the
+// component's sake: `styles[verdict]` must resolve for every verdict, or a new
+// one silently renders unstyled.
+.confirmed {
+  color: var(--color-text-muted);
+}
+
+.added {
+  color: var(--color-text-muted);
+}
+
+// --- The sources -------------------------------------------------------------
+.sources {
+  margin-top: var(--space-5);
+}
+
+.sourcesLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-accent);
+}
+
+.sourceList {
+  margin-top: var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.source {
+  padding-block: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.sourceLink {
+  @include mixins.link;
+
+  color: var(--color-text);
+}
+
+.kind {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.official {
+  color: var(--color-text-muted);
+}
+
+// Marked, not hidden. A database reproducing a statute is where the text can
+// actually be read; pretending it is the gazette is what this page exists not
+// to do.
+.reproduction {
+  color: var(--color-accent);
+}
+
+.caveat {
+  display: block;
+  margin-top: var(--space-1);
+  max-width: 74ch;
+  font-size: var(--fs-nano);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.note {
+  margin-top: var(--space-5);
+  max-width: 74ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

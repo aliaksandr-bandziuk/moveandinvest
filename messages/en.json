@@ -41,7 +41,9 @@
       "movingGuides": "Moving guides",
       "costOfLiving": "Cost of living",
       "partners": "For partners",
-      "sources": "Method and sources",
+      "sources": "About the project",
+      "working": "Sources and working",
+      "contacts": "Contact",
       "privacy": "Privacy",
       "cookies": "Cookie choice"
     }
@@ -132,7 +134,7 @@
     },
     "broke": {
       "title": "That is on us.",
-      "body": "The brief did not reach us — the fault is at our end, not in what you filled in. Write to hello@moveandinvest.com and we will pick it up from there."
+      "body": "The brief did not reach us — the fault is at our end, not in what you filled in. Write to {email} and we will pick it up from there."
     }
   },
   "alerts": {
@@ -157,7 +159,35 @@
     },
     "broke": {
       "title": "That is on us.",
-      "body": "The subscription did not reach us — the fault is at our end. Write to hello@moveandinvest.com and we will add you by hand."
+      "body": "The subscription did not reach us — the fault is at our end. Write to {email} and we will add you by hand."
     }
+  },
+  "about": {
+    "breadcrumb": "About",
+    "sections": {
+      "method": "How a figure gets onto this site",
+      "unverified": "What is not verified here",
+      "money": "How the project makes money",
+      "corrections": "If you have found an error",
+      "notAdvice": "What this is not"
+    }
+  },
+  "sources": {
+    "breadcrumb": "Sources",
+    "subject": "What the site states",
+    "verdict": "Verdict",
+    "finding": "What the source says",
+    "sourcesLabel": "Sources",
+    "official": "official",
+    "reproduction": "reproduction",
+    "verdicts": {
+      "confirmed": "confirmed",
+      "corrected": "corrected",
+      "added": "added",
+      "unverified": "not verified",
+      "withdrawn": "withdrawn"
+    },
+    "linkFromMethod": "See the working: every figure and its source →",
+    "linkFromPage": "See the working →"
   }
 }

@@ -1157,6 +1157,258 @@ filter reads as marketing, and this is the quietest email the site sends. The
 bare URL is printed under the anchor so it survives a client that strips
 anchors, and `renderEmailText` prints label and URL on their own lines.
 
+## /about — the method page
+
+Built 24 Aug 2026. `aboutPage` singleton per language, `scripts/copy/about.ts`,
+written by `npm run content -- --write`, rendered by `MethodDocument`.
+
+**It exists because the site claimed independence and substantiated it
+nowhere.** "Independent research" sits in the eyebrow of every page, and until
+this page the legal identity appeared in exactly one place: the controller
+section of the privacy policy — behind a page nobody opens voluntarily. A site
+whose product is the traceability of a figure was itself untraceable.
+
+**The H1 names the PROJECT; the method is section 1.** The first version had
+this backwards and the owner caught it: its H1 read "How a figure gets onto
+this site", which is word for word the heading of the section directly below —
+so the H1 did no work of its own. It also answered a question the reader has
+not asked yet. Somebody who opens /about is asking who this is; the method
+answers their second question, not their first. Three names for one page (the
+`/about` URL, the footer link "Method and sources", and that H1) disagreed as
+well, and the JSON-LD declares `AboutPage` with `mainEntity: Organization`
+while the strongest on-page signal talked about figures. Now: eyebrow carries
+the page type, H1 names the project and what it is answerable for, footer label
+matches, and "how a figure gets onto this site" is the heading of section 1.
+
+**Its CONTENT is about the method, not about a person, and that is the
+stronger position rather than a modest one.** Personal authority — "trust me, twenty
+years in this" — cannot be checked and this project does not have it.
+Procedural authority — "do not trust me, here is the statute and the date" —
+can be checked by anyone. Hence: no biography, no mission, no team, no
+years-in-business.
+
+**Five sections in a fixed order, as named schema fields, not an array.** The
+opposite call from `privacyPage`, and deliberately: a legal text has no design
+to fix its composition, this page does. An editor who could reorder or drop one
+could quietly turn it back into an About page — most easily by deleting section
+2.
+
+**Section 2, "what is NOT verified here", is the one that must survive every
+future edit.** Cyprus resting on secondary sources; the timelines no ministry
+publishes; the costs that exist only as market practice; the one-applicant
+basis of every total. No competitor has this section, and it is the reason a
+reader believes the other four. Every edit will be tempted to soften it,
+because admitting Cyprus is unverified feels like admitting the site is
+incomplete. It is the opposite.
+
+**Section 3 states BOUNDARIES, never a price and never a payment model** — the
+standing decision in "Business decisions already taken" applies here in full.
+It then names the conflict of interest out loud, and backs it with two things a
+reader can check rather than take on trust: the same method is applied to Malta
+and the UAE, where paying for a referral is prohibited and criminal
+respectively and which therefore can never pay; and figures that argue against
+leaving an enquiry get published anyway.
+
+**The author block sits INSIDE the corrections section, never at the top.** At
+the top it is a credential, which would undercut the argument three paragraphs
+above it. Under "if you have found an error" it is what it actually is: the
+face of the person who is wrong when a figure is wrong.
+
+**A missing portrait is not a broken image.** `findPortrait()` checks
+`public/author.{jpg,jpeg,png,webp,avif}` on disk and the block renders as text
+when there is none. The site takes no paid stock imagery, so the alternative to
+a real photograph is NO photograph — never a placeholder silhouette. Both
+paths were rendered and looked at.
+
+**The legal identity moved to `src/lib/controller.ts`.** It lived in
+`scripts/copy/privacy.ts`, correct while the policy was the only consumer.
+Three things name it now — the policy, this page, and the Organization node —
+and two of the three are rendered by the app, which cannot import from
+`scripts/`. The copy script imports it back across the boundary; that direction
+is the right one, because `src` is what ships.
+
+**Measurement note: `fullPage: true` does NOT scroll in Chromium**, so a
+`loading="lazy"` image below the fold is never requested and the screenshot
+shows an empty box where a face should be. Twice this looked like a broken
+portrait and twice the image was loading correctly — confirmed with an element
+screenshot and with `naturalWidth` off the live DOM. Scroll the page first, or
+screenshot the element.
+
+## /sources — the working
+
+Built 24 Aug 2026. `src/lib/sourceData.ts` holds the evidence, `sourcesPage`
+holds the head, `SourceTable` renders it. 33 checks, 28 citations, six anchored
+sections: pt, gr, mt, ae, citizenship, cy.
+
+**It is the proof of /about's claim.** /about states the method — primary
+sources only, a date on every figure, nothing published where no primary source
+exists. Until this page that had no evidence attached: the working lived in
+`docs/figures-verification-2026-08-23.md`, in git, which is to say nowhere a
+reader can reach. A method described but never shown is an assertion.
+
+**THE DATASET IS CODE-OWNED, AND THAT IS INTEGRITY RATHER THAN CONVENIENCE.**
+The standing rule is that a figure may not change in `copy/jurisdictions.ts`
+without the dossier changing in the same commit. A dataset editable in Studio
+routes straight around it: somebody corrects a threshold in a text field, the
+dossier still says the old thing, and the one page whose whole purpose is
+provable sourcing quietly stops being provable. So `sourcesPage` deliberately
+offers **no field** in which to do it — four head fields and no body.
+
+**The citation is primary; the URL is a convenience.** Each source carries its
+formal reference — statute, article, gazette issue, date — and that is what a
+reader verifies against. This was forced by Greece, whose official gazette
+(`et.gr`) publishes only a search form and session-token viewer URLs, so no
+durable official link exists at all. A page of URLs would have rotted; a page of
+citations does not.
+
+**Every link is labelled `official` or `reproduction`, and that caught a real
+problem in the dossier.** Three Greek sources pointed at `taxheaven.gr`, which
+reproduces the statute faithfully but is a commercial database, not the gazette
+— against the dossier's own rule of "a link to the law or the authority's own
+page". Publishing those as primary on this page of all pages would have
+undercut its argument. They stay, because a reproduction is where the text can
+actually be read, and they are marked.
+
+**The verdict column is the page.** 14 corrected, 7 confirmed, 6 added, 4 not
+verified, 2 withdrawn. The deck leads with the fourteen. The instinct is to bury
+that number; it is in fact the most persuasive sentence the project can write,
+because a comparison that has never found itself wrong has never checked.
+
+**Two visual weights, not five colours.** Oxblood marks `corrected` and
+`unverified` — the states where the site was wrong or could not establish
+something. Everything else is quiet. Five distinct colours would turn evidence
+into a dashboard and would imply a ranking between "confirmed" and "added" that
+does not exist. The word is always present, so colour never carries meaning
+alone.
+
+**It stacks on narrow screens where `CountryComparisonTable` scrolls, and the
+divergence is deliberate.** That table's argument — stacking destroys reading
+down a column — is right for its own data, which is figures. These cells are
+paragraphs, and side-scrolling sentences is something nobody does. The scan
+survives because each card pairs the subject with its chip.
+
+**What is NOT published:** the dossier's closing section on what the findings
+break inside the product — the route finder's first budget band answering with
+emptiness, the speed question no longer discriminating. That is roadmap, not
+evidence, and a sources page padded with it stops being one.
+
+**Linked from three places**, because a page nobody reaches proves nothing:
+section 1 of /about, the cost block of every jurisdiction page (deep-linked to
+that jurisdiction's own anchor, `/sources#gr`), and the footer.
+
+**`typography.ts` moved to `src/lib` for this.** The sources dataset is the
+fourth consumer of the non-breaking-space rule and the first one the app renders
+directly, and the app cannot import from `scripts/`. It earned its move within
+minutes: "€220 000" and "€4 210,30" broke across lines the first time the page
+rendered. `scripts/copy/typography.ts` is now a re-export.
+
+## /contacts — a human channel
+
+Built 24 Aug 2026. `contactsPage` holds the labels, `src/lib/contactChannels.ts`
+holds the channels, `ContactChannels` renders both.
+
+**NOT built because Google requires a page called "Contact".** It does not. The
+rater guidance asks that ownership and contactability be clear and names the
+About page as the natural home, and that was already satisfied — /about carries
+the legal entity, and the Organization node now carries a `ContactPoint`. It is
+built because a law firm receiving a cold email checks whether the thing is
+real, and a form is not that check. A number that is answered is. The audience
+is that firm, not a crawler.
+
+**THE CHANNELS ARE IN CODE, NOT IN THE CMS**, and an empty value means the
+channel does not render at all — no row, no "soon", no dead link. This site has
+twice printed a way to reach it that reached nobody (`partners@`, `hello@`), and
+the cost is not a missing row: somebody writes, hears silence, and concludes the
+project is not real. One definition feeds the page, the `ContactPoint` and the
+footer, so a number cannot exist in one and not the others.
+
+**The booking is a LINK, never an embed.** An iframe from Calendly, Cal.com or
+Google pulls a third-party script onto this domain and sets third-party cookies
+— which costs a consent gate, a new paragraph in the policy naming the provider
+and its country, and an entry in the suppliers list. It buys one thing: the
+reader does not leave the page. Opened in a new tab, none of it applies. Same
+reason WhatsApp is a plain `wa.me` href and not the official widget. **Verified:
+the rendered page contains zero iframes.**
+
+**The form is `kind=question`, and it is not a lead.** No jurisdiction, no
+budget, no consent-to-share — that consent is what makes an enquiry passable to
+a partner, and a question is answered by us and stops there. It is a separate
+payload type for that reason: a shared shape with three empty fields would
+eventually be routed like the thing it resembles. It is also **not stored** —
+correspondence belongs in a mailbox, not in the leads dataset — so the email is
+the only channel and a failure is reported plainly.
+
+**It fires NO `generate_lead` event**, deliberately. Every other form does.
+Counting a question would inflate the one number the events exist to measure,
+and an inflated funnel is worse than an unmeasured one because it looks like it
+is working. Adding `"question"` to `LeadKind` is the tempting version of this
+mistake.
+
+**The deck routes the reader.** Somebody who wants an introduction belongs in
+the enquiry form; the copy says so before they write, and a pointer sits under
+the form's explanation.
+
+**The `:target` panels bit again, and were caught by measurement.** All three
+result panels were in the markup, the stylesheet hid them, and nothing un-hid
+them — the identical defect to `#enquiry-failed` and `#partner-failed`. A result
+panel is invisible by design AND invisible when broken, so it can only be
+checked by loading each fragment and reading the computed style. All three now
+verified `block` on their own fragment and `none` otherwise, and all four POST
+shapes verified against the real route.
+
+## The Organization node
+
+Added the same day, in `src/lib/jsonLd.ts`. Until then there was none — and the
+comment on `/for-partners` already claimed "the organisation is described once
+sitewide rather than restated on every route", describing something that did
+not exist. Every page was a `WebPage` inside a `WebSite` carrying a name and
+nothing else: no legal entity, no country, no contact, no publisher.
+
+For a site whose product is the traceability of a figure, that is the gap that
+undoes the rest. An engine deciding whether to quote "the Greek threshold is
+€400,000" is deciding whether to attribute it to somebody, and there was nobody
+to attribute it to.
+
+**One node, one `@id`, referenced everywhere.** The full `Organization` and
+`WebSite` are emitted on `/about` only, inside an `@graph`; every other route
+carries `isPartOf: { "@id": … }` and `publisher: { "@id": … }`. A JSON-LD graph
+is assembled across a site by identifier, so restating the node per route buys
+nothing and guarantees the copies drift.
+
+**No `sameAs`.** It takes profile URLs that confirm the identity, and inventing
+plausible ones is exactly the fabrication this markup exists to be the opposite
+of. It goes in when there are real profiles to point at.
+
+## Two defects found while building /about
+
+**`propertyPage` was in neither `TRANSLATABLE_TYPES` nor the Studio
+structure.** No symptom on the site — the four pages render, because the route
+reads `language` off the document and seeding writes it. What was broken was
+the Studio: no language switcher on a property page, so an editor opening the
+Portuguese one had no route to its Russian counterpart, and four published
+documents had no pane at all. A page an editor cannot open is a page only a
+script can fix. Both fixed in `src/sanity/structure.ts`.
+
+**The site used THREE email addresses and they disagreed — fixed the same
+day.** `office@` was the declared data controller; `hello@` was what the
+broken-form panels told a visitor to write to; `partners@` was on the partners
+page. Only `office@` is a real mailbox, so a firm replying to `partners@` and a
+visitor whose form broke were both writing into the void — and somebody who
+gets no answer concludes the project is not real.
+
+Now there is ONE address and no place for a second to appear:
+`src/lib/controller.ts` holds it, `CONTACT_EMAIL` in `copy/partners.ts` derives
+from it, and the three catalogues carry an **`{email}` placeholder** rather
+than a typed address, filled on the server in `buildAlertsLabels` and the brief
+labels. `buildAlertsLabels` therefore takes `(key, values?)` — narrowing that
+signature back to `(key) => string` is exactly what would reintroduce a
+hard-typed address.
+
+A related fixture lie surfaced with it: the render harness stubbed
+`siteSettings.contactEmail` as `hello@` while the code wrote `partners@`, so
+the harness had been showing an address the site never served. Fixed there
+too — see "A fixture may not improve on the response it stands in for".
+
 ## Links that do not exist yet
 
 A page the site plans but has not written is rendered, marked, and NOT linked —

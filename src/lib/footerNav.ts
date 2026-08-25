@@ -65,7 +65,26 @@ export const FOOTER_GROUPS: FooterGroup[] = [
     key: "project",
     links: [
       { key: "partners", href: "/for-partners" },
-      { key: "sources" },
+      // Listed unlinked from the start and given its href on 24 Aug 2026,
+      // which is exactly the lifecycle the note at the top of this file
+      // describes.
+      //
+      // The LABEL changed with it, from "Method and sources". Not because that
+      // was worse in isolation — it says more — but because the page then had
+      // three different names: this link, the /about URL, and an H1 about
+      // figures. A reader who clicks "Method and sources" and lands on a page
+      // titled something else has been handed a small puzzle for no reason.
+      // The message key stays `sources` so no catalogue needs re-keying.
+      { key: "sources", href: "/about" },
+      // The evidence behind /about's claim, published 24 Aug 2026. A separate
+      // entry rather than a link inside the about page alone: a reader doing
+      // due diligence looks for "sources" in a footer, and finding the working
+      // one click from anywhere is worth more than tidiness.
+      { key: "working", href: "/sources" },
+      // A human channel, not a second form. Built 24 Aug 2026 — see the note
+      // at the top of src/lib/contactChannels.ts for why the channels
+      // themselves are not in the CMS.
+      { key: "contacts", href: "/contacts" },
       // Not a courtesy link. A site that takes an email address owes a
       // reachable statement of what it does with it, and "reachable" means
       // from every page, not only from beside the form.
