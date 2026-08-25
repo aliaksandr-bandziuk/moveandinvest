@@ -586,6 +586,37 @@ Do not "fix" a hydration warning by moving this flag onto the component that
 warns. That is how a real mismatch goes quiet. If a warning names something
 inside the app, it is ours.
 
+## NEXT_PUBLIC_SITE_URL is not optional in production
+
+Found 25 Aug 2026, from a sitemap whose every URL carried a build hash:
+`https://moveandinvest-3i2tk9o2y-….vercel.app/…`. The variable was not set on
+the Vercel project.
+
+**`VERCEL_URL` is ALWAYS the deployment's own hostname**, even in production
+with a custom domain attached — it is never the custom domain. So the middle
+rung of `getSiteUrl()` cannot serve production, and the variable is genuinely
+required rather than merely recommended.
+
+**What was actually broken was not the sitemap.** Without the variable,
+`isProductionDeployment()` is false, so `robots.txt` served `Disallow: /` and
+every page carried `noindex, nofollow`. The whole site was closed to search.
+The sitemap's hostnames were the visible symptom of an invisible one.
+
+**The guard is correct and stays.** A forgotten variable meaning "do not index"
+rather than "index the wrong address" is the right way round, and it did its
+job: it kept a half-built site out of the index for two days. Falling back to
+Vercel's production-domain variable would put a site into the index without
+anybody deciding to. Not doing that.
+
+**What was wrong was that the guard was SILENT.** It now prints, once per
+process, naming the consequence and the fix. The first version printed on every
+call and produced forty-five identical paragraphs in one build log — a warning
+nobody reads is the same as no warning, so it is once.
+
+Both states verified against a real build: without the variable, `Disallow: /`
+plus `noindex, nofollow` and one warning; with it, the named-bot rules,
+`index, follow`, and `https://moveandinvest.com/…` throughout.
+
 ## robots.txt and the sitemap
 
 Both ported from the sibling `giuseppeiannone` project. `src/app/robots.ts`
