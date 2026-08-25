@@ -59,7 +59,12 @@ export function buildOrganizationJsonLd(origin: string) {
     legalName: CONTROLLER.name,
     taxID: CONTROLLER.nip,
     address: { "@type": "PostalAddress", addressCountry: CONTROLLER.country },
-    email: `mailto:${CONTROLLER.email}`,
+    // PLAIN, not a mailto: URI. schema.org/email takes Text, and the
+    // ContactPoint below already carried the plain form — so one graph was
+    // stating the same address two ways, which is how a consumer that takes
+    // the string verbatim ends up believing there are two. Caught by reading
+    // the live page's own output on 25 Aug 2026.
+    email: CONTROLLER.email,
     founder: { "@type": "Person", name: CONTROLLER.name },
     // The machine-readable "you can reach us here". This is the part of the
     // contacts question that actually matters to a search engine — far more
