@@ -4,11 +4,10 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { MethodDocument, type MethodSectionContent } from "@/components/content";
-import { getPathname } from "@/i18n/navigation";
 import { CONTROLLER, controllerIdentity } from "@/lib/controller";
 import { buildAboutPageJsonLd } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
-import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { sanityFetch } from "@/sanity/client";
 import { ABOUT_PAGE_QUERY, ABOUT_TAGS } from "@/sanity/queries";
 import type { AboutPage } from "@/sanity/types";
@@ -104,7 +103,7 @@ export default async function About({ params }: { params: Promise<{ locale: stri
   // the site that publishes it. Every other route references these nodes by
   // @id. See src/lib/jsonLd.ts.
   const jsonLd = buildAboutPageJsonLd({
-    url: `${getSiteUrl()}${getPathname({ href: ROUTE, locale })}`,
+    url: routeUrl(ROUTE, locale),
     name: page.seo.metaTitle,
     description: page.seo.metaDescription,
     locale,

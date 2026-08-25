@@ -28,6 +28,7 @@ import {
 import { CONTROLLER } from "@/lib/controller";
 import { ogImage } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { resolveRobots } from "@/lib/site";
 import { sanityFetch, sanityFetchPublished } from "@/sanity/client";
 import {
@@ -320,12 +321,12 @@ async function renderProperty({
   ];
 
   const breadcrumbJsonLd = buildBreadcrumbListJsonLd([
-    { name: tCountry("home"), url: `${siteUrl}${getPathname({ href: "/", locale })}` },
+    { name: tCountry("home"), url: routeUrl("/", locale) },
     ...(page.jurisdiction
       ? [
           {
             name: page.name,
-            url: `${siteUrl}${getPathname({ href: `/${page.jurisdiction.slug}`, locale })}`,
+            url: routeUrl(`/${page.jurisdiction.slug}`, locale),
           },
         ]
       : []),
@@ -489,7 +490,7 @@ export default async function JurisdictionPage({
   // visible nav needs locale-aware relative hrefs, the markup needs full URLs,
   // and writing the list twice is how the two stop matching.
   const breadcrumbJsonLd = buildBreadcrumbListJsonLd([
-    { name: t("home"), url: `${siteUrl}${getPathname({ href: "/", locale })}` },
+    { name: t("home"), url: routeUrl("/", locale) },
     { name: page.name, url: `${siteUrl}${path}` },
   ]);
 

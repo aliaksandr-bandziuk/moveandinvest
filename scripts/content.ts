@@ -34,7 +34,9 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const token = process.env.SANITY_API_WRITE_TOKEN;
 
 if (!projectId || !dataset) {
-  throw new Error("Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET");
+  throw new Error(
+    "Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET",
+  );
 }
 if (!token) {
   throw new Error(
@@ -103,7 +105,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
 
   const docs = await client.fetch<Doc[]>(
-    `*[_type in ["homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage"]] | order(_id asc){ _id, _type }`,
+    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage"]] | order(_id asc){ _id, _type }`,
   );
 
   if (docs.length === 0) {
@@ -119,7 +121,9 @@ async function run() {
   // on purpose, because a legal text edited in two places is a legal text
   // that disagrees with itself.
   const existingPrivacy = new Set(
-    docs.filter((d) => d._type === "privacyPage").map((d) => d._id.replace(/^drafts\./, "")),
+    docs
+      .filter((d) => d._type === "privacyPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
   // Same story one page later: /about was added on 24 Aug 2026, long after the
@@ -129,18 +133,24 @@ async function run() {
   // agree with the file that verifies them, and two editable copies of that
   // description is how it stops agreeing.
   const existingAbout = new Set(
-    docs.filter((d) => d._type === "aboutPage").map((d) => d._id.replace(/^drafts\./, "")),
+    docs
+      .filter((d) => d._type === "aboutPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
   // Same arrangement as /about and the policy: added after the seed, so its
   // documents may not exist and createOrReplace is safe — every field is
   // generated, there is no editor state to lose.
   const existingSources = new Set(
-    docs.filter((d) => d._type === "sourcesPage").map((d) => d._id.replace(/^drafts\./, "")),
+    docs
+      .filter((d) => d._type === "sourcesPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
   const existingContacts = new Set(
-    docs.filter((d) => d._type === "contactsPage").map((d) => d._id.replace(/^drafts\./, "")),
+    docs
+      .filter((d) => d._type === "contactsPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
   const transaction = client.transaction();
@@ -150,11 +160,40 @@ async function run() {
   for (const doc of docs) {
     // `homePage-ru` and `drafts.homePage-ru` both end in the locale, so the
     // suffix survives the drafts prefix.
-    const locale = doc._id.replace(/^drafts\./, "").split("-").pop();
+    const locale = doc._id
+      .replace(/^drafts\./, "")
+      .split("-")
+      .pop();
     const isLocale = LOCALES.includes(locale as never);
 
     if (!isLocale) {
       skipped.push(doc._id);
+      continue;
+    }
+
+    // THE FOOTER'S EMAIL, on every page of the site. It lives on siteSettings
+    // and nothing had ever patched it: seed.ts creates the document and
+    // create-if-not-exists does nothing on a dataset that already has one, so
+    // the address seeded on day one survived every later correction.
+    //
+    // Which is how `partners@moveandinvest.com` was still in the live footer
+    // of all forty-two pages on 25 Aug 2026 — a mailbox that does not exist,
+    // three separate times after the decision that there is one mailbox and it
+    // is office@. It was fixed in the copy files, fixed on the partners page,
+    // written into a comment in contactChannels.ts as the cautionary tale, and
+    // left untouched in the one place a reader is most likely to click it.
+    //
+    // ONLY THIS FIELD. The tagline, the disclaimer and the default SEO on this
+    // document are editable in the Studio and a patch that reset them would
+    // silently undo an editor's work. The address is not editable in that
+    // sense: it is the controller's, it comes from controller.ts, and there is
+    // exactly one.
+    if (doc._type === "siteSettings") {
+      transaction.patch(doc._id, { set: { contactEmail: CONTACT_EMAIL } });
+      console.log(
+        `  ${doc._id.padEnd(26)} ${doc._type.padStart(13)}  ->  contactEmail = ${CONTACT_EMAIL}`,
+      );
+      planned += 1;
       continue;
     }
 
@@ -296,7 +335,9 @@ async function run() {
       });
     }
 
-    console.log(`  ${doc._id.padEnd(26)} ${doc._type.padStart(13)}  ->  every section rewritten`);
+    console.log(
+      `  ${doc._id.padEnd(26)} ${doc._type.padStart(13)}  ->  every section rewritten`,
+    );
     planned += 1;
   }
 
@@ -418,7 +459,9 @@ async function run() {
   }
 
   if (skipped.length > 0) {
-    console.log(`\nskipped (id does not end in a known locale): ${skipped.join(", ")}`);
+    console.log(
+      `\nskipped (id does not end in a known locale): ${skipped.join(", ")}`,
+    );
   }
 
   if (!write) {
@@ -430,7 +473,9 @@ async function run() {
 
   await transaction.commit();
   console.log(`\nPatched ${planned} document(s).`);
-  console.log("Reload the site. Every string on both pages now comes from Sanity.");
+  console.log(
+    "Reload the site. Every string on both pages now comes from Sanity.",
+  );
 }
 
 run().catch((error) => {

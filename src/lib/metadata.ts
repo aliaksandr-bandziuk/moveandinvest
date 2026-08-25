@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import type { SeoResult } from "@/sanity/types";
 import { getSiteUrl, resolveRobots } from "./site";
+import { routeUrl } from "./urls";
 
 interface BuildMetadataArgs {
   seo: SeoResult;
@@ -43,29 +43,25 @@ export function ogImage(locale: string) {
 }
 
 export function buildMetadata({ seo, locale, href }: BuildMetadataArgs): Metadata {
-  const siteUrl = getSiteUrl();
-
-  const languages = Object.fromEntries(
-    routing.locales.map((l) => [l, `${siteUrl}${getPathname({ href, locale: l })}`]),
-  );
+  const languages = Object.fromEntries(routing.locales.map((l) => [l, routeUrl(href, l)]));
 
   return {
     title: seo.metaTitle,
     description: seo.metaDescription,
     robots: resolveRobots(seo.noIndex),
     alternates: {
-      canonical: `${siteUrl}${getPathname({ href, locale })}`,
+      canonical: routeUrl(href, locale),
       languages: {
         ...languages,
         // Points at the unprefixed default so a search engine has somewhere
         // to send a visitor whose language matches none of the three.
-        "x-default": `${siteUrl}${getPathname({ href, locale: routing.defaultLocale })}`,
+        "x-default": routeUrl(href, routing.defaultLocale),
       },
     },
     openGraph: {
       title: seo.metaTitle,
       description: seo.metaDescription,
-      url: `${siteUrl}${getPathname({ href, locale })}`,
+      url: routeUrl(href, locale),
       siteName: "moveandinvest",
       locale,
       type: "website",

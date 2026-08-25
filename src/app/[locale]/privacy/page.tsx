@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { LegalDocument } from "@/components/content";
+import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
+import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { sanityFetch } from "@/sanity/client";
 import { PRIVACY_PAGE_QUERY, PRIVACY_TAGS } from "@/sanity/queries";
 import type { PrivacyPage } from "@/sanity/types";
@@ -64,8 +67,46 @@ export default async function PrivacyPage({
     notFound();
   }
 
+  // The only three URLs on the site that carried no structured data at all,
+  // found on 25 Aug 2026 by reading all forty-two live pages rather than the
+  // code. Not a decision that a policy needs no markup — an omission: every
+  // other route emits at least a WebPage, and these three were written before
+  // the Organization node existed and never revisited.
+  //
+  // It buys no rich result and is not meant to. What it buys is that the page
+  // stating who processes the data is attached, by @id, to the node naming who
+  // that is — which for a policy is the one connection worth asserting.
+  const url = routeUrl(ROUTE, locale);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": url,
+    url,
+    name: page.seo.metaTitle,
+    description: page.seo.metaDescription,
+    inLanguage: locale,
+    isPartOf: { "@id": `${getSiteUrl()}/#website` },
+    publisher: organizationRef(getSiteUrl()),
+    // NO `dateModified`, and that is deliberate. The obvious thing to put
+    // there is `page.updated` — but that field holds "24 August 2026",
+    // "24 августа 2026", "24 sierpnia 2026": a sentence for a reader, in three
+    // languages. schema.org wants ISO 8601, so two of the three would be
+    // unparseable and all three would be a date asserted in a format that
+    // invites a consumer to guess. The alternative — an ISO date written a
+    // second time, next to the display one — is the two-copies-of-one-fact
+    // shape that has already bitten this project three times. So the date
+    // stays where a human reads it and nowhere else, until the schema carries
+    // one machine-readable value that the display string is derived FROM.
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        // Serialised from an object built above, never from user input.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <LegalDocument
         eyebrow={page.eyebrow}
         heading={page.heading}

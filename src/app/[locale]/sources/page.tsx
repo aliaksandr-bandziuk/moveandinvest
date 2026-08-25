@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { getPathname } from "@/i18n/navigation";
 import { SourceTable, type SourceTableLabels } from "@/components/content";
 import { SectionHead } from "@/components/ui";
 import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { CHECKED_ON, SOURCE_SECTIONS } from "@/lib/sourceData";
 import { sanityFetch } from "@/sanity/client";
 import { COUNTRY_ROWS_QUERY, HOME_TAGS, SOURCES_PAGE_QUERY, SOURCES_TAGS } from "@/sanity/queries";
@@ -91,8 +91,8 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": `${getSiteUrl()}${getPathname({ href: ROUTE, locale })}`,
-    url: `${getSiteUrl()}${getPathname({ href: ROUTE, locale })}`,
+    "@id": routeUrl(ROUTE, locale),
+    url: routeUrl(ROUTE, locale),
     name: page.seo.metaTitle,
     description: page.seo.metaDescription,
     inLanguage: locale,

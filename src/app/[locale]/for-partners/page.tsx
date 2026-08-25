@@ -9,10 +9,10 @@ import {
   PartnersHonesty,
   PartnersJourney,
 } from "@/components/partners";
-import { getPathname } from "@/i18n/navigation";
 import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { sanityFetch } from "@/sanity/client";
 import {
   COUNTRY_ROWS_QUERY,
@@ -92,7 +92,7 @@ export default async function ForPartnersPage({
   // Built with the same helper buildMetadata uses for the canonical, so the
   // URL in the structured data and the URL in <link rel="canonical"> cannot
   // drift — including the default locale, which carries no prefix.
-  const url = `${getSiteUrl()}${getPathname({ href: ROUTE, locale })}`;
+  const url = routeUrl(ROUTE, locale);
 
   // Section 02 lives entirely in Sanity, and the fields it needs were added
   // after the first seed ran. A published document from before that has none

@@ -8,6 +8,7 @@ import { CHANNELS } from "@/lib/contactChannels";
 import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { sanityFetch } from "@/sanity/client";
 import { CONTACTS_PAGE_QUERY, CONTACTS_TAGS } from "@/sanity/queries";
 import type { ContactsPage } from "@/sanity/types";
@@ -65,7 +66,7 @@ export default async function Contacts({ params }: { params: Promise<{ locale: s
     },
   };
 
-  const url = `${getSiteUrl()}${getPathname({ href: ROUTE, locale })}`;
+  const url = routeUrl(ROUTE, locale);
 
   // ContactPage, which is the type for exactly this, with the organisation as
   // its subject. The Organization node itself is published once on /about and

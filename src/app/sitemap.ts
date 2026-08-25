@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getSiteUrl } from "@/lib/site";
+import { routeUrl } from "@/lib/urls";
 import { sanityFetchPublished } from "@/sanity/client";
 import {
   SITEMAP_COUNTRY_QUERY,
@@ -32,7 +31,7 @@ import type { SitemapCountryDoc, SitemapDoc } from "@/sanity/types";
 // the styleguide is not one.
 
 interface SingletonRoute {
-  /** Locale-independent route, exactly as `getPathname` expects it. */
+  /** Locale-independent route, exactly as `routeUrl` expects it. */
   href: string;
   /** The Sanity type whose document owns this route's lastModified. */
   documentType: string;
@@ -55,8 +54,6 @@ function isLocale(value: unknown): value is (typeof routing.locales)[number] {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = getSiteUrl();
-
   const [results, countryDocs, propertyDocs] = await Promise.all([
     Promise.all(
       ROUTES.map((route) =>
@@ -91,7 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const languages: Record<string, string> = Object.fromEntries(
       indexable.map((doc) => [
         doc.language as string,
-        `${siteUrl}${getPathname({ href: route.href, locale: doc.language as string })}`,
+        routeUrl(route.href, doc.language as string),
       ]),
     );
 
@@ -112,7 +109,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     for (const doc of indexable) {
       entries.push({
-        url: `${siteUrl}${getPathname({ href: route.href, locale: doc.language as string })}`,
+        url: routeUrl(route.href, doc.language as string),
         lastModified: doc._updatedAt,
         alternates: { languages },
       });
@@ -142,7 +139,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const languages: Record<string, string> = Object.fromEntries(
         group.map((doc) => [
           doc.language as string,
-          `${siteUrl}${getPathname({ href: `/${doc.slug}`, locale: doc.language as string })}`,
+          routeUrl(`/${doc.slug}`, doc.language as string),
         ]),
       );
 
@@ -153,7 +150,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
       for (const doc of group) {
         entries.push({
-          url: `${siteUrl}${getPathname({ href: `/${doc.slug}`, locale: doc.language as string })}`,
+          url: routeUrl(`/${doc.slug}`, doc.language as string),
           lastModified: doc._updatedAt,
           alternates: { languages },
         });
