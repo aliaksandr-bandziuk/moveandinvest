@@ -189,5 +189,14 @@
     },
     "linkFromMethod": "See the working: every figure and its source →",
     "linkFromPage": "See the working →"
+  },
+  "faq": {
+    "breadcrumb": "FAQ",
+    "sourcesLabel": "Checked against",
+    "allSources": "Every figure on this site, and where it came from",
+    "sourceSections": {
+      "citizenship": "Citizenship"
+    },
+    "linkLabel": "Fifty-two questions, answered from the statute"
   }
 }

@@ -189,5 +189,14 @@
     },
     "linkFromMethod": "Zobacz wyliczenia: każda liczba i jej źródło →",
     "linkFromPage": "Zobacz wyliczenia →"
+  },
+  "faq": {
+    "breadcrumb": "Pytania",
+    "sourcesLabel": "Sprawdzone z",
+    "allSources": "Każda liczba na tej stronie i skąd pochodzi",
+    "sourceSections": {
+      "citizenship": "Obywatelstwo"
+    },
+    "linkLabel": "Pięćdziesiąt dwa pytania, odpowiedziane z ustawy"
   }
 }

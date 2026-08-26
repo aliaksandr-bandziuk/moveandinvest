@@ -224,7 +224,8 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         kind: "official",
       },
       {
-        citation: "AIMA — ARI, subparagraphs ii, v, vi, viii (the other routes)",
+        citation:
+          "AIMA — ARI, subparagraphs ii, v, vi, viii (the other routes)",
         url: "https://aima.gov.pt/documents/ari-subalinea-2.pdf",
         kind: "official",
       },
@@ -288,10 +289,31 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Warunki, o których strona nie wspominała",
         },
         verdict: "added",
+        // CORRECTED ON 25 AUGUST 2026 — and the correction is to THIS page
+        // rather than to a jurisdiction page. The row used to read "a €50,000
+        // fine, or €150,000 and withdrawal of the permit where the property is
+        // used as an office or transferred in breach", which had the tiers the
+        // wrong way round on both counts.
+        //
+        // Read verbatim, art. 100 §7A puts the sanctions in three separate
+        // sentences: breach of EITHER prohibition — sharing-economy letting,
+        // sub-letting, or use as a company seat — revokes the permit AND
+        // carries €50,000; €150,000 attaches to failing the restoration
+        // condition of §4, with no revocation stated; and a transfer against
+        // §2(δ) carries €150,000 WITH revocation. Revocation was never
+        // exclusive to the higher tier, and office use was never in it.
+        //
+        // WHY THIS ONE MATTERS MORE THAN ITS SIZE. The Greek property page's
+        // own prose already said it correctly — "both a €50,000 administrative
+        // fine and revocation of the permit" — so the site was stating two
+        // different things about one statute on two pages, and the wrong one
+        // was on the page whose entire job is being right. That is the exact
+        // failure this project had just catalogued in a competitor, whose hub
+        // page contradicts its own country page on the citizenship timeline.
         finding: {
-          en: "The property must be a single one, at least 120 m² of principal space. Short-term letting is forbidden outright: a €50,000 fine, or €150,000 and withdrawal of the permit where the property is used as an office or transferred in breach.",
-          ru: "Объект должен быть один, минимум 120 м² основных помещений. Краткосрочная сдача запрещена прямо: штраф €50 000, а при использовании под офис или передаче в нарушение — €150 000 и отзыв разрешения.",
-          pl: "Nieruchomość musi być jedna, co najmniej 120 m² powierzchni głównej. Najem krótkoterminowy jest wprost zakazany: kara €50 000, a przy wykorzystaniu na biuro lub przeniesieniu z naruszeniem — €150 000 i cofnięcie zezwolenia.",
+          en: "The property must be a single one, at least 120 m² of principal space. Art. 100 §7A: sharing-economy letting, sub-letting and use as a company seat each revoke the permit and carry €50,000. €150,000 is separate — for failing the restoration condition of §4, without revocation, and for a transfer against §2(δ), with it.",
+          ru: "Объект должен быть один, минимум 120 м² основных помещений. Ст. 100 §7A: краткосрочная сдача через сервисы, субаренда и использование под офис компании — каждое влечёт отзыв разрешения и штраф €50 000. €150 000 — отдельно: за невыполнение условия о восстановлении по §4, без отзыва, и за передачу вопреки §2(δ), с отзывом.",
+          pl: "Nieruchomość musi być jedna, co najmniej 120 m² powierzchni głównej. Art. 100 §7A: najem w ramach ekonomii współdzielenia, podnajem i wykorzystanie jako siedziba spółki — każde powoduje cofnięcie zezwolenia i karę €50 000. €150 000 osobno: za niespełnienie warunku odbudowy z §4, bez cofnięcia, i za przeniesienie wbrew §2(δ), z cofnięciem.",
         },
       },
       {
@@ -336,7 +358,8 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
     ],
     sources: [
       {
-        citation: "Law 5038/2023, art. 100 — ΦΕΚ Α΄ 81/01.04.2023, as amended by art. 64 of Law 5100/2024",
+        citation:
+          "Law 5038/2023, art. 100 — ΦΕΚ Α΄ 81/01.04.2023, as amended by art. 64 of Law 5100/2024",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/100",
         kind: "reproduction",
         caveat: {
@@ -693,7 +716,8 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         kind: "official",
       },
       {
-        citation: "Greek Citizenship Code (Law 3284/2004), Ministry of the Interior",
+        citation:
+          "Greek Citizenship Code (Law 3284/2004), Ministry of the Interior",
         url: "https://www.ypes.gr/kodikas-ellinikis-ithageneias/",
         kind: "official",
       },
@@ -777,4 +801,5 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
 // and Polish group thousands with a space, and at any width "€220 000" duly
 // broke across two lines the first time this page rendered. Applied at the
 // export so a future consumer cannot forget it. See src/lib/typography.ts.
-export const SOURCE_SECTIONS: SourceSection[] = tightenDeep(SOURCE_SECTIONS_RAW);
+export const SOURCE_SECTIONS: SourceSection[] =
+  tightenDeep(SOURCE_SECTIONS_RAW);

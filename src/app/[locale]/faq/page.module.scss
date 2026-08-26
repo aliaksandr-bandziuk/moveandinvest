@@ -1,0 +1,49 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // Narrower than /sources' 94rem: that page is a three-column table, this one
+  // is a column of questions and a column of prose. Past about 82rem the
+  // question row and its answer stop reading as one thing.
+  --container-max-width: 82rem;
+}
+
+.howToRead {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.back {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+// --- One section of questions ------------------------------------------------
+// The heading carries its own rule above it rather than sitting on the
+// accordion's first hairline: without it, a section title reads as though it
+// belonged to the question below it rather than to the eight that follow.
+.group {
+  margin-top: var(--space-8);
+
+  @include mixins.breakpoint-up(md) {
+    margin-top: var(--space-9);
+  }
+}
+
+.groupTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: -0.015em;
+}
+
+.groupIntro {
+  margin-top: var(--space-3);
+  max-width: 62ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

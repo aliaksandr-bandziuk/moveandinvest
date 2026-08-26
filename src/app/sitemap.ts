@@ -45,6 +45,7 @@ const ROUTES: SingletonRoute[] = [
   { href: "/for-partners", documentType: "partnersPage" },
   { href: "/about", documentType: "aboutPage" },
   { href: "/sources", documentType: "sourcesPage" },
+  { href: "/faq", documentType: "faqPage" },
   { href: "/contacts", documentType: "contactsPage" },
   { href: "/privacy", documentType: "privacyPage" },
 ];
@@ -64,8 +65,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ).then((docs) => ({ route, docs })),
       ),
     ),
-    sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_COUNTRY_QUERY, {}, ["countryPage"]),
-    sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_PROPERTY_QUERY, {}, ["propertyPage"]),
+    sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_COUNTRY_QUERY, {}, [
+      "countryPage",
+    ]),
+    sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_PROPERTY_QUERY, {}, [
+      "propertyPage",
+    ]),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -82,7 +87,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // buildMetadata does for the page's own <link rel="alternate">, where it
     // is correct because the URL is known statically — would reintroduce
     // exactly that mismatch here, where the document may not exist.
-    const indexable = docs.filter((doc) => isLocale(doc.language) && doc.noIndex !== true);
+    const indexable = docs.filter(
+      (doc) => isLocale(doc.language) && doc.noIndex !== true,
+    );
     if (indexable.length === 0) continue;
 
     const languages: Record<string, string> = Object.fromEntries(
@@ -129,7 +136,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const addGrouped = (docs: SitemapCountryDoc[]) => {
     const byCountry = new Map<string, SitemapCountryDoc[]>();
     for (const doc of docs) {
-      if (!doc.countryId || !doc.slug || !isLocale(doc.language) || doc.noIndex === true) continue;
+      if (
+        !doc.countryId ||
+        !doc.slug ||
+        !isLocale(doc.language) ||
+        doc.noIndex === true
+      )
+        continue;
       const group = byCountry.get(doc.countryId) ?? [];
       group.push(doc);
       byCountry.set(doc.countryId, group);

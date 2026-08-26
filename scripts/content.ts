@@ -4,6 +4,7 @@ import { CONTACT_EMAIL, PARTNERS_COPY } from "./copy/partners";
 import { PRIVACY_COPY } from "./copy/privacy";
 import { ABOUT_COPY } from "./copy/about";
 import { SOURCES_PAGE_COPY } from "./copy/sourcesPage";
+import { FAQ_PAGE_COPY } from "./copy/faqPage";
 import { CONTACTS_COPY } from "./copy/contacts";
 
 // Writes the page copy from scripts/copy/ onto the homePage and partnersPage
@@ -105,7 +106,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
 
   const docs = await client.fetch<Doc[]>(
-    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage"]] | order(_id asc){ _id, _type }`,
+    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage", "faqPage"]] | order(_id asc){ _id, _type }`,
   );
 
   if (docs.length === 0) {
@@ -144,6 +145,16 @@ async function run() {
   const existingSources = new Set(
     docs
       .filter((d) => d._type === "sourcesPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
+  // Same arrangement as /about, /sources and the policy: added after the seed,
+  // so its three documents may not exist and createOrReplace is safe. Every
+  // field on it is generated — the questions themselves are not in Sanity at
+  // all, they are in src/lib/faqData.ts.
+  const existingFaqPage = new Set(
+    docs
+      .filter((d) => d._type === "faqPage")
       .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
@@ -252,6 +263,22 @@ async function run() {
       });
       planned += 1;
       console.log(`  ${doc._id.padEnd(28)} sources / working`);
+      continue;
+    }
+
+    if (doc._type === "faqPage") {
+      const copy = FAQ_PAGE_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          howToRead: copy.howToRead,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} faq page head`);
       continue;
     }
 
@@ -421,6 +448,25 @@ async function run() {
     transaction.createOrReplace({
       _id: id,
       _type: "sourcesPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      howToRead: copy.howToRead,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `faqPage-${locale}`;
+    if (existingFaqPage.has(id)) continue;
+
+    const copy = FAQ_PAGE_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "faqPage",
       language: locale,
       eyebrow: copy.eyebrow,
       heading: copy.heading,

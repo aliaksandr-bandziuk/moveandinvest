@@ -226,24 +226,24 @@ export default async function HomePage({
     })),
   };
 
-  // A second block rather than a branch of the first: FAQPage is its own
-  // top-level type, and the questions are the single most quotable thing on
-  // the page. Every question is included, not just the ones a filter would
-  // currently show — the filter is a reading aid, not a statement about what
-  // the page covers.
-  const faqJsonLd =
-    faqEntries.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          inLanguage: locale,
-          mainEntity: faqEntries.map((entry) => ({
-            "@type": "Question",
-            name: entry.question,
-            acceptedAnswer: { "@type": "Answer", text: entry.answer },
-          })),
-        }
-      : null;
+  // NO FAQPage HERE, SINCE 25 AUGUST 2026, and the removal is deliberate.
+  //
+  // This block used to emit one over the six questions the section below shows.
+  // Two things changed. Google removed FAQ rich results from Search on 7 May
+  // 2026 — the Search Console report followed in June and the API in August —
+  // so the markup no longer produces anything visible there, and the warning in
+  // jsonLd.ts about "losing the rich result" now describes a thing that does not
+  // exist to lose.
+  //
+  // The one that actually decides it is the rule this project already holds
+  // itself to: the markup must describe what is visibly on the page. `FAQPage`
+  // is a claim that the page IS a list of questions and answers. That was a
+  // stretch when six of them sat in section 06 of a home page; once /faq exists
+  // and carries all fifty-two, it is simply wrong — the home page shows an
+  // excerpt, and the canonical set lives at one URL.
+  //
+  // The questions themselves are unchanged and still rendered below. What went
+  // away is the assertion about what kind of document this is, not the content.
 
   return (
     <main>
@@ -252,13 +252,6 @@ export default async function HomePage({
         // Serialised from an object built above, never from user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {faqJsonLd ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
-      ) : null}
-
       <HomeHero
         eyebrow={home.hero.eyebrow}
         heading={home.hero.heading}
@@ -332,8 +325,14 @@ export default async function HomePage({
             index: "01",
             legend: home.routeFinder.questions.budget.legend,
             options: [
-              { value: "500", label: home.routeFinder.questions.budget.upTo500 },
-              { value: "800", label: home.routeFinder.questions.budget.upTo800 },
+              {
+                value: "500",
+                label: home.routeFinder.questions.budget.upTo500,
+              },
+              {
+                value: "800",
+                label: home.routeFinder.questions.budget.upTo800,
+              },
               { value: "any", label: home.routeFinder.questions.budget.any },
             ],
           },
@@ -343,7 +342,10 @@ export default async function HomePage({
             legend: home.routeFinder.questions.speed.legend,
             options: [
               { value: "fast", label: home.routeFinder.questions.speed.fast },
-              { value: "half-year", label: home.routeFinder.questions.speed.half },
+              {
+                value: "half-year",
+                label: home.routeFinder.questions.speed.half,
+              },
               { value: "any", label: home.routeFinder.questions.speed.any },
             ],
           },
@@ -352,9 +354,15 @@ export default async function HomePage({
             index: "03",
             legend: home.routeFinder.questions.priority.legend,
             options: [
-              { value: "passport", label: home.routeFinder.questions.priority.passport },
+              {
+                value: "passport",
+                label: home.routeFinder.questions.priority.passport,
+              },
               { value: "tax", label: home.routeFinder.questions.priority.tax },
-              { value: "speed", label: home.routeFinder.questions.priority.speed },
+              {
+                value: "speed",
+                label: home.routeFinder.questions.priority.speed,
+              },
             ],
           },
         ]}

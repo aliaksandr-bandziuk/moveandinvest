@@ -315,6 +315,14 @@ export interface SourcesPage {
   seo: SeoResult;
 }
 
+export interface FaqPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  howToRead: string;
+  seo: SeoResult;
+}
+
 export interface ContactsPage {
   eyebrow: string;
   heading: string;

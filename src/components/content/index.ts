@@ -6,3 +6,4 @@ export {
   type AuthorBlock,
 } from "./MethodDocument";
 export { SourceTable, type SourceTableLabels, type VerdictLabels } from "./SourceTable";
+export { FaqAccordion, type FaqAccordionLabels } from "./FaqAccordion";

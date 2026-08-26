@@ -45,7 +45,12 @@ export const FOOTER_GROUPS: FooterGroup[] = [
       { key: "method", href: "/#method" },
       { key: "cost", href: "/#cost" },
       { key: "route", href: "/#route" },
-      { key: "faq", href: "/#faq" },
+      // REPOINTED FROM "/#faq" ON 25 AUGUST 2026, when /faq was published.
+      // The home page still has its section 06 and still has that id, so the
+      // old anchor was not broken — it was just aimed at six questions when
+      // fifty-two exist. A footer link named "Common questions" should land on
+      // the page that answers them, not on an excerpt of it.
+      { key: "faq", href: "/faq" },
       { key: "enquiry", href: "/#enquiry" },
     ],
   },

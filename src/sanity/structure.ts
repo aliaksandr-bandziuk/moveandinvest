@@ -13,6 +13,7 @@ export const SINGLETON_TYPES = new Set([
   "aboutPage",
   "sourcesPage",
   "contactsPage",
+  "faqPage",
 ]);
 
 // Types whose delete and duplicate actions are removed. Today that is
@@ -92,6 +93,7 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       singletonListItem(S, "aboutPage", "About the project"),
       singletonListItem(S, "sourcesPage", "Sources and working"),
+      singletonListItem(S, "faqPage", "FAQ page"),
       singletonListItem(S, "contactsPage", "Contact"),
       singletonListItem(S, "privacyPage", "Privacy policy"),
       singletonListItem(S, "siteSettings", "Site settings"),

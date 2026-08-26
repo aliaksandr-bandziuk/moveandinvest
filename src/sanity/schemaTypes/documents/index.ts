@@ -3,6 +3,7 @@ import { contactsPage } from "./contactsPage";
 import { country } from "./country";
 import { countryPage } from "./countryPage";
 import { faqItem } from "./faqItem";
+import { faqPage } from "./faqPage";
 import { homePage } from "./homePage";
 import { partnersPage } from "./partnersPage";
 import { privacyPage } from "./privacyPage";
@@ -19,6 +20,7 @@ export const documentTypes = [
   aboutPage,
   sourcesPage,
   contactsPage,
+  faqPage,
   // Jurisdictions: a language-neutral registry plus its translated pages
   country,
   countryPage,

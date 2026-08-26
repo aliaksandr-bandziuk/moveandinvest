@@ -197,6 +197,17 @@ export const SOURCES_PAGE_QUERY = groq`
   }
 `;
 
+// The FAQ page. Five fields and no body, exactly like the sources page above:
+// the fifty-two questions and their answers are in src/lib/faqData.ts, which is
+// code-owned so that a figure cannot move without its evidence moving with it.
+export const FAQ_PAGE_TAGS = ["faqPage", "siteSettings"];
+
+export const FAQ_PAGE_QUERY = groq`
+  *[_type == "faqPage" && language == $locale][0]{
+    eyebrow, heading, intro, howToRead, seo
+  }
+`;
+
 // The contact page. The CHANNELS are not in here and never will be — they live
 // in src/lib/contactChannels.ts so that one definition feeds the page, the
 // ContactPoint in the JSON-LD and the footer at once. See contactsPage.ts.
