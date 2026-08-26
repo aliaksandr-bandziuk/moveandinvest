@@ -4,7 +4,17 @@
     "compare": "Porównanie",
     "about": "O projekcie",
     "forPartners": "Dla partnerów",
-    "navLabel": "Nawigacja główna"
+    "navLabel": "Nawigacja główna",
+    "links": {
+      "countries": "Jurysdykcje",
+      "faq": "Pytania",
+      "working": "Źródła",
+      "about": "O projekcie",
+      "forPartners": "Dla partnerów",
+      "enquiry": "Wyślij zapytanie"
+    },
+    "menu": "Menu",
+    "soon": "wkrótce"
   },
   "cta": {
     "compareCountries": "Porównaj jurysdykcje",

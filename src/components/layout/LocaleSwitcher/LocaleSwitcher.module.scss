@@ -1,22 +1,84 @@
 @use "../../../styles/mixins";
 
 // Lives on the black plane, so every value here is an on-dark one.
+//
+// A DROPDOWN, AND DELIBERATELY QUIET. What this replaced was three bordered
+// chips in a row: readable, but weighted like a primary control next to the
+// enquiry button — more than the language choice is worth, since almost every
+// reader arrives in the language they want and never touches it. Now it is one
+// grey code with a chevron.
 .switcher {
-  display: flex;
-  gap: var(--space-1);
+  position: relative;
 }
 
-.item,
-.current {
+.trigger {
   @include mixins.focus-ring-on-dark;
   @include mixins.tap-target;
 
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  color: var(--color-on-dark-muted);
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.trigger:hover {
+  color: var(--color-on-dark);
+}
+
+// Sized here, drawn in src/components/ui/Chevron. The box wraps the stroke, so
+// `align-items: center` centres it correctly with no optical correction — the
+// negative margin this used to need was compensating for a shape whose box was
+// bigger than its ink.
+.chevron {
+  width: 0.5rem;
+  height: auto;
+  flex: 0 0 auto;
+  transition: transform 160ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+// Turns over about its own centre, because the centre of the box and the centre
+// of the mark are now the same point.
+.switcher[open] .chevron {
+  transform: rotate(180deg);
+}
+
+// Right-aligned rather than left: this sits near the end of the header row, and
+// a panel opening rightwards from here would hang off the viewport edge on a
+// narrow desktop.
+.list {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 1;
+  min-width: 6rem;
   margin: 0;
-  // Inline padding only; the height comes from the tap target above, so the
-  // three chips stay the size they look rather than the size they measured.
-  padding-inline: var(--space-3);
-  border: var(--border-hairline) solid var(--color-on-dark-border);
+  padding: var(--space-2) 0;
+  list-style: none;
+  background-color: var(--color-dark);
+  border: var(--border-hairline) solid var(--color-on-dark-hairline);
   border-radius: var(--radius-s);
+}
+
+.item,
+.current,
+.absent {
+  @include mixins.focus-ring-on-dark;
+
+  display: block;
+  padding: var(--space-2) var(--space-4);
   font-family: var(--font-body);
   font-size: var(--fs-nano);
   line-height: var(--lh-nano);
@@ -26,14 +88,25 @@
 }
 
 .item:hover {
-  border-color: var(--color-on-dark);
   color: var(--color-on-dark);
 }
 
-// Inverted rather than tinted: the accent is unreadable on this background,
-// and a filled white chip is the clearest "you are here" available.
+// "You are here", without the filled chip the old row used. Inside a panel of
+// three, white text against two grey ones already says it — and a block of
+// white in a dropdown reads as a hover state, not as a selection.
 .current {
-  background-color: var(--color-on-dark);
-  border-color: var(--color-on-dark);
-  color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+// A language this page does not exist in. Rendered, so the reader can see the
+// site has three and this page has two, but not as a link — the same rule the
+// footer holds for its unwritten guides, and the rule this component was
+// breaking on twenty-eight URLs until 25 August 2026.
+//
+// Not --color-on-dark-hairline: at white/10% the row is invisible rather than
+// muted, and a language the reader cannot see is one they cannot know is
+// missing. Same value the footer uses for its unwritten pages.
+.absent {
+  color: var(--color-map-pending);
+  cursor: not-allowed;
 }

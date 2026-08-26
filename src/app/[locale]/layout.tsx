@@ -2,10 +2,18 @@ import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { AnalyticsLoader, CookieBanner, Footer, Header, ScrollDivider, type FooterJurisdiction } from "@/components/layout";
+import {
+  AnalyticsLoader,
+  CookieBanner,
+  Footer,
+  Header,
+  ScrollDivider,
+  type FooterJurisdiction,
+} from "@/components/layout";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
 import { getSiteUrl, isProductionDeployment } from "@/lib/site";
+import { getSlugMap } from "@/lib/slugMap";
 import { sanityFetch } from "@/sanity/client";
 import { imageDimensions, urlFor } from "@/sanity/image";
 import {
@@ -52,9 +60,18 @@ export default async function LocaleLayout({
   // second caller rather than hitting Sanity twice. The footer lists the five
   // jurisdictions from the registry rather than from a hand-written list —
   // one place decides which jurisdictions exist, and the footer inherits it.
-  const [settings, countries] = await Promise.all([
-    sanityFetch<SiteSettingsResult | null>(SITE_SETTINGS_QUERY, { locale }, HOME_TAGS),
+  const [settings, countries, slugMap] = await Promise.all([
+    sanityFetch<SiteSettingsResult | null>(
+      SITE_SETTINGS_QUERY,
+      { locale },
+      HOME_TAGS,
+    ),
     sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, HOME_TAGS),
+    // Language-neutral on purpose: it maps every localised slug onto its
+    // siblings, so it is the same object whichever locale is rendering. One
+    // fetch in the layout rather than one per page — see src/lib/slugMap.ts
+    // for the 404s that existed before it.
+    getSlugMap(),
   ]);
 
   // Optional by design: with no photograph uploaded the divider is not
@@ -95,7 +112,11 @@ export default async function LocaleLayout({
             validation. Page content always comes from Sanity (CLAUDE.md),
             never from the message catalogues. */}
         <NextIntlClientProvider>
-          <Header locale={locale} />
+          <Header
+            locale={locale}
+            slugMap={slugMap}
+            jurisdictions={jurisdictions}
+          />
           {children}
           {/* Between the last section and the footer on every page. The
               reveal is pure CSS — see ScrollDivider for how, and for the one

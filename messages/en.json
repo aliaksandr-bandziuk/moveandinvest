@@ -4,7 +4,17 @@
     "compare": "Compare",
     "about": "About",
     "forPartners": "For partners",
-    "navLabel": "Main"
+    "navLabel": "Main",
+    "links": {
+      "countries": "Jurisdictions",
+      "faq": "Questions",
+      "working": "Sources",
+      "about": "About",
+      "forPartners": "For partners",
+      "enquiry": "Send an enquiry"
+    },
+    "menu": "Menu",
+    "soon": "soon"
   },
   "cta": {
     "compareCountries": "Compare jurisdictions",

@@ -22,7 +22,6 @@ import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import {
   buildBreadcrumbListJsonLd,
-  buildFaqPageJsonLd,
   buildJurisdictionPageJsonLd,
 } from "@/lib/jsonLd";
 import { CONTROLLER } from "@/lib/controller";
@@ -144,7 +143,10 @@ type Resolved =
 // Both types, one round trip's worth of latency. Not sequential: a sequential
 // lookup would make every property page pay for a miss on the jurisdiction
 // query first, and property pages are half the routes here.
-async function resolveSlug(locale: string, slug: string): Promise<Resolved | null> {
+async function resolveSlug(
+  locale: string,
+  slug: string,
+): Promise<Resolved | null> {
   const [jurisdiction, property] = await Promise.all([
     getPage(locale, slug),
     getPropertyPage(locale, slug),
@@ -188,7 +190,11 @@ function localizedPaths(
   return paths;
 }
 
-export async function generateStaticParams({ params }: { params: { locale: string } }) {
+export async function generateStaticParams({
+  params,
+}: {
+  params: { locale: string };
+}) {
   const [countries, properties] = await Promise.all([
     sanityFetchPublished<{ slug: string }[]>(
       COUNTRY_SLUGS_QUERY,
@@ -227,7 +233,10 @@ export async function generateMetadata({
   const canonical = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
 
   const languages = Object.fromEntries(
-    Object.entries(paths).map(([language, path]) => [language, `${siteUrl}${path}`]),
+    Object.entries(paths).map(([language, path]) => [
+      language,
+      `${siteUrl}${path}`,
+    ]),
   );
   const defaultPath = paths[routing.defaultLocale];
 
@@ -285,7 +294,11 @@ async function renderProperty({
     // The five jurisdictions with their localized labels, from the registry —
     // the same source the footer and the table use, so a sixth country appears
     // in the change list the day it appears anywhere else.
-    sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, COUNTRY_TAGS),
+    sanityFetch<CountryRowResult[]>(
+      COUNTRY_ROWS_QUERY,
+      { locale },
+      COUNTRY_TAGS,
+    ),
   ]);
 
   const siteUrl = getSiteUrl();
@@ -297,11 +310,19 @@ async function renderProperty({
   const sections: PropertySection[] = (
     [
       { id: "who-may-buy", heading: t("whoMayBuy"), body: page.whoMayBuy },
-      { id: "costs", heading: t("transactionCosts"), body: page.transactionCosts },
+      {
+        id: "costs",
+        heading: t("transactionCosts"),
+        body: page.transactionCosts,
+      },
       { id: "steps", heading: t("steps"), body: page.steps },
       { id: "annual", heading: t("annualCosts"), body: page.annualCosts },
       { id: "short-let", heading: t("shortLet"), body: page.shortLet },
-      { id: "residency", heading: t("residencyLink"), body: page.residencyLink },
+      {
+        id: "residency",
+        heading: t("residencyLink"),
+        body: page.residencyLink,
+      },
     ] satisfies PropertySection[]
   ).filter((section) => Boolean(section.body));
 
@@ -455,36 +476,40 @@ export default async function JurisdictionPage({
 
   // The FAQ needs the country id, which only the page document knows, so these
   // two cannot be parallelised with it — but they can with each other.
-  const [faq, columns, propertyLink, t, tProperty, tAlerts, tSources, rows] = await Promise.all([
-    sanityFetch<CountryFaqResult[]>(
-      COUNTRY_FAQ_QUERY,
-      { locale, countryId: page.countryId },
-      COUNTRY_TAGS,
-    ),
-    sanityFetch<TableColumnsResult | null>(TABLE_COLUMNS_QUERY, { locale }, ["homePage"]),
-    // The buying half, if it has been written in this language. Null is the
-    // normal state for a jurisdiction whose property page does not exist yet,
-    // and the link is simply absent then.
-    sanityFetch<PropertyLinkResult | null>(
-      PROPERTY_LINK_QUERY,
-      { locale, countryId: page.countryId },
-      PROPERTY_TAGS,
-    ),
-    getTranslations("country"),
-    getTranslations("property"),
-    getTranslations("alerts"),
-    getTranslations("sources"),
-    sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, COUNTRY_TAGS),
-  ]);
+  const [faq, columns, propertyLink, t, tProperty, tAlerts, tSources, rows] =
+    await Promise.all([
+      sanityFetch<CountryFaqResult[]>(
+        COUNTRY_FAQ_QUERY,
+        { locale, countryId: page.countryId },
+        COUNTRY_TAGS,
+      ),
+      sanityFetch<TableColumnsResult | null>(TABLE_COLUMNS_QUERY, { locale }, [
+        "homePage",
+      ]),
+      // The buying half, if it has been written in this language. Null is the
+      // normal state for a jurisdiction whose property page does not exist yet,
+      // and the link is simply absent then.
+      sanityFetch<PropertyLinkResult | null>(
+        PROPERTY_LINK_QUERY,
+        { locale, countryId: page.countryId },
+        PROPERTY_TAGS,
+      ),
+      getTranslations("country"),
+      getTranslations("property"),
+      getTranslations("alerts"),
+      getTranslations("sources"),
+      sanityFetch<CountryRowResult[]>(
+        COUNTRY_ROWS_QUERY,
+        { locale },
+        COUNTRY_TAGS,
+      ),
+    ]);
 
   const siteUrl = getSiteUrl();
   const paths = localizedPaths(page.alternates);
   const path = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
 
-  const trail: Crumb[] = [
-    { name: t("home"), href: "/" },
-    { name: page.name },
-  ];
+  const trail: Crumb[] = [{ name: t("home"), href: "/" }, { name: page.name }];
 
   // The same trail, absolute, for the markup. One array, two shapes: the
   // visible nav needs locale-aware relative hrefs, the markup needs full URLs,
@@ -494,7 +519,18 @@ export default async function JurisdictionPage({
     { name: page.name, url: `${siteUrl}${path}` },
   ]);
 
-  const faqJsonLd = buildFaqPageJsonLd(faq);
+  // NO FAQPage HERE, SINCE 25 AUGUST 2026 — removed the same day and for the
+  // same reason as the home page's. `FAQPage` asserts that the document IS a
+  // list of questions and answers. This is a jurisdiction page that happens to
+  // carry a filtered block of them, and once /faq publishes all fifty-two at
+  // one URL, marking up a per-country subset at twelve more says the same thing
+  // twelve times about pages that are not FAQs.
+  //
+  // Nothing is lost that a reader or a crawler can see: the questions are still
+  // rendered here, still in the HTML, still tagged to this jurisdiction. What
+  // went away is the claim about what kind of document this is — and Google's
+  // FAQ rich result, which was the only thing that ever rewarded the claim,
+  // was removed from Search on 7 May 2026.
 
   const pageJsonLd = buildJurisdictionPageJsonLd({
     url: `${siteUrl}${path}`,
@@ -504,18 +540,23 @@ export default async function JurisdictionPage({
   });
 
   const facts: Fact[] = [
-    { label: columns?.minimumInvestment ?? "", value: page.minimumInvestment ?? "" },
+    {
+      label: columns?.minimumInvestment ?? "",
+      value: page.minimumInvestment ?? "",
+    },
     { label: columns?.timeToPermit ?? "", value: page.timeToPermit ?? "" },
     { label: columns?.taxRegime ?? "", value: page.taxRegime ?? "" },
   ].filter((fact) => fact.label !== "");
 
   const hasCost =
-    typeof page.costAdvertisedEur === "number" && typeof page.costExtrasEur === "number";
+    typeof page.costAdvertisedEur === "number" &&
+    typeof page.costExtrasEur === "number";
 
   return (
     <main>
-      {/* Three separate scripts rather than one @graph. Each describes a
-          different thing, and a malformed one invalidates only itself. */}
+      {/* Two separate scripts rather than one @graph. Each describes a
+          different thing, and a malformed one invalidates only itself. Was
+          three until the FAQPage was removed — see above. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
@@ -524,12 +565,6 @@ export default async function JurisdictionPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      {faqJsonLd ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
-      ) : null}
 
       <CountryHero
         trail={trail}
@@ -559,7 +594,12 @@ export default async function JurisdictionPage({
           // /sources: a reader who wants the working for Greece should not
           // land on Portugal's.
           workingLink={
-            page.code ? { href: `/sources#${page.code}`, label: tSources("linkFromPage") } : null
+            page.code
+              ? {
+                  href: `/sources#${page.code}`,
+                  label: tSources("linkFromPage"),
+                }
+              : null
           }
           locale={locale}
         />
@@ -592,7 +632,9 @@ export default async function JurisdictionPage({
       {faq.length > 0 ? (
         <section className={styles.faq} id="faq">
           <div className="container">
-            <h2 className={styles.faqHeading}>{t("faqHeading", { name: page.name })}</h2>
+            <h2 className={styles.faqHeading}>
+              {t("faqHeading", { name: page.name })}
+            </h2>
             <dl className={styles.faqList}>
               {faq.map((item) => (
                 <div key={item._id} className={styles.faqItem}>
@@ -618,7 +660,9 @@ export default async function JurisdictionPage({
       <section className={styles.cta}>
         <div className={`container ${styles.ctaInner}`}>
           <div>
-            <h2 className={styles.ctaHeading}>{t("ctaHeading", { name: page.name })}</h2>
+            <h2 className={styles.ctaHeading}>
+              {t("ctaHeading", { name: page.name })}
+            </h2>
             <p className={styles.ctaBody}>{t("ctaBody")}</p>
           </div>
           <EnquiryCtaLink code={page.code} className={styles.ctaButton}>

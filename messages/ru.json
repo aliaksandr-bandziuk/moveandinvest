@@ -4,7 +4,17 @@
     "compare": "Сравнение",
     "about": "О проекте",
     "forPartners": "Партнёрам",
-    "navLabel": "Основная навигация"
+    "navLabel": "Основная навигация",
+    "links": {
+      "countries": "Юрисдикции",
+      "faq": "Вопросы",
+      "working": "Источники",
+      "about": "О проекте",
+      "forPartners": "Партнёрам",
+      "enquiry": "Оставить заявку"
+    },
+    "menu": "Меню",
+    "soon": "скоро"
   },
   "cta": {
     "compareCountries": "Сравнить юрисдикции",

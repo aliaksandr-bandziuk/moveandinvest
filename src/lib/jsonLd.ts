@@ -9,8 +9,23 @@
 //
 // ONE RULE GOVERNS EVERY FUNCTION HERE: the markup must describe what is
 // visibly on the page, and nothing else. A FAQPage listing questions a reader
-// cannot see is the exact abuse the format is policed for, and the penalty is
-// losing the rich result entirely — worse than never having marked it up.
+// cannot see is the exact abuse the format is policed for.
+//
+// UPDATED 25 AUGUST 2026. This paragraph used to end "and the penalty is losing
+// the rich result entirely — worse than never having marked it up." There is no
+// longer a rich result to lose: Google removed FAQ rich results from Search on
+// 7 May 2026, the Search Console report followed in June and the API in August.
+// FAQPage remains a valid schema.org type and causes no harm; it just produces
+// nothing visible in Google any more.
+//
+// THE RULE SURVIVES THE PENALTY, and that is the point worth keeping. It was
+// never really enforced by the threat — it is enforced by what this site is
+// for. An engine that quotes us is trusting that the markup and the page say
+// the same thing, and a site whose entire product is traceability cannot be the
+// one that describes a document as something it is not. Which is why, the same
+// day this comment was corrected, FAQPage was removed from the home page and
+// from twelve jurisdiction pages: those are pages with a block of questions on
+// them, not pages that ARE a list of questions. It is emitted at /faq alone.
 
 // --- The publisher -----------------------------------------------------------
 // WHO SAYS SO. Until 24 Aug 2026 this file had no Organization node at all, and
@@ -198,7 +213,12 @@ interface AboutPageArgs {
 //
 // AboutPage rather than WebPage: the type exists, it is exactly what this is,
 // and it is the type an engine looks for when asked who publishes a site.
-export function buildAboutPageJsonLd({ url, name, description, locale }: AboutPageArgs) {
+export function buildAboutPageJsonLd({
+  url,
+  name,
+  description,
+  locale,
+}: AboutPageArgs) {
   const origin = new URL(url).origin;
 
   return {

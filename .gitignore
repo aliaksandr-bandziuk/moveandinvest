@@ -84,3 +84,9 @@ public/**/*.webm
 
 # parallax diagnostic output
 parallax-*.png
+
+# Partner research: named firms with commercial judgements on them ("do not
+# use", "competitor for our own traffic"). The repository is PUBLIC, and docs/
+# is tracked, so committing this would publish those judgements — findable by
+# the very firms it names. The file stays on disk and out of git.
+docs/partners-*.md
