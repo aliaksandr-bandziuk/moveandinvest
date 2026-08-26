@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { CountUp, InView, SectionHead } from "@/components/ui";
 
+import type { AppHref } from "@/lib/routes";
 import styles from "./CountryCost.module.scss";
 
 interface CountryCostProps {
@@ -15,7 +16,7 @@ interface CountryCostProps {
   /** The working behind these two figures, on /sources. Optional so the
    *  component stays usable before that page existed — but on a page that
    *  prints a cost, an unlinked claim of sourcing is weaker than a linked one. */
-  workingLink?: { href: string; label: string } | null;
+  workingLink?: { href: AppHref; label: string } | null;
   locale: string;
 }
 

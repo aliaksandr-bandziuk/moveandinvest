@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 import type { SeoResult } from "@/sanity/types";
 import { getSiteUrl, resolveRobots } from "./site";
+import type { AppPathname } from "./routes";
 import { routeUrl } from "./urls";
 
 interface BuildMetadataArgs {
   seo: SeoResult;
   locale: string;
   /** Locale-independent route, e.g. "/" or "/for-partners". */
-  href: string;
+  href: AppPathname;
 }
 
 // One place that turns a Sanity seo object into Next metadata, so canonical

@@ -3,13 +3,14 @@ import { Link } from "@/i18n/navigation";
 import { FOOTER_GROUPS } from "@/lib/footerNav";
 import { CookieSettingsButton } from "../CookieSettingsButton";
 
+import type { AppHref } from "@/lib/routes";
 import styles from "./Footer.module.scss";
 
 export interface FooterJurisdiction {
   id: string;
   name: string;
   /** Absent while the page for this locale is still a draft. */
-  href?: string;
+  href?: AppHref;
 }
 
 interface FooterProps {

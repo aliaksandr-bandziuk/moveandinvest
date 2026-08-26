@@ -2,6 +2,7 @@
 // `countryPage` document joined to its `country` — the components below
 // never fetch, so the same row data can come from Sanity, from a fixture in
 // the styleguide, or from a seed script without changing a component.
+import type { AppHref } from "@/lib/routes";
 export interface CountryRow {
   /** country._id — stable key across locales. */
   id: string;
@@ -11,7 +12,7 @@ export interface CountryRow {
   code: string;
   status: "live" | "planned" | "paused";
   /** Path to the jurisdiction page, without a locale prefix. Absent while planned. */
-  href?: string;
+  href?: AppHref;
   route: string;
   minimumInvestment: string;
   timeToPermit: string;

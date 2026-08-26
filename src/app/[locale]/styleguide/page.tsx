@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { CountryComparisonTable, type CountryRow } from "@/components/country";
 import { Button, Chip, Eyebrow } from "@/components/ui";
+import { slugHref } from "@/lib/routes";
 import styles from "./styleguide.module.scss";
 
 // Never indexed, in any environment: this route is a mirror of the design
@@ -22,7 +23,7 @@ const FIXTURE_ROWS: CountryRow[] = [
     name: "Portugal",
     code: "pt",
     status: "live",
-    href: "/portugal",
+    href: slugHref("portugal"),
     route: "Golden Visa (fund)",
     minimumInvestment: "€500,000",
     timeToPermit: "6–9 months",
@@ -33,7 +34,7 @@ const FIXTURE_ROWS: CountryRow[] = [
     name: "Greece",
     code: "gr",
     status: "live",
-    href: "/greece",
+    href: slugHref("greece"),
     route: "Golden Visa (property)",
     minimumInvestment: "€250,000",
     timeToPermit: "2–4 months",
@@ -44,7 +45,7 @@ const FIXTURE_ROWS: CountryRow[] = [
     name: "Malta",
     code: "mt",
     status: "live",
-    href: "/malta",
+    href: slugHref("malta"),
     route: "Permanent residence programme",
     minimumInvestment: "€300,000",
     timeToPermit: "4–6 months",
@@ -55,7 +56,7 @@ const FIXTURE_ROWS: CountryRow[] = [
     name: "UAE",
     code: "ae",
     status: "live",
-    href: "/uae",
+    href: slugHref("uae"),
     route: "Golden Visa (property)",
     minimumInvestment: "AED 2,000,000",
     timeToPermit: "3–6 weeks",

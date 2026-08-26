@@ -12,8 +12,20 @@
   margin: 0;
 }
 
-html,
-body {
+// `height` ON html ONLY, and this line is the whole reason the sticky header
+// stopped sticking after the hero. A percentage height on BODY makes body a
+// one-viewport-tall box, and `position: sticky` is confined to its nearest
+// scrolling ancestor's *containing block* — which is then that box. The header
+// stuck for the first ~100vh and then travelled off with the content.
+//
+// Measured, not reasoned: a repro page carrying these exact rules put the
+// header at y=-1786 at scroll 2600; changing only `html, body` to `html` here
+// held it at y=0 at every scroll position (0/400/900/1600/2600).
+//
+// body keeps `min-height: 100%` further down — that is what makes a short page
+// fill the screen, and it does not create the same trap because it is a floor
+// rather than a fixed size.
+html {
   height: 100%;
 }
 
@@ -54,6 +66,23 @@ textarea {
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+}
+
+// What lets a height animate to and from `auto` at all: without it the browser
+// has no two numbers to interpolate between and the transition is skipped in
+// silence. Every disclosure on the site that opens by growing depends on it —
+// the FAQ accordion and the header's jurisdictions submenu.
+//
+// MOVED HERE FROM FaqAccordion.module.scss, where it was a component stylesheet
+// reaching up to :root. That worked as long as the only such disclosure was on
+// /faq. The header is on every page, so a rule delivered only with the FAQ
+// bundle would have left its submenu opening instantly on the other forty-odd
+// URLs — a bug that would have looked like an inconsistent animation rather
+// than a missing import.
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
   }
 }
 

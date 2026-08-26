@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { PortableText } from "next-sanity";
 import { SectionHead } from "@/components/ui";
 
+import type { AppHref } from "@/lib/routes";
 import styles from "./MethodDocument.module.scss";
 
 export interface MethodSectionContent {
@@ -35,7 +36,7 @@ interface MethodDocumentProps {
    *  exactly one job: section 1 claims every figure has a law and a date, and
    *  the page that proves it is /sources. A claim whose evidence is one click
    *  away and unlinked is a claim nobody checks. */
-  sectionLink?: { inSectionId: string; href: string; label: string } | null;
+  sectionLink?: { inSectionId: string; href: AppHref; label: string } | null;
 }
 
 // The /about page.

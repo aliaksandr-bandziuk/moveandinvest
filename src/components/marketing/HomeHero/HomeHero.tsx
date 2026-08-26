@@ -1,14 +1,22 @@
 import { CountryComparisonTable, type CountryRow } from "@/components/country";
 import { Button, Reveal, SectionHead } from "@/components/ui";
-import type { CtaResult } from "@/sanity/types";
+import type { CtaHref } from "@/lib/routes";
+
+/** A CMS call to action after its href has been matched against the declared
+ *  routes — see parseHref. The page does that, not this component. */
+export interface ResolvedCta {
+  label: string;
+  href: CtaHref;
+}
 import styles from "./HomeHero.module.scss";
 
 export interface HeroContentsEntry {
   /** Two digits, the same number the section shows in its own head. */
   index: string;
   label: string;
-  /** Fragment on this page, e.g. "#cost". */
-  href: string;
+  /** Fragment on this page, e.g. "#cost". A bare fragment rather than a route:
+   *  every entry points at a section of the page it is already on. */
+  href: `#${string}`;
 }
 
 interface HomeHeroProps {
@@ -17,8 +25,8 @@ interface HomeHeroProps {
   updatedLabel: string;
   heading: string;
   intro: string;
-  primaryCta: CtaResult;
-  secondaryCta?: CtaResult;
+  primaryCta: ResolvedCta;
+  secondaryCta?: ResolvedCta | null;
   /** Heads the contents list. */
   contentsLabel: string;
   /** The eight sections of this page, assembled by the page itself. */

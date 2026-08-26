@@ -36,7 +36,13 @@ export interface Jurisdiction {
   id: string;
   code: string;
   name: string;
-  /** Undefined while the page is an unpublished draft. */
+  /** The page for this jurisdiction, ALREADY RESOLVED for the reader's
+   *  language. Undefined while the page is an unpublished draft.
+   *
+   *  A resolved string rather than a route object, unlike everywhere else in
+   *  this codebase: RouteFinder filters on the client and renders a plain <a>
+   *  rather than next-intl's Link, so there is nothing here to do the
+   *  resolution — the route is compiled once on the server, in the page. */
   href?: string;
   /** costAdvertisedEur, or null until both figures are verified. */
   advertised: number | null;

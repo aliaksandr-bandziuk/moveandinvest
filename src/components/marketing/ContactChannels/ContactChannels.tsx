@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { CHANNELS, formatPhone, whatsappHref } from "@/lib/contactChannels";
+import { ENQUIRY_HREF } from "@/lib/routes";
 import { CONTROLLER, controllerIdentity } from "@/lib/controller";
 
 import styles from "./ContactChannels.module.scss";
@@ -168,7 +169,7 @@ export function ContactChannels({ labels, locale, privacyHref }: ContactChannels
 
           <p className={styles.enquiry}>
             {labels.enquiryLead}{" "}
-            <Link className={styles.itemLink} href="/#enquiry">
+            <Link className={styles.itemLink} href={ENQUIRY_HREF}>
               {labels.enquiryCta}
             </Link>
           </p>

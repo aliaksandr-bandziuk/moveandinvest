@@ -1,11 +1,14 @@
 import { Link } from "@/i18n/navigation";
+import type { AppHref } from "@/lib/routes";
 
 import styles from "./Breadcrumbs.module.scss";
 
 export interface Crumb {
   name: string;
-  /** Absent on the last step — the page you are already on. */
-  href?: string;
+  /** Absent on the last step — the page you are already on. A route rather
+   *  than a string: the trail is rendered in three languages and every step
+   *  has to resolve in the one being read. */
+  href?: AppHref;
 }
 
 interface BreadcrumbsProps {

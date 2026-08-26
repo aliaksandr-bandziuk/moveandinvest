@@ -21,11 +21,13 @@
 // them: they come from Sanity already, and a second hand-written list of the
 // same five countries goes stale the week Cyprus goes live.
 
+import { ENQUIRY_HREF } from "./routes";
+import type { AppHref } from "./routes";
 export interface HeaderLink {
   /** Message key under `nav.links`. */
   key: string;
   /** Absent means the item is a submenu label and carries `children`. */
-  href?: string;
+  href?: AppHref;
   /** A submenu. One level only — a nav that needs two is a nav that needs a
    *  page instead. */
   children?: HeaderLink[];
@@ -54,4 +56,4 @@ export const HEADER_NAV: HeaderLink[] = [
  *  passed on, breaking that promise, or does not, in which case it collects
  *  addresses nobody answers. A dialog containing the same six fields is not a
  *  dialog, it is a page in a box. */
-export const HEADER_CTA = { key: "enquiry", href: "/#enquiry" } as const;
+export const HEADER_CTA = { key: "enquiry", href: ENQUIRY_HREF } as const;

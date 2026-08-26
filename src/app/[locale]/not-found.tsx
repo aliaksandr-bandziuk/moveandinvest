@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Button, Eyebrow } from "@/components/ui";
 
+import { homeSection } from "@/lib/routes";
 import styles from "./not-found.module.scss";
 
 // The 404, rendered inside the locale layout — so the header, the footer and
@@ -32,7 +33,7 @@ export default async function NotFound() {
         <p className={styles.body}>{t("body")}</p>
         <div className={styles.actions}>
           <Button href="/">{t("homeLabel")}</Button>
-          <Button href="/#comparison" variant="ghost">
+          <Button href={homeSection("comparison")} variant="ghost">
             {t("comparisonLabel")}
           </Button>
         </div>

@@ -1,4 +1,5 @@
 import { getPathname } from "@/i18n/navigation";
+import type { AppPathname } from "./routes";
 import { getSiteUrl } from "./site";
 
 // ONE FUNCTION THAT BUILDS AN ABSOLUTE URL FOR A ROUTE. Until 25 Aug 2026 the
@@ -34,7 +35,11 @@ import { getSiteUrl } from "./site";
 // across every URL on the site. So the sitemap is made to agree with the
 // canonical rather than the other way round. This only ever affects the root —
 // every other route has a non-empty path and no trailing slash to begin with.
-export function routeUrl(href: string, locale: string): string {
+// `AppPathname` rather than `string` since 26 August 2026, when the fixed
+// routes gained translated URLs. It is the same function; what changed is that
+// the caller can no longer hand it a path this site does not serve, which for a
+// canonical or an hreflang alternate is worth having enforced.
+export function routeUrl(href: AppPathname, locale: string): string {
   const path = getPathname({ href, locale });
   return `${getSiteUrl()}${path === "/" ? "" : path}`;
 }

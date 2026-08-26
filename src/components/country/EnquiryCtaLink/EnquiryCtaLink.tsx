@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { ENQUIRY_HREF } from "@/lib/routes";
 import { mergeRouteAnswers } from "@/lib/routeAnswers";
 
 interface EnquiryCtaLinkProps {
@@ -29,7 +30,7 @@ export function EnquiryCtaLink({ code, className, children }: EnquiryCtaLinkProp
   const remember = () => mergeRouteAnswers({ jurisdiction: code });
 
   return (
-    <Link className={className} href="/#enquiry" onClick={remember}>
+    <Link className={className} href={ENQUIRY_HREF} onClick={remember}>
       {children}
     </Link>
   );

@@ -90,7 +90,10 @@ export function FaqAccordion({
                   {item.sources.map((key, index) => (
                     <span key={key}>
                       {index > 0 ? <span aria-hidden="true"> · </span> : null}
-                      <Link href={`/sources#${key}`} className={styles.sourceLink}>
+                      <Link
+                        href={{ pathname: "/sources", hash: key }}
+                        className={styles.sourceLink}
+                      >
                         {labels.sectionNames[key] ?? key}
                       </Link>
                     </span>

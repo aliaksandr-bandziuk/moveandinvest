@@ -14,11 +14,13 @@
 // Sanity already, and a second hand-written list of the same five countries is
 // the kind of duplicate that goes stale the week Cyprus goes live.
 
+import { ENQUIRY_HREF, homeSection } from "./routes";
+import type { AppHref } from "./routes";
 export interface FooterLink {
   /** Message key under `footer.links`. */
   key: string;
   /** Absent means the page does not exist yet — rendered, but not a link. */
-  href?: string;
+  href?: AppHref;
   /** Opens in a new tab. Only for targets outside this site. */
   external?: boolean;
   /** Renders as a button that reopens the cookie banner instead of a link.
@@ -41,17 +43,17 @@ export const FOOTER_GROUPS: FooterGroup[] = [
   {
     key: "site",
     links: [
-      { key: "comparison", href: "/#comparison" },
-      { key: "method", href: "/#method" },
-      { key: "cost", href: "/#cost" },
-      { key: "route", href: "/#route" },
+      { key: "comparison", href: homeSection("comparison") },
+      { key: "method", href: homeSection("method") },
+      { key: "cost", href: homeSection("cost") },
+      { key: "route", href: homeSection("route") },
       // REPOINTED FROM "/#faq" ON 25 AUGUST 2026, when /faq was published.
       // The home page still has its section 06 and still has that id, so the
       // old anchor was not broken — it was just aimed at six questions when
       // fifty-two exist. A footer link named "Common questions" should land on
       // the page that answers them, not on an excerpt of it.
       { key: "faq", href: "/faq" },
-      { key: "enquiry", href: "/#enquiry" },
+      { key: "enquiry", href: ENQUIRY_HREF },
     ],
   },
   {

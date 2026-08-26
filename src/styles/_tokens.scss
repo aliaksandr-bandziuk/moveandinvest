@@ -165,6 +165,15 @@ $z-index: (
   --space-9: 6rem;
   --space-10: 8rem;
 
+  // The drop between a header trigger and the panel it opens. ONE VALUE, and
+  // the reason it is a token rather than two literals is that the two panels —
+  // the jurisdictions submenu and the language list — hang from the same row of
+  // the same bar, so any difference between them reads as one of them being
+  // broken. They were --space-3 and --space-2: a 4px disagreement invisible in
+  // either stylesheet on its own and obvious the moment both were open.
+  // Anything that drops out of the header row reads this and nothing else.
+  --dropdown-drop: 0.5rem;
+
   // --- Radii ---------------------------------------------------------------
   // Almost none. Rounded corners are what turn a data table back into a
   // marketing card, and the comparison table now has no container at all.

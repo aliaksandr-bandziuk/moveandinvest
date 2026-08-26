@@ -1,4 +1,5 @@
 import { Button, Reveal } from "@/components/ui";
+import type { CtaHref } from "@/lib/routes";
 import styles from "./PartnersHero.module.scss";
 
 export interface PartnerPrinciple {
@@ -12,7 +13,7 @@ interface PartnersHeroProps {
   intro: string;
   ctaLabel: string;
   /** Where the button goes. A mailto until the page has a form of its own. */
-  ctaHref: string;
+  ctaHref: CtaHref;
   /** Rendered next to the button so the address can be copied, not only clicked. */
   contactEmail: string;
   /** The commercial terms, three of them. See the note below on why these are

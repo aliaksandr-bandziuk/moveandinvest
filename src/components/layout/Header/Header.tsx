@@ -3,7 +3,10 @@ import { Chevron } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { HEADER_CTA, HEADER_NAV, type HeaderLink } from "@/lib/headerNav";
 import type { SlugMap } from "@/lib/slugMap";
+import { DISMISS_ATTR } from "@/lib/dismiss";
+import type { AppHref } from "@/lib/routes";
 import { LocaleSwitcher } from "../LocaleSwitcher";
+import { DetailsDismiss } from "./DetailsDismiss";
 import { HeaderMenu } from "./HeaderMenu";
 import styles from "./Header.module.scss";
 
@@ -11,7 +14,7 @@ export interface HeaderJurisdiction {
   id: string;
   name: string;
   /** Absent for a jurisdiction with no page yet — rendered, never linked. */
-  href?: string;
+  href?: AppHref;
 }
 
 interface HeaderProps {
@@ -67,15 +70,29 @@ export async function Header({ locale, slugMap, jurisdictions }: HeaderProps) {
     jurisdictions.find((entry) => entry.id === item.key)?.name ??
     t(`links.${item.key}`);
 
-  const renderItem = (item: HeaderLink) => {
+  // `index` drives nothing but the opening stagger in the phone panel — see
+  // --i in the stylesheet. It is set on the desktop row too, where no rule
+  // reads it, rather than threading a second render path through here for the
+  // sake of one custom property.
+  const renderItem = (item: HeaderLink, index: number) => {
+    const order = { "--i": index } as React.CSSProperties;
+
     if (item.children) {
       return (
         // The submenu is a <details> as well, so the desktop dropdown and the
         // mobile accordion are one element behaving differently under two
         // stylesheets — rather than two components to keep in agreement.
-        <details key={item.key} className={styles.group}>
+        <details
+          key={item.key}
+          className={styles.group}
+          style={order}
+          {...{ [DISMISS_ATTR]: "" }}
+        >
           <summary className={styles.groupLabel}>
-            {label(item)}
+            {/* Wrapped for the same reason as the language code — the property
+                that lines the chevron up with the letters cannot apply to an
+                anonymous flex item. */}
+            <span className={styles.labelText}>{label(item)}</span>
             <Chevron className={styles.chevron} />
           </summary>
           <ul className={styles.submenu}>
@@ -102,7 +119,12 @@ export async function Header({ locale, slugMap, jurisdictions }: HeaderProps) {
     }
 
     return (
-      <Link key={item.key} href={item.href ?? "/"} className={styles.navLink}>
+      <Link
+        key={item.key}
+        href={item.href ?? "/"}
+        className={styles.navLink}
+        style={order}
+      >
         {label(item)}
       </Link>
     );
@@ -110,6 +132,10 @@ export async function Header({ locale, slugMap, jurisdictions }: HeaderProps) {
 
   return (
     <header className={styles.header}>
+      {/* Renders nothing. One pair of document listeners so every dropdown in
+          this bar closes on an outside click or Escape — see the component. */}
+      <DetailsDismiss />
+
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.wordmark}>
           move<span className={styles.amp}>&amp;</span>invest
@@ -128,7 +154,11 @@ export async function Header({ locale, slugMap, jurisdictions }: HeaderProps) {
 
         {/* Phone: one button, one panel. Same items. */}
         <HeaderMenu id="header-menu" className={styles.menu}>
+          {/* Three bars that morph into an X — the same elements throughout,
+              no icon swap. The geometry is in the stylesheet and the reason it
+              is three rather than two is written there too. */}
           <summary className={styles.burger} aria-label={t("menu")}>
+            <span className={styles.burgerBar} aria-hidden="true" />
             <span className={styles.burgerBar} aria-hidden="true" />
             <span className={styles.burgerBar} aria-hidden="true" />
           </summary>
@@ -137,7 +167,10 @@ export async function Header({ locale, slugMap, jurisdictions }: HeaderProps) {
               {items.map(renderItem)}
             </nav>
             <div className={styles.panelFoot}>
-              <LocaleSwitcher currentLocale={locale} slugMap={slugMap} />
+              {/* Opens upward here: this row is pinned to the bottom of a
+                  full-height panel, and a list dropping from it would fall off
+                  the screen. */}
+              <LocaleSwitcher currentLocale={locale} slugMap={slugMap} dropUp />
               <Link href={HEADER_CTA.href} className={styles.cta}>
                 {t(`links.${HEADER_CTA.key}`)}
               </Link>

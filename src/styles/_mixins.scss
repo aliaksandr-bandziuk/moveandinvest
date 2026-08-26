@@ -91,6 +91,39 @@
   min-block-size: 2.75rem;
 }
 
+// TRIMS A TEXT BOX DOWN TO ITS CAP HEIGHT, so that `align-items: center` beside
+// it centres what the eye actually sees.
+//
+// The problem this exists for, reported three times before it was measured
+// properly: the chevron beside a label sits visibly low. `align-items: center`
+// centres BOXES, and a text box is not its text. It reserves room for
+// descenders, so an all-caps label like EN paints in the upper part of its own
+// box and the mark beside it, centred honestly, ends up below the letters.
+// Rendered at 10x with the real Inter and measured pixel by pixel: the
+// chevron's ink centre sat 1.15 css px below the ink centre of the caps. That
+// is a tenth of the font size, and plainly visible at 11px.
+//
+// Two things this is NOT. Not a negative margin — a constant fitted to one font
+// size and one weight, already tried here and already wrong. Not
+// `vertical-align: middle` either, which aligns to half the X-HEIGHT rather
+// than half the cap height; measured, that variant still left +0.45px. This
+// trims the box to the cap-height and baseline edges using the font's own
+// metrics, so it is right at any font, size or line-height and contains no
+// number to go stale. Measured residual: +0.15px, a rounding artefact of the
+// 10x capture rather than a visible offset.
+//
+// NEEDS ITS OWN ELEMENT. Applied to the flex container it does nothing: the
+// text there lives in an anonymous flex item, `text-box-trim` is not inherited,
+// and the anonymous box therefore gets the initial value. Measured — no change
+// at all, the full 1.15px was still there. Hence the wrapping span at each call
+// site, which is the whole reason this is a mixin rather than one declaration.
+//
+// No @supports guard is needed: an engine that does not know the property drops
+// the declaration and renders exactly what the site renders today.
+@mixin cap-height-box {
+  text-box: trim-both cap alphabetic;
+}
+
 // --- Typography helpers -----------------------------------------------------
 // The uppercase micro-label above a heading, and the column header of every
 // comparison table. One definition, because those two must stay identical.

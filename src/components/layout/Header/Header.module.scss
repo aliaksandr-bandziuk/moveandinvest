@@ -125,6 +125,13 @@
   color: var(--color-on-dark);
 }
 
+// Trimmed to the cap box so the chevron beside it centres on the letters
+// rather than on a box that reserves room for descenders this word may not
+// have. See mixins.cap-height-box for the measurement.
+.labelText {
+  @include mixins.cap-height-box;
+}
+
 // Sized here, drawn in src/components/ui/Chevron. The box wraps the stroke, so
 // `align-items: center` centres it correctly with no optical correction — the
 // negative margin this used to need was compensating for a shape whose box was
@@ -161,9 +168,13 @@
 
   @include mixins.breakpoint-up(lg) {
     position: absolute;
-    top: calc(100% + var(--space-3));
+    // --dropdown-drop, not a literal: the language list hangs off the same row
+    // and has to land at the same height. See the token.
+    top: calc(100% + var(--dropdown-drop));
     left: calc(var(--space-4) * -1);
-    min-width: 12rem;
+    width: max-content;
+    min-width: 10rem;
+    max-width: 20rem;
     padding: var(--space-3) var(--space-4);
     background-color: var(--color-dark);
     border: var(--border-hairline) solid var(--color-on-dark-hairline);
@@ -208,6 +219,73 @@
   text-transform: uppercase;
 }
 
+// --- Submenu motion ----------------------------------------------------------
+// ONE ELEMENT, TWO ANIMATIONS, for the same reason it has two layouts: on a
+// phone the submenu is in flow and opens by growing; from lg it floats, where
+// growing a box that is out of flow would animate nothing at all.
+//
+// Both directions animate, which is the part <details> does not give away for
+// free. Closing a <details> normally removes its content in the same frame, so
+// there is nothing left on screen to fade. `transition-behavior: allow-discrete`
+// on `content-visibility` is what holds the content for the duration of the
+// transition — the browser defers the flip to hidden until the other properties
+// have finished. It is the whole mechanism behind every closing animation in
+// this file.
+//
+// Everything is inside `@supports selector(::details-content)` deliberately.
+// The opacity and clip-path resting states below are *closed* states; an engine
+// that cannot re-show them would have a menu that never appears. Guarded, such
+// an engine gets no animation and a working menu, which is the right way round.
+@supports selector(::details-content) {
+  .group::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 240ms cubic-bezier(0.4, 0, 0.2, 1),
+      content-visibility 240ms allow-discrete;
+  }
+
+  .group[open]::details-content {
+    block-size: auto;
+  }
+
+  @include mixins.breakpoint-up(lg) {
+    // Floating, so the box that grows is the wrong box. Height is handed back
+    // to the content and the panel fades and rises instead.
+    .group::details-content {
+      block-size: auto;
+      overflow: visible;
+      transition: content-visibility 180ms allow-discrete;
+    }
+
+    .submenu {
+      opacity: 0;
+      translate: 0 0.5rem;
+      transition:
+        opacity 180ms ease,
+        translate 180ms ease;
+    }
+
+    .group[open] .submenu {
+      opacity: 1;
+      translate: 0 0;
+      transition:
+        opacity 200ms ease,
+        translate 200ms ease;
+    }
+
+    // Same reason as the phone panel's: an element whose content was skipped
+    // has no prior style to leave, so without this the dropdown would only
+    // animate on the way out.
+    @starting-style {
+      .group[open] .submenu {
+        opacity: 0;
+        translate: 0 0.5rem;
+      }
+    }
+  }
+}
+
 // --- The button --------------------------------------------------------------
 // Goes to the enquiry section. Not a dialog — see HEADER_CTA in headerNav.ts
 // for why this site has exactly one enquiry form, and why a second, shorter one
@@ -242,15 +320,30 @@
   }
 }
 
+// A POSITIONING CONTEXT, NOT A FLEX COLUMN, and that distinction is the whole
+// fix for "бургер превращается не в крестик, а в что-то некрасивое".
+//
+// The first version stacked the bars with `flex-direction: column` and a gap,
+// then tried to close the cross with `translateY(±0.32rem)`. That can only ever
+// be right by coincidence: the distance each bar has to travel is half the gap
+// plus half a bar, a number that changes the moment the gap, the bar height or
+// the root font size changes, and nothing keeps the magic constant in step with
+// them. It was out by roughly a factor of two, which is why the open state was
+// not a cross but two bars crossing somewhere near each other.
+//
+// Now every bar is centred on the same point and pushed OUT to its resting
+// position. Closing the cross is not arithmetic, it is removing the offset: the
+// bars land on the button's exact centre because that is where they started.
+// The technique is giuseppeiannone's (.labHeaderBurgerBar), and it is worth
+// copying precisely because it has no number in it that can go stale.
 .burger {
   @include mixins.focus-ring-on-dark;
   @include mixins.tap-target;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.3rem;
+  position: relative;
+  display: inline-flex;
   width: 2.75rem;
+  height: 2.75rem;
   cursor: pointer;
   list-style: none;
 
@@ -259,56 +352,218 @@
   }
 }
 
+// THREE BARS, AND I ARGUED FOR TWO BEFORE. The old comment here read: "Two
+// bars, not three: at this size a third adds a row of pixels and nothing else,
+// and two rotate into a clean cross." The second half was true and the first
+// was a refinement argument applied to the one piece of iconography on the site
+// where refinement is not the point. Two horizontal bars are an equals sign;
+// three are the mark every reader has already learned means "menu". This is not
+// a place to be interesting.
+//
+// Only `transform` and `opacity` animate, so the whole morph stays on the
+// compositor. Position comes from `translate()` alone — never from top/left —
+// for the same reason.
 .burgerBar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: block;
   width: 1.25rem;
   height: var(--border-hairline);
   background-color: var(--color-on-dark);
-  transition: transform 180ms ease;
+  transition:
+    transform 240ms ease,
+    opacity 240ms ease;
+
+  &:nth-child(1) {
+    transform: translate(-50%, calc(-50% - 0.375rem));
+  }
+
+  &:nth-child(2) {
+    transform: translate(-50%, -50%);
+  }
+
+  &:nth-child(3) {
+    transform: translate(-50%, calc(-50% + 0.375rem));
+  }
 }
 
-// Two bars, not three: at this size a third adds a row of pixels and nothing
-// else, and two rotate into a clean cross.
-.menu[open] .burgerBar:first-child {
-  transform: translateY(0.32rem) rotate(45deg);
+// The cross. The outer two drop their offset and turn; the middle one, which
+// would sit exactly under the crossing point, fades out.
+.menu[open] .burgerBar:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.menu[open] .burgerBar:last-child {
-  transform: translateY(-0.32rem) rotate(-45deg);
+.menu[open] .burgerBar:nth-child(2) {
+  opacity: 0;
 }
 
-// Full width, under the bar, on the same dark plane. Anchored to the header
-// rather than to the summary, so it spans the viewport instead of hanging off
-// the button. `100dvh` rather than `100vh`: on a phone the two differ by the
-// height of the browser chrome, and a menu taller than the visible area is a
-// menu whose last item cannot be reached.
+.menu[open] .burgerBar:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+// --- The panel ---------------------------------------------------------------
+// FULL SCREEN NOW, which is what was asked for and what the previous version
+// only approximated: it was `max-height: calc(100dvh - 100%)`, so a menu of
+// five items occupied a strip the height of five items and left the page
+// showing underneath. A partial sheet asks the reader to hold two contexts at
+// once; a full one does not.
+//
+// `height`, not `max-height` — that single word is the change. The percentage
+// resolves against the containing block, which is the sticky <header>, so the
+// panel is exactly the viewport minus the bar above it however tall that bar
+// happens to be at that moment. No measured pixel value, no JavaScript, no
+// custom property written from an effect: giuseppeiannone needs all three
+// because its overlay is `position: fixed` and therefore cannot see the header
+// at all. Anchoring to the header instead makes the same layout arithmetic the
+// browser's problem.
+//
+// `100dvh` rather than `100vh`: on a phone the two differ by the height of the
+// browser chrome, and a menu taller than the visible area is a menu whose last
+// item cannot be reached.
+//
+// The header bar itself stays visible and live above the panel — wordmark and
+// the burger, now an X. That is deliberate and also giuseppeiannone's choice:
+// the control that opened the menu is the control that closes it, so there is
+// no second close icon to find.
 .panel {
   position: absolute;
   left: 0;
   right: 0;
   top: 100%;
-  max-height: calc(100dvh - 100%);
-  overflow-y: auto;
-  padding: var(--space-5) var(--gutter) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 100%);
+  padding: var(--space-6) var(--gutter);
   background-color: var(--color-dark);
-  border-bottom: var(--border-hairline) solid var(--color-on-dark-hairline);
+  overflow-y: auto;
+  // NO BODY SCROLL LOCK, and this is a considered omission rather than an
+  // oversight. `overflow: hidden` on the body is the usual recipe and it costs
+  // more than it looks: on a page where the document element is the scroller it
+  // can reset scrollY to 0 outright, so the lock has to capture and restore the
+  // position, and the restore has to opt out of `scroll-behavior: smooth`,
+  // which globals.scss sets. The sibling project carries all three fixes and a
+  // long comment explaining each. What the lock is actually FOR here is
+  // stopping a touch scroll that reaches the end of this panel from carrying on
+  // into the page behind it — and `overscroll-behavior: contain` stops exactly
+  // that, on the element that has the problem, with nothing to restore.
+  overscroll-behavior: contain;
 }
 
+// --- Opening and closing -----------------------------------------------------
+// I SAID CLOSING COULD NOT BE ANIMATED HERE AND THAT WAS WRONG. The previous
+// version of this block used a keyframe animation and argued that a closing
+// transition was impossible because <details> removes its content in the same
+// frame, so opening was animated and closing was not. The mechanism that makes
+// it possible is the one the FAQ accordion in this project has been using since
+// it was written: a discrete transition on `content-visibility`, which defers
+// the removal until the visual transition has finished. The correct read of
+// that argument was "I have not looked up how".
+//
+// A WIPE, NOT A SLIDE — the panel is revealed from the top edge downwards, its
+// own natural direction of growth from under the bar, rather than sliding in
+// from the side as a block. clip-path does the wipe and the opacity fade
+// softens the hard edge the wipe would otherwise leave. Both are on `.panel`
+// rather than on ::details-content, and that is not a preference: the panel is
+// absolutely positioned, so the pseudo-element's own box has no height and a
+// clip-path on it would clip the panel away entirely at every value.
+//
+// 300ms in, 180ms out. A considered open and a quick dismiss — nobody wants to
+// wait to be rid of a menu.
+@supports selector(::details-content) {
+  .menu::details-content {
+    transition: content-visibility 180ms allow-discrete;
+  }
+
+  .menu[open]::details-content {
+    transition: content-visibility 300ms allow-discrete;
+  }
+
+  .panel {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      opacity 150ms ease,
+      clip-path 180ms ease;
+  }
+
+  .menu[open] .panel {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition:
+      opacity 250ms ease,
+      clip-path 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // WITHOUT THIS, ONLY THE CLOSE ANIMATES. Measured: at 60ms after the tap the
+  // panel was already at opacity 1 and fully unclipped, while the close was
+  // caught mid-flight at 0.15 and 76% — so the discrete transition was doing
+  // its job in one direction and nothing at all in the other.
+  //
+  // The reason is that until the moment it opens, the panel's content is
+  // skipped, so it has no previously-rendered style for a transition to start
+  // from; the browser resolves it straight to the open value. @starting-style
+  // is the "before it existed, it looked like this" rule, and it is the only
+  // way to say that for an element appearing for the first time.
+  @starting-style {
+    .menu[open] .panel {
+      opacity: 0;
+      clip-path: inset(0 0 100% 0);
+    }
+  }
+
+  // The items arrive after the surface they sit on, one behind the next. The
+  // delay is the only thing --i is for; it is set in Header.tsx.
+  //
+  // ONE-DIRECTIONAL ON PURPOSE. The base rule below carries no delay, so the
+  // items leave together and fast while the wipe runs; a staggered close makes
+  // dismissing a menu feel like waiting for it.
+  @media (prefers-reduced-motion: no-preference) {
+    .panelNav > * {
+      opacity: 0;
+      translate: 0 0.75rem;
+      transition:
+        opacity 150ms ease,
+        translate 150ms ease;
+    }
+
+    .menu[open] .panelNav > * {
+      opacity: 1;
+      translate: 0 0;
+      transition:
+        opacity 250ms ease calc(var(--i, 0) * 45ms),
+        translate 250ms ease calc(var(--i, 0) * 45ms);
+    }
+
+    @starting-style {
+      .menu[open] .panelNav > * {
+        opacity: 0;
+        translate: 0 0.75rem;
+      }
+    }
+  }
+}
+
+// Takes the free space, so the enquiry button below it sits at the bottom of
+// the screen where a thumb already is, rather than floating under the last link
+// with a screen's worth of empty dark beneath it.
 .panelNav {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: var(--space-2);
 }
 
 .panelNav .navLink,
 .panelNav .groupLabel {
-  font-size: var(--fs-body);
-  line-height: 1.3;
+  font-size: var(--fs-h3);
+  line-height: 1.25;
   color: var(--color-on-dark);
 }
 
 .panelFoot {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);

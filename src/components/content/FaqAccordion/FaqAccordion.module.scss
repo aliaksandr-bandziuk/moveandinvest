@@ -124,11 +124,11 @@
   }
 }
 
+// `interpolate-size: allow-keywords` used to be declared here, on :root, from
+// inside this component's own stylesheet. It lives in globals.scss now: the
+// header's jurisdictions submenu needs the same behaviour on every page, and
+// this bundle only loads on /faq. See that file for the note.
 @supports (interpolate-size: allow-keywords) {
-  :root {
-    interpolate-size: allow-keywords;
-  }
-
   .row::details-content {
     block-size: 0;
     overflow: hidden;

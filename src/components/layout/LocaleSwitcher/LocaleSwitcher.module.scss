@@ -34,6 +34,13 @@
   color: var(--color-on-dark);
 }
 
+// Two letters, all caps, so its box is mostly the room a font reserves for
+// descenders it will never have. Trimmed to the cap box, the chevron beside it
+// lands on the letters instead of a tenth of an em below them.
+.code {
+  @include mixins.cap-height-box;
+}
+
 // Sized here, drawn in src/components/ui/Chevron. The box wraps the stroke, so
 // `align-items: center` centres it correctly with no optical correction — the
 // negative margin this used to need was compensating for a shape whose box was
@@ -58,18 +65,49 @@
 // Right-aligned rather than left: this sits near the end of the header row, and
 // a panel opening rightwards from here would hang off the viewport edge on a
 // narrow desktop.
+// SIZED TO ITS CONTENTS. This used to carry `min-width: 6rem`, which is roughly
+// twice what three two-letter codes need, so the panel had a wide empty margin
+// on the right and none on the left — the padding was symmetric, the box was
+// not, and the eye reads the box. `width: max-content` makes the panel as wide
+// as the widest row, so the left and right insets are the item's own padding on
+// both sides and nothing else.
+//
+// The sibling project hit exactly this and diagnosed it the long way, on a
+// panel holding one word: a fixed min-width around short content stops reading
+// as a dropdown and starts reading as a separate block sitting nearby.
 .list {
   position: absolute;
-  top: calc(100% + var(--space-2));
+  // --dropdown-drop, not a literal: the jurisdictions submenu hangs off the
+  // same row and has to land at the same height. See the token.
+  top: calc(100% + var(--dropdown-drop));
   right: 0;
   z-index: 1;
-  min-width: 6rem;
+  width: max-content;
   margin: 0;
   padding: var(--space-2) 0;
   list-style: none;
   background-color: var(--color-dark);
   border: var(--border-hairline) solid var(--color-on-dark-hairline);
   border-radius: var(--radius-s);
+}
+
+// In the mobile panel this trigger sits in the BOTTOM-LEFT corner of a
+// full-height sheet, and both halves of that matter. Upward, or the list falls
+// off the bottom of the screen. Left-aligned, or it falls off the side: the
+// base rule anchors `right: 0` for the header row, where the switcher is near
+// the end of the line, and a 6rem panel hung by its right edge from a trigger
+// two characters wide extends leftwards past the viewport. Screenshotted at
+// 390px with only the `bottom` half of this rule and the list was a visible
+// empty box with all three languages off-screen.
+//
+// Set by a prop rather than inferred from a media query: the same component
+// appears in the header row and in the panel at the same viewport width, so
+// nothing in the environment distinguishes them — only the caller knows.
+.up {
+  top: auto;
+  right: auto;
+  bottom: calc(100% + var(--dropdown-drop));
+  left: 0;
 }
 
 .item,

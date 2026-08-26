@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { CountryRow } from "@/components/country";
+import type { HeroContentsEntry, ResolvedCta } from "@/components/marketing";
 import {
   CostComparison,
   type CostRow,
@@ -22,6 +23,8 @@ import {
 } from "@/components/marketing";
 import { buildMetadata } from "@/lib/metadata";
 import { organizationRef } from "@/lib/jsonLd";
+import { getPathname } from "@/i18n/navigation";
+import { ENQUIRY_HREF, parseHref, slugHref } from "@/lib/routes";
 import { getSiteUrl } from "@/lib/site";
 import { sanityFetch } from "@/sanity/client";
 import {
@@ -50,7 +53,7 @@ function toRows(results: CountryRowResult[]): CountryRow[] {
     name: result.name,
     code: result.code,
     status: result.status,
-    href: result.page ? `/${result.page.slug}` : undefined,
+    href: result.page ? slugHref(result.page.slug) : undefined,
     route: result.page?.route ?? DASH,
     minimumInvestment: result.page?.minimumInvestment ?? DASH,
     timeToPermit: result.page?.timeToPermit ?? DASH,
@@ -150,7 +153,9 @@ export default async function HomePage({
     id: c._id,
     code: c.code,
     name: c.name,
-    href: c.page ? `/${c.page.slug}` : undefined,
+    href: c.page
+      ? getPathname({ href: slugHref(c.page.slug), locale })
+      : undefined,
     advertised: c.page?.costAdvertisedEur ?? null,
     extras: c.page?.costExtrasEur ?? null,
     speedBand: (c.speedBand ?? null) as SpeedBand | null,
@@ -160,6 +165,22 @@ export default async function HomePage({
     timeToPermit: c.page?.timeToPermit ?? DASH,
     taxRegime: c.page?.taxRegime ?? DASH,
   }));
+
+  // The CMS stores these as free text, one value shared by all three
+  // languages. Matched against the declared routes here so the router can
+  // translate them — "/for-partners" has to come out as /pl/dla-partnerow.
+  // A value that matches nothing renders no button rather than a broken one;
+  // the primary CTA falls back to the enquiry section, which is where it has
+  // pointed in every language since the site was seeded.
+  const primaryCta: ResolvedCta = {
+    label: home.hero.primaryCta.label,
+    href: parseHref(home.hero.primaryCta.href) ?? ENQUIRY_HREF,
+  };
+  const secondaryHref = parseHref(home.hero.secondaryCta?.href);
+  const secondaryCta: ResolvedCta | null =
+    home.hero.secondaryCta && secondaryHref
+      ? { label: home.hero.secondaryCta.label, href: secondaryHref }
+      : null;
 
   const faqEntries: FaqEntry[] = faq.map((item) => ({
     id: item._id,
@@ -192,7 +213,7 @@ export default async function HomePage({
   // studio renames itself here too, and there is no second list of section
   // names anywhere in the codebase. The fragments are the ids the components
   // set on their own <section> elements.
-  const contents = [
+  const contents: HeroContentsEntry[] = [
     { index: "01", label: home.hero.tableEyebrow, href: "#comparison" },
     { index: "02", label: home.method.eyebrow, href: "#method" },
     { index: "03", label: home.map.eyebrow, href: "#jurisdictions" },
@@ -256,8 +277,8 @@ export default async function HomePage({
         eyebrow={home.hero.eyebrow}
         heading={home.hero.heading}
         intro={home.hero.intro}
-        primaryCta={home.hero.primaryCta}
-        secondaryCta={home.hero.secondaryCta}
+        primaryCta={primaryCta}
+        secondaryCta={secondaryCta}
         contentsLabel={home.hero.contentsLabel}
         contents={contents}
         tableEyebrow={home.hero.tableEyebrow}

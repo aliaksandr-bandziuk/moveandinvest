@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Chevron } from "@/components/ui";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { DISMISS_ATTR } from "@/lib/dismiss";
+import { slugHref, type AppHref } from "@/lib/routes";
 import type { SlugMap } from "@/lib/slugMap";
 import styles from "./LocaleSwitcher.module.scss";
 
@@ -13,6 +16,10 @@ interface LocaleSwitcherProps {
   /** Localised slug → its siblings, for the eight pages whose URL is
    *  translated. Fixed routes are absent and do not need an entry. */
   slugMap: SlugMap;
+  /** Open the list above the trigger instead of below it. Set in the mobile
+   *  panel, where this sits on the bottom edge of a full-height sheet and a
+   *  list dropping downward would be off the screen. */
+  dropUp?: boolean;
 }
 
 // Codes, never flags. A Russian-speaking reader of this site may be in
@@ -56,13 +63,29 @@ interface LocaleSwitcherProps {
 export function LocaleSwitcher({
   currentLocale,
   slugMap,
+  dropUp = false,
 }: LocaleSwitcherProps) {
   const ref = useRef<HTMLDetailsElement | null>(null);
-  const pathname = usePathname();
+  const route = usePathname();
+  const params = useParams<{ slug?: string }>();
   const t = useTranslations("localeSwitcher");
 
-  const bare = pathname.replace(/^\//, "");
-  const siblings = slugMap[bare];
+  // THE SLUG COMES FROM THE ROUTE PARAMS, NOT FROM THE PATH, and that changed
+  // on 26 August 2026 when the fixed routes gained translated URLs.
+  //
+  // This used to read `usePathname().replace(/^\//, "")` and look the result up
+  // in the map. That worked only while the routing config had no `pathnames`:
+  // next-intl's usePathname returns the INTERNAL route once it does, so on
+  // /ru/gretsiya it now yields "/[slug]" — the template, not the slug. Every
+  // lookup would have missed, silently, on exactly the twenty-eight URLs this
+  // component exists to get right. Found by reading getRoute in next-intl
+  // rather than by clicking, which would not have looked any different until
+  // the wrong language was reached.
+  //
+  // useParams is the right source anyway: the slug is a route parameter, and
+  // reading it as one cannot be broken by a change to how paths are spelled.
+  const slug = params.slug;
+  const siblings = slug ? slugMap[slug] : undefined;
 
   // Close after a choice is made. Keyed on the LOCALE as well as the path, and
   // the locale is the one that matters: next-intl's pathname is stripped of the
@@ -71,29 +94,45 @@ export function LocaleSwitcher({
   // and the question does not arise.
   useEffect(() => {
     if (ref.current) ref.current.open = false;
-  }, [pathname, currentLocale]);
+  }, [route, currentLocale]);
 
   return (
-    <details ref={ref} className={styles.switcher}>
+    <details ref={ref} className={styles.switcher} {...{ [DISMISS_ATTR]: "" }}>
       <summary className={styles.trigger} aria-label={t("label")}>
-        {t(currentLocale)}
+        {/* The span is load-bearing — see mixins.cap-height-box. Without an
+            element of its own the code is an anonymous flex item, and the
+            property that lines it up with the chevron cannot reach it. */}
+        <span className={styles.code}>{t(currentLocale)}</span>
         <Chevron className={styles.chevron} />
       </summary>
 
-      <ul className={styles.list}>
+      <ul className={dropUp ? `${styles.list} ${styles.up}` : styles.list}>
         {routing.locales.map((locale) => {
           const isCurrent = locale === currentLocale;
-          const target = siblings ? siblings[locale] : bare;
+
+          // Two kinds of page, and only one of them needs the map. A fixed
+          // route is the same route in every language — the router spells it
+          // differently, which is precisely what it is for — so the current
+          // route is handed straight back. A Sanity page has a slug of its own
+          // per language, and that is what the map holds.
+          const sibling = siblings?.[locale];
+          const href: AppHref | undefined = siblings
+            ? sibling === undefined
+              ? undefined
+              : slugHref(sibling)
+            : route === "/[slug]"
+              ? undefined
+              : route;
 
           return (
             <li key={locale}>
-              {target === undefined ? (
+              {href === undefined ? (
                 <span className={styles.absent} aria-disabled="true">
                   {t(locale)}
                 </span>
               ) : (
                 <Link
-                  href={`/${target}`}
+                  href={href}
                   locale={locale}
                   lang={locale}
                   hrefLang={locale}

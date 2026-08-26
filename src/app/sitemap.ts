@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { slugHref } from "@/lib/routes";
+import type { AppPathname } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
 import { sanityFetchPublished } from "@/sanity/client";
 import {
@@ -32,7 +34,7 @@ import type { SitemapCountryDoc, SitemapDoc } from "@/sanity/types";
 
 interface SingletonRoute {
   /** Locale-independent route, exactly as `routeUrl` expects it. */
-  href: string;
+  href: AppPathname;
   /** The Sanity type whose document owns this route's lastModified. */
   documentType: string;
 }
@@ -152,7 +154,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const languages: Record<string, string> = Object.fromEntries(
         group.map((doc) => [
           doc.language as string,
-          routeUrl(`/${doc.slug}`, doc.language as string),
+          routeUrl(slugHref(doc.slug as string), doc.language as string),
         ]),
       );
 
@@ -163,7 +165,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
       for (const doc of group) {
         entries.push({
-          url: routeUrl(`/${doc.slug}`, doc.language as string),
+          url: routeUrl(slugHref(doc.slug as string), doc.language as string),
           lastModified: doc._updatedAt,
           alternates: { languages },
         });

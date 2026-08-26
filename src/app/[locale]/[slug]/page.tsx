@@ -27,6 +27,7 @@ import {
 import { CONTROLLER } from "@/lib/controller";
 import { ogImage } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
+import { slugHref } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
 import { resolveRobots } from "@/lib/site";
 import { sanityFetch, sanityFetchPublished } from "@/sanity/client";
@@ -182,7 +183,7 @@ function localizedPaths(
     if (!alternate.language || !alternate.slug) continue;
     if (!routing.locales.includes(alternate.language as never)) continue;
     paths[alternate.language] = getPathname({
-      href: `/${alternate.slug}`,
+      href: slugHref(alternate.slug),
       locale: alternate.language,
     });
   }
@@ -230,7 +231,7 @@ export async function generateMetadata({
   // shared `country` reference — but from their own sibling documents, so a
   // property page never advertises a jurisdiction page as its Polish version.
   const paths = localizedPaths(page.alternates);
-  const canonical = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
+  const canonical = paths[locale] ?? getPathname({ href: slugHref(slug), locale });
 
   const languages = Object.fromEntries(
     Object.entries(paths).map(([language, path]) => [
@@ -303,7 +304,7 @@ async function renderProperty({
 
   const siteUrl = getSiteUrl();
   const paths = localizedPaths(page.alternates);
-  const path = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
+  const path = paths[locale] ?? getPathname({ href: slugHref(slug), locale });
 
   // The six, in the order the schema fixes. Filtered, not padded: a section
   // whose field is empty does not exist on the page.
@@ -336,7 +337,7 @@ async function renderProperty({
   const trail: Crumb[] = [
     { name: tCountry("home"), href: "/" },
     page.jurisdiction
-      ? { name: page.name, href: `/${page.jurisdiction.slug}` }
+      ? { name: page.name, href: slugHref(page.jurisdiction.slug) }
       : { name: page.name },
     { name: t("eyebrow") },
   ];
@@ -347,7 +348,7 @@ async function renderProperty({
       ? [
           {
             name: page.name,
-            url: routeUrl(`/${page.jurisdiction.slug}`, locale),
+            url: routeUrl(slugHref(page.jurisdiction.slug), locale),
           },
         ]
       : []),
@@ -507,7 +508,7 @@ export default async function JurisdictionPage({
 
   const siteUrl = getSiteUrl();
   const paths = localizedPaths(page.alternates);
-  const path = paths[locale] ?? getPathname({ href: `/${slug}`, locale });
+  const path = paths[locale] ?? getPathname({ href: slugHref(slug), locale });
 
   const trail: Crumb[] = [{ name: t("home"), href: "/" }, { name: page.name }];
 
@@ -596,7 +597,7 @@ export default async function JurisdictionPage({
           workingLink={
             page.code
               ? {
-                  href: `/sources#${page.code}`,
+                  href: { pathname: "/sources", hash: page.code },
                   label: tSources("linkFromPage"),
                 }
               : null
@@ -620,7 +621,7 @@ export default async function JurisdictionPage({
                 and a reader who has not read anything yet is not. */}
             {propertyLink ? (
               <p className={styles.crossLink}>
-                <Link href={`/${propertyLink.slug}`}>
+                <Link href={slugHref(propertyLink.slug)}>
                   {tProperty("propertyLinkLabel")} — {propertyLink.title}
                 </Link>
               </p>

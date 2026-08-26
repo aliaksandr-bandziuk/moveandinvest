@@ -161,7 +161,7 @@ export default async function ForPartnersPage({
         // A mailto, not an anchor to a form that does not exist yet — the
         // CLAUDE.md rule about links to nowhere applies to fragments too.
         // This becomes "#partner-enquiry" the day that section lands.
-        ctaHref={`mailto:${page.hero.contactEmail}`}
+        ctaHref={`mailto:${page.hero.contactEmail}` as const}
         contactEmail={page.hero.contactEmail}
         principles={page.hero.principles ?? []}
       />

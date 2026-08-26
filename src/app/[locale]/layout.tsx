@@ -23,6 +23,7 @@ import {
 } from "@/sanity/queries";
 import type { CountryRowResult, SiteSettingsResult } from "@/sanity/types";
 import "./globals.scss";
+import { slugHref } from "@/lib/routes";
 
 // Every locale is known at build time, so all three trees are statically
 // generated. setRequestLocale below is what keeps them static — without it
@@ -88,7 +89,7 @@ export default async function LocaleLayout({
   const jurisdictions: FooterJurisdiction[] = countries.map((country) => ({
     id: country._id,
     name: country.name,
-    href: country.page ? `/${country.page.slug}` : undefined,
+    href: country.page ? slugHref(country.page.slug) : undefined,
   }));
 
   return (
