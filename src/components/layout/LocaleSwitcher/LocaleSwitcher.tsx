@@ -7,7 +7,7 @@ import { Chevron } from "@/components/ui";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { DISMISS_ATTR } from "@/lib/dismiss";
-import { slugHref, type AppHref } from "@/lib/routes";
+import { articleHref, slugHref, type AppHref } from "@/lib/routes";
 import type { SlugMap } from "@/lib/slugMap";
 import styles from "./LocaleSwitcher.module.scss";
 
@@ -35,6 +35,12 @@ interface LocaleSwitcherProps {
 //
 // Still a native <details>, like the burger and the FAQ accordion. It opens,
 // closes and works from the keyboard with no JavaScript.
+//
+// THE LIST HOLDS ONLY THE OTHER LANGUAGES. The trigger is the current one, in
+// the same two letters; repeating it as the first row of the panel makes a
+// three-item list where one item does nothing, and a reader has to read all
+// three to find the two that are choices. What the current language costs by
+// leaving the list is a "you are here" mark, and the trigger is that mark.
 //
 // --- What this used to get wrong ---------------------------------------------
 //
@@ -84,8 +90,17 @@ export function LocaleSwitcher({
   //
   // useParams is the right source anyway: the slug is a route parameter, and
   // reading it as one cannot be broken by a change to how paths are spelled.
+  // TWO DYNAMIC ROUTES NOW, and they have to be told apart. A [slug] at the top
+  // level is a jurisdiction or property page; a [slug] under /blog is a
+  // entry in Guides & Research. Their slug spaces are unrelated, so the map is two lookups
+  // and the route picks which one — see slugMap.ts.
   const slug = params.slug;
-  const siblings = slug ? slugMap[slug] : undefined;
+  const isEntry = route === "/blog/[slug]";
+  const siblings = slug
+    ? isEntry
+      ? slugMap.entries[slug]
+      : slugMap.pages[slug]
+    : undefined;
 
   // Close after a choice is made. Keyed on the LOCALE as well as the path, and
   // the locale is the one that matters: next-intl's pathname is stripped of the
@@ -98,7 +113,15 @@ export function LocaleSwitcher({
 
   return (
     <details ref={ref} className={styles.switcher} {...{ [DISMISS_ATTR]: "" }}>
-      <summary className={styles.trigger} aria-label={t("label")}>
+      {/* THE ACCESSIBLE NAME CARRIES THE CURRENT LANGUAGE, and it has to since
+          the list below stopped carrying it. `aria-label` replaces the element's
+          own text for a screen reader, so a bare "Language" would leave a reader
+          who cannot see the code with a control that never says which of the
+          three they are in. */}
+      <summary
+        className={styles.trigger}
+        aria-label={t("labelCurrent", { code: t(currentLocale) })}
+      >
         {/* The span is load-bearing — see mixins.cap-height-box. Without an
             element of its own the code is an anonymous flex item, and the
             property that lines it up with the chevron cannot reach it. */}
@@ -106,9 +129,15 @@ export function LocaleSwitcher({
         <Chevron className={styles.chevron} />
       </summary>
 
+      {/* THE CURRENT LANGUAGE IS NOT IN THE LIST. It was, marked white and with
+          aria-current, on the argument that "you are here" is worth showing —
+          but the trigger the reader just clicked already shows it, in the same
+          two letters, two rows above. A list of three where one is the thing you
+          already have is a list where every choice has to be read twice to find
+          the two that do something. Two rows, both of them destinations. */}
       <ul className={dropUp ? `${styles.list} ${styles.up}` : styles.list}>
         {routing.locales.map((locale) => {
-          const isCurrent = locale === currentLocale;
+          if (locale === currentLocale) return null;
 
           // Two kinds of page, and only one of them needs the map. A fixed
           // route is the same route in every language — the router spells it
@@ -119,8 +148,14 @@ export function LocaleSwitcher({
           const href: AppHref | undefined = siblings
             ? sibling === undefined
               ? undefined
-              : slugHref(sibling)
-            : route === "/[slug]"
+              : isEntry
+                ? articleHref(sibling)
+                : slugHref(sibling)
+            : // A dynamic route with no siblings: the page exists in this
+              // language only, and there is nowhere to send the reader. A fixed
+              // route is the same route everywhere, so it is handed back as is
+              // and the router spells it for the language chosen.
+              route === "/[slug]" || route === "/blog/[slug]"
               ? undefined
               : route;
 
@@ -136,8 +171,7 @@ export function LocaleSwitcher({
                   locale={locale}
                   lang={locale}
                   hrefLang={locale}
-                  className={isCurrent ? styles.current : styles.item}
-                  aria-current={isCurrent ? "true" : undefined}
+                  className={styles.item}
                 >
                   {t(locale)}
                 </Link>

@@ -7,3 +7,5 @@ export {
 } from "./MethodDocument";
 export { SourceTable, type SourceTableLabels, type VerdictLabels } from "./SourceTable";
 export { FaqAccordion, type FaqAccordionLabels } from "./FaqAccordion";
+export { ArticleList, type ArticleListLabels } from "./ArticleList";
+export { ArticleBody, type ArticleBodyLabels } from "./ArticleBody";

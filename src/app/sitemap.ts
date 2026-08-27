@@ -1,15 +1,20 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { slugHref } from "@/lib/routes";
+import { articleHref, slugHref } from "@/lib/routes";
 import type { AppPathname } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
 import { sanityFetchPublished } from "@/sanity/client";
 import {
+  BLOG_SITEMAP_QUERY,
   SITEMAP_COUNTRY_QUERY,
   SITEMAP_PROPERTY_QUERY,
   SITEMAP_SINGLETON_QUERY,
 } from "@/sanity/queries";
-import type { SitemapCountryDoc, SitemapDoc } from "@/sanity/types";
+import type {
+  ArticleSitemapDoc,
+  SitemapCountryDoc,
+  SitemapDoc,
+} from "@/sanity/types";
 
 // The sitemap, built the same way as the sibling `giuseppeiannone` project's:
 // one list of fixed routes paired with the Sanity type that owns each, one
@@ -48,6 +53,7 @@ const ROUTES: SingletonRoute[] = [
   { href: "/about", documentType: "aboutPage" },
   { href: "/sources", documentType: "sourcesPage" },
   { href: "/faq", documentType: "faqPage" },
+  { href: "/blog", documentType: "blogPage" },
   { href: "/contacts", documentType: "contactsPage" },
   { href: "/privacy", documentType: "privacyPage" },
 ];
@@ -57,7 +63,7 @@ function isLocale(value: unknown): value is (typeof routing.locales)[number] {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [results, countryDocs, propertyDocs] = await Promise.all([
+  const [results, countryDocs, propertyDocs, articleDocs] = await Promise.all([
     Promise.all(
       ROUTES.map((route) =>
         sanityFetchPublished<SitemapDoc[]>(
@@ -72,6 +78,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]),
     sanityFetchPublished<SitemapCountryDoc[]>(SITEMAP_PROPERTY_QUERY, {}, [
       "propertyPage",
+    ]),
+    sanityFetchPublished<ArticleSitemapDoc[]>(BLOG_SITEMAP_QUERY, {}, [
+      "article",
     ]),
   ]);
 
@@ -175,6 +184,59 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   addGrouped(countryDocs);
   addGrouped(propertyDocs);
+
+  // --- Guides & Research entries ---------------------------------------------
+  // Grouped on the entry's own `translationKey` rather than on a shared
+  // reference, because there is no shared reference to group on: an entry is not
+  // about a country the way a country page is, and one written only in Russian
+  // is a legitimate document rather than a missing translation. An entry sharing
+  // its key with nothing stands alone and gets no hreflang, which is the
+  // truthful thing to publish.
+  //
+  // It was grouped on the translation-metadata document until 27 August 2026,
+  // and that read empty for everyone who was not holding a token — so this
+  // sitemap published the three translations of one entry as three unrelated
+  // URLs, telling search engines the opposite of what is true. Same cause as the
+  // dead language switcher; see BLOG_SITEMAP_QUERY.
+  const bySet = new Map<string, ArticleSitemapDoc[]>();
+  const solo: ArticleSitemapDoc[] = [];
+
+  for (const doc of articleDocs) {
+    if (!doc.slug || !isLocale(doc.language)) continue;
+    if (!doc.translationKey) {
+      solo.push(doc);
+      continue;
+    }
+    const group = bySet.get(doc.translationKey) ?? [];
+    group.push(doc);
+    bySet.set(doc.translationKey, group);
+  }
+
+  for (const group of bySet.values()) {
+    const languages: Record<string, string> = Object.fromEntries(
+      group.map((doc) => [doc.language, routeUrl(articleHref(doc.slug), doc.language)]),
+    );
+
+    const defaultUrl = languages[routing.defaultLocale];
+    if (defaultUrl) {
+      languages["x-default"] = defaultUrl;
+    }
+
+    for (const doc of group) {
+      entries.push({
+        url: routeUrl(articleHref(doc.slug), doc.language),
+        lastModified: doc._updatedAt,
+        alternates: { languages },
+      });
+    }
+  }
+
+  for (const doc of solo) {
+    entries.push({
+      url: routeUrl(articleHref(doc.slug), doc.language),
+      lastModified: doc._updatedAt,
+    });
+  }
 
   return entries;
 }

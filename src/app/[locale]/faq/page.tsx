@@ -187,8 +187,14 @@ export default async function Faq({
 
                 <FaqAccordion
                   groupName="faq"
-                  items={section.items}
-                  locale={locale}
+                  // Resolved here rather than inside the component — see FaqRow
+                  // for why the accordion no longer knows about locale maps.
+                  items={section.items.map((item) => ({
+                    key: item.key,
+                    question: item.q[locale as keyof typeof item.q],
+                    answer: item.a[locale as keyof typeof item.a],
+                    sources: item.sources,
+                  }))}
                   labels={labels}
                   startIndex={startIndexes[sectionIndex] ?? 0}
                 />

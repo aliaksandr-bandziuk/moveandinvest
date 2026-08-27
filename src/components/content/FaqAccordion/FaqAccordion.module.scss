@@ -5,6 +5,13 @@
 // and the reason it works is that it needs no boxes: the rule between two
 // questions is the only thing separating them, so a closed accordion reads as
 // a list rather than as a stack of cards.
+// TWO CUSTOM PROPERTIES, AND THEY ARE THE INTENDED WAY IN. This accordion is
+// used in two places with different jobs: on /faq it IS the page and takes the
+// page's rhythm, and inside an article body it is one block among tables and
+// figures, where the same row height reads as an eleven-screen gap in the
+// middle of a piece. A CSS Module cannot reach another module's class names —
+// correctly — but a custom property crosses that boundary by design, so the
+// two knobs a caller legitimately needs are declared here and set there.
 .accordion {
   margin-top: var(--space-6);
 }
@@ -26,7 +33,12 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
-  padding-block: var(--space-5);
+  // The default is the FALLBACK, not a declaration on .accordion. Setting the
+  // property there and reading it here looks equivalent and is not: .accordion
+  // sits inside the caller's wrapper, so its own value would beat the inherited
+  // one and the override would silently do nothing. Measured — the article's
+  // accordion came out at the /faq height with the properties set on both.
+  padding-block: var(--faq-row-padding, var(--space-5));
   cursor: pointer;
   list-style: none;
 
@@ -38,7 +50,7 @@
 
   @include mixins.breakpoint-up(md) {
     gap: var(--space-4);
-    padding-block: var(--space-6);
+    padding-block: var(--faq-row-padding, var(--space-6));
   }
 }
 
@@ -144,7 +156,7 @@
 
 .answer {
   margin: 0;
-  max-width: 62ch;
+  max-width: var(--faq-answer-measure, 62ch);
   font-size: var(--fs-small);
   line-height: var(--lh-small);
   color: var(--color-text-muted);

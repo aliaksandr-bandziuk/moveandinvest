@@ -5,6 +5,7 @@ import { PRIVACY_COPY } from "./copy/privacy";
 import { ABOUT_COPY } from "./copy/about";
 import { SOURCES_PAGE_COPY } from "./copy/sourcesPage";
 import { FAQ_PAGE_COPY } from "./copy/faqPage";
+import { BLOG_PAGE_COPY } from "./copy/blogPage";
 import { CONTACTS_COPY } from "./copy/contacts";
 
 // Writes the page copy from scripts/copy/ onto the homePage and partnersPage
@@ -106,7 +107,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
 
   const docs = await client.fetch<Doc[]>(
-    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage", "faqPage"]] | order(_id asc){ _id, _type }`,
+    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage", "faqPage", "blogPage"]] | order(_id asc){ _id, _type }`,
   );
 
   if (docs.length === 0) {
@@ -152,6 +153,15 @@ async function run() {
   // so its three documents may not exist and createOrReplace is safe. Every
   // field on it is generated — the questions themselves are not in Sanity at
   // all, they are in src/lib/faqData.ts.
+  // /blog arrived on 26 August 2026, after every other singleton, so its three
+  // documents never exist on a dataset seeded before that — same story as the
+  // privacy policy and /about before it. Created whole rather than patched.
+  const existingBlogPage = new Set(
+    docs
+      .filter((d) => d._type === "blogPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
   const existingFaqPage = new Set(
     docs
       .filter((d) => d._type === "faqPage")
@@ -263,6 +273,23 @@ async function run() {
       });
       planned += 1;
       console.log(`  ${doc._id.padEnd(28)} sources / working`);
+      continue;
+    }
+
+    if (doc._type === "blogPage") {
+      const copy = BLOG_PAGE_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          editorial: copy.editorial,
+          empty: copy.empty,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} guides & research`);
       continue;
     }
 
@@ -472,6 +499,26 @@ async function run() {
       heading: copy.heading,
       intro: copy.intro,
       howToRead: copy.howToRead,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `blogPage-${locale}`;
+    if (existingBlogPage.has(id)) continue;
+
+    const copy = BLOG_PAGE_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "blogPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      editorial: copy.editorial,
+      empty: copy.empty,
       seo: { _type: "seo", ...copy.seo, noIndex: false },
     });
     planned += 1;

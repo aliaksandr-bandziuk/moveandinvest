@@ -59,6 +59,13 @@ export const routing = defineRouting({
       pl: "/dla-partnerow",
     },
     "/faq": { en: "/faq", ru: "/voprosy", pl: "/faq" },
+    // THE ONE SECTION WHOSE URL IS NOT TRANSLATED, and that is the decision
+    // rather than an omission. "Blog" is the same word in Russian and Polish,
+    // it is what a reader types, and the section's own NAME on the site is not
+    // "blog" at all — it is Guides & Research. Translating the address would
+    // produce three spellings of a word that has one, to no one's benefit.
+    "/blog": "/blog",
+    "/blog/[slug]": "/blog/[slug]",
     "/contacts": { en: "/contacts", ru: "/kontakty", pl: "/kontakt" },
     "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc" },
     "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla" },

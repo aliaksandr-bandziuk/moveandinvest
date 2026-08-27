@@ -1,0 +1,114 @@
+@use "../../../styles/mixins";
+
+// Hairline rows, one rule between any two and one closing the set — the same
+// arrangement /faq uses, and for the same reason: a list of things that need
+// separating from each other rather than from a background needs a rule, not a
+// box.
+.list {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  &:last-child {
+    border-bottom: var(--border-hairline) solid var(--color-hairline);
+  }
+}
+
+.entry {
+  padding-block: var(--space-6);
+
+  @include mixins.breakpoint-up(md) {
+    padding-block: var(--space-7);
+  }
+}
+
+// The date and the category, above the title. See the component for why the
+// date leads. A flex row rather than two paragraphs: on a narrow card the two
+// wrap as a group, and the separator between them is a gap rather than a
+// character — a character here is a character a screen reader reads out.
+.meta {
+  @include mixins.figure-text;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+// Muted against the accent-coloured date, so the row reads date-then-subject
+// rather than as two equal claims.
+.category {
+  color: var(--color-text-muted);
+}
+
+// `text-wrap: balance` because these are two- and three-line headlines, which
+// is exactly the range it is for — greedy filling leaves a one-word last line.
+// Ignored where unsupported, which costs nothing.
+.title {
+  margin: var(--space-3) 0 0;
+  text-wrap: balance;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tracking-tight);
+}
+
+// The hit area is the title itself, so the underline belongs to the text and
+// not to a box around it.
+.link {
+  @include mixins.focus-ring;
+
+  color: inherit;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+// --measure-wide, not the 47ch measure. Rendered at 1280 with the narrow one,
+// the standfirst broke at about 45 characters under a headline running the full
+// width of the container, and the row read as two columns that had come apart.
+// The deck at the top of the page keeps the narrow measure: it sits under a
+// display heading, which is a different shape.
+.standfirst {
+  max-width: var(--measure-wide);
+
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+.countries {
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+.countriesLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-text-muted);
+}
+
+// NOT A "COMING SOON" BOX. A language with nothing published says so in a
+// sentence written for that case in the CMS, in the same type as the prose
+// around it — a dashed placeholder would be the site decorating its own
+// emptiness.
+.empty {
+  @include mixins.measure;
+
+  margin: var(--space-6) 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}

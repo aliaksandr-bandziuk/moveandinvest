@@ -1,7 +1,24 @@
 import { Link } from "@/i18n/navigation";
-import type { FaqItem } from "@/lib/faqData";
 
 import styles from "./FaqAccordion.module.scss";
+
+/** One row, with its text already resolved for the reader's language.
+ *
+ *  RESOLVED BY THE CALLER, not here. This used to take faqData's own FaqItem —
+ *  `q` and `a` as Record<Locale, string> — plus a `locale` prop to index them
+ *  with, which tied the component to the shape of one file. The article bodies
+ *  carry their own questions, written in one language because the entry is
+ *  written in one language, and they have no locale map to index. The component
+ *  renders an accordion; where the strings came from is the caller's business. */
+export interface FaqRow {
+  /** Stable key. Also the anchor id, so an answer can be linked to directly. */
+  key: string;
+  question: string;
+  answer: string;
+  /** /sources section keys. Optional: an entry cites its sources once, in the
+   *  line under its standfirst, rather than under every answer. */
+  sources?: string[];
+}
 
 export interface FaqAccordionLabels {
   /** Prefix for the link under an answer, e.g. "Sources". */
@@ -13,8 +30,7 @@ export interface FaqAccordionLabels {
 interface FaqAccordionProps {
   /** Groups every accordion on the page into one exclusive set. */
   groupName: string;
-  items: FaqItem[];
-  locale: string;
+  items: FaqRow[];
   labels: FaqAccordionLabels;
   /** Index of the first row, so numbering runs across sections rather than
    *  restarting at 01 in each one. */
@@ -55,7 +71,6 @@ interface FaqAccordionProps {
 export function FaqAccordion({
   groupName,
   items,
-  locale,
   labels,
   startIndex,
 }: FaqAccordionProps) {
@@ -69,12 +84,17 @@ export function FaqAccordion({
           // Deliberately NOT `open` by default on the first row: on a page of
           // fifty-two, one open panel at the top pushes the section list below
           // the fold and tells the reader nothing about the rest.
-          <details key={item.key} id={item.key} name={groupName} className={styles.row}>
+          <details
+            key={item.key}
+            id={item.key}
+            name={groupName}
+            className={styles.row}
+          >
             <summary className={styles.summary}>
               <span className={styles.index} aria-hidden="true">
                 {number}
               </span>
-              <h3 className={styles.question}>{item.q[locale as keyof typeof item.q]}</h3>
+              <h3 className={styles.question}>{item.question}</h3>
               <span className={styles.icon} aria-hidden="true">
                 <span className={styles.iconBarH} />
                 <span className={styles.iconBarV} />
@@ -82,11 +102,13 @@ export function FaqAccordion({
             </summary>
 
             <div className={styles.panel}>
-              <p className={styles.answer}>{item.a[locale as keyof typeof item.a]}</p>
+              <p className={styles.answer}>{item.answer}</p>
 
-              {item.sources.length > 0 ? (
+              {item.sources && item.sources.length > 0 ? (
                 <p className={styles.sources}>
-                  <span className={styles.sourcesLabel}>{labels.sourcesLabel}</span>{" "}
+                  <span className={styles.sourcesLabel}>
+                    {labels.sourcesLabel}
+                  </span>{" "}
                   {item.sources.map((key, index) => (
                     <span key={key}>
                       {index > 0 ? <span aria-hidden="true"> · </span> : null}

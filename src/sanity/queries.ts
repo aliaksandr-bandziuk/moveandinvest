@@ -208,6 +208,115 @@ export const FAQ_PAGE_QUERY = groq`
   }
 `;
 
+// --- Guides & Research -----------------------------------------------------------
+// The listing head, then the entries. Two queries rather than one nested fetch:
+// the head is a singleton that changes rarely and the entries change whenever
+// one is published, and they carry different cache tags for exactly that
+// reason.
+export const BLOG_TAGS = ["blogPage", "article", "country", "siteSettings"];
+
+export const BLOG_PAGE_QUERY = groq`
+  *[_type == "blogPage" && language == $locale][0]{
+    eyebrow, heading, intro, editorial, empty, seo
+  }
+`;
+
+// PUBLISHED ONLY, AND DATED ONLY. `defined(publishedAt)` is not belt and
+// braces: the field has an initial value, so a draft that has never been opened
+// still carries one, and a document whose date somehow went missing would sort
+// to an arbitrary place in a list whose entire ordering is chronological.
+// `publishedAt <= now()` lets an entry be finished today and appear on Monday
+// without anyone having to be at a keyboard on Monday.
+export const BLOG_ENTRIES_QUERY = groq`
+  *[_type == "article"
+    && language == $locale
+    && defined(slug.current)
+    && defined(publishedAt)
+    && publishedAt <= now()
+  ] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    standfirst,
+    category,
+    sources,
+    "countries": countries[]->{ _id, "code": code, "name": coalesce(name[$locale], name.en, code) }
+  }
+`;
+
+// THE ALTERNATES ARE PART OF THE ENTRY, in the same projection and the same
+// round trip, exactly as a jurisdiction page carries its own. They feed
+// hreflang: three translations of one entry that do not declare each other
+// compete with each other in the index, and the one that wins is not
+// necessarily the one in the reader's language.
+//
+// Published siblings only, and `_id != ^._id` is deliberately NOT applied — the
+// entry itself belongs in its own alternates list, because a self-referencing
+// hreflang is part of a valid set rather than a redundancy.
+//
+// `defined(translationKey)` GUARDS BOTH SIDES and it is not decoration. GROQ
+// compares two nulls as equal, so without it an entry carrying no key would
+// match every OTHER entry carrying no key — and an entry published before the
+// field existed would advertise unrelated articles as its own translations. The
+// clause makes that case return nothing, which is the correct answer.
+export const BLOG_ENTRY_QUERY = groq`
+  *[_type == "article" && language == $locale && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    _updatedAt,
+    standfirst,
+    category,
+    sources,
+    body,
+    "countries": countries[]->{ _id, "code": code, "name": coalesce(name[$locale], name.en, code) },
+    "alternates": *[
+      _type == "article"
+      && defined(translationKey)
+      && translationKey == ^.translationKey
+      && defined(slug.current)
+      && defined(publishedAt)
+      && publishedAt <= now()
+    ]{ language, "slug": slug.current },
+    seo
+  }
+`;
+
+// Every language version of every entry, for the sitemap and for hreflang. Same
+// shape as the jurisdiction query below it: the alternates are assembled by
+// grouping on a value the documents share rather than by assuming a shared
+// slug, which is the mistake this file's own comment warns about further down.
+//
+// THE GROUPING VALUE IS A FIELD, NOT A JOIN, and it is the second version of
+// this query. The first resolved the translation-metadata document the
+// internationalization plugin writes:
+//
+//   "translationId": *[_type == "translation.metadata" && references(^._id)][0]._id
+//
+// Correct against a dataset read with a token, and empty against the one the
+// site actually reads: that document is not visible without one, while
+// `article` is. So the switcher offered three dead words and the sitemap
+// emitted three URLs with no hreflang joining them — both of them silently,
+// because a join that returns null is indistinguishable from an entry that
+// genuinely has no translations. Grouping on `translationKey` needs no second
+// document and no second read. See the field's note in schemaTypes/documents/
+// article.ts.
+export const BLOG_SITEMAP_QUERY = groq`
+  *[_type == "article"
+    && defined(slug.current)
+    && defined(publishedAt)
+    && publishedAt <= now()
+  ]{
+    _id,
+    _updatedAt,
+    language,
+    "slug": slug.current,
+    translationKey
+  }
+`;
+
 // The contact page. The CHANNELS are not in here and never will be — they live
 // in src/lib/contactChannels.ts so that one definition feeds the page, the
 // ContactPoint in the JSON-LD and the footer at once. See contactsPage.ts.

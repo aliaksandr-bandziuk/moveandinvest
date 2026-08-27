@@ -30,6 +30,7 @@ const FIXED = [
   "/about",
   "/for-partners",
   "/faq",
+  "/blog",
   "/contacts",
   "/privacy",
   "/sources",

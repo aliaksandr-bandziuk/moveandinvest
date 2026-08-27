@@ -53,6 +53,7 @@
 // nothing asserts nothing.
 import { CHANNELS } from "./contactChannels";
 import { CONTROLLER } from "./controller";
+import { AUTHOR } from "./author";
 
 /** The reference form: an @id and nothing else. Every page but /about uses
  *  this, because the full node is published once. */
@@ -241,5 +242,80 @@ export function buildAboutPageJsonLd({
         mainEntity: organizationRef(origin),
       },
     ],
+  };
+}
+
+interface ArticleJsonLdArgs {
+  url: string;
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified: string;
+  /** Absolute URLs of the /sources sections this entry's figures were checked
+   *  against. */
+  citations: string[];
+  /** The localised /about URL. Built by the caller, which is the only place
+   *  that knows the locale's own path for it. */
+  authorUrl: string;
+}
+
+// One entry in Guides & Research, as a BlogPosting.
+//
+// THE `author` NODE. This file used to say, at length, that there was
+// deliberately none: the site published under the project's name, /about
+// described an editorial position rather than a byline, and inventing a Person
+// to satisfy a validator would have been the site asserting something about
+// itself that was not true.
+//
+// That reasoning was sound and its premise is gone. Entries now carry a
+// byline, so the Person is a fact about the page rather than a decoration on
+// the graph — and a BlogPosting whose visible byline and structured data
+// disagree is worse than one with neither. The name comes from lib/author.ts,
+// the same constant the byline reads, so the two cannot drift.
+//
+// `url` points at /about rather than at a bare @id: it is the page that says
+// how the figures are checked, which is what somebody following a byline is
+// actually asking.
+//
+// `citation` carries the /sources anchors the schema made mandatory on the
+// document. It is the machine-readable half of the line a reader sees under the
+// entry, built from the same array, so the two cannot disagree — and it is the
+// one field in this graph that says what makes this section different from a
+// company blog.
+export function buildArticleJsonLd({
+  url,
+  headline,
+  description,
+  datePublished,
+  dateModified,
+  authorUrl,
+  citations,
+}: ArticleJsonLdArgs) {
+  const origin = new URL(url).origin;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": url,
+    url,
+    headline,
+    description,
+    datePublished,
+    dateModified,
+    isPartOf: { "@id": `${origin}/#website` },
+    author: {
+      "@type": "Person",
+      "@id": `${origin}/#author`,
+      name: AUTHOR.name,
+      url: authorUrl,
+      // The profiles shown under the entry, as the same claim in machine form:
+      // these accounts are this person. It is the one thing `sameAs` is for,
+      // and the reason the links are worth more than a row of icons.
+      sameAs: AUTHOR.profiles.map((profile) => profile.href),
+    },
+    publisher: organizationRef(origin),
+    ...(citations.length > 0
+      ? { citation: citations.map((id) => ({ "@type": "WebPage", "@id": id })) }
+      : {}),
   };
 }

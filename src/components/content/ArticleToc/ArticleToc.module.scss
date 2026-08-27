@@ -1,0 +1,191 @@
+@use "../../../styles/mixins";
+
+// --- Below lg: a closed disclosure above the body ----------------------------
+// Native <details>, the same disclosure the header menu and the FAQ use, with
+// the same `::details-content` transition so it grows and shrinks rather than
+// appearing. Where that pseudo-element is missing the list still opens and
+// closes; it just does it in one frame.
+.mobile {
+  margin-bottom: var(--space-6);
+  border-block: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+.summary {
+  @include mixins.eyebrow;
+  @include mixins.focus-ring;
+  @include mixins.tap-target;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  // The default triangle is replaced by the caret below; Safari needs the
+  // WebKit pseudo-element as well as list-style.
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  // A caret that turns, drawn rather than typed: a character here is a
+  // character a screen reader reads out.
+  &::after {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 1.5px solid currentcolor;
+    border-bottom: 1.5px solid currentcolor;
+    transform: translateY(-0.125rem) rotate(45deg);
+    transition: transform 180ms ease;
+  }
+}
+
+.mobile[open] .summary::after {
+  transform: translateY(0.0625rem) rotate(-135deg);
+}
+
+.panel {
+  padding-bottom: var(--space-4);
+}
+
+@supports selector(::details-content) {
+  .mobile::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 240ms cubic-bezier(0.4, 0, 0.2, 1),
+      content-visibility 240ms allow-discrete;
+  }
+
+  .mobile[open]::details-content {
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summary::after {
+    transition: none;
+  }
+
+  @supports selector(::details-content) {
+    .mobile::details-content {
+      transition: none;
+    }
+  }
+}
+
+// --- lg and up: sticky, in the right margin ----------------------------------
+.toc {
+  display: none;
+
+  @include mixins.breakpoint-up(lg) {
+    display: block;
+    position: sticky;
+    // NO HEIGHT CAP AND NO OVERFLOW. Both were here to stop a list taller than
+    // the viewport from becoming unreachable once stuck, and both bought a
+    // scrollbar inside a twelve-item list that measures 551px in a 900px
+    // window. A list of h2s is bounded by how many sections an article has; if
+    // one ever runs past the screen, the answer is that the article has too
+    // many sections, not that the reader should scroll a box inside a page.
+    //
+    // Clear of the sticky header at its resting height, plus a gap. The header
+    // shrinks once the page moves, so this is the larger of the two values and
+    // the contents sit a little lower than they must — which is the right way
+    // round: the alternative is a heading tucked under the bar.
+    top: calc(var(--space-8) + var(--space-5));
+  }
+}
+
+.label {
+  @include mixins.eyebrow;
+
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  // A HAIRLINE RAIL, which is what carries the active mark. Colouring the text
+  // alone leaves the reader hunting for which of fifteen similar lines changed;
+  // a mark on the rail is visible in peripheral vision, which is where a
+  // contents list is read from while the eye is on the prose.
+  border-left: var(--border-hairline) solid var(--color-hairline);
+}
+
+// THE VERTICAL RHYTHM IS ON THE ITEM, NOT ON THE LINK, and that is a fix
+// rather than a preference. The link is the clamped box; `overflow: hidden`
+// clips at its padding box, so with padding on the link a third line showed
+// through the bottom padding — visible in a screenshot as a strip of cut-off
+// letters under every long entry. Moving the padding out leaves the clamp
+// clipping exactly the text.
+.list li {
+  position: relative;
+  margin: 0;
+  padding-block: var(--space-1);
+}
+
+.link {
+  @include mixins.focus-ring;
+
+  // Long headings are trimmed to three lines. Two lost the distinguishing end
+  // of half the Russian entries ("Что нельзя делать с греческим объектом:
+  // отз…"), which is the part that says what the section is about.
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-left: var(--space-4);
+  // --fs-small, the 15px the rest of the site uses for captions and table
+  // cells. 13px was a step below that, on the argument that a contents list is
+  // furniture and must not compete with the article — true, but 13px is a size
+  // this site uses nowhere else, and an unshared size is a size that drifts.
+  // The list stays quiet through colour and weight instead.
+  font-size: var(--fs-small);
+  line-height: 1.35;
+  color: var(--color-text-muted);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  // The rail mark. Drawn over the list's own border rather than beside it, so
+  // the active item thickens the line instead of adding a second one, and
+  // pulled out over the item's padding so the mark covers the whole row.
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--border-hairline));
+    // Out over the item's own padding, so the mark is the height of the row
+    // rather than of the text inside it.
+    top: calc(-1 * var(--space-1));
+    bottom: calc(-1 * var(--space-1));
+    width: 2px;
+    background: var(--color-accent);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  &[data-active="true"] {
+    color: var(--color-text);
+  }
+
+  &[data-active="true"]::before {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link::before {
+    transition: none;
+  }
+}

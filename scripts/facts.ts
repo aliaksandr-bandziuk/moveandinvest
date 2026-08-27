@@ -2,7 +2,11 @@ import { createClient } from "@sanity/client";
 import { FAQ_ITEMS } from "./copy/faq";
 import { JURISDICTION_BODY } from "./copy/jurisdictionBody";
 import { PROPERTY_BODY } from "./copy/propertyBody";
-import { COUNTRY_LABELS, COUNTRY_PAGES, SOURCE_NOTE } from "./copy/jurisdictions";
+import {
+  COUNTRY_LABELS,
+  COUNTRY_PAGES,
+  SOURCE_NOTE,
+} from "./copy/jurisdictions";
 import { FACTS } from "./copy/costs";
 
 // Fills the per-jurisdiction facts that the home page's lower sections need
@@ -57,7 +61,9 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const token = process.env.SANITY_API_WRITE_TOKEN;
 
 if (!projectId || !dataset) {
-  throw new Error("Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET");
+  throw new Error(
+    "Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET",
+  );
 }
 if (!token) {
   throw new Error(
@@ -77,8 +83,6 @@ const client = createClient({
 });
 
 type Locale = "en" | "ru" | "pl";
-
-
 
 // Rewritten on every document this touches. The wording matters: the block
 // puts it under the bars, so it is the sentence that stops an unchecked
@@ -131,7 +135,8 @@ async function run() {
     }
 
     const before =
-      typeof page.costAdvertisedEur === "number" && typeof page.costExtrasEur === "number"
+      typeof page.costAdvertisedEur === "number" &&
+      typeof page.costExtrasEur === "number"
         ? `${page.costAdvertisedEur} + ${page.costExtrasEur}`
         : "empty";
 
@@ -143,7 +148,9 @@ async function run() {
     // a corrected figure reaches an already-published document and an empty
     // dataset by the same edit. `seed` runs once and never again; this is the
     // only route a correction has to live content.
-    const table = COUNTRY_PAGES.find((entry) => entry.country === `country-${code}`);
+    const table = COUNTRY_PAGES.find(
+      (entry) => entry.country === `country-${code}`,
+    );
 
     // The page prose. Written per jurisdiction per locale in
     // copy/jurisdictionBody.ts and converted to Portable Text there; this
@@ -171,11 +178,43 @@ async function run() {
     });
 
     if (body) {
-      const words = body.reduce(
-        (total, block) => total + (block.children[0]?.text.split(/\s+/).length ?? 0),
-        0,
+      // A table has no `children`; its words live in cells. Counted rather
+      // than skipped, because the word count is what this line reports and a
+      // body that is half table would otherwise read as half empty.
+      const words = body.reduce((total, block) => {
+        if (block._type === "table") {
+          return (
+            total +
+            block.rows.reduce(
+              (sum, row) =>
+                sum +
+                row.cells.reduce(
+                  (n, cell) => n + cell.split(/\s+/).filter(Boolean).length,
+                  0,
+                ),
+              0,
+            )
+          );
+        }
+        if (block._type === "faq") {
+          // Question and answer both count: a closed accordion still holds
+          // every word, which is exactly why it is native <details>.
+          return (
+            total +
+            block.items.reduce(
+              (sum, item) =>
+                sum +
+                `${item.question} ${item.answer}`.split(/\s+/).filter(Boolean)
+                  .length,
+              0,
+            )
+          );
+        }
+        return total + (block.children[0]?.text.split(/\s+/).length ?? 0);
+      }, 0);
+      console.log(
+        `  ${" ".repeat(38)} ${String(body.length).padStart(18)} blocks, ${words} words`,
       );
-      console.log(`  ${" ".repeat(38)} ${String(body.length).padStart(18)} blocks, ${words} words`);
     }
     planned += 1;
   }
@@ -211,7 +250,9 @@ async function run() {
     );
 
     if (label) {
-      console.log(`  ${" ".repeat(38)} ${"label".padStart(18)}  ->  ${label.ru} · ${label.pl}`);
+      console.log(
+        `  ${" ".repeat(38)} ${"label".padStart(18)}  ->  ${label.ru} · ${label.pl}`,
+      );
     }
 
     transaction.patch(doc._id, {
@@ -245,15 +286,23 @@ async function run() {
   for (const doc of properties) {
     const parts = doc._id.replace(/^drafts\./, "").split("-");
     const code = parts[1];
-    const body = code && isLocale(doc.language) ? PROPERTY_BODY[code]?.[doc.language] : undefined;
+    const body =
+      code && isLocale(doc.language)
+        ? PROPERTY_BODY[code]?.[doc.language]
+        : undefined;
 
     if (!body) {
       skipped.push(doc._id);
       continue;
     }
 
-    const blockCount = Object.values(body).reduce((n, section) => n + section.length, 0);
-    console.log(`  ${doc._id.padEnd(38)}  ->  6 sections, ${blockCount} blocks`);
+    const blockCount = Object.values(body).reduce(
+      (n, section) => n + section.length,
+      0,
+    );
+    console.log(
+      `  ${doc._id.padEnd(38)}  ->  6 sections, ${blockCount} blocks`,
+    );
 
     transaction.patch(doc._id, {
       set: {
@@ -293,7 +342,9 @@ async function run() {
       continue;
     }
 
-    console.log(`  ${doc._id.padEnd(38)}  ->  ${item.a[doc.language].slice(0, 48)}…`);
+    console.log(
+      `  ${doc._id.padEnd(38)}  ->  ${item.a[doc.language].slice(0, 48)}…`,
+    );
 
     transaction.patch(doc._id, {
       set: { question: item.q[doc.language], answer: item.a[doc.language] },
@@ -302,7 +353,9 @@ async function run() {
   }
 
   if (skipped.length > 0) {
-    console.log(`\nskipped (no entry for that code, or no language): ${skipped.join(", ")}`);
+    console.log(
+      `\nskipped (no entry for that code, or no language): ${skipped.join(", ")}`,
+    );
   }
 
   if (!write) {

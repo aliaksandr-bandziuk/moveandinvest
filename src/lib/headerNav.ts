@@ -40,6 +40,7 @@ export const HEADER_NAV: HeaderLink[] = [
   // The one dynamic item: its children are the live jurisdictions, in the
   // registry's own order, with the same names the rest of the site uses.
   { key: "countries", fromJurisdictions: true },
+  { key: "research", href: "/blog" },
   { key: "faq", href: "/faq" },
   { key: "working", href: "/sources" },
   { key: "about", href: "/about" },

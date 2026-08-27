@@ -1,9 +1,10 @@
 import { sanityFetch } from "@/sanity/client";
 import {
+  BLOG_SITEMAP_QUERY,
   SITEMAP_COUNTRY_QUERY,
   SITEMAP_PROPERTY_QUERY,
 } from "@/sanity/queries";
-import type { SitemapCountryDoc } from "@/sanity/types";
+import type { ArticleSitemapDoc, SitemapCountryDoc } from "@/sanity/types";
 
 // Which localised slug is which, across the eight pages whose URL is genuinely
 // translated: /greece, /gretsiya and /grecja are one page in three languages,
@@ -33,35 +34,101 @@ export type SlugSiblings = Record<string, string>;
 
 /** Keyed by EVERY localised slug, each pointing at the full sibling set. So
  *  "greece", "gretsiya" and "grecja" are three keys onto one object. */
-export type SlugMap = Record<string, SlugSiblings>;
+export type SlugLookup = Record<string, SlugSiblings>;
 
-function addGroup(map: SlugMap, docs: SitemapCountryDoc[]): void {
-  const byCountry = new Map<string, SitemapCountryDoc[]>();
+/** TWO LOOKUPS, NOT ONE, because two different routes have a [slug] and their
+ *  slug spaces are unrelated. An entry called "greece-raised-the-
+ *  threshold" and a jurisdiction page called "greece" live at /blog/... and /...
+ *  respectively; one flat map would let a collision between them send a reader
+ *  to the wrong section in the wrong language, and the collision would be
+ *  invisible until it happened. */
+export interface SlugMap {
+  /** Jurisdiction and property pages, at the top level. */
+  pages: SlugLookup;
+  /** Guides & Research entries, under /blog. */
+  entries: SlugLookup;
+}
+
+/** What the grouping needs from a document, whatever type it is: which set it
+ *  belongs to, which language it is in, and what it is called in that
+ *  language. */
+interface Localised {
+  key?: string | null;
+  language?: string | null;
+  slug?: string | null;
+}
+
+// ONE FUNCTION FOR ALL THREE TYPES, because there was never more than one rule:
+// documents that share a value are one page in several languages. There used to
+// be two — `addGroup` keyed on a jurisdiction page's `country` reference and
+// `addEntries` on the translation-set document the internationalization plugin
+// writes — and the second one was the only thing on this site reading that
+// document. It read empty for a visitor, because the plugin's bookkeeping is
+// not public while the content is; see BLOG_SITEMAP_QUERY. Entries now carry
+// their own key, so the two mechanisms are one.
+function addGroup(map: SlugLookup, docs: Localised[]): void {
+  // The narrowed shape, because `Required<Localised>` would only drop the `?`
+  // and leave `| null` behind — and a null slug used as a key is exactly the
+  // state the loop below exists to skip.
+  type Complete = { [K in keyof Localised]-?: NonNullable<Localised[K]> };
+  const bySet = new Map<string, Complete[]>();
 
   for (const doc of docs) {
-    if (!doc.countryId || !doc.slug || !doc.language) continue;
-    const group = byCountry.get(doc.countryId) ?? [];
-    group.push(doc);
-    byCountry.set(doc.countryId, group);
+    if (!doc.key || !doc.slug || !doc.language) continue;
+    const group = bySet.get(doc.key) ?? [];
+    group.push({ key: doc.key, slug: doc.slug, language: doc.language });
+    bySet.set(doc.key, group);
   }
 
-  for (const group of byCountry.values()) {
+  for (const group of bySet.values()) {
     const siblings: SlugSiblings = {};
-    for (const doc of group)
-      siblings[doc.language as string] = doc.slug as string;
+    for (const doc of group) siblings[doc.language] = doc.slug;
     // Every member points at the same object, so the lookup works from
     // whichever language the reader happens to be standing in.
-    for (const doc of group) map[doc.slug as string] = siblings;
+    for (const doc of group) map[doc.slug] = siblings;
   }
 }
+
+const byCountry = (doc: SitemapCountryDoc): Localised => ({
+  key: doc.countryId,
+  language: doc.language,
+  slug: doc.slug,
+});
+
+const byTranslationKey = (doc: ArticleSitemapDoc): Localised => ({
+  key: doc.translationKey,
+  language: doc.language,
+  slug: doc.slug,
+});
 
 // Jurisdiction and property pages are grouped SEPARATELY even though both key
 // off `country`. Together they would make /greece and /property-in-greece
 // siblings, which is the same mistake the sitemap's own comment warns about:
 // it would tell a reader that the Russian version of the buying page is the
 // English jurisdiction page.
+// Guides & Research entries group on a different value, and the difference is
+// worth stating. A jurisdiction page's siblings are derivable from the `country`
+// it references — three documents pointing at one country ARE one page in three
+// languages, and there is nothing extra to keep in sync. An entry references
+// nothing shared, because an entry is not about a country the way a country page
+// is: some concern two jurisdictions, some concern none. So an entry carries a
+// key of its own instead, written by the script that publishes it.
+//
+// The defensiveness is real rather than cargo, whichever value is grouped on: an
+// entry written only in Russian shares its key with nothing, gets no siblings,
+// and correctly offers the reader no link to a page that does not exist.
+
+// FETCHED IN THE LAYOUT, ON EVERY PAGE, which is fine at this size and will not
+// be forever. Two jurisdictions' worth of pages and a handful of entries is a
+// few dozen rows. The ceiling is the Guides & Research section: at a few hundred entries this
+// becomes a few hundred rows loaded to render a header, and the answer then is
+// the one the sibling project already uses — every page emits its own hreflang
+// alternates into <head> for search engines anyway, so the switcher can read
+// them from the document instead of the whole corpus being re-derived here.
+// Noted rather than built, because building it now would be machinery for a
+// scale this section does not have.
 export async function getSlugMap(): Promise<SlugMap> {
-  const [countryDocs, propertyDocs] = await Promise.all([
+  const [countryDocs, propertyDocs, entryDocs] = await Promise.all([
     sanityFetch<SitemapCountryDoc[]>(SITEMAP_COUNTRY_QUERY, {}, [
       "countryPage",
       "country",
@@ -70,10 +137,15 @@ export async function getSlugMap(): Promise<SlugMap> {
       "propertyPage",
       "country",
     ]),
+    sanityFetch<ArticleSitemapDoc[]>(BLOG_SITEMAP_QUERY, {}, ["article"]),
   ]);
 
-  const map: SlugMap = {};
-  addGroup(map, countryDocs);
-  addGroup(map, propertyDocs);
-  return map;
+  const pages: SlugLookup = {};
+  addGroup(pages, countryDocs.map(byCountry));
+  addGroup(pages, propertyDocs.map(byCountry));
+
+  const entries: SlugLookup = {};
+  addGroup(entries, entryDocs.map(byTranslationKey));
+
+  return { pages, entries };
 }

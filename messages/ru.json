@@ -11,7 +11,8 @@
       "working": "Источники",
       "about": "О проекте",
       "forPartners": "Партнёрам",
-      "enquiry": "Оставить заявку"
+      "enquiry": "Оставить заявку",
+      "research": "Гайды и исследования"
     },
     "menu": "Меню",
     "soon": "скоро"
@@ -22,7 +23,7 @@
     "startQualification": "Подобрать маршрут"
   },
   "localeSwitcher": {
-    "label": "Язык",
+    "labelCurrent": "Язык: {code}",
     "en": "EN",
     "ru": "RU",
     "pl": "PL"
@@ -37,7 +38,7 @@
     "groups": {
       "jurisdictions": "Юрисдикции",
       "site": "На сайте",
-      "guides": "Материалы",
+      "guides": "Гайды и исследования",
       "project": "Проект"
     },
     "links": {
@@ -55,7 +56,8 @@
       "working": "Источники и выкладки",
       "contacts": "Контакты",
       "privacy": "Конфиденциальность",
-      "cookies": "Выбор про cookie"
+      "cookies": "Выбор про cookie",
+      "allResearch": "Всё опубликованное"
     }
   },
   "home": {
@@ -208,5 +210,17 @@
       "citizenship": "Гражданство"
     },
     "linkLabel": "Пятьдесят два вопроса, отвеченных по закону"
+  },
+  "blog": {
+    "backToIndex": "Все гайды и исследования",
+    "published": "Опубликовано",
+    "updated": "Обновлено",
+    "readingTime": "{minutes} мин чтения",
+    "sourcesLabel": "Проверено по",
+    "jurisdictionsLabel": "Юрисдикции",
+    "empty": "На этом языке пока ничего не опубликовано.",
+    "contents": "Содержание",
+    "progressLabel": "Прогресс чтения",
+    "home": "Главная"
   }
 }

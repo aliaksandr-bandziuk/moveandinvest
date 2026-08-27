@@ -80,13 +80,19 @@
 // items is more machinery than the content justifies. Revisit when the nav has
 // five." The nav has five. Revisited.
 //
+// SWITCHES AT `header`, NOT AT `lg`, since 26 August 2026. Measured with the
+// real font at three languages: six items and the Russian labels need 1072px,
+// so at 1024px the row overflowed the container by 48px. The burger it falls
+// back to is a full-screen panel now, so a 1100px window loses nothing by
+// using it — see the token for the numbers.
+//
 // `display: none` rather than visibility or opacity: the two navigations hold
 // the same links, and a hidden copy that stays in the accessibility tree is a
 // screen reader announcing the menu twice.
 .desktop {
   display: none;
 
-  @include mixins.breakpoint-up(lg) {
+  @include mixins.breakpoint-up(header) {
     display: flex;
     align-items: center;
     gap: var(--space-5);
@@ -154,9 +160,14 @@
 }
 
 // --- The jurisdictions submenu -----------------------------------------------
-// One element, two behaviours. On a phone it is an accordion inside the panel
-// and pushes what follows down; from lg it is absolutely positioned and floats.
+// One element, two behaviours. In the panel it is an accordion and pushes what
+// follows down; in the desktop row it is absolutely positioned and floats.
 // Nothing in the markup changes between the two.
+//
+// BOTH SWITCH AT `header`, not at lg. They have to be the same width the two
+// navigations trade at: between 1024 and 1152 the nav lives in the burger
+// panel, and a submenu that had started floating there would hang over the
+// panel it is supposed to be inside.
 .group {
   position: relative;
 }
@@ -166,7 +177,7 @@
   margin: 0;
   padding: var(--space-3) 0 var(--space-2) var(--space-4);
 
-  @include mixins.breakpoint-up(lg) {
+  @include mixins.breakpoint-up(header) {
     position: absolute;
     // --dropdown-drop, not a literal: the language list hangs off the same row
     // and has to land at the same height. See the token.
@@ -249,7 +260,7 @@
     block-size: auto;
   }
 
-  @include mixins.breakpoint-up(lg) {
+  @include mixins.breakpoint-up(header) {
     // Floating, so the box that grows is the wrong box. Height is handed back
     // to the content and the panel fades and rises instead.
     .group::details-content {
@@ -315,7 +326,7 @@
 
 // --- Phone: burger and panel -------------------------------------------------
 .menu {
-  @include mixins.breakpoint-up(lg) {
+  @include mixins.breakpoint-up(header) {
     display: none;
   }
 }

@@ -1,4 +1,6 @@
 import { aboutPage } from "./aboutPage";
+import { article } from "./article";
+import { blogPage } from "./blogPage";
 import { contactsPage } from "./contactsPage";
 import { country } from "./country";
 import { countryPage } from "./countryPage";
@@ -21,12 +23,16 @@ export const documentTypes = [
   sourcesPage,
   contactsPage,
   faqPage,
+  blogPage,
   // Jurisdictions: a language-neutral registry plus its translated pages
   country,
   countryPage,
   // The buying half. Shares the top-level URL space with countryPage — see the
   // arbitration in src/app/[locale]/[slug]/page.tsx.
   propertyPage,
+  // Guides & Research. Not a singleton — this is the one type on the site an editor
+  // is meant to keep adding to.
+  article,
   // Reusable across pages: the home page renders all of them, a jurisdiction
   // page renders the ones tagged with it.
   faqItem,

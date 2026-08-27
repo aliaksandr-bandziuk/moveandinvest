@@ -9,6 +9,17 @@ import { linkAnnotation } from "./linkAnnotation";
 // No H4: a page that needs four heading levels is a page that needs
 // splitting, and deep heading trees hurt the extractability this whole site
 // is built around.
+//
+// TABLES ADDED 27 AUGUST 2026, for the article bodies in Guides & Research. See
+// objects/table.ts for why a cell holds a plain string and why the first row is
+// always the header. It went through the rule at the top of this comment: it is
+// here because a comparison across fixed columns cannot survive being written
+// as prose, not because it was convenient.
+//
+// QUESTIONS ADDED THE SAME DAY, for the set every entry ends with. Same test: a
+// run of ten questions set as paragraphs is ten more screens after three
+// thousand words, which is where a reader stops; as an accordion it is one
+// screen of headings they scan for theirs. See objects/faq.ts.
 export const portableText = defineType({
   name: "portableText",
   title: "Content",
@@ -34,6 +45,8 @@ export const portableText = defineType({
         annotations: [linkAnnotation()],
       },
     }),
+    defineArrayMember({ type: "table" }),
+    defineArrayMember({ type: "faq" }),
     defineArrayMember({
       type: "image",
       options: { hotspot: true },

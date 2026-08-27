@@ -1,0 +1,22 @@
+@use "../../../../styles/mixins";
+
+.wrap {
+  @include mixins.section-rhythm;
+
+  display: grid;
+  gap: var(--space-5);
+
+  // NARROWER THAN THE REST OF THE SITE, and set HERE rather than on the article
+  // itself. `.article` used to declare `--container-max-width: 62rem` — and it
+  // is a child of the `.container` that reads the property, so it never applied
+  // and the entry ran at the site-wide 106rem the whole time. A custom property
+  // only reaches the element that reads it if it is set on that element or an
+  // ancestor; declaring it on a descendant is a comment, not a rule.
+  // 72rem, up from 66. At 1280 that is a 786px reading column against 682
+  // before — the four-column comparison tables wanted 665 and were sitting on
+  // the limit, so any longer cell pushed one into its own horizontal scroll on
+  // a desktop screen with room to spare. The prose measure is unchanged: it is
+  // set in `ch` on the text itself, so the column got wider and the line did
+  // not.
+  --container-max-width: 80rem;
+}

@@ -31,7 +31,17 @@ $breakpoints: (
   // 768px
   lg: 64rem,
   // 1024px
-  xl: 80rem, // 1280px
+  xl: 80rem,
+  // 1280px
+  // NOT A PAGE BREAKPOINT. The header's desktop row switches on here rather
+  // than at lg, and the number is measured rather than chosen: with six nav
+  // items the Russian labels need 1072px of content, so at lg (1024px) the row
+  // overflowed by 48px — and even the shortest wording of the new section left
+  // 19px of slack, which is a layout waiting to break on the next label. 72rem
+  // gives the worst language 80px of room. English and Polish fit at lg; the
+  // header switches on one width for all three because a nav that appears at
+  // different widths per language is a nav nobody can reason about.
+  header: 72rem, // 1152px
 );
 
 @function breakpoint($name) {

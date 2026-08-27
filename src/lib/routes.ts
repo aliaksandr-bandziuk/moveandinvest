@@ -23,6 +23,13 @@ export type AppHref = ComponentProps<typeof Link>["href"];
  *  never carry a fragment. */
 export type AppPathname = Parameters<typeof getPathname>[0]["href"];
 
+/** One entry in Guides & Research. Its slug is translated per language and lives in the
+ *  Sanity document, exactly like a jurisdiction page — only the /blog segment
+ *  above it is fixed. */
+export function articleHref(slug: string) {
+  return { pathname: "/blog/[slug]", params: { slug } } as const;
+}
+
 /** A jurisdiction or property page. Its slug is translated per language and
  *  lives in the Sanity document, so the route is the shape and the slug is
  *  data — which is exactly what the object form says. */

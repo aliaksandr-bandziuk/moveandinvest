@@ -14,6 +14,7 @@ export const SINGLETON_TYPES = new Set([
   "sourcesPage",
   "contactsPage",
   "faqPage",
+  "blogPage",
 ]);
 
 // Types whose delete and duplicate actions are removed. Today that is
@@ -43,6 +44,10 @@ export const TRANSLATABLE_TYPES = new Set([
   "countryPage",
   "propertyPage",
   "faqItem",
+  // Guides & Research. Registered here for the same reason propertyPage had to be:
+  // without it an entry gets no language switcher in the Studio, and the three
+  // translations of one entry are never treated as one set.
+  "article",
 ]);
 
 const DEFAULT_LOCALE = "en";
@@ -82,6 +87,18 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Property pages")
         .child(S.documentTypeList("propertyPage").title("Property pages")),
+      S.divider(),
+      // Guides & Research: its head, then the entries, ordered newest first — the
+      // same order the listing renders in, so an editor looking for the last
+      // thing published finds it where the reader does.
+      singletonListItem(S, "blogPage", "Guides & Research (listing)"),
+      S.listItem()
+        .title("Guides & Research entries")
+        .child(
+          S.documentTypeList("article")
+            .title("Guides & Research entries")
+            .defaultOrdering([{ field: "publishedAt", direction: "desc" }]),
+        ),
       S.divider(),
       S.listItem()
         .title("FAQ")

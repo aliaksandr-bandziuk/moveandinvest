@@ -111,7 +111,6 @@
 }
 
 .item,
-.current,
 .absent {
   @include mixins.focus-ring-on-dark;
 
@@ -129,12 +128,11 @@
   color: var(--color-on-dark);
 }
 
-// "You are here", without the filled chip the old row used. Inside a panel of
-// three, white text against two grey ones already says it — and a block of
-// white in a dropdown reads as a hover state, not as a selection.
-.current {
-  color: var(--color-on-dark);
-}
+// NO `.current` RULE, because there is no current row to style. It used to be
+// the white one among three greys — "you are here", stated a second time two
+// rows under the trigger that already states it. The list now holds only the
+// languages the reader can go to, so every row in it is a destination and none
+// of them needs to be told apart from the one they are standing in.
 
 // A language this page does not exist in. Rendered, so the reader can see the
 // site has three and this page has two, but not as a link — the same rule the

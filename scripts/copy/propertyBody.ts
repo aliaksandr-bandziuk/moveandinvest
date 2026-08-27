@@ -1,4 +1,4 @@
-import { blocks, type PortableBlock } from "./portable";
+import { blocks, type PortableContent } from "./portable";
 import type { Locale } from "./jurisdictions";
 
 // The six sections of each property page, in three languages.
@@ -44,8 +44,8 @@ const SECTION_KEYS: SectionKey[] = [
 
 /** Converts one language's six sections to Portable Text, keyed deterministically
  *  so a re-run produces byte-identical documents. */
-function sections(source: Sections, prefix: string): Record<SectionKey, PortableBlock[]> {
-  const out = {} as Record<SectionKey, PortableBlock[]>;
+function sections(source: Sections, prefix: string): Record<SectionKey, PortableContent[]> {
+  const out = {} as Record<SectionKey, PortableContent[]>;
   for (const key of SECTION_KEYS) {
     out[key] = blocks(source[key], `${prefix}${key}`);
   }
@@ -2267,7 +2267,7 @@ potwierdzenie rezydencji, opłaty departamentu i administracyjne — oraz po
 // The export. Keys are ISO alpha-2, the same key the patcher reads from the
 // document id, so a jurisdiction with no entry here simply keeps empty section
 // fields and renders no sections.
-export const PROPERTY_BODY: Record<string, Record<Locale, Record<SectionKey, PortableBlock[]>>> = {
+export const PROPERTY_BODY: Record<string, Record<Locale, Record<SectionKey, PortableContent[]>>> = {
   gr: {
     en: sections(GR.en, "gren"),
     ru: sections(GR.ru, "grru"),

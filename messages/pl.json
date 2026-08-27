@@ -11,7 +11,8 @@
       "working": "Źródła",
       "about": "O projekcie",
       "forPartners": "Dla partnerów",
-      "enquiry": "Wyślij zapytanie"
+      "enquiry": "Wyślij zapytanie",
+      "research": "Poradniki i badania"
     },
     "menu": "Menu",
     "soon": "wkrótce"
@@ -22,7 +23,7 @@
     "startQualification": "Dobierz ścieżkę"
   },
   "localeSwitcher": {
-    "label": "Język",
+    "labelCurrent": "Język: {code}",
     "en": "EN",
     "ru": "RU",
     "pl": "PL"
@@ -37,7 +38,7 @@
     "groups": {
       "jurisdictions": "Jurysdykcje",
       "site": "Na stronie",
-      "guides": "Materiały",
+      "guides": "Poradniki i badania",
       "project": "Projekt"
     },
     "links": {
@@ -55,7 +56,8 @@
       "working": "Źródła i wyliczenia",
       "contacts": "Kontakt",
       "privacy": "Prywatność",
-      "cookies": "Wybór dotyczący cookie"
+      "cookies": "Wybór dotyczący cookie",
+      "allResearch": "Wszystko, co opublikowano"
     }
   },
   "home": {
@@ -208,5 +210,17 @@
       "citizenship": "Obywatelstwo"
     },
     "linkLabel": "Pięćdziesiąt dwa pytania, odpowiedziane z ustawy"
+  },
+  "blog": {
+    "backToIndex": "Wszystkie poradniki i badania",
+    "published": "Opublikowano",
+    "updated": "Zaktualizowano",
+    "readingTime": "{minutes} min czytania",
+    "sourcesLabel": "Sprawdzone wg",
+    "jurisdictionsLabel": "Jurysdykcje",
+    "empty": "W tym języku nic jeszcze nie opublikowano.",
+    "contents": "Spis treści",
+    "progressLabel": "Postęp czytania",
+    "home": "Strona główna"
   }
 }

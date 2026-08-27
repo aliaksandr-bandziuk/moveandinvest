@@ -11,7 +11,8 @@
       "working": "Sources",
       "about": "About",
       "forPartners": "For partners",
-      "enquiry": "Send an enquiry"
+      "enquiry": "Send an enquiry",
+      "research": "Guides & Research"
     },
     "menu": "Menu",
     "soon": "soon"
@@ -22,7 +23,7 @@
     "startQualification": "Find your route"
   },
   "localeSwitcher": {
-    "label": "Language",
+    "labelCurrent": "Language: {code}",
     "en": "EN",
     "ru": "RU",
     "pl": "PL"
@@ -37,7 +38,7 @@
     "groups": {
       "jurisdictions": "Jurisdictions",
       "site": "On this site",
-      "guides": "Guides",
+      "guides": "Guides & Research",
       "project": "Project"
     },
     "links": {
@@ -55,7 +56,8 @@
       "working": "Sources and working",
       "contacts": "Contact",
       "privacy": "Privacy",
-      "cookies": "Cookie choice"
+      "cookies": "Cookie choice",
+      "allResearch": "Everything published"
     }
   },
   "home": {
@@ -208,5 +210,17 @@
       "citizenship": "Citizenship"
     },
     "linkLabel": "Fifty-two questions, answered from the statute"
+  },
+  "blog": {
+    "backToIndex": "All guides and research",
+    "published": "Published",
+    "updated": "Updated",
+    "readingTime": "{minutes} min read",
+    "sourcesLabel": "Checked against",
+    "jurisdictionsLabel": "Jurisdictions",
+    "empty": "Nothing has been published in this language yet.",
+    "contents": "Contents",
+    "progressLabel": "Reading progress",
+    "home": "Home"
   }
 }

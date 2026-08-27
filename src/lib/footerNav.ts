@@ -57,12 +57,18 @@ export const FOOTER_GROUPS: FooterGroup[] = [
     ],
   },
   {
+    // THE GROUP THAT WAS ALREADY THE SECTION. Its three rows have sat here
+    // since launch, greyed out and unlinked — a content plan in the footer,
+    // waiting for somewhere to put it. Now there is somewhere: they are the
+    // first three things Guides & Research will publish, and the group is
+    // named after it rather than after the word they happened to share.
+    //
+    // They stay unlinked until they are written. The rule the comparison table
+    // follows for a jurisdiction with no page holds here too: show what the
+    // site will cover, never pretend it already does, never link to a 404.
     key: "guides",
     links: [
-      // Nothing here is written yet. They are listed anyway, marked and
-      // unlinked — the same rule the comparison table follows for a
-      // jurisdiction with no page: show what the site will cover, never
-      // pretend it already does, and never link to a 404.
+      { key: "allResearch", href: "/blog" },
       { key: "ruleChanges" },
       { key: "movingGuides" },
       { key: "costOfLiving" },

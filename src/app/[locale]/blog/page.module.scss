@@ -1,0 +1,35 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // Narrower than /sources' 94rem and matching /faq: this is a column of
+  // headlines and standfirsts, and past about 82rem a headline and the deck
+  // under it stop reading as one entry.
+  --container-max-width: 82rem;
+}
+
+// The editorial block under the list. Held to the prose measure and set in the
+// muted colour: it is the section explaining itself, and it must not compete
+// with the entries above it for the reader's eye.
+.editorial {
+  max-width: 72ch;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+
+  > * + * {
+    margin-top: var(--space-4);
+  }
+
+  h2 {
+    margin-top: var(--space-6);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+  }
+}

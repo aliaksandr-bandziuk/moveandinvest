@@ -1,4 +1,4 @@
-import { blocks, type PortableBlock } from "./portable";
+import { blocks, type PortableContent } from "./portable";
 import type { Locale } from "./jurisdictions";
 
 // The prose on each jurisdiction page, in three languages.
@@ -696,7 +696,7 @@ złotego pobytu GDRFA i ICP; u.ae o opodatkowaniu.
 `,
 };
 
-export const JURISDICTION_BODY: Record<string, Record<Locale, PortableBlock[]>> = {
+export const JURISDICTION_BODY: Record<string, Record<Locale, PortableContent[]>> = {
   pt: {
     en: blocks(PT.en, "pten"),
     ru: blocks(PT.ru, "ptru"),

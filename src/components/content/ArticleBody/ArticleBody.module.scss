@@ -1,0 +1,625 @@
+@use "../../../styles/mixins";
+
+.article {
+  // The name the progress bar animates against is declared on .body, which
+  // comes after the bar in the DOM. A timeline name is visible to an element's
+  // descendants and to its following siblings — not to the ones before it — so
+  // the scope is opened here, on their common ancestor, rather than by moving
+  // the bar to the end of the markup where it would be the last thing a screen
+  // reader reaches and the last thing a keyboard walks past.
+  timeline-scope: --article-read;
+}
+
+// --- Reading layout ----------------------------------------------------------
+// One column on a phone, contents in the left margin from lg. The head is
+// inside the grid rather than above it so the title, the standfirst and the
+// first paragraph all start on the same vertical line — a title that begins
+// 280px to the left of the text under it reads as two pages stapled together.
+.layout {
+  @include mixins.breakpoint-up(lg) {
+    display: grid;
+    // The contents on the RIGHT, not the left. A list of section names is a
+    // thing a reader consults after starting, not before, and on the left it
+    // sits between the page edge and the first word of every line — in the
+    // path the eye takes back to the start of each line, fifty times a screen.
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    column-gap: var(--space-7);
+  }
+}
+
+// THE HEAD RUNS THE FULL WIDTH and the contents start where the body does.
+// Placing the head in column one, with the contents spanning both rows beside
+// it, put a 224px empty column next to the title for the whole height of the
+// opening — and started the list level with the eyebrow, which is above the
+// first thing it points at. A contents list that begins above the article's
+// first paragraph is describing a page the reader has not reached yet.
+.head {
+  @include mixins.breakpoint-up(lg) {
+    grid-column: 1 / -1;
+  }
+}
+
+.side {
+  @include mixins.breakpoint-up(lg) {
+    grid-column: 2;
+    grid-row: 2;
+    // The same gap the prose takes below the head, so the contents label and
+    // the first paragraph start on one line. Set on the grid item and not on
+    // the sticky list inside it: padding on a sticky element moves its content
+    // but not the box the `top` offset is measured from, which would leave the
+    // list sitting 48px lower than intended once it sticks.
+    padding-top: var(--space-7);
+  }
+}
+
+.body {
+  @include mixins.breakpoint-up(lg) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  // 30px off the track the grid gives it. The prose and the tables share one
+  // width now (see .prose), so this is the single number that sets both — and
+  // the reason it is here rather than on the grid track is that the head spans
+  // the full container and must not move with it.
+  //
+  // FROM xl, NOT FROM lg. Measured at 1024, where the two-column layout has
+  // just started: the reading column is 670px there and the four-column
+  // summary table needs 665. Taking 30 off leaves 640 and that one table
+  // starts scrolling inside its own box — a regression bought for thirty
+  // pixels of alignment on the width where there is least room to spare.
+  // Above xl the column is 876 and the trim costs nothing.
+  @include mixins.breakpoint-up(xl) {
+    max-width: calc(100% - 30px);
+  }
+}
+
+// --- Reading progress --------------------------------------------------------
+// A 2px bar across the very top of the viewport, over the header rather than
+// under it. Fixed at 0 and nothing else: the alternative — sitting it on the
+// header's lower edge — needs the header's height as a number, and the header
+// shrinks as the page scrolls, so that number is wrong for most of the time the
+// bar is visible.
+//
+// NO JAVASCRIPT. The sibling project drives this from a scroll listener through
+// its smooth-scroll library, with a retry loop waiting for that library to
+// initialise and a reduced-motion check on top. Here the browser owns the
+// timeline: `contain` on a body taller than the viewport runs from "the body's
+// top edge reaches the top of the screen" to "its bottom edge reaches the
+// bottom" — which is the same span that project's arithmetic works out to, and
+// it is the correct one: a bar that only fills when the last line leaves the
+// screen never reaches the end.
+//
+// Where scroll-driven animation is missing the fill stays at scaleX(0), which
+// is a bar nobody sees rather than a broken one.
+.progressTrack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60; // above the header's 50
+  pointer-events: none;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-accent-on-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.body {
+  view-timeline-name: --article-read;
+  view-timeline-axis: block;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .progressFill {
+      animation: readingProgress linear both;
+      animation-timeline: --article-read;
+      animation-range: contain;
+    }
+  }
+}
+
+@keyframes readingProgress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.head {
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+}
+
+// Dates and reading time on one line, wrapping as a group on a narrow screen.
+// `gap` rather than separators typed into the markup: a separator that is a
+// character is one a screen reader reads aloud.
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+
+  @include mixins.figure-text;
+
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+// The category, above the title. Accent-coloured rather than muted: it is the
+// one word in the head that sorts the entry into something, and the eyebrow
+// grey the meta row uses would hide it in the row above.
+.category {
+  @include mixins.eyebrow;
+
+  margin: var(--space-5) 0 0;
+  color: var(--color-accent);
+}
+
+// --- The byline -------------------------------------------------------------
+// Not in the meta row above it, and not in the mono the figures use. See the
+// component for the argument: the row above is facts about the document, this
+// is the person answerable for what it says.
+.byline {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.bylineLink {
+  @include mixins.link;
+
+  color: var(--color-text);
+}
+
+.title {
+  margin: var(--space-4) 0 0;
+  text-wrap: balance;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+}
+
+// THE HEAD IS NOT SET TO A READING MEASURE. The title had a 24ch cap and the
+// standfirst the shared `measure` mixin, which is right for a column of body
+// copy and wrong here: the head runs the full container, so a capped title left
+// 600px of empty rule beside it and the block read as a narrow page inside a
+// wide one. A standfirst is read once, at a glance, not for ten minutes.
+//
+// Measured at 1280: the standfirst now runs about 100 characters to the line,
+// against 56 in the body. That is past the comfortable range for sustained
+// reading and deliberately so for three sentences — but it is the one number
+// here worth arguing about, and capping it around 80ch is one line if the long
+// line turns out to read badly.
+.standfirst {
+  margin: var(--space-5) 0 0;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-text-muted);
+}
+
+// Above the fold, under the standfirst — see the component for why this is not
+// at the foot of the page.
+.sources {
+  margin: var(--space-5) 0 0;
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+.sourcesLabel,
+.countriesLabel {
+  @include mixins.eyebrow;
+
+  color: var(--color-text-muted);
+}
+
+.sourceLink {
+  @include mixins.link;
+}
+
+.countries {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+// Same measure and rhythm as the prose on a jurisdiction page. Duplicated
+// values here rather than shared: the two pages set their own container width
+// and a shared mixin would have to take both as arguments, which is a mixin
+// that exists to hold one number.
+.prose {
+  margin-top: var(--space-7);
+  // 18px AT EVERY WIDTH, the same size the home page sets. I had it stepping up
+  // to 20px from md on the sibling project's reasoning, and the result was an
+  // article that reads a size larger than the rest of the site — which makes
+  // the entry look like a different product rather than a longer page of it.
+  // The measure is set in `ch` below, so this changes the line in pixels and
+  // not in characters: 56 either way, measured.
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+
+  // ONE WIDTH FOR EVERYTHING IN THE COLUMN. The prose used to be capped at a
+  // reading measure while tables and figures took the whole column, which is
+  // the textbook arrangement and looked, on this page, like two documents laid
+  // over each other: 558px of text with an 906px table stepping out of it every
+  // few screens.
+  //
+  // WHAT IT COSTS, MEASURED, because it is a real cost and not a matter of
+  // taste: at 876px and 18px the line runs 91 characters against the
+  // 56 it ran before. The comfortable range for sustained reading is 60–75, so
+  // this is past it. Alignment was chosen over measure deliberately; the other
+  // way to align the two is to narrow the whole column to the text's natural
+  // width, which the four-column tables can just about take — they need 665px —
+  // and that is one number in this file if the long line reads badly in use.
+
+  > * + * {
+    margin-top: var(--space-5);
+  }
+
+  // DIRECT CHILDREN, and that is a fix rather than tidying. PortableText renders
+  // every heading as a child of this element, so `>` describes what is actually
+  // there — and without it the rule reached inside the questions accordion,
+  // whose summary contains an <h3>. Measured: each closed question row came out
+  // 123px tall, of which 64 was this margin, applied to a heading that is not a
+  // heading in the flow. The same leak was waiting for every future block that
+  // renders a heading of its own.
+  > h2,
+  > h3 {
+    margin-top: var(--space-8);
+    color: var(--color-text);
+    letter-spacing: var(--tracking-tight);
+    // A CONTENTS LINK MUST NOT LAND UNDER THE HEADER. Without this the browser
+    // scrolls the heading's top edge to the viewport's top edge, which is
+    // behind the sticky bar — the reader clicks a section and arrives at its
+    // second paragraph.
+    scroll-margin-top: var(--space-9);
+  }
+
+  h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+  }
+
+  h3 {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+  }
+
+  a {
+    @include mixins.link;
+  }
+
+  // A BOLD LEAD-IN, which is what the article bodies use it for: "Timelines."
+  // at the head of a paragraph, or the sentence that carries the number a
+  // reader came for. The body is set in the muted ink, so bold has to change
+  // the colour as well as the weight — at 700 in the same grey it reads as a
+  // rendering accident rather than emphasis. 500, not 700: the headings on
+  // this page are 600, and a bold run inside a paragraph must not outweigh
+  // the heading above it.
+  strong {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+
+  // LISTS SET WITH A HANGING DASH, not a disc. The browser default indents by
+  // 40px and hangs a filled circle, which on a page built out of hairlines is
+  // the heaviest mark on it. The dash is also what the copy already assumes:
+  // the items are clause fragments ending in semicolons, a sentence broken
+  // into lines rather than a set of things.
+  > ul,
+  > ol {
+    margin-inline: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  > ul li,
+  > ol li {
+    position: relative;
+    padding-left: var(--space-5);
+  }
+
+  > ul li + li,
+  > ol li + li {
+    margin-top: var(--space-3);
+  }
+
+  > ul li::before {
+    content: "\2014";
+    position: absolute;
+    left: 0;
+    color: var(--color-line);
+  }
+
+  // The counter is reset on the list and incremented per item rather than
+  // relying on the default numbering, which `list-style: none` above removes.
+  > ol {
+    counter-reset: item;
+  }
+
+  > ol li {
+    counter-increment: item;
+  }
+
+  > ol li::before {
+    @include mixins.figure-text;
+
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-small);
+  }
+
+  blockquote {
+    margin-inline: 0;
+    padding-left: var(--space-5);
+    border-left: var(--border-hairline) solid var(--color-accent);
+    color: var(--color-text);
+  }
+}
+
+// --- The author, at the end --------------------------------------------------
+// A hairline and a short block, not a card. Every other panel on this site is
+// bounded by a rule rather than a box, and an author block that arrives as a
+// tinted card is the one element on the page that looks like marketing.
+.author {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+}
+
+// The name and the profiles on one line, baseline-independent: the name is set
+// in the display face and the icons are square boxes, so they are centred
+// against each other rather than sat on a shared baseline, which would hang the
+// squares below the name's descenders.
+//
+// THE BLOCK HAD ITS OWN 62ch CAP AND THAT HAD TO GO FIRST. Measured: 496px in
+// an 876px column, so the rule above this block stopped 380px short of every
+// table in the article, and `space-between` would have pushed the icons to that
+// arbitrary line rather than to the column's edge. The column shares one width
+// now; this is part of the column.
+.authorHead {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+
+  // Only from lg. Below it the block is as wide as a phone, and pushing two
+  // icons to the far edge of that leaves a name and a gap.
+  @include mixins.breakpoint-up(lg) {
+    justify-content: space-between;
+  }
+}
+
+.authorName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  color: var(--color-text);
+  letter-spacing: var(--tracking-tight);
+}
+
+.authorRole {
+  @include mixins.eyebrow;
+
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+}
+
+.authorLine {
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+.authorMore {
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+}
+
+.authorLink {
+  @include mixins.link;
+}
+
+// The profiles. Small hairline squares beside the name, not a filled button
+// row: the same restraint the rest of the page keeps, and the same reason the
+// listing is rows rather than cards.
+.authorProfiles {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+// 28px DRAWN, 44px TOUCHED. The box is small because it sits beside a name and
+// must not outweigh it; the hit area is the site's tap-target minimum, added by
+// a pseudo-element so it costs the layout nothing. Shrinking a control to look
+// right and leaving a 28px target is the trade that makes a page pleasant on a
+// desktop and annoying on a phone.
+.profileLink {
+  @include mixins.focus-ring;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: var(--border-hairline) solid var(--color-hairline);
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+    translate: -50% -50%;
+  }
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-line);
+  }
+}
+
+// The network's name, for a screen reader and for anything that fails to draw
+// the glyph. `clip-path` rather than `display: none`, which would take it out
+// of the accessibility tree and leave the link with no name at all.
+.profileName {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profileLink {
+    transition: none;
+  }
+}
+
+.back {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+  font-size: var(--fs-small);
+}
+
+.backLink {
+  @include mixins.link;
+}
+
+// --- Tables ------------------------------------------------------------------
+// THE SAME TREATMENT AS THE COMPARISON TABLE ON THE HOME PAGE: hairlines, no
+// container, no zebra. A box around a table turns it back into a marketing
+// card, and the site's whole visual argument is that the data does not need
+// one. The figures are mono and right-aligned so a column of amounts lines up
+// on the digit rather than on the word beside it.
+.tableFigure {
+  margin: var(--space-7) 0;
+  max-width: none;
+}
+
+.tableCaption {
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+
+  @include mixins.eyebrow;
+}
+
+// A wide comparison scrolls inside its own box rather than widening the page.
+// `overscroll-behavior: contain` so a horizontal flick inside the table does not
+// carry on into the browser's back gesture.
+.tableScroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  @include mixins.focus-ring;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+
+  th,
+  td {
+    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: var(--border-hairline) solid var(--color-hairline);
+  }
+
+  thead th {
+    @include mixins.eyebrow;
+
+    padding-bottom: var(--space-2);
+    color: var(--color-text-muted);
+    border-bottom-color: var(--color-line);
+    white-space: nowrap;
+  }
+
+  tbody th {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  td {
+    color: var(--color-text-muted);
+  }
+
+  // Figures line up on the digit. `tabular-nums` rather than the mono face for
+  // the whole cell: a cell mixes an amount with words ("около 34 000 €") and
+  // setting the words in mono makes the row shout.
+  td,
+  tbody th {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// The questions, as the accordion /faq uses, through the two custom properties
+// that component declares for the purpose. Tighter rows, because on /faq the
+// accordion is the page and here it is one block in the middle of one: at the
+// page's own 32px row padding, ten closed questions ran 1 550px — an eleven
+// screen gap between two paragraphs. And no separate measure on the answer,
+// because everything else in this column now shares one width.
+.faq {
+  --faq-row-padding: var(--space-3);
+  --faq-answer-measure: none;
+
+  margin: var(--space-7) 0;
+
+  @include mixins.breakpoint-up(md) {
+    --faq-row-padding: var(--space-4);
+  }
+}
+
+// --- Figures -----------------------------------------------------------------
+.imageFigure {
+  margin: var(--space-7) 0;
+  max-width: none;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border: var(--border-hairline) solid var(--color-hairline);
+}
+
+.imageCaption {
+  margin-top: var(--space-3);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+.bodyLink {
+  @include mixins.link;
+}

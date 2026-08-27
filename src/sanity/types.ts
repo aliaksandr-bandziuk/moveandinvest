@@ -436,3 +436,62 @@ export interface PropertyLinkResult {
 }
 
 export type SitemapPropertyDoc = SitemapCountryDoc;
+
+// --- Guides & Research ------------------------------------------------------------
+
+export interface BlogPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  /** Portable Text, rendered under the list. */
+  editorial?: unknown;
+  empty: string;
+  seo: SeoResult;
+}
+
+/** A jurisdiction as an entry names it: the registry's code and the label in
+ *  the reader's language. */
+export interface EntryCountry {
+  _id: string;
+  code: string;
+  name: string;
+}
+
+export interface ArticleSummary {
+  _id: string;
+  title: string;
+  slug: string;
+  publishedAt: string;
+  standfirst: string;
+  /** A key from CATEGORY_KEYS. Required by the schema, but typed as optional
+   *  here: entries written before the field existed are still in the dataset
+   *  until they are re-published, and a renderer that assumes otherwise
+   *  crashes the listing rather than dropping one eyebrow. */
+  category?: string | null;
+  /** Keys into SOURCE_SECTIONS. Required by the schema — see article.ts. */
+  sources: string[];
+  countries?: EntryCountry[] | null;
+}
+
+export interface ArticleDetail extends ArticleSummary {
+  _updatedAt: string;
+  body: unknown;
+  /** Every published language version of this entry, itself included, for
+   *  hreflang. Same shape as a jurisdiction page's, so both feed one builder.
+   *  Empty for an entry that carries no translationKey. */
+  alternates: { language?: string; slug?: string }[];
+  seo?: SeoResult;
+}
+
+/** Every language version of every entry, for the sitemap and the language
+ *  switcher. Entries that share a `translationKey` are one entry in several
+ *  languages; the field is optional here rather than required because a
+ *  document published before the field existed does not carry one, and an entry
+ *  standing alone is a legitimate state rather than an error. */
+export interface ArticleSitemapDoc {
+  _id: string;
+  _updatedAt: string;
+  language: string;
+  slug: string;
+  translationKey?: string | null;
+}
