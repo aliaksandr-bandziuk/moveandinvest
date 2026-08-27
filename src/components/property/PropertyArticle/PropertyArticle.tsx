@@ -1,5 +1,6 @@
 import { PortableText } from "next-sanity";
 import { Link } from "@/i18n/navigation";
+import { slugHref } from "@/lib/routes";
 import { Breadcrumbs, type Crumb } from "@/components/ui";
 
 import styles from "./PropertyArticle.module.scss";
@@ -107,10 +108,18 @@ export function PropertyArticle({
 
           {/* The other half of the same jurisdiction. Not a "related pages"
               block: there is exactly one destination, and naming it is worth
-              more than a grid of cards would be. */}
+              more than a grid of cards would be.
+
+              slugHref, NOT `/${slug}`. A template literal widens to
+              `/${string}` — every path, including the ones this site does not
+              serve — so the typed router cannot check it, and it hard-codes the
+              top-level shape of the URL inside a component. It was the last
+              such href on the site and it failed the deploy build rather than
+              the local typecheck, which is its own lesson: the two were reading
+              different copies of this file. */}
           {jurisdiction ? (
             <p className={styles.crossLink}>
-              <Link href={`/${jurisdiction.slug}`}>
+              <Link href={slugHref(jurisdiction.slug)}>
                 {jurisdiction.label} — {jurisdiction.title}
               </Link>
             </p>
