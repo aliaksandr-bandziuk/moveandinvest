@@ -140,6 +140,45 @@ const ZONES = [
   { key: "z250", amount: "250 000 €", weight: 0.3125 },
 ];
 
+// --- The second entry's numbers ---------------------------------------------
+
+// EACH ROUTE IN ITS OWN PERIOD, not converted to a common one. Malta's
+// threshold is annual and the Emirati one is in dollars; dividing or converting
+// them so the bars line up would be this file inventing a figure the instrument
+// does not state. So this diagram groups by answer and needs no common scale.
+const INCOME_TESTS = {
+  none: [{ key: "grGV" }, { key: "mtMPRP" }, { key: "aeGV" }],
+  tested: [
+    { key: "ptARI" },
+    { key: "ptD7" },
+    { key: "grFIP" },
+    { key: "grDN" },
+    { key: "mtNomad" },
+    { key: "aeRemote" },
+  ],
+};
+
+// The one place three Greek figures can honestly be compared: all three are
+// monthly euros, and two of them are 2026 values against a 2024 survey, which
+// the note says. 1724.54 is carried unrounded — it is the published value.
+const GREECE_SCALE = [
+  { key: "fip", value: 3500 },
+  { key: "spend", value: 1724.54 },
+  { key: "wage", value: 920 },
+];
+
+// HOW OLD EACH COUNTRY'S LAST PUBLISHED HOUSEHOLD SPENDING SURVEY IS. The bar
+// is the gap between its fieldwork and today, because that gap is the quantity
+// that makes the four numbers incomparable. The picture is of the problem
+// rather than of the data.
+const DATA_AGE = [
+  { key: "gr", year: 2024 },
+  { key: "pt", year: 2023 },
+  { key: "mt", year: 2015 },
+  { key: "ae", year: 2014 },
+];
+const TODAY_YEAR = 2026;
+
 // --- Figure 1: what a purchase achieves -------------------------------------
 // GROUPED BY ANSWER, NOT LISTED BY COUNTRY, and that is the whole reason this
 // is a picture rather than the table already in the article. The table answers
@@ -199,7 +238,7 @@ function qualifies(L) {
     });
   });
 
-  return frame(width, height, L.figures.qualifies.title, L.eyebrow, L.checked, body);
+  return frame(width, height, L.figures.qualifies.title, L.eyebrow, L.checked(L.dates.property), body);
 }
 
 // --- Figure 2: the cost on top of the threshold -----------------------------
@@ -253,7 +292,7 @@ function cost(L) {
     });
   });
 
-  return frame(width, height, L.figures.cost.title, L.eyebrow, L.checked, body, L.figures.cost.note);
+  return frame(width, height, L.figures.cost.title, L.eyebrow, L.checked(L.dates.property), body, L.figures.cost.note);
 }
 
 // --- Figure 3 (ru, en): the Greek thresholds by zone ------------------------
@@ -290,7 +329,7 @@ function zones(L) {
     body += text(labelX, y + 30, L.zoneLabels[z.key], { size: 14, fill: C.muted });
   });
 
-  return frame(width, height, L.figures.zones.title, L.eyebrow, L.checked, body, L.figures.zones.note);
+  return frame(width, height, L.figures.zones.title, L.eyebrow, L.checked(L.dates.property), body, L.figures.zones.note);
 }
 
 // --- Figure 3 (pl): who actually needs one of these -------------------------
@@ -328,7 +367,151 @@ function whoNeeds(L) {
     });
   });
 
-  return frame(width, height, L.figures.who.title, L.eyebrow, L.checked, body, L.who.note);
+  return frame(width, height, L.figures.who.title, L.eyebrow, L.checked(L.dates.property), body, L.who.note);
+}
+
+// --- Figure 4: which routes test income -------------------------------------
+// TWO COLUMNS, BECAUSE THE CLAIM IS A CONTRAST. The article's table lists nine
+// routes in one column and the reader has to hold "none" in mind while scanning
+// down; side by side the three routes that ask nothing sit against the six that
+// ask, and the point lands before a word is read.
+//
+// Colour carries status and the status also carries a word, per the rule at the
+// top of this file: accent for a route that tests income, muted for one that
+// does not, and each column is titled.
+function incomeTests(L) {
+  const width = 1200;
+  // 760, not 700: the sixth row's amount sits at y=624 and the explanatory note
+  // is drawn at height-92, so 700 would have put the note through it.
+  const height = 760;
+  const colX = [48, 636];
+  const colW = 516;
+  let body = "";
+
+  [
+    ["none", INCOME_TESTS.none, C.pending],
+    ["tested", INCOME_TESTS.tested, C.accent],
+  ].forEach(([group, rows, hue], col) => {
+    const x = colX[col];
+
+    body += `<rect x="${x}" y="176" width="${colW}" height="3" fill="${hue}"/>`;
+    body += text(x, 216, L.incomeGroups[group], {
+      size: 12,
+      fill: C.muted,
+      weight: 500,
+      tracking: 2.2,
+      upper: true,
+    });
+
+    rows.forEach((row, i) => {
+      const y = 268 + i * 66;
+      body += text(x, y, L.incomeRows[row.key], { size: 16, weight: 500 });
+      body += text(x, y + 26, L.incomeAmounts[row.key], {
+        size: 14,
+        family: FONT_MONO,
+        fill: group === "tested" ? C.text : C.muted,
+      });
+      if (i < rows.length - 1) {
+        body += `<line x1="${x}" y1="${y + 44}" x2="${x + colW}" y2="${y + 44}" stroke="${C.hairline}" stroke-width="1"/>`;
+      }
+    });
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.incomeTests.title,
+    L.eyebrow,
+    L.checked(L.dates.income),
+    body,
+    L.figures.incomeTests.note,
+  );
+}
+
+// --- Figure 5: what Greece asks against what Greece costs -------------------
+// THREE BARS, ONE SERIES, ONE UNIT. Everything here is euros a month, which is
+// the only reason these three may share an axis at all — and the note says that
+// two are 2026 legal figures and one is a 2024 survey, because a reader
+// comparing them is entitled to know they are not the same kind of number.
+function greeceScale(L) {
+  const width = 1200;
+  const height = 540;
+  const max = 3600;
+  const x0 = 430;
+  const x1 = width - 260;
+  const scale = (v) => ((x1 - x0) * v) / max;
+  let body = "";
+
+  GREECE_SCALE.forEach((row, i) => {
+    const y = 232 + i * 82;
+    body += text(48, y + 5, L.greeceRows[row.key], { size: 16, weight: 500 });
+    const w = scale(row.value);
+    body += `<path d="M${x0} ${y - 14} h${w - 4} a4 4 0 0 1 4 4 v20 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${C.accent}"/>`;
+    body += text(x0 + w + 14, y + 5, L.amount(row.value), {
+      size: 15,
+      family: FONT_MONO,
+      fill: C.text,
+    });
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.greeceScale.title,
+    L.eyebrow,
+    L.checked(L.dates.income),
+    body,
+    L.figures.greeceScale.note,
+  );
+}
+
+// --- Figure 6: how old the official cost figures are ------------------------
+// THE BAR IS THE GAP, NOT THE VALUE. Drawing the four countries' household
+// spending side by side is exactly the comparison the article refuses to make;
+// drawing how far each survey is from today makes the refusal legible in one
+// look. Sequential, one hue, darkest where the data is oldest.
+function dataAge(L) {
+  const width = 1200;
+  const height = 560;
+  const x0 = 430;
+  // 44px a year, not 52: at 52 the twelve-year bar plus its label ran past the
+  // right margin. The longest bar now ends at 958 and its label at about 1106,
+  // inside the 1152 the frame allows.
+  const perYear = 44;
+  let body = "";
+
+  DATA_AGE.forEach((row, i) => {
+    const y = 224 + i * 64;
+    const years = TODAY_YEAR - row.year;
+    body += text(48, y + 5, L.countries[row.key], { size: 16, weight: 500 });
+    body += text(x0 - 20, y + 5, L.dataVintage[row.key], {
+      size: 13,
+      family: FONT_MONO,
+      fill: C.muted,
+      anchor: "end",
+    });
+
+    const w = years * perYear;
+    // Opacity runs with the gap: the oldest survey is the darkest bar, so the
+    // picture reads before the years are counted.
+    const opacity = (0.35 + (0.65 * years) / 12).toFixed(2);
+    body += `<path d="M${x0} ${y - 11} h${w - 4} a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${C.accent}" opacity="${opacity}"/>`;
+    body += text(x0 + w + 14, y + 5, L.yearsOld(years), {
+      size: 14,
+      family: FONT_MONO,
+      fill: C.text,
+    });
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.dataAge.title,
+    L.eyebrow,
+    L.checked(L.dates.income),
+    body,
+    L.figures.dataAge.note,
+  );
 }
 
 // --- Strings ----------------------------------------------------------------
@@ -337,10 +520,58 @@ const money = (locale) => (v) => {
   return Array.isArray(v) ? `${f(v[0])}–${f(v[1])} €` : `${f(v)} €`;
 };
 
+// SLAVIC PLURALS ARE NOT A SUFFIX. "2 года" but "11 лет", "2 lata" but "12 lat":
+// the rule keys off the last two digits, and an English-shaped `n === 1 ? a : b`
+// gets three of the four figures in this diagram wrong.
+const slavicYears = (one, few, many) => (n) => {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return `${n} ${one}`;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return `${n} ${few}`;
+  return `${n} ${many}`;
+};
+const ruYears = (n) => `${slavicYears("год", "года", "лет")(n)} назад`;
+const plYears = (n) => `${slavicYears("rok", "lata", "lat")(n)} temu`;
+
 const L = {
   ru: {
     eyebrow: "Гайды и исследования",
-    checked: "Все цифры сверены с первоисточником 23 августа 2026 года",
+    // A FUNCTION OF THE DATE, not a sentence per figure. Two entries were
+    // checked on two different days, and a second copy of this sentence with a
+    // different date in it is a sentence that will eventually disagree with
+    // itself in one language and not the others.
+    checked: (date) => `Все цифры сверены с первоисточником ${date}`,
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" },
+    incomeGroups: { none: "Доход не проверяют", tested: "Доход проверяют" },
+    incomeRows: {
+      grGV: "Греция, ВНЖ за инвестиции",
+      mtMPRP: "Мальта, MPRP",
+      aeGV: "ОАЭ, золотая виза",
+      ptARI: "Португалия, ВНЖ за инвестиции",
+      ptD7: "Португалия, виза D7",
+      grFIP: "Греция, финансово независимое лицо",
+      grDN: "Греция, цифровой кочевник",
+      mtNomad: "Мальта, цифровой кочевник",
+      aeRemote: "ОАЭ, удалённая работа",
+    },
+    incomeAmounts: {
+      grGV: "только стоимость объекта",
+      mtMPRP: "активы, 500 000 €",
+      aeGV: "только стоимость объекта",
+      ptARI: "920 € в месяц",
+      ptD7: "920 € в месяц",
+      grFIP: "3 500 € в месяц",
+      grDN: "3 500 € в месяц",
+      mtNomad: "42 000 € в год",
+      aeRemote: "5 000 $ в месяц",
+    },
+    greeceRows: {
+      fip: "Требуется подтвердить",
+      spend: "Тратит домохозяйство",
+      wage: "Минимальная зарплата",
+    },
+    dataVintage: { gr: "2024", pt: "2022–2023", mt: "2015", ae: "2014" },
+    yearsOld: ruYears,
     amount: money("ru"),
     countries: { gr: "Греция", ae: "ОАЭ", mt: "Мальта", pt: "Португалия", cy: "Кипр" },
     thresholds: {
@@ -370,6 +601,18 @@ const L = {
       z250: "Только перевод в жильё или реставрация,\nработы завершены до подачи",
     },
     figures: {
+      incomeTests: {
+        title: "Какие маршруты проверяют доход, а какие нет",
+        note: "Каждая сумма приведена в том периоде, в каком её устанавливает акт: у Мальты — за год, у ОАЭ — в долларах.",
+      },
+      greeceScale: {
+        title: "Что Греция требует подтвердить и сколько там тратят",
+        note: "Порог и минимальная зарплата — 2026 год; расходы домохозяйства — обследование за 2024 год.",
+      },
+      dataAge: {
+        title: "Насколько устарела официальная статистика расходов",
+        note: "Полоса — разрыв между годом наблюдения и сегодняшним днём. Именно он делает четыре цифры несопоставимыми.",
+      },
       qualifies: { title: "Что даёт покупка недвижимости в пяти юрисдикциях" },
       cost: {
         title: "Сколько нужно сверх порога",
@@ -384,7 +627,38 @@ const L = {
 
   en: {
     eyebrow: "Guides & Research",
-    checked: "Every figure checked against a primary source on 23 August 2026",
+    checked: (date) => `Every figure checked against a primary source on ${date}`,
+    dates: { property: "23 August 2026", income: "28 August 2026" },
+    incomeGroups: { none: "No income test", tested: "Income tested" },
+    incomeRows: {
+      grGV: "Greece, investment permit",
+      mtMPRP: "Malta, MPRP",
+      aeGV: "UAE, golden visa",
+      ptARI: "Portugal, investment permit",
+      ptD7: "Portugal, D7 visa",
+      grFIP: "Greece, financially independent",
+      grDN: "Greece, digital nomad",
+      mtNomad: "Malta, nomad permit",
+      aeRemote: "UAE, virtual working",
+    },
+    incomeAmounts: {
+      grGV: "property value only",
+      mtMPRP: "assets, \u20ac500,000",
+      aeGV: "property value only",
+      ptARI: "\u20ac920 a month",
+      ptD7: "\u20ac920 a month",
+      grFIP: "\u20ac3,500 a month",
+      grDN: "\u20ac3,500 a month",
+      mtNomad: "\u20ac42,000 a year",
+      aeRemote: "USD 5,000 a month",
+    },
+    greeceRows: {
+      fip: "Required to prove",
+      spend: "Average household spends",
+      wage: "Minimum wage",
+    },
+    dataVintage: { gr: "2024", pt: "2022\u20132023", mt: "2015", ae: "2014" },
+    yearsOld: (n) => `${n} ${n === 1 ? "year" : "years"} ago`,
     amount: money("en"),
     countries: { gr: "Greece", ae: "UAE", mt: "Malta", pt: "Portugal", cy: "Cyprus" },
     thresholds: {
@@ -414,6 +688,18 @@ const L = {
       z250: "Conversion or restoration only,\nworks completed before filing",
     },
     figures: {
+      incomeTests: {
+        title: "Which routes test income and which do not",
+        note: "Each amount is stated in the period its instrument uses: Malta's is annual, the Emirati one is in dollars.",
+      },
+      greeceScale: {
+        title: "What Greece asks you to prove against what Greece costs",
+        note: "The threshold and the minimum wage are 2026 figures; household spending is the 2024 survey.",
+      },
+      dataAge: {
+        title: "How old the official spending statistics are",
+        note: "The bar is the gap between a survey's fieldwork and today. That gap is what makes the four figures incomparable.",
+      },
       qualifies: { title: "What buying property achieves in five jurisdictions" },
       cost: {
         title: "What you need on top of the threshold",
@@ -428,7 +714,38 @@ const L = {
 
   pl: {
     eyebrow: "Poradniki i badania",
-    checked: "Każda liczba sprawdzona ze źródłem pierwotnym 23 sierpnia 2026 roku",
+    checked: (date) => `Każda liczba sprawdzona ze źródłem pierwotnym ${date}`,
+    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" },
+    incomeGroups: { none: "Bez badania dochodu", tested: "Dochód badany" },
+    incomeRows: {
+      grGV: "Grecja, pobyt za inwestycję",
+      mtMPRP: "Malta, MPRP",
+      aeGV: "Emiraty, złota wiza",
+      ptARI: "Portugalia, pobyt za inwestycję",
+      ptD7: "Portugalia, wiza D7",
+      grFIP: "Grecja, niezależny finansowo",
+      grDN: "Grecja, cyfrowy nomada",
+      mtNomad: "Malta, pobyt nomady",
+      aeRemote: "Emiraty, praca zdalna",
+    },
+    incomeAmounts: {
+      grGV: "tylko wartość nieruchomości",
+      mtMPRP: "majątek, 500 000 €",
+      aeGV: "tylko wartość nieruchomości",
+      ptARI: "920 € miesięcznie",
+      ptD7: "920 € miesięcznie",
+      grFIP: "3500 € miesięcznie",
+      grDN: "3500 € miesięcznie",
+      mtNomad: "42 000 € rocznie",
+      aeRemote: "5000 $ miesięcznie",
+    },
+    greeceRows: {
+      fip: "Trzeba udokumentować",
+      spend: "Wydaje gospodarstwo",
+      wage: "Płaca minimalna",
+    },
+    dataVintage: { gr: "2024", pt: "2022–2023", mt: "2015", ae: "2014" },
+    yearsOld: plYears,
     amount: money("pl"),
     countries: { gr: "Grecja", ae: "ZEA", mt: "Malta", pt: "Portugalia", cy: "Cypr" },
     thresholds: {
@@ -470,6 +787,18 @@ const L = {
       note: "Obywatel UE ma swobodę przepływu osób. Polska karta pobytu nie daje prawa zamieszkania w innym państwie członkowskim.",
     },
     figures: {
+      incomeTests: {
+        title: "Które ścieżki badają dochód, a które nie",
+        note: "Każda kwota podana w okresie, którego używa jej akt: maltańska jest roczna, emiracka w dolarach.",
+      },
+      greeceScale: {
+        title: "Ile Grecja każe udokumentować, a ile tam się wydaje",
+        note: "Próg i płaca minimalna to dane za 2026 rok; wydatki gospodarstwa domowego to badanie za 2024 rok.",
+      },
+      dataAge: {
+        title: "Jak stare są oficjalne statystyki wydatków",
+        note: "Słupek to odstęp między rokiem badania a dniem dzisiejszym. To on sprawia, że czterech liczb nie da się porównać.",
+      },
       qualifies: { title: "Co daje zakup nieruchomości w pięciu jurysdykcjach" },
       cost: {
         title: "Ile trzeba ponad próg",
@@ -483,10 +812,34 @@ const L = {
 // --- Emit -------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
 
+// TWO ENTRIES' FIGURES, ONE GENERATOR. The list is per language rather than per
+// entry because that is what the filename carries; which entry a figure belongs
+// to is recorded in scripts/articles.ts, where the marker order lives.
 const PLAN = {
-  ru: [["qualifies", qualifies], ["cost", cost], ["zones", zones]],
-  en: [["qualifies", qualifies], ["cost", cost], ["zones", zones]],
-  pl: [["qualifies", qualifies], ["cost", cost], ["who", whoNeeds]],
+  ru: [
+    ["qualifies", qualifies],
+    ["cost", cost],
+    ["zones", zones],
+    ["income-tests", incomeTests],
+    ["greece-scale", greeceScale],
+    ["data-age", dataAge],
+  ],
+  en: [
+    ["qualifies", qualifies],
+    ["cost", cost],
+    ["zones", zones],
+    ["income-tests", incomeTests],
+    ["greece-scale", greeceScale],
+    ["data-age", dataAge],
+  ],
+  pl: [
+    ["qualifies", qualifies],
+    ["cost", cost],
+    ["who", whoNeeds],
+    ["income-tests", incomeTests],
+    ["greece-scale", greeceScale],
+    ["data-age", dataAge],
+  ],
 };
 
 let n = 0;

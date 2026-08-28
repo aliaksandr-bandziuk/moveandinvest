@@ -494,4 +494,6 @@ export interface ArticleSitemapDoc {
   language: string;
   slug: string;
   translationKey?: string | null;
+  /** From the entry's own SEO block. Read by the sitemap only. */
+  noIndex?: boolean | null;
 }

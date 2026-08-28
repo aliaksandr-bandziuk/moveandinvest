@@ -16,7 +16,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "/tmp/node_modules/playwright-core/index.mjs";
+import { launchBrowser } from "./browser.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DIR = join(HERE, "../../public/figures");
@@ -52,10 +52,7 @@ const css = [
 ].join("");
 
 
-const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-  args: ["--no-sandbox"],
-});
+const browser = await launchBrowser();
 
 const files = readdirSync(DIR).filter((f) => f.endsWith(".svg"));
 

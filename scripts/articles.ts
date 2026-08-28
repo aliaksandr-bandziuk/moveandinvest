@@ -4,10 +4,14 @@ import { createClient } from "@sanity/client";
 import { richBlocks, type PortableContent } from "./copy/portable";
 import { LOCALES, type Locale } from "./copy/home";
 
-// Writes the three Guides & Research entries and their figures into Sanity.
+// Writes one Guides & Research entry — its three language versions and their
+// figures — into Sanity.
 //
-//   npm run articles            # parse, validate, upload nothing
-//   npm run articles -- --write # upload the figures and write the documents
+//   npm run articles -- --entry income-cost-of-living
+//   npm run articles -- --entry income-cost-of-living --write
+//
+// Without --write it parses, converts and validates everything and uploads
+// nothing. The entry is named rather than defaulted; see selectEntry.
 //
 // THE MARKDOWN IN docs/ IS THE SOURCE, not a draft that was then re-typed into
 // a copy module. Those three files are what was written, checked against the
@@ -21,11 +25,10 @@ import { LOCALES, type Locale } from "./copy/home";
 // rather than writing half a document.
 //
 // FIGURES ARE PLACED BY A MARKER LINE, "![1]" for the first alt text in the
-// metadata block, and the figure it resolves to is listed per language below.
-// The Polish version does not carry the Greek zone diagram — it carries a
-// "who actually needs this" diagram instead, because a Polish reader's problem
-// is not which Greek zone applies to them — so the marker index and the file
-// name cannot be the same thing.
+// metadata block, and the figure that marker resolves to is listed per language
+// in the entry's own record below — because the marker index and the file name
+// are not the same thing. A localisation may carry a different diagram in the
+// same position, or the same three in a different order.
 
 const DOCS = join(import.meta.dirname, "../docs");
 // THE SELF-CONTAINED SVGs, not the PNGs beside them. See
@@ -33,48 +36,123 @@ const DOCS = join(import.meta.dirname, "../docs");
 // path resampled every diagram twice and the 12px labels in them showed it.
 const FIGURES = join(import.meta.dirname, "../public/figures/web");
 
-/** Which figure each marker in each language resolves to, in the order the alt
- *  texts are listed in that file's metadata block. */
-const FIGURE_FILES: Record<Locale, string[]> = {
-  en: ["qualifies-en", "cost-en", "zones-en"],
-  ru: ["qualifies-ru", "cost-ru", "zones-ru"],
-  pl: ["qualifies-pl", "who-pl", "cost-pl"],
-};
-
-const SOURCE_FILE: Record<Locale, string> = {
-  en: "article-en-property-residency.md",
-  ru: "article-ru-property-residency.md",
-  pl: "article-pl-property-residency.md",
-};
-
-/** The entry's date on the site. One date for all three: they are one piece of
- *  work in three languages, and three different dates would tell a reader the
- *  Polish version is newer research when it is the same research. */
-const PUBLISHED_AT = "2026-08-27T09:00:00.000Z";
-
-/** What ties the three documents together, and the one place it is written.
+/** Everything that is true of one entry and not of the next one.
  *
- *  It is THREE THINGS AT ONCE and they must not be allowed to drift apart: the
- *  stem of each document's `_id`, the `translationKey` the site groups on, and
- *  the id of the plugin's translation-metadata document. The key used to be
- *  implied by the metadata document alone, which the site could not read; it is
- *  now a field, and a constant here rather than three string literals so that
- *  renaming the entry cannot rename two of the three. */
-const ENTRY = "article-property-residency";
+ *  ONE RECORD PER ENTRY, ADDED RATHER THAN EDITED. Until 28 August 2026 all of
+ *  this was six top-level constants, which is fine for exactly one entry and
+ *  becomes a copied file on the second. The copy is the failure mode worth
+ *  avoiding: two scripts that publish articles will diverge in the part that
+ *  converts the body, and the divergence shows up as a malformed document
+ *  rather than as an error. */
+interface EntryConfig {
+  /** THREE THINGS AT ONCE, and they must not drift apart: the stem of each
+   *  document's `_id`, the `translationKey` the site groups on, and the id of
+   *  the plugin's translation-metadata document. One value so that renaming an
+   *  entry cannot rename two of the three. */
+  key: string;
+  /** The source file per language, under docs/. */
+  sources: Record<Locale, string>;
+  /** Which figure each marker in each language resolves to, in the order the
+   *  alt texts are listed in that file's metadata block. The marker index and
+   *  the file name are deliberately not the same thing: a localisation may
+   *  carry a different diagram in the same position. */
+  figures: Record<Locale, string[]>;
+  /** The entry's date on the site. ONE DATE FOR ALL THREE: they are one piece
+   *  of work in three languages, and three different dates would tell a reader
+   *  the Polish version is newer research when it is the same research. */
+  publishedAt: string;
+  /** One key from CATEGORY_KEYS, the same for all three. See
+   *  src/lib/categories.ts. */
+  category: string;
+  /** Which jurisdictions the entry concerns. */
+  countries: string[];
+}
 
-/** ONE CATEGORY FOR ALL THREE, because they are one entry in three languages
- *  rather than three entries. "property" and not "rules": the piece is about
- *  what a purchase achieves, and the statute changes inside it are the evidence
- *  for that rather than the subject. See src/lib/categories.ts. */
-const CATEGORY = "property";
+const ENTRIES: Record<string, EntryConfig> = {
+  "property-residency": {
+    key: "article-property-residency",
+    sources: {
+      en: "article-en-property-residency.md",
+      ru: "article-ru-property-residency.md",
+      pl: "article-pl-property-residency.md",
+    },
+    // The Polish version does not carry the Greek zone diagram — it carries a
+    // "who actually needs this" diagram instead, because a Polish reader's
+    // problem is not which Greek zone applies to them.
+    figures: {
+      en: ["qualifies-en", "cost-en", "zones-en"],
+      ru: ["qualifies-ru", "cost-ru", "zones-ru"],
+      pl: ["qualifies-pl", "who-pl", "cost-pl"],
+    },
+    publishedAt: "2026-08-27T09:00:00.000Z",
+    // "property" and not "rules": the piece is about what a purchase achieves,
+    // and the statute changes inside it are the evidence rather than the
+    // subject.
+    category: "property",
+    countries: [
+      "country-pt",
+      "country-gr",
+      "country-mt",
+      "country-ae",
+      "country-cy",
+    ],
+  },
+  "income-cost-of-living": {
+    key: "article-income-cost-of-living",
+    sources: {
+      en: "article-en-income-cost-of-living.md",
+      ru: "article-ru-income-cost-of-living.md",
+      pl: "article-pl-income-cost-of-living.md",
+    },
+    // THE SAME THREE DIAGRAMS IN ALL THREE LANGUAGES, unlike the first entry,
+    // but the Polish version places them in a different order: its article
+    // opens on cost of living and reaches the income tests second, so the
+    // data-availability table comes first there. The marker index resolves
+    // that, which is exactly what this per-language list is for.
+    figures: {
+      en: ["income-tests-en", "greece-scale-en", "data-age-en"],
+      ru: ["income-tests-ru", "greece-scale-ru", "data-age-ru"],
+      pl: ["income-tests-pl", "greece-scale-pl", "data-age-pl"],
+    },
+    publishedAt: "2026-08-28T09:00:00.000Z",
+    // "costs" and not "rules": the thresholds are the material, but what the
+    // reader takes away is what a route and a country cost them.
+    category: "costs",
+    countries: [
+      "country-pt",
+      "country-gr",
+      "country-mt",
+      "country-ae",
+      "country-cy",
+    ],
+  },
+};
 
-const COUNTRY_IDS = [
-  "country-pt",
-  "country-gr",
-  "country-mt",
-  "country-ae",
-  "country-cy",
-];
+/** The entry this run publishes, chosen with `--entry <name>`.
+ *
+ *  NO DEFAULT, and that is deliberate. A default would mean that a mistyped
+ *  name silently republishes the first entry over the one you meant to write,
+ *  and `createOrReplace` would not complain. */
+function selectEntry(): { name: string; config: EntryConfig } {
+  const args = process.argv.slice(2);
+  const at = args.indexOf("--entry");
+  const name = at === -1 ? undefined : args[at + 1];
+
+  if (!name) {
+    throw new Error(
+      `Which entry? Pass --entry <name>. Known: ${Object.keys(ENTRIES).join(", ")}`,
+    );
+  }
+
+  const config = ENTRIES[name];
+  if (!config) {
+    throw new Error(
+      `Unknown entry "${name}". Known: ${Object.keys(ENTRIES).join(", ")}`,
+    );
+  }
+
+  return { name, config };
+}
 
 interface Parsed {
   locale: Locale;
@@ -99,13 +177,14 @@ function backticked(line: string, what: string): string {
   return match[1];
 }
 
-function parse(locale: Locale): Parsed {
-  const raw = readFileSync(join(DOCS, SOURCE_FILE[locale]), "utf8");
+function parse(locale: Locale, config: EntryConfig): Parsed {
+  const source = config.sources[locale];
+  const raw = readFileSync(join(DOCS, source), "utf8");
   const lines = raw.split("\n");
 
   const title = lines[0]?.replace(/^# /, "").trim();
   if (!title || !lines[0]?.startsWith("# ")) {
-    throw new Error(`${SOURCE_FILE[locale]}: first line must be "# <title>".`);
+    throw new Error(`${source}: first line must be "# <title>".`);
   }
 
   // The five header lines, in order: slug, language, jurisdictions, source
@@ -115,7 +194,7 @@ function parse(locale: Locale): Parsed {
   const language = (header[1] ?? "").split("**").pop()?.trim();
   if (language !== locale) {
     throw new Error(
-      `${SOURCE_FILE[locale]}: header language is "${language}", expected "${locale}".`,
+      `${source}: header language is "${language}", expected "${locale}".`,
     );
   }
   const sources = (header[3] ?? "")
@@ -126,7 +205,7 @@ function parse(locale: Locale): Parsed {
     .filter(Boolean);
   if (sources.length === 0) {
     throw new Error(
-      `${SOURCE_FILE[locale]}: no source sections in the header.`,
+      `${source}: no source sections in the header.`,
     );
   }
 
@@ -145,9 +224,9 @@ function parse(locale: Locale): Parsed {
   const alts = lines
     .filter((line) => /^\d+\. `/.test(line))
     .map((line) => backticked(line, "alt text"));
-  if (alts.length !== FIGURE_FILES[locale].length) {
+  if (alts.length !== config.figures[locale].length) {
     throw new Error(
-      `${SOURCE_FILE[locale]}: ${alts.length} alt texts but ${FIGURE_FILES[locale].length} figures.`,
+      `${source}: ${alts.length} alt texts but ${config.figures[locale].length} figures.`,
     );
   }
 
@@ -165,7 +244,7 @@ function parse(locale: Locale): Parsed {
   const bodyEnd = starts[2];
   if (bodyStart === undefined || bodyEnd === undefined) {
     throw new Error(
-      `${SOURCE_FILE[locale]}: expected at least three "## " headings.`,
+      `${source}: expected at least three "## " headings.`,
     );
   }
 
@@ -208,7 +287,7 @@ function parse(locale: Locale): Parsed {
   const unknown = markers.find((index) => !alts[index]);
   if (unknown !== undefined) {
     throw new Error(
-      `${SOURCE_FILE[locale]}: figure marker ![${unknown + 1}] has no alt text.`,
+      `${source}: figure marker ![${unknown + 1}] has no alt text.`,
     );
   }
 
@@ -283,7 +362,10 @@ const token = process.env.SANITY_API_WRITE_TOKEN;
 
 async function run() {
   const write = process.argv.slice(2).includes("--write");
-  const parsedAll = LOCALES.map(parse);
+  const { name, config } = selectEntry();
+  const parsedAll = LOCALES.map((locale) => parse(locale, config));
+
+  console.log(`entry: ${name} (translationKey ${config.key})\n`);
 
   for (const parsed of parsedAll) {
     const words = parsed.segments.join(" ").split(/\s+/).filter(Boolean).length;
@@ -296,7 +378,7 @@ async function run() {
     // differs.
     const body = assemble(
       parsed,
-      FIGURE_FILES[parsed.locale].map((name) => `image-DRYRUN-${name}`),
+      config.figures[parsed.locale].map((name) => `image-DRYRUN-${name}`),
     );
 
     const count = (kind: string) =>
@@ -306,7 +388,7 @@ async function run() {
       [
         `${parsed.locale}  ${parsed.title}`,
         `      /blog/${parsed.slug}`,
-        `      ${words} words, category: ${CATEGORY}, sources: ${parsed.sources.join(", ")}`,
+        `      ${words} words, category: ${config.category}, sources: ${parsed.sources.join(", ")}`,
         `      meta title ${parsed.metaTitle.length} chars, description ${parsed.metaDescription.length} chars`,
         `      ${body.length} blocks: ${count("h2")} h2, ${count("h3")} h3, ${count("p")} paragraphs, ` +
           `${count("li")} list items, ${count("table")} tables, ${count("image")} figures, ` +
@@ -324,7 +406,7 @@ async function run() {
         `${parsed.locale}: meta title or description is over the limit.`,
       );
     }
-    if (count("image") !== FIGURE_FILES[parsed.locale].length) {
+    if (count("image") !== config.figures[parsed.locale].length) {
       throw new Error(
         `${parsed.locale}: ${count("image")} figures placed, 3 expected.`,
       );
@@ -336,7 +418,7 @@ async function run() {
     // had never been copied to the machine running this. Failing on the fourth
     // language's second figure would have left assets uploaded and no document
     // referencing them; the dry run has to touch everything the write touches.
-    const missing = FIGURE_FILES[parsed.locale].filter(
+    const missing = config.figures[parsed.locale].filter(
       (name) => !existsSync(join(FIGURES, `${name}.svg`)),
     );
     if (missing.length > 0) {
@@ -380,7 +462,7 @@ async function run() {
     // the body that references it can be assembled. Sanity deduplicates by file
     // hash, so re-running this does not create a second copy of a figure.
     const assetIds: string[] = [];
-    for (const name of FIGURE_FILES[parsed.locale]) {
+    for (const name of config.figures[parsed.locale]) {
       const asset = await client.assets.upload(
         "image",
         readFileSync(join(FIGURES, `${name}.svg`)),
@@ -391,19 +473,19 @@ async function run() {
     }
 
     transaction.createOrReplace({
-      _id: `${ENTRY}-${parsed.locale}`,
+      _id: `${config.key}-${parsed.locale}`,
       _type: "article",
       language: parsed.locale,
       // The field the language switcher and the sitemap group on. Same value on
       // all three, which is the whole content of the claim "one entry, three
       // languages" as far as the site is concerned.
-      translationKey: ENTRY,
+      translationKey: config.key,
       title: parsed.title,
       slug: { _type: "slug", current: parsed.slug },
-      publishedAt: PUBLISHED_AT,
+      publishedAt: config.publishedAt,
       standfirst: parsed.standfirst,
-      category: CATEGORY,
-      countries: COUNTRY_IDS.map((id) => ({
+      category: config.category,
+      countries: config.countries.map((id) => ({
         _key: id,
         _type: "reference",
         _ref: id,
@@ -430,9 +512,9 @@ async function run() {
   // themselves are readable. That is why every article now carries
   // `translationKey`. Keeping both is not two sources of truth: the field is
   // what the site groups on, this is the Studio's own bookkeeping, and both are
-  // written from ENTRY above in the same transaction.
+  // written from the entry's `key` in the same transaction.
   transaction.createOrReplace({
-    _id: `translation.metadata.${ENTRY}`,
+    _id: `translation.metadata.${config.key}`,
     _type: "translation.metadata",
     schemaTypes: ["article"],
     translations: LOCALES.map((locale) => ({
@@ -440,7 +522,7 @@ async function run() {
       _type: "internationalizedArrayReferenceValue",
       value: {
         _type: "reference",
-        _ref: `${ENTRY}-${locale}`,
+        _ref: `${config.key}-${locale}`,
       },
     })),
   });

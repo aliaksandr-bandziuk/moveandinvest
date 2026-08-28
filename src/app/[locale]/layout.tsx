@@ -34,6 +34,28 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// A TIME FLOOR UNDER EVERY PAGE IN THIS TREE, and it closes a real hole rather
+// than tuning anything. Until 28 August 2026 nothing on this site expired:
+// every fetch carried cache tags and no route carried `revalidate`, so a page
+// once rendered stayed rendered until `revalidateTag` fired from the Sanity
+// webhook. When the second Guides & Research entry was published, its own URL
+// worked — a slug absent from the build's params is generated on demand — while
+// /blog went on listing one entry, and would have done so indefinitely.
+//
+// THE SCHEDULED-PUBLISH FEATURE CANNOT WORK WITHOUT THIS, which is the stronger
+// reason of the two. BLOG_ENTRIES_QUERY filters `publishedAt <= now()` so that
+// an entry finished on Friday can appear on Monday with nobody at a keyboard.
+// But nothing edits a document when a clock passes a date, so no webhook fires,
+// so a cached listing never learns that Monday came. The query was promising
+// something only a time floor can deliver.
+//
+// SIXTY SECONDS, and the cost is bounded by traffic rather than by page count:
+// a cached page revalidates at most once a minute, only when somebody asks for
+// it, and serves the stale copy while it refreshes. The webhook stays — when it
+// fires the update is instant and this floor is never reached — but it is no
+// longer the only thing between a publish and a reader.
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   robots: {

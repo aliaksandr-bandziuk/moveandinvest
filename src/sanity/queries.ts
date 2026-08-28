@@ -313,7 +313,14 @@ export const BLOG_SITEMAP_QUERY = groq`
     _updatedAt,
     language,
     "slug": slug.current,
-    translationKey
+    translationKey,
+    // Selected for the SITEMAP, which must not list a page that tells crawlers
+    // not to index it — the same filter the country and property queries above
+    // carry, and which this one was missing. The language switcher reads the
+    // same query and ignores this field on purpose: noIndex is an instruction
+    // to a search engine, not a reason to hide a published page from a reader
+    // who is standing on its sibling.
+    "noIndex": seo.noIndex
   }
 `;
 

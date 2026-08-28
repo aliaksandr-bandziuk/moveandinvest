@@ -62,6 +62,16 @@ function isLocale(value: unknown): value is (typeof routing.locales)[number] {
   return typeof value === "string" && routing.locales.includes(value as never);
 }
 
+// ITS OWN TIME FLOOR, because the sitemap sits outside the [locale] tree and
+// inherits nothing from that layout's `revalidate`. Without one it had the same
+// hole every other page had: cached at build, refreshed only by a webhook, and
+// therefore silently missing an entry that published itself by the clock.
+//
+// AN HOUR, NOT A MINUTE. A crawler fetches this on its own schedule and would
+// not notice the difference; the pages themselves are what a reader sees, and
+// they carry the shorter floor.
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [results, countryDocs, propertyDocs, articleDocs] = await Promise.all([
     Promise.all(
@@ -202,7 +212,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const solo: ArticleSitemapDoc[] = [];
 
   for (const doc of articleDocs) {
-    if (!doc.slug || !isLocale(doc.language)) continue;
+    // noIndex EXCLUDES THE ENTRY ENTIRELY, from the list and from every
+    // sibling's hreflang set — the same rule the two loops above hold, and the
+    // one this loop was missing until 27 August 2026. An entry held out of the
+    // index while being listed here tells a crawler two opposite things about
+    // one URL, and Search Console reports the pair as an error rather than
+    // picking one.
+    if (!doc.slug || !isLocale(doc.language) || doc.noIndex === true) continue;
     if (!doc.translationKey) {
       solo.push(doc);
       continue;

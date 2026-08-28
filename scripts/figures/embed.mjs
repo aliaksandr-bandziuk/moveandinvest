@@ -38,6 +38,7 @@
 // Needs pyftsubset: pip install fonttools brotli
 
 import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -52,7 +53,10 @@ const OUT = join(DIR, "web");
 // only reason either was found is that this file refuses to leave a character
 // unmapped.
 const FONTS = process.env.FIGURE_FONTS ?? join(HERE, "../../node_modules/@fontsource");
-const TMP = "/tmp/figure-subsets";
+// os.tmpdir(), not "/tmp": this file used a POSIX literal and there is a
+// Windows machine in this project's history. Same defect as the absolute
+// Playwright paths in the checkers beside it — see browser.mjs.
+const TMP = join(tmpdir(), "figure-subsets");
 
 /** The families a figure can name, and the file naming they use. Fontsource
  *  splits a family by unicode range; a figure gets whichever ranges actually
@@ -145,6 +149,25 @@ function subset(source, characters, out) {
 }
 
 mkdirSync(OUT, { recursive: true });
+// FAIL WITH AN INSTRUCTION, NOT A SPAWN ERROR. Without fontTools this step
+// dies with ENOENT on "pyftsubset", which names the binary and not the thing to
+// install — and the drawing step above needs none of it.
+try {
+  execFileSync("pyftsubset", ["--help"], { stdio: "ignore" });
+} catch {
+  console.error(
+    [
+      "pyftsubset not found, so the fonts cannot be subset and embedded.",
+      "",
+      "`node scripts/figures/build.mjs` needs none of this and has already",
+      "written every SVG. This step only makes them self-contained.",
+      "",
+      "To run it:  pip install fonttools brotli",
+    ].join("\n"),
+  );
+  process.exit(1);
+}
+
 mkdirSync(TMP, { recursive: true });
 
 let total = 0;
