@@ -150,12 +150,19 @@ const CHECKED_2026_08_28: Record<Locale, string> = {
   pl: "28 sierpnia 2026",
 };
 
+const CHECKED_2026_08_30: Record<Locale, string> = {
+  en: "30 August 2026",
+  ru: "30 августа 2026 года",
+  pl: "30 sierpnia 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-08-23": CHECKED_2026_08_23,
   "2026-08-25": CHECKED_2026_08_25,
   "2026-08-28": CHECKED_2026_08_28,
+  "2026-08-30": CHECKED_2026_08_30,
 };
 
 /** The date that governs every row not carrying its own. */
@@ -719,11 +726,39 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           ru: "Строящаяся недвижимость",
           pl: "Nieruchomość w budowie",
         },
-        verdict: "unverified",
+        checked: "2026-08-30",
+        // CORRECTED ON 30 AUGUST 2026, and this row was wrong because it read
+        // the wrong permit's page.
+        //
+        // It used to say that no official page states off-plan qualifies and
+        // that GDRFA "expressly requires completed construction". The Annex to
+        // Cabinet Resolution 65/2022, art. 8, Second, has a whole limb for it:
+        // «buying one or more Real Estate units off the map with a total value
+        // of not less than (AED 2,000,000) two million dirhams, on condition
+        // that the purchase is made from local companies approved by the
+        // Competent Local Authority». "Off the map" is the standard Emirati
+        // rendering of off-plan.
+        //
+        // The "entirely constructed" wording is real, but it sits on GDRFA's
+        // page for RENEWING an ordinary property-owner permit — a different
+        // permit from the golden residence, whose own GDRFA service page states
+        // no completion requirement at all. This row had joined two documents
+        // about two products.
+        //
+        // WHAT IS NEW AND IS NOT A RETRACTION: the federal instrument admits
+        // off-plan, and Dubai's own golden visa e-service asks for a title
+        // deed, which an off-plan Oqood registration is not. That gap between
+        // the federal text and the emirate channel is the finding, and it is
+        // not published anywhere else we could see.
+        //
+        // Verified on 30 August 2026 against all six amendments to Cabinet
+        // Resolution 65/2022, read individually: none of them touches the
+        // Annex. This is the current consolidated text, not the 2022 original.
+        verdict: "corrected",
         finding: {
-          en: "No official page says off-plan property qualifies for the golden visa, and GDRFA's owner-visa page expressly requires completed construction. Nothing is stated on the site.",
-          ru: "Ни одна официальная страница не говорит, что строящаяся недвижимость подходит под золотую визу, а страница GDRFA по визе собственника прямо требует завершённого строительства. На сайте ничего не утверждается.",
-          pl: "Żadna oficjalna strona nie mówi, że nieruchomość w budowie kwalifikuje się do złotej wizy, a strona GDRFA o wizie właściciela wprost wymaga zakończonej budowy. Na stronie nic się nie twierdzi.",
+          en: "The Annex to Cabinet Resolution 65/2022, art. 8, Second, expressly admits off-plan — «one or more Real Estate units off the map» at AED 2,000,000, bought from local companies determined by the Competent Local Authority. The «entirely constructed» requirement is real but belongs to GDRFA's ordinary property-owner permit, not to the golden residence. Dubai's own golden visa e-service still asks for a title deed, which an off-plan Oqood registration is not: the federal text permits what the emirate channel has no document for.",
+          ru: "Приложение к Постановлению Кабинета министров 65/2022, ст. 8, раздел второй, прямо допускает строящееся жильё — «один или несколько объектов off the map» на 2 000 000 дирхамов, купленных у местных компаний, определённых компетентным местным органом. Требование «entirely constructed» существует, но относится к обычному разрешению собственника недвижимости в GDRFA, а не к золотой резиденции. При этом дубайский сервис подачи на золотую визу требует свидетельство о праве собственности, которым регистрация Oqood по строящемуся объекту не является: федеральный текст разрешает то, на что у эмиратского канала нет документа.",
+          pl: "Załącznik do Uchwały Rady Ministrów 65/2022, art. 8, część druga, wprost dopuszcza nieruchomość w budowie — „jedną lub więcej jednostek off the map\u201d za 2 000 000 dirhamów, kupionych od lokalnych spółek wskazanych przez właściwy organ lokalny. Wymóg „entirely constructed\u201d istnieje, ale dotyczy zwykłego zezwolenia właściciela nieruchomości w GDRFA, a nie złotej rezydencji. Dubajski serwis wniosku o złotą wizę wciąż żąda aktu własności, którym rejestracja Oqood dla budowy nie jest: tekst federalny dopuszcza to, na co kanał emiracki nie ma dokumentu.",
         },
       },
       {
@@ -732,11 +767,19 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           ru: "Ходящие цифры AED 750 000 и AED 1 000 000",
           pl: "Krążące kwoty AED 750 000 i AED 1 000 000",
         },
+        checked: "2026-08-30",
+        // EXTENDED ON 30 AUGUST 2026. The row was right and incomplete, which
+        // on this page is its own kind of wrong: it said the figure "is not
+        // found in any current source" and left a reader to conclude it had
+        // been invented. It had not. AED 750,000 was Dubai's floor for a
+        // DIFFERENT permit — the two-year property investor visa — and it was
+        // removed in April 2026. So a page still selling a golden visa "from
+        // AED 750,000" is wrong twice: wrong permit, and a repealed threshold.
         verdict: "corrected",
         finding: {
-          en: "AED 750,000 is not found in any current source. AED 1,000,000 is the retirement golden visa, from age 55, for five years — not a shorter investor route.",
-          ru: "AED 750 000 в действующих источниках не находится. AED 1 000 000 — это пенсионная золотая виза с 55 лет на пять лет, а не «короткая инвесторская».",
-          pl: "AED 750 000 nie występuje w żadnym aktualnym źródle. AED 1 000 000 to emerytalna złota wiza od 55. roku życia na pięć lat, a nie krótsza ścieżka inwestorska.",
+          en: "AED 750,000 was never a golden visa threshold. It was Dubai's floor for the separate two-year property investor visa, and it was removed in April 2026: a sole owner now faces no minimum value at all, and a co-owner's share must reach AED 400,000. AED 1,000,000 is the retirement golden visa, from age 55, for five years — not a shorter investor route.",
+          ru: "AED 750 000 никогда не были порогом золотой визы. Это был дубайский минимум для отдельного разрешения — двухлетней инвесторской визы, — и в апреле 2026 года его отменили: у единственного собственника минимальной стоимости больше нет вовсе, а доля совладельца должна достигать AED 400 000. AED 1 000 000 — это пенсионная золотая виза с 55 лет на пять лет, а не «короткая инвесторская».",
+          pl: "AED 750 000 nigdy nie było progiem złotej wizy. Był to dubajski próg odrębnego zezwolenia — dwuletniej wizy inwestora w nieruchomości — i zniesiono go w kwietniu 2026: jedyny właściciel nie ma już żadnej wartości minimalnej, a udział współwłaściciela musi sięgać AED 400 000. AED 1 000 000 to emerytalna złota wiza od 55. roku życia na pięć lat, a nie krótsza ścieżka inwestorska.",
         },
       },
       {
@@ -797,6 +840,72 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       },
     ],
     sources: [
+      // ADDED 30 AUGUST 2026 for the Emirati relocation guide. The first two
+      // are the instruments themselves, and until this date this section had
+      // neither of them: every Emirati figure on this site rested on ministry
+      // service pages, which is a tier below what the Portuguese and Greek
+      // sections stand on. That gap is now closed.
+      {
+        citation:
+          "Federal Decree-Law No. 29 of 2021 on Entry and Residence of Foreigners — Official Gazette 712, in force 26.10.2021",
+        url: "https://uaelegislation.gov.ae/en/legislations/1528",
+        kind: "official",
+        caveat: {
+          en: "The decree-law never uses the words \u201cGolden Residence\u201d. Arts. 7(2) and 8(2) delegate every visa and permit type to the Executive Regulation, so a page citing this instrument for the AED 2,000,000 threshold is citing the wrong one.",
+          ru: "Сам декрет-закон нигде не употребляет слов «Golden Residence». Статьи 7(2) и 8(2) делегируют все типы виз и разрешений исполнительному регламенту, так что страница, ссылающаяся на этот акт за порогом в 2 000 000 дирхамов, ссылается не туда.",
+          pl: "Sam dekret nigdzie nie używa słów „Golden Residence\u201d. Art. 7(2) i 8(2) delegują wszystkie typy wiz i zezwoleń do rozporządzenia wykonawczego, więc strona powołująca się na ten akt dla progu 2 000 000 dirhamów powołuje się na niewłaściwy.",
+        },
+      },
+      {
+        citation:
+          "Cabinet Resolution No. 65 of 2022, Executive Regulation and its Golden Residence Annex — Official Gazette 731, in force 03.10.2022",
+        url: "https://uaelegislation.gov.ae/en/legislations/1601",
+        kind: "official",
+        caveat: {
+          en: "Six amending resolutions were read individually on 30 August 2026 — Nos. 87/2022, 117/2023, 95/2024, 125/2024, 179/2025 and 95/2026. Five add border posts; the other two insert arts. 19 bis and 77 bis. None touches art. 59, art. 60 or the Annex, so the text quoted here is the current one. The portal's own amendment log is incomplete: its entry for 95/2024 omits art. 77 bis.",
+          ru: "Шесть изменяющих постановлений прочитаны по отдельности 30 августа 2026 года — № 87/2022, 117/2023, 95/2024, 125/2024, 179/2025 и 95/2026. Пять добавляют пункты пропуска, ещё два вводят статьи 19-бис и 77-бис. Ни одно не касается статьи 59, статьи 60 и приложения, поэтому приведённый текст — действующий. Журнал поправок самого портала неполон: в записи о 95/2024 статья 77-бис не показана.",
+          pl: "Sześć uchwał zmieniających przeczytano osobno 30 sierpnia 2026 — nr 87/2022, 117/2023, 95/2024, 125/2024, 179/2025 i 95/2026. Pięć dodaje przejścia graniczne, dwie wprowadzają art. 19 bis i 77 bis. Żadna nie dotyka art. 59, art. 60 ani załącznika, więc cytowany tekst jest aktualny. Własny rejestr zmian portalu jest niepełny: przy 95/2024 pomija art. 77 bis.",
+        },
+      },
+      {
+        citation:
+          "Cabinet Decision No. 85 of 2022 on Determination of Tax Residency, art. 4 — in force 01.03.2023",
+        url: "https://tax.gov.ae/Datafolder/Files/Legislation/Corporate%20Tax/Cabinet%20Decision%2085%20of%202022%20-%20For%20publishing.pdf",
+        kind: "official",
+      },
+      {
+        citation:
+          "Ministerial Decision No. 27 of 2023, arts. 3 to 6 — how days, homes and employment are counted",
+        url: "https://mof.gov.ae/wp-content/uploads/2023/03/Ministerial-Decision-27-of-2023-of-Tax-Residency.pdf",
+        kind: "official",
+      },
+      {
+        citation:
+          "Cabinet Decision No. 49 of 2023, art. 2 — the AED 1,000,000 turnover test for a natural person, and the licence-based exclusions",
+        url: "https://mof.gov.ae/wp-content/uploads/2023/05/Cabinet-Decision-No.-49-of-2023.pdf",
+        kind: "official",
+      },
+      {
+        citation:
+          "Cabinet Decision No. 116 of 2022, art. 2(1) — the AED 375,000 corporate tax band",
+        url: "https://uaelegislation.gov.ae/en/legislations/1614/download",
+        kind: "official",
+        caveat: {
+          en: "The AED 375,000 figure is not in Federal Decree-Law 47 of 2022, which is what almost every page cites for it. The decree-law sets the structure; this decision sets the number.",
+          ru: "Цифра 375 000 дирхамов стоит не в Федеральном декрете-законе 47/2022, на который её списывают почти все. Декрет-закон задаёт конструкцию, сумму устанавливает это решение.",
+          pl: "Kwota 375 000 dirhamów nie znajduje się w Dekrecie Federalnym 47/2022, na który powołuje się niemal każda strona. Dekret ustala konstrukcję, kwotę ustanawia ta uchwała.",
+        },
+      },
+      {
+        citation: "ICP — entry after a long absence, and who is exempt",
+        url: "https://icp.gov.ae/en/services-details/?serviceid=68e352d65ae59b00117383fc",
+        kind: "official",
+      },
+      {
+        citation: "DLD — Investor Residence application (Taskeen), the two-year permit",
+        url: "https://dubailand.gov.ae/en/eservices/request-for-investor-visa/",
+        kind: "official",
+      },
       {
         citation: "DLD — Request for Golden Visa (Investor)",
         url: "https://dubailand.gov.ae/en/eservices/request-for-golden-visa-investor/",

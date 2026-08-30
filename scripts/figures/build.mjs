@@ -682,6 +682,40 @@ function ptPublished(L) {
   return frame(width, height, L.figures.ptPublished.title, L.eyebrow, L.checked(L.dates.portugal), body, L.figures.ptPublished.note);
 }
 
+// --- The Emirates guide's numbers --------------------------------------------
+
+// THE CHAIN OF AUTHORITY, AND THE LINK THAT IS MISSING. Three rows have an
+// instrument and the fourth has an empty box, which is the whole article: the
+// federal threshold is published and checkable, and the two Dubai changes of
+// 2026 that thousands are applying under are in no register at all.
+const AE_CHAIN = [
+  { key: "decree", has: true },
+  { key: "regulation", has: true },
+  { key: "fee", has: true },
+  { key: "dubai2026", has: false },
+];
+
+// WHO IS EXEMPT FROM THE 180-DAY RULE, by the words of art. 60 rather than by
+// what the market says. Drawn as presence/absence rather than as a quantity:
+// the point is that a category either appears in the list or does not.
+const AE_ABSENCE = [
+  { key: "investor", state: "named" },
+  { key: "talent", state: "unnamed" },
+  { key: "student", state: "unnamed" },
+  { key: "humanitarian", state: "unnamed" },
+];
+
+// TWO COLUMNS, NOT A BAR CHART, because the left-hand side has no rate to draw:
+// income, gains, inheritance and wealth are untaxed by the absence of a
+// charging provision, and drawing them as zero bars would state a rate that no
+// instrument sets.
+const AE_TAX = [
+  { key: "vat", rate: "5%" },
+  { key: "transfer", rate: "4%" },
+  { key: "housing", rate: "5%", untraced: true },
+  { key: "corporate", rate: "9%" },
+];
+
 // --- Figure 10: the four points of article 100 §2 ----------------------------
 // THE RIGHT-HAND COLUMN IS THE WHOLE REASON THIS EXISTS. Thresholds by zone are
 // already drawn in `zones` for the first entry; what is not drawn anywhere, on
@@ -784,6 +818,97 @@ function grTax(L) {
   return frame(width, height, L.figures.grTax.title, L.eyebrow, L.checked(L.dates.greece), body, L.figures.grTax.note);
 }
 
+// --- Figure 13: the chain of authority, and the missing link -----------------
+function aeChain(L) {
+  const width = 1200;
+  // 760: the last row's second line sits at y=614 and the frame draws its own
+  // note at height − 92. At 700 the two overlapped, which check.mjs caught
+  // and arithmetic did not.
+  const height = 760;
+  let body = "";
+
+  body += text(width - 48, 214, L.aeChainCol, {
+    size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true, anchor: "end",
+  });
+  body += `<line x1="48" y1="232" x2="${width - 48}" y2="232" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  AE_CHAIN.forEach((row, i) => {
+    const y = 288 + i * 100;
+    // The rule of this file: colour carries status and the status also carries
+    // a word. The missing row is dashed AND says so in text.
+    body += `<rect x="48" y="${y - 26}" width="4" height="56" fill="${row.has ? C.accent : C.line}"/>`;
+    body += text(76, y, L.aeChain[row.key], { size: 16, weight: 500, fill: row.has ? C.text : C.muted });
+    body += text(76, y + 26, L.aeChainNotes[row.key], { size: 13, fill: C.muted });
+    body += text(width - 48, y, row.has ? L.aeChainCells.yes : L.aeChainCells.no, {
+      size: 15, family: FONT_MONO, anchor: "end", fill: row.has ? C.text : C.muted,
+    });
+    if (i < AE_CHAIN.length - 1) {
+      body += `<line x1="48" y1="${y + 48}" x2="${width - 48}" y2="${y + 48}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(width, height, L.figures.aeChain.title, L.eyebrow, L.checked(L.dates.uae), body, L.figures.aeChain.note);
+}
+
+// --- Figure 14: who art. 60 actually names -----------------------------------
+function aeAbsence(L) {
+  const width = 1200;
+  const height = 620;
+  const colW = 258;
+  const gap = 20;
+  let body = "";
+
+  AE_ABSENCE.forEach((row, i) => {
+    const x = 48 + i * (colW + gap);
+    const named = row.state === "named";
+    body += `<rect x="${x}" y="212" width="${colW}" height="220" fill="${named ? C.accent : C.bg}" stroke="${named ? C.accent : C.line}" stroke-width="1"${named ? "" : ' stroke-dasharray="4 4"'}/>`;
+    body += text(x + 20, 252, L.aeAbsence[row.key], {
+      size: 16, weight: 500, fill: named ? C.onAccent : C.text,
+    });
+    body += text(x + 20, 296, L.aeAbsenceNotes[row.key], {
+      size: 13, fill: named ? C.onAccent : C.muted,
+    });
+    body += text(x + 20, 404, named ? L.aeAbsenceCells.named : L.aeAbsenceCells.unnamed, {
+      size: 12, weight: 500, tracking: 1.8, upper: true,
+      fill: named ? C.onAccent : C.pending,
+    });
+  });
+
+  return frame(width, height, L.figures.aeAbsence.title, L.eyebrow, L.checked(L.dates.uae), body, L.figures.aeAbsence.note);
+}
+
+// --- Figure 15: what an individual actually pays ------------------------------
+function aeTax(L) {
+  const width = 1200;
+  const height = 700;
+  let body = "";
+
+  body += text(48, 200, L.aeTaxHeads.none, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(620, 200, L.aeTaxHeads.some, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="48" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  // Left column: the four with no charging provision. No rate is drawn, because
+  // no instrument sets one — see the note above AE_TAX.
+  L.aeTaxNone.forEach((label, i) => {
+    const y = 262 + i * 46;
+    body += text(48, y, label, { size: 16, fill: C.muted });
+  });
+  body += text(48, 262 + L.aeTaxNone.length * 46 + 12, L.aeTaxNoneNote, { size: 13, fill: C.muted });
+
+  AE_TAX.forEach((row, i) => {
+    const y = 262 + i * 78;
+    body += text(620, y, L.aeTax[row.key], { size: 16, weight: 500 });
+    body += text(620, y + 24, L.aeTaxNotes[row.key], {
+      size: 13, fill: row.untraced ? C.accent : C.muted,
+    });
+    body += text(width - 48, y, row.rate, {
+      size: 18, weight: 600, family: FONT_MONO, anchor: "end", fill: C.text,
+    });
+  });
+
+  return frame(width, height, L.figures.aeTax.title, L.eyebrow, L.checked(L.dates.uae), body, L.figures.aeTax.note);
+}
+
 // --- Strings ----------------------------------------------------------------
 const money = (locale) => (v) => {
   const f = (n) => new Intl.NumberFormat(locale === "en" ? "en-GB" : locale).format(n).replace(/ /g, " ");
@@ -811,7 +936,7 @@ const L = {
     // different date in it is a sentence that will eventually disagree with
     // itself in one language and not the others.
     checked: (date) => `Все цифры сверены с первоисточником ${date}`,
-    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  },
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года" },
     ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
     ptRoutes: {
       d7: "D7, собственный доход",
@@ -887,6 +1012,48 @@ const L = {
       a: "Не резидент 7 из 8 лет",
       b: "Не резидент 5 из 6 лет",
       c: "Не резидент 5 из 6 лет",
+    },
+    aeChainCol: "Опубликован",
+    aeChain: {
+      decree: "Федеральный декрет-закон 29/2021",
+      regulation: "Постановление 65/2022, приложение, ст. 8",
+      fee: "Резолюция Исполнительного совета 30/2013",
+      dubai2026: "Дубай, изменения 2026 года",
+    },
+    aeChainNotes: {
+      decree: "Порога не устанавливает: делегирует регламенту",
+      regulation: "2 000 000 дирхамов, один или несколько объектов",
+      fee: "4% и раздел поровну между сторонами",
+      dubai2026: "Отмена порога 750 000 и правила 50% предоплаты",
+    },
+    aeChainCells: { yes: "да", no: "нигде не найден" },
+    aeAbsence: {
+      investor: "Инвестор",
+      talent: "Талант",
+      student: "Студент",
+      humanitarian: "Гуманитарная работа",
+    },
+    aeAbsenceNotes: {
+      investor: "Пункт 9: «инвесторы\nс действующим\nразрешением»",
+      talent: "В перечне\nне назван",
+      student: "В перечне\nне назван",
+      humanitarian: "В перечне\nне назван",
+    },
+    aeAbsenceCells: { named: "Освобождён", unnamed: "Только п. 11" },
+    aeTaxHeads: { none: "Нормы, устанавливающей налог, нет", some: "А это платить придётся" },
+    aeTaxNone: ["Подоходный налог", "Налог на прирост капитала", "Налог на наследство", "Налог на богатство"],
+    aeTaxNoneNote: "Не освобождение, а отсутствие нормы:\nосвобождение отменяют поправкой,\nотсутствие — принятием закона.",
+    aeTax: {
+      vat: "НДС",
+      transfer: "Сбор за переход права, Дубай",
+      housing: "Сбор муниципалитета Дубая",
+      corporate: "Корпоративный налог",
+    },
+    aeTaxNotes: {
+      vat: "Декрет-закон 8/2017, ст. 3",
+      transfer: "Резолюция 30/2013, приложение, п. 1",
+      housing: "Акт установить не удалось",
+      corporate: "Свыше 375 000 дирхамов — решение 116/2022",
     },
     ptPublished: {
       law: "Portaria 1563/2007, ст. 2(2)",
@@ -980,6 +1147,18 @@ const L = {
         title: "Что говорит акт и что публикуют страницы из выдачи",
         note: "Проверено 28 августа 2026 года. У каждой страницы отметка об обновлении свежее её собственной цифры.",
       },
+      aeChain: {
+        title: "Чем установлен порог золотой визы ОАЭ, а чем — ничем",
+        note: "Проверены все 32 акта Дубая за 2026 год, реестр меморандумов и страница законодательства DLD.",
+      },
+      aeAbsence: {
+        title: "Кого статья 60 действительно называет, а кого нет",
+        note: "Слов «золотая резиденция» в статье 60 нет вообще. Инвестор проходит как инвестор.",
+      },
+      aeTax: {
+        title: "Что в ОАЭ действительно платит физическое лицо",
+        note: "Сбор муниципалитета — единственная цифра, которую не удалось привязать к акту.",
+      },
       incomeTests: {
         title: "Какие маршруты проверяют доход, а какие нет",
         note: "Каждая сумма приведена в том периоде, в каком её устанавливает акт: у Мальты — за год, у ОАЭ — в долларах.",
@@ -1019,7 +1198,7 @@ const L = {
   en: {
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026" },
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
@@ -1095,6 +1274,48 @@ const L = {
       a: "Non-resident 7 of the last 8 years",
       b: "Non-resident 5 of the last 6 years",
       c: "Non-resident 5 of the last 6 years",
+    },
+    aeChainCol: "Published",
+    aeChain: {
+      decree: "Federal Decree-Law 29/2021",
+      regulation: "Cabinet Resolution 65/2022, Annex art. 8",
+      fee: "Executive Council Resolution 30/2013",
+      dubai2026: "Dubai, the 2026 changes",
+    },
+    aeChainNotes: {
+      decree: "Sets no threshold: delegates to the regulation",
+      regulation: "AED 2,000,000, one or more properties",
+      fee: "4%, shared equally between the parties",
+      dubai2026: "The AED 750,000 floor and the 50% upfront rule, both removed",
+    },
+    aeChainCells: { yes: "yes", no: "found in no register" },
+    aeAbsence: {
+      investor: "Investor",
+      talent: "Talent",
+      student: "Student",
+      humanitarian: "Humanitarian work",
+    },
+    aeAbsenceNotes: {
+      investor: "Item 9: \u201cInvestors\nholding valid\nResidence Permits\u201d",
+      talent: "Named by\nno item",
+      student: "Named by\nno item",
+      humanitarian: "Named by\nno item",
+    },
+    aeAbsenceCells: { named: "Exempt", unnamed: "Item 11 only" },
+    aeTaxHeads: { none: "No charging provision exists", some: "And these you do pay" },
+    aeTaxNone: ["Personal income tax", "Capital gains tax", "Inheritance tax", "Wealth tax"],
+    aeTaxNoneNote: "Not an exemption, an absence:\nan exemption is withdrawn by amending\nan instrument, an absence by enacting one.",
+    aeTax: {
+      vat: "VAT",
+      transfer: "Dubai property transfer fee",
+      housing: "Dubai municipality housing fee",
+      corporate: "Corporate tax",
+    },
+    aeTaxNotes: {
+      vat: "Federal Decree-Law 8/2017, art. 3",
+      transfer: "Resolution 30/2013, schedule item 1",
+      housing: "No instrument could be found",
+      corporate: "Above AED 375,000 \u2014 Cabinet Decision 116/2022",
     },
     ptPublished: {
       law: "Portaria 1563/2007, art. 2(2)",
@@ -1188,6 +1409,18 @@ const L = {
         title: "What the instrument says against what ranking pages publish",
         note: "Checked on 28 August 2026. Every page carries a last-updated stamp newer than its own figure.",
       },
+      aeChain: {
+        title: "What sets the golden visa threshold, and what sets nothing",
+        note: "All 32 Dubai instruments of 2026 were checked, with the memorandum register and DLD's own page.",
+      },
+      aeAbsence: {
+        title: "Who article 60 actually names, and who it does not",
+        note: "The words “Golden Residence” do not appear in article 60 at all. An investor qualifies as an investor.",
+      },
+      aeTax: {
+        title: "What an individual actually pays in the Emirates",
+        note: "The municipality fee is the one figure here that could not be traced to an instrument.",
+      },
       incomeTests: {
         title: "Which routes test income and which do not",
         note: "Each amount is stated in the period its instrument uses: Malta's is annual, the Emirati one is in dollars.",
@@ -1227,7 +1460,7 @@ const L = {
   pl: {
     eyebrow: "Poradniki i badania",
     checked: (date) => `Każda liczba sprawdzona ze źródłem pierwotnym ${date}`,
-    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  },
+    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  , uae: "30 sierpnia 2026 roku" },
     ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
     ptRoutes: {
       d7: "D7, dochód własny",
@@ -1303,6 +1536,48 @@ const L = {
       a: "Nierezydent przez 7 z 8 lat",
       b: "Nierezydent przez 5 z 6 lat",
       c: "Nierezydent przez 5 z 6 lat",
+    },
+    aeChainCol: "Opublikowany",
+    aeChain: {
+      decree: "Dekret federalny 29/2021",
+      regulation: "Uchwa\u0142a 65/2022, za\u0142\u0105cznik, art. 8",
+      fee: "Uchwa\u0142a Rady Wykonawczej 30/2013",
+      dubai2026: "Dubaj, zmiany z 2026 roku",
+    },
+    aeChainNotes: {
+      decree: "Nie ustala progu: deleguje do rozporz\u0105dzenia",
+      regulation: "2 000 000 dirham\u00f3w, jedna lub wi\u0119cej nieruchomo\u015bci",
+      fee: "4%, dzielone po r\u00f3wno mi\u0119dzy strony",
+      dubai2026: "Zniesienie progu 750 000 i zasady 50% przedp\u0142aty",
+    },
+    aeChainCells: { yes: "tak", no: "nie ma go w \u017cadnym rejestrze" },
+    aeAbsence: {
+      investor: "Inwestor",
+      talent: "Talent",
+      student: "Student",
+      humanitarian: "Praca humanitarna",
+    },
+    aeAbsenceNotes: {
+      investor: "Pkt 9: „inwestorzy\nz ważnym\nzezwoleniem”",
+      talent: "Nie wymieniony\nw żadnym punkcie",
+      student: "Nie wymieniony\nw żadnym punkcie",
+      humanitarian: "Nie wymieniona\nw żadnym punkcie",
+    },
+    aeAbsenceCells: { named: "Zwolniony", unnamed: "Tylko pkt 11" },
+    aeTaxHeads: { none: "Brak przepisu nak\u0142adaj\u0105cego podatek", some: "A to trzeba zap\u0142aci\u0107" },
+    aeTaxNone: ["Podatek dochodowy", "Podatek od zysk\u00f3w kapita\u0142owych", "Podatek spadkowy", "Podatek od maj\u0105tku"],
+    aeTaxNoneNote: "To nie zwolnienie, tylko brak przepisu:\nzwolnienie znosi się nowelizacją,\nbrak trzeba wypełnić ustawą.",
+    aeTax: {
+      vat: "VAT",
+      transfer: "Op\u0142ata od przeniesienia, Dubaj",
+      housing: "Op\u0142ata mieszkaniowa gminy Dubaj",
+      corporate: "Podatek od os\u00f3b prawnych",
+    },
+    aeTaxNotes: {
+      vat: "Dekret federalny 8/2017, art. 3",
+      transfer: "Uchwa\u0142a 30/2013, za\u0142\u0105cznik, poz. 1",
+      housing: "Nie uda\u0142o si\u0119 ustali\u0107 aktu",
+      corporate: "Powy\u017cej 375 000 dirham\u00f3w \u2014 uchwa\u0142a 116/2022",
     },
     ptPublished: {
       law: "Portaria 1563/2007, art. 2(2)",
@@ -1420,6 +1695,18 @@ const L = {
         title: "Trzy greckie reżimy podatkowe: 5A, 5B i 5C",
         note: "Słupek to okres w latach podatkowych. 5A zaczyna się od pierwszego roku wniosku, 5B od następnego.",
       },
+      aeChain: {
+        title: "Co ustala pr\u00f3g emirackiej z\u0142otej wizy, a co nie ustala nic",
+        note: "Sprawdzono 32 dubajskie akty z 2026 roku, rejestr memorandów i stronę legislacyjną DLD.",
+      },
+      aeAbsence: {
+        title: "Kogo artyku\u0142 60 rzeczywi\u015bcie wymienia, a kogo nie",
+        note: "Słowa „złota rezydencja” nie występują w artykule 60 wcale. Inwestor przechodzi jako inwestor.",
+      },
+      aeTax: {
+        title: "Co osoba fizyczna faktycznie p\u0142aci w Emiratach",
+        note: "Opłata gminna to jedyna liczba, której nie udało się przypisać do aktu.",
+      },
       incomeTests: {
         title: "Które ścieżki badają dochód, a które nie",
         note: "Każda kwota podana w okresie, którego używa jej akt: maltańska jest roczna, emiracka w dolarach.",
@@ -1462,6 +1749,9 @@ const PLAN = {
     ["gr-tiers", grTiers],
     ["gr-presence", grPresence],
     ["gr-tax", grTax],
+    ["ae-chain", aeChain],
+    ["ae-absence", aeAbsence],
+    ["ae-tax", aeTax],
   ],
   en: [
     ["qualifies", qualifies],
@@ -1476,6 +1766,9 @@ const PLAN = {
     ["gr-tiers", grTiers],
     ["gr-presence", grPresence],
     ["gr-tax", grTax],
+    ["ae-chain", aeChain],
+    ["ae-absence", aeAbsence],
+    ["ae-tax", aeTax],
   ],
   pl: [
     ["qualifies", qualifies],
@@ -1490,6 +1783,9 @@ const PLAN = {
     ["gr-tiers", grTiers],
     ["gr-presence", grPresence],
     ["gr-tax", grTax],
+    ["ae-chain", aeChain],
+    ["ae-absence", aeAbsence],
+    ["ae-tax", aeTax],
   ],
 };
 

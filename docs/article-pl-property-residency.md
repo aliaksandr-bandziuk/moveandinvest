@@ -238,7 +238,7 @@ W Grecji terminu w ustawie nie ma, w kolejce w listopadzie 2025 było 13 499 spr
 
 ### Co jeszcze na tej stronie ma tu znaczenie
 
-Dwie z pięciu jurysdykcji z tego tekstu mają własny poradnik. Czego Portugalia każe dowieść i co zmienił jej dziesięcioletni termin do obywatelstwa — w [poradniku o Portugalii](entry:portugal-residency). Czego wymaga Grecja i dlaczego jej pobyt stały liczy dni, a nie rodzaj zezwolenia — w [poradniku o Grecji](entry:greece-residency). Pytanie o dochód, które leży pod wszystkimi pięcioma — kto go bada, kto nie i ile kosztuje życie w każdej z nich — to [osobny tekst](entry:income-cost-of-living). A wszystkie wymienione akty z datą odczytu są na [stronie źródeł](/sources).
+Dwie z pięciu jurysdykcji z tego tekstu mają własny poradnik. Czego Portugalia każe dowieść i co zmienił jej dziesięcioletni termin do obywatelstwa — w [poradniku o Portugalii](entry:portugal-residency). Czego wymaga Grecja i dlaczego jej pobyt stały liczy dni, a nie rodzaj zezwolenia — w [poradniku o Grecji](entry:greece-residency). Pytanie o dochód, które leży pod wszystkimi pięcioma — kto go bada, kto nie i ile kosztuje życie w każdej z nich — to [osobny tekst](entry:income-cost-of-living). Emiraty, druga jurysdykcja tutaj, gdzie zakup jest całą ścieżką, mają [własny poradnik](entry:uae-residency). A wszystkie wymienione akty z datą odczytu są na [stronie źródeł](/sources).
 
 ### Skąd pochodzą te liczby
 

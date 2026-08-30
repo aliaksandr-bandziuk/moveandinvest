@@ -287,7 +287,7 @@ Because three of the four do not publish one. Greece and Malta publish rent infl
 
 ### What else here bears on this
 
-Two of the thresholds compared above are worked through end to end elsewhere on this site. Portugal's €920 — the one an investor must also prove — is in [the Portugal guide](entry:portugal-residency). Greece's €3,500 permit, its three tax regimes and the question of whether investor years ever reach permanent residence are in [the Greece guide](entry:greece-residency). What a property purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). Every act and dataset named above, with the date each was read, is on [the sources page](/sources).
+Two of the thresholds compared above are worked through end to end elsewhere on this site. Portugal's €920 — the one an investor must also prove — is in [the Portugal guide](entry:portugal-residency). Greece's €3,500 permit, its three tax regimes and the question of whether investor years ever reach permanent residence are in [the Greece guide](entry:greece-residency). What a property purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). The Emirates, the one jurisdiction here that tests no income at all and levies no income tax either, is in [the UAE guide](entry:uae-residency). Every act and dataset named above, with the date each was read, is on [the sources page](/sources).
 
 ### Sources: where each figure comes from
 

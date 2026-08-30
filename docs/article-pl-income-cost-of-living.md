@@ -286,7 +286,7 @@ Bo trzy z czterech go nie publikują. Grecja i Malta podają inflację najmu bez
 
 ### Co jeszcze na tej stronie ma tu znaczenie
 
-Dwa z porównanych wyżej progów są rozłożone na czynniki w innym miejscu tej strony. Portugalskie 920 euro — te, których musi dowieść także inwestor — w [poradniku o Portugalii](entry:portugal-residency). Greckie 3 500 euro, trzy reżimy podatkowe i pytanie, czy lata inwestorskie kiedykolwiek dochodzą do pobytu stałego — w [poradniku o Grecji](entry:greece-residency). Co daje zakup nieruchomości w każdej z pięciu, odczytane z ustawy, jest w [tekście o nieruchomościach](entry:property-residency). Wszystkie wymienione akty i zbiory danych z datą odczytu są na [stronie źródeł](/sources).
+Dwa z porównanych wyżej progów są rozłożone na czynniki w innym miejscu tej strony. Portugalskie 920 euro — te, których musi dowieść także inwestor — w [poradniku o Portugalii](entry:portugal-residency). Greckie 3 500 euro, trzy reżimy podatkowe i pytanie, czy lata inwestorskie kiedykolwiek dochodzą do pobytu stałego — w [poradniku o Grecji](entry:greece-residency). Co daje zakup nieruchomości w każdej z pięciu, odczytane z ustawy, jest w [tekście o nieruchomościach](entry:property-residency). Emiraty, jedyna jurysdykcja tutaj, która nie bada dochodu wcale i podatku dochodowego też nie pobiera, są w [poradniku o ZEA](entry:uae-residency). Wszystkie wymienione akty i zbiory danych z datą odczytu są na [stronie źródeł](/sources).
 
 ### Źródła: skąd pochodzi każda liczba
 

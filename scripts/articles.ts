@@ -181,6 +181,31 @@ const ENTRIES: Record<string, EntryConfig> = {
     category: "relocation",
     countries: ["country-gr"],
   },
+  "uae-residency": {
+    key: "article-uae-residency",
+    sources: {
+      en: "article-en-uae-residency.md",
+      ru: "article-ru-uae-residency.md",
+      pl: "article-pl-uae-residency.md",
+    },
+    // THE RUSSIAN VERSION PUTS THE TAX DIAGRAM FIRST, and that is the marker
+    // index doing its job. The English and Polish versions reach the visa
+    // early; the Russian one opens on what an individual actually pays, because
+    // for its reader nothing is suspended and the question of eligibility never
+    // arises. Same three pictures, a different order.
+    figures: {
+      en: ["ae-chain-en", "ae-absence-en", "ae-tax-en"],
+      ru: ["ae-tax-ru", "ae-chain-ru", "ae-absence-ru"],
+      pl: ["ae-chain-pl", "ae-absence-pl", "ae-tax-pl"],
+    },
+    publishedAt: "2026-08-30T09:00:00.000Z",
+    // "rules" and not "relocation", and this is the first entry to earn that
+    // category. The others are guides to a decision; this one is about what an
+    // instrument says and, for two 2026 changes, about the fact that no
+    // instrument says anything at all.
+    category: "rules",
+    countries: ["country-ae"],
+  },
 };
 
 /** The entry this run publishes, chosen with `--entry <name>`.

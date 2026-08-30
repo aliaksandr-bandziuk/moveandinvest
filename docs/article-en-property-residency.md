@@ -234,7 +234,7 @@ Greece has no statutory deadline and had 13,499 files queued in November 2025. P
 
 ### What else here bears on this
 
-Two of the five jurisdictions in this piece have a guide of their own. What Portugal asks a resident to prove, and what its ten-year citizenship clock changed, is worked through in [the Portugal guide](entry:portugal-residency). What Greece asks, and why permanent residence there counts days rather than permits, is in [the Greece guide](entry:greece-residency). The income question that runs under all five — who tests it, who does not, and what living in each actually costs — is [a piece of its own](entry:income-cost-of-living). And every act named above, with the date each was read, is on [the sources page](/sources).
+Two of the five jurisdictions in this piece have a guide of their own. What Portugal asks a resident to prove, and what its ten-year citizenship clock changed, is worked through in [the Portugal guide](entry:portugal-residency). What Greece asks, and why permanent residence there counts days rather than permits, is in [the Greece guide](entry:greece-residency). The income question that runs under all five — who tests it, who does not, and what living in each actually costs — is [a piece of its own](entry:income-cost-of-living). The Emirates, the other jurisdiction here where a purchase is the whole route, has [a guide of its own](entry:uae-residency). And every act named above, with the date each was read, is on [the sources page](/sources).
 
 ### Where these figures come from
 
