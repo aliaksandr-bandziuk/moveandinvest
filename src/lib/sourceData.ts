@@ -81,6 +81,10 @@ export interface Claim {
   /** What the site states, phrased as the thing being checked. */
   subject: Record<Locale, string>;
   verdict: Verdict;
+  /** An ISO key into CHECK_DATES, set only where this row was read on a day
+   *  other than the page's baseline. Rendered beside the verdict; absent on a
+   *  row that has not changed since the page was first published. */
+  checked?: keyof typeof CHECK_DATES;
   /** What the source actually says. Short: this is a table cell, not an essay
    *  — the jurisdiction page carries the prose. */
   finding: Record<Locale, string>;
@@ -101,14 +105,61 @@ export interface SourceSection {
   note?: Record<Locale, string>;
 }
 
-/** The day every figure below was read from its source. One date for the whole
- *  page, because they were checked in one sitting — a per-row date would imply
- *  a rolling process this project does not run. */
-export const CHECKED_ON: Record<Locale, string> = {
+// WHEN EACH ROW WAS READ, AND WHY THIS IS NO LONGER ONE DATE.
+//
+// The note that stood here said the page carried a single date "because they
+// were checked in one sitting — a per-row date would imply a rolling process
+// this project does not run". That was true on 23 August 2026 and stopped
+// being true two days later. Since then the Greek §7A row was corrected on
+// 25 August, and the Emirati cost row and the Greek article 5A row on
+// 28 August. Each correction was recorded in a code comment, which is to say:
+// recorded somewhere the reader cannot see. Meanwhile the line at the foot of
+// the page went on saying 23 August.
+//
+// A page whose entire claim is that its figures are traceable was therefore
+// telling readers something slightly false about its own freshness — and it is
+// exactly the failure this page audits other people for, since a stale
+// "last updated" stamp is the pattern named in three of the entries.
+//
+// THE SHAPE OF THE FIX: a baseline date for the page, and an override on the
+// rows that have one. Not a date on all thirty-three rows, which would put a
+// column of identical strings beside every claim and bury the three that
+// differ; and not a "last corrected" line per section, which would say that
+// something in the section changed without saying which row, so a corrected
+// row and an untouched one would still look the same.
+//
+// Keyed by ISO date so a row names one in a short string rather than carrying
+// three translated ones of its own. The strings stay hand-written: Intl
+// renders the Russian as "23 августа 2026 г.", and the abbreviation is not what
+// the rest of this site says.
+const CHECKED_2026_08_23: Record<Locale, string> = {
   en: "23 August 2026",
   ru: "23 августа 2026 года",
   pl: "23 sierpnia 2026",
 };
+
+const CHECKED_2026_08_25: Record<Locale, string> = {
+  en: "25 August 2026",
+  ru: "25 августа 2026 года",
+  pl: "25 sierpnia 2026",
+};
+
+const CHECKED_2026_08_28: Record<Locale, string> = {
+  en: "28 August 2026",
+  ru: "28 августа 2026 года",
+  pl: "28 sierpnia 2026",
+};
+
+/** Every date on which any row of this page was read against its source. A
+ *  claim's `checked` key indexes this. */
+export const CHECK_DATES: Record<string, Record<Locale, string>> = {
+  "2026-08-23": CHECKED_2026_08_23,
+  "2026-08-25": CHECKED_2026_08_25,
+  "2026-08-28": CHECKED_2026_08_28,
+};
+
+/** The date that governs every row not carrying its own. */
+export const CHECKED_ON: Record<Locale, string> = CHECKED_2026_08_23;
 
 const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // --- Portugal -------------------------------------------------------------
@@ -289,6 +340,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Warunki, o których strona nie wspominała",
         },
         verdict: "added",
+        checked: "2026-08-25",
         // CORRECTED ON 25 AUGUST 2026 — and the correction is to THIS page
         // rather than to a jurisdiction page. The row used to read "a €50,000
         // fine, or €150,000 and withdrawal of the permit where the property is
@@ -336,10 +388,38 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Non-dom, €100 000 rocznie — prawda, ale z pułapką",
         },
         verdict: "added",
+        checked: "2026-08-28",
+        // CORRECTED ON 28 AUGUST 2026, and the correction is to a sentence this
+        // page had been publishing since launch: "the golden visa does not
+        // count towards that investment".
+        //
+        // It does count. Art. 5A §1(b) was read in full and it names the asset
+        // classes expressly — «σε ακίνητα ή επιχειρήσεις ή κινητές αξίες ή
+        // μετοχές ή μερίδια» — so real estate qualifies, and a property bought
+        // for the permit is real estate like any other. What it has to be is
+        // worth €500,000, which is the part worth telling a reader: the golden
+        // visa's own tiers are €800,000, €400,000 and €250,000, so only the
+        // first of the three clears the tax regime's floor on its own.
+        //
+        // WHAT WAS RIGHT AND IS KEPT, in the second half of the sentence. There
+        // IS a waiver of the investment condition, in the fourth sentence of
+        // §1: «Δεν απαιτείται να συντρέχει η προϋπόθεση της περ. β', εφόσον
+        // πρόκειται για φυσικό πρόσωπο που έχει αποκτήσει και διατηρεί άδεια
+        // διαμονής για επενδυτική δραστηριότητα … σύμφωνα με τις διατάξεις του
+        // άρθρου 16 του ν. 4251/2014». It names art. 16 and nothing else.
+        //
+        // And art. 16 was never the golden visa. It was the permit for
+        // investment ACTIVITY; the property permit was art. 20 §B. The Athens
+        // Bar Association's correspondence table maps art. 16 onto arts. 96, 97
+        // and 99 of Law 5038/2023 and art. 20 §B onto art. 100 — so the waiver
+        // did not reach a property investor even before the old code was
+        // replaced. The distinction the row now draws is between satisfying the
+        // condition and being excused from it, which is not the distinction it
+        // drew before.
         finding: {
-          en: "Art. 5A of Law 4172/2013: €100,000 a year on foreign income, plus €20,000 per family member, an investment of €500,000 within three years, up to fifteen years. The golden visa does not count towards that investment — the relief attaches only to the investment-activity permit under art. 16 of Law 4251/2014.",
-          ru: "Ст. 5A Закона 4172/2013: €100 000 в год на зарубежный доход, плюс €20 000 на каждого члена семьи, инвестиция €500 000 в течение трёх лет, максимум пятнадцать лет. Золотая виза эту инвестицию не засчитывает — освобождение работает только для разрешения на инвестиционную деятельность по ст. 16 Закона 4251/2014.",
-          pl: "Art. 5A ustawy 4172/2013: €100 000 rocznie od dochodu zagranicznego, plus €20 000 na członka rodziny, inwestycja €500 000 w ciągu trzech lat, maksymalnie piętnaście lat. Złota wiza nie zalicza się do tej inwestycji — ulga dotyczy wyłącznie zezwolenia na działalność inwestycyjną z art. 16 ustawy 4251/2014.",
+          en: "Art. 5A of Law 4172/2013: €100,000 a year on foreign income, plus €20,000 per family member, an investment of €500,000 within three years, up to fifteen years. §1(b) names real estate among the qualifying assets, so a property does count — but only one worth €500,000, which is neither the €400,000 tier nor the €250,000 exceptions. What the permit does not do is excuse the investment: the waiver in §1 names only the investment-activity permit of art. 16 of Law 4251/2014, whose successors are arts. 96, 97 and 99, and not art. 100.",
+          ru: "Ст. 5A Закона 4172/2013: €100 000 в год на зарубежный доход, плюс €20 000 на каждого члена семьи, инвестиция €500 000 в течение трёх лет, максимум пятнадцать лет. §1(b) прямо называет недвижимость среди подходящих активов, так что объект засчитывается — но только на €500 000, а это не уровень €400 000 и не исключения по €250 000. Чего разрешение не даёт, так это освобождения от самой инвестиции: оговорка в §1 названа только для разрешения на инвестиционную деятельность по ст. 16 Закона 4251/2014, преемники которой — ст. 96, 97 и 99, а не ст. 100.",
+          pl: "Art. 5A ustawy 4172/2013: €100 000 rocznie od dochodu zagranicznego, plus €20 000 na członka rodziny, inwestycja €500 000 w ciągu trzech lat, maksymalnie piętnaście lat. §1(b) wymienia nieruchomości wśród kwalifikujących się aktywów, więc lokal się zalicza — ale tylko wart €500 000, a to nie jest ani próg €400 000, ani wyjątki po €250 000. Czego zezwolenie nie daje, to zwolnienia z samej inwestycji: wyłączenie w §1 wskazuje wyłącznie zezwolenie na działalność inwestycyjną z art. 16 ustawy 4251/2014, którego następcami są art. 96, 97 i 99, a nie art. 100.",
         },
       },
       {
@@ -381,6 +461,109 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         citation: "KYA 214926/2025 (procedure)",
         url: "https://www.e-nomothesia.gr/kat-allodapoi/kya-214926-2025.html",
+        kind: "reproduction",
+      },
+      // ADDED 28 AUGUST 2026 for the Greek relocation guide, which goes past
+      // the purchase into the permit, the permanent statuses and the tax
+      // regimes. Every one of these was read article by article rather than
+      // taken from a summary; where only a summary could be got, the guide
+      // says so at the point of use rather than here.
+      {
+        citation:
+          "Law 5038/2023, art. 95 — family members, as amended by art. 29 of Law 5275/2026 (ΦΕΚ Α΄ 17/06.02.2026)",
+        url: "https://www.taxheaven.gr/law/5275/2026/arthro/29",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "Law 5038/2023, arts. 143–145 — EU long-term resident status (Μ.1)",
+        url: "https://www.taxheaven.gr/law/5038/2023/arthro/144",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "Law 5038/2023, art. 160 — proof of Greek, as amended by art. 37 of Law 5275/2026",
+        url: "https://www.taxheaven.gr/law/5275/2026/arthro/37",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "Law 5038/2023, art. 161 — the ten-year permit (Μ.2), replaced by art. 38 of Law 5275/2026",
+        url: "https://www.taxheaven.gr/law/5038/2023/arthro/161",
+        kind: "reproduction",
+        caveat: {
+          en: "The consolidated article was read in full; the replacing provision itself could only be obtained in summary, so the two were compared point by point rather than word for word.",
+          ru: "Консолидированная статья прочитана целиком; сама заменяющая норма далась только в пересказе, поэтому две версии сверены по пунктам, а не дословно.",
+          pl: "Tekst ujednolicony przeczytano w całości; sam przepis zastępujący udało się uzyskać wyłącznie w streszczeniu, więc obie wersje porównano punkt po punkcie, a nie słowo w słowo.",
+        },
+      },
+      {
+        citation:
+          "Law 5038/2023, art. 163 §8 — the permit for holders of sufficient resources (type Ι.8)",
+        url: "https://www.taxheaven.gr/law/5038/2023/arthro/163",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "KYA 225679/2024 — the €3,500 a month, ΦΕΚ Β΄ 5223/17.09.2024",
+        url: "https://migration.gov.gr/wp-content/uploads/2024/10/3_%CE%9A%CE%A5%CE%91-%CE%95%CF%80%CE%B1%CF%81%CE%BA%CF%8E%CE%BD-%CF%80%CF%8C%CF%81%CF%89%CE%BD.pdf",
+        kind: "official",
+      },
+      {
+        citation: "Law 4172/2013, art. 5B — the 7% rate for foreign pensioners",
+        url: "https://www.taxheaven.gr/law/4172/2013/arthro/5%CE%92",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "Law 4172/2013, art. 5C — the 50% exemption for relocating employees and self-employed",
+        url: "https://www.taxheaven.gr/law/4172/2013/arthro/5%CE%93",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "AADE — the three regimes of arts. 5A, 5B and 5C, with their implementing decisions",
+        url: "https://www.aade.gr/sites/default/files/2023-08/forologika_kinitra_proselkysis_f.katoikiwn.pdf",
+        kind: "official",
+      },
+      {
+        citation:
+          "Ministry of Migration and Asylum — suspension of investment permits for citizens of the Russian Federation, 28 February 2022",
+        url: "https://migration.gov.gr/en/anastoli-ekdosis-i-ananeosis-adeion-diamonis-ependytikoy-skopoy-gia-polites-tis-rosikis-omospondias-mechri-neoteras/",
+        kind: "official",
+      },
+      {
+        citation:
+          "Ministry of Migration and Asylum — renewals released, new applications still suspended, 1 April 2022",
+        url: "https://migration.gov.gr/en/arsi-anastolis-exetasis-kai-ekdosis-ekkremon-aitiseon-ananeosis-kai-ypovolis-aitiseon-ananeosis-titlon-diamonis-politon-tis-rosikis-omospondias-kai-tis-leykorosias-diatireitai-mechri-neote/",
+        kind: "official",
+        caveat: {
+          en: "An announcement rather than a legal instrument. No decision number, no gazette reference: the restriction appears never to have been published as an act, which is itself worth knowing before planning around it.",
+          ru: "Объявление, а не правовой акт. Ни номера решения, ни ссылки на газету: ограничение, судя по всему, никогда не публиковалось как акт, и это само по себе стоит знать, прежде чем строить на нём планы.",
+          pl: "Komunikat, a nie akt prawny. Bez numeru decyzji i bez sygnatury dziennika: ograniczenie najwyraźniej nigdy nie zostało opublikowane jako akt, co samo w sobie warto wiedzieć, zanim się na nim oprze plany.",
+        },
+      },
+      {
+        citation:
+          "Council Directive 2003/109/EC, arts. 3(2), 4(1), 14 and 15 — OJ L 16/44 of 23.01.2004",
+        url: "https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2004:016:0044:0053:EN:PDF",
+        kind: "official",
+        caveat: {
+          en: "Arts. 4(1) and 14(1) were read verbatim; arts. 5 and 15 came back in summary. The directive matters twice over: art. 143 of the Greek code transposes its art. 3, and its art. 14 is what carries the status to another member state — which the national ten-year permit does not.",
+          ru: "Ст. 4(1) и 14(1) прочитаны дословно; ст. 5 и 15 — в пересказе. Директива важна дважды: ст. 143 греческого кодекса переносит её ст. 3, а её ст. 14 — то, что переносит статус в другое государство-член, чего национальное десятилетнее разрешение не даёт.",
+          pl: "Art. 4(1) i 14(1) odczytano dosłownie; art. 5 i 15 wróciły w streszczeniu. Dyrektywa jest ważna podwójnie: art. 143 greckiego kodeksu transponuje jej art. 3, a jej art. 14 przenosi status do innego państwa członkowskiego, czego krajowe zezwolenie dziesięcioletnie nie daje.",
+        },
+      },
+      {
+        citation:
+          "Commission Recommendation C(2022) 2028 final of 28 March 2022 — investor citizenship and residence schemes",
+        url: "https://data.consilium.europa.eu/doc/document/ST-7916-2022-INIT/en/pdf",
+        kind: "official",
+      },
+      {
+        citation:
+          "KYA 8934/2026 — the minimum wage from 1 April 2026, ΦΕΚ Β΄ 1759/27.03.2026",
+        url: "https://www.forin.gr/articles/article/89767/kua-8934-2026",
         kind: "reproduction",
       },
       {
@@ -602,10 +785,14 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "\u201ePonad to €38 000\u201d — zawyżone",
         },
         verdict: "corrected",
+        // The date used to be inside the finding's own first sentence, in all
+        // three languages. It is structural now, so the prose drops it and the
+        // row carries it beside the verdict like the other two re-checked rows.
+        checked: "2026-08-28",
         finding: {
-          en: "Government fees on the golden visa are AED 9,884.75 (medical 700, Emirates ID 1,153, residence 2,856.75, DLD 4,020, admin 1,155), plus AED 5,774.50 per dependant. The 4% DLD registration fee and the 2% agent commission are market practice and are not confirmed by an official page, so they are named but not totalled. That gives roughly €31,000.",
-          ru: "Государственные сборы по золотой визе — AED 9 884,75 (медосмотр 700, Emirates ID 1 153, резидентство 2 856,75, DLD 4 020, административный 1 155), плюс AED 5 774,50 за иждивенца. Регистрационный сбор DLD 4% и комиссия агента 2% — рыночная практика, официальной страницей не подтверждены, поэтому названы, но в сумму не входят. Итого около €31 000.",
-          pl: "Opłaty urzędowe przy złotej wizie to AED 9 884,75 (badanie 700, Emirates ID 1 153, rezydencja 2 856,75, DLD 4 020, administracyjna 1 155), plus AED 5 774,50 za osobę zależną. Opłata rejestracyjna DLD 4% i prowizja pośrednika 2% to praktyka rynkowa, niepotwierdzona oficjalną stroną, więc są wymienione, ale nie wliczone. Daje to około €31 000.",
+          en: "The previous wording here was wrong twice over. The 4% registration fee is not market practice: Executive Council Resolution 30 of 2013, schedule item 1, sets it as “4% of the value of the sale contract”, which on AED 2,000,000 is AED 80,000. Article 3 of the same resolution splits it equally between buyer and seller “unless agreed otherwise” — the buyer paying all of it is the custom, not the rule. On top of that sit the title deed at AED 250, knowledge and innovation fees of AED 20, and the registration trustee at AED 4,200 including VAT. The golden visa itself is AED 9,884.75 (medical 700, Emirates ID 1,153, residence 2,856.75, DLD 4,020, administrative 1,155), plus AED 5,774.50 per dependant and a one-off AED 318.75 to open the family file. The 2% agent commission is the only component with no official basis at all: DLD’s own FAQ leaves the rate to the agreement and, failing that, to prevailing custom, and no law or RERA rule caps it. Officially set costs come to about €22,000; the €31,000 in the table includes the agent’s 2%, and the second error was saying it did not.",
+          ru: "Прежняя формулировка была неверна дважды. Регистрационный сбор 4% — не рыночная практика: он установлен Резолюцией Исполнительного совета № 30 от 2013 года, пункт 1 приложения, как «4% от стоимости договора купли-продажи», то есть AED 80 000 на объект в AED 2 000 000. Статья 3 той же резолюции делит его поровну между покупателем и продавцом, «если не согласовано иное», — то, что платит покупатель целиком, это обычай, а не норма. Сверх того: свидетельство о праве AED 250, сборы за знание и инновации AED 20 и регистрационный доверенный центр AED 4 200 с НДС. Сама золотая виза — AED 9 884,75 (медосмотр 700, Emirates ID 1 153, резидентство 2 856,75, DLD 4 020, административный 1 155), плюс AED 5 774,50 за иждивенца и разовые AED 318,75 за открытие семейного дела. Комиссия агента 2% — единственная часть без какого-либо официального основания: собственный FAQ DLD оставляет ставку договору, а при его молчании — сложившемуся обычаю, и ни закон, ни правила RERA её не ограничивают. Официально установленные расходы дают около €22 000; €31 000 в таблице включают эти 2%, и вторая ошибка была в утверждении, что не включают.",
+          pl: "Poprzednie brzmienie było błędne podwójnie. Opłata rejestracyjna 4% nie jest praktyką rynkową: ustanawia ją Rezolucja Rady Wykonawczej nr 30 z 2013 roku, pozycja 1 załącznika, jako „4% wartości umowy sprzedaży”, czyli AED 80 000 przy nieruchomości za AED 2 000 000. Artykuł 3 tej samej rezolucji dzieli ją po połowie między kupującego i sprzedającego, „o ile nie uzgodniono inaczej” — to, że płaci ją w całości kupujący, jest zwyczajem, nie normą. Do tego dochodzą akt własności AED 250, opłaty za wiedzę i innowacje AED 20 oraz centrum rejestracyjne AED 4 200 z VAT. Sama złota wiza to AED 9 884,75 (badanie 700, Emirates ID 1 153, pobyt 2 856,75, DLD 4 020, administracyjna 1 155), plus AED 5 774,50 za osobę zależną i jednorazowe AED 318,75 za otwarcie akt rodziny. Prowizja pośrednika 2% jest jedynym składnikiem bez jakiejkolwiek podstawy urzędowej: własny FAQ DLD pozostawia stawkę umowie, a w jej braku przyjętemu zwyczajowi, i żadne prawo ani przepis RERA jej nie ogranicza. Koszty ustalone urzędowo dają około €22 000; €31 000 w tabeli zawiera te 2%, a drugim błędem było twierdzenie, że ich nie zawiera.",
         },
       },
     ],
@@ -633,6 +820,30 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         citation: "u.ae — taxation",
         url: "https://u.ae/en/information-and-services/finance-and-investment/taxation",
+        kind: "official",
+      },
+      // ADDED 28 AUGUST 2026, with the correction to the cost finding above.
+      // The 4% registration fee had been described here as market practice
+      // that no official page confirmed. It is set by a published instrument,
+      // and this is that instrument — item 1 of its schedule.
+      {
+        citation:
+          "Executive Council Resolution 30 of 2013 — fees of the Land Department",
+        url: "https://dlp.dubai.gov.ae/Legislation%20Reference/2013/ECR%2030%20of%202013.html",
+        kind: "official",
+      },
+      {
+        citation: "DLD — property sale registration, fees and trustee charges",
+        url: "https://dubailand.gov.ae/en/eservices/property-sale-registration/",
+        kind: "official",
+      },
+      // A SOURCE FOR AN ABSENCE, cited like any other claim: this is where DLD
+      // says a broker's commission follows the agreement and, failing that,
+      // prevailing custom. It is what lets the finding say the 2% rests on
+      // nothing official, rather than that we looked and did not find it.
+      {
+        citation: "DLD — frequently asked questions, broker commission",
+        url: "https://dubailand.gov.ae/en/frequently-asked-questions/",
         kind: "official",
       },
     ],

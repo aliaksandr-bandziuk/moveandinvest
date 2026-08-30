@@ -13,10 +13,29 @@
 //   a blank line                  -> a new block
 //   a run of lines starting "|"   -> a table, first row the header
 //
-// No bold, no italics, no inline links. Not an oversight: the schema allows
-// all three, and none of them earns its complexity here. Sources are named in
-// running text — "art. 100 of Law 5038/2023" is quotable by an answer engine
-// exactly as it stands, and a link is not.
+// No bold, no italics. Not an oversight: the schema allows both and neither
+// earns its complexity in page copy.
+//
+// LINKS: THE RULE WAS RIGHT AND ITS SCOPE WAS WRONG. What stood here said "no
+// inline links", reasoning that a source named in running text — "art. 100 of
+// Law 5038/2023" — is quotable by an answer engine exactly as it stands, and a
+// link is not. That argument is sound and it survives: richBlocks() below
+// REFUSES an external href, so a citation can still only be named, never
+// linked.
+//
+// But the argument is about citations, and the rule it produced covered every
+// link there is. The cost was measured on 29 August 2026: four entries, about
+// 62 000 words, and zero links between them. The Greek guide did not point at
+// the Portuguese one, the cost-of-living entry compared five jurisdictions and
+// led to none of them, and the only thing joining the four was three rows in
+// the footer. For a site with almost no inbound links, internal linking is the
+// main way authority reaches a deep page at all — and it is also just how a
+// reader gets from one guide to the next.
+//
+// So richBlocks() now accepts "[text](/sources)" and "[text](entry:key)" and
+// nothing else, resolved by the caller, which is the only party that knows
+// what locale it is writing and which entries exist. blocks() still refuses
+// every link, because page copy has a nav.
 //
 // Keys are derived from the position rather than random, so running this twice
 // on unchanged copy produces byte-identical documents and Sanity records no
@@ -45,11 +64,22 @@ export interface PortableTable {
   rows: PortableRow[];
 }
 
+/** One inline link, referenced by a span's `marks` through its `_key`. Matches
+ *  the schema's linkAnnotation exactly — see
+ *  src/sanity/schemaTypes/objects/linkAnnotation.ts, which the renderer in
+ *  ArticleBody already handles. Nothing new had to be built at either end; the
+ *  only piece missing was this converter. */
+export interface PortableMarkDef {
+  _type: "link";
+  _key: string;
+  href: string;
+}
+
 export interface PortableBlock {
   _type: "block";
   _key: string;
   style: "normal" | "h2" | "h3";
-  markDefs: [];
+  markDefs: PortableMarkDef[];
   children: PortableSpan[];
   /** Set only by richBlocks(). Portable Text has no list container — a list is
    *  a run of sibling blocks that share this. */
@@ -254,32 +284,74 @@ export function blocks(source: string, prefix: string): PortableContent[] {
 
 // --- richBlocks(): article bodies --------------------------------------------
 
-/** `**bold**` into spans. Anything left over throws: a stray asterisk pair is
- *  either markup the author expected to work or a typo, and both are worth
- *  stopping for. Italic is deliberately absent — the article bodies use bold
- *  lead-ins and nothing else, and a mark nobody uses is a mark that goes wrong
- *  the first time somebody does. */
-function spansOf(text: string, key: string): PortableSpan[] {
-  const out: PortableSpan[] = [];
+/** How a caller turns the href an author wrote into the one this locale
+ *  serves. Required before a link is allowed at all: this file has no idea
+ *  which locale it is converting or which entries exist, and a converter that
+ *  guessed would be a converter that emitted a 404 into a flagship article
+ *  where nothing would fail and nobody would look. */
+export type HrefResolver = (raw: string) => string;
+
+/** `**bold**` and `[text](href)` into spans plus their markDefs. Anything left
+ *  over throws: a stray asterisk pair is either markup the author expected to
+ *  work or a typo, and both are worth stopping for. Italic is deliberately
+ *  absent — the article bodies use bold lead-ins and nothing else, and a mark
+ *  nobody uses is a mark that goes wrong the first time somebody does.
+ *
+ *  ONE PASS OVER BOTH PATTERNS rather than bold-then-links, because two passes
+ *  would let a link inside a bold run be found after its own text had already
+ *  been sliced into a span and the offsets had stopped meaning anything. The
+ *  alternation also makes nesting impossible by construction, which is the
+ *  behaviour wanted: a bold link is not a thing this copy needs. */
+function spansOf(
+  text: string,
+  key: string,
+  resolveHref?: HrefResolver,
+): { spans: PortableSpan[]; markDefs: PortableMarkDef[] } {
+  const spans: PortableSpan[] = [];
+  const markDefs: PortableMarkDef[] = [];
   let cursor = 0;
   let n = 0;
 
-  for (const match of text.matchAll(/\*\*(.+?)\*\*/g)) {
+  // Bold, or a markdown link whose href has no spaces and no closing paren.
+  for (const match of text.matchAll(/\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g)) {
     const at = match.index;
     if (at > cursor) {
-      out.push({
+      spans.push({
         _type: "span",
         _key: `${key}s${n++}`,
         text: text.slice(cursor, at),
         marks: [],
       });
     }
-    out.push({
-      _type: "span",
-      _key: `${key}s${n++}`,
-      text: match[1] ?? "",
-      marks: ["strong"],
-    });
+
+    const bold = match[1];
+    if (bold !== undefined) {
+      spans.push({
+        _type: "span",
+        _key: `${key}s${n++}`,
+        text: bold,
+        marks: ["strong"],
+      });
+    } else {
+      const label = match[2] ?? "";
+      const raw = match[3] ?? "";
+      if (!resolveHref) {
+        throw new Error(
+          `A link is not allowed in this copy: "[${label}](${raw})". Page copy has a nav; only article bodies take links.`,
+        );
+      }
+      // Deterministic, like every other key here: running this twice on
+      // unchanged copy must produce byte-identical documents.
+      const defKey = `${key}l${markDefs.length}`;
+      markDefs.push({ _type: "link", _key: defKey, href: resolveHref(raw) });
+      spans.push({
+        _type: "span",
+        _key: `${key}s${n++}`,
+        text: label,
+        marks: [defKey],
+      });
+    }
+
     cursor = at + match[0].length;
   }
 
@@ -287,10 +359,10 @@ function spansOf(text: string, key: string): PortableSpan[] {
   if (rest.includes("**")) {
     throw new Error(`Unclosed bold in: "${text.slice(0, 60)}".`);
   }
-  if (rest || out.length === 0) {
-    out.push({ _type: "span", _key: `${key}s${n}`, text: rest, marks: [] });
+  if (rest || spans.length === 0) {
+    spans.push({ _type: "span", _key: `${key}s${n}`, text: rest, marks: [] });
   }
-  return out;
+  return { spans, markDefs };
 }
 
 /**
@@ -305,7 +377,11 @@ function spansOf(text: string, key: string): PortableSpan[] {
  * rule keeps its enforcement — `blocks()` now throws rather than rendering
  * asterisks — and the article bodies get a converter that says what they need.
  */
-export function richBlocks(source: string, prefix: string): PortableContent[] {
+export function richBlocks(
+  source: string,
+  prefix: string,
+  resolveHref?: HrefResolver,
+): PortableContent[] {
   const out: PortableContent[] = [];
 
   chunksOf(source).forEach((chunk, i) => {
@@ -378,14 +454,19 @@ export function richBlocks(source: string, prefix: string): PortableContent[] {
           );
         }
         const key = `${prefix}${i}i${j}`;
+        const { spans, markDefs } = spansOf(
+          tightenNumbers(line.replace(marker, "")),
+          key,
+          resolveHref,
+        );
         out.push({
           _type: "block",
           _key: key,
           style: "normal",
-          markDefs: [] as [],
+          markDefs,
           listItem,
           level: 1,
-          children: spansOf(tightenNumbers(line.replace(marker, "")), key),
+          children: spans,
         });
       });
       return;
@@ -394,13 +475,14 @@ export function richBlocks(source: string, prefix: string): PortableContent[] {
     const text = tightenNumbers(trimmed.replace(/\s*\n\s*/g, " "));
     const { style, content } = headingOf(text);
     const key = `${prefix}${i}`;
+    const { spans, markDefs } = spansOf(content, key, resolveHref);
 
     out.push({
       _type: "block",
       _key: key,
       style,
-      markDefs: [] as [],
-      children: spansOf(content, key),
+      markDefs,
+      children: spans,
     });
   });
 

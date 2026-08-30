@@ -158,6 +158,54 @@ export function buildFaqPageJsonLd(items: FaqEntry[]) {
   };
 }
 
+/** The questions an entry's body carries, pulled out of its Portable Text.
+ *
+ *  WHY THIS LIVES HERE AND NOT IN THE PAGE. The entry's questions are a `faq`
+ *  block inside the body, not a field beside it, so the only way to mark them
+ *  up is to walk the body — and a page that hand-rolled that walk would be a
+ *  second definition of what a question is, next to the renderer's. One
+ *  function, used by the page, matching the shape articleComponents renders.
+ *
+ *  THE MARKUP IS ONLY HONEST BECAUSE THE ACCORDION IS NATIVE. Structured data
+ *  for a FAQPage has to describe content the visitor can actually see; marking
+ *  up answers that a script hides would be marking up something that is not
+ *  there. The entry's accordion is a native <details>, so a closed row keeps
+ *  its text in the document and in the accessibility tree — which is the
+ *  property the component was built around, and the reason this is publishable
+ *  rather than merely tempting. */
+export function faqFromBody(body: unknown): FaqEntry[] {
+  if (!Array.isArray(body)) return [];
+
+  const out: FaqEntry[] = [];
+  for (const block of body) {
+    if (
+      typeof block !== "object" ||
+      block === null ||
+      (block as { _type?: unknown })._type !== "faq"
+    ) {
+      continue;
+    }
+    const items = (block as { items?: unknown }).items;
+    if (!Array.isArray(items)) continue;
+
+    for (const item of items) {
+      if (typeof item !== "object" || item === null) continue;
+      const { question, answer } = item as {
+        question?: unknown;
+        answer?: unknown;
+      };
+      // BOTH HALVES OR NEITHER, the same filter the renderer applies. A
+      // Question node with an empty acceptedAnswer is invalid structured data,
+      // and a half-written row is exactly how one would appear.
+      if (typeof question === "string" && typeof answer === "string" && question && answer) {
+        out.push({ question, answer });
+      }
+    }
+  }
+
+  return out;
+}
+
 interface JurisdictionPageArgs {
   url: string;
   name: string;

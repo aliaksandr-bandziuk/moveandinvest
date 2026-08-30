@@ -110,6 +110,61 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith(".svg"))) {
   });
 
   for (const c of collisions) problems.push(`${file}: ${c}`);
+
+  // TEXT AGAINST THE BARS, and this check exists because its absence shipped a
+  // broken figure. On 28 August 2026 the label "EU and Portuguese-speaking
+  // country nationals" was drawn straight through its own bar in pt-clock, and
+  // everything above passed: the margin check saw a label inside the margins,
+  // and the collision check compared text with text. A chart is text and
+  // shapes, and only half of it was being measured.
+  //
+  // FILLED BANDS ONLY. Hairlines and rails are drawn deliberately beside and
+  // under labels — row separators, the frame's dividers, the accent rule at the
+  // top of a column — so testing against every element would report the layout
+  // working as designed. What must never sit under a label is a bar, and a bar
+  // is a filled path or rect with real height that is not the background.
+  //
+  // AND ONLY WHERE THE LABEL GREW INTO THE BAR, which is the discriminator that
+  // makes this check usable. Some figures draw a label INSIDE a block on
+  // purpose — the Greek zone amounts sit on their own bands, the Polish "who
+  // needs one" chips carry their word — and a naive overlap test reports all of
+  // them. The accidental case has a signature the deliberate one does not: the
+  // text starts in the label column, to the LEFT of the bar, and runs across
+  // its left edge. Text that starts inside the bar was put there.
+  const overBars = await page.evaluate(() => {
+    const texts = [...document.querySelectorAll("text")].map((el) => ({
+      text: el.textContent.slice(0, 30),
+      ...el.getBoundingClientRect().toJSON(),
+    }));
+    const bars = [...document.querySelectorAll("path, rect")]
+      .filter((el) => {
+        const fill = el.getAttribute("fill");
+        if (!fill || fill === "none") return false;
+        const box = el.getBoundingClientRect();
+        return (
+          box.height > 6 &&
+          box.height < window.innerHeight * 0.7 &&
+          box.width < window.innerWidth * 0.95
+        );
+      })
+      .map((el) => el.getBoundingClientRect().toJSON());
+
+    const hits = [];
+    for (const t of texts) {
+      for (const b of bars) {
+        const overlapX = Math.min(t.right, b.right) - Math.max(t.left, b.left);
+        const overlapY = Math.min(t.bottom, b.bottom) - Math.max(t.top, b.top);
+        const grewIntoIt = t.left < b.left - 2 && t.right > b.left + 2;
+        if (overlapX > 2 && overlapY > 2 && grewIntoIt) {
+          hits.push(`"${t.text}" runs over a bar`);
+          break;
+        }
+      }
+    }
+    return hits;
+  });
+
+  for (const c of overBars) problems.push(`${file}: ${c}`);
   await page.close();
 }
 

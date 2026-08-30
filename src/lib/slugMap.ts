@@ -47,6 +47,16 @@ export interface SlugMap {
   pages: SlugLookup;
   /** Guides & Research entries, under /blog. */
   entries: SlugLookup;
+  /** THE SAME ENTRIES, KEYED BY `translationKey` INSTEAD OF BY SLUG, and it
+   *  exists for one caller: the footer, which has promised three guides since
+   *  launch and could not link them.
+   *
+   *  A footer link is one value shared by all three locales — that is what
+   *  makes /faq work, since the router spells a fixed route per language. An
+   *  entry's slug is data and differs per language, so the footer cannot hold
+   *  one. What it can hold is the entry's stable key, and this is what turns
+   *  that key into the slug for the language being rendered. */
+  entriesByKey: SlugLookup;
 }
 
 /** What the grouping needs from a document, whatever type it is: which set it
@@ -66,7 +76,11 @@ interface Localised {
 // document. It read empty for a visitor, because the plugin's bookkeeping is
 // not public while the content is; see BLOG_SITEMAP_QUERY. Entries now carry
 // their own key, so the two mechanisms are one.
-function addGroup(map: SlugLookup, docs: Localised[]): void {
+function addGroup(
+  map: SlugLookup,
+  docs: Localised[],
+  byKey?: SlugLookup,
+): void {
   // The narrowed shape, because `Required<Localised>` would only drop the `?`
   // and leave `| null` behind — and a null slug used as a key is exactly the
   // state the loop below exists to skip.
@@ -86,6 +100,12 @@ function addGroup(map: SlugLookup, docs: Localised[]): void {
     // Every member points at the same object, so the lookup works from
     // whichever language the reader happens to be standing in.
     for (const doc of group) map[doc.slug] = siblings;
+    // And the same object once more under the group's own key, for a caller
+    // that knows which entry it wants but not what it is called today.
+    if (byKey) {
+      const first = group[0];
+      if (first) byKey[first.key] = siblings;
+    }
   }
 }
 
@@ -145,7 +165,8 @@ export async function getSlugMap(): Promise<SlugMap> {
   addGroup(pages, propertyDocs.map(byCountry));
 
   const entries: SlugLookup = {};
-  addGroup(entries, entryDocs.map(byTranslationKey));
+  const entriesByKey: SlugLookup = {};
+  addGroup(entries, entryDocs.map(byTranslationKey), entriesByKey);
 
-  return { pages, entries };
+  return { pages, entries, entriesByKey };
 }

@@ -4,7 +4,12 @@ import { notFound } from "next/navigation";
 import { ArticleBody } from "@/components/content";
 import { Breadcrumbs, type Crumb } from "@/components/ui";
 import { routing } from "@/i18n/routing";
-import { buildArticleJsonLd, buildBreadcrumbListJsonLd } from "@/lib/jsonLd";
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbListJsonLd,
+  buildFaqPageJsonLd,
+  faqFromBody,
+} from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { readingTimeMinutes } from "@/lib/readingTime";
 import { authorCopy } from "@/lib/author";
@@ -175,6 +180,11 @@ export default async function Entry({
     ),
   });
 
+  // The questions this entry ends with, marked up as a FAQPage. Null when the
+  // entry carries none, and filtered out below rather than emitted as an empty
+  // node — see buildFaqPageJsonLd.
+  const faqJsonLd = buildFaqPageJsonLd(faqFromBody(entry.body));
+
   const breadcrumbJsonLd = buildBreadcrumbListJsonLd([
     { name: t("home"), url: routeUrl("/", locale) },
     { name: tNav("links.research"), url: routeUrl("/blog", locale) },
@@ -187,7 +197,9 @@ export default async function Entry({
         type="application/ld+json"
         // Serialised from objects built above, never from user input.
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([articleJsonLd, breadcrumbJsonLd]),
+          __html: JSON.stringify(
+            [articleJsonLd, breadcrumbJsonLd, faqJsonLd].filter(Boolean),
+          ),
         }}
       />
 

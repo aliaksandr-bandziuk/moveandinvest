@@ -114,6 +114,21 @@ export default async function LocaleLayout({
     href: country.page ? slugHref(country.page.slug) : undefined,
   }));
 
+  // The footer's three promised guides, resolved from their translation keys to
+  // the slug for THIS locale. Resolved here rather than inside the footer
+  // because the slug map is already loaded here and a component that fetched it
+  // again would read the same rows a second time on every page.
+  //
+  // An entry with no slug in this language is simply absent from the map, and
+  // the footer falls back to the greyed "soon" row it has shown since launch —
+  // which is correct: a Polish reader should not be sent to an English page by
+  // a link that promised a Polish one.
+  const entrySlugs: Record<string, string> = {};
+  for (const [key, siblings] of Object.entries(slugMap.entriesByKey)) {
+    const slug = siblings[locale];
+    if (slug) entrySlugs[key] = slug;
+  }
+
   return (
     // suppressHydrationWarning on these two elements only, and deliberately.
     //
@@ -159,6 +174,7 @@ export default async function LocaleLayout({
             disclaimer={settings?.disclaimer}
             contactEmail={settings?.contactEmail}
             jurisdictions={jurisdictions}
+            entrySlugs={entrySlugs}
           />
 
           {/* Both mounted once, here, and nowhere else. AnalyticsLoader

@@ -179,6 +179,70 @@ const DATA_AGE = [
 ];
 const TODAY_YEAR = 2026;
 
+// --- The Portugal guide's numbers --------------------------------------------
+
+// FOUR ROUTES, AND THE FOURTH IS AN ABSENCE. Drawing the abolished property
+// route as a row rather than leaving it out is the whole point: a reader who
+// has been reading advertisements is looking for it, and a diagram that simply
+// omits it answers a question they did not ask.
+const PT_ROUTES = [
+  { key: "d7", visa: true, income: true },
+  { key: "d8", visa: true, income: false },
+  { key: "ari", visa: false, income: true },
+  { key: "property", gone: true },
+];
+
+// The naturalisation clock either side of 19 May 2026. Bar length is years, so
+// the doubling is the picture.
+const PT_CLOCK = [
+  { key: "before", years: 5 },
+  { key: "eu", years: 7 },
+  { key: "other", years: 10 },
+];
+
+// WHAT THE INSTRUMENT SAYS AGAINST WHAT IS PUBLISHED. Named sites, because an
+// audit of other people's figures is only fair if it is specific — and because
+// an unnamed "some pages say" is the same rhetorical move this site exists to
+// avoid.
+const PT_PUBLISHED = [
+  { key: "law", ok: true },
+  { key: "wise", ok: false },
+  { key: "greenback", ok: false },
+  { key: "d8", ok: false },
+  { key: "ggv", ok: false },
+];
+
+// --- The Greece guide's numbers ----------------------------------------------
+
+// FOUR ROWS FOR THREE THRESHOLDS, and the duplication is the finding. Art. 100
+// §2 has four points, two of which set €250,000 for different things, and the
+// minimum floor area appears in only the first two. A three-row diagram would
+// have to merge (c) and (d) and would then have nowhere to put the fact that
+// neither of them carries the 120 m² rule that half this market prints as a
+// rule of the programme.
+const GR_TIERS = [
+  { key: "t800", area: true },
+  { key: "t400", area: true },
+  { key: "t250c", area: false },
+  { key: "t250d", area: false },
+];
+
+// THE SAME PERMIT, TWICE, DIFFERING ONLY IN WHERE ITS HOLDER SLEEPS. Two tracks
+// rather than one, because the point is not a quantity — it is that one input
+// produces two outcomes, and a single bar cannot say that.
+const GR_PRESENCE = [
+  { key: "resident", counts: true },
+  { key: "visitor", counts: false },
+];
+
+// Bar length is the number of tax years, so 5Γ being half the others is the
+// picture. One hue at three steps: this is duration, which is magnitude.
+const GR_TAX = [
+  { key: "a", years: 15 },
+  { key: "b", years: 15 },
+  { key: "c", years: 7 },
+];
+
 // --- Figure 1: what a purchase achieves -------------------------------------
 // GROUPED BY ANSWER, NOT LISTED BY COUNTRY, and that is the whole reason this
 // is a picture rather than the table already in the article. The table answers
@@ -514,6 +578,212 @@ function dataAge(L) {
   );
 }
 
+// --- Figure 7: which Portuguese routes still exist --------------------------
+// A MATRIX, NOT A LIST, because the reader's question has two axes: does this
+// route need a visa, and does it test income. The investment permit is the row
+// that pays for the picture — no visa, income tested anyway.
+function ptRoutes(L) {
+  const width = 1200;
+  // 700, not 620: the last row's second line sits at y=540 and the note is drawn
+  // at height-92, so 620 put the note through it — caught by check.mjs, not by
+  // reading the arithmetic.
+  const height = 700;
+  // 620 and 830, not 700 and 950. At the wider positions the Polish "ustawa nie
+  // podaje kwoty" and the Russian "ПРОВЕРКА ДОХОДА" ran past the right margin:
+  // the same label is a third longer in Slavic languages than in English, and a
+  // column placed to fit the English one is a column that fits only English.
+  const xVisa = 620;
+  const xIncome = 830;
+  let body = "";
+
+  body += text(xVisa, 214, L.ptCols.visa, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xIncome, 214, L.ptCols.income, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="48" y1="232" x2="${width - 48}" y2="232" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  PT_ROUTES.forEach((row, i) => {
+    const y = 286 + i * 76;
+    const fade = row.gone ? 0.55 : 1;
+    body += `<g opacity="${fade}">`;
+    body += text(48, y, L.ptRoutes[row.key], { size: 17, weight: 500 });
+    body += text(48, y + 26, L.ptRouteNotes[row.key], { size: 13, fill: C.muted });
+    if (row.gone) {
+      body += text(xVisa, y, L.ptCells.gone, { size: 15, fill: C.muted, family: FONT_MONO });
+    } else {
+      body += text(xVisa, y, row.visa ? L.ptCells.yes : L.ptCells.no, {
+        size: 15, family: FONT_MONO, fill: row.visa ? C.text : C.muted,
+      });
+      body += text(xIncome, y, row.income ? L.ptCells.tested : L.ptCells.silent, {
+        size: 15, family: FONT_MONO, fill: row.income ? C.accent : C.muted,
+      });
+    }
+    body += `</g>`;
+    if (i < PT_ROUTES.length - 1) {
+      body += `<line x1="48" y1="${y + 44}" x2="${width - 48}" y2="${y + 44}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(width, height, L.figures.ptRoutes.title, L.eyebrow, L.checked(L.dates.portugal), body, L.figures.ptRoutes.note);
+}
+
+// --- Figure 8: the naturalisation clock -------------------------------------
+// SEQUENTIAL, ONE HUE, DARKEST AT THE LONGEST WAIT. This is magnitude — years —
+// so it takes one hue at three steps rather than three colours.
+function ptClock(L) {
+  const width = 1200;
+  // 620 and x0 620: at the previous values the label "EU and Portuguese-speaking
+  // country nationals" ran UNDER its own bar, and the note sat 24px below the
+  // last row and read as a caption on it. Neither was caught by check.mjs,
+  // which measures text against text and against the margins but not against
+  // the bars — see the note at the top of that file.
+  const height = 620;
+  const x0 = 620;
+  // 40, so the ten-year bar plus its label ends at about 1136, inside 1152.
+  const perYear = 40;
+  let body = "";
+
+  PT_CLOCK.forEach((row, i) => {
+    const y = 250 + i * 84;
+    body += text(48, y, L.ptClock[row.key], { size: 16, weight: 500 });
+    body += text(48, y + 26, L.ptClockNotes[row.key], { size: 13, fill: C.muted });
+    const w = row.years * perYear;
+    const opacity = (0.4 + (0.6 * row.years) / 10).toFixed(2);
+    body += `<path d="M${x0} ${y - 14} h${w - 4} a4 4 0 0 1 4 4 v20 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${C.accent}" opacity="${opacity}"/>`;
+    body += text(x0 + w + 14, y + 5, L.ptYears(row.years), { size: 15, family: FONT_MONO, fill: C.text });
+  });
+
+  return frame(width, height, L.figures.ptClock.title, L.eyebrow, L.checked(L.dates.portugal), body, L.figures.ptClock.note);
+}
+
+// --- Figure 9: the instrument against what is published ---------------------
+// COLOUR CARRIES STATUS AND THE STATUS ALSO CARRIES A WORD, per the rule at the
+// top of this file: the statutory row is accent, the published ones are muted,
+// and each says in text what it is.
+function ptPublished(L) {
+  const width = 1200;
+  // 760: five rows at 82px put the last second line at 594, and the note is
+  // drawn at height-92.
+  const height = 760;
+  let body = "";
+
+  PT_PUBLISHED.forEach((row, i) => {
+    const y = 240 + i * 82;
+    const hue = row.ok ? C.accent : C.muted;
+    body += `<rect x="48" y="${y - 22}" width="4" height="52" fill="${hue}"/>`;
+    body += text(76, y, L.ptPublished[row.key], { size: 16, weight: 500 });
+    body += text(76, y + 26, L.ptPublishedNotes[row.key], { size: 13, fill: C.muted });
+    body += text(width - 48, y, L.ptPublishedFigures[row.key], {
+      size: 16, family: FONT_MONO, fill: row.ok ? C.text : C.muted, anchor: "end",
+    });
+    if (i < PT_PUBLISHED.length - 1) {
+      body += `<line x1="48" y1="${y + 44}" x2="${width - 48}" y2="${y + 44}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(width, height, L.figures.ptPublished.title, L.eyebrow, L.checked(L.dates.portugal), body, L.figures.ptPublished.note);
+}
+
+// --- Figure 10: the four points of article 100 §2 ----------------------------
+// THE RIGHT-HAND COLUMN IS THE WHOLE REASON THIS EXISTS. Thresholds by zone are
+// already drawn in `zones` for the first entry; what is not drawn anywhere, on
+// this site or anyone else's, is that the 120 m² minimum lives in §2(a) and
+// §2(b) and in neither of the two €250,000 points.
+function grTiers(L) {
+  const width = 1200;
+  // 760: the last row's note wraps to a second line at y=634, and the frame
+  // puts its own note at height − 92.
+  const height = 760;
+  const xLabel = 270;
+  let body = "";
+
+  body += text(width - 48, 214, L.grTierCol, {
+    size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true, anchor: "end",
+  });
+  body += `<line x1="48" y1="232" x2="${width - 48}" y2="232" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  GR_TIERS.forEach((row, i) => {
+    const y = 280 + i * 100;
+    body += text(48, y, L.grTierAmounts[row.key], {
+      size: 18, weight: 600, family: FONT_MONO, fill: C.text,
+    });
+    body += text(xLabel, y, L.grTierLabels[row.key], { size: 16, weight: 500 });
+    body += text(xLabel, y + 26, L.grTierNotes[row.key], { size: 13, fill: C.muted });
+    body += text(width - 48, y, row.area ? L.grTierArea.yes : L.grTierArea.no, {
+      size: 15, family: FONT_MONO, anchor: "end",
+      fill: row.area ? C.accent : C.muted,
+    });
+    if (i < GR_TIERS.length - 1) {
+      body += `<line x1="48" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(width, height, L.figures.grTiers.title, L.eyebrow, L.checked(L.dates.greece), body, L.figures.grTiers.note);
+}
+
+// --- Figure 11: the same permit, two outcomes --------------------------------
+// THE YEAR NUMBERS ARE DRAWN INSIDE THEIR BLOCKS ON PURPOSE. check.mjs flags a
+// label that grows into a bar from outside it; a label centred within one does
+// not trip that, which is the distinction that check was narrowed to make.
+function grPresence(L) {
+  const width = 1200;
+  const height = 664;
+  const boxW = 120;
+  const boxGap = 12;
+  const xResult = 730;
+  let body = "";
+
+  GR_PRESENCE.forEach((track, i) => {
+    const top = 200 + i * 196;
+    body += text(48, top, L.grPresence[track.key], { size: 17, weight: 500 });
+    body += text(48, top + 26, L.grPresenceNotes[track.key], { size: 13, fill: C.muted });
+
+    const boxTop = top + 50;
+    for (let yearIndex = 0; yearIndex < 5; yearIndex += 1) {
+      const x = 48 + yearIndex * (boxW + boxGap);
+      if (track.counts) {
+        body += `<rect x="${x}" y="${boxTop}" width="${boxW}" height="60" fill="${C.accent}"/>`;
+      } else {
+        body += `<rect x="${x}" y="${boxTop}" width="${boxW}" height="60" fill="${C.bg}" stroke="${C.line}" stroke-width="1" stroke-dasharray="4 4"/>`;
+      }
+      body += text(x + boxW / 2, boxTop + 38, String(yearIndex + 1), {
+        size: 16, family: FONT_MONO, anchor: "middle",
+        fill: track.counts ? C.onAccent : C.muted,
+      });
+    }
+
+    body += text(xResult, boxTop + 22, L.grPresenceResults[track.key], {
+      size: 16, weight: 500, fill: track.counts ? C.accent : C.muted,
+    });
+    body += text(xResult, boxTop + 48, L.grPresenceResultNotes[track.key], {
+      size: 13, fill: C.muted,
+    });
+  });
+
+  return frame(width, height, L.figures.grPresence.title, L.eyebrow, L.checked(L.dates.greece), body, L.figures.grPresence.note);
+}
+
+// --- Figure 12: the three special tax regimes --------------------------------
+function grTax(L) {
+  const width = 1200;
+  const height = 664;
+  const x0 = 700;
+  // 22, so the fifteen-year bar ends at 1030 and its label clears the margin.
+  const perYear = 22;
+  let body = "";
+
+  GR_TAX.forEach((row, i) => {
+    const y = 240 + i * 108;
+    body += text(48, y, L.grTax[row.key], { size: 17, weight: 500 });
+    body += text(48, y + 26, L.grTaxNotes[row.key], { size: 13, fill: C.muted });
+    body += text(48, y + 48, L.grTaxPrior[row.key], { size: 13, fill: C.muted });
+    const w = row.years * perYear;
+    const opacity = (0.4 + (0.6 * row.years) / 15).toFixed(2);
+    body += `<path d="M${x0} ${y - 14} h${w - 4} a4 4 0 0 1 4 4 v20 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${C.accent}" opacity="${opacity}"/>`;
+    body += text(x0 + w + 14, y + 5, L.ptYears(row.years), { size: 15, family: FONT_MONO, fill: C.text });
+  });
+
+  return frame(width, height, L.figures.grTax.title, L.eyebrow, L.checked(L.dates.greece), body, L.figures.grTax.note);
+}
+
 // --- Strings ----------------------------------------------------------------
 const money = (locale) => (v) => {
   const f = (n) => new Intl.NumberFormat(locale === "en" ? "en-GB" : locale).format(n).replace(/ /g, " ");
@@ -541,7 +811,104 @@ const L = {
     // different date in it is a sentence that will eventually disagree with
     // itself in one language and not the others.
     checked: (date) => `Все цифры сверены с первоисточником ${date}`,
-    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" },
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  },
+    ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
+    ptRoutes: {
+      d7: "D7, собственный доход",
+      d8: "D8, удалённая работа",
+      ari: "ВНЖ за инвестиции",
+      property: "Покупка недвижимости",
+    },
+    ptRouteNotes: {
+      d7: "Пенсия, аренда, дивиденды, роялти",
+      d8: "Подтверждение трудовых отношений",
+      ari: "Фонд 500 000 € или другой маршрут",
+      property: "Отменена в 2023 году, замены нет",
+    },
+    ptCells: { yes: "да", no: "нет", tested: "920 € в месяц", silent: "в законе нет суммы", gone: "маршрута нет" },
+    ptClock: {
+      before: "Подано до 18 мая 2026",
+      eu: "Граждане ЕС и португалоязычных стран",
+      other: "Все остальные",
+    },
+    ptClockNotes: {
+      before: "Решается по прежней редакции закона",
+      eu: "Ст. 6(1)(b) Lei Orgânica 1/2026",
+      other: "Ст. 6(1)(b) Lei Orgânica 1/2026",
+    },
+    ptYears: (n) => slavicYears("год", "года", "лет")(n),
+    grTierCol: "Минимальная площадь",
+    grTierAmounts: {
+      t800: "800 000 €",
+      t400: "400 000 €",
+      t250c: "250 000 €",
+      t250d: "250 000 €",
+    },
+    grTierLabels: {
+      t800: "Аттика, Салоники, Миконос, Тира",
+      t400: "Остальная территория Греции",
+      t250c: "Перевод помещений в жильё",
+      t250d: "Реставрация здания-памятника",
+    },
+    grTierNotes: {
+      t800: "И острова свыше 3 100 жителей — ст. 100 §2(a)",
+      t400: "Ст. 100 §2(b)",
+      t250c: "Работы завершены до подачи — ст. 100 §2(c)",
+      t250d: "Продажа до окончания работ ничтожна — ст. 100 §2(d)",
+    },
+    grTierArea: { yes: "120 м²", no: "нормы нет" },
+    grPresence: {
+      resident: "Инвестор, который живёт в Греции",
+      visitor: "Инвестор, который приезжает изредка",
+    },
+    grPresenceNotes: {
+      resident: "Отлучки в пределах ст. 144 §3",
+      visitor: "Ст. 100 §4: отлучки не мешают продлению",
+    },
+    grPresenceResults: {
+      resident: "Пять зачётных лет",
+      visitor: "Ни одного зачётного года",
+    },
+    grPresenceResultNotes: {
+      resident: "Открыт статус долгосрочного резидента",
+      visitor: "Виза продлевается бесконечно",
+    },
+    grTax: {
+      a: "5A — 100 000 € в год",
+      b: "5B — 7% для иностранных пенсионеров",
+      c: "5C — 50% для переезжающих работников",
+    },
+    grTaxNotes: {
+      a: "Весь зарубежный доход. Инвестиция 500 000 € за три года",
+      b: "Тоже весь зарубежный доход, а не только пенсия",
+      c: "Только доход, возникающий в самой Греции",
+    },
+    grTaxPrior: {
+      a: "Не резидент 7 из 8 лет",
+      b: "Не резидент 5 из 6 лет",
+      c: "Не резидент 5 из 6 лет",
+    },
+    ptPublished: {
+      law: "Portaria 1563/2007, ст. 2(2)",
+      wise: "Wise",
+      greenback: "Greenback Tax Services",
+      d8: "Global Citizen Solutions, Taxes for Expats",
+      ggv: "Get Golden Visa",
+    },
+    ptPublishedNotes: {
+      law: "Норма: 100% минимальной зарплаты 2026 года",
+      wise: "Минимальная зарплата 2023 года, на 17% ниже",
+      greenback: "Уровень 2021 года, на 35% ниже",
+      d8: "D8: суммы нет ни в одном акте",
+      ggv: "Гайд для пенсионеров на 10 000 слов",
+    },
+    ptPublishedFigures: {
+      law: "920 € в месяц",
+      wise: "760 € в месяц",
+      greenback: "7 200 € в год",
+      d8: "3 680 € в месяц",
+      ggv: "цифры нет",
+    },
     incomeGroups: { none: "Доход не проверяют", tested: "Доход проверяют" },
     incomeRows: {
       grGV: "Греция, ВНЖ за инвестиции",
@@ -601,6 +968,18 @@ const L = {
       z250: "Только перевод в жильё или реставрация,\nработы завершены до подачи",
     },
     figures: {
+      ptRoutes: {
+        title: "Какие маршруты ВНЖ в Португалии существуют в 2026 году",
+        note: "Инвестиционный маршрут снимает визу, но не подтверждение средств: ст. 90-A(1)(a).",
+      },
+      ptClock: {
+        title: "Сколько лет проживания нужно до гражданства Португалии",
+        note: "Lei Orgânica 1/2026 действует с 19 мая 2026 года. Дела, поданные до 18 мая включительно, решаются по прежней редакции.",
+      },
+      ptPublished: {
+        title: "Что говорит акт и что публикуют страницы из выдачи",
+        note: "Проверено 28 августа 2026 года. У каждой страницы отметка об обновлении свежее её собственной цифры.",
+      },
       incomeTests: {
         title: "Какие маршруты проверяют доход, а какие нет",
         note: "Каждая сумма приведена в том периоде, в каком её устанавливает акт: у Мальты — за год, у ОАЭ — в долларах.",
@@ -618,6 +997,18 @@ const L = {
         title: "Сколько нужно сверх порога",
         note: "Португалия — диапазон: итог зависит от юриста и комиссий фонда. Полупрозрачная часть — верхняя граница.",
       },
+      grTiers: {
+        title: "Четыре порога золотой визы Греции и их условия",
+        note: "Правило «один объект» действует во всех четырёх случаях. Минимальная площадь — только в §2(a) и §2(b).",
+      },
+      grPresence: {
+        title: "Почему годы идут в зачёт одному и не идут другому",
+        note: "Ст. 144 §1 требует фактического проживания: отлучки не больше шести месяцев подряд и не больше десяти месяцев за пять лет.",
+      },
+      grTax: {
+        title: "Три налоговых режима Греции: 5A, 5B и 5C",
+        note: "Полоса — срок в налоговых годах. 5A начинается с первого года подачи, 5B — со следующего.",
+      },
       zones: {
         title: "Пороги золотой визы Греции по зонам",
         note: "Ст. 100 закона 5038/2023 в редакции ст. 64 закона 5100/2024. Действует с 1 сентября 2024 года.",
@@ -628,7 +1019,104 @@ const L = {
   en: {
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  },
+    ptCols: { visa: "Visa needed", income: "Income test" },
+    ptRoutes: {
+      d7: "D7, own income",
+      d8: "D8, remote work",
+      ari: "Investment permit",
+      property: "Property purchase",
+    },
+    ptRouteNotes: {
+      d7: "Pension, rent, dividends, royalties",
+      d8: "Proof of the employment relationship",
+      ari: "\u20ac500,000 fund or another qualifying route",
+      property: "Abolished in 2023, with no replacement",
+    },
+    ptCells: { yes: "yes", no: "no", tested: "\u20ac920 a month", silent: "no figure in the law", gone: "route removed" },
+    ptClock: {
+      before: "Filed up to 18 May 2026",
+      eu: "EU and Portuguese-speaking country nationals",
+      other: "Everyone else",
+    },
+    ptClockNotes: {
+      before: "Decided under the previous version of the law",
+      eu: "Art. 6(1)(b), Lei Org\u00e2nica 1/2026",
+      other: "Art. 6(1)(b), Lei Org\u00e2nica 1/2026",
+    },
+    ptYears: (n) => `${n} ${n === 1 ? "year" : "years"}`,
+    grTierCol: "Minimum floor area",
+    grTierAmounts: {
+      t800: "€800,000",
+      t400: "€400,000",
+      t250c: "€250,000",
+      t250d: "€250,000",
+    },
+    grTierLabels: {
+      t800: "Attica, Thessaloniki, Mykonos, Thira",
+      t400: "The rest of the country",
+      t250c: "Change of use to residential",
+      t250d: "Restoration of a listed building",
+    },
+    grTierNotes: {
+      t800: "And islands above 3,100 inhabitants — art. 100 §2(a)",
+      t400: "Art. 100 §2(b)",
+      t250c: "Works finished before filing — art. 100 §2(c)",
+      t250d: "A sale before the works are done is void — art. 100 §2(d)",
+    },
+    grTierArea: { yes: "120 m²", no: "none stated" },
+    grPresence: {
+      resident: "An investor who lives in Greece",
+      visitor: "An investor who visits occasionally",
+    },
+    grPresenceNotes: {
+      resident: "Absences within the caps of art. 144 §3",
+      visitor: "Art. 100 §4: absences are no obstacle to renewal",
+    },
+    grPresenceResults: {
+      resident: "Five qualifying years",
+      visitor: "No qualifying years at all",
+    },
+    grPresenceResultNotes: {
+      resident: "Long-term resident status is open",
+      visitor: "The permit renews indefinitely",
+    },
+    grTax: {
+      a: "5A — €100,000 a year",
+      b: "5B — 7% for foreign pensioners",
+      c: "5C — 50% for relocating employees",
+    },
+    grTaxNotes: {
+      a: "All foreign income. €500,000 invested within three years",
+      b: "All foreign income too, not only the pension",
+      c: "Only income arising in Greece itself",
+    },
+    grTaxPrior: {
+      a: "Non-resident 7 of the last 8 years",
+      b: "Non-resident 5 of the last 6 years",
+      c: "Non-resident 5 of the last 6 years",
+    },
+    ptPublished: {
+      law: "Portaria 1563/2007, art. 2(2)",
+      wise: "Wise",
+      greenback: "Greenback Tax Services",
+      d8: "Global Citizen Solutions, Taxes for Expats",
+      ggv: "Get Golden Visa",
+    },
+    ptPublishedNotes: {
+      law: "The instrument: 100% of the 2026 minimum wage",
+      wise: "The 2023 minimum wage, about 17% below",
+      greenback: "The 2021-era figure, about 35% below",
+      d8: "D8: no figure exists in any instrument",
+      ggv: "A ten-thousand-word retirement guide",
+    },
+    ptPublishedFigures: {
+      law: "\u20ac920 a month",
+      wise: "\u20ac760 a month",
+      greenback: "\u20ac7,200 a year",
+      d8: "\u20ac3,680 a month",
+      ggv: "no figure",
+    },
     incomeGroups: { none: "No income test", tested: "Income tested" },
     incomeRows: {
       grGV: "Greece, investment permit",
@@ -688,6 +1176,18 @@ const L = {
       z250: "Conversion or restoration only,\nworks completed before filing",
     },
     figures: {
+      ptRoutes: {
+        title: "Which Portuguese residence routes exist in 2026",
+        note: "The investment permit waives the visa, not the means-of-subsistence test: art. 90-A(1)(a).",
+      },
+      ptClock: {
+        title: "Years of residence required before Portuguese citizenship",
+        note: "Lei Org\u00e2nica 1/2026 is in force from 19 May 2026. Proceedings filed up to and including 18 May are decided under the previous version.",
+      },
+      ptPublished: {
+        title: "What the instrument says against what ranking pages publish",
+        note: "Checked on 28 August 2026. Every page carries a last-updated stamp newer than its own figure.",
+      },
       incomeTests: {
         title: "Which routes test income and which do not",
         note: "Each amount is stated in the period its instrument uses: Malta's is annual, the Emirati one is in dollars.",
@@ -709,13 +1209,122 @@ const L = {
         title: "Greek golden visa thresholds by zone",
         note: "Art. 100 of Law 5038/2023 as amended by art. 64 of Law 5100/2024. In force since 1 September 2024.",
       },
+      grTiers: {
+        title: "The four Greek golden visa thresholds and what attaches to each",
+        note: "The single-property rule applies to all four. The minimum floor area appears in §2(a) and §2(b) only.",
+      },
+      grPresence: {
+        title: "Why the years count for one holder and not another",
+        note: "Art. 144 §1 requires actual residence: absences under six consecutive months each, and ten months in total across the five years.",
+      },
+      grTax: {
+        title: "The three Greek special tax regimes: 5A, 5B and 5C",
+        note: "The bar is the term in tax years. 5A starts in the first year applied for, 5B in the next.",
+      },
     },
   },
 
   pl: {
     eyebrow: "Poradniki i badania",
     checked: (date) => `Każda liczba sprawdzona ze źródłem pierwotnym ${date}`,
-    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" },
+    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  },
+    ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
+    ptRoutes: {
+      d7: "D7, dochód własny",
+      d8: "D8, praca zdalna",
+      ari: "Pobyt za inwestycję",
+      property: "Zakup nieruchomości",
+    },
+    ptRouteNotes: {
+      d7: "Emerytura, najem, dywidendy, tantiemy",
+      d8: "Potwierdzenie stosunku pracy",
+      ari: "Fundusz 500 000 € lub inna ścieżka",
+      property: "Zniesiona w 2023 roku, bez zamiennika",
+    },
+    ptCells: { yes: "tak", no: "nie", tested: "920 € miesięcznie", silent: "ustawa nie podaje kwoty", gone: "ścieżki nie ma" },
+    ptClock: {
+      before: "Złożone do 18 maja 2026",
+      eu: "Obywatele UE i krajów portugalskojęzycznych",
+      other: "Wszyscy pozostali",
+    },
+    ptClockNotes: {
+      before: "Rozpatrywane według poprzedniego brzmienia",
+      eu: "Art. 6(1)(b), Lei Orgânica 1/2026",
+      other: "Art. 6(1)(b), Lei Orgânica 1/2026",
+    },
+    ptYears: (n) => slavicYears("rok", "lata", "lat")(n),
+    grTierCol: "Minimalna powierzchnia",
+    grTierAmounts: {
+      t800: "800 000 €",
+      t400: "400 000 €",
+      t250c: "250 000 €",
+      t250d: "250 000 €",
+    },
+    grTierLabels: {
+      t800: "Attyka, Saloniki, Mykonos, Thira",
+      t400: "Pozostała część kraju",
+      t250c: "Zmiana przeznaczenia na mieszkalne",
+      t250d: "Renowacja budynku zabytkowego",
+    },
+    grTierNotes: {
+      t800: "Oraz wyspy powyżej 3 100 mieszkańców — art. 100 §2(a)",
+      t400: "Art. 100 §2(b)",
+      t250c: "Prace zakończone przed złożeniem — art. 100 §2(c)",
+      t250d: "Sprzedaż przed końcem prac jest nieważna — art. 100 §2(d)",
+    },
+    grTierArea: { yes: "120 m²", no: "brak wymogu" },
+    grPresence: {
+      resident: "Inwestor, który mieszka w Grecji",
+      visitor: "Inwestor, który bywa tam sporadycznie",
+    },
+    grPresenceNotes: {
+      resident: "Nieobecności w granicach art. 144 §3",
+      visitor: "Art. 100 §4: nieobecności nie blokują przedłużenia",
+    },
+    grPresenceResults: {
+      resident: "Pięć zaliczonych lat",
+      visitor: "Ani jednego zaliczonego roku",
+    },
+    grPresenceResultNotes: {
+      resident: "Status rezydenta długoterminowego otwarty",
+      visitor: "Zezwolenie przedłuża się w nieskończoność",
+    },
+    grTax: {
+      a: "5A — 100 000 € rocznie",
+      b: "5B — 7% dla zagranicznych emerytów",
+      c: "5C — 50% dla przenoszących się pracowników",
+    },
+    grTaxNotes: {
+      a: "Cały dochód zagraniczny. Inwestycja 500 000 € w trzy lata",
+      b: "Również cały dochód zagraniczny, nie tylko emerytura",
+      c: "Wyłącznie dochód powstający w samej Grecji",
+    },
+    grTaxPrior: {
+      a: "Nierezydent przez 7 z 8 lat",
+      b: "Nierezydent przez 5 z 6 lat",
+      c: "Nierezydent przez 5 z 6 lat",
+    },
+    ptPublished: {
+      law: "Portaria 1563/2007, art. 2(2)",
+      wise: "Wise",
+      greenback: "Greenback Tax Services",
+      d8: "Global Citizen Solutions, Taxes for Expats",
+      ggv: "Get Golden Visa",
+    },
+    ptPublishedNotes: {
+      law: "Akt: 100% płacy minimalnej na 2026 rok",
+      wise: "Płaca minimalna z 2023 roku, o 17% niżej",
+      greenback: "Wartość z 2021 roku, o 35% niżej",
+      d8: "D8: kwoty nie ma w żadnym akcie",
+      ggv: "Poradnik emerycki na 10 000 słów",
+    },
+    ptPublishedFigures: {
+      law: "920 € miesięcznie",
+      wise: "760 € miesięcznie",
+      greenback: "7 200 € rocznie",
+      d8: "3 680 € miesięcznie",
+      ggv: "brak liczby",
+    },
     incomeGroups: { none: "Bez badania dochodu", tested: "Dochód badany" },
     incomeRows: {
       grGV: "Grecja, pobyt za inwestycję",
@@ -787,6 +1396,30 @@ const L = {
       note: "Obywatel UE ma swobodę przepływu osób. Polska karta pobytu nie daje prawa zamieszkania w innym państwie członkowskim.",
     },
     figures: {
+      ptRoutes: {
+        title: "Które ścieżki pobytowe w Portugalii istnieją w 2026 roku",
+        note: "Ścieżka inwestycyjna znosi wizę, nie badanie środków utrzymania: art. 90-A(1)(a).",
+      },
+      ptClock: {
+        title: "Ile lat pobytu przed obywatelstwem portugalskim",
+        note: "Lei Orgânica 1/2026 obowiązuje od 19 maja 2026. Sprawy złożone do 18 maja włącznie rozpatruje się według poprzedniego brzmienia.",
+      },
+      ptPublished: {
+        title: "Co mówi akt, a co publikują strony z wyników wyszukiwania",
+        note: "Sprawdzone 28 sierpnia 2026. Każda strona ma znacznik aktualizacji nowszy niż jej własna liczba.",
+      },
+      grTiers: {
+        title: "Cztery progi greckiej złotej wizy i co się z każdym wiąże",
+        note: "Zasada „jedna nieruchomość” obowiązuje we wszystkich czterech przypadkach. Minimalna powierzchnia tylko w §2(a) i §2(b).",
+      },
+      grPresence: {
+        title: "Dlaczego lata liczą się jednemu, a drugiemu nie",
+        note: "Art. 144 §1 wymaga faktycznego zamieszkiwania: nieobecności poniżej sześciu miesięcy i najwyżej dziesięć miesięcy przez pięć lat.",
+      },
+      grTax: {
+        title: "Trzy greckie reżimy podatkowe: 5A, 5B i 5C",
+        note: "Słupek to okres w latach podatkowych. 5A zaczyna się od pierwszego roku wniosku, 5B od następnego.",
+      },
       incomeTests: {
         title: "Które ścieżki badają dochód, a które nie",
         note: "Każda kwota podana w okresie, którego używa jej akt: maltańska jest roczna, emiracka w dolarach.",
@@ -823,6 +1456,12 @@ const PLAN = {
     ["income-tests", incomeTests],
     ["greece-scale", greeceScale],
     ["data-age", dataAge],
+    ["pt-routes", ptRoutes],
+    ["pt-clock", ptClock],
+    ["pt-published", ptPublished],
+    ["gr-tiers", grTiers],
+    ["gr-presence", grPresence],
+    ["gr-tax", grTax],
   ],
   en: [
     ["qualifies", qualifies],
@@ -831,6 +1470,12 @@ const PLAN = {
     ["income-tests", incomeTests],
     ["greece-scale", greeceScale],
     ["data-age", dataAge],
+    ["pt-routes", ptRoutes],
+    ["pt-clock", ptClock],
+    ["pt-published", ptPublished],
+    ["gr-tiers", grTiers],
+    ["gr-presence", grPresence],
+    ["gr-tax", grTax],
   ],
   pl: [
     ["qualifies", qualifies],
@@ -839,6 +1484,12 @@ const PLAN = {
     ["income-tests", incomeTests],
     ["greece-scale", greeceScale],
     ["data-age", dataAge],
+    ["pt-routes", ptRoutes],
+    ["pt-clock", ptClock],
+    ["pt-published", ptPublished],
+    ["gr-tiers", grTiers],
+    ["gr-presence", grPresence],
+    ["gr-tax", grTax],
   ],
 };
 

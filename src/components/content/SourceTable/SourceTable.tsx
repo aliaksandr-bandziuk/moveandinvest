@@ -20,6 +20,12 @@ export interface SourceTableLabels {
   official: string;
   reproduction: string;
   verdicts: VerdictLabels;
+  /** "Re-checked 28 August 2026", already rendered, keyed by the ISO date a
+   *  claim names. A map rather than a formatter because this component is
+   *  handed data and never a function: passing `t` down would make a server
+   *  component's props unserialisable the day one of these becomes a client
+   *  component, and the set of dates is three entries long. */
+  recheckedByDate: Record<string, string>;
 }
 
 interface SourceTableProps {
@@ -79,6 +85,15 @@ export function SourceTable({
                 </th>
                 <td className={styles.verdictCell} data-label={labels.verdict}>
                   <VerdictChip verdict={claim.verdict} labels={labels.verdicts} />
+                  {/* Only on a row read on a day other than the page's
+                      baseline. A date on every row would be a column of
+                      thirty-three identical strings, which is how the three
+                      that differ would stop being visible. */}
+                  {claim.checked ? (
+                    <span className={styles.rechecked}>
+                      {labels.recheckedByDate[claim.checked] ?? claim.checked}
+                    </span>
+                  ) : null}
                 </td>
                 <td className={styles.finding} data-label={labels.finding}>
                   {pick(claim.finding, locale)}

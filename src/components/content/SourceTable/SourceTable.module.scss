@@ -258,3 +258,14 @@
   line-height: var(--lh-small);
   color: var(--color-text-muted);
 }
+
+// The date on a row that was read after the page's baseline. Nano type and
+// muted, under the chip: it is provenance, not a second verdict, and a row
+// that shouted its date would out-rank the claim it belongs to.
+.rechecked {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  color: var(--color-text-muted);
+}

@@ -3,6 +3,8 @@ import { join } from "node:path";
 import { createClient } from "@sanity/client";
 import { richBlocks, type PortableContent } from "./copy/portable";
 import { LOCALES, type Locale } from "./copy/home";
+import { FOOTER_GROUPS } from "../src/lib/footerNav";
+import { routing } from "../src/i18n/routing";
 
 // Writes one Guides & Research entry — its three language versions and their
 // figures — into Sanity.
@@ -97,6 +99,33 @@ const ENTRIES: Record<string, EntryConfig> = {
       "country-cy",
     ],
   },
+  "portugal-residency": {
+    key: "article-portugal-residency",
+    sources: {
+      en: "article-en-portugal-residency.md",
+      ru: "article-ru-portugal-residency.md",
+      pl: "article-pl-portugal-residency.md",
+    },
+    // THE SAME THREE DIAGRAMS AND THE SAME ORDER in all three languages, which
+    // is unusual for this entry set and worth a note: the Polish version is a
+    // different article — a Pole needs none of the routes it describes — but
+    // the pictures still carry, because the first one is what he does NOT need
+    // and the third is the standard of the pages he will meet in search.
+    figures: {
+      en: ["pt-routes-en", "pt-clock-en", "pt-published-en"],
+      ru: ["pt-routes-ru", "pt-clock-ru", "pt-published-ru"],
+      pl: ["pt-routes-pl", "pt-clock-pl", "pt-published-pl"],
+    },
+    publishedAt: "2026-08-28T12:00:00.000Z",
+    // "relocation", not "rules": the statute changes are the material, and what
+    // the reader takes away is what moving there involves. This is also the
+    // first of the "Moving guides" the footer has been promising since launch.
+    category: "relocation",
+    // ONE JURISDICTION, and that is the change of shape. The first two entries
+    // compared five; this one goes down instead of across, because the search
+    // data says the demand is a country plus a number rather than a concept.
+    countries: ["country-pt"],
+  },
   "income-cost-of-living": {
     key: "article-income-cost-of-living",
     sources: {
@@ -126,6 +155,32 @@ const ENTRIES: Record<string, EntryConfig> = {
       "country-cy",
     ],
   },
+  "greece-residency": {
+    key: "article-greece-residency",
+    sources: {
+      en: "article-en-greece-residency.md",
+      ru: "article-ru-greece-residency.md",
+      pl: "article-pl-greece-residency.md",
+    },
+    // THE SAME THREE DIAGRAMS AND THE SAME ORDER IN ALL THREE LANGUAGES, which
+    // is worth a note only because the three articles are not the same article.
+    // The English one opens on the thresholds, the Russian one on whether its
+    // reader may apply at all, and the Polish one on the fact that a Polish
+    // reader needs none of this — but all three arrive at the thresholds, at
+    // the presence rule and at the three tax regimes, in that order, because
+    // that is the order the argument runs in whoever is reading.
+    figures: {
+      en: ["gr-tiers-en", "gr-presence-en", "gr-tax-en"],
+      ru: ["gr-tiers-ru", "gr-presence-ru", "gr-tax-ru"],
+      pl: ["gr-tiers-pl", "gr-presence-pl", "gr-tax-pl"],
+    },
+    publishedAt: "2026-08-28T21:00:00.000Z",
+    // "relocation", like the Portuguese guide: this is the second of the moving
+    // guides the footer has promised since launch. The statute changes are the
+    // material; what the reader takes away is what living there involves.
+    category: "relocation",
+    countries: ["country-gr"],
+  },
 };
 
 /** The entry this run publishes, chosen with `--entry <name>`.
@@ -133,6 +188,133 @@ const ENTRIES: Record<string, EntryConfig> = {
  *  NO DEFAULT, and that is deliberate. A default would mean that a mistyped
  *  name silently republishes the first entry over the one you meant to write,
  *  and `createOrReplace` would not complain. */
+// THE FOOTER NAMES ENTRIES BY KEY, AND A TYPO THERE IS INVISIBLE. A footer row
+// whose `entry` matches nothing simply stays greyed out and says "soon", which
+// is exactly what it looked like before the entry was written — so the failure
+// mode of a misspelt key is a promise that silently never gets kept. This runs
+// on every invocation, publish or dry run, because it costs nothing.
+function checkFooterKeys(): void {
+  const known = new Set(Object.values(ENTRIES).map((entry) => entry.key));
+  const referenced = FOOTER_GROUPS.flatMap((group) =>
+    group.links.map((link) => link.entry).filter((key): key is string => !!key),
+  );
+  const unknown = referenced.filter((key) => !known.has(key));
+
+  if (unknown.length > 0) {
+    throw new Error(
+      `src/lib/footerNav.ts references entries that do not exist here: ${unknown.join(", ")}. Known keys: ${[...known].join(", ")}`,
+    );
+  }
+}
+
+// --- Links ------------------------------------------------------------------
+//
+// TWO HREF FORMS AND NOTHING ELSE, resolved here because this is the only place
+// that knows both the locale being written and which entries exist:
+//
+//   [text](/sources)            a fixed route, from routing.pathnames
+//   [text](entry:greece-residency)   another entry in ENTRIES, by its key here
+//
+// WHY NOT A PLAIN "/blog/some-slug". Because the slug is translated and a
+// hand-written one would be right in one language and a 404 in the other two —
+// which is the failure this whole file is arranged to make impossible, and the
+// one that would be least visible: a dead link inside a 6 000-word guide fails
+// silently and forever.
+//
+// WHY THE LOCALE PREFIX IS BAKED IN. Portable Text renders a plain <a href>;
+// nothing on that path goes through next-intl's Link, so nothing adds "/ru".
+// English is the default locale and served unprefixed, so it gets none.
+//
+// WHY EXTERNAL LINKS THROW. See the note at the top of scripts/copy/portable.ts:
+// a source named in running text is quotable by an answer engine exactly as it
+// stands, and this site's whole position is that its citations are quotable.
+// That rule was always right; what was wrong was applying it to internal
+// navigation as well.
+//
+// JURISDICTION PAGES ARE DELIBERATELY NOT LINKABLE YET, and the reason is that
+// their slugs live in Sanity rather than in this repo, so resolving one would
+// mean a network call — and the dry run's whole value is that it validates
+// everything while touching nothing. They are also the pages that need it
+// least: the header dropdown and the footer link all five from every page on
+// the site, while the entries were linked from nowhere but the footer. When
+// this changes it should be a "country:gr" form resolved from the same query
+// the sitemap already runs.
+
+/** Every entry's slug in every language, read from the markdown headers rather
+ *  than from a table kept beside them. One source, so a slug cannot be renamed
+ *  in the file and stay stale in a link. */
+function entrySlugs(): Record<string, Record<Locale, string>> {
+  const out: Record<string, Record<Locale, string>> = {};
+  for (const [name, config] of Object.entries(ENTRIES)) {
+    const perLocale = {} as Record<Locale, string>;
+    for (const locale of LOCALES) {
+      const raw = readFileSync(join(DOCS, config.sources[locale]), "utf8");
+      const header = raw
+        .split("\n")
+        .slice(1, 12)
+        .filter((line) => line.startsWith("**"));
+      perLocale[locale] = backticked(header[0] ?? "", "slug");
+    }
+    out[name] = perLocale;
+  }
+  return out;
+}
+
+function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, string>>) {
+  const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+
+  return (raw: string): string => {
+    if (/^[a-z]+:\/\//i.test(raw) || raw.startsWith("mailto:")) {
+      throw new Error(
+        `External link "${raw}" in the ${locale} body. Name the source in running text instead — see the note above HrefResolver in scripts/copy/portable.ts.`,
+      );
+    }
+
+    if (raw.startsWith("entry:")) {
+      const name = raw.slice("entry:".length);
+      const perLocale = slugs[name];
+      if (!perLocale) {
+        throw new Error(
+          `Link to unknown entry "${name}". Known: ${Object.keys(slugs).join(", ")}`,
+        );
+      }
+      return `${prefix}/blog/${perLocale[locale]}`;
+    }
+
+    if (!raw.startsWith("/")) {
+      throw new Error(
+        `Link href "${raw}" is neither a route (starting "/") nor "entry:<key>".`,
+      );
+    }
+
+    // A fragment is allowed on a route — /sources#gr is how an entry points at
+    // its own working — and is carried through untouched.
+    const [path, hash] = raw.split("#", 2);
+    const declared = (routing.pathnames as Record<string, unknown>)[path ?? ""];
+    if (declared === undefined) {
+      throw new Error(
+        `Link to "${raw}", which is not a route in src/i18n/routing.ts. A translated slug cannot be written by hand; use entry:<key> for a Guides & Research entry.`,
+      );
+    }
+    if (path?.includes("[")) {
+      throw new Error(
+        `Link to "${raw}" names a dynamic route. Use entry:<key> instead.`,
+      );
+    }
+
+    const localised =
+      typeof declared === "string"
+        ? declared
+        : ((declared as Record<string, string>)[locale] ?? (path as string));
+
+    // "/" is the one route whose localised form is a bare slash, and
+    // "/ru" + "/" would be "/ru/". The site's canonical form has no trailing
+    // slash — see the long note in src/lib/urls.ts about the two spellings.
+    const body = localised === "/" ? "" : localised;
+    return `${prefix}${body}${hash ? `#${hash}` : ""}` || "/";
+  };
+}
+
 function selectEntry(): { name: string; config: EntryConfig } {
   const args = process.argv.slice(2);
   const at = args.indexOf("--entry");
@@ -316,12 +498,15 @@ interface ImageBlock {
 function assemble(
   parsed: Parsed,
   assetIds: string[],
+  resolveHref: (raw: string) => string,
 ): (PortableContent | ImageBlock)[] {
   const out: (PortableContent | ImageBlock)[] = [];
 
   parsed.segments.forEach((segment, i) => {
     if (segment.trim())
-      out.push(...richBlocks(segment, `${parsed.locale}-${i}-`));
+      out.push(
+        ...richBlocks(segment, `${parsed.locale}-${i}-`, resolveHref),
+      );
 
     const marker = parsed.markers[i];
     if (marker === undefined) return;
@@ -362,8 +547,12 @@ const token = process.env.SANITY_API_WRITE_TOKEN;
 
 async function run() {
   const write = process.argv.slice(2).includes("--write");
+  checkFooterKeys();
   const { name, config } = selectEntry();
   const parsedAll = LOCALES.map((locale) => parse(locale, config));
+  // Every entry's slug in every language, so a link from this body to another
+  // entry resolves without a network call and fails loudly if it cannot.
+  const slugs = entrySlugs();
 
   console.log(`entry: ${name} (translationKey ${config.key})\n`);
 
@@ -379,10 +568,35 @@ async function run() {
     const body = assemble(
       parsed,
       config.figures[parsed.locale].map((name) => `image-DRYRUN-${name}`),
+      makeResolver(parsed.locale, slugs),
     );
 
     const count = (kind: string) =>
       body.filter((block) => shapeOf(block) === kind).length;
+
+    // PRINTED BECAUSE IT WAS ZERO AND NOBODY NOTICED. Four entries and about
+    // 62 000 words went out with no link between them, and nothing in the
+    // output said so — the summary counted paragraphs, tables and figures, all
+    // of which were obviously present. A number that is allowed to be zero
+    // silently is a number worth putting on screen.
+    const links = body.reduce(
+      (n, block) =>
+        n + ("markDefs" in block ? (block.markDefs?.length ?? 0) : 0),
+      0,
+    );
+
+    // --links prints every resolved href. Added because "4 links" on the line
+    // below proves that four were parsed and nothing about where they point,
+    // and a link that resolves to the wrong locale's slug is exactly the
+    // failure that would pass every check and reach a reader.
+    if (process.argv.slice(2).includes("--links")) {
+      for (const block of body) {
+        if (!("markDefs" in block)) continue;
+        for (const def of block.markDefs ?? []) {
+          console.log(`      link  ${def.href}`);
+        }
+      }
+    }
 
     console.log(
       [
@@ -392,6 +606,7 @@ async function run() {
         `      meta title ${parsed.metaTitle.length} chars, description ${parsed.metaDescription.length} chars`,
         `      ${body.length} blocks: ${count("h2")} h2, ${count("h3")} h3, ${count("p")} paragraphs, ` +
           `${count("li")} list items, ${count("table")} tables, ${count("image")} figures, ` +
+          `${links} links, ` +
           `${
             body
               .filter((block) => shapeOf(block).startsWith("faq"))
@@ -491,7 +706,7 @@ async function run() {
         _ref: id,
       })),
       sources: parsed.sources,
-      body: assemble(parsed, assetIds),
+      body: assemble(parsed, assetIds, makeResolver(parsed.locale, slugs)),
       seo: {
         _type: "seo",
         metaTitle: parsed.metaTitle,

@@ -56,8 +56,7 @@
       "working": "Źródła i wyliczenia",
       "contacts": "Kontakt",
       "privacy": "Prywatność",
-      "cookies": "Wybór dotyczący cookie",
-      "allResearch": "Wszystko, co opublikowano"
+      "cookies": "Wybór dotyczący cookie"
     }
   },
   "home": {
@@ -192,6 +191,8 @@
     "sourcesLabel": "Źródła",
     "official": "oficjalne",
     "reproduction": "reprodukcja",
+    "checkedOn": "Każdy wiersz sprawdzono ze źródłem pierwotnym {date}, poza wierszami z własną datą.",
+    "rechecked": "Sprawdzone ponownie {date}",
     "verdicts": {
       "confirmed": "potwierdzone",
       "corrected": "poprawione",

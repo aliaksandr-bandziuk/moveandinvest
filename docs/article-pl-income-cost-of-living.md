@@ -37,7 +37,7 @@ Drugie zastrzeżenie jest ważniejsze. Żeby tam zamieszkać na stałe, trzeba n
 
 Ten tekst ma dwie części: ile realnie kosztuje życie w każdym z tych krajów według oficjalnych statystyk, i jaki dochód trzeba udokumentować, żeby w ogóle dostać tam pobyt.
 
-### Ile kosztuje życie: jedyne uczciwe porównanie
+### Koszty życia w Portugalii, Grecji, na Malcie i w Dubaju: jedyne uczciwe porównanie
 
 Zacznijmy od tego, czego tutaj nie będzie.
 
@@ -66,7 +66,7 @@ Eurostat oznacza rundę 2025 jako wstępną i podlegającą korekcie po zakończ
 
 **Emiratów na tej skali nie ma w ogóle.** Nie ma ich w indeksie i nie istnieje odpowiednik tego szeregu. Każde porównanie czterech krajów z Dubajem, jakie przeczytacie, rozwiązuje ten problem tak samo: bierze crowdsourcingowy agregator dla wszystkich czterech naraz i wymienia porównywalność na jej pozór.
 
-#### Grecja: jedyna aktualna oficjalna liczba z czterech
+#### Koszty życia w Grecji: 1724,54 euro miesięcznie na gospodarstwo domowe
 
 Badanie budżetów gospodarstw domowych greckiego urzędu statystycznego za 2024 rok, opublikowane 25 września 2025 na próbie 6198 gospodarstw, daje przeciętne miesięczne wydatki gospodarstwa domowego **1724,54 euro** — o 3,6 procent więcej niż 1663,82 rok wcześniej.
 
@@ -74,7 +74,7 @@ Warto to zestawić z progiem dla osób niezależnych finansowo, o którym niżej
 
 Co do najmu, Grecja publikuje kierunek, ale nie poziom. Czynsze mieszkaniowe wzrosły o 6,8 procent w roku do lipca 2026, a cała grupa „mieszkanie" o 8,8 procent i była największym pojedynczym składnikiem inflacji wynoszącej 3,4 procent. Odrębnego indeksu stawek najmu w euro nie ma — najem istnieje wyłącznie jako podindeks cen konsumpcyjnych. Kto podaje średni czynsz w Grecji w euro, nie podaje oficjalnej greckiej statystyki.
 
-#### Malta: ustawowe minimum czynszu, którego nie ma z czym porównać
+#### Koszty życia na Malcie: badanie sprzed jedenastu lat i brak stawek najmu
 
 Ostatnie opublikowane maltańskie badanie budżetów gospodarstw domowych dotyczy **2015 roku** i daje przeciętne roczne wydatki 22 346 euro. Nowa fala trwała od listopada 2024 do listopada 2025 i na 28 sierpnia 2026 nie została opublikowana.
 
@@ -84,7 +84,7 @@ Malta publikuje inflację najmu, ale nie poziom: podindeks czynszów wzrósł o 
 
 Stąd osobliwość, którą warto nazwać: **maltański program pobytu stałego ustanawia ustawowe minimum czynszu 14 000 euro rocznie i nie istnieje żadna oficjalna maltańska statystyka, która powiedziałaby, czy to powyżej rynku, czy poniżej.**
 
-#### Portugalia: liczby istnieją i nie zdołaliśmy przeczytać ich u źródła
+#### Koszty życia w Portugalii: liczby istnieją, źródła nie otworzyliśmy
 
 Portugalski urząd statystyczny opublikował wyniki badania wydatków gospodarstw domowych za lata 2022–2023 w dniu 20 grudnia 2023, a także kwartalny szereg mediany czynszu, wznowiony 26 czerwca 2026 po wcześniejszym zawieszeniu.
 
@@ -92,7 +92,7 @@ Portugalski urząd statystyczny opublikował wyniki badania wydatków gospodarst
 
 Stanowisko jest więc takie: liczby portugalskich wydatków i mediany czynszu krążą w obiegu, pochodzą z prawdziwego oficjalnego komunikatu, a my tego komunikatu nie widzieliśmy. Dlatego nie ma ich na tej stronie. Porównanie portugalskie niesie indeks poziomu cen powyżej, który i tak jest lepszym narzędziem.
 
-#### Dubaj: indeks najmu, który nie publikuje stawek najmu
+#### Koszty życia w Dubaju: indeks najmu, który nie publikuje stawek
 
 Emiraty są najsłabszym ogniwem każdego porównania tych pięciu jurysdykcji i żadna znaleziona przez nas strona tego nie mówi.
 
@@ -242,7 +242,7 @@ Emiraty to zupełnie inna sprawa: tam obywatelstwo unijne nie daje nic, a wiza d
 
 Ta strona porównuje zasady i nie jest poradą prawną. Co konkretnie trzeba zrobić w urzędzie i jakie dokumenty zostaną przyjęte — to pytanie do licencjonowanej kancelarii w danym kraju.
 
-### Jeśli masz dochód, ale nie masz kapitału — i odwrotnie
+### Gdzie niższe wymagania dochodowe: gdy masz kapitał i gdy masz dochód
 
 **Masz kapitał, nie masz udokumentowanego dochodu.** Ścieżki inwestycyjne są dla ciebie i trzy z czterech nie zapytają o zarobki. Grecja za 400 000 euro poza drogimi strefami to najniższe wejście całkowicie bez badania dochodu. Malta bada 500 000 euro majątku. Emiraty badają nieruchomość za 2 000 000 dirhamów. Portugalia jest jedynym miejscem, gdzie kapitał nie zwalnia z pytania o dochód, choć kwota jest tam najmniejsza na tej stronie.
 
@@ -284,7 +284,11 @@ Nie. Obwieszczenie 146 z 2025 roku zniosło różnicę regionalną. Próg to 375
 ? Dlaczego nie podajecie średniego czynszu dla każdego kraju?
 Bo trzy z czterech go nie publikują. Grecja i Malta podają inflację najmu bez poziomu w euro, dubajski indeks najmu publikuje dopuszczalne podwyżki zamiast stawek, a portugalski szereg mediany czynszu istnieje, lecz komunikatu nie zdołaliśmy otworzyć u źródła. Każdy średni czynsz dla tych krajów, jaki spotkacie, pochodzi z portalu ogłoszeń albo z agregatora crowdsourcingowego, a nie z urzędu statystycznego.
 
-### Skąd pochodzą te liczby
+### Co jeszcze na tej stronie ma tu znaczenie
+
+Dwa z porównanych wyżej progów są rozłożone na czynniki w innym miejscu tej strony. Portugalskie 920 euro — te, których musi dowieść także inwestor — w [poradniku o Portugalii](entry:portugal-residency). Greckie 3 500 euro, trzy reżimy podatkowe i pytanie, czy lata inwestorskie kiedykolwiek dochodzą do pobytu stałego — w [poradniku o Grecji](entry:greece-residency). Co daje zakup nieruchomości w każdej z pięciu, odczytane z ustawy, jest w [tekście o nieruchomościach](entry:property-residency). Wszystkie wymienione akty i zbiory danych z datą odczytu są na [stronie źródeł](/sources).
+
+### Źródła: skąd pochodzi każda liczba
 
 Każda liczba na tej stronie jest do prześledzenia do aktu albo zbioru danych, który ją ustanawia. Progi prawne pochodzą z portugalskiego dziennika urzędowego, z greckiego dziennika ustaw i ze strony ministerstwa migracji i azylu, z tekstu jednolitego aktu wykonawczego opublikowanego przez Residency Malta oraz z federalnego portalu legislacyjnego, urzędu do spraw tożsamości i obywatelstwa i departamentu gruntów Dubaju. Dane o kosztach życia pochodzą z Eurostatu, greckiego urzędu statystycznego i maltańskiego urzędu statystycznego.
 
@@ -308,7 +312,7 @@ ile kosztuje miesięczne życie w portugalii, miesięczny koszt utrzymania w por
 czy w portugalii jest drogo, czy w portugalii jest taniej niż w polsce, czy w grecji jest taniej niż w polsce, ile wynosi średnia pensja w portugalii, jakie są minusy życia w portugalii, czy polak może zamieszkać w portugalii, jak zamieszkać na stałe w portugalii, jak zamieszkać w portugalii na emeryturze, ile kosztuje miesięczne życie w grecji, ile zarabia przeciętny grek, ile kosztuje wynajem mieszkania w grecji, jak zamieszkać w grecji, jakie są koszty życia na cyprze, czy polak może zamieszkać na cyprze, jakie są koszty życia w dubaju, ile kosztuje złota wiza w dubaju, co daje złota wiza w dubaju, ile trzeba zarabiać żeby dostać wizę d7, jaki dochód trzeba udokumentować w grecji, gdzie taniej mieszkać portugalia czy grecja
 
 **Keywords placed in subheadings:**
-„Ile kosztuje życie: jedyne uczciwe porównanie"; „Grecja: jedyna aktualna oficjalna liczba z czterech"; „Malta: ustawowe minimum czynszu"; „Dubaj: indeks najmu, który nie publikuje stawek najmu"; „Jaki dochód trzeba udokumentować"; „Portugalia: dochód na pobyt równa się płacy minimalnej"; „Czy portugalska złota wiza zwalnia z wykazania dochodu?"; „Grecja: 3500 euro miesięcznie dla osób niezależnych finansowo"; „Malta: 42 000 euro rocznie u nomady"; „Emiraty: 5000 dolarów miesięcznie za pracę zdalną"; „Czy Polak może tam zamieszkać".
+„Koszty życia w Portugalii, Grecji, na Malcie i w Dubaju"; „Koszty życia w Grecji: 1724,54 euro miesięcznie"; „Koszty życia na Malcie"; „Koszty życia w Portugalii"; „Koszty życia w Dubaju"; „Jaki dochód trzeba udokumentować"; „Portugalia: dochód na pobyt równa się płacy minimalnej"; „Czy portugalska złota wiza zwalnia z wykazania dochodu?"; „Grecja: 3500 euro miesięcznie dla osób niezależnych finansowo"; „Malta: 42 000 euro rocznie u nomady"; „Emiraty: 5000 dolarów miesięcznie za pracę zdalną"; „Czy Polak może tam zamieszkać"; „Gdzie niższe wymagania dochodowe".
 
 ---
 

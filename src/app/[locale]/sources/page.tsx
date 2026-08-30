@@ -8,7 +8,7 @@ import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import { routeUrl } from "@/lib/urls";
-import { CHECKED_ON, SOURCE_SECTIONS } from "@/lib/sourceData";
+import { CHECK_DATES, CHECKED_ON, SOURCE_SECTIONS } from "@/lib/sourceData";
 import { sanityFetch } from "@/sanity/client";
 import { COUNTRY_ROWS_QUERY, HOME_TAGS, SOURCES_PAGE_QUERY, SOURCES_TAGS } from "@/sanity/queries";
 import type { CountryRowResult, SourcesPage } from "@/sanity/types";
@@ -84,9 +84,27 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
       unverified: t("verdicts.unverified"),
       withdrawn: t("verdicts.withdrawn"),
     },
+    // Rendered here, once per date, rather than inside the table: the table is
+    // handed finished strings and does no formatting of its own.
+    recheckedByDate: Object.fromEntries(
+      Object.entries(CHECK_DATES).map(([iso, dates]) => [
+        iso,
+        t("rechecked", {
+          date: dates[locale as keyof typeof dates] ?? dates.en,
+        }),
+      ]),
+    ),
   };
 
-  const checked = CHECKED_ON[locale as keyof typeof CHECKED_ON] ?? CHECKED_ON.en;
+  // THE BASELINE, AND IT NOW SAYS THAT IT IS ONE. This line used to render a
+  // bare date — "23 August 2026" under a rule, with no sentence around it —
+  // which read as the date the whole page was checked and, once individual
+  // rows started carrying their own, was no longer true. See the note above
+  // CHECK_DATES in src/lib/sourceData.ts for why the fix is a baseline plus
+  // overrides rather than a date on every row.
+  const checkedDate =
+    CHECKED_ON[locale as keyof typeof CHECKED_ON] ?? CHECKED_ON.en;
+  const checked = t("checkedOn", { date: checkedDate });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -101,6 +119,11 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
     // The date the evidence was gathered. Not `dateModified`, which would be
     // about the document; this is about the checking.
     datePublished: "2026-08-23",
+    // AND NOW BOTH, because both events have happened. Three rows were read
+    // again after the page was published, and a page that offers only a
+    // datePublished tells an aggregator its newest fact is as old as its
+    // oldest. Bump this whenever a row gains a `checked` date later than it.
+    dateModified: "2026-08-28",
   };
 
   return (

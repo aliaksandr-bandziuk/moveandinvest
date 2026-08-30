@@ -97,7 +97,7 @@ Article 61-B of Lei 23/2007 creates the digital nomad residence visa. It require
 
 The figure in general circulation is four times the minimum wage, which would be €3,680 a month in 2026. We could not trace it to any portaria, decreto or despacho. It appears on consultancy and law-firm pages and nowhere we could read in the legislation. That does not prove no such figure is applied — an immigration authority can operate a published checklist that is not itself legislation — but it does mean nobody should present €3,680 as Portuguese law, and we do not.
 
-### Greece: €3,500 a month for the FIP visa, and nothing at all for the golden visa
+### Greece FIP visa requirements: €3,500 a month, and nothing for the golden visa
 
 Greece runs the widest gap on this page between its investment route and its ordinary ones.
 
@@ -127,7 +127,7 @@ The investment thresholds themselves, for context: €800,000 in Attica, Thessal
 
 So the arithmetic of the Greek system is this. Prove €3,500 a month, forever, and you may live there. Or transfer €400,000 once, prove nothing about your income, and you may live there. The second is the expensive option and the undemanding one.
 
-### Malta: €42,000 a year for the nomad permit, and a capital test rather than an income test for permanent residence
+### Malta digital nomad visa salary requirement: €42,000, and a capital test for permanent residence
 
 #### Malta permanent residence income requirement: it does not exist
 
@@ -153,7 +153,7 @@ Malta's Nomad Residence Permit requires *"a minimum gross yearly income of €42
 
 For scale, Malta's statutory minimum wage from 1 January 2026 is €229.44 a week for workers aged 18 and over, which is about €11,900 a year. **The nomad permit asks for 3.5 times it.**
 
-### UAE: USD 5,000 a month to work remotely, nothing to buy in
+### UAE remote work visa requirements: USD 5,000 a month, and nothing to buy in
 
 **The golden visa through property** requires property worth at least AED 2,000,000 and imposes no income condition. The federal authority states the requirement as a *"Letter from the Real Estate Registration Department confirming investor's ownership of property worth at least AED 2,000,000"*; the Dubai Land Department states *"The value of the property is 2 million AED, wholly owned by the investor"*. Neither service page lists salary, income or savings among its conditions — only title, a passport valid six months and health insurance.
 
@@ -171,7 +171,7 @@ The AED 6,000 monthly figure now circulating applies to **UAE nationals** in the
 
 That matters for the comparison. In Portugal and Greece, the residence income threshold can be read against a legal minimum wage — one times it in Portugal, 3.8 times it in Greece. In the UAE there is no such denominator, so USD 5,000 a month cannot be placed on the same scale as anything.
 
-### What living there actually costs, and why one table would be a lie
+### Cost of living in Portugal, Greece, Malta and Dubai: why one table would be a lie
 
 Here is where most pages on this topic stop being useful.
 
@@ -186,7 +186,7 @@ The standard construction puts four countries' living costs in a single table. I
 | Malta | Published for the 2015 wave | 2015 |
 | UAE | Last published wave | 2014 |
 
-#### The one instrument that is genuinely comparable
+#### The one comparable measure: Eurostat's price level index
 
 Eurostat's comparative price level index is computed by one office, on one method, for the same year, across all member states. It expresses the price level of household final consumption against an EU average of 100.
 
@@ -200,7 +200,7 @@ Read that as: Portugal and Greece sit roughly 14% below the EU average price lev
 
 **The UAE cannot be placed on this scale at all.** It is not in the index, and there is no equivalent series. Every four-country comparison you will read that includes Dubai has solved this by using a crowdsourced aggregator for all four, which trades comparability for the appearance of it.
 
-#### Greece: the only current, official household figure of the four
+#### Cost of living in Greece: €1,724.54 a month, the only current official figure
 
 The Hellenic Statistical Authority's Household Budget Survey for 2024, published on 25 September 2025 from a sample of 6,198 households, puts average monthly household expenditure at **€1,724.54**, up 3.6% on the previous year's €1,663.82.
 
@@ -208,7 +208,7 @@ Put that beside the FIP threshold and the comparison becomes concrete: **Greece 
 
 On rents, Greece publishes direction but not level. Residential rents rose 6.8% in the year to July 2026; the housing group as a whole rose 8.8% and was the largest single contributor to headline inflation of 3.4%. There is no standalone rent index in euros — rents appear only as a consumer-price sub-index — so anyone quoting an average Greek rent in euros is not quoting an official Greek statistic.
 
-#### Malta: a legal rent floor with no rent statistic to measure it against
+#### Cost of living in Malta: an eleven-year-old survey and no official rent figure
 
 Malta's most recent published household budget survey covers **2015** and puts average annual expenditure at €22,346. A new wave ran from November 2024 to November 2025 and had not been published as of 28 August 2026.
 
@@ -218,7 +218,7 @@ Malta publishes rent inflation but no rent level: the rent sub-index rose 3.6% i
 
 Which produces a genuine oddity worth naming: **the MPRP sets a legal rent floor of €14,000 a year, and there is no official Maltese statistic that would tell you whether that is above or below the market.**
 
-#### Portugal: the figure exists, and we could not read it at source
+#### Cost of living in Portugal: the figure exists and we could not read it at source
 
 Portugal's statistical office published the results of its 2022–2023 household expenditure survey on 20 December 2023, and a quarterly median rent series that resumed on 26 June 2026 after being suspended earlier in the year.
 
@@ -226,7 +226,7 @@ We could not open either release. Every route to the office's own server failed 
 
 So the position is this: figures for Portuguese household spending and median rent are in circulation, they originate from a real official release, and we have not seen the release. They are therefore not on this page. The comparative price level index above carries the Portuguese comparison instead, and it is the better instrument anyway.
 
-#### Dubai: a rental index that publishes no rents
+#### Cost of living in Dubai: a rental index that publishes no rents
 
 The UAE is the weakest link in every comparison of these five jurisdictions, and no page we found says so.
 
@@ -238,7 +238,7 @@ The Land Department's Residential Rental Performance Index does publish figures,
 
 There is one more gap worth flagging because it is quoted often: the only Dubai consumer-price housing weight we could retrieve, 43.70 per 100, sits on a **2007 base year**. The federal methodology document confirms weights were updated from 2007 to 2014 but publishes no numeric division weights. A 2007-base housing weight describes a pre-crash rental market and should not be presented as today's housing share of spending.
 
-### If you have income but no capital, and if you have capital but no income
+### Which country is cheapest depends on what you have: capital, income or a foreign salary
 
 The whole decision, reduced.
 
@@ -285,7 +285,11 @@ On the only comparable measure, Eurostat's price level index, Portugal and Greec
 ? Why do you not publish an average rent for each country?
 Because three of the four do not publish one. Greece and Malta publish rent inflation but no euro level; Dubai's rental index publishes permitted increases rather than rents; Portugal's median rent series exists but we could not open the release at source. Every average rent you see quoted for these countries comes from a listings portal or a crowdsourced aggregator, not from a statistical office.
 
-### Where these figures come from
+### What else here bears on this
+
+Two of the thresholds compared above are worked through end to end elsewhere on this site. Portugal's €920 — the one an investor must also prove — is in [the Portugal guide](entry:portugal-residency). Greece's €3,500 permit, its three tax regimes and the question of whether investor years ever reach permanent residence are in [the Greece guide](entry:greece-residency). What a property purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). Every act and dataset named above, with the date each was read, is on [the sources page](/sources).
+
+### Sources: where each figure comes from
 
 Every figure on this page is traceable to the instrument or dataset that states it. The legal thresholds come from the Diário da República for Portugal, the Government Gazette and the Ministry of Migration and Asylum for Greece, the consolidated subsidiary legislation published by Residency Malta for Malta, and the federal legislation portal, the Identity and Citizenship Authority and the Dubai Land Department for the UAE. The cost figures come from Eurostat, the Hellenic Statistical Authority and Malta's National Statistics Office.
 
@@ -309,7 +313,7 @@ portugal d7 visa minimum income, greece financially independent person visa, mal
 how much passive income is enough for a d7 visa in portugal, how much money do you need in the bank to get residency in portugal, portugal d7 visa proof of income, portugal d7 visa rental income, does the portugal golden visa require proof of income, criteria for financially independent person visa in greece, what are the requirements for obtaining the fip visa for greece in 2026, greece golden visa income requirement, what is the minimum income requirement for a digital nomad visa, what are the requirements to qualify for a digital nomad visa in malta, is the malta property threshold lower in gozo, what are the requirements for a remote working visa in the uae, salary certificate format uae for remote work visa, does the uae have a minimum wage, can you live on 1000 euros a month in greece, is 2000 euro a good salary in malta, how much income do i need to live comfortably in portugal, average rent in greece official statistics, malta household budget survey year
 
 **Keywords placed in subheadings:**
-"Golden visa income requirements: the routes side by side"; "Portugal: the D7 income requirement is the minimum wage"; "Does the Portuguese golden visa waive proof of income?"; "The D8 digital nomad visa"; "Greece: €3,500 a month for the FIP visa"; "Greece golden visa income requirement: there is not one"; "Malta permanent residence income requirement: it does not exist"; "The nomad residence permit: €42,000"; "UAE: USD 5,000 a month to work remotely"; "The UAE has no minimum wage".
+"Golden visa income requirements: the routes side by side"; "Portugal: the D7 income requirement is the minimum wage"; "Does the Portuguese golden visa waive proof of income?"; "The D8 digital nomad visa"; "Greece FIP visa requirements: €3,500 a month"; "Greece golden visa income requirement: there is not one"; "Malta digital nomad visa salary requirement: €42,000"; "Malta permanent residence income requirement: it does not exist"; "UAE remote work visa requirements: USD 5,000 a month"; "The UAE has no minimum wage"; "Cost of living in Portugal, Greece, Malta and Dubai"; "Cost of living in Greece: €1,724.54 a month"; "Cost of living in Malta"; "Cost of living in Portugal"; "Cost of living in Dubai"; "Which country is cheapest depends on what you have".
 
 ---
 

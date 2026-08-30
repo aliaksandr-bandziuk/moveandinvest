@@ -236,6 +236,10 @@ Bo źródła pierwotne były niedostępne w momencie sprawdzania: gov.cy odpowia
 ? Ile realnie trwa decyzja?
 W Grecji terminu w ustawie nie ma, w kolejce w listopadzie 2025 było 13 499 spraw. W Portugalii ustawa daje 90 dni, faktycznie mija rok do trzech przy około 30 000 nierozpatrzonych spraw. W ZEA dwa do czterech tygodni.
 
+### Co jeszcze na tej stronie ma tu znaczenie
+
+Dwie z pięciu jurysdykcji z tego tekstu mają własny poradnik. Czego Portugalia każe dowieść i co zmienił jej dziesięcioletni termin do obywatelstwa — w [poradniku o Portugalii](entry:portugal-residency). Czego wymaga Grecja i dlaczego jej pobyt stały liczy dni, a nie rodzaj zezwolenia — w [poradniku o Grecji](entry:greece-residency). Pytanie o dochód, które leży pod wszystkimi pięcioma — kto go bada, kto nie i ile kosztuje życie w każdej z nich — to [osobny tekst](entry:income-cost-of-living). A wszystkie wymienione akty z datą odczytu są na [stronie źródeł](/sources).
+
 ### Skąd pochodzą te liczby
 
 Każda liczba w tym tekście jest sprawdzona ze źródłem pierwotnym — ustawą, rozporządzeniem albo stroną urzędu — i każda ma podany numer artykułu. Pełna lista z odnośnikami i datą odczytu znajduje się na naszej stronie źródeł. Tam też zapisano, gdzie źródło pierwotne było niedostępne i dlaczego w tabeli stoi kreska zamiast liczby.

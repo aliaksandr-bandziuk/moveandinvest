@@ -232,6 +232,10 @@ The permit is valid in the issuing state; Schengen movement and rights in other 
 ? How long does a decision actually take?
 Greece has no statutory deadline and had 13,499 files queued in November 2025. Portugal's statute gives 90 days but takes one to three years against roughly 30,000 pending files. The UAE takes two to four weeks.
 
+### What else here bears on this
+
+Two of the five jurisdictions in this piece have a guide of their own. What Portugal asks a resident to prove, and what its ten-year citizenship clock changed, is worked through in [the Portugal guide](entry:portugal-residency). What Greece asks, and why permanent residence there counts days rather than permits, is in [the Greece guide](entry:greece-residency). The income question that runs under all five — who tests it, who does not, and what living in each actually costs — is [a piece of its own](entry:income-cost-of-living). And every act named above, with the date each was read, is on [the sources page](/sources).
+
 ### Where these figures come from
 
 Every figure in this article is checked against a primary source — a statute, a regulation or an authority page — and each carries its article number. The full list with links and the date each was read is on our sources page, which also records where the primary source was unreachable and why a dash appears in the table instead of a number.

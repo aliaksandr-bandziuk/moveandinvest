@@ -21,6 +21,13 @@ export interface FooterLink {
   key: string;
   /** Absent means the page does not exist yet — rendered, but not a link. */
   href?: AppHref;
+  /** An entry in Guides & Research, named by its `translationKey` rather than
+   *  by a path. The slug differs in every language, so a footer link — one
+   *  value for all three locales — cannot hold one; the layout resolves this
+   *  key against the slug map and hands the footer the slug for the language
+   *  being rendered. Takes precedence over `href` when both are set, which
+   *  they never should be. */
+  entry?: string;
   /** Opens in a new tab. Only for targets outside this site. */
   external?: boolean;
   /** Renders as a button that reopens the cookie banner instead of a link.
@@ -68,10 +75,14 @@ export const FOOTER_GROUPS: FooterGroup[] = [
     // site will cover, never pretend it already does, never link to a 404.
     key: "guides",
     links: [
-      { key: "allResearch", href: "/blog" },
+      // "Everything published" pointing at /blog was removed on 28 August 2026.
+      // The header's own nav carries /blog on every page, so the footer row was
+      // a second copy of a link a reader already has — and inside a group named
+      // after the section, "everything published" reads as a fourth guide
+      // rather than as the index. Nothing is orphaned by its removal.
       { key: "ruleChanges" },
-      { key: "movingGuides" },
-      { key: "costOfLiving" },
+      { key: "movingGuides", entry: "article-portugal-residency" },
+      { key: "costOfLiving", entry: "article-income-cost-of-living" },
     ],
   },
   {

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { FOOTER_GROUPS } from "@/lib/footerNav";
+import { articleHref } from "@/lib/routes";
 import { CookieSettingsButton } from "../CookieSettingsButton";
 
 import type { AppHref } from "@/lib/routes";
@@ -19,6 +20,15 @@ interface FooterProps {
   contactEmail?: string;
   jurisdictions?: FooterJurisdiction[];
   year?: number;
+  /** Slug of each Guides & Research entry IN THE LANGUAGE BEING RENDERED,
+   *  keyed by its translation key. Resolved in the layout, which already holds
+   *  the slug map, rather than here — a footer that fetched its own links would
+   *  be a second read of the same data on every page.
+   *
+   *  An entry missing from this map is an entry that has not been published, or
+   *  not in this language: the row falls back to the greyed "soon" state, which
+   *  is the same rule the section has held since launch. */
+  entrySlugs?: Record<string, string>;
 }
 
 // Three storeys, in this order: an invitation to write, the wordmark as a
@@ -39,6 +49,7 @@ export async function Footer({
   contactEmail,
   jurisdictions = [],
   year,
+  entrySlugs = {},
 }: FooterProps) {
   const t = await getTranslations("footer");
 
@@ -101,6 +112,16 @@ export async function Footer({
                         className={`${styles.link} ${styles.linkButton}`}
                         label={t(`links.${link.key}`)}
                       />
+                    ) : link.entry && entrySlugs[link.entry] ? (
+                      // A published entry, reached by its translation key. The
+                      // slug is the one for this locale; see SlugMap.entriesByKey
+                      // for why the key rather than a path.
+                      <Link
+                        className={styles.link}
+                        href={articleHref(entrySlugs[link.entry] as string)}
+                      >
+                        {t(`links.${link.key}`)}
+                      </Link>
                     ) : link.href ? (
                       <Link className={styles.link} href={link.href}>
                         {t(`links.${link.key}`)}

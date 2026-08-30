@@ -56,8 +56,7 @@
       "working": "Sources and working",
       "contacts": "Contact",
       "privacy": "Privacy",
-      "cookies": "Cookie choice",
-      "allResearch": "Everything published"
+      "cookies": "Cookie choice"
     }
   },
   "home": {
@@ -192,6 +191,8 @@
     "sourcesLabel": "Sources",
     "official": "official",
     "reproduction": "reproduction",
+    "checkedOn": "Every row was checked against a primary source on {date}, except where a row carries a date of its own.",
+    "rechecked": "Re-checked {date}",
     "verdicts": {
       "confirmed": "confirmed",
       "corrected": "corrected",
