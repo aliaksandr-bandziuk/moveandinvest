@@ -1,0 +1,63 @@
+@use "../../../styles/mixins";
+
+// /about had no stylesheet until 31 August 2026, and did not need one: the
+// whole page was MethodDocument, which brings its own. This file exists for the
+// one element added under it.
+//
+// THE SAME BAND A JURISDICTION PAGE ENDS ON, rule for rule. A reader arriving
+// at the foot of /about has often already seen the foot of /portugal, and two
+// different-looking versions of one call to action would read as two different
+// offers. Copied deliberately rather than imported: it is thirty lines of
+// tokens, and a shared partial for two call sites is a file somebody has to
+// open before they can see what either page looks like.
+.cta {
+  @include mixins.section-rhythm;
+
+  background-color: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.ctaInner {
+  display: grid;
+  gap: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-8);
+  }
+}
+
+.ctaHeading {
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+}
+
+.ctaBody {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--color-on-dark-muted);
+  max-width: 62ch;
+}
+
+// Same shape as Button's onDark variant and as the jurisdiction page's own
+// CTA — if that variant changes, this changes with it.
+.ctaLink {
+  @include mixins.tap-target;
+
+  justify-content: center;
+  min-block-size: 3rem;
+  padding-inline: var(--space-6);
+  background-color: var(--color-on-dark);
+  color: var(--color-dark);
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--color-on-dark-muted);
+  }
+}

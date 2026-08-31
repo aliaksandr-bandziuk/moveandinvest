@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { FaqAccordion, type FaqAccordionLabels } from "@/components/content";
+import { QuestionForm } from "@/components/marketing";
 import { SectionHead } from "@/components/ui";
-import { Link } from "@/i18n/navigation";
+import { CHANNELS } from "@/lib/contactChannels";
+import { questionFormLabels } from "@/lib/questionFormLabels";
+import { getPathname, Link } from "@/i18n/navigation";
 import { FAQ_ALL, FAQ_SECTIONS } from "@/lib/faqData";
 import { buildFaqPageJsonLd, organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
+import { ENQUIRY_HREF } from "@/lib/routes";
 import { getSiteUrl } from "@/lib/site";
 import { routeUrl } from "@/lib/urls";
 import { sanityFetch } from "@/sanity/client";
@@ -15,8 +19,14 @@ import {
   FAQ_PAGE_QUERY,
   FAQ_PAGE_TAGS,
   HOME_TAGS,
+  QUESTION_FORM_QUERY,
+  QUESTION_FORM_TAGS,
 } from "@/sanity/queries";
-import type { CountryRowResult, FaqPage } from "@/sanity/types";
+import type {
+  CountryRowResult,
+  FaqPage,
+  QuestionFormCopy,
+} from "@/sanity/types";
 
 import styles from "./page.module.scss";
 
@@ -61,13 +71,23 @@ export default async function Faq({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [page, countries, t] = await Promise.all([
+  const [page, countries, t, questionCopy] = await Promise.all([
     sanityFetch<FaqPage | null>(FAQ_PAGE_QUERY, { locale }, FAQ_PAGE_TAGS),
     // Only for the jurisdiction NAMES, used to label the source links. Taken
     // from the registry rather than hardcoded, so this page cannot call a
     // country something the rest of the site does not.
     sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, HOME_TAGS),
     getTranslations({ locale, namespace: "faq" }),
+    // The question form's own strings. From the contactsPage document, because
+    // that is where they live and a second editable copy of "Your question" is
+    // a second string to keep in step — see lib/questionFormLabels.ts. Null
+    // when the Polish contacts document has not been written, and the block is
+    // then not rendered at all rather than rendered with empty labels.
+    sanityFetch<QuestionFormCopy | null>(
+      QUESTION_FORM_QUERY,
+      { locale },
+      QUESTION_FORM_TAGS,
+    ),
   ]);
 
   if (!page) {
@@ -201,6 +221,45 @@ export default async function Faq({
               </section>
             );
           })}
+
+          {/* THE FIFTY-THIRD QUESTION, and the reason this page gets a form at
+              all. A reader who has been through fifty-two answers and not found
+              theirs has told us something specific: they have a question, not a
+              plan. The offer that matches that is a question — the smallest
+              commitment on the site, no consent box, answered and closed — and
+              not the enquiry, which is the ask three other pages already make.
+
+              Rendered only when the contacts document exists in this language:
+              a form whose labels are blank is worse than no form. */}
+          {questionCopy ? (
+            <section className={styles.ask} aria-labelledby="ask-heading">
+              <div className={styles.askIntro}>
+                <h2 className={styles.askHeading} id="ask-heading">
+                  {t("ask.heading")}
+                </h2>
+                <p className={styles.askBody}>{t("ask.body")}</p>
+                <p className={styles.askEnquiry}>
+                  {t("ask.enquiryLead")}{" "}
+                  <Link href={ENQUIRY_HREF}>{t("ask.enquiryCta")}</Link>
+                </p>
+              </div>
+
+              <div className={styles.askForm}>
+                <QuestionForm
+                  labels={questionFormLabels(questionCopy, CHANNELS.email)}
+                  locale={locale}
+                  privacyHref={getPathname({ href: "/privacy", locale })}
+                  // The page's own segment, so the 303 comes back here rather
+                  // than to /contacts. Split off getPathname rather than typed,
+                  // because /faq is /ru/voprosy and this must not be the place
+                  // that forgets it.
+                  returnTo={
+                    getPathname({ href: ROUTE, locale }).split("/").pop() ?? ""
+                  }
+                />
+              </div>
+            </section>
+          ) : null}
         </div>
       </section>
     </main>

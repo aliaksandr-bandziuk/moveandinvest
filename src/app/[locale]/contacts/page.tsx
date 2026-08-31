@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ContactChannels, type ContactLabels } from "@/components/marketing";
+import { questionFormLabels } from "@/lib/questionFormLabels";
 import { SectionHead } from "@/components/ui";
 import { getPathname } from "@/i18n/navigation";
 import { CHANNELS } from "@/lib/contactChannels";
@@ -55,16 +56,16 @@ export default async function Contacts({ params }: { params: Promise<{ locale: s
     notFound();
   }
 
-  // The one address the project has, substituted into the failure panel. Same
-  // arrangement as the brief and the change list: the catalogue carries a
-  // placeholder, never a typed address, so a second one cannot appear.
-  const labels: ContactLabels = {
-    ...page,
-    broke: {
-      title: page.broke.title,
-      body: page.broke.body.replace("{email}", CHANNELS.email),
-    },
-  };
+  // The page's own strings. The form's eleven moved out on 31 August 2026 when
+  // /faq started rendering the same form — they are built below instead, by the
+  // one helper that also substitutes the address into the failure panel.
+  const labels: ContactLabels = page;
+
+  // The address is a PLACEHOLDER in the catalogue and never a typed string.
+  // Same arrangement as the brief and the change list, and the same reason: a
+  // hello@ address that no mailbox answered got onto this site once by being
+  // typed in a second place.
+  const question = questionFormLabels(page, CHANNELS.email);
 
   const url = routeUrl(ROUTE, locale);
 
@@ -98,6 +99,7 @@ export default async function Contacts({ params }: { params: Promise<{ locale: s
 
           <ContactChannels
             labels={labels}
+            question={question}
             locale={locale}
             privacyHref={getPathname({ href: "/privacy", locale })}
           />

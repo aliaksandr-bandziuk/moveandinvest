@@ -345,6 +345,27 @@ export interface FaqPage {
   seo: SeoResult;
 }
 
+/** The eleven strings the question form itself needs, as opposed to the page
+ *  around it. Its own type because the form is on two pages since 31 August
+ *  2026 — /contacts and /faq — and only one of them has channels, a booking
+ *  link or an identity line to render.
+ *
+ *  Structurally a subset of ContactsPage, which is where these fields live and
+ *  will stay: one editable copy of a field label, not two that can drift. */
+export interface QuestionFormCopy {
+  nameLabel: string;
+  emailFieldLabel: string;
+  emailPlaceholder: string;
+  messageLabel: string;
+  honeypotLabel: string;
+  submitLabel: string;
+  fine: string;
+  privacyLabel: string;
+  sent: { title: string; body: string };
+  error: { title: string; body: string };
+  broke: { title: string; body: string };
+}
+
 export interface ContactsPage {
   eyebrow: string;
   heading: string;

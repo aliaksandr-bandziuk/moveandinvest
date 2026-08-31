@@ -47,3 +47,68 @@
   line-height: var(--lh-small);
   color: var(--color-text-muted);
 }
+
+// THE FIFTY-THIRD QUESTION. The block at the foot of the page, under a rule
+// and in the same 5/6 spread /contacts uses for the same form — a reader who
+// has met this form once should not have to learn a second arrangement of it.
+//
+// It is the only element on this page that asks for anything, and it is at the
+// bottom on purpose: fifty-two answers first, then the offer to answer a
+// fifty-third. Putting it above them would be selling before answering, which
+// is the arrangement every other site in this market has.
+.ask {
+  margin-top: var(--space-8);
+  padding-top: var(--space-7);
+  border-top: var(--border-hairline) solid var(--color-text);
+  scroll-margin-block-start: var(--space-6);
+
+  @include mixins.breakpoint-up(lg) {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.askIntro {
+  min-width: 0;
+}
+
+.askHeading {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: -0.015em;
+  max-width: 22ch;
+}
+
+.askBody {
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+// The exit for somebody who wants an introduction rather than an answer. Under
+// the explanation rather than above it, because it only makes sense once the
+// reader knows what this form is NOT — same placement, same reasoning, as the
+// equivalent line on /contacts.
+.askEnquiry {
+  margin-top: var(--space-5);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+
+  a {
+    @include mixins.link;
+  }
+}
+
+.askForm {
+  margin-top: var(--space-6);
+  min-width: 0;
+
+  @include mixins.breakpoint-up(lg) {
+    margin-top: 0;
+  }
+}

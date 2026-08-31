@@ -26,8 +26,8 @@ import {
 //             `from` field, not by a second kind
 //   article   the short two-field block at the foot of a guide
 //   brief     the property brief, on twelve property pages
-//   subscribe the change list, on jurisdiction pages and /changes
-//   question  the contact form on /contacts
+//   subscribe the change list, on jurisdiction pages, /changes and /sources
+//   question  the question form, on /contacts and /faq
 //
 // This comment used to say "BOTH forms" and name two of them, which had been
 // wrong for three of the five since the week each was added. It is worth
@@ -389,7 +389,10 @@ export async function POST(request: NextRequest) {
   // the one they were sent from. The enquiry block exists once, on the home
   // page, so it needs no such thing.
   const returnTo =
-    kind === "brief" || kind === "subscribe" || kind === "article"
+    kind === "brief" ||
+    kind === "subscribe" ||
+    kind === "article" ||
+    kind === "question"
       ? safeReturnTo(field(form, "returnTo"))
       : "";
 
@@ -423,11 +426,17 @@ export async function POST(request: NextRequest) {
           ? `${segment("/enquiry", locale)}#enquiry-${fragment}`
           : `#enquiry-${fragment}`;
   const subscribeTarget = (fragment: string) => `${returnTo}#alerts-${fragment}`;
-  // The question form exists once, on /contacts, so it needs no returnTo — but
-  // it does need the localised segment, which it did not have until 31 August
-  // 2026. See `segment` for what that cost.
+  // The question form is on TWO pages since 31 August 2026 — /contacts, where
+  // it started, and /faq, where a reader who has read fifty-two answers and not
+  // found theirs is exactly the person it is for. So it takes a returnTo like
+  // the brief and the change list do.
+  //
+  // AN EMPTY returnTo MEANS /contacts, which is both the fallback for a
+  // malformed value and what /contacts itself sends. That is deliberate: the
+  // page this form spent its first week on is the safe place to land, and a
+  // question that has already been delivered should never fail over a redirect.
   const questionTarget = (fragment: string) =>
-    `${segment("/contacts", locale)}#question-${fragment}`;
+    `${returnTo || segment("/contacts", locale)}#question-${fragment}`;
   // The partner reply exists once, on /for-partners, and had the same
   // English-only literal the question form had — `npm run enquiry:targets`
   // printed /ru/for-partners for a route that is /ru/partneram.

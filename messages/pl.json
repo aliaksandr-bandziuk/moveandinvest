@@ -181,6 +181,11 @@
       "money": "Z czego utrzymuje się projekt",
       "corrections": "Jeśli znalazłeś błąd",
       "notAdvice": "Czym to nie jest"
+    },
+    "cta": {
+      "heading": "Jeśli brzmi to jak ktoś, z kim wolisz mieć do czynienia",
+      "body": "Napisz, co chcesz zrobić, a skierujemy Cię do jednej licencjonowanej kancelarii w pasującej jurysdykcji. Dla Ciebie bezpłatnie: płaci kancelaria, jeśli podejmie sprawę — dokładnie tak, jak opisano wyżej.",
+      "label": "Wyślij zgłoszenie →"
     }
   },
   "sources": {
@@ -271,7 +276,13 @@
     "sourceSections": {
       "citizenship": "Obywatelstwo"
     },
-    "linkLabel": "Pięćdziesiąt dwa pytania, odpowiedziane z ustawy"
+    "linkLabel": "Pięćdziesiąt dwa pytania, odpowiedziane z ustawy",
+    "ask": {
+      "heading": "Twojego pytania nie ma wśród pięćdziesięciu dwóch?",
+      "body": "Zadaj je. To nie jest formularz zgłoszenia: to, co napiszesz, trafia do skrzynki, odpowiada człowiek i nie jest nikomu przekazywane — pola zgody tu nie ma, bo nie ma na co się zgadzać. Jeśli do sensownej odpowiedzi potrzebny jest prawnik, a nie my, tak właśnie powiemy.",
+      "enquiryLead": "Potrzebujesz skierowania do kancelarii, a nie odpowiedzi na pytanie?",
+      "enquiryCta": "Wyślij zgłoszenie →"
+    }
   },
   "blog": {
     "backToIndex": "Wszystkie poradniki i badania",

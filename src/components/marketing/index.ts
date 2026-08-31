@@ -6,4 +6,5 @@ export { HomeHero } from "./HomeHero";
 export type { HeroContentsEntry, ResolvedCta } from "./HomeHero";
 export { MethodSection, type MethodPoint } from "./MethodSection";
 export { PartnerTeaser } from "./PartnerTeaser";
+export { QuestionForm, type QuestionFormLabels } from "./QuestionForm";
 export { ContactChannels, type ContactLabels } from "./ContactChannels";

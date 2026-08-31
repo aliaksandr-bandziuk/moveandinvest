@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { QuestionForm, type QuestionFormLabels } from "../QuestionForm";
 import { CHANNELS, formatPhone, whatsappHref } from "@/lib/contactChannels";
 import { ENQUIRY_HREF } from "@/lib/routes";
 import { CONTROLLER, controllerIdentity } from "@/lib/controller";
@@ -19,17 +20,9 @@ export interface ContactLabels {
   socialsLabel: string;
   formHeading: string;
   formBody: string;
-  nameLabel: string;
-  emailFieldLabel: string;
-  emailPlaceholder: string;
-  messageLabel: string;
-  honeypotLabel: string;
-  submitLabel: string;
-  fine: string;
-  privacyLabel: string;
-  sent: { title: string; body: string };
-  error: { title: string; body: string };
-  broke: { title: string; body: string };
+  // The form's own eleven strings are NOT here. They are a QuestionForm prop,
+  // built once by lib/questionFormLabels.ts, because /faq renders the same form
+  // without any of the channels, the booking link or the identity line above.
   enquiryLead: string;
   enquiryCta: string;
   identityLabel: string;
@@ -37,6 +30,10 @@ export interface ContactLabels {
 
 interface ContactChannelsProps {
   labels: ContactLabels;
+  /** The form's own strings, already mapped and with the address substituted.
+   *  Built by the page through lib/questionFormLabels.ts — see the two steps
+   *  that note describes, both of which are easy to get wrong. */
+  question: QuestionFormLabels;
   locale: string;
   privacyHref: string;
 }
@@ -61,7 +58,12 @@ interface ContactChannelsProps {
 // jurisdiction, no budget and no consent-to-share, and the route never passes it
 // to anybody. The copy says so, and the pointer at the foot sends somebody who
 // actually wants an introduction to the form that can give them one.
-export function ContactChannels({ labels, locale, privacyHref }: ContactChannelsProps) {
+export function ContactChannels({
+  labels,
+  question,
+  locale,
+  privacyHref,
+}: ContactChannelsProps) {
   const phone = CHANNELS.phone;
   const whatsapp = whatsappHref();
   const booking = CHANNELS.booking;
@@ -176,101 +178,20 @@ export function ContactChannels({ labels, locale, privacyHref }: ContactChannels
         </div>
 
         <div className={styles.formSide}>
-          <div className={styles.result} id="question-sent">
-            <p className={styles.resultTitle}>{labels.sent.title}</p>
-            <p className={styles.resultBody}>{labels.sent.body}</p>
-          </div>
-          <div className={`${styles.result} ${styles.failed}`} id="question-error">
-            <p className={styles.resultTitle}>{labels.error.title}</p>
-            <p className={styles.resultBody}>{labels.error.body}</p>
-          </div>
-          <div className={`${styles.result} ${styles.failed}`} id="question-failed">
-            <p className={styles.resultTitle}>{labels.broke.title}</p>
-            <p className={styles.resultBody}>{labels.broke.body}</p>
-          </div>
+          {/* EXTRACTED ON 31 AUGUST 2026, and this component kept the half
+              that is /contacts' own: the two-column split, the heading, the
+              paragraph explaining what this form is NOT, and the link out to
+              the enquiry. The form itself now lives in marketing/QuestionForm
+              because /faq needed the same one — see the note there.
 
-          {/* NO LeadTracking HERE, deliberately. Every other form on the site
-              fires `generate_lead` on success; this one must not. A question is
-              not a lead — it carries no jurisdiction, no budget and no consent
-              to be passed to a partner, and it is answered and closed. Counting
-              it would inflate the one number the events exist to measure, and
-              an inflated funnel is worse than an unmeasured one because it
-              looks like it is working. Adding "question" to LeadKind is the
-              tempting version of this mistake. */}
-
-          <form id="question-form" className={styles.form} method="post" action="/api/enquiry">
-            <input type="hidden" name="kind" value="question" />
-            <input type="hidden" name="locale" value={locale} />
-
-            <div className={styles.honeypot} aria-hidden="true">
-              <label htmlFor="q-q7">{labels.honeypotLabel}</label>
-              <input
-                type="text"
-                id="q-q7"
-                name="q7"
-                tabIndex={-1}
-                readOnly
-                autoComplete="off"
-                data-lpignore="true"
-                data-1p-ignore=""
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="q-name">
-                {labels.nameLabel}
-              </label>
-              <input
-                className={styles.input}
-                type="text"
-                id="q-name"
-                name="name"
-                maxLength={120}
-                autoComplete="name"
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="q-email">
-                {labels.emailFieldLabel}
-              </label>
-              <input
-                className={styles.input}
-                type="email"
-                id="q-email"
-                name="email"
-                required
-                maxLength={200}
-                autoComplete="email"
-                placeholder={labels.emailPlaceholder}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="q-message">
-                {labels.messageLabel}
-              </label>
-              <textarea
-                className={styles.textarea}
-                id="q-message"
-                name="message"
-                required
-                rows={6}
-                maxLength={2000}
-              />
-            </div>
-
-            <button className={styles.button} type="submit">
-              {labels.submitLabel}
-            </button>
-
-            <p className={styles.fine}>
-              {labels.fine}{" "}
-              <a className={styles.fineLink} href={privacyHref}>
-                {labels.privacyLabel}
-              </a>
-            </p>
-          </form>
+              `returnTo` is empty here on purpose: empty means /contacts, which
+              is where this form has always come back to. */}
+          <QuestionForm
+            labels={question}
+            locale={locale}
+            privacyHref={privacyHref}
+            returnTo=""
+          />
         </div>
       </section>
     </>

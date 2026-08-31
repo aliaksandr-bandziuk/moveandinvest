@@ -370,6 +370,24 @@ export const CONTACTS_PAGE_QUERY = groq`
   }
 `;
 
+// JUST THE QUESTION FORM'S OWN STRINGS, for a page that renders the form and
+// nothing else from /contacts — /faq, since 31 August 2026. Narrow rather than
+// reusing CONTACTS_PAGE_QUERY: /faq has no use for a booking link, a WhatsApp
+// note or an identity line, and fetching them would make this page's cache
+// entry turn over every time one of them is reworded.
+//
+// The fields come from contactsPage, which is where they live and stay. Copying
+// them into faqPage would give one form two editable copies of every label.
+export const QUESTION_FORM_TAGS = ["contactsPage", "siteSettings"];
+
+export const QUESTION_FORM_QUERY = groq`
+  *[_type == "contactsPage" && language == $locale][0]{
+    nameLabel, emailFieldLabel, emailPlaceholder, messageLabel,
+    honeypotLabel, submitLabel, fine, privacyLabel,
+    sent{ title, body }, error{ title, body }, broke{ title, body }
+  }
+`;
+
 // One query, run once per singleton type, for sitemap.ts. It returns every
 // language version of that type with the two things a sitemap entry needs —
 // when it last changed, and whether it is meant to be indexed at all.

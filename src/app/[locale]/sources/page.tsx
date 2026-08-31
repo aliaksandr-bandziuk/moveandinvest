@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/navigation";
+import { getPathname, Link } from "@/i18n/navigation";
 import { SourceTable, type SourceTableLabels } from "@/components/content";
+import { AlertsSignup, type AlertsSignupLabels } from "@/components/marketing";
 import { SectionHead } from "@/components/ui";
+import { CONTROLLER } from "@/lib/controller";
 import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
@@ -30,6 +32,38 @@ import styles from "./page.module.scss";
 // one address that resolves everywhere beats three that each resolve once.
 const ROUTE = "/sources";
 
+// The change list's fifteen labels, one of which carries a placeholder. The
+// same mapping the jurisdiction pages and /changes use, and a copy rather than
+// an import for the same reason each of those is: it is eleven lines, and the
+// alternative is a shared helper that exists to save eleven lines and has to be
+// found before anybody can read what the block is being given.
+function buildAlertsLabels(
+  t: (key: string, values?: Record<string, string>) => string,
+): AlertsSignupLabels {
+  return {
+    heading: t("heading"),
+    body: t("body"),
+    emailLabel: t("emailLabel"),
+    emailPlaceholder: t("emailPlaceholder"),
+    jurisdictionsLegend: t("jurisdictionsLegend"),
+    jurisdictionsHint: t("jurisdictionsHint"),
+    consentLabel: t("consentLabel"),
+    honeypotLabel: t("honeypotLabel"),
+    submitLabel: t("submitLabel"),
+    fine: t("fine"),
+    privacyLabel: t("privacyLabel"),
+    sent: { title: t("sent.title"), body: t("sent.body") },
+    error: { title: t("error.title"), body: t("error.body") },
+    // A PLACEHOLDER, filled from the one definition the project has. Typing it
+    // into three catalogues is how the site once printed a hello@ address that
+    // no mailbox answered.
+    broke: {
+      title: t("broke.title"),
+      body: t("broke.body", { email: CONTROLLER.email }),
+    },
+  };
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -47,7 +81,7 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [page, countries, t, tAbout] = await Promise.all([
+  const [page, countries, t, tAbout, tAlerts] = await Promise.all([
     sanityFetch<SourcesPage | null>(SOURCES_PAGE_QUERY, { locale }, SOURCES_TAGS),
     // Only for the jurisdiction NAMES. Taking them from the registry rather
     // than hardcoding five headings is what stops this page calling a country
@@ -56,6 +90,7 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
     sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, HOME_TAGS),
     getTranslations({ locale, namespace: "sources" }),
     getTranslations({ locale, namespace: "about" }),
+    getTranslations({ locale, namespace: "alerts" }),
   ]);
 
   if (!page) {
@@ -168,6 +203,28 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
           <p className={styles.checked}>{checked}</p>
         </div>
       </section>
+
+      {/* THE OFFER THIS PAGE'S OWN ARGUMENT MAKES. Every row here carries the
+          date it was last read against a primary source; the page exists to say
+          that a figure is only as good as its check date. "We will tell you
+          when one moves" is not a pitch bolted onto that — it is the same
+          sentence, addressed to the reader instead of about the site.
+
+          No jurisdiction pre-ticked: this page covers all five, and an unticked
+          set means all five. */}
+      <AlertsSignup
+        labels={buildAlertsLabels(tAlerts)}
+        locale={locale}
+        // The page's own segment — /istochniki, /zrodla — so the 303 comes back
+        // here. Split off getPathname rather than typed out.
+        slug={getPathname({ href: ROUTE, locale }).split("/").pop() ?? ""}
+        jurisdictions={countries.map((row) => ({
+          code: row.code,
+          name: row.name,
+        }))}
+        privacyHref={getPathname({ href: "/privacy", locale })}
+        instance="sources"
+      />
     </main>
   );
 }

@@ -181,6 +181,11 @@
       "money": "How the project makes money",
       "corrections": "If you have found an error",
       "notAdvice": "What this is not"
+    },
+    "cta": {
+      "heading": "If that reads like somebody you would rather deal with",
+      "body": "Say what you are trying to do and we introduce you to one licensed firm in the jurisdiction that fits. Free to you: the firm pays us if it takes the introduction, which is the arrangement described above.",
+      "label": "Send an enquiry →"
     }
   },
   "sources": {
@@ -271,7 +276,13 @@
     "sourceSections": {
       "citizenship": "Citizenship"
     },
-    "linkLabel": "Fifty-two questions, answered from the statute"
+    "linkLabel": "Fifty-two questions, answered from the statute",
+    "ask": {
+      "heading": "Your question is not one of the fifty-two?",
+      "body": "Ask it. This is not the enquiry form: what you write goes to a mailbox, a person answers it, and it is passed to nobody — there is no consent box here because there is nothing to consent to. If a proper answer needs a lawyer rather than us, that is what you will be told.",
+      "enquiryLead": "Wanted an introduction to a firm rather than an answer?",
+      "enquiryCta": "Send an enquiry →"
+    }
   },
   "blog": {
     "backToIndex": "All guides and research",

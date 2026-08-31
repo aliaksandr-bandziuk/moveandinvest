@@ -1,0 +1,142 @@
+@use "../../../styles/mixins";
+
+// Moved here from ContactChannels.module.scss on 31 August 2026, rule for rule,
+// when the form it styles became a component of its own. Nothing was redesigned
+// in the move: /contacts must look exactly as it did, and the only way to be
+// sure of that with no build to look at is to change nothing.
+//
+// The form's SURROUNDINGS stayed behind — the two-column split, the heading,
+// the "this is not the enquiry form" paragraph and the link out to /enquiry are
+// all part of /contacts' own layout, and /faq wraps this form in something
+// different. What travels is the form and its three panels.
+
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.field + .field {
+  margin-top: var(--space-4);
+}
+
+.label {
+  @include mixins.eyebrow;
+
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.input {
+  @include mixins.focus-ring;
+
+  flex: 1 1 14rem;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 2.75rem;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  padding: 0.7rem 0.85rem;
+  font-family: inherit;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+// The one control no other form on this site has. Same border, padding and
+// focus treatment as `.input` — it is the same field, taller.
+.textarea {
+  inline-size: 100%;
+  padding: var(--space-3);
+  border: var(--border-hairline) solid var(--color-hairline);
+  border-radius: var(--radius-s);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  resize: vertical;
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.button {
+  @include mixins.focus-ring;
+
+  flex: 0 0 auto;
+  min-block-size: 2.75rem;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: 0;
+  border-radius: var(--radius-s);
+  padding: 0.7rem 1.4rem;
+  font-family: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+}
+
+.form .button {
+  margin-top: var(--space-5);
+}
+
+.fine {
+  margin-top: var(--space-4);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.fineLink {
+  @include mixins.link;
+}
+
+// --- Result panels ----------------------------------------------------------
+// Literal ids inside :global(), same as every other form here — the route
+// redirects to `#question-sent` and CSS Modules would otherwise scope the id
+// out of existence.
+.result {
+  display: none;
+  border: var(--border-hairline) solid var(--color-line);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+:global(#question-sent):target,
+:global(#question-error):target,
+:global(#question-failed):target {
+  display: block;
+}
+
+:global(#question-sent):target ~ .form {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent);
+}
+
+.resultTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+}
+
+.resultBody {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}

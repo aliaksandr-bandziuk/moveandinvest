@@ -4,13 +4,17 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { MethodDocument, type MethodSectionContent } from "@/components/content";
+import { Link } from "@/i18n/navigation";
 import { CONTROLLER, controllerIdentity } from "@/lib/controller";
+import { ENQUIRY_HREF } from "@/lib/routes";
 import { buildAboutPageJsonLd } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { routeUrl } from "@/lib/urls";
 import { sanityFetch } from "@/sanity/client";
 import { ABOUT_PAGE_QUERY, ABOUT_TAGS } from "@/sanity/queries";
 import type { AboutPage } from "@/sanity/types";
+
+import styles from "./page.module.scss";
 
 // /about — one path for all three locales, like /privacy and /for-partners.
 // A translated slug would be tidier in the abstract and worse in practice:
@@ -151,6 +155,27 @@ export default async function About({ params }: { params: Promise<{ locale: stri
             : null,
         }}
       />
+
+      {/* A LINK, NOT A FORM, and that is the whole decision on this page.
+          /about is where somebody decides whether this operation is credible;
+          fields change the register of a page that is answering that question,
+          and a reader who has just concluded "these people seem straight"
+          needs a door, not a desk.
+
+          It also sits after the section headed "how the project makes money",
+          which is what lets the sentence below say who pays without explaining
+          it twice — the reader has just read the explanation. */}
+      <section className={styles.cta}>
+        <div className={`container ${styles.ctaInner}`}>
+          <div>
+            <h2 className={styles.ctaHeading}>{t("cta.heading")}</h2>
+            <p className={styles.ctaBody}>{t("cta.body")}</p>
+          </div>
+          <Link className={styles.ctaLink} href={ENQUIRY_HREF}>
+            {t("cta.label")}
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

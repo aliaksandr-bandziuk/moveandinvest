@@ -18,9 +18,11 @@ import { POST } from "@/app/api/enquiry/route";
 // npm run mailcheck is for.
 //
 // WHAT TO LOOK FOR. Every line must be a path that exists. Before 31 August
-// 2026 two of them were not: the long form always came back to the home page's
-// fragment even when it was submitted from /enquiry, and the question form came
-// back to /ru/contacts, which the middleware then had to 307 to /ru/kontakty.
+// 2026 three of them did not resolve directly: the long form always came back
+// to the home page's fragment even when it was submitted from /enquiry, and the
+// question form and the partner reply came back to /ru/contacts and
+// /ru/for-partners, which the middleware then had to 307 onwards. The partner
+// one was found by this script and by nothing else.
 
 const ORIGIN = "https://www.moveandinvest.com";
 
@@ -56,6 +58,10 @@ const CASES: Case[] = [
     fields: { kind: "subscribe", returnTo: "izmeneniya" },
   },
   { label: "question — /contacts", fields: { kind: "question" } },
+  {
+    label: "question — /faq (ru slug, all three)",
+    fields: { kind: "question", returnTo: "voprosy" },
+  },
   { label: "partner — /for-partners", fields: { kind: "partner" } },
 ];
 
