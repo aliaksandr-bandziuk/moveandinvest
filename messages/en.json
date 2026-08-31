@@ -203,6 +203,67 @@
     "linkFromMethod": "See the working: every figure and its source →",
     "linkFromPage": "See the working →"
   },
+  "changes": {
+    "columns": {
+      "date": "In force",
+      "change": "What changed",
+      "instrument": "The act",
+      "moved": "What moved here"
+    },
+    "noInstrument": "No published act",
+    "seeWorking": "See the working →",
+    "toSources": "Every figure and its source →",
+    "notCovered": "{countries} have no rows: nobody has checked them yet, which is not the same as nothing having happened.",
+    "reviewedOn": "The whole log was last gone through on {date}.",
+    "updatedOn": "A row last changed on {date}.",
+    "cadence": "It is reviewed in full whenever a jurisdiction is researched for a guide, which is the cadence this project can actually keep rather than a month it cannot."
+  },
+  "enquiry": {
+    "stepsHeading": "What happens after you press send",
+    "steps": {
+      "one": {
+        "title": "It reaches a mailbox, and a person reads it",
+        "body": "It is not scored, it is not added to a mailing list, and it is not passed to anybody until you have said it may be. The consent box is that permission, and it covers one introduction rather than a list."
+      },
+      "two": {
+        "title": "We work out which jurisdiction it actually fits",
+        "body": "Against the same figures and the same statutes published on this site, each carrying the date it was last checked. Sometimes the answer is that none of the five fits what you are trying to do, and then that is what you are told."
+      },
+      "three": {
+        "title": "We introduce you to one licensed firm",
+        "body": "One firm, licensed in the country concerned, and you are told which and why that one. The firm pays us if it takes the introduction. You pay nothing, and nothing obliges you to instruct them."
+      }
+    },
+    "sourcesLink": "Every figure on this site, and where it came from →",
+    "changesLink": "What has changed in the rules, and by which act →"
+  },
+  "ask": {
+    "heading": "Does any of this apply to your case?",
+    "body": "A guide is research, not advice, and it cannot know your circumstances. Say what you are trying to do and we introduce you to one licensed firm in the jurisdiction concerned — free to you, and only if you tick the box.",
+    "about": "Sent as an enquiry about {country}.",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "you@example.com",
+    "situationLabel": "What are you trying to do?",
+    "situationPlaceholder": "A sentence or two is enough: what you have, where you are now, and what you want to happen.",
+    "consentLabel": "I agree that my enquiry may be passed to a specialist partner",
+    "honeypotLabel": "Leave this field empty",
+    "submitLabel": "Send",
+    "fine": "We are not lawyers and take no percentage of any transaction. Your enquiry goes to one partner, not to a list.",
+    "privacyLabel": "How we handle your data",
+    "longFormLabel": "The longer form, with budget and timing →",
+    "sent": {
+      "title": "Sent.",
+      "body": "It is with us. The reply comes from a person and says which firm we think fits and why that one."
+    },
+    "error": {
+      "title": "That did not go through.",
+      "body": "An email address and the consent box are the two things we cannot do without. Everything else is optional."
+    },
+    "broke": {
+      "title": "That is on us.",
+      "body": "The enquiry did not reach us — the fault is at our end. Write to {email} and it will be picked up."
+    }
+  },
   "faq": {
     "breadcrumb": "FAQ",
     "sourcesLabel": "Checked against",

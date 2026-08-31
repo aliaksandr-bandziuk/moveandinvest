@@ -36,10 +36,25 @@ export interface EnquiryPayload {
   city?: string;
   /** Property brief only: live / let / residency / unsure. */
   purpose?: string;
-  /** Which form this came from. "enquiry" is the home page block, "brief" a
-   *  property page. One payload rather than two, so the email template, the
-   *  stored document and the log line each stay single. */
-  kind?: "enquiry" | "brief";
+  /** Which form this came from. "enquiry" is the long block — the home page's
+   *  section 08 and /enquiry, which are the same component; "brief" a property
+   *  page; "article" the short two-field block at the foot of a guide. One
+   *  payload rather than three, so the email template, the stored document and
+   *  the log line each stay single.
+   *
+   *  An "article" enquiry carries less than the other two by design: an address,
+   *  a sentence, and whichever jurisdiction the guide was about. Asking a reader
+   *  who is still reading for a budget is how a foot-of-page form gets skipped. */
+  kind?: "enquiry" | "brief" | "article";
+  /** Article enquiries only: the slug of the guide it was sent from.
+   *
+   *  WORTH CARRYING FOR ONE REASON. Five guides now exist and more are coming,
+   *  and nothing else on this site can answer "which of them is earning its
+   *  keep" — an analytics event cannot, because the jurisdiction and the page a
+   *  reader was on are exactly what this project has decided never to send to an
+   *  analytics or advertising tool. It reaches the mailbox instead, where the
+   *  person answering already has the enquiry in front of them. */
+  source?: string;
   name: string;
   email: string;
   consentToShare: boolean;

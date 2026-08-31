@@ -37,14 +37,18 @@ export function slugHref(slug: string) {
   return { pathname: "/[slug]", params: { slug } } as const;
 }
 
-/** The one enquiry form, on the home page. Written as a route plus a fragment
- *  rather than the string "/#enquiry", which is not a route: it used to work
- *  only because every href was an untyped string, and in Russian it would have
- *  had to become "/#enquiry" pointing at a page whose other links had all moved.
+/** Where a call to action sends a reader who wants to be introduced to a firm.
  *
- *  See HEADER_CTA in headerNav.ts for why the button goes here instead of
- *  opening a second, shorter form. */
-export const ENQUIRY_HREF = { pathname: "/", hash: "enquiry" } as const;
+ *  A ROUTE SINCE 31 AUGUST 2026, NOT A FRAGMENT. It was `{ pathname: "/", hash:
+ *  "enquiry" }` — the home page's section 08 — which meant the header button on
+ *  a guide, on /sources, on /faq and on every jurisdiction page loaded the whole
+ *  home page and dropped the reader eight sections down it, past the form's own
+ *  head. See the note in routing.ts for the rest of the reasoning, and for why
+ *  the home page keeps its section anyway.
+ *
+ *  Nothing that links here needed changing when it moved, which was the point of
+ *  having one constant rather than the string "/#enquiry" in eleven places. */
+export const ENQUIRY_HREF = { pathname: "/enquiry" } as const;
 
 /** A section of the home page, for the footer's shortcut column. The leading
  *  slash matters: these are followed from jurisdiction pages too, not only from

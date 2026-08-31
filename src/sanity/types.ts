@@ -315,6 +315,28 @@ export interface SourcesPage {
   seo: SeoResult;
 }
 
+/** Identical in shape to SourcesPage and deliberately a separate name: they are
+ *  two documents with two lifecycles, and one alias shared between them is how
+ *  a field added to one silently appears to belong to the other. */
+export interface ChangesPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  howToRead: string;
+  seo: SeoResult;
+}
+
+/** The head of /enquiry, and only the head. No form labels: the form is the
+ *  same component the home page renders and takes its labels from the home page
+ *  document, so that one consent checkbox cannot exist in two editable copies
+ *  that promise different things. */
+export interface EnquiryPage {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  seo: SeoResult;
+}
+
 export interface FaqPage {
   eyebrow: string;
   heading: string;

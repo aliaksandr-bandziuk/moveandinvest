@@ -197,6 +197,34 @@ export const SOURCES_PAGE_QUERY = groq`
   }
 `;
 
+// The rule-change log's head. Four fields and no body, exactly like the sources
+// page above: the log itself is in src/lib/changeData.ts, code-owned, so that a
+// row cannot be added without the instrument beside it.
+export const CHANGES_TAGS = ["changesPage", "siteSettings"];
+
+export const CHANGES_PAGE_QUERY = groq`
+  *[_type == "changesPage" && language == $locale][0]{
+    eyebrow, heading, intro, howToRead, seo
+  }
+`;
+
+// The enquiry page's head. Three fields and no form labels: the form itself is
+// the same component the home page renders, and it takes its labels from the
+// home page document so that two editable copies of one consent checkbox cannot
+// end up promising different things. The three steps under the heading are in
+// messages, code-owned — see the note in the schema.
+//
+// `homePage` is in the tag list because this page's form is built from that
+// document: without it, rewording the consent label in Studio would refresh the
+// home page and leave /enquiry showing the old wording.
+export const ENQUIRY_PAGE_TAGS = ["enquiryPage", "homePage", "siteSettings"];
+
+export const ENQUIRY_PAGE_QUERY = groq`
+  *[_type == "enquiryPage" && language == $locale][0]{
+    eyebrow, heading, intro, seo
+  }
+`;
+
 // The FAQ page. Five fields and no body, exactly like the sources page above:
 // the fifty-two questions and their answers are in src/lib/faqData.ts, which is
 // code-owned so that a figure cannot move without its evidence moving with it.

@@ -21,6 +21,7 @@ import {
   MethodSection,
   PartnerTeaser,
 } from "@/components/marketing";
+import { enquiryFormProps } from "@/lib/enquiryForm";
 import { buildMetadata } from "@/lib/metadata";
 import { organizationRef } from "@/lib/jsonLd";
 import { getPathname } from "@/i18n/navigation";
@@ -437,83 +438,11 @@ export default async function HomePage({
         qualifiersLabel={home.partnerTeaser.qualifiersLabel}
         qualifiers={home.partnerTeaser.qualifiers ?? []}
       />
-      <EnquiryForm
-        index="08"
-        eyebrow={home.enquiry.eyebrow}
-        heading={home.enquiry.heading}
-        intro={home.enquiry.intro}
-        locale={locale}
-        fork={{
-          chosenIndex: "01",
-          chosenTitle: home.enquiry.fork.chosenLabel,
-          chosenBody: home.enquiry.fork.chosenBody,
-          undecidedIndex: "02",
-          undecidedTitle: home.enquiry.fork.openLabel,
-          undecidedBody: home.enquiry.fork.openBody,
-        }}
-        // Labels come from the registry, so the form and the table can never
-        // disagree about which five jurisdictions exist.
-        jurisdictions={countries.map((c) => ({ value: c.code, label: c.name }))}
-        openOptions={[
-          { value: "undecided", label: home.enquiry.fork.undecidedOption },
-          { value: "other", label: home.enquiry.fork.otherOption },
-        ]}
-        budget={{
-          legend: home.enquiry.budget.label,
-          options: [
-            { value: "500", label: home.enquiry.budget.upTo500 },
-            { value: "800", label: home.enquiry.budget.upTo800 },
-            { value: "over800", label: home.enquiry.budget.over800 },
-            { value: "unknown", label: home.enquiry.budget.unknown },
-          ],
-        }}
-        timeline={{
-          legend: home.enquiry.timeline.label,
-          options: [
-            { value: "fast", label: home.enquiry.timeline.fast },
-            { value: "half-year", label: home.enquiry.timeline.halfYear },
-            { value: "year", label: home.enquiry.timeline.year },
-            { value: "browsing", label: home.enquiry.timeline.browsing },
-          ],
-        }}
-        goals={{
-          legend: home.enquiry.goals.label,
-          hint: home.enquiry.goals.hint,
-          options: [
-            { value: "residency", label: home.enquiry.goals.residency },
-            { value: "tax", label: home.enquiry.goals.tax },
-            { value: "passport", label: home.enquiry.goals.passport },
-            { value: "business", label: home.enquiry.goals.business },
-            { value: "property", label: home.enquiry.goals.property },
-          ],
-        }}
-        situation={{
-          legend: home.enquiry.contact.situationLabel,
-          hint: home.enquiry.contact.situationHint,
-        }}
-        contact={{
-          legend: home.enquiry.contact.contactLabel,
-          name: home.enquiry.contact.nameLabel,
-          email: home.enquiry.contact.emailLabel,
-        }}
-        consent={home.enquiry.contact.consentLabel}
-        fine={home.enquiry.fine}
-        privacyLabel={home.enquiry.privacyLabel}
-        submit={home.enquiry.contact.submitLabel}
-        sent={{
-          title: home.enquiry.result.sentTitle,
-          body: home.enquiry.result.sentBody,
-        }}
-        broke={{
-          title: home.enquiry.result.brokeTitle,
-          body: home.enquiry.result.brokeBody,
-        }}
-        failed={{
-          title: home.enquiry.result.failedTitle,
-          body: home.enquiry.result.failedBody,
-        }}
-        honeypot={home.enquiry.contact.honeypotLabel}
-      />
+      {/* Section 08. The props come from a shared builder because /enquiry
+          renders the same component from the same document — see the note in
+          lib/enquiryForm.ts for what a second copy of this mapping would have
+          quietly cost. */}
+      <EnquiryForm {...enquiryFormProps({ enquiry: home.enquiry, countries, locale, from: "home", index: "08" })} />
     </main>
   );
 }

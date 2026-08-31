@@ -67,8 +67,34 @@ export const routing = defineRouting({
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",
     "/contacts": { en: "/contacts", ru: "/kontakty", pl: "/kontakt" },
+    // THE ENQUIRY, WITH AN ADDRESS OF ITS OWN since 31 August 2026.
+    //
+    // It was a fragment before that — section 08 of the home page, reached as
+    // "/#enquiry" — and the header button, the footer link and every
+    // jurisdiction page's call to action all pointed at it. From anywhere other
+    // than the home page that is a full page load landing a reader eight
+    // sections down a document they did not ask for, with the form's own head
+    // already scrolled past.
+    //
+    // A fragment also cannot carry its own title, cannot be counted separately
+    // from the home page, cannot be given to a partner firm as "this is the
+    // page your leads come from", and has no room to say what happens after the
+    // button is pressed — which is the one thing a reader deciding whether to
+    // press it wants to know.
+    //
+    // THE HOME PAGE KEEPS ITS SECTION. Two mount points of one component, with
+    // one route handler behind them, is not the duplication worth avoiding: a
+    // reader who has just come through eight sections is the highest intent on
+    // the site, and making them click first would be paying for tidiness in
+    // leads.
+    "/enquiry": { en: "/enquiry", ru: "/zayavka", pl: "/zgloszenie" },
     "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc" },
     "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla" },
+    // The rule-change log. Translated like every other fixed route, and the
+    // Russian is transliterated for the reason this file already gives about
+    // /ru/gretsiya: a Cyrillic slug percent-encodes the moment anyone pastes
+    // it into an email, which is most of how a link to this site travels.
+    "/changes": { en: "/changes", ru: "/izmeneniya", pl: "/zmiany" },
     // Internal, noindex, and deliberately the same word everywhere: read by
     // whoever is building the site, not by a reader.
     "/styleguide": "/styleguide",

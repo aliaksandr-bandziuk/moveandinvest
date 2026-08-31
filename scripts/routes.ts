@@ -32,8 +32,10 @@ const FIXED = [
   "/faq",
   "/blog",
   "/contacts",
+  "/enquiry",
   "/privacy",
   "/sources",
+  "/changes",
 ] as const;
 
 console.log("routes, per locale\n");

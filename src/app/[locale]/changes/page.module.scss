@@ -1,0 +1,49 @@
+@use "../../../styles/mixins";
+
+.section {
+  @include mixins.section-rhythm;
+
+  // The same width as /sources and for the same reason: four columns, two of
+  // them paragraphs. This and the sources page are the two on the site that
+  // earn close to the full container.
+  --container-max-width: 94rem;
+}
+
+.howToRead {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.back {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+
+  a {
+    @include mixins.link;
+  }
+}
+
+// Who has no rows and why. Above the dates rather than below them, because it
+// is a fact about the log's coverage and the dates are facts about its upkeep.
+.notCovered {
+  margin-top: var(--space-6);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+// The two dates and the cadence, at the foot, under a rule. Same treatment as
+// the checked line on /sources: somebody who scrolled eighteen rows should not
+// have to scroll back up to find out how current this is.
+.dates {
+  @include mixins.figure-text;
+
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: var(--border-hairline) solid var(--color-text);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

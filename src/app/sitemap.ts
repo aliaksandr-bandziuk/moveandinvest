@@ -52,9 +52,11 @@ const ROUTES: SingletonRoute[] = [
   { href: "/for-partners", documentType: "partnersPage" },
   { href: "/about", documentType: "aboutPage" },
   { href: "/sources", documentType: "sourcesPage" },
+  { href: "/changes", documentType: "changesPage" },
   { href: "/faq", documentType: "faqPage" },
   { href: "/blog", documentType: "blogPage" },
   { href: "/contacts", documentType: "contactsPage" },
+  { href: "/enquiry", documentType: "enquiryPage" },
   { href: "/privacy", documentType: "privacyPage" },
 ];
 

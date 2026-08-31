@@ -17,15 +17,24 @@ import {
   type SubscribePayload,
 } from "@/sanity/enquiries";
 
-// Receives BOTH forms on the site: the home page enquiry (section 08) and the
-// partner reply on /for-partners (section 05). A hidden `kind` field decides
-// which, and everything before that branch — honeypot, locale, the redirect
-// helper — is shared.
+// Receives EVERY form on the site. A hidden `kind` field decides which, and
+// everything before that branch — honeypot, rate limit, locale, the redirect
+// helper — is shared. As of 31 August 2026 there are five:
 //
-// One route rather than two on purpose. The spam trap, the allow-list
-// discipline and the 303-with-a-fragment answer are the parts that must never
-// drift, and a second route would be a second copy of all three: the copy
-// that gets forgotten when one of them is fixed.
+//   reader    the long form: the home page's section 08 and /enquiry, which
+//             are one component with two mount points and are told apart by a
+//             `from` field, not by a second kind
+//   article   the short two-field block at the foot of a guide
+//   brief     the property brief, on twelve property pages
+//   subscribe the change list, on jurisdiction pages and /changes
+//   question  the contact form on /contacts
+//
+// This comment used to say "BOTH forms" and name two of them, which had been
+// wrong for three of the five since the week each was added. It is worth
+// keeping accurate for one reason: somebody adding the sixth needs to know
+// that the honeypot, the allow-lists and the 303-with-a-fragment answer are
+// shared, or they will write a second route with a private copy of all three
+// — the copy that gets forgotten the next time one of them is fixed.
 //
 // The form posts a normal multipart body and this handler answers with a
 // redirect, so the whole thing works with JavaScript disabled — the client
@@ -124,6 +133,37 @@ const SLUG = /^[a-z0-9-]{1,96}$/;
 
 function safeReturnTo(value: string): string {
   return SLUG.test(value) ? value : "";
+}
+
+// THE LOCALISED FIRST SEGMENT OF A FIXED ROUTE, read out of the routing config
+// rather than typed here.
+//
+// The question form's target was the literal "contacts#question-sent", which is
+// English-only: /contacts is /kontakty in Russian and /kontakt in Polish. The
+// first version of this note called that a 404, and `npm run routes` says
+// otherwise — the middleware answers /ru/contacts with a 307 to /ru/kontakty,
+// so it worked. Measured, not assumed, and the assumption was wrong.
+//
+// It is still worth not doing. A POST answered with a 303 to a URL that then
+// 307s costs an extra round trip on every submission and leaves the success
+// fragment riding through two redirects to get to a panel that is only shown
+// by :target. Reading routing.pathnames costs nothing and cannot drift from the
+// routes themselves: rename one there and it is renamed here for free.
+const PATHNAMES = routing.pathnames as Record<
+  string,
+  string | Record<string, string>
+>;
+
+function segment(
+  route: "/contacts" | "/enquiry" | "/blog" | "/for-partners",
+  locale: string,
+): string {
+  const declared = PATHNAMES[route];
+  const path =
+    typeof declared === "string"
+      ? declared
+      : (declared?.[locale] ?? declared?.[routing.defaultLocale] ?? route);
+  return path.replace(/^\//, "");
 }
 
 // TWO KINDS OF FAILURE, two fragments, and the difference matters more than
@@ -261,6 +301,7 @@ async function handlePartnerReply(
   request: NextRequest,
   form: FormData,
   locale: string,
+  back: (fragment: string) => string,
 ) {
   const email = field(form, "email").slice(0, MAX_SHORT);
   const terms = field(form, "terms").slice(0, MAX_SITUATION);
@@ -269,7 +310,7 @@ async function handlePartnerReply(
   // optional: a firm that answers "we do not buy leads" in one line has told
   // us exactly what the outbound wave was sent to find out.
   if (!looksLikeEmail(email) || terms === "") {
-    return redirectTo(request, locale, "for-partners#partner-error");
+    return redirectTo(request, locale, back("error"));
   }
 
   const payload: PartnerEnquiryPayload = {
@@ -302,12 +343,12 @@ async function handlePartnerReply(
         `(mail: ${mailed.reason ?? "unknown"}). Payload follows:`,
     );
     console.error(JSON.stringify(payload));
-    return redirectTo(request, locale, "for-partners#partner-failed");
+    return redirectTo(request, locale, back("failed"));
   }
 
   console.log(`[enquiry] Partner reply — mailed: ${mailed.ok}, stored: ${stored}`);
 
-  return redirectTo(request, locale, "for-partners#partner-sent");
+  return redirectTo(request, locale, back("sent"));
 }
 
 export async function POST(request: NextRequest) {
@@ -330,7 +371,15 @@ export async function POST(request: NextRequest) {
           ? "subscribe"
           : rawKind === "question"
             ? "question"
-            : "reader";
+            : // The short block at the foot of a guide, added 31 August 2026.
+              // A reader enquiry in everything that matters — same honeypot,
+              // same rate limit, same consent gate, same two delivery channels
+              // — which is why it is a branch of the reader path below rather
+              // than a sixth handler. It differs in two ways only: it asks for
+              // three things instead of nine, and it comes back to the guide.
+              rawKind === "article"
+              ? "article"
+              : "reader";
 
   // The brief is submitted from a property page and returns to it. Everything
   // else about it is a reader enquiry — same honeypot, same rate limit, same
@@ -340,12 +389,50 @@ export async function POST(request: NextRequest) {
   // the one they were sent from. The enquiry block exists once, on the home
   // page, so it needs no such thing.
   const returnTo =
-    kind === "brief" || kind === "subscribe" ? safeReturnTo(field(form, "returnTo")) : "";
+    kind === "brief" || kind === "subscribe" || kind === "article"
+      ? safeReturnTo(field(form, "returnTo"))
+      : "";
+
+  // WHICH OF THE LONG FORM'S TWO MOUNT POINTS THIS IS. The same component is
+  // section 08 of the home page and the whole of /enquiry, and the redirect has
+  // to land on the one it was sent from — a reader who submitted from /enquiry
+  // and woke up in the middle of the home page has been told, by the software,
+  // that their enquiry went somewhere else.
+  //
+  // A CLOSED PAIR, NOT A PATH. The form names which of two places it is, and
+  // the server resolves that to a route out of routing.ts. Letting the form
+  // name the path instead would be an open redirect the day somebody loosened
+  // the check on it, and the value would still have to be translated here.
+  const fromEnquiryPage = field(form, "from") === "enquiry";
+
   const readerTarget = (fragment: string) =>
-    kind === "brief" ? `${returnTo}#brief-${fragment}` : `#enquiry-${fragment}`;
+    kind === "brief"
+      ? `${returnTo}#brief-${fragment}`
+      : kind === "article"
+        ? // The guide it was sent from. /blog is the one section whose URL is
+          // deliberately untranslated, but it is still read from the config
+          // rather than written out — see `segment`.
+          //
+          // A slug that failed `safeReturnTo` leaves `returnTo` empty, and the
+          // fallback is the guides index rather than "/blog/" with nothing
+          // after it: the enquiry has already been delivered by the time this
+          // runs, and landing somewhere real beats a trailing slash and a
+          // redirect.
+          `${segment("/blog", locale)}${returnTo ? `/${returnTo}` : ""}#ask-${fragment}`
+        : fromEnquiryPage
+          ? `${segment("/enquiry", locale)}#enquiry-${fragment}`
+          : `#enquiry-${fragment}`;
   const subscribeTarget = (fragment: string) => `${returnTo}#alerts-${fragment}`;
-  // The question form exists once, on /contacts, so it needs no returnTo.
-  const questionTarget = (fragment: string) => `contacts#question-${fragment}`;
+  // The question form exists once, on /contacts, so it needs no returnTo — but
+  // it does need the localised segment, which it did not have until 31 August
+  // 2026. See `segment` for what that cost.
+  const questionTarget = (fragment: string) =>
+    `${segment("/contacts", locale)}#question-${fragment}`;
+  // The partner reply exists once, on /for-partners, and had the same
+  // English-only literal the question form had — `npm run enquiry:targets`
+  // printed /ru/for-partners for a route that is /ru/partneram.
+  const partnerTarget = (fragment: string) =>
+    `${segment("/for-partners", locale)}#partner-${fragment}`;
 
   // Honeypot, checked before the branch so neither form can be built without
   // it. A hidden field no human ever sees; bots fill every input they find.
@@ -382,7 +469,7 @@ export async function POST(request: NextRequest) {
       request,
       locale,
       kind === "partner"
-        ? "for-partners#partner-sent"
+        ? partnerTarget("sent")
         : kind === "subscribe"
           ? subscribeTarget("sent")
           : kind === "question"
@@ -403,7 +490,7 @@ export async function POST(request: NextRequest) {
       request,
       locale,
       kind === "partner"
-        ? "for-partners#partner-failed"
+        ? partnerTarget("failed")
         : kind === "subscribe"
           ? subscribeTarget("failed")
           : kind === "question"
@@ -413,7 +500,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (kind === "partner") {
-    return handlePartnerReply(request, form, locale);
+    return handlePartnerReply(request, form, locale, partnerTarget);
   }
 
   if (kind === "subscribe") {
@@ -451,7 +538,10 @@ export async function POST(request: NextRequest) {
     // second version of itself for a form that differs by two fields.
     city: field(form, "city").slice(0, MAX_SHORT),
     purpose: oneOf(field(form, "purpose"), ALLOWED.purpose),
-    kind: kind === "brief" ? "brief" : "enquiry",
+    kind: kind === "brief" ? "brief" : kind === "article" ? "article" : "enquiry",
+    // Spread rather than `source: undefined`, so the stored document has no
+    // key at all for the two forms that have no such thing.
+    ...(kind === "article" && returnTo ? { source: returnTo } : {}),
     name: field(form, "name").slice(0, MAX_SHORT),
     email,
     consentToShare: consent,

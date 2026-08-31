@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArticleBody } from "@/components/content";
+import { AskBlock } from "@/components/marketing";
 import { Breadcrumbs, type Crumb } from "@/components/ui";
+import { getPathname } from "@/i18n/navigation";
+import { CONTROLLER } from "@/lib/controller";
 import { routing } from "@/i18n/routing";
 import {
   buildArticleJsonLd,
@@ -146,6 +149,8 @@ export default async function Entry({
     getTranslations({ locale, namespace: "nav" }),
   ]);
 
+  const tAsk = await getTranslations({ locale, namespace: "ask" });
+
   if (!entry) notFound();
 
   const url = routeUrl(articleHref(slug), locale);
@@ -185,6 +190,52 @@ export default async function Entry({
   // node — see buildFaqPageJsonLd.
   const faqJsonLd = buildFaqPageJsonLd(faqFromBody(entry.body));
 
+  // THE JURISDICTION THE ASK WILL CARRY, and only when there is exactly one.
+  //
+  // An entry tagged with a single country is a guide about that country, and
+  // the enquiry can say so. An entry tagged with several — the cost-of-living
+  // comparison — is about all of them, and guessing one would put a country in
+  // a partner's inbox that the reader never named. Tagged with none, same
+  // answer. So: one, or nothing, and the block prints a line saying which,
+  // because a hidden field the reader cannot see is not something this site
+  // sends on their behalf.
+  const only = entry.countries?.length === 1 ? entry.countries[0] : undefined;
+
+  const ask = (
+    <AskBlock
+      locale={locale}
+      slug={slug}
+      {...(only ? { countryCode: only.code } : {})}
+      privacyHref={getPathname({ href: "/privacy", locale })}
+      longFormHref={getPathname({ href: "/enquiry", locale })}
+      labels={{
+        heading: tAsk("heading"),
+        body: tAsk("body"),
+        ...(only ? { about: tAsk("about", { country: only.name }) } : {}),
+        emailLabel: tAsk("emailLabel"),
+        emailPlaceholder: tAsk("emailPlaceholder"),
+        situationLabel: tAsk("situationLabel"),
+        situationPlaceholder: tAsk("situationPlaceholder"),
+        consentLabel: tAsk("consentLabel"),
+        honeypotLabel: tAsk("honeypotLabel"),
+        submitLabel: tAsk("submitLabel"),
+        fine: tAsk("fine"),
+        privacyLabel: tAsk("privacyLabel"),
+        longFormLabel: tAsk("longFormLabel"),
+        sent: { title: tAsk("sent.title"), body: tAsk("sent.body") },
+        error: { title: tAsk("error.title"), body: tAsk("error.body") },
+        // The address is a PLACEHOLDER filled from the one definition the
+        // project has, exactly as the change-list block does it — see the note
+        // there. Typing it into three catalogues is how the site ended up
+        // printing a hello@ address no mailbox ever answered.
+        broke: {
+          title: tAsk("broke.title"),
+          body: tAsk("broke.body", { email: CONTROLLER.email }),
+        },
+      }}
+    />
+  );
+
   const breadcrumbJsonLd = buildBreadcrumbListJsonLd([
     { name: t("home"), url: routeUrl("/", locale) },
     { name: tNav("links.research"), url: routeUrl("/blog", locale) },
@@ -220,6 +271,7 @@ export default async function Entry({
             sources={entry.sources}
             body={entry.body}
             formatDate={formatDate}
+            ask={ask}
             labels={{
               published: t("published"),
               updated: t("updated"),

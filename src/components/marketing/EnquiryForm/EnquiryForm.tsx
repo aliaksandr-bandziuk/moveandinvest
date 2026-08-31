@@ -11,11 +11,25 @@ interface Option {
 }
 
 export interface EnquiryFormProps {
-  index: string;
+  /** The home page's numbered arc. Optional since this component gained a
+   *  second mount point: /enquiry is a page, not section 08 of anything, and a
+   *  number there would be counting a sequence of one. */
+  index?: string;
   eyebrow: string;
   heading: string;
   intro: string;
   locale: string;
+  /** WHICH OF THE TWO MOUNT POINTS THIS IS, and the only thing that differs
+   *  between them. The route handler answers with a redirect, and the redirect
+   *  has to land on the page the form was actually submitted from — otherwise a
+   *  reader who sent it from /enquiry is dropped on the home page with a
+   *  fragment that scrolls them into the middle of somebody else's argument.
+   *
+   *  A closed pair rather than a path: the server allows exactly these two
+   *  values and resolves each to a route out of routing.ts itself. A form that
+   *  could name its own redirect target would be an open redirect the day
+   *  somebody widened the check. */
+  from?: "home" | "enquiry";
   fork: {
     chosenIndex: string;
     chosenTitle: string;
@@ -67,6 +81,7 @@ export function EnquiryForm({
   heading,
   intro,
   locale,
+  from = "home",
   fork,
   jurisdictions,
   openOptions,
@@ -145,6 +160,9 @@ export function EnquiryForm({
         <EnquiryPrefill className={styles.formWrap}>
           <form id="enquiry-form" className={styles.form} method="post" action="/api/enquiry">
             <input type="hidden" name="locale" value={locale} />
+            {/* Which page to come back to. See the prop's note: two allowed
+                values, resolved server-side against routing.ts. */}
+            <input type="hidden" name="from" value={from} />
 
             {/* Honeypot. The name is meaningless ON PURPOSE — `company` was
                 filled by Chrome's address autofill and silently rejected a

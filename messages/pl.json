@@ -203,6 +203,67 @@
     "linkFromMethod": "Zobacz wyliczenia: każda liczba i jej źródło →",
     "linkFromPage": "Zobacz wyliczenia →"
   },
+  "changes": {
+    "columns": {
+      "date": "Obowiązuje od",
+      "change": "Co się zmieniło",
+      "instrument": "Akt",
+      "moved": "Co przesunęło się tutaj"
+    },
+    "noInstrument": "Brak opublikowanego aktu",
+    "seeWorking": "Zobacz wyliczenia →",
+    "toSources": "Każda liczba i jej źródło →",
+    "notCovered": "{countries} nie mają wierszy: nikt ich jeszcze nie sprawdzał, co nie jest tym samym co brak zmian.",
+    "reviewedOn": "Cały rejestr przejrzano ostatnio {date}.",
+    "updatedOn": "Wiersz zmieniono ostatnio {date}.",
+    "cadence": "Jest przeglądany w całości za każdym razem, gdy jurysdykcja jest badana pod poradnik — to jest kadencja, którą ten projekt faktycznie utrzyma, a nie miesiąc, którego nie utrzyma."
+  },
+  "enquiry": {
+    "stepsHeading": "Co się dzieje po wysłaniu",
+    "steps": {
+      "one": {
+        "title": "Trafia do skrzynki i czyta je człowiek",
+        "body": "Nie jest punktowane, nie trafia na listę mailingową i nie jest nikomu przekazywane, dopóki nie wyrazisz zgody. Pole zgody jest tym pozwoleniem i obejmuje jedno skierowanie, a nie listę."
+      },
+      "two": {
+        "title": "Ustalamy, która jurysdykcja naprawdę pasuje",
+        "body": "Na podstawie tych samych liczb i tych samych przepisów, które są opublikowane na tej stronie — przy każdej stoi data ostatniego sprawdzenia. Czasem odpowiedź brzmi, że żadna z pięciu nie pasuje do tego, co chcesz zrobić. Wtedy tak właśnie mówimy."
+      },
+      "three": {
+        "title": "Kierujemy do jednej licencjonowanej kancelarii",
+        "body": "Do jednej, licencjonowanej w danym kraju, i mówimy do której oraz dlaczego do niej. Kancelaria płaci nam, jeśli podejmie sprawę. Ty nie płacisz nic i nic nie zobowiązuje Cię do współpracy."
+      }
+    },
+    "sourcesLink": "Wszystkie liczby na tej stronie i ich źródła →",
+    "changesLink": "Co zmieniło się w przepisach i jakim aktem →"
+  },
+  "ask": {
+    "heading": "Czy dotyczy to Twojego przypadku?",
+    "body": "Poradnik to badanie, a nie porada, i nie zna Twoich okoliczności. Napisz, co chcesz zrobić, a skierujemy Cię do jednej licencjonowanej kancelarii w danej jurysdykcji — dla Ciebie bezpłatnie i tylko jeśli zaznaczysz zgodę.",
+    "about": "Wyśle się jako zapytanie o kraj: {country}.",
+    "emailLabel": "Twój e-mail",
+    "emailPlaceholder": "ty@przyklad.pl",
+    "situationLabel": "Co chcesz zrobić?",
+    "situationPlaceholder": "Wystarczy zdanie albo dwa: co masz, gdzie jesteś teraz i co ma się wydarzyć.",
+    "consentLabel": "Zgadzam się, aby moje zapytanie zostało przekazane wyspecjalizowanemu partnerowi",
+    "honeypotLabel": "Zostaw to pole puste",
+    "submitLabel": "Wyślij",
+    "fine": "Nie jesteśmy prawnikami i nie bierzemy procentu od transakcji. Zapytanie trafia do jednego partnera, nie na listę.",
+    "privacyLabel": "Jak obchodzimy się z danymi",
+    "longFormLabel": "Dłuższy formularz — z budżetem i terminem →",
+    "sent": {
+      "title": "Wysłane.",
+      "body": "Jest u nas. Odpowie człowiek i napisze, która kancelaria pasuje i dlaczego właśnie ta."
+    },
+    "error": {
+      "title": "Nie wysłało się.",
+      "body": "Adres e-mail i pole zgody to dwie rzeczy, bez których się nie da. Cała reszta jest nieobowiązkowa."
+    },
+    "broke": {
+      "title": "To po naszej stronie.",
+      "body": "Zapytanie do nas nie dotarło i nie chodzi o to, co wypełniłeś. Napisz na {email}, zajmiemy się tym."
+    }
+  },
   "faq": {
     "breadcrumb": "Pytania",
     "sourcesLabel": "Sprawdzone z",

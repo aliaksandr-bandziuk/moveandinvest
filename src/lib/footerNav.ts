@@ -80,7 +80,8 @@ export const FOOTER_GROUPS: FooterGroup[] = [
       // a second copy of a link a reader already has — and inside a group named
       // after the section, "everything published" reads as a fourth guide
       // rather than as the index. Nothing is orphaned by its removal.
-      { key: "ruleChanges" },
+      // Promised since launch and greyed out until 30 August 2026.
+      { key: "ruleChanges", href: "/changes" },
       { key: "movingGuides", entry: "article-portugal-residency" },
       { key: "costOfLiving", entry: "article-income-cost-of-living" },
     ],

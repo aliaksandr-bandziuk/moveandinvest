@@ -4,6 +4,8 @@ import { CONTACT_EMAIL, PARTNERS_COPY } from "./copy/partners";
 import { PRIVACY_COPY } from "./copy/privacy";
 import { ABOUT_COPY } from "./copy/about";
 import { SOURCES_PAGE_COPY } from "./copy/sourcesPage";
+import { CHANGES_PAGE_COPY } from "./copy/changesPage";
+import { ENQUIRY_PAGE_COPY } from "./copy/enquiryPage";
 import { FAQ_PAGE_COPY } from "./copy/faqPage";
 import { BLOG_PAGE_COPY } from "./copy/blogPage";
 import { CONTACTS_COPY } from "./copy/contacts";
@@ -107,7 +109,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
 
   const docs = await client.fetch<Doc[]>(
-    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "contactsPage", "faqPage", "blogPage"]] | order(_id asc){ _id, _type }`,
+    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "changesPage", "contactsPage", "enquiryPage", "faqPage", "blogPage"]] | order(_id asc){ _id, _type }`,
   );
 
   if (docs.length === 0) {
@@ -146,6 +148,26 @@ async function run() {
   const existingSources = new Set(
     docs
       .filter((d) => d._type === "sourcesPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
+  // The rule-change log, added 30 August 2026, and the same arrangement again:
+  // its three documents may not exist and every field on them is generated.
+  // The log itself is not in Sanity at all — it is src/lib/changeData.ts.
+  const existingChanges = new Set(
+    docs
+      .filter((d) => d._type === "changesPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
+  // The enquiry page, added 31 August 2026 when the form stopped being a
+  // fragment on the home page and got an address of its own. Same arrangement
+  // as the log above: its three documents may not exist yet, and the parts of
+  // the page that are promises rather than prose — the three steps, the
+  // disclosure of who pays — are not in Sanity at all. They are in messages.
+  const existingEnquiryPage = new Set(
+    docs
+      .filter((d) => d._type === "enquiryPage")
       .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
@@ -257,6 +279,37 @@ async function run() {
       });
       planned += 1;
       console.log(`  ${doc._id.padEnd(28)} contact`);
+      continue;
+    }
+
+    if (doc._type === "enquiryPage") {
+      const copy = ENQUIRY_PAGE_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} enquiry`);
+      continue;
+    }
+
+    if (doc._type === "changesPage") {
+      const copy = CHANGES_PAGE_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          howToRead: copy.howToRead,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} rule changes`);
       continue;
     }
 
@@ -461,6 +514,43 @@ async function run() {
       enquiryLead: copy.enquiryLead,
       enquiryCta: copy.enquiryCta,
       identityLabel: copy.identityLabel,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `enquiryPage-${locale}`;
+    if (existingEnquiryPage.has(id)) continue;
+
+    const copy = ENQUIRY_PAGE_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "enquiryPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `changesPage-${locale}`;
+    if (existingChanges.has(id)) continue;
+
+    const copy = CHANGES_PAGE_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "changesPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      howToRead: copy.howToRead,
       seo: { _type: "seo", ...copy.seo, noIndex: false },
     });
     planned += 1;

@@ -1,0 +1,191 @@
+@use "../../../styles/mixins";
+
+// The foot of a guide, inside the prose column rather than across the page.
+//
+// NARROWER AND QUIETER THAN THE FORMS IT BORROWS FROM. AlertsSignup and the
+// enquiry block are full-bleed sections that interrupt a page; this one has to
+// sit at the end of a body of text without looking like an advertisement
+// somebody dropped into the article. So: the prose column's own measure, a
+// hairline box rather than a coloured band, and the same type scale as the
+// paragraphs above it.
+//
+// A BOX AND NOT A BAND, and that is the whole visual argument. A coloured
+// interruption at the foot of eleven minutes of sourced argument reads as the
+// moment the sales pitch starts, which is exactly the impression this site
+// spends every other page trying not to give.
+.section {
+  margin-top: var(--space-7);
+  padding: var(--space-5);
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  scroll-margin-block-start: var(--space-6);
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: -0.01em;
+  max-width: 24ch;
+}
+
+.body {
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+.form {
+  margin-top: var(--space-5);
+}
+
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.field + .field {
+  margin-top: var(--space-4);
+}
+
+.label {
+  @include mixins.eyebrow;
+
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+// Field and button on one line where there is room. The button does not shrink
+// and the field does — the reverse is how a submit button ends up two
+// characters wide on a narrow screen.
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.input,
+.textarea {
+  @include mixins.focus-ring;
+
+  inline-size: 100%;
+  min-inline-size: 0;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  padding: 0.7rem 0.85rem;
+  font-family: inherit;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+.input {
+  flex: 1 1 14rem;
+  min-block-size: 2.75rem;
+}
+
+.textarea {
+  display: block;
+  resize: vertical;
+}
+
+.button {
+  @include mixins.focus-ring;
+
+  flex: 0 0 auto;
+  min-block-size: 2.75rem;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: 0;
+  border-radius: var(--radius-s);
+  padding: 0.7rem 1.4rem;
+  font-family: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+}
+
+.consent {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  cursor: pointer;
+
+  input {
+    flex: 0 0 auto;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    margin-block-start: 0.15rem;
+  }
+}
+
+.fine,
+.longForm {
+  margin-top: var(--space-4);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.longForm {
+  margin-top: var(--space-3);
+}
+
+.fineLink {
+  @include mixins.link;
+}
+
+// --- Result panels ----------------------------------------------------------
+// Literal ids inside :global(), same as the other four forms — the route
+// redirects to `#ask-sent` and CSS Modules would otherwise scope the id out of
+// existence. All three are listed, including the one that says the fault is
+// ours: that one was omitted from two older forms and never displayed at all.
+.result {
+  display: none;
+  border: var(--border-hairline) solid var(--color-line);
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+:global(#ask-sent):target,
+:global(#ask-error):target,
+:global(#ask-failed):target {
+  display: block;
+}
+
+:global(#ask-sent):target ~ .form {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent);
+}
+
+.resultTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+}
+
+.resultBody {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}

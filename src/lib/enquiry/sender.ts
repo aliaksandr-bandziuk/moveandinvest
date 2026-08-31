@@ -176,14 +176,23 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
   const locale = isLocale(payload.locale) ? payload.locale : "en";
 
   const isBrief = payload.kind === "brief";
+  // The short block at the foot of a guide. Carries an address, a sentence and
+  // the guide's jurisdiction, and nothing else — so the email must not print
+  // rows for a budget and a timeline nobody was asked for.
+  const isArticle = payload.kind === "article";
 
   return {
     // The subject and the heading say which form it came from, because the
-    // two need different first moves: an enquiry from the home page is a
+    // three need different first moves: an enquiry from the long form is a
     // conversation about a country, a brief is a specific shopping list to
-    // hand to one partner. Reading the fields to work out which one it is
-    // takes a second longer than reading the heading, every single time.
-    heading: isBrief ? "Бриф по недвижимости" : "Новая заявка с сайта",
+    // hand to one partner, and an enquiry off the foot of a guide is somebody
+    // mid-read who has just found the sentence that applies to them — which is
+    // the one to answer first, while they are still on the page.
+    heading: isBrief
+      ? "Бриф по недвижимости"
+      : isArticle
+        ? "Заявка из гайда"
+        : "Новая заявка с сайта",
     openingLine: payload.name
       ? `${payload.name} — ${payload.email}`
       : `Без имени — ${payload.email}`,
@@ -199,11 +208,16 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
               { label: "Зачем", value: decode(PURPOSE, payload.purpose ?? "") },
             ]
           : []),
-        { label: "Бюджет", value: decode(BUDGET, payload.budget) },
-        ...(isBrief
+        // The short form asks for none of these three, so it prints none of
+        // them: a row reading "не указан" for a question nobody was asked is a
+        // row that makes the sender look evasive rather than brief.
+        ...(isArticle
+          ? []
+          : [{ label: "Бюджет", value: decode(BUDGET, payload.budget) }]),
+        ...(isBrief || isArticle
           ? []
           : [{ label: "Срок", value: decode(TIMELINE, payload.timeline) }]),
-        ...(isBrief ? [] : [{ label: "Цели", value: goals || "—" }]),
+        ...(isBrief || isArticle ? [] : [{ label: "Цели", value: goals || "—" }]),
         {
           label: "Своими словами",
           value: payload.situation || "Ничего не написал.",
@@ -214,6 +228,13 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
       heading: "Контекст",
       lines: [
         { label: "Язык страницы", value: LOCALE_LABEL[locale] },
+        // WHICH GUIDE IT CAME OFF, and the only place this fact is ever
+        // recorded. It is deliberately not sent to analytics — see the note on
+        // `source` in src/sanity/enquiries.ts — so if it is not in this email
+        // it is nowhere.
+        ...(payload.source
+          ? [{ label: "Со страницы", value: `/blog/${payload.source}` }]
+          : []),
         { label: "Согласие на передачу партнёру", value: payload.consentToShare ? "да" : "нет" },
         { label: "Время", value: formatSubmittedAt(payload.submittedAt) },
       ],
@@ -510,8 +531,23 @@ async function notify(subject: string, content: EmailContent, replyTo: string): 
  * it must not be able to report the whole thing as failed.
  */
 export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendResult> {
+  const label =
+    payload.kind === "brief"
+      ? "Бриф"
+      : payload.kind === "article"
+        ? "Заявка из гайда"
+        : "Заявка с сайта";
+  // WHAT GOES AFTER THE DASH. Normally the jurisdiction, which is what a
+  // subject line is for — you can triage a mailbox on it. A guide covering
+  // several countries sends no jurisdiction at all, and "Заявка из гайда — —"
+  // is a subject that triages nothing, so the guide's own slug stands in.
+  const about =
+    payload.where || !payload.source
+      ? decode(WHERE, payload.where)
+      : payload.source;
+
   const result = await notify(
-    `${payload.kind === "brief" ? "Бриф" : "Заявка с сайта"} — ${decode(WHERE, payload.where)}`,
+    `${label} — ${about}`,
     buildReaderInternal(payload),
     payload.email,
   );

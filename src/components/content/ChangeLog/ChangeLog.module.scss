@@ -1,0 +1,198 @@
+@use "../../../styles/mixins";
+
+// The rule-change log. Built on SourceTable's arrangement, and the borrowing is
+// deliberate: these are the site's two evidence pages and a reader who has
+// learned to read one should not have to learn the other. Same table that
+// becomes cards, same data-label mechanism, same nano-caps column heads.
+//
+// FOUR COLUMNS RATHER THAN THREE, which is the one structural difference and
+// the reason the widths below are not SourceTable's. Two of the four are
+// paragraphs, one is a citation and one is a date, so the date column is
+// narrow and fixed and the prose columns take what is left.
+
+.tableWrap {
+  margin-top: var(--space-5);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  text-align: left;
+}
+
+// Hidden by display on narrow screens, not by `visually-hidden`: every cell
+// carries its own data-label, and a header row announced as well would say
+// each column name twice.
+.head {
+  display: none;
+
+  @include mixins.breakpoint-up(md) {
+    display: table-header-group;
+
+    th {
+      @include mixins.figure-text;
+
+      padding: 0 var(--space-4) var(--space-3) 0;
+      font-size: var(--fs-nano);
+      line-height: var(--lh-nano);
+      letter-spacing: var(--tracking-eyebrow);
+      text-transform: uppercase;
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-muted);
+      border-bottom: var(--border-hairline) solid var(--color-text);
+      vertical-align: bottom;
+    }
+
+    th:nth-child(1) {
+      width: 14%;
+    }
+
+    th:nth-child(2) {
+      width: 34%;
+    }
+
+    th:nth-child(3) {
+      width: 26%;
+    }
+  }
+}
+
+.row {
+  display: block;
+  padding-block: var(--space-4);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    display: table-row;
+    padding-block: 0;
+  }
+}
+
+// A CHANGE WITH NO INSTRUMENT, MARKED IN TWO WAYS AT ONCE. The rule this site
+// follows for its figures applies here too: colour carries the status and the
+// status also carries a word. The rule down the left is the colour; the cell
+// itself says, in text, that no act could be found. Either alone fails — the
+// rule alone disappears in a printout and for a colourblind reader, the words
+// alone disappear when the column is scanned rather than read.
+.orphan {
+  @include mixins.breakpoint-up(md) {
+    box-shadow: inset 3px 0 0 0 var(--color-accent);
+  }
+
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--space-4);
+
+  @include mixins.breakpoint-up(md) {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+.date,
+.what,
+.instrument,
+.moved {
+  display: block;
+
+  @include mixins.breakpoint-up(md) {
+    display: table-cell;
+    padding: var(--space-4) var(--space-4) var(--space-4) 0;
+    border-bottom: var(--border-hairline) solid var(--color-hairline);
+    vertical-align: top;
+  }
+}
+
+.date {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.dateValue {
+  display: block;
+}
+
+// The jurisdiction, under the date. Not a column of its own: with five
+// jurisdictions and eighteen rows a sixth column would be four characters wide
+// and would cost the prose columns more than it returns.
+.country {
+  @include mixins.figure-text;
+
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.what {
+  margin-top: var(--space-3);
+
+  @include mixins.breakpoint-up(md) {
+    margin-top: 0;
+  }
+}
+
+.instrument,
+.moved {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+
+  @include mixins.breakpoint-up(md) {
+    margin-top: 0;
+  }
+}
+
+.instrument {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-small);
+}
+
+// The words that go with the accent rule. Accent rather than muted, because
+// this is the one cell on the page that is an argument rather than a citation.
+.missing {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+.working {
+  @include mixins.link;
+
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+}
+
+// The data-label prefix, shown only where the header row is hidden. On the
+// three cells that need one: the date explains itself, and so does the
+// jurisdiction under it.
+.what::before,
+.instrument::before,
+.moved::before {
+  @include mixins.figure-text;
+
+  content: attr(data-label);
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+
+  @include mixins.breakpoint-up(md) {
+    display: none;
+  }
+}
+
+// An empty fourth cell is common — plenty of rule changes moved nothing of ours
+// — and on cards an empty cell that still prints its own label is noise.
+.moved:empty {
+  display: none;
+}

@@ -23,7 +23,18 @@ import { hasConsent } from "@/lib/consent/consent";
 
 const STASH_KEY = "mi_lead";
 
-export type LeadKind = "enquiry" | "brief" | "partner" | "subscribe";
+// "article" is the short block at the foot of a guide. It is a separate kind
+// from "enquiry" rather than folded into it because the whole question this
+// measurement has to answer is which of the two surfaces produces leads, and a
+// shared label would make that unanswerable.
+//
+// ON `form_path` FOR THIS KIND: it will read /blog/greece-residency, which
+// names a jurisdiction. That is the same position this file already takes for
+// the property brief a few lines below — the country is in the URL, the URL is
+// about the submission rather than its contents, and what the reader CHOSE
+// inside a form is still never measured. Stated here so the next person to read
+// the warning does not have to decide it again.
+export type LeadKind = "enquiry" | "brief" | "partner" | "subscribe" | "article";
 
 export interface LeadDetail {
   kind: LeadKind;
@@ -72,7 +83,7 @@ export function takeLead(): LeadDetail | null {
     if (!raw) return null;
     sessionStorage.removeItem(STASH_KEY);
     const parsed = JSON.parse(raw) as Partial<LeadDetail>;
-    const KINDS: LeadKind[] = ["enquiry", "brief", "partner", "subscribe"];
+    const KINDS: LeadKind[] = ["enquiry", "brief", "partner", "subscribe", "article"];
     if (!KINDS.includes(parsed.kind as LeadKind)) return null;
     return {
       kind: parsed.kind as LeadKind,

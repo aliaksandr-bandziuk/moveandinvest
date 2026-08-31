@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { PortableText } from "next-sanity";
 import { buildArticleComponents } from "./articleComponents";
 import { ArticleToc } from "../ArticleToc/ArticleToc";
@@ -37,6 +38,18 @@ interface ArticleBodyProps {
   body: unknown;
   labels: ArticleBodyLabels;
   formatDate: (iso: string) => string;
+  /** THE ASK, and this component does not build it.
+   *
+   *  Passed in already assembled because the block needs three things this file
+   *  has no business fetching — the reader's own message catalogue, the
+   *  controller's address for the "this is our fault" panel, and the localised
+   *  href of /privacy and /enquiry. The page has all three; a body renderer
+   *  that reached for them would be a body renderer that has to be a server
+   *  component forever.
+   *
+   *  Optional so the component still renders for an entry with no ask — which
+   *  is what every entry had until 31 August 2026. */
+  ask?: ReactNode;
 }
 
 // One entry. Head, prose, and the line that makes this section different from
@@ -74,6 +87,7 @@ export function ArticleBody({
   body,
   labels,
   formatDate,
+  ask,
 }: ArticleBodyProps) {
   const revised = updatedAt.slice(0, 10) !== publishedAt.slice(0, 10);
   const headings = extractHeadings(body);
@@ -151,6 +165,15 @@ export function ArticleBody({
           <div className={styles.prose}>
             <PortableText value={body as never} components={components} />
           </div>
+
+          {/* IMMEDIATELY AFTER THE LAST SENTENCE, and before the author block
+              rather than after it. Every guide ends on the same promise in
+              prose — we are not lawyers, finding you one is what we do — and
+              for five guides in three languages that promise was followed by
+              nothing but a link back to the index. The place to act on a
+              sentence is where the sentence is; the author card underneath is a
+              credential, and a credential belongs after the ask it supports. */}
+          {ask}
 
           {/* AT THE END, WHERE A READER WHO FINISHED IS. No portrait: there
               isn't one yet, and a placeholder circle says less than nothing.

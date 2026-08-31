@@ -1,0 +1,81 @@
+@use "../../../styles/mixins";
+
+// The head of /enquiry: the headline, three steps, two links. The form below it
+// brings its own black band and its own rhythm, so nothing here styles it.
+//
+// NO WIDENED CONTAINER, unlike /sources and /changes. Those two are tables that
+// earn the full width; this is prose in three columns and a form, and stretching
+// it would only make the steps harder to read.
+.section {
+  @include mixins.section-rhythm;
+}
+
+.stepsHeading {
+  @include mixins.eyebrow;
+
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: var(--border-hairline) solid var(--color-text);
+  color: var(--color-text-muted);
+}
+
+// Three across from md up, stacked below it. A numbered list because the order
+// is the content — these happen one after another, and a reader who takes them
+// as three unrelated bullet points has been told something less true.
+.steps {
+  margin-top: var(--space-5);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-6);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}
+
+.step {
+  min-width: 0;
+}
+
+// Decorative: the list is already a list, and a screen reader announcing "zero
+// one" before every item adds counting to something already counted. Same
+// decision, same reason, as the section numbers in SectionHead.
+.stepIndex {
+  @include mixins.figure-text;
+
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-text-muted);
+}
+
+.stepTitle {
+  margin-top: var(--space-2);
+  font-size: var(--fs-body-lg);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.stepBody {
+  margin-top: var(--space-3);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+// The two links wrap onto their own lines on a narrow screen rather than
+// running together with a separator, which is how two links end up read as one.
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  margin-top: var(--space-6);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+
+  a {
+    @include mixins.link;
+  }
+}
