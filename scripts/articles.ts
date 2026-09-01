@@ -206,6 +206,40 @@ const ENTRIES: Record<string, EntryConfig> = {
     category: "rules",
     countries: ["country-ae"],
   },
+
+  "malta-residency": {
+    key: "article-malta-residency",
+    sources: {
+      en: "article-en-malta-residency.md",
+      ru: "article-ru-malta-residency.md",
+      pl: "article-pl-malta-residency.md",
+    },
+    // THE SAME THREE PICTURES IN THE SAME ORDER IN ALL THREE LANGUAGES, unlike
+    // the Emirati entry above — and the reason is that the Maltese argument has
+    // one shape whoever is reading it. Cost, then presence, then the three
+    // tests: the English version opens on the inversion between the first two,
+    // the Russian one opens on eligibility and the Polish one on a clock that
+    // is already running in Poland, but all three arrive at the same three
+    // pictures in the same order, because that is the order the numbers make
+    // sense in.
+    //
+    // The Polish version reaches the third one latest, in its own tax section,
+    // which is fine: the markers are indexed rather than sequential, so a
+    // language may place them where its own argument needs them.
+    figures: {
+      en: ["mt-cost-en", "mt-presence-en", "mt-tests-en"],
+      ru: ["mt-cost-ru", "mt-presence-ru", "mt-tests-ru"],
+      pl: ["mt-cost-pl", "mt-presence-pl", "mt-tests-pl"],
+    },
+    publishedAt: "2026-09-01T09:00:00.000Z",
+    // "relocation", like Portugal and Greece: this is the last of the moving
+    // guides the footer has promised since launch, and what a reader takes from
+    // it is what living there involves rather than what one instrument says.
+    // The citizenship material is here because it changes what the residence is
+    // worth, not because the entry is about a court judgment.
+    category: "relocation",
+    countries: ["country-mt"],
+  },
 };
 
 /** The entry this run publishes, chosen with `--entry <name>`.
@@ -658,12 +692,21 @@ async function run() {
     // had never been copied to the machine running this. Failing on the fourth
     // language's second figure would have left assets uploaded and no document
     // referencing them; the dry run has to touch everything the write touches.
+    //
+    // AND THE MESSAGE BELOW USED TO NAME THE WRONG COMMAND, which cost a real
+    // publish run on 1 September 2026. What this reads is public/figures/WEB —
+    // the self-contained SVGs with their fonts subsetted and embedded — and
+    // `npm run figures` does not write those. It writes the plain SVGs one
+    // directory up. The embedded copies come from embed.mjs, which runs inside
+    // `npm run figures:verify`. Telling somebody to run the command they have
+    // already run is worse than saying nothing: they run it again, nothing
+    // changes, and the next thing they doubt is the file list.
     const missing = config.figures[parsed.locale].filter(
       (name) => !existsSync(join(FIGURES, `${name}.svg`)),
     );
     if (missing.length > 0) {
       throw new Error(
-        `${parsed.locale}: missing ${missing.map((name) => `${name}.svg`).join(", ")} in public/figures/web. Run \`npm run figures\` first.`,
+        `${parsed.locale}: missing ${missing.map((name) => `${name}.svg`).join(", ")} in public/figures/web. Those are the font-embedded copies: run \`npm run figures\` to draw them and then \`npm run figures:verify\`, which is what writes public/figures/web.`,
       );
     }
   }

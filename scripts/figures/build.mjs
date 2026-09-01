@@ -753,6 +753,50 @@ function grTiers(L) {
   return frame(width, height, L.figures.grTiers.title, L.eyebrow, L.checked(L.dates.greece), body, L.figures.grTiers.note);
 }
 
+
+// --- Malta ------------------------------------------------------------------
+// Every line of what one MPRP applicant pays ABOVE the price of the property,
+// on each of the two routes. Written once here, in euro, and the words come
+// from L — see the note at the top of this file about why a figure's numbers
+// may not be duplicated per language.
+//
+// The two totals are NOT the sum of the rows drawn. Notary and legal fees are
+// real, are not a published tariff, and are the difference between €118,250 of
+// listed items and the ~€126,000 the guide states. So the rows are drawn, the
+// total is drawn, and the gap between them is what the note explains rather
+// than something the picture pretends is not there.
+const MT_COST = {
+  buy: [
+    { key: "stamp", value: 18750 },
+    { key: "admin", value: 60000 },
+    { key: "contribution", value: 37000 },
+    { key: "ngo", value: 2000 },
+    { key: "card", value: 500 },
+  ],
+  rent: [
+    { key: "rent", value: 14000 },
+    { key: "admin", value: 60000 },
+    { key: "contribution", value: 37000 },
+    { key: "ngo", value: 2000 },
+    { key: "card", value: 500 },
+  ],
+  buyTotal: 126000,
+  rentTotal: 113500,
+};
+
+// Months of the year each route requires you to be in Malta. Twelve boxes is
+// the common unit; `months: null` is the case this whole figure exists for.
+const MT_PRESENCE = [
+  { key: "mprp", months: null },
+  { key: "nomad", months: 5 },
+  { key: "naturalisation", months: 12 },
+];
+
+// The three gates, each with the instrument that decides it. Drawn as a table
+// rather than a flow, because they are not sequential — you can pass any one
+// without the others.
+const MT_TESTS = ["live", "taxed", "taxedOn"];
+
 // --- Figure 11: the same permit, two outcomes --------------------------------
 // THE YEAR NUMBERS ARE DRAWN INSIDE THEIR BLOCKS ON PURPOSE. check.mjs flags a
 // label that grows into a bar from outside it; a label centred within one does
@@ -909,6 +953,116 @@ function aeTax(L) {
   return frame(width, height, L.figures.aeTax.title, L.eyebrow, L.checked(L.dates.uae), body, L.figures.aeTax.note);
 }
 
+
+// --- Malta 1: every line of the cost, on both routes -------------------------
+// TWO COLUMNS AND NOT A STACKED BAR, and the first draft was a stacked bar.
+// Five segments of which two are €2,000 and €500 cannot carry a label inside
+// them at this width, and check.mjs is right to fail a label that grows out of
+// the shape it belongs to. A table states the same five numbers and states them
+// legibly, which is the whole job.
+function mtCost(L) {
+  const width = 1200;
+  const height = 700;
+  const xRight = 620;
+  let body = "";
+
+  body += text(48, 200, L.mtCostHeads.buy, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xRight, 200, L.mtCostHeads.rent, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="48" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  const column = (x, rows, total, totalLabel) => {
+    rows.forEach((row, i) => {
+      const y = 262 + i * 52;
+      body += text(x, y, L.mtCost[row.key], { size: 16 });
+      body += text(x + 500, y, L.amount(row.value), {
+        size: 17, family: FONT_MONO, anchor: "end", fill: C.text,
+      });
+    });
+    const yTotal = 262 + rows.length * 52 + 22;
+    body += `<line x1="${x}" y1="${yTotal - 30}" x2="${x + 500}" y2="${yTotal - 30}" stroke="${C.line}" stroke-width="1"/>`;
+    body += text(x, yTotal, totalLabel, { size: 16, weight: 600 });
+    body += text(x + 500, yTotal, L.amount(total), {
+      size: 19, weight: 600, family: FONT_MONO, anchor: "end", fill: C.accent,
+    });
+  };
+
+  column(48, MT_COST.buy, MT_COST.buyTotal, L.mtCostTotals.buy);
+  column(xRight, MT_COST.rent, MT_COST.rentTotal, L.mtCostTotals.rent);
+
+  return frame(width, height, L.figures.mtCost.title, L.eyebrow, L.checked(L.dates.malta), body, L.figures.mtCost.note);
+}
+
+// --- Malta 2: months of the year each route demands --------------------------
+// THE ROW THAT IS THE POINT IS THE EMPTY ONE. Twelve dashed boxes and a word,
+// because a blank row reads as an oversight and the finding is that Malta
+// publishes nothing here. The word is drawn in the accent for the same reason
+// every status on this site carries one: colour alone does not survive a
+// printout or a colourblind reader.
+function mtPresence(L) {
+  const width = 1200;
+  // 720, not 664. At 664 the third row's boxes ended at y=580 and the frame
+  // draws its own note at height − 92 = 572, so the note ran through the last
+  // bar. check.mjs caught it; the arithmetic in my head did not.
+  const height = 720;
+  const boxW = 58;
+  const boxGap = 8;
+  let body = "";
+
+  MT_PRESENCE.forEach((track, i) => {
+    const top = 210 + i * 140;
+    body += text(48, top, L.mtPresence[track.key], { size: 17, weight: 500 });
+    // THE RESULT IS RIGHT-ALIGNED ON THE LABEL LINE, not in a column beside the
+    // boxes. Twelve boxes reach x=832 and the margin is 1152, which left 252px
+    // for a phrase that is 274px in Russian and 283px in Polish — so the first
+    // draft put two of the three labels off the canvas. Anchoring to the right
+    // margin cannot overflow it whatever the language does to the wording.
+    body += text(width - 48, top, L.mtPresenceResults[track.key], {
+      size: 16, weight: 500, anchor: "end",
+      fill: track.months === null ? C.accent : C.text,
+    });
+    body += text(48, top + 26, L.mtPresenceNotes[track.key], { size: 13, fill: C.muted });
+
+    const boxTop = top + 48;
+    for (let m = 0; m < 12; m += 1) {
+      const x = 48 + m * (boxW + boxGap);
+      const filled = track.months !== null && m < track.months;
+      if (filled) {
+        body += `<rect x="${x}" y="${boxTop}" width="${boxW}" height="42" fill="${C.accent}"/>`;
+      } else {
+        body += `<rect x="${x}" y="${boxTop}" width="${boxW}" height="42" fill="${C.bg}" stroke="${C.line}" stroke-width="1" stroke-dasharray="4 4"/>`;
+      }
+    }
+  });
+
+  return frame(width, height, L.figures.mtPresence.title, L.eyebrow, L.checked(L.dates.malta), body, L.figures.mtPresence.note);
+}
+
+// --- Malta 3: three gates, three instruments ---------------------------------
+function mtTests(L) {
+  const width = 1200;
+  const height = 620;
+  const xInstrument = 700;
+  let body = "";
+
+  body += text(48, 200, L.mtTestsHeads.question, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xInstrument, 200, L.mtTestsHeads.decidedBy, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="48" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  MT_TESTS.forEach((key, i) => {
+    const y = 268 + i * 108;
+    body += text(48, y, L.mtTests[key], { size: 17, weight: 500 });
+    body += text(48, y + 26, L.mtTestsNotes[key], { size: 13, fill: C.muted });
+    body += text(xInstrument, y, L.mtTestsInstruments[key], {
+      size: 15, family: FONT_MONO, fill: C.text,
+    });
+    if (i < MT_TESTS.length - 1) {
+      body += `<line x1="48" y1="${y + 58}" x2="${width - 48}" y2="${y + 58}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(width, height, L.figures.mtTests.title, L.eyebrow, L.checked(L.dates.malta), body, L.figures.mtTests.note);
+}
+
 // --- Strings ----------------------------------------------------------------
 const money = (locale) => (v) => {
   const f = (n) => new Intl.NumberFormat(locale === "en" ? "en-GB" : locale).format(n).replace(/ /g, " ");
@@ -930,13 +1084,55 @@ const plYears = (n) => `${slavicYears("rok", "lata", "lat")(n)} temu`;
 
 const L = {
   ru: {
+    // --- Malta ---------------------------------------------------------------
+    mtCostHeads: { buy: "Маршрут покупки, сверх цены объекта", rent: "Маршрут аренды, первый год" },
+    mtCost: {
+      stamp: "Гербовый сбор, 5%",
+      admin: "Административный сбор",
+      contribution: "Государственный взнос",
+      ngo: "Пожертвование НКО",
+      card: "Карта резидента",
+      rent: "Аренда за год",
+    },
+    mtCostTotals: { buy: "Итого сверх цены", rent: "Итого за первый год" },
+    mtPresence: {
+      mprp: "Постоянное резидентство",
+      nomad: "Кочевой пермит",
+      naturalisation: "Натурализация, последний год",
+    },
+    mtPresenceNotes: {
+      mprp: "Около 126 000 € сверх цены объекта",
+      nomad: "Порог дохода 42 000 € в год",
+      naturalisation: "Плюс четыре года внутри шести до него",
+    },
+    mtPresenceResults: {
+      mprp: "Правило не опубликовано",
+      nomad: "5 месяцев из 12",
+      naturalisation: "12 месяцев непрерывно",
+    },
+    mtTestsHeads: { question: "Вопрос", decidedBy: "Чем решается" },
+    mtTests: {
+      live: "Можно ли вам жить на Мальте",
+      taxed: "Облагает ли вас Мальта",
+      taxedOn: "С чего именно облагает",
+    },
+    mtTestsNotes: {
+      live: "На это и отвечает сертификат MPRP",
+      taxed: "Сертификат к этому отношения не имеет",
+      taxedOn: "Всемирный доход либо только переведённое",
+    },
+    mtTestsInstruments: {
+      live: "S.L. 217.26",
+      taxed: "Более 183 дней в году",
+      taxedOn: "Домицилий и обычное резидентство",
+    },
     eyebrow: "Гайды и исследования",
     // A FUNCTION OF THE DATE, not a sentence per figure. Two entries were
     // checked on two different days, and a second copy of this sentence with a
     // different date in it is a sentence that will eventually disagree with
     // itself in one language and not the others.
     checked: (date) => `Все цифры сверены с первоисточником ${date}`,
-    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года" },
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года" },
     ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
     ptRoutes: {
       d7: "D7, собственный доход",
@@ -1135,6 +1331,18 @@ const L = {
       z250: "Только перевод в жильё или реставрация,\nработы завершены до подачи",
     },
     figures: {
+      mtCost: {
+        title: "Сколько стоит ПМЖ Мальты сверх цены объекта",
+        note: "Ряды покупки дают 118 250 €; до примерно 126 000 € добавляют нотариус и юрист, у которых тарифа нет.",
+      },
+      mtPresence: {
+        title: "Сколько месяцев в году требует каждый маршрут",
+        note: "Пустой ряд — находка, а не пропуск: 1 сентября 2026 года обойдено пять реестров Мальты, правила там нет.",
+      },
+      mtTests: {
+        title: "Три вопроса, которые Мальта решает по-разному",
+        note: "Сертификат MPRP отвечает только на первый. Два других решаются без него.",
+      },
       ptRoutes: {
         title: "Какие маршруты ВНЖ в Португалии существуют в 2026 году",
         note: "Инвестиционный маршрут снимает визу, но не подтверждение средств: ст. 90-A(1)(a).",
@@ -1196,9 +1404,51 @@ const L = {
   },
 
   en: {
+    // --- Malta ---------------------------------------------------------------
+    mtCostHeads: { buy: "Purchase route, above the price", rent: "Rental route, first year" },
+    mtCost: {
+      stamp: "Stamp duty, 5%",
+      admin: "Administrative fee",
+      contribution: "Government contribution",
+      ngo: "Donation to an NGO",
+      card: "Residence card",
+      rent: "Rent for the year",
+    },
+    mtCostTotals: { buy: "Total above the price", rent: "Total, first year" },
+    mtPresence: {
+      mprp: "Permanent residence programme",
+      nomad: "Nomad residence permit",
+      naturalisation: "Naturalisation, final year",
+    },
+    mtPresenceNotes: {
+      mprp: "About 126,000 € above the price of the property",
+      nomad: "Income floor 42,000 € a year",
+      naturalisation: "Plus four years inside the six before it",
+    },
+    mtPresenceResults: {
+      mprp: "No published rule",
+      nomad: "5 months of 12",
+      naturalisation: "12 continuous months",
+    },
+    mtTestsHeads: { question: "The question", decidedBy: "Decided by" },
+    mtTests: {
+      live: "Whether you may live in Malta",
+      taxed: "Whether Malta taxes you",
+      taxedOn: "What Malta taxes you on",
+    },
+    mtTestsNotes: {
+      live: "This is what the MPRP certificate answers",
+      taxed: "The certificate has no bearing on it",
+      taxedOn: "Worldwide income, or only what is remitted",
+    },
+    mtTestsInstruments: {
+      live: "S.L. 217.26",
+      taxed: "More than 183 days in a year",
+      taxedOn: "Domicile and ordinary residence",
+    },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026" },
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
@@ -1397,6 +1647,18 @@ const L = {
       z250: "Conversion or restoration only,\nworks completed before filing",
     },
     figures: {
+      mtCost: {
+        title: "What Maltese permanent residence costs above the property",
+        note: "The purchase rows come to 118,250 €; notary and legal fees, which carry no published tariff, take it to about 126,000 €.",
+      },
+      mtPresence: {
+        title: "How many months a year each route demands",
+        note: "The empty row is a finding rather than an omission: five Maltese registers were walked on 1 September 2026 and none states a rule.",
+      },
+      mtTests: {
+        title: "Three questions Malta decides in three different ways",
+        note: "The MPRP certificate answers only the first. The other two are decided without it.",
+      },
       ptRoutes: {
         title: "Which Portuguese residence routes exist in 2026",
         note: "The investment permit waives the visa, not the means-of-subsistence test: art. 90-A(1)(a).",
@@ -1458,9 +1720,51 @@ const L = {
   },
 
   pl: {
+    // --- Malta ---------------------------------------------------------------
+    mtCostHeads: { buy: "Ścieżka zakupu, ponad cenę", rent: "Ścieżka najmu, pierwszy rok" },
+    mtCost: {
+      stamp: "Opłata skarbowa, 5%",
+      admin: "Opłata administracyjna",
+      contribution: "Wkład rządowy",
+      ngo: "Darowizna na NGO",
+      card: "Karta pobytu",
+      rent: "Czynsz za rok",
+    },
+    mtCostTotals: { buy: "Razem ponad cenę", rent: "Razem, pierwszy rok" },
+    mtPresence: {
+      mprp: "Program stałego pobytu",
+      nomad: "Zezwolenie dla nomadów",
+      naturalisation: "Naturalizacja, ostatni rok",
+    },
+    mtPresenceNotes: {
+      mprp: "Około 126 000 € ponad cenę nieruchomości",
+      nomad: "Próg dochodu 42 000 € rocznie",
+      naturalisation: "Plus cztery lata wewnątrz sześciu przed nim",
+    },
+    mtPresenceResults: {
+      mprp: "Brak opublikowanej zasady",
+      nomad: "5 miesięcy z 12",
+      naturalisation: "12 nieprzerwanych miesięcy",
+    },
+    mtTestsHeads: { question: "Pytanie", decidedBy: "Rozstrzyga" },
+    mtTests: {
+      live: "Czy wolno ci mieszkać na Malcie",
+      taxed: "Czy Malta cię opodatkuje",
+      taxedOn: "Od czego opodatkuje",
+    },
+    mtTestsNotes: {
+      live: "Na to odpowiada certyfikat MPRP",
+      taxed: "Certyfikat nie ma z tym związku",
+      taxedOn: "Dochód światowy albo tylko transfer",
+    },
+    mtTestsInstruments: {
+      live: "S.L. 217.26",
+      taxed: "Ponad 183 dni w roku",
+      taxedOn: "Domicyl i zwykła rezydencja",
+    },
     eyebrow: "Poradniki i badania",
     checked: (date) => `Każda liczba sprawdzona ze źródłem pierwotnym ${date}`,
-    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  , uae: "30 sierpnia 2026 roku" },
+    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  , uae: "30 sierpnia 2026 roku", malta: "1 września 2026 roku" },
     ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
     ptRoutes: {
       d7: "D7, dochód własny",
@@ -1671,6 +1975,18 @@ const L = {
       note: "Obywatel UE ma swobodę przepływu osób. Polska karta pobytu nie daje prawa zamieszkania w innym państwie członkowskim.",
     },
     figures: {
+      mtCost: {
+        title: "Ile kosztuje stały pobyt na Malcie ponad cenę nieruchomości",
+        note: "Wiersze zakupu dają 118 250 €; notariusz i prawnik, dla których nie ma taryfy, podnoszą to do około 126 000 €.",
+      },
+      mtPresence: {
+        title: "Ile miesięcy w roku wymaga każda ścieżka",
+        note: "Pusty wiersz to ustalenie, a nie przeoczenie: 1 września 2026 obeszliśmy pięć maltańskich rejestrów i żaden nie podaje zasady.",
+      },
+      mtTests: {
+        title: "Trzy pytania, które Malta rozstrzyga inaczej",
+        note: "Certyfikat MPRP odpowiada tylko na pierwsze. Dwa pozostałe rozstrzygają się bez niego.",
+      },
       ptRoutes: {
         title: "Które ścieżki pobytowe w Portugalii istnieją w 2026 roku",
         note: "Ścieżka inwestycyjna znosi wizę, nie badanie środków utrzymania: art. 90-A(1)(a).",
@@ -1752,6 +2068,9 @@ const PLAN = {
     ["ae-chain", aeChain],
     ["ae-absence", aeAbsence],
     ["ae-tax", aeTax],
+    ["mt-cost", mtCost],
+    ["mt-presence", mtPresence],
+    ["mt-tests", mtTests],
   ],
   en: [
     ["qualifies", qualifies],
@@ -1769,6 +2088,9 @@ const PLAN = {
     ["ae-chain", aeChain],
     ["ae-absence", aeAbsence],
     ["ae-tax", aeTax],
+    ["mt-cost", mtCost],
+    ["mt-presence", mtPresence],
+    ["mt-tests", mtTests],
   ],
   pl: [
     ["qualifies", qualifies],
@@ -1786,6 +2108,9 @@ const PLAN = {
     ["ae-chain", aeChain],
     ["ae-absence", aeAbsence],
     ["ae-tax", aeTax],
+    ["mt-cost", mtCost],
+    ["mt-presence", mtPresence],
+    ["mt-tests", mtTests],
   ],
 };
 
