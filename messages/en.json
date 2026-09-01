@@ -218,7 +218,7 @@
     "noInstrument": "No published act",
     "seeWorking": "See the working →",
     "toSources": "Every figure and its source →",
-    "notCovered": "{countries} have no rows: nobody has checked them yet, which is not the same as nothing having happened.",
+    "notCovered": "No rows yet for {countries}: nobody has checked, which is not the same as nothing having happened.",
     "reviewedOn": "The whole log was last gone through on {date}.",
     "updatedOn": "A row last changed on {date}.",
     "cadence": "It is reviewed in full whenever a jurisdiction is researched for a guide, which is the cadence this project can actually keep rather than a month it cannot."

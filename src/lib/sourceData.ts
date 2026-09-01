@@ -156,6 +156,12 @@ const CHECKED_2026_08_30: Record<Locale, string> = {
   pl: "30 sierpnia 2026",
 };
 
+const CHECKED_2026_09_01: Record<Locale, string> = {
+  en: "1 September 2026",
+  ru: "1 сентября 2026 года",
+  pl: "1 września 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
@@ -163,6 +169,7 @@ export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-08-25": CHECKED_2026_08_25,
   "2026-08-28": CHECKED_2026_08_28,
   "2026-08-30": CHECKED_2026_08_30,
+  "2026-09-01": CHECKED_2026_09_01,
 };
 
 /** The date that governs every row not carrying its own. */
@@ -615,6 +622,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "\u201ePróg €300 000\u201d",
         },
         verdict: "corrected",
+        checked: "2026-09-01",
         finding: {
           en: "€300,000 was the south-Malta and Gozo threshold before the reform; there is no regional difference any more. Under L.N. 310/2024 from 1 January 2025 and L.N. 146/2025 of 22 July 2025: purchase €375,000 anywhere, or rent €14,000 a year; government contribution €37,000 either way; administrative fee €60,000 for the main applicant; NGO donation €2,000; €7,500 per dependant, with spouse, minor children and adult children with a disability free; card €500 per person. Held for five years. Plus proof of assets: €500,000 of which €150,000 financial, or €650,000 of which €75,000.",
           ru: "€300 000 — это порог для юга Мальты и Гозо до реформы; региональной разницы больше нет. По L.N. 310/2024 с 1 января 2025 года и L.N. 146/2025 от 22 июля 2025 года: покупка €375 000 где угодно либо аренда €14 000 в год; государственный взнос €37 000 в обоих случаях; административный сбор €60 000 на основного заявителя; пожертвование НКО €2 000; €7 500 за иждивенца, при этом супруг, несовершеннолетние дети и совершеннолетние дети с инвалидностью — бесплатно; карта €500 с человека. Держать пять лет. Плюс подтверждение активов: €500 000, из них €150 000 финансовых, либо €650 000, из них €75 000.",
@@ -660,6 +668,62 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Opłata skarbowa to 5% od wyższej z ceny i wartości rynkowej (1% z góry przy przyrzeczeniu sprzedaży). Główny wnioskodawca, ścieżka zakupu: €375 000 + €18 750 + €60 000 + €37 000 + €2 000 + €500 plus notariusz i prawnik, około €126 000 ponad cenę nieruchomości. Ścieżka najmu: około €113 500 w pierwszym roku bez opłaty skarbowej i około €190–205 tys. przez pięć lat najmu.",
         },
       },
+      {
+        subject: {
+          en: "How long you must actually be in Malta",
+          ru: "Сколько на самом деле надо быть на Мальте",
+          pl: "Ile naprawdę trzeba przebywać na Malcie",
+        },
+        verdict: "unverified",
+        checked: "2026-09-01",
+        finding: {
+          en: "Malta publishes no minimum-presence rule for this programme, and that is not the same as there being none. Five places were walked on 1 September 2026: S.L. 217.26 on the legislation portal (served through a viewer, no text), the agency's own consolidated PDF of it (no text layer), the agents' handbook (silent, and it says the legislation prevails), the MPRP FAQ that would have answered it (404 — withdrawn), and the agency's Compliance page (“Nothing Found”). Treat any figure a broker quotes for this as unsourced.",
+          ru: "Мальта не публикует правила о минимальном присутствии для этой программы, и это не то же самое, что его нет. 1 сентября 2026 года обойдено пять мест: S.L. 217.26 на портале законодательства (отдаётся через просмотрщик, текста нет), собственный сводный PDF агентства (без текстового слоя), справочник агентов (молчит и сам отсылает к законодательству), FAQ по MPRP, где ответ и был бы (404 — документ убран), и страница Compliance агентства («Nothing Found»). Любую цифру, которую называет здесь брокер, считайте неподтверждённой.",
+          pl: "Malta nie publikuje zasady minimalnej obecności dla tego programu, a to nie to samo, co jej brak. 1 września 2026 obeszliśmy pięć miejsc: S.L. 217.26 na portalu legislacyjnym (podawane przez przeglądarkę, bez tekstu), własny skonsolidowany PDF agencji (bez warstwy tekstowej), podręcznik agentów (milczy i sam odsyła do ustawodawstwa), FAQ MPRP, gdzie odpowiedź by była (404 — dokument wycofany), oraz stronę Compliance agencji („Nothing Found”). Każdą liczbę, którą poda tu pośrednik, traktuj jako niepotwierdzoną.",
+        },
+      },
+      {
+        subject: {
+          en: "What you owe every year after the certificate",
+          ru: "Что вы должны каждый год после сертификата",
+          pl: "Co jesteś winien co roku po certyfikacie",
+        },
+        verdict: "added",
+        checked: "2026-09-01",
+        finding: {
+          en: "Not a one-off purchase. The agents' handbook requires, at annual compliance, “proof of property lease, via the presentation of a contract of lease, as well as proof of sickness insurance cover” every year for the first five years, and thereafter whenever the Agency deems it necessary. No brochure we read mentions it.",
+          ru: "Это не разовая покупка. Справочник агентов требует при ежегодной проверке «подтверждение аренды недвижимости в виде договора аренды, а также подтверждение медицинского страхования» каждый год первые пять лет, а дальше — когда агентство сочтёт нужным. Ни в одной прочитанной брошюре этого нет.",
+          pl: "To nie jednorazowy zakup. Podręcznik agentów wymaga przy corocznej kontroli „dowodu najmu nieruchomości w postaci umowy najmu, a także dowodu ubezpieczenia zdrowotnego” co roku przez pierwsze pięć lat, a potem gdy Agencja uzna to za konieczne. Żadna przeczytana broszura o tym nie wspomina.",
+        },
+      },
+      {
+        subject: {
+          en: "Residence and tax residence are two different tests",
+          ru: "Резидентство и налоговое резидентство — два разных теста",
+          pl: "Pobyt i rezydencja podatkowa to dwa różne testy",
+        },
+        verdict: "added",
+        checked: "2026-09-01",
+        finding: {
+          en: "Three tests, decided separately. Whether you may live in Malta: S.L. 217.26. Whether Malta taxes you: the tax administration's own words, “When an individual is present in Malta for more than 183 days (in any particular year) they will be considered as tax residence in Malta for that year.” What Malta taxes you on: “Those who are considered as ordinary resident and domiciled in Malta are subject to tax on a worldwide basis, whilst those who are either not domiciled or not ordinarily resident in Malta are only taxable on a remittance basis.” The MPRP triggers none of the last two.",
+          ru: "Три теста, решаемые порознь. Можно ли вам жить на Мальте — S.L. 217.26. Облагает ли вас Мальта — дословно у налоговой: «Когда человек находится на Мальте более 183 дней (в конкретном году), он считается налоговым резидентом Мальты в этом году». С чего облагает — «Те, кто считается обычным резидентом и домицилированным на Мальте, платят налог со всемирного дохода, а те, кто либо не домицилирован, либо не является обычным резидентом, облагаются только на основе перевода средств». MPRP не запускает ни один из двух последних.",
+          pl: "Trzy testy, rozstrzygane osobno. Czy wolno ci mieszkać na Malcie — S.L. 217.26. Czy Malta cię opodatkuje — dosłownie u administracji podatkowej: „Gdy osoba przebywa na Malcie dłużej niż 183 dni (w danym roku), uznaje się ją za rezydenta podatkowego Malty w tym roku”. Od czego opodatkuje — „Osoby uznane za zwykłych rezydentów i domicylowane na Malcie podlegają opodatkowaniu od dochodu światowego, natomiast osoby niedomicylowane lub niebędące zwykłymi rezydentami są opodatkowane wyłącznie na zasadzie transferu”. MPRP nie uruchamia żadnego z dwóch ostatnich.",
+        },
+      },
+      {
+        subject: {
+          en: "The cheap route is the one that requires you to be there",
+          ru: "Присутствия требует как раз дешёвый маршрут",
+          pl: "Obecności wymaga właśnie tania ścieżka",
+        },
+        verdict: "added",
+        checked: "2026-09-01",
+        finding: {
+          en: "The Nomad Residence Permit costs a fraction of the MPRP and is the one with a presence rule: renewal needs “a bank statement showing payment transactions carried out in Malta as proof that they have resided in Malta for a cumulative period of at least five (5) months over the previous twelve (12) months.” Income floor €42,000 a year (€32,400 for applications before 1 April 2024), one year at a time, three renewals, four years maximum, 10% on authorised work under S.L. 123.210. The programme costing about €126,000 above the price of a flat publishes no presence rule at all.",
+          ru: "Кочевой пермит стоит долю от MPRP — и именно у него есть правило присутствия: для продления нужна «выписка по счёту с операциями, совершёнными на Мальте, как подтверждение проживания на Мальте в совокупности не менее пяти (5) месяцев за предыдущие двенадцать (12) месяцев». Порог дохода €42 000 в год (€32 400 для заявок до 1 апреля 2024 года), по году за раз, три продления, максимум четыре года, 10% на разрешённую работу по S.L. 123.210. Программа, которая стоит около €126 000 сверх цены квартиры, правила присутствия не публикует вовсе.",
+          pl: "Zezwolenie dla nomadów kosztuje ułamek MPRP — i to ono ma zasadę obecności: do przedłużenia potrzebny jest „wyciąg bankowy pokazujący transakcje płatnicze przeprowadzone na Malcie jako dowód, że przebywali na Malcie łącznie co najmniej pięć (5) miesięcy w ciągu poprzednich dwunastu (12) miesięcy”. Próg dochodu €42 000 rocznie (€32 400 dla wniosków sprzed 1 kwietnia 2024), po roku naraz, trzy przedłużenia, maksymalnie cztery lata, 10% od pracy dozwolonej wg S.L. 123.210. Program kosztujący około €126 000 ponad cenę mieszkania nie publikuje żadnej zasady obecności.",
+        },
+      },
     ],
     sources: [
       {
@@ -685,6 +749,31 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         citation: "MTCA — buying property",
         url: "https://mtca.gov.mt/personal-tax/property-taxes/buying-property",
+        kind: "official",
+      },
+      {
+        citation: "Residency Malta — Nomad Residence Permit FAQ v14.1, 17 April 2026",
+        url: "https://nomad.residencymalta.gov.mt/new-faqs/",
+        kind: "official",
+      },
+      {
+        citation: "MTCA — tax residence",
+        url: "https://mtca.gov.mt/personal-tax/individual/tax-residence",
+        kind: "official",
+      },
+      {
+        citation: "MTCA — Nomad Residence Permits (Income Tax) Rules, S.L. 123.210, guidelines of 12 March 2026",
+        url: "https://mtca.gov.mt/docs/default-source/documents/personal-tax/legal-and-technical/guidelines/nomad-guidelines---12-03-2026.pdf",
+        kind: "official",
+      },
+      {
+        citation: "Residency Malta — legal framework, MPRP",
+        url: "https://residencymalta.gov.mt/legal-framework-mprp-2/",
+        kind: "official",
+      },
+      {
+        citation: "S.L. 217.26 on the legislation portal — consolidated 22 July 2025",
+        url: "https://legislation.mt/eli/sl/217.26/eng",
         kind: "official",
       },
     ],
@@ -1004,10 +1093,11 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Malta — obywatelstwo za inwestycje",
         },
         verdict: "withdrawn",
+        checked: "2026-09-01",
         finding: {
-          en: "Closed. After the Court of Justice ruling in C-181/23 of 29 April 2025 the ESDI scheme was replaced by Act XXI of 2025 and the S.L. 188.06 rules: naturalisation for merit in science, sport, culture or philanthropy, with at least eight months of residence — payment alone does not qualify. Ordinary naturalisation is four years out of the last six plus twelve continuous months before applying.",
-          ru: "Закрыто. После решения Суда ЕС по делу C-181/23 от 29 апреля 2025 года схема ESDI заменена Актом XXI/2025 и правилами S.L. 188.06: натурализация за заслуги в науке, спорте, культуре и благотворительности, с проживанием не менее восьми месяцев, — платёж сам по себе не квалифицирует. Обычная натурализация — четыре года из последних шести плюс двенадцать непрерывных месяцев перед подачей.",
-          pl: "Zamknięte. Po wyroku Trybunału Sprawiedliwości w sprawie C-181/23 z 29 kwietnia 2025 schemat ESDI zastąpiono Aktem XXI z 2025 i przepisami S.L. 188.06: naturalizacja za zasługi w nauce, sporcie, kulturze i filantropii, przy pobycie co najmniej ośmiu miesięcy — sama płatność nie kwalifikuje. Zwykła naturalizacja to cztery lata z ostatnich sześciu plus dwanaście nieprzerwanych miesięcy przed złożeniem wniosku.",
+          en: "Closed, and not by replacement. After C-181/23 of 29 April 2025, Act XXI of 2025 and L.N. 159 of 2025 AMENDED the condemned scheme's own regulations: S.L. 188.06, in force since 20 November 2020, was rewritten into naturalisation on the basis of merit under art. 10(9) of Cap. 188 — science and research, technology, sport, entrepreneurship including job creation, culture and the arts, philanthropy. At least eight months of residence, and the formal application must also show property and knowledge of the language. No fee is published: “Fees that would be established by the Agency apply.” A separate Office of the Regulator sits under arts. 25, 25A and 25B. Ordinary naturalisation is twelve continuous months immediately before applying plus four years inside the six preceding them — five years at a minimum, spread across up to seven.",
+          ru: "Закрыто, и не через замену. После дела C-181/23 от 29 апреля 2025 года Акт XXI/2025 и L.N. 159/2025 ИЗМЕНИЛИ собственный регламент осуждённой схемы: S.L. 188.06, действующий с 20 ноября 2020 года, переписан в натурализацию за заслуги по ст. 10(9) Cap. 188 — наука и исследования, технологии, спорт, предпринимательство включая создание рабочих мест, культура и искусство, благотворительность. Не менее восьми месяцев проживания, а формальная заявка требует ещё недвижимости и знания языка. Цена не опубликована: «применяются сборы, которые установит агентство». Надзор — отдельное Управление регулятора по ст. 25, 25A и 25B. Обычная натурализация — двенадцать непрерывных месяцев непосредственно перед подачей плюс четыре года внутри шести предшествующих: минимум пять лет, растянутые на срок до семи.",
+          pl: "Zamknięte, i nie przez zastąpienie. Po sprawie C-181/23 z 29 kwietnia 2025 Akt XXI z 2025 i L.N. 159 z 2025 ZNOWELIZOWAŁY własne rozporządzenie potępionego programu: S.L. 188.06, obowiązujące od 20 listopada 2020, przepisano na naturalizację za zasługi z art. 10(9) Cap. 188 — nauka i badania, technologie, sport, przedsiębiorczość wraz z tworzeniem miejsc pracy, kultura i sztuka, filantropia. Co najmniej osiem miesięcy pobytu, a formalny wniosek wymaga jeszcze nieruchomości i znajomości języka. Cena nie jest publikowana: „stosuje się opłaty ustalone przez Agencję”. Nadzoruje odrębne Biuro Regulatora z art. 25, 25A i 25B. Zwykła naturalizacja to dwanaście nieprzerwanych miesięcy bezpośrednio przed złożeniem wniosku plus cztery lata wewnątrz sześciu poprzedzających: minimum pięć lat, rozłożone nawet na siedem.",
         },
       },
       {

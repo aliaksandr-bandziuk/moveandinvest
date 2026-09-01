@@ -218,7 +218,7 @@
     "noInstrument": "Brak opublikowanego aktu",
     "seeWorking": "Zobacz wyliczenia →",
     "toSources": "Każda liczba i jej źródło →",
-    "notCovered": "{countries} nie mają wierszy: nikt ich jeszcze nie sprawdzał, co nie jest tym samym co brak zmian.",
+    "notCovered": "Brak wierszy dla: {countries}. Nikt ich jeszcze nie sprawdzał, a to nie to samo, co brak zmian.",
     "reviewedOn": "Cały rejestr przejrzano ostatnio {date}.",
     "updatedOn": "Wiersz zmieniono ostatnio {date}.",
     "cadence": "Jest przeglądany w całości za każdym razem, gdy jurysdykcja jest badana pod poradnik — to jest kadencja, którą ten projekt faktycznie utrzyma, a nie miesiąc, którego nie utrzyma."

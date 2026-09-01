@@ -67,17 +67,17 @@ export interface RuleChange {
 }
 
 /** When the whole log was last gone through, row by row. */
-export const CHANGES_REVIEWED_ON: IsoDate = "2026-08-30";
+export const CHANGES_REVIEWED_ON: IsoDate = "2026-09-01";
 
 /** When a row last actually changed. Deliberately separate from the above: a
  *  quiet month is not an abandoned page, and the reader is entitled to tell
  *  the difference. */
-export const CHANGES_UPDATED_ON: IsoDate = "2026-08-30";
+export const CHANGES_UPDATED_ON: IsoDate = "2026-09-01";
 
 // Newest first, and the order is ASSERTED below rather than trusted. A row
 // added in the wrong place is invisible: the page renders it wherever it sits,
 // nothing fails, and the log quietly stops being chronological. The guard costs
-// one pass over eighteen rows at module load.
+// one pass over twenty-two rows at module load.
 const RULE_CHANGES_RAW: RuleChange[] = [
   // FIRST BECAUSE IT IS NEWEST, and for no other reason. This is the most
   // consequential row in the log — Portugal went from the fastest passport in
@@ -238,6 +238,71 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     },
     section: "pt",
   },
+  // MALTA'S FIRST FOUR ROWS, added 1 September 2026, and the reason the page no
+  // longer lists Malta as unchecked. Three of the four are one story told in
+  // three instruments across four days in July 2025 — which is itself the
+  // finding: the scheme did not end and get replaced, it was rewritten in
+  // place.
+  {
+    effective: "2025-07-24",
+    country: "mt",
+    what: {
+      en: "Malta closed citizenship by investment and put a merit route in its place — by amending the condemned scheme's own regulations rather than replacing them. S.L. 188.06 had been in force since November 2020 as the rules for the scheme the Court of Justice struck down; it was rewritten into the rules for naturalisation on the basis of merit, which asks for at least eight months of residence and publishes no price.",
+      ru: "Мальта закрыла гражданство за инвестиции и поставила на его место маршрут за заслуги — исправив собственный регламент осуждённой схемы, а не заменив его. S.L. 188.06 действовал с ноября 2020 года как правила той самой схемы, которую снёс Суд ЕС; его переписали в правила натурализации за заслуги, где требуется не менее восьми месяцев проживания и не опубликована цена.",
+      pl: "Malta zamknęła obywatelstwo za inwestycje i postawiła w jego miejsce ścieżkę za zasługi — nowelizując własne rozporządzenie potępionego programu, a nie zastępując je. S.L. 188.06 obowiązywało od listopada 2020 jako przepisy tego samego programu, który uchylił Trybunał Sprawiedliwości; przepisano je na zasady naturalizacji za zasługi, gdzie wymaga się co najmniej ośmiu miesięcy pobytu i nie publikuje się ceny.",
+    },
+    instrument: {
+      en: "Act XXI of 2025, Government Gazette No. 21,474 of 24 July 2025, with L.N. 159 of 2025 amending S.L. 188.06",
+      ru: "Акт XXI от 2025 года, «Правительственная газета» № 21 474 от 24 июля 2025 года, вместе с L.N. 159 от 2025 года, изменяющим S.L. 188.06",
+      pl: "Akt XXI z 2025, Dziennik Rządowy nr 21 474 z 24 lipca 2025, wraz z L.N. 159 z 2025 zmieniającym S.L. 188.06",
+    },
+    moved: {
+      en: "The Malta citizenship row, which named the Act but not L.N. 159 of 2025 and listed four of the six categories of merit. Re-read 1 September 2026.",
+      ru: "Строка о гражданстве Мальты, где был назван Акт, но не L.N. 159 от 2025 года, и перечислены четыре категории заслуг из шести. Перечитано 1 сентября 2026 года.",
+      pl: "Wiersz o obywatelstwie Malty, w którym wymieniono Akt, ale nie L.N. 159 z 2025, i podano cztery z sześciu kategorii zasług. Odczytano ponownie 1 września 2026.",
+    },
+    section: "citizenship",
+  },
+  {
+    effective: "2025-07-22",
+    country: "mt",
+    what: {
+      en: "Malta restructured what an MPRP applicant pays and, in the same notice, took over the licensing of the agents who sell it. The €60,000 administrative fee became a staged payment, the €37,000 contribution was made identical for buying and for renting, some dependants stopped paying it at all, and agents moved onto a licence issued by the Agency itself at €5,000 a year.",
+      ru: "Мальта перестроила то, что платит заявитель по MPRP, и тем же актом забрала себе лицензирование агентов, которые эту программу продают. Административный сбор €60 000 стал поэтапным, взнос €37 000 сделали одинаковым для покупки и аренды, часть иждивенцев перестала его платить вовсе, а агенты перешли на лицензию самого агентства стоимостью €5 000 в год.",
+      pl: "Malta przebudowała to, co płaci wnioskodawca MPRP, i tym samym aktem przejęła licencjonowanie agentów, którzy program sprzedają. Opłata administracyjna €60 000 stała się płatnością etapową, wkład €37 000 ujednolicono dla zakupu i najmu, część osób zależnych przestała go płacić w ogóle, a agenci przeszli na licencję samej Agencji za €5 000 rocznie.",
+    },
+    instrument: {
+      en: "L.N. 146 of 2025, amending regs. 3 to 9, 11, 15 and 25 of S.L. 217.26 and inserting regs. 6A, 6B, 6C and 8A",
+      ru: "L.N. 146 от 2025 года, изменяющий рег. 3–9, 11, 15 и 25 S.L. 217.26 и вводящий рег. 6A, 6B, 6C и 8A",
+      pl: "L.N. 146 z 2025, zmieniający reg. 3–9, 11, 15 i 25 S.L. 217.26 oraz wprowadzający reg. 6A, 6B, 6C i 8A",
+    },
+    moved: {
+      en: "The Malta cost breakdown on this site — roughly €126,000 above the price of the property. Re-read 1 September 2026 and unchanged.",
+      ru: "Разбор стоимости по Мальте на этом сайте — около €126 000 сверх цены объекта. Перечитано 1 сентября 2026 года, без изменений.",
+      pl: "Rozbicie kosztów Malty na tej stronie — około €126 000 ponad cenę nieruchomości. Odczytano ponownie 1 września 2026 i bez zmian.",
+    },
+    section: "mt",
+  },
+  {
+    effective: "2025-04-29",
+    country: "mt",
+    what: {
+      en: "The Court of Justice held that Malta's citizenship-by-investment scheme was contrary to EU law. Naturalisation in exchange for payment ended; what took its place three months later is the row above it.",
+      ru: "Суд ЕС признал мальтийскую схему гражданства за инвестиции противоречащей праву Союза. Натурализация в обмен на платёж прекратилась; то, что пришло ей на смену через три месяца, — в строке выше.",
+      pl: "Trybunał Sprawiedliwości orzekł, że maltański program obywatelstwa za inwestycje jest sprzeczny z prawem UE. Naturalizacja w zamian za płatność się skończyła; to, co zajęło jej miejsce trzy miesiące później, jest w wierszu powyżej.",
+    },
+    instrument: {
+      en: "Court of Justice of the European Union, Case C-181/23, Commission v Malta, judgment of 29 April 2025",
+      ru: "Суд Европейского союза, дело C-181/23, Комиссия против Мальты, решение от 29 апреля 2025 года",
+      pl: "Trybunał Sprawiedliwości Unii Europejskiej, sprawa C-181/23, Komisja przeciwko Malcie, wyrok z 29 kwietnia 2025",
+    },
+    moved: {
+      en: "The “Malta — citizenship by investment” row, withdrawn.",
+      ru: "Строка «Мальта — гражданство за инвестиции», отозвана.",
+      pl: "Wiersz „Malta — obywatelstwo za inwestycje”, wycofany.",
+    },
+    section: "citizenship",
+  },
   {
     effective: "2025-03-11",
     country: "pt",
@@ -252,6 +317,26 @@ const RULE_CHANGES_RAW: RuleChange[] = [
       pl: "Portaria 91/2025/1 z 10 marca, zmieniająca tabelę opłat konsularnych, obowiązuje od 11 marca 2025",
     },
     section: "pt",
+  },
+  {
+    effective: "2025-01-01",
+    country: "mt",
+    what: {
+      en: "Malta reformed the MPRP property thresholds and abolished the discount for the south of the island and for Gozo: €375,000 to buy anywhere, or €14,000 a year to rent. The €300,000 figure a good part of the market still quotes was the old regional threshold, and there is no regional threshold any more.",
+      ru: "Мальта пересмотрела пороги по недвижимости в MPRP и отменила скидку для юга острова и Гозо: €375 000 на покупку где угодно либо €14 000 в год на аренду. Цифра €300 000, которую до сих пор повторяет изрядная часть рынка, — это прежний региональный порог, а региональных порогов больше нет.",
+      pl: "Malta zreformowała progi nieruchomościowe w MPRP i zniosła zniżkę dla południa wyspy i Gozo: €375 000 na zakup gdziekolwiek albo €14 000 rocznie na najem. Liczba €300 000, którą wciąż powtarza spora część rynku, to dawny próg regionalny, a progów regionalnych już nie ma.",
+    },
+    instrument: {
+      en: "L.N. 310 of 2024, amending S.L. 217.26, in force 1 January 2025",
+      ru: "L.N. 310 от 2024 года, изменяющий S.L. 217.26, действует с 1 января 2025 года",
+      pl: "L.N. 310 z 2024, zmieniający S.L. 217.26, obowiązuje od 1 stycznia 2025",
+    },
+    moved: {
+      en: "The “€300,000 threshold” row on this site, corrected. Re-read 1 September 2026 and unchanged.",
+      ru: "Строка «Порог €300 000» на этом сайте, исправлена. Перечитано 1 сентября 2026 года, без изменений.",
+      pl: "Wiersz „Próg €300 000” na tej stronie, poprawiony. Odczytano ponownie 1 września 2026 i bez zmian.",
+    },
+    section: "mt",
   },
   {
     effective: "2024-12-23",
@@ -412,4 +497,4 @@ export const RULE_CHANGES: RuleChange[] = tightenDeep(RULE_CHANGES_RAW);
  *  Rendered as a sentence under the log rather than left to inference: a reader
  *  who does not find Malta here is entitled to know whether nothing changed or
  *  nobody looked. It is the second. */
-export const CHANGES_NOT_COVERED = ["mt", "cy"];
+export const CHANGES_NOT_COVERED = ["cy"];
