@@ -167,11 +167,14 @@ export const ABOUT_COPY: Record<Locale, AboutCopy> = {
       check, and both are checkable rather than promised.
 
       The first is that the same method is applied to all five jurisdictions,
-      including the two that cannot ever pay. Paying a lawyer for a referred
-      client is prohibited on Malta, where the professional code treats a fixed
-      referral fee as touting, and criminal in the UAE under Federal
-      Decree-Law 34/2022, which binds the operator of a platform and not only
-      the firm. Those two are checked as carefully as the two that can.
+      including the three where a lawyer cannot pay us at all. On Malta the
+      advocates' code forbids employing a tout — anyone who finds clients for a
+      fee — and the Code of Police Laws makes being one an offence. In the UAE
+      article 101 of Federal Decree-Law 34/2022 fines any person who, for a
+      commission, brings clients to a lawyer. In Portugal article 107 of the
+      Estatuto da Ordem dos Advogados forbids sharing fees with anyone outside
+      the profession, commission included. Only in Greece did we find no such
+      rule. Those three are checked as carefully as the one that can pay.
 
       The second is that figures which argue against leaving an enquiry are
       published anyway. That Portugal is no longer a fast route to a passport
@@ -297,12 +300,14 @@ export const ABOUT_COPY: Record<Locale, AboutCopy> = {
       можно проверить, а не принять на веру.
 
       Первая: одна и та же методика применяется ко всем пяти юрисдикциям,
-      включая две, которые не могут принести денег никогда. Платить юристу за
-      приведённого клиента запрещено на Мальте, где профессиональный кодекс
-      считает фиксированное вознаграждение за направление привлечением клиентуры,
-      и уголовно наказуемо в ОАЭ по Federal Decree-Law 34/2022, который связывает
-      оператора платформы, а не только фирму. Эти две проверены так же
-      тщательно, как те две, что приносят.
+      включая три, где юрист не может заплатить нам вовсе. На Мальте кодекс
+      адвокатов запрещает пользоваться услугами того, кто ищет клиентов за
+      вознаграждение, а Code of Police Laws делает это правонарушением. В ОАЭ
+      статья 101 Federal Decree-Law 34/2022 штрафует любое лицо, которое за
+      комиссию приводит клиентов юристу. В Португалии статья 107 Estatuto da
+      Ordem dos Advogados запрещает делить гонорар с кем-либо вне профессии,
+      включая комиссию. Только в Греции такой нормы мы не нашли. Эти три
+      проверены так же тщательно, как та одна, что может платить.
 
       Вторая: цифры, говорящие против того, чтобы оставлять заявку,
       публикуются всё равно. То, что Португалия перестала быть быстрым путём к
@@ -430,12 +435,15 @@ export const ABOUT_COPY: Record<Locale, AboutCopy> = {
       rzeczy i obie da się sprawdzić, a nie tylko przyjąć na wiarę.
 
       Pierwsza: ta sama metoda stosowana jest do wszystkich pięciu jurysdykcji,
-      w tym do dwóch, które nigdy nie mogą przynieść pieniędzy. Płacenie
-      prawnikowi za skierowanego klienta jest zakazane na Malcie, gdzie kodeks
-      zawodowy traktuje stałe wynagrodzenie za polecenie jako pozyskiwanie
-      klienteli, i karalne w ZEA na mocy Federal Decree-Law 34/2022, który wiąże
-      operatora platformy, nie tylko kancelarię. Te dwie sprawdzono równie
-      starannie jak te, które przynoszą.
+      w tym do trzech, w których prawnik nie może nam zapłacić w ogóle. Na
+      Malcie kodeks adwokatów zakazuje korzystania z usług osoby pozyskującej
+      klientów za wynagrodzeniem, a Code of Police Laws czyni z tego wykroczenie.
+      W ZEA artykuł 101 Federal Decree-Law 34/2022 karze grzywną każdego, kto za
+      prowizję przyprowadza klientów prawnikowi. W Portugalii artykuł 107
+      Estatuto da Ordem dos Advogados zakazuje dzielenia honorarium z kimkolwiek
+      spoza zawodu, łącznie z prowizją. Tylko w Grecji takiej normy nie
+      znaleźliśmy. Te trzy sprawdzono równie starannie jak tę jedną, która może
+      płacić.
 
       Druga: liczby przemawiające przeciw zostawianiu zgłoszenia publikowane są
       i tak. To, że Portugalia przestała być szybką drogą do paszportu, jest

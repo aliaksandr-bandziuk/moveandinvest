@@ -46,7 +46,7 @@ export const ENQUIRY_PAGE_COPY: Record<Locale, EnquiryPageCopy> = {
     heading:
       "Tell us your situation and we find you a licensed immigration or tax firm",
     intro:
-      "We are not a law firm, we employ no lawyers, and nothing on this site is legal advice. What we do is read what you send, work out which of the five jurisdictions compared here actually fits it, and introduce you to one licensed firm working in that country. The firm pays us if it takes the introduction. You pay nothing, at any point, and no figure on this site is behind this form.",
+      "We are not a law firm, we employ no lawyers, and nothing on this site is legal advice. What we do is read what you send, work out which of the five jurisdictions compared here actually fits it, and introduce you to one licensed firm working in that country. Where the rules of that profession allow it, the firm pays us for the introduction; in three of the five countries they do not, and there we are paid nothing either. You pay nothing, at any point, and no figure on this site is behind this form.",
     seo: {
       metaTitle: "Send an enquiry — moveandinvest",
       metaDescription:
@@ -58,7 +58,7 @@ export const ENQUIRY_PAGE_COPY: Record<Locale, EnquiryPageCopy> = {
     heading:
       "Опишите ситуацию — мы найдём лицензированную юридическую или налоговую фирму",
     intro:
-      "Мы не юридическая фирма, у нас нет юристов, и ничего на этом сайте не является юридической консультацией. Мы читаем то, что вы присылаете, разбираемся, какая из пяти сравниваемых здесь юрисдикций вам действительно подходит, и знакомим вас с одной лицензированной фирмой, которая работает в этой стране. Фирма платит нам, если берёт обращение. Вы не платите ничего и никогда, и ни одна цифра на этом сайте не спрятана за этой формой.",
+      "Мы не юридическая фирма, у нас нет юристов, и ничего на этом сайте не является юридической консультацией. Мы читаем то, что вы присылаете, разбираемся, какая из пяти сравниваемых здесь юрисдикций вам действительно подходит, и знакомим вас с одной лицензированной фирмой, которая работает в этой стране. Там, где правила профессии это допускают, фирма платит нам за знакомство; в трёх странах из пяти они этого не допускают, и там мы не получаем ничего. Вы не платите ничего и никогда, и ни одна цифра на этом сайте не спрятана за этой формой.",
     seo: {
       metaTitle: "Оставить заявку — moveandinvest",
       metaDescription:
@@ -70,7 +70,7 @@ export const ENQUIRY_PAGE_COPY: Record<Locale, EnquiryPageCopy> = {
     heading:
       "Opisz sytuację, a znajdziemy licencjonowaną kancelarię imigracyjną lub podatkową",
     intro:
-      "Nie jesteśmy kancelarią, nie zatrudniamy prawników i nic na tej stronie nie jest poradą prawną. Czytamy to, co przysyłasz, ustalamy, która z pięciu porównywanych tu jurysdykcji naprawdę pasuje, i kierujemy do jednej licencjonowanej kancelarii działającej w tym kraju. Kancelaria płaci nam, jeśli podejmie sprawę. Ty nie płacisz nic i na żadnym etapie, a żadna liczba na tej stronie nie jest schowana za tym formularzem.",
+      "Nie jesteśmy kancelarią, nie zatrudniamy prawników i nic na tej stronie nie jest poradą prawną. Czytamy to, co przysyłasz, ustalamy, która z pięciu porównywanych tu jurysdykcji naprawdę pasuje, i kierujemy do jednej licencjonowanej kancelarii działającej w tym kraju. Tam, gdzie zasady zawodu na to pozwalają, kancelaria płaci nam za skierowanie; w trzech z pięciu krajów nie pozwalają i tam nie dostajemy nic. Ty nie płacisz nic i na żadnym etapie, a żadna liczba na tej stronie nie jest schowana za tym formularzem.",
     seo: {
       metaTitle: "Wyślij zapytanie — moveandinvest",
       metaDescription:

@@ -207,7 +207,7 @@ export const PARTNERS_COPY: Record<Locale, PartnersCopy> = {
       intro: "There is no price list on this page, deliberately. We do not know what an enquiry like this is worth — there are no public prices in this niche — and we would rather ask than name a figure and then explain where it came from. So the three questions below are about you, not about us: where you work, how many enquiries you can take without dropping the quality of the answer, and on what terms. Every message gets a reply within two working days.",
       questions: [
         "Do you buy inbound enquiries?",
-        "What do you pay for a qualified one?",
+        "What do you pay for a qualified one, if your rules allow paying at all?",
         "On what terms — exclusivity, a window to decline, replacing one that does not stand up?",
       ],
       jurisdictionLabel: "Jurisdiction",
@@ -362,7 +362,7 @@ export const PARTNERS_COPY: Record<Locale, PartnersCopy> = {
       intro: "Прайса на этой странице нет намеренно. Мы не знаем, сколько стоит такая заявка — публичных цен в этой нише не существует, и мы предпочитаем спросить, а не назначить цифру и потом объяснять, откуда она взялась. Поэтому три вопроса ниже — про вас, а не про нас: где вы работаете, сколько заявок разберёте, не роняя качество ответа, и на каких условиях. Отвечаем на каждое письмо в течение двух рабочих дней.",
       questions: [
         "Покупаете ли вы входящие заявки?",
-        "Сколько платите за квалифицированную?",
+        "Сколько платите за квалифицированную — если ваши правила вообще позволяют платить?",
         "На каких условиях — эксклюзив, окно на отказ, замена негодной?",
       ],
       jurisdictionLabel: "Юрисдикция",
@@ -517,7 +517,7 @@ export const PARTNERS_COPY: Record<Locale, PartnersCopy> = {
       intro: "Cennika na tej stronie nie ma celowo. Nie wiemy, ile warte jest takie zgłoszenie — publicznych cen w tej niszy nie ma — i wolimy zapytać, niż podać liczbę, a potem tłumaczyć, skąd się wzięła. Dlatego trzy pytania poniżej dotyczą ciebie, a nie nas: gdzie pracujesz, ile zgłoszeń obsłużysz bez utraty jakości odpowiedzi i na jakich warunkach. Na każdą wiadomość odpowiadamy w ciągu dwóch dni roboczych.",
       questions: [
         "Czy kupujecie przychodzące zapytania?",
-        "Ile płacicie za kwalifikowane?",
+        "Ile płacicie za kwalifikowane — jeśli wasze zasady w ogóle pozwalają płacić?",
         "Na jakich warunkach — wyłączność, okno na odmowę, wymiana nietrafionego?",
       ],
       jurisdictionLabel: "Jurysdykcja",

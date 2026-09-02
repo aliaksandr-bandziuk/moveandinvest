@@ -297,7 +297,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       qualifiersLabel: "Answered before it reaches you",
       qualifiers: ["Jurisdiction", "Budget", "Timeline", "Goal"],
       heading: "For law firms and relocation advisers",
-      body: "An enquiry arrives with its questions already answered — jurisdiction, budget, timing, goal — and with what the person wrote in their own words. Before sending it they went through the four-question comparison and a jurisdiction page, so they are asking already knowing what they are asking about. Paid per qualified lead, not as a cut of the deal: we take no part in your fee and no view on what you quote.",
+      body: "An enquiry arrives with its questions already answered — jurisdiction, budget, timing, goal — and with what the person wrote in their own words. Before sending it they went through the four-question comparison and a jurisdiction page, so they are asking already knowing what they are asking about. Paid per qualified lead where your profession permits it, and free where it does not — on Malta, in the UAE and in Portugal a lawyer may not pay for an introduction, and there we ask for nothing. We take no part in your fee either way.",
     },
     seo: {
       metaTitle: "Relocation and property in five jurisdictions — moveandinvest",
@@ -475,7 +475,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       qualifiersLabel: "Что заявка отвечает до вас",
       qualifiers: ["Юрисдикция", "Бюджет", "Срок", "Цель"],
       heading: "Юридическим фирмам и релокационным консультантам",
-      body: "Заявка приходит с уже отвеченными вопросами — юрисдикция, бюджет, срок, цель — и с тем, что человек написал своими словами. До неё он прошёл сравнение по четырём вопросам и страницу юрисдикции, то есть спрашивает, уже понимая, о чём спрашивает. Оплата за квалифицированный лид, а не комиссия со сделки: мы не участвуем в вашем гонораре и не влияем на то, что вы предложите.",
+      body: "Заявка приходит с уже отвеченными вопросами — юрисдикция, бюджет, срок, цель — и с тем, что человек написал своими словами. До неё он прошёл сравнение по четырём вопросам и страницу юрисдикции, то есть спрашивает, уже понимая, о чём спрашивает. Оплата за квалифицированный лид там, где это позволяет ваша профессия, и бесплатно там, где не позволяет: на Мальте, в ОАЭ и в Португалии юрист не вправе платить за знакомство, и там мы не просим ничего. В вашем гонораре мы не участвуем в любом случае.",
     },
     seo: {
       metaTitle: "Релокация и недвижимость в пяти юрисдикциях — moveandinvest",
@@ -653,7 +653,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       qualifiersLabel: "Na co zgłoszenie odpowiada przed Tobą",
       qualifiers: ["Jurysdykcja", "Budżet", "Termin", "Cel"],
       heading: "Dla kancelarii i doradców relokacyjnych",
-      body: "Zgłoszenie przychodzi z już odpowiedzianymi pytaniami — jurysdykcja, budżet, termin, cel — i z tym, co człowiek napisał własnymi słowami. Wcześniej przeszedł porównanie według czterech pytań i stronę jurysdykcji, więc pyta, już wiedząc, o co pyta. Płatność za kwalifikowany lead, a nie prowizja od transakcji: nie uczestniczymy w twoim honorarium i nie wpływamy na to, co zaproponujesz.",
+      body: "Zgłoszenie przychodzi z już odpowiedzianymi pytaniami — jurysdykcja, budżet, termin, cel — i z tym, co człowiek napisał własnymi słowami. Wcześniej przeszedł porównanie według czterech pytań i stronę jurysdykcji, więc pyta, już wiedząc, o co pyta. Płatność za kwalifikowany lead tam, gdzie pozwala na to twój zawód, i bezpłatnie tam, gdzie nie pozwala: na Malcie, w ZEA i w Portugalii prawnik nie może płacić za skierowanie i tam nie prosimy o nic. W twoim honorarium nie uczestniczymy w żadnym wypadku.",
     },
     seo: {
       metaTitle: "Relokacja i nieruchomości w pięciu jurysdykcjach — moveandinvest",

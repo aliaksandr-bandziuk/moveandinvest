@@ -17,6 +17,15 @@ import type { Locale } from "@/i18n/routing";
 // transliterated into Cyrillic for the Russian page is a second person as far
 // as an answer engine is concerned. What he does is a sentence, so it is
 // written in each language.
+//
+// "FOUNDER", NOT "CEO", AND THE CHOICE IS FORCED BY controller.ts. The business
+// there is a JDG — a Polish sole trader — which has no board and therefore no
+// officers, so a chief executive of it is a post that does not exist. The role
+// also travels: it is the line under every byline AND the line in the outreach
+// signature, and a recipient who opens the site after the letter must find the
+// same person in the same role. Changed from "Publisher" on 2 Sep 2026 — that
+// word reads as "publishing house" to a non-native reader, which is most of
+// the people the letters go to.
 export const AUTHOR = {
   name: "Alex Bandziuk",
   /** Where the JSON-LD points for the person. The /about page is the only page
@@ -58,19 +67,19 @@ export interface AuthorCopy {
 
 const COPY: Record<Locale, AuthorCopy> = {
   en: {
-    role: "Publisher, moveandinvest",
+    role: "Founder, moveandinvest",
     line: "Checks every threshold, fee and deadline on this site against the instrument that states it, and publishes the instrument alongside the figure.",
     more: "How these figures are checked",
     by: "By",
   },
   ru: {
-    role: "Издатель moveandinvest",
+    role: "Основатель moveandinvest",
     line: "Сверяет каждый порог, сбор и срок на этом сайте с документом, который его устанавливает, и публикует документ рядом с цифрой.",
     more: "Как проверяются эти цифры",
     by: "Автор:",
   },
   pl: {
-    role: "Wydawca moveandinvest",
+    role: "Założyciel moveandinvest",
     line: "Sprawdza każdy próg, opłatę i termin w tym serwisie z aktem, który go ustanawia, i publikuje ten akt obok liczby.",
     more: "Jak sprawdzamy te liczby",
     by: "Autor:",
