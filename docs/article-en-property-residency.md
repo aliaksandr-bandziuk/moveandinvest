@@ -10,8 +10,8 @@
 
 ## Metadata
 
-**Meta title (54 characters):**
-`Where buying property still gets you residency in 2026`
+**Meta title (59 characters):**
+`Property investment visa in 2026: which countries grant one`
 
 **Meta description (157 characters):**
 `Property is the route in two of five jurisdictions, abolished in one, part of a package in one. Thresholds, full cost and real timelines, with statute cites.`
@@ -61,7 +61,7 @@ The €1.5 million capital transfer that still appears in articles no longer exi
 
 **Tax.** The IFICI regime at 20% exists, but not under the law it is usually attributed to: the basis is article 58-A of the EBF, introduced by Lei 82/2023, not the CIRS code, and the procedure is set by Portaria 352/2024/1 of 23 December 2024. The 20% rate applies to Portuguese-source income in categories A and B from qualifying activity, for ten years, and registration must happen by 15 January of the year following the year residence was obtained. Pensions (category H) and income from blacklisted jurisdictions are excluded and taxed at 35%.
 
-### Greece: property still qualifies, but there are now three thresholds
+### Greece golden visa and real estate: property qualifies, at three thresholds
 
 Greece is the one EU country in this set where buying property is itself the route to a residence permit. The provision is article 100 of Law 5038/2023 as amended by article 64 of Law 5100/2024, with the procedure set by joint decision KYA 214926/2025.
 
@@ -256,7 +256,7 @@ which countries give residency for property, buy property get EU residency, gold
 can you rent out golden visa property Greece, Greece golden visa Airbnb ban fine, Greece golden visa 800000 which areas, Greece golden visa 120 sqm minimum, is Portugal golden visa property still available, UAE golden visa off plan property eligible, UAE golden visa mortgage allowed, Greece golden visa total cost beyond threshold, Greece golden visa processing time backlog, Malta MPRP rent versus buy, does Greek golden visa count toward citizenship, Portugal ten years citizenship 2026 law change, AED 750000 golden visa real, Malta MPRP tax residency not included
 
 **Keywords placed in subheadings:**
-"the property golden visa is gone" (Portugal), "property still qualifies, but there are now three thresholds" (Greece), "Greek golden visa thresholds by zone", "revocation and a €50,000 fine", "Greek processing times and the full cost", "a ten-year golden visa through property" (UAE), "The full cost: what you need on top of the threshold".
+"the property golden visa is gone" (Portugal), "Greece golden visa and real estate: property qualifies, at three thresholds", "Greek golden visa thresholds by zone", "revocation and a €50,000 fine", "Greek processing times and the full cost", "a ten-year golden visa through property" (UAE), "The full cost: what you need on top of the threshold".
 
 ---
 

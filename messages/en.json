@@ -7,6 +7,8 @@
     "navLabel": "Main",
     "links": {
       "countries": "Jurisdictions",
+      "cost": "Cost",
+      "calculator": "Cost calculator",
       "faq": "Questions",
       "working": "Sources",
       "about": "About",

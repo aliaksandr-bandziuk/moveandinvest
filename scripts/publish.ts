@@ -120,10 +120,16 @@ async function run() {
   // Said BEFORE the work, not after, because after it the line sits under a
   // list of successes and reads as a footnote.
   if (!all && !localeExplicit) {
+    // The hint CARRIES --type, because it is copied and run as printed. It
+    // used to say a bare `npm run publish -- --all`, which for anyone who had
+    // just typed `--type faqItem` promotes every countryPage draft instead —
+    // a different document type, silently, on the strength of a suggestion
+    // this script made itself.
+    const typeArg = type === "countryPage" ? "" : ` --type ${type}`;
     console.log(
       `No --locale given, so this publishes the "${locale}" documents ONLY.` +
         ` The other two languages stay drafts and their pages 404.\n` +
-        `  every language at once:  npm run publish -- --all\n`,
+        `  every language at once:  npm run publish --${typeArg} --all\n`,
     );
   }
 

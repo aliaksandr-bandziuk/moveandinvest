@@ -18,6 +18,7 @@
     "figures:verify": "node scripts/figures/render.mjs && node scripts/figures/check.mjs && node scripts/figures/embed.mjs && node scripts/figures/embed-check.mjs",
     "typegen": "sanity schema extract && sanity typegen generate",
     "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "seo": "tsx --env-file=.env.local scripts/seo.ts",
     "publish": "tsx --env-file=.env.local scripts/publish.ts",
     "inspect": "tsx --env-file=.env.local scripts/inspect.ts",
     "facts": "tsx --env-file=.env.local scripts/facts.ts",

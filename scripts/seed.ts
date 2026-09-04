@@ -1,6 +1,11 @@
 import { createClient } from "@sanity/client";
 import { FAQ_ITEMS } from "./copy/faq";
-import { COUNTRY_LABELS, COUNTRY_PAGES, SOURCE_NOTE } from "./copy/jurisdictions";
+import {
+  COUNTRY_LABELS,
+  COUNTRY_PAGES,
+  SOURCE_NOTE,
+  countryPageSeo,
+} from "./copy/jurisdictions";
 import { PROPERTY_PAGES } from "./copy/property";
 import { HOME_COPY } from "./copy/home";
 import { CONTACT_EMAIL, PARTNERS_COPY } from "./copy/partners";
@@ -220,12 +225,7 @@ for (const page of COUNTRY_PAGES) {
       timeToPermit: page.timeToPermit[locale],
       taxRegime: page.taxRegime[locale],
       sourceNote: SOURCE_NOTE[locale],
-      seo: {
-        _type: "seo",
-        metaTitle: page.title[locale].slice(0, 60),
-        metaDescription: page.intro[locale].slice(0, 155),
-        noIndex: false,
-      },
+      seo: { _type: "seo", ...countryPageSeo(page, locale), noIndex: false },
     });
   }
 }

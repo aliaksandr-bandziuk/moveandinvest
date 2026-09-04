@@ -42,7 +42,27 @@ export const HEADER_NAV: HeaderLink[] = [
   { key: "countries", fromJurisdictions: true },
   { key: "research", href: "/blog" },
   { key: "faq", href: "/faq" },
-  { key: "working", href: "/sources" },
+  // THE SECOND SUBMENU, ADDED 4 SEPTEMBER 2026 to give the calculator a home in
+  // the bar. It is the site's own subject in two links: what entry costs, and
+  // where every figure in that answer comes from.
+  //
+  // "Sources" used to sit in this slot on its own, and moving it in rather than
+  // adding a seventh item is the reason this works — the row still carries six.
+  // It also reads better one level down: "Sources", alone in a navigation, is a
+  // word without an object, while under "Cost" it plainly means the working
+  // behind the figures the calculator prints.
+  //
+  // The first draft hung the calculator off "Jurisdictions" instead. Wrong
+  // shelf: that submenu answers "which country", the calculator answers "how
+  // much", and a tool sitting among five country names reads as a sixth
+  // country no matter how it is set off.
+  {
+    key: "cost",
+    children: [
+      { key: "calculator", href: "/calculator" },
+      { key: "working", href: "/sources" },
+    ],
+  },
   { key: "about", href: "/about" },
   { key: "forPartners", href: "/for-partners" },
 ];

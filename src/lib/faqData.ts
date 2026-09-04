@@ -81,7 +81,7 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
         sources: [],
         q: {
           en: "What is a golden visa, exactly?",
-          ru: "Что такое «золотая виза», если по существу?",
+          ru: "Что такое золотая виза, если по существу?",
           pl: "Czym właściwie jest „złota wiza”?",
         },
         a: {

@@ -32,7 +32,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     slug: { en: "portugal", ru: "portugaliya", pl: "portugalia" },
     title: {
       en: "Moving to Portugal: residency, tax and property",
-      ru: "Переезд в Португалию: ВНЖ, налоги и недвижимость",
+      ru: "Переезд в Португалию: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka do Portugalii: rezydencja, podatki i nieruchomości",
     },
     intro: {
@@ -58,7 +58,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     slug: { en: "greece", ru: "gretsiya", pl: "grecja" },
     title: {
       en: "Moving to Greece: residency, tax and property",
-      ru: "Переезд в Грецию: ВНЖ, налоги и недвижимость",
+      ru: "Переезд в Грецию: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka do Grecji: rezydencja, podatki i nieruchomości",
     },
     intro: {
@@ -84,7 +84,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     slug: { en: "malta", ru: "malta", pl: "malta" },
     title: {
       en: "Moving to Malta: residency, tax and property",
-      ru: "Переезд на Мальту: ВНЖ, налоги и недвижимость",
+      ru: "Переезд на Мальту: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka na Maltę: rezydencja, podatki i nieruchomości",
     },
     intro: {
@@ -177,4 +177,24 @@ const SOURCE_NOTE_RAW: Record<Locale, string> = {
 // consumer cannot be written that forgets. See copy/typography.ts for why the
 // non-breaking spaces are not simply typed into the literals above.
 export const COUNTRY_PAGES: CountryPageSeed[] = tightenDeep(COUNTRY_PAGES_RAW);
+
+/** The SEO block a jurisdiction page carries, derived from the copy above.
+ *
+ *  ONE DEFINITION, READ BY TWO SCRIPTS. `npm run seed` writes it onto a fresh
+ *  draft and `npm run seo` patches it onto a page that is already published.
+ *  The rule was written inline in seed.ts until 4 September 2026, which meant
+ *  the second script would have had to restate `.slice(60)` and `.slice(155)`
+ *  and the two would have drifted the first time a limit changed — the same
+ *  failure this project has already had with a figure in two places.
+ *
+ *  The limits are the cut Google makes, not a schema constraint: a title past
+ *  roughly 60 characters is truncated in the result, and a description past
+ *  155 is rewritten from the page. Cutting here rather than letting the search
+ *  engine do it keeps the visible part under our control. */
+export function countryPageSeo(page: CountryPageSeed, locale: Locale) {
+  return {
+    metaTitle: page.title[locale].slice(0, 60),
+    metaDescription: page.intro[locale].slice(0, 155),
+  };
+}
 export const SOURCE_NOTE: Record<Locale, string> = tightenDeep(SOURCE_NOTE_RAW);
