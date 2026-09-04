@@ -25,7 +25,8 @@ const GOAL: Record<string, string> = {
   speed: "residency",
 };
 
-// Copies the reader's answers from the route finder into this form.
+// Copies the reader's answers from the route finder — and, since 4 September
+// 2026, from the calculator — into this form.
 //
 // The reason is not convenience, it is not asking twice. Someone who worked
 // through section 05 has already said their budget, their deadline and what
@@ -65,6 +66,13 @@ export function EnquiryPrefill({
         input.checked = true;
       }
     };
+
+    // The calculator's state, passed straight through. Not shown to the
+    // reader and not editable: it is the screen they were looking at, and a
+    // field they could change would be a figure claiming to be theirs that
+    // isn't. See the note on the input in EnquiryForm.
+    const calc = root.querySelector<HTMLInputElement>("input[data-calc]");
+    if (calc && answers.calc) calc.value = answers.calc;
 
     check("budget", answers.budget ? BUDGET[answers.budget] : undefined);
     check("timeline", answers.speed ? TIMELINE[answers.speed] : undefined);

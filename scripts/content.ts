@@ -7,6 +7,7 @@ import { SOURCES_PAGE_COPY } from "./copy/sourcesPage";
 import { CHANGES_PAGE_COPY } from "./copy/changesPage";
 import { ENQUIRY_PAGE_COPY } from "./copy/enquiryPage";
 import { FAQ_PAGE_COPY } from "./copy/faqPage";
+import { GOLDEN_VISA_PAGE_COPY } from "./copy/goldenVisaPage";
 import { BLOG_PAGE_COPY } from "./copy/blogPage";
 import { CONTACTS_COPY } from "./copy/contacts";
 
@@ -109,7 +110,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
 
   const docs = await client.fetch<Doc[]>(
-    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "changesPage", "contactsPage", "enquiryPage", "faqPage", "blogPage"]] | order(_id asc){ _id, _type }`,
+    `*[_type in ["siteSettings", "homePage", "partnersPage", "privacyPage", "aboutPage", "sourcesPage", "changesPage", "contactsPage", "enquiryPage", "faqPage", "blogPage", "goldenVisaPage"]] | order(_id asc){ _id, _type }`,
   );
 
   if (docs.length === 0) {
@@ -181,6 +182,16 @@ async function run() {
   const existingBlogPage = new Set(
     docs
       .filter((d) => d._type === "blogPage")
+      .map((d) => d._id.replace(/^drafts\./, "")),
+  );
+
+  // The explainer, added 4 September 2026 — newer than the seed, so its three
+  // documents may not exist. Created whole for the same reason /about and the
+  // policy are: every field on it is generated from scripts/copy, and there is
+  // no editor-authored state to lose.
+  const existingGoldenVisa = new Set(
+    docs
+      .filter((d) => d._type === "goldenVisaPage")
       .map((d) => d._id.replace(/^drafts\./, "")),
   );
 
@@ -359,6 +370,22 @@ async function run() {
       });
       planned += 1;
       console.log(`  ${doc._id.padEnd(28)} faq page head`);
+      continue;
+    }
+
+    if (doc._type === "goldenVisaPage") {
+      const copy = GOLDEN_VISA_PAGE_COPY[locale as (typeof LOCALES)[number]];
+      transaction.patch(doc._id, {
+        set: {
+          eyebrow: copy.eyebrow,
+          heading: copy.heading,
+          intro: copy.intro,
+          namesNote: copy.namesNote,
+          seo: { _type: "seo", ...copy.seo, noIndex: false },
+        },
+      });
+      planned += 1;
+      console.log(`  ${doc._id.padEnd(28)} golden visa head`);
       continue;
     }
 
@@ -609,6 +636,25 @@ async function run() {
       intro: copy.intro,
       editorial: copy.editorial,
       empty: copy.empty,
+      seo: { _type: "seo", ...copy.seo, noIndex: false },
+    });
+    planned += 1;
+    console.log(`  ${id.padEnd(28)} created (published)`);
+  }
+
+  for (const locale of LOCALES) {
+    const id = `goldenVisaPage-${locale}`;
+    if (existingGoldenVisa.has(id)) continue;
+
+    const copy = GOLDEN_VISA_PAGE_COPY[locale];
+    transaction.createOrReplace({
+      _id: id,
+      _type: "goldenVisaPage",
+      language: locale,
+      eyebrow: copy.eyebrow,
+      heading: copy.heading,
+      intro: copy.intro,
+      namesNote: copy.namesNote,
       seo: { _type: "seo", ...copy.seo, noIndex: false },
     });
     planned += 1;

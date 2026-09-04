@@ -44,6 +44,7 @@
       "project": "Projekt"
     },
     "links": {
+      "goldenVisa": "Czym jest złota wiza",
       "comparison": "Porównanie",
       "method": "Jak liczymy",
       "cost": "Rzeczywisty koszt",
@@ -226,6 +227,21 @@
     "updatedOn": "Wiersz zmieniono ostatnio {date}.",
     "cadence": "Jest przeglądany w całości za każdym razem, gdy jurysdykcja jest badana pod poradnik — to jest kadencja, którą ten projekt faktycznie utrzyma, a nie miesiąc, którego nie utrzyma."
   },
+  "goldenVisa": {
+    "columns": {
+      "jurisdiction": "Jurysdykcja",
+      "official": "Jak nazywa to ustawa",
+      "term": "Na jaki okres"
+    },
+    "seeWorking": "Jak sprawdzaliśmy →",
+    "namesHeading": "Cztery prawdziwe instrumenty",
+    "compareHeading": "Ile kosztuje i ile trzeba czekać",
+    "compareIntro": "Progi, czas do pierwszego zezwolenia i reżim podatkowy obok siebie. Za każdą liczbą stoi akt, z którego pochodzi.",
+    "toCountry": "Strona jurysdykcji →",
+    "toFaq": "Pięćdziesiąt dwa pytania z odpowiedziami z ustawy →",
+    "toCalculator": "Ile to naprawdę kosztuje, z opłatami →",
+    "toChanges": "Co zmieniło się w przepisach i jakim aktem →"
+  },
   "enquiry": {
     "stepsHeading": "Co się dzieje po wysłaniu",
     "steps": {
@@ -344,9 +360,9 @@
       "permit": "Opłaty za kartę pobytu"
     },
     "basisNote": "Jeden główny wnioskodawca, bez osób zależnych: wszystko, co trzeba zapłacić, aby uzyskać zezwolenie i utrzymać je do pierwszego przedłużenia. Koszty roczne po tym okresie są na stronach jurysdykcji.",
-    "ctaHeading": "Pasujące ścieżki są. Następny krok to firma z licencją w wybranej jurysdykcji.",
+    "ctaHeading": "Następny krok to firma z licencją w wybranej jurysdykcji.",
     "ctaLabel": "Wyślij zgłoszenie",
-    "ctaNote": "Nie sprzedajemy nieruchomości i nie świadczymy usług prawnych. Znajdujemy licencjonowaną firmę w danej jurysdykcji i mówimy, co dokładnie jej o tobie przekazano.",
+    "ctaNote": "Nie sprzedajemy nieruchomości i nie świadczymy usług prawnych. Znajdujemy licencjonowaną firmę w danej jurysdykcji i mówimy, co dokładnie jej o tobie przekazano. Twoje wyliczenie pojedzie razem ze zgłoszeniem — nie trzeba powtarzać liczb w formularzu.",
     "columnLine": "Pozycja",
     "columnBasis": "Podstawa",
     "columnAmount": "Kwota",

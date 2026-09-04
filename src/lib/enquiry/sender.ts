@@ -6,7 +6,12 @@ import type {
   SubscribePayload,
 } from "@/sanity/enquiries";
 import { getSiteUrl } from "@/lib/site";
-import { renderEmailHtml, renderEmailText, type EmailContent } from "./mailTemplate";
+import {
+  renderEmailHtml,
+  renderEmailText,
+  type EmailBlock,
+  type EmailContent,
+} from "./mailTemplate";
 
 // Email notification for both forms on the site. Ported from the sibling
 // `giuseppeiannone` project's src/lib/contact/sender.ts, which is where the
@@ -149,6 +154,43 @@ function decode(map: Record<string, string>, value: string): string {
   return value ? (map[value] ?? value) : "—";
 }
 
+/** Euro, grouped the Russian way — this email is read by one person and that
+ *  person reads Russian, whichever language the site was in. */
+function eur(value: number): string {
+  return `${new Intl.NumberFormat("ru-RU").format(Math.round(value))} €`;
+}
+
+// WHAT THE READER DID BEFORE THEY WROTE, when they came from the calculator.
+//
+// It is the most useful thing in this email and it is still context rather
+// than substance: the block above is what the person said about themselves,
+// this is what the site showed them. Three lines at most, and the third is a
+// link that reopens their exact screen — the figures are in the fragment, so
+// clicking it is the fastest way to answer them with the same numbers in
+// front of you.
+//
+// Absent entirely on an enquiry from anywhere else, which is most of them. A
+// row reading "—" for a tool the reader never opened is noise.
+function calcLines(calc: EnquiryPayload["calc"]): EmailBlock["lines"] {
+  if (!calc) return [];
+  const fits = calc.fits.map((code) => decode(WHERE, code)).join(", ");
+  return [
+    {
+      label: "Из калькулятора",
+      value: `бюджет ${eur(calc.budget)} · хватает: ${fits || "ни на одну"}`,
+    },
+    ...(calc.nearestCode && calc.nearestShort !== undefined
+      ? [
+          {
+            label: "Ближе всего",
+            value: `${decode(WHERE, calc.nearestCode)} — не хватает ${eur(calc.nearestShort)}`,
+          },
+        ]
+      : []),
+    { label: "Его расчёт", value: calc.href },
+  ];
+}
+
 // Written at composition time rather than threaded in as a field: the gap
 // between the request arriving and the email being built is well under the
 // minute this displays. Europe/Warsaw explicitly, not the server's default —
@@ -227,6 +269,10 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
     secondaryBlock: {
       heading: "Контекст",
       lines: [
+        // First, because it is the only line here that changes what to say
+        // back: everything under it describes the submission, this describes
+        // the person's money.
+        ...calcLines(payload.calc),
         { label: "Язык страницы", value: LOCALE_LABEL[locale] },
         // WHICH GUIDE IT CAME OFF, and the only place this fact is ever
         // recorded. It is deliberately not sent to analytics — see the note on

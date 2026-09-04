@@ -31,7 +31,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     country: "country-pt",
     slug: { en: "portugal", ru: "portugaliya", pl: "portugalia" },
     title: {
-      en: "Moving to Portugal: residency, tax and property",
+      en: "Portugal golden visa: residency, tax and property",
       ru: "Переезд в Португалию: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka do Portugalii: rezydencja, podatki i nieruchomości",
     },
@@ -57,7 +57,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     country: "country-gr",
     slug: { en: "greece", ru: "gretsiya", pl: "grecja" },
     title: {
-      en: "Moving to Greece: residency, tax and property",
+      en: "Greece golden visa and residency permit: tax and property",
       ru: "Переезд в Грецию: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka do Grecji: rezydencja, podatki i nieruchomości",
     },
@@ -83,7 +83,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     country: "country-mt",
     slug: { en: "malta", ru: "malta", pl: "malta" },
     title: {
-      en: "Moving to Malta: residency, tax and property",
+      en: "Malta golden visa: residency, tax and property",
       ru: "Переезд на Мальту: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka na Maltę: rezydencja, podatki i nieruchomości",
     },
@@ -113,7 +113,7 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     country: "country-ae",
     slug: { en: "uae", ru: "oae", pl: "zea" },
     title: {
-      en: "Moving to the UAE: residency, tax and property",
+      en: "UAE golden visa: residency, tax and property in Dubai",
       ru: "Переезд в ОАЭ: резидентство, налоги и недвижимость",
       pl: "Przeprowadzka do ZEA: rezydencja, podatki i nieruchomości",
     },

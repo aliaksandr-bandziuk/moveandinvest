@@ -7,6 +7,7 @@ import { country } from "./country";
 import { countryPage } from "./countryPage";
 import { faqItem } from "./faqItem";
 import { faqPage } from "./faqPage";
+import { goldenVisaPage } from "./goldenVisaPage";
 import { homePage } from "./homePage";
 import { partnersPage } from "./partnersPage";
 import { privacyPage } from "./privacyPage";
@@ -24,6 +25,7 @@ export const documentTypes = [
   aboutPage,
   sourcesPage,
   changesPage,
+  goldenVisaPage,
   contactsPage,
   enquiryPage,
   faqPage,

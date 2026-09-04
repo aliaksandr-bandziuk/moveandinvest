@@ -70,7 +70,7 @@ export const CHANGES_PAGE_COPY: Record<Locale, ChangesPageCopy> = {
     howToRead:
       "Each row is one change: the date it took effect, what it did, and the act that did it — or, where none exists, that none exists. The last column is the one no competitor publishes: which figure on this site moved with the change, and when it was read again. Cyprus has no rows, and that means nobody has checked it yet rather than that nothing happened. Malta got its first four on 1 September 2026.",
     seo: {
-      metaTitle: "Residency and tax rule changes, with the act — moveandinvest",
+      metaTitle: "Golden visa new rules in 2026, with the act — moveandinvest",
       metaDescription:
         "A dated log of residency and tax rule changes in Portugal, Greece, Malta, the UAE and Cyprus, each with its instrument — and three that were never published as an instrument at all.",
     },
@@ -84,7 +84,7 @@ export const CHANGES_PAGE_COPY: Record<Locale, ChangesPageCopy> = {
     howToRead:
       "Каждая строка — одно изменение: дата вступления в силу, что оно сделало, и акт, который это сделал, — либо, если акта нет, что его нет. Последняя колонка — та, которой не публикует ни один конкурент: какая цифра на этом сайте сдвинулась вместе с изменением и когда её перечитали. У Кипра строк нет, и это значит, что его пока никто не проверял, а не что там ничего не происходило. У Мальты первые четыре появились 1 сентября 2026 года.",
     seo: {
-      metaTitle: "Изменения правил ВНЖ и налогов — moveandinvest",
+      metaTitle: "Изменения правил ВНЖ и налогов в 2026 году — moveandinvest",
       metaDescription:
         "Датированная хроника изменений в правилах проживания и налогов по Португалии, Греции, Мальте, ОАЭ и Кипру, каждое со своим актом — и три, которые актом не публиковались вовсе.",
     },

@@ -50,6 +50,11 @@ export const FOOTER_GROUPS: FooterGroup[] = [
   {
     key: "site",
     links: [
+      // FIRST IN THE GROUP, AND THAT IS THE ARGUMENT FOR IT. Every other row
+      // here assumes the reader knows what is being compared; this one is for
+      // the reader who does not, and it is the only page on the site that
+      // defines the term before using it. Added 4 September 2026.
+      { key: "goldenVisa", href: "/golden-visa" },
       { key: "comparison", href: homeSection("comparison") },
       { key: "method", href: homeSection("method") },
       { key: "cost", href: homeSection("cost") },

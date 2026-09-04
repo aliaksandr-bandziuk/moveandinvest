@@ -164,6 +164,17 @@ export function EnquiryForm({
                 values, resolved server-side against routing.ts. */}
             <input type="hidden" name="from" value={from} />
 
+            {/* WHAT THE CALCULATOR SHOWED, when the reader came from it. Empty
+                on every other route, and filled by EnquiryPrefill from the same
+                sessionStorage handover the route finder uses — never by the
+                server, which would make this page dynamic.
+
+                It carries the reader's own figures, not a computed answer: the
+                enquiry route parses it and rebuilds the answer from the cost
+                model, so nothing a browser posts can put a number in our inbox
+                that the site would not print. */}
+            <input type="hidden" name="calc" data-calc defaultValue="" />
+
             {/* Honeypot. The name is meaningless ON PURPOSE — `company` was
                 filled by Chrome's address autofill and silently rejected a
                 real person, and any name that reads like a real field can

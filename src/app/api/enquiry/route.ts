@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
+import { summarise } from "@/lib/calcSummary";
 import { isRateLimited } from "@/lib/enquiry/rateLimit";
 import {
   sendEnquiryEmails,
@@ -155,7 +156,7 @@ const PATHNAMES = routing.pathnames as Record<
 >;
 
 function segment(
-  route: "/contacts" | "/enquiry" | "/blog" | "/for-partners",
+  route: "/contacts" | "/enquiry" | "/blog" | "/for-partners" | "/calculator",
   locale: string,
 ): string {
   const declared = PATHNAMES[route];
@@ -531,6 +532,17 @@ export async function POST(request: NextRequest) {
     return redirectTo(request, locale, readerTarget("error"));
   }
 
+  // WHAT THE CALCULATOR SHOWED, rebuilt rather than believed. The field
+  // carries the reader's own figures — a budget, and any property price they
+  // typed into a programme's working — and `summarise` runs them back through
+  // the cost model, so the line that reaches our inbox is computed by the same
+  // code that prints the page. Nothing a browser posts can put a euro figure
+  // in an email that the site itself would not publish.
+  //
+  // A string that is not one of ours yields nothing and is not an error: this
+  // is context on an enquiry, never a condition of one.
+  const calc = summarise(field(form, "calc"));
+
   const payload: EnquiryPayload = {
     where: oneOf(field(form, "where"), ALLOWED.where),
     budget: oneOf(field(form, "budget"), ALLOWED.budget),
@@ -551,6 +563,32 @@ export async function POST(request: NextRequest) {
     // Spread rather than `source: undefined`, so the stored document has no
     // key at all for the two forms that have no such thing.
     ...(kind === "article" && returnTo ? { source: returnTo } : {}),
+    ...(calc
+      ? {
+          calc: {
+            budget: calc.budget,
+            fits: calc.fits,
+            ...(calc.nearest
+              ? {
+                  nearestCode: calc.nearest.code,
+                  nearestShort: calc.nearest.short,
+                }
+              : {}),
+            // Built from the re-serialised parameters, never from the posted
+            // string — see the note on `params` in calcSummary.ts. This is the
+            // second place on this route where input reaches a URL, and the
+            // first one's rule applies here too: only digits and known keys
+            // survive the parse, so there is nothing left to escape.
+            href: new URL(
+              `${locale === routing.defaultLocale ? "" : `/${locale}`}/${segment(
+                "/calculator",
+                locale,
+              )}#${calc.params}`,
+              request.nextUrl.origin,
+            ).toString(),
+          },
+        }
+      : {}),
     name: field(form, "name").slice(0, MAX_SHORT),
     email,
     consentToShare: consent,

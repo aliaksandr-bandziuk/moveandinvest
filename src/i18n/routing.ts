@@ -59,6 +59,14 @@ export const routing = defineRouting({
       pl: "/dla-partnerow",
     },
     "/faq": { en: "/faq", ru: "/voprosy", pl: "/faq" },
+    // The explainer. Transliterated in Russian for the reason stated above —
+    // a Cyrillic slug percent-encodes the moment anyone pastes it into a chat,
+    // which is most of how a link to this site travels.
+    "/golden-visa": {
+      en: "/golden-visa",
+      ru: "/zolotaya-viza",
+      pl: "/zlota-wiza",
+    },
     // THE ONE SECTION WHOSE URL IS NOT TRANSLATED, and that is the decision
     // rather than an omission. "Blog" is the same word in Russian and Polish,
     // it is what a reader types, and the section's own NAME on the site is not

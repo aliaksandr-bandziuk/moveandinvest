@@ -1,12 +1,12 @@
 import { SectionHead } from "@/components/ui";
 import {
   CALC_CODES,
-  DEFAULTS,
   DEFAULT_BUDGET,
   type CalcCode,
-  type CalcInput,
   type Confidence,
 } from "@/lib/costModel";
+
+import { CALC_YEARS as YEARS, baseInputs } from "@/lib/calcSummary";
 
 import { CostCalculatorControl } from "./CostCalculatorControl";
 import {
@@ -118,10 +118,6 @@ const SLIDER_STEP = 10_000;
  *  need JavaScript, so they ship hidden. */
 const PRESETS = [250_000, 500_000, 800_000, 1_000_000];
 
-/** The basis, fixed rather than asked. Every published figure on this site
- *  counts the first cycle once. See docs/calculator-spec-2026-09-03.md. */
-const YEARS = 1;
-
 // THE CALCULATOR. One number in; four programmes, each with the figure it
 // advertises beside the figure it actually costs.
 //
@@ -170,12 +166,10 @@ export function CostCalculator({
   const nameOf = new Map(ordered.map((entry) => [entry.code, entry.name]));
   const hrefOf = new Map(ordered.map((entry) => [entry.code, entry.href]));
 
-  const inputs = Object.fromEntries(
-    CALC_CODES.map((code) => {
-      const { amount: _amount, ...rest } = DEFAULTS[code];
-      return [code, { ...rest, years: YEARS } as Omit<CalcInput, "amount">];
-    }),
-  ) as Record<CalcCode, Omit<CalcInput, "amount">>;
+  // The same defaults the enquiry route starts from, so a row rendered here and
+  // a row rebuilt there cannot disagree about anything but the reader's own
+  // figures. See src/lib/calcSummary.ts.
+  const inputs = baseInputs();
 
   const budget = DEFAULT_BUDGET;
   const rows = rankRows(
@@ -547,7 +541,15 @@ export function CostCalculator({
 
           <div className={styles.next}>
             <p className={styles.nextHeading}>{labels.ctaHeading}</p>
-            <a className={styles.nextCta} href={enquiryHref}>
+            {/* The one link out of this page, and it does not leave empty
+                handed: the control writes what the reader has on screen into
+                the handover the route finder already uses, so the enquiry form
+                arrives with their budget ticked and the email that reaches us
+                says which programmes that budget covered. See
+                src/lib/routeAnswers.ts. Without JavaScript it is an ordinary
+                link to an ordinary form, which is the whole point of doing it
+                this way rather than with a second form here. */}
+            <a className={styles.nextCta} href={enquiryHref} data-calc-cta>
               {labels.ctaLabel}
             </a>
             <p className={styles.nextNote}>{labels.ctaNote}</p>

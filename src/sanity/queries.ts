@@ -189,6 +189,17 @@ export const ABOUT_PAGE_QUERY = groq`
 // The sources page. Four fields and no body: everything else on that page is
 // the dataset in src/lib/sourceData.ts, which is code-owned on purpose — see
 // sourcesPage.ts.
+export const GOLDEN_VISA_TAGS = ["goldenVisaPage", "siteSettings"];
+
+// The explainer's head. Four fields and no body, exactly like the sources page
+// and the change log: the page's substance is read from src/lib, and a field
+// here to restate it would be the second place a threshold could live.
+export const GOLDEN_VISA_PAGE_QUERY = groq`
+  *[_type == "goldenVisaPage" && language == $locale][0]{
+    eyebrow, heading, intro, namesNote, seo
+  }
+`;
+
 export const SOURCES_TAGS = ["sourcesPage", "siteSettings"];
 
 export const SOURCES_PAGE_QUERY = groq`

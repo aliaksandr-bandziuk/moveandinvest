@@ -46,6 +46,25 @@ export interface EnquiryPayload {
    *  a sentence, and whichever jurisdiction the guide was about. Asking a reader
    *  who is still reading for a budget is how a foot-of-page form gets skipped. */
   kind?: "enquiry" | "brief" | "article";
+  /** WHAT THE CALCULATOR SHOWED, when the enquiry came from it. Absent on
+   *  every other route, which is most of them.
+   *
+   *  Recomputed on the server from the figures the reader's own link carried —
+   *  see src/lib/calcSummary.ts — so these are the site's numbers, not a
+   *  browser's. Worth carrying for the reason `source` is: nothing else can
+   *  answer "was this person qualified before they wrote to us", and an
+   *  analytics event cannot hold a euro figure against a name. */
+  calc?: {
+    /** Euro, as the reader typed it. */
+    budget: number;
+    /** Codes the budget covers, cheapest first. */
+    fits: string[];
+    /** The cheapest one it does not, and by how much. */
+    nearestCode?: string;
+    nearestShort?: number;
+    /** The address that reproduces their screen. */
+    href: string;
+  };
   /** Article enquiries only: the slug of the guide it was sent from.
    *
    *  WORTH CARRYING FOR ONE REASON. Five guides now exist and more are coming,

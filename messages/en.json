@@ -44,6 +44,7 @@
       "project": "Project"
     },
     "links": {
+      "goldenVisa": "What a golden visa is",
       "comparison": "Comparison",
       "method": "How we count",
       "cost": "The real cost",
@@ -226,6 +227,21 @@
     "updatedOn": "A row last changed on {date}.",
     "cadence": "It is reviewed in full whenever a jurisdiction is researched for a guide, which is the cadence this project can actually keep rather than a month it cannot."
   },
+  "goldenVisa": {
+    "columns": {
+      "jurisdiction": "Jurisdiction",
+      "official": "What the law calls it",
+      "term": "How long it runs"
+    },
+    "seeWorking": "See the working →",
+    "namesHeading": "The four real instruments",
+    "compareHeading": "What each one costs and how long it takes",
+    "compareIntro": "The thresholds, the wait to a first permit and the tax regime, side by side. Every figure links to the act it came from.",
+    "toCountry": "Read the jurisdiction →",
+    "toFaq": "Fifty-two questions, answered from the law →",
+    "toCalculator": "What it actually costs, fees included →",
+    "toChanges": "What changed in the rules, and by which act →"
+  },
   "enquiry": {
     "stepsHeading": "What happens after you press send",
     "steps": {
@@ -344,9 +360,9 @@
       "permit": "Residence-permit fees"
     },
     "basisNote": "One main applicant, no dependants: everything payable to enter and to hold the permit through its first renewal. Annual costs after that are on each jurisdiction's own page.",
-    "ctaHeading": "Two routes fit. The next step is a firm licensed in the one you pick.",
+    "ctaHeading": "The next step is a firm licensed in the jurisdiction you pick.",
     "ctaLabel": "Send an enquiry",
-    "ctaNote": "This site does not sell property and does not give legal advice. It finds you a licensed firm in the jurisdiction and tells you what it was told about you.",
+    "ctaNote": "This site does not sell property and does not give legal advice. It finds you a licensed firm in the jurisdiction and tells you what it was told about you. Your figures travel with the enquiry, so you will not be asked for them twice.",
     "columnLine": "Line",
     "columnBasis": "Basis",
     "columnAmount": "Amount",

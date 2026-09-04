@@ -10,7 +10,6 @@ import {
   AED_MINIMUM_AED,
   AED_RATE_CHECKED_ON,
   CALC_CODES,
-  DEFAULTS,
   UPDATED_ON,
   type CalcCode,
   type CalcInput,
@@ -22,6 +21,7 @@ import {
   percentText,
 } from "@/components/country/CostCalculator/format";
 import { buildRow, type Row } from "@/components/country/CostCalculator/rows";
+import { baseInputs } from "@/lib/calcSummary";
 import { buildMetadata } from "@/lib/metadata";
 import { ENQUIRY_HREF, SOURCES_HREF, slugHref } from "@/lib/routes";
 import { sanityFetch } from "@/sanity/client";
@@ -189,10 +189,12 @@ function bodyFigures(locale: string): Record<string, string> {
   const format = currencyFormatter(locale);
   const eur = (value: number) => formatEur(value, format);
 
-  const rest = (code: CalcCode, extra: Partial<CalcInput> = {}) => {
-    const { amount: _amount, ...base } = DEFAULTS[code];
-    return { ...base, years: 1, ...extra } as Omit<CalcInput, "amount">;
-  };
+  // The same defaults the calculator itself renders from and the enquiry route
+  // rebuilds from, with room for the one thing this page varies: a Greek tier,
+  // a Maltese route. See src/lib/calcSummary.ts.
+  const base = baseInputs();
+  const rest = (code: CalcCode, extra: Partial<CalcInput> = {}) =>
+    ({ ...base[code], ...extra }) as Omit<CalcInput, "amount">;
   const line = (row: Row, key: string) =>
     row.result.lines.find((entry) => entry.key === key)?.eur ?? 0;
   const share = (row: Row) => percentText(row.result.extras / row.result.total, locale);

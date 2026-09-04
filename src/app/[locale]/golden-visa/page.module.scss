@@ -1,0 +1,88 @@
+@use "../../../styles/mixins";
+
+// The explainer's tables are narrow — three short columns and a link — so this
+// page does NOT take the wide container that /sources and /changes take. A
+// definition read at full width reads worse, not better.
+.namesNote {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+.block {
+  @include mixins.section-rhythm;
+}
+
+.blockHeading {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  margin-bottom: var(--space-3);
+}
+
+.blockIntro {
+  @include mixins.measure;
+
+  margin-bottom: var(--space-5);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}
+
+// The table scrolls inside its own box rather than pushing the page sideways.
+// Three columns fit a phone; the fourth, the link, is what overflows.
+.scroller {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+
+  th,
+  td {
+    text-align: start;
+    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    border-bottom: 1px solid var(--color-hairline);
+    vertical-align: top;
+  }
+
+  thead th {
+    @include mixins.eyebrow;
+
+    color: var(--color-text-muted);
+  }
+
+  tbody th {
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+  }
+
+  a {
+    @include mixins.link;
+
+    white-space: nowrap;
+  }
+}
+
+// A header cell that exists for screen readers and nothing else: the link
+// column needs a name in the table's structure, but a visible label above a
+// column of identical links is noise.
+.visuallyHidden {
+  @include mixins.visually-hidden;
+}
+
+.onward {
+  @include mixins.section-rhythm;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--fs-small);
+
+  a {
+    @include mixins.link;
+  }
+}

@@ -1,10 +1,5 @@
-import {
-  type CalcCode,
-  type CalcInput,
-  type Computed,
-  compute,
-  minimumFor,
-} from "@/lib/costModel";
+import { totalsFor } from "@/lib/calcSummary";
+import type { CalcCode, CalcInput, Computed } from "@/lib/costModel";
 
 import { slices, type GroupSlice } from "./groups";
 
@@ -37,13 +32,12 @@ export interface Row {
   groups: GroupSlice[];
 }
 
-/** Rounded the way the site publishes: `ROUND_TO` in the model is €1,000, and
- *  a calculator that prints €435,329 beside a page that prints €435,000 is a
- *  calculator that contradicts its own site. */
-const ROUND_TO = 1_000;
-const round = (value: number) => Math.round(value / ROUND_TO) * ROUND_TO;
-
 /**
+ * A row is the totals plus the one thing only this component needs: those
+ * lines folded into coloured slices. The arithmetic itself moved to
+ * src/lib/calcSummary.ts when the enquiry route started rebuilding the same
+ * answer server-side — see the note at the top of that file.
+ *
  * @param amount What the reader says the asset costs. Defaults to the
  *   programme's own floor. Above it the percentage lines grow; below it the
  *   floor still governs, so the row is built at the floor.
@@ -53,18 +47,8 @@ export function buildRow(
   rest: Omit<CalcInput, "amount">,
   amount?: number,
 ): Row {
-  const advertised = minimumFor(code, { ...rest, amount: 0 });
-  const priced = Math.max(advertised, amount ?? 0);
-  const result = compute(code, { ...rest, amount: priced });
-
-  return {
-    code,
-    advertised: round(advertised),
-    real: round(result.total),
-    extras: round(result.total) - round(advertised),
-    result,
-    groups: slices(result),
-  };
+  const totals = totalsFor(code, rest, amount);
+  return { ...totals, groups: slices(totals.result) };
 }
 
 export interface Verdict {

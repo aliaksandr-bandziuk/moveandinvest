@@ -10,8 +10,8 @@
 
 ## Metadata
 
-**Meta title (53 characters):**
-`Greece golden visa requirements and residency in 2026`
+**Meta title (55 characters):**
+`Greece golden visa requirements and citizenship in 2026`
 
 **Meta description (155 characters):**
 `The €800,000, €400,000 and €250,000 tiers, the €3,500 income route, and the rule nobody states: permanent residence counts days in Greece, not permit type.`

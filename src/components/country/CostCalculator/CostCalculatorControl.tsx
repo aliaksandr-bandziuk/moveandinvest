@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { CALC_CODES, DEFAULTS, type CalcCode, type CalcInput } from "@/lib/costModel";
+import { CALC_YEARS as YEARS, baseInputs } from "@/lib/calcSummary";
+import { budgetBandFor, mergeRouteAnswers } from "@/lib/routeAnswers";
+import { CALC_CODES, type CalcCode } from "@/lib/costModel";
 
 import type { CostCalculatorLabels } from "./CostCalculator";
 import {
@@ -20,8 +22,6 @@ interface CostCalculatorControlProps {
   locale: string;
   children: React.ReactNode;
 }
-
-const YEARS = 1;
 
 // Behaviour only. Every row, sentence, citation and figure inside `children`
 // was rendered on the server; this component never creates one.
@@ -73,20 +73,26 @@ export function CostCalculatorControl({
      *  source of truth for a string that already has one. */
     const nameOf = (code: CalcCode) => nodes.get(code)?.dataset.name ?? code;
 
-    const inputs = Object.fromEntries(
-      CALC_CODES.map((code) => {
-        const { amount: _amount, ...rest } = DEFAULTS[code];
-        return [code, { ...rest, years: YEARS } as Omit<CalcInput, "amount">];
-      }),
-    ) as Record<CalcCode, Omit<CalcInput, "amount">>;
+    const inputs = baseInputs();
 
+    /** A price the reader actually supplied, or nothing.
+     *
+     *  UNTOUCHED MEANS ABSENT, and that matters twice over. The field ships
+     *  filled with the programme's own floor, so without this every state
+     *  would carry four amounts that say nothing — and the address bar is a
+     *  link people paste into messages, which is the reason it holds plain
+     *  parameters rather than an encoded blob. `#value=500000` is a sentence;
+     *  the same thing with four floors appended is not. It also keeps an old
+     *  link from pinning a floor that has since moved: what is not stated is
+     *  taken from the model, which is where it should come from anyway. */
     function amountFor(code: CalcCode): number | undefined {
       const field = root!.querySelector<HTMLInputElement>(
         `[data-input="amount"][data-for="${code}"]`,
       );
       if (!field) return undefined;
       const typed = parseDigits(field.value);
-      return typed > 0 ? typed : undefined;
+      if (typed <= 0) return undefined;
+      return typed === parseDigits(field.defaultValue) ? undefined : typed;
     }
 
     function paintRow(row: Row, budget: number, scale: number) {
@@ -335,16 +341,24 @@ export function CostCalculatorControl({
     // Ordinary search parameters, not an encoded blob: a link pasted into a
     // message is read by a person before it is opened by a browser.
 
-    function writeHash() {
+    /** Everything the reader has supplied, in the form the address bar shows
+     *  and the enquiry route parses. One producer for both, so a link someone
+     *  pastes into a message and the figures that reach our inbox cannot
+     *  describe two different screens. */
+    function stateParams(): string {
       const params = new URLSearchParams();
       params.set("value", String(Math.round(parseDigits(valueField?.value ?? ""))));
       for (const code of CALC_CODES) {
         const amount = amountFor(code);
         if (amount !== undefined) params.set(`${code}.amount`, String(Math.round(amount)));
       }
+      return params.toString();
+    }
+
+    function writeHash() {
       // replaceState, not an assignment to location.hash: assigning pushes a
       // history entry per keystroke.
-      history.replaceState(null, "", `#${params.toString()}`);
+      history.replaceState(null, "", `#${stateParams()}`);
     }
 
     function readHash() {
@@ -409,7 +423,7 @@ export function CostCalculatorControl({
 
     function onClick(event: MouseEvent) {
       const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(
-        "[data-preset],[data-share]",
+        "[data-preset],[data-share],[data-calc-cta]",
       );
       if (!target || !root!.contains(target)) return;
 
@@ -421,6 +435,21 @@ export function CostCalculatorControl({
         writeHash();
         return;
       }
+      // WRITTEN ON THE WAY OUT, and only then. Recording the state on every
+      // keystroke would put fifty writes a second into sessionStorage while
+      // someone drags the slider, and would leave the last idle screen behind
+      // for a reader who never followed the link. Following it is the intent.
+      if (target.dataset.calcCta !== undefined) {
+        const band = budgetBandFor(parseDigits(valueField?.value ?? ""));
+        mergeRouteAnswers({
+          calc: stateParams(),
+          // Merged, never cleared: a reader who answered the route finder and
+          // then opened the calculator keeps their deadline and their goal.
+          ...(band ? { budget: band } : {}),
+        });
+        return;
+      }
+
       if (target.dataset.share !== undefined) void onShare();
     }
 

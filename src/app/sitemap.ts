@@ -55,6 +55,7 @@ const ROUTES: SingletonRoute[] = [
   { href: "/sources", documentType: "sourcesPage" },
   { href: "/changes", documentType: "changesPage" },
   { href: "/faq", documentType: "faqPage" },
+  { href: "/golden-visa", documentType: "goldenVisaPage" },
   { href: "/blog", documentType: "blogPage" },
   { href: "/contacts", documentType: "contactsPage" },
   { href: "/enquiry", documentType: "enquiryPage" },
