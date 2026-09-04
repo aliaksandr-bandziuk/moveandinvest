@@ -88,6 +88,18 @@ export const routing = defineRouting({
     // the site, and making them click first would be paying for tidiness in
     // leads.
     "/enquiry": { en: "/enquiry", ru: "/zayavka", pl: "/zgloszenie" },
+    // THE CALCULATOR, 2 September 2026. Its own address rather than a section
+    // of the home page: a tool is the thing other people link to, and a
+    // fragment cannot carry a title, be counted separately, or be handed to a
+    // partner firm as the page their leads read.
+    //
+    // Transliterated in Russian for the reason this file already gives about
+    // /ru/gretsiya — a Cyrillic slug percent-encodes the moment anyone pastes
+    // it into a message, which is most of how a link to a calculator travels.
+    // The Polish takes its own spelling: "kalkulator" is the word, and
+    // borrowing the Russian transliteration would produce a slug that is
+    // neither language's.
+    "/calculator": { en: "/calculator", ru: "/kalkulyator", pl: "/kalkulator" },
     "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc" },
     "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla" },
     // The rule-change log. Translated like every other fixed route, and the

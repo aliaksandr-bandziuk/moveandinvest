@@ -47,6 +47,7 @@ const FIXED: AppPathname[] = [
   "/privacy",
   "/sources",
   "/changes",
+  "/calculator",
 ];
 
 let failures = 0;

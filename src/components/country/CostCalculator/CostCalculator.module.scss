@@ -1,0 +1,1047 @@
+@use "../../../styles/mixins";
+
+// Four columns, declared once and shared by the header, the tag rail and every
+// row, so the reader's line and its label stand in the same place. It was five
+// until the two figures merged into one cell — see .pair.
+$grid: 7rem 14rem minmax(0, 1fr) 11rem;
+
+.section {
+  @include mixins.section-rhythm;
+
+  --container-max-width: 74rem;
+
+  // The structure bar inside a row's working. Warm reds are money that leaves
+  // for the state and never comes back; cool greys buy a service or an
+  // administrative act.
+  --slice-purchase-tax: #7a2230;
+  --slice-state-contribution: #a8434e;
+  --slice-lease: #c9646f;
+  --slice-professional: #3f4a5c;
+  --slice-agency: #6b7484;
+  --slice-fund: #97a0af;
+  --slice-permit: #c2c8d2;
+
+  // The only green on the page, and it says one thing: this fits. Worn by
+  // the verdict word, its tick, and the stretch of track between what a
+  // programme costs and what the reader has.
+  --color-pass: #2c6e49;
+  --color-pass-soft: rgb(44 110 73 / 32%);
+
+  // Three speeds and two curves, declared once. `quick` is everything the
+  // slider drives — it has to trail the thumb closely enough to read as the
+  // same gesture; `base` is a colour or a width changing on its own; `open` is
+  // a panel growing. `out` decelerates, which is what a thing being pushed
+  // does; `ease` is the symmetric curve the FAQ accordion already uses.
+  --motion-quick: 220ms;
+  --motion-base: 260ms;
+  --motion-open: 320ms;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-out: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+// The `hidden` attribute loses to any `display` declaration. Nested under
+// .section because CSS Modules reject a bare attribute selector.
+.section [hidden] {
+  display: none !important;
+}
+
+// --- The frame --------------------------------------------------------------
+
+.tool {
+  margin-top: var(--space-6);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+}
+
+.band {
+  @include mixins.eyebrow;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  color: var(--color-on-dark);
+  background: var(--color-dark);
+
+  em {
+    @include mixins.figure-text;
+
+    font-size: var(--fs-nano);
+    font-style: normal;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-on-dark-muted);
+  }
+}
+
+// --- The one question -------------------------------------------------------
+
+.ask {
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  margin: 0;
+  border: 0;
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+}
+
+.q {
+  display: block;
+  margin-bottom: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-tight);
+}
+
+.askRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+}
+
+// THE UNIT IS GLUED TO THE FIELD. "€" sits in a tinted cap on the edge of the
+// input rather than in a label above it, so the number and its unit cannot be
+// read apart — the detail dobrykalkulator.pl gets right and almost nobody else.
+.field {
+  display: inline-flex;
+  align-items: stretch;
+  max-width: 100%;
+  background: var(--color-surface);
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+
+  &:focus-within {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}
+
+// NINE CHARACTERS MEANS NINE CHARACTERS. The page sets `box-sizing:
+// border-box` on everything, so `9ch` was nine characters minus the two
+// paddings — about six and a half — and "500 000" ran out of the box with the
+// last digit under the euro cap. These two are the only elements on the site
+// measured in the text they hold rather than in the space they occupy, so they
+// are the only ones that want the other box.
+.value,
+.amount {
+  @include mixins.figure-text;
+
+  box-sizing: content-box;
+  min-inline-size: 0;
+  padding: var(--space-2) var(--space-3);
+  color: inherit;
+  background: none;
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.value {
+  inline-size: 9ch;
+  font-size: var(--fs-h2);
+}
+
+.amount {
+  inline-size: 9ch;
+  font-size: var(--fs-body);
+}
+
+.unit {
+  @include mixins.figure-text;
+
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-3);
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+  background: var(--color-row-hover);
+  border-inline-start: var(--border-hairline) solid var(--color-hairline);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.preset {
+  @include mixins.figure-text;
+  @include mixins.focus-ring;
+
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  background: var(--color-surface);
+  border: var(--border-hairline) solid var(--color-hairline);
+  border-radius: var(--radius-s);
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  &[aria-pressed="true"] {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+.sliderRow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-4);
+}
+
+.end {
+  @include mixins.figure-text;
+
+  flex: none;
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+}
+
+.slider {
+  @include mixins.focus-ring;
+
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  accent-color: var(--color-accent);
+}
+
+// --- The answer, in one sentence --------------------------------------------
+
+.verdict {
+  padding: var(--space-4) var(--space-4);
+  margin: 0;
+  color: var(--color-on-dark);
+  background: var(--color-dark);
+}
+
+// THE HEIGHT IS RESERVED, and it has to be. The sentence changes with every
+// budget, so its length changes, so the block used to swap between two and
+// three lines while the reader dragged the slider — and everything below it,
+// four rows and a page of prose, jumped with it.
+//
+// Two things fix it together. The sentence no longer lists the qualifying
+// countries (see the note in the component), which removed most of the
+// variance; and what is left is absorbed by reserving the tallest each width
+// can produce. Those figures are measured, not guessed: a sweep from €200,000
+// to €1,200,000 in €20,000 steps, in all three languages, at 320, 390, 480,
+// 560, 700, 900, 1180 and 1360 pixels. From 560 up every language holds two
+// lines; below that Russian and Polish need three, and at 320 Russian needs
+// four. The breakpoints available are sm and md, so each tier reserves the
+// worst case inside it — which leaves one spare line between 560 and 768, a
+// band of empty dark that nobody will notice and that never moves.
+.verdictText {
+  @include mixins.measure;
+
+  display: block;
+  min-block-size: calc(4 * 1.4em);
+  max-width: var(--measure-wide);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.4;
+  letter-spacing: var(--tracking-tight);
+  text-wrap: pretty;
+
+  @include mixins.breakpoint-up(sm) {
+    min-block-size: calc(3 * 1.4em);
+  }
+
+  @include mixins.breakpoint-up(md) {
+    min-block-size: calc(2 * 1.4em);
+  }
+}
+
+// --- The four rows ----------------------------------------------------------
+
+.colhead {
+  display: none;
+  grid-template-columns: $grid;
+  gap: var(--space-4);
+  align-items: end;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  font-size: var(--fs-nano);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--lh-nano);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  border-bottom: 2px solid var(--color-text);
+}
+
+.r {
+  text-align: right;
+}
+
+// The label on the reader's own line. It sits in a grid of the same template
+// so it shares the bar column's coordinate system, and therefore lines up with
+// the marks inside the bars at every width.
+.rail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.railTrack {
+  position: relative;
+  grid-column: 1;
+  block-size: 1.25rem;
+}
+
+.cutTag {
+  @include mixins.figure-text;
+
+  position: absolute;
+  bottom: 0;
+  padding: 0.1rem 0.35rem;
+  font-size: var(--fs-nano);
+  color: var(--color-on-dark);
+  white-space: nowrap;
+  background: var(--color-text);
+  border-radius: var(--radius-s);
+  transform: translateX(-50%);
+}
+
+.rows {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+// A ROW IS TWO COLUMNS UNTIL THERE IS ROOM FOR FIVE. Five do not fit a phone,
+// and squeezing them produces a table nobody reads: the name and the verdict
+// share the first line, the two figures stack under them with their own
+// captions, and the bar runs the full width. The reader's line still crosses
+// all four bars, which is the thing that has to survive.
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1) var(--space-3);
+  align-items: center;
+  padding: var(--space-4);
+  border-bottom: var(--border-hairline) solid var(--color-hairline);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+// THE PAIR. On a phone the two figures stack with their captions and the
+// arrow is gone; from `lg` they sit either side of it on one baseline, the
+// first right-aligned against it and the second left-aligned after it, so the
+// pair still reads as a column down the table.
+.pair {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 2;
+  gap: 0.15rem;
+  align-items: flex-start;
+}
+
+.advertised,
+.real {
+  @include mixins.figure-text;
+
+  display: flex;
+  gap: 0.4em;
+  align-items: baseline;
+}
+
+.advertised {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.real {
+  font-size: var(--fs-body-lg);
+}
+
+.real b {
+  font-weight: var(--font-weight-regular);
+}
+
+// The relation between the two figures, and the only thing that says what it
+// is. Line-coloured: it is punctuation, not a figure.
+.arrow {
+  display: none;
+  font-style: normal;
+  color: var(--color-line);
+}
+
+.pairHead {
+  display: flex;
+  gap: 0.4em;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.pairHead .arrow {
+  display: inline;
+}
+
+// Visible only where the column headings are not.
+.cap {
+  display: inline;
+  flex: none;
+  inline-size: 5rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+}
+
+// --- The bar, and the line that crosses all four ----------------------------
+//
+// THE BAR DOES NOT MOVE. It is the cost of the programme, drawn to a scale
+// taken from the programmes themselves, so it is the same length whatever the
+// reader types. Only `.cut` moves. The version before this one redrew the bars
+// on every keystroke and no reader could connect an action to a result.
+
+.barwrap {
+  position: relative;
+  grid-column: 1 / -1;
+  block-size: 1.15rem;
+  margin-top: var(--space-2);
+  background: var(--color-row-hover);
+}
+
+.barAdvertised,
+.barExtras,
+.barSurplus,
+.cut {
+  position: absolute;
+  inset-block: 0;
+  display: block;
+}
+
+// The money the programme does not take: the track between where its cost
+// stops and where the reader's line falls. Floored at two pixels — a surplus
+// of €2,000 is 0.3% of the scale, and a mark that rounds away to nothing says
+// the wrong thing about a row that fits.
+.barSurplus {
+  min-inline-size: 2px;
+  background: var(--color-pass-soft);
+}
+
+// EMPTIED, NOT HIDDEN, once the control is running. `display: none` has nothing
+// to transition to or from, so a row crossing from "fits" to "does not" used to
+// drop its surplus in a single frame while everything around it moved. The
+// control takes the `hidden` attribute off at its first paint and carries the
+// change in the width instead; the floor below has to come off with it, or a
+// surplus of nothing would still draw two pixels. The server keeps `hidden`,
+// because without JavaScript the figure never changes and there is nothing to
+// fade.
+.barSurplus[data-on="no"] {
+  min-inline-size: 0;
+}
+
+.barAdvertised {
+  inset-inline-start: 0;
+  background: #d3d8e0;
+}
+
+.barExtras {
+  background: var(--color-accent);
+}
+
+.cut {
+  inset-block: -3px;
+  z-index: 3;
+  inline-size: 2px;
+  background: var(--color-text);
+}
+
+// --- The verdict, marked twice ----------------------------------------------
+//
+// A MARK AND A TINT, NOT COLOUR ALONE. The word already says it; the glyph
+// repeats it in a shape, so the row still reads for someone who cannot tell
+// the green from the accent, and the wash carries the answer across the whole
+// row rather than leaving it on four small words at the right-hand edge.
+//
+// The glyph is a pseudo-element and not an <svg> in the markup, deliberately:
+// it is decoration over a word that already carries the meaning, so it belongs
+// to the stylesheet and stays out of the accessibility tree.
+
+.row[data-fits="yes"] {
+  background: rgb(44 110 73 / 5%);
+}
+
+.row[data-fits="no"] {
+  background: rgb(122 34 48 / 5%);
+}
+
+.verdictWord::before {
+  content: "";
+  display: inline-block;
+  inline-size: 0.85em;
+  block-size: 0.85em;
+  margin-inline-end: 0.35em;
+  vertical-align: -0.05em;
+  background: currentcolor;
+  mask: var(--verdict-icon) center / contain no-repeat;
+}
+
+.row[data-fits="yes"] .verdictWord {
+  --verdict-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M2.5%208.5l3.8%203.8L13.5%204%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.row[data-fits="no"] .verdictWord {
+  --verdict-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M3.5%203.5l9%209M12.5%203.5l-9%209%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.verdictCell {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  gap: 0.1rem;
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  text-align: right;
+}
+
+.verdictWord {
+  font-weight: var(--font-weight-medium);
+}
+
+.row[data-fits="yes"] .verdictWord {
+  color: var(--color-pass);
+}
+
+.row[data-fits="no"] .verdictWord {
+  color: var(--color-accent);
+}
+
+.verdictSub {
+  font-size: var(--fs-nano);
+  color: var(--color-text-muted);
+}
+
+// THE VARIANTS OF THE PROGRAMME, AS A SENTENCE. Not chips, not a control: two
+// rows of bare numbers on one screen — the reader's money and a statutory
+// floor — is what made the previous version unreadable.
+.note {
+  @include mixins.measure;
+
+  grid-column: 1 / -1;
+  max-width: none;
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-nano);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+// --- The working ------------------------------------------------------------
+
+.disclosure {
+  grid-column: 1 / -1;
+  margin-top: var(--space-2);
+}
+
+.disclose {
+  @include mixins.tap-target;
+  @include mixins.focus-ring;
+
+  display: inline-flex;
+  gap: 0.5em;
+  align-items: center;
+  font-size: var(--fs-micro);
+  color: var(--color-accent);
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  // DRAWN, NOT LEFT TO THE BROWSER. A native disclosure marker flips between
+  // two states with nothing in between, and the panel under it now grows over
+  // a third of a second — the two together read as a bug. Two borders on an
+  // empty box, turned a quarter and then some.
+  &::before {
+    content: "";
+    flex: none;
+    inline-size: 0.45em;
+    block-size: 0.45em;
+    border-block-end: 1.5px solid currentcolor;
+    border-inline-end: 1.5px solid currentcolor;
+    transform: translateY(-0.14em) rotate(45deg);
+  }
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+.disclosure[open] > .disclose::before {
+  transform: translateY(0.06em) rotate(225deg);
+}
+
+.working {
+  padding: var(--space-4);
+  margin-top: var(--space-2);
+  background: var(--color-row-hover);
+  border-radius: var(--radius-s);
+}
+
+.amountField {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.amountLabel {
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+}
+
+.structureLabel {
+  @include mixins.eyebrow;
+
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.structure {
+  display: flex;
+  block-size: 0.75rem;
+  overflow: hidden;
+  background: var(--color-hairline);
+  border-radius: 1px;
+}
+
+.slice {
+  display: block;
+  block-size: 100%;
+
+  @each $key in
+    purchase-tax, state-contribution, lease, professional, agency, fund, permit
+  {
+    &[data-slice="#{$key}"] {
+      background: var(--slice-#{$key});
+    }
+  }
+}
+
+.dots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-1) var(--space-5);
+  padding: 0;
+  margin: var(--space-2) 0 var(--space-5);
+  list-style: none;
+}
+
+.dot {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-inline-size: 0;
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  color: var(--color-text-muted);
+}
+
+.swatch {
+  flex: none;
+  inline-size: 0.55rem;
+  block-size: 0.55rem;
+  border-radius: 1px;
+
+  @each $key in
+    purchase-tax, state-contribution, lease, professional, agency, fund, permit
+  {
+    &[data-slice="#{$key}"] {
+      background: var(--slice-#{$key});
+    }
+  }
+}
+
+.dotName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dotEur {
+  margin-inline-start: auto;
+  font-style: normal;
+  color: var(--color-text);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+
+  thead th {
+    @include mixins.eyebrow;
+
+    padding-bottom: var(--space-2);
+    color: var(--color-text-muted);
+    text-align: left;
+    border-bottom: var(--border-hairline) solid var(--color-line);
+  }
+
+  thead th:last-child,
+  tbody td:last-child {
+    text-align: right;
+  }
+
+  tbody th,
+  tbody td {
+    padding: var(--space-3) 0;
+    font-weight: var(--font-weight-regular);
+    text-align: left;
+    vertical-align: top;
+    border-bottom: var(--border-hairline) solid var(--color-hairline);
+  }
+
+  tbody td:last-child {
+    @include mixins.figure-text;
+
+    white-space: nowrap;
+  }
+}
+
+.lineName {
+  display: block;
+}
+
+// WHO SETS THE FIGURE, on every row. Only `custom` takes the accent, and that
+// is the reason the column exists: a market custom is negotiable and a statute
+// is not, so it is the only level that changes what a reader should do.
+.tag {
+  @include mixins.eyebrow;
+
+  display: inline-block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  color: var(--color-text-muted);
+
+  &[data-confidence="custom"] {
+    color: var(--color-accent);
+  }
+}
+
+.lineNote {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  color: var(--color-text-muted);
+}
+
+.source {
+  margin-top: var(--space-1);
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+
+  summary {
+    @include mixins.tap-target;
+    @include mixins.focus-ring;
+
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  p {
+    margin: var(--space-1) 0 0;
+    color: var(--color-text-muted);
+  }
+}
+
+.checked {
+  @include mixins.figure-text;
+}
+
+.discount {
+  display: block;
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  color: var(--color-accent);
+}
+
+.cta {
+  @include mixins.link;
+  @include mixins.tap-target;
+
+  font-size: var(--fs-small);
+}
+
+// --- The foot of the frame --------------------------------------------------
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-row-hover);
+}
+
+.basis {
+  @include mixins.measure;
+
+  flex: 1 1 24rem;
+  max-width: var(--measure-wide);
+  margin: 0;
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  color: var(--color-text-muted);
+}
+
+.share {
+  @include mixins.tap-target;
+  @include mixins.focus-ring;
+
+  flex: none;
+  padding-inline: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-accent);
+  cursor: pointer;
+  background: none;
+  border: var(--border-hairline) solid var(--color-accent);
+  border-radius: var(--radius-s);
+
+  &:hover {
+    color: var(--color-accent-contrast);
+    background: var(--color-accent);
+  }
+}
+
+// --- What to do next --------------------------------------------------------
+
+.next {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 2px solid var(--color-text);
+}
+
+.nextHeading {
+  @include mixins.measure;
+
+  max-width: var(--measure-wide);
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--tracking-tight);
+}
+
+.nextCta {
+  @include mixins.tap-target;
+  @include mixins.focus-ring;
+
+  padding-inline: var(--space-5);
+  font-size: var(--fs-small);
+  color: var(--color-accent-contrast);
+  text-decoration: none;
+  background: var(--color-accent);
+  border-radius: var(--radius-s);
+
+  &:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+.nextNote {
+  @include mixins.measure;
+
+  max-width: var(--measure-wide);
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-nano);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+// --- Where five columns fit ------------------------------------------------
+//
+// Min-width only, as the house rule says: everything above is the phone, and
+// this block is the exception layered on top. Written the other way round the
+// first time, which is exactly the habit _mixins.scss says the project is
+// avoiding — the desktop grid was walked back with a max-width query.
+
+@include mixins.breakpoint-up(lg) {
+  .colhead {
+    display: grid;
+    padding-inline: var(--space-5);
+  }
+
+  .rail {
+    grid-template-columns: $grid;
+    padding-inline: var(--space-5);
+  }
+
+  .railTrack {
+    grid-column: 3;
+  }
+
+  .row {
+    grid-template-columns: $grid;
+    gap: var(--space-1) var(--space-4);
+    padding-inline: var(--space-5);
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-row: auto;
+    grid-column: auto;
+    gap: 0.45rem;
+    align-items: baseline;
+  }
+
+  .advertised {
+    justify-content: flex-end;
+  }
+
+  .real {
+    justify-content: flex-start;
+  }
+
+  .arrow {
+    display: inline;
+  }
+
+  // HIDDEN FROM THE EYE, NOT FROM THE READER. The column heading above is
+  // aria-hidden — it is a visual header for a grid, not a table header — so
+  // without this a screen reader would meet two figures and an arrow with
+  // nothing saying which is which.
+  .cap {
+    @include mixins.visually-hidden;
+  }
+
+  .verdictCell {
+    grid-column: auto;
+    grid-row: auto;
+    text-align: start;
+  }
+
+  .barwrap {
+    grid-column: auto;
+    margin-top: 0;
+  }
+
+  .note,
+  .disclosure {
+    grid-column: 2 / 4;
+  }
+
+  .ask,
+  .verdict,
+  .foot {
+    padding-inline: var(--space-5);
+  }
+}
+
+// --- Movement ---------------------------------------------------------------
+//
+// NOTHING BELOW CHANGES A RESTING STATE. Every rule here is a transition, and
+// the finished position is what the cascade already says, so the calculator is
+// complete and correct with this whole block deleted. That is the same bargain
+// the comparison bars and the route finder make, and it is why the animation
+// can sit behind two gates without anything depending on it.
+//
+// The gates: the reader has not asked for less motion, and the control has
+// marked the tool live. The second one matters on load. A link carries the
+// budget in its fragment, so a page opened from a shared address paints the
+// server's default first and the reader's figure a moment later — without the
+// gate that difference would play as an animation while the page was still
+// settling. The control sets the attribute one frame after its first paint.
+//
+// The bar segments and the reader's line are placed by inline `left` and
+// `width`, written by the control on every keystroke, so the transitions name
+// those two physical properties rather than their logical spellings: the
+// declaration that animates is the one being overwritten.
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-js="on"] .barAdvertised,
+  [data-js="on"] .barExtras,
+  [data-js="on"] .barSurplus,
+  [data-js="on"] .cut,
+  [data-js="on"] .cutTag {
+    transition:
+      left var(--motion-quick) var(--motion-out),
+      width var(--motion-quick) var(--motion-out),
+      transform var(--motion-quick) var(--motion-out);
+  }
+
+  // Inside the working, where the slices only move when the reader types a
+  // price into that one programme. Nothing is racing the slider here, so it
+  // can take its time.
+  [data-js="on"] .slice {
+    transition: width var(--motion-base) var(--motion-ease);
+  }
+
+  // The wash across a row and the colour of its verdict say the same thing and
+  // change at the same moment, so they change at the same speed.
+  [data-js="on"] .row {
+    transition: background-color var(--motion-base) var(--motion-ease);
+  }
+
+  [data-js="on"] .verdictWord {
+    transition: color var(--motion-base) var(--motion-ease);
+  }
+
+  // Everything the pointer touches. Not gated on the control: these work
+  // without JavaScript and always did.
+  .preset,
+  .share,
+  .nextCta,
+  .cta,
+  .disclose,
+  .source summary {
+    transition:
+      color var(--motion-quick) var(--motion-ease),
+      background-color var(--motion-quick) var(--motion-ease),
+      border-color var(--motion-quick) var(--motion-ease);
+  }
+
+  .disclose::before {
+    transition: transform var(--motion-base) var(--motion-ease);
+  }
+
+  // THE WORKING, AND EVERY CITATION INSIDE IT. `interpolate-size:
+  // allow-keywords` is what lets a height animate to and from `auto` at all;
+  // it is declared once on :root in globals.scss — see the note there. Without
+  // support for it the browser has no two numbers to interpolate between and
+  // skips the transition in silence, which is a working disclosure. The
+  // @supports guard is there for the `block-size: 0` closed state, not for the
+  // transition: that one line is the only thing here that would be visible as
+  // a fault if it landed without the rest.
+  @supports (interpolate-size: allow-keywords) {
+    .disclosure::details-content,
+    .source::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition:
+        block-size var(--motion-open) var(--motion-ease),
+        content-visibility var(--motion-open) allow-discrete;
+    }
+
+    .disclosure[open]::details-content,
+    .source[open]::details-content {
+      block-size: auto;
+    }
+  }
+}

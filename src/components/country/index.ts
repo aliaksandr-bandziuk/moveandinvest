@@ -3,6 +3,11 @@ export { CountryHero } from "./CountryHero";
 export { CountryFacts, type Fact } from "./CountryFacts";
 export { CountryCost } from "./CountryCost";
 export { CostComparison, type CostRow } from "./CostComparison";
+export {
+  CostCalculator,
+  type CostCalculatorJurisdiction,
+  type CostCalculatorLabels,
+} from "./CostCalculator";
 export { CountryChip } from "./CountryChip";
 export { CountryComparisonTable } from "./CountryComparisonTable";
 export { JurisdictionCards } from "./JurisdictionCards";

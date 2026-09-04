@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { UPDATED_ON } from "@/lib/costModel";
 import { articleHref, slugHref } from "@/lib/routes";
 import type { AppPathname } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
@@ -58,6 +59,22 @@ const ROUTES: SingletonRoute[] = [
   { href: "/contacts", documentType: "contactsPage" },
   { href: "/enquiry", documentType: "enquiryPage" },
   { href: "/privacy", documentType: "privacyPage" },
+];
+
+// ROUTES WHOSE CONTENT LIVES IN CODE, not in the dataset, and which therefore
+// have no document to take a lastModified from.
+//
+// /calculator is the first of them. Its figures come from src/lib/costModel.ts
+// and its labels from messages/, deliberately — see the note at the head of
+// the page — so there is no `calculatorPage` document, and inventing an empty
+// one purely to satisfy this list would put a timestamp on the sitemap that
+// moves when nobody edits anything and stands still when a rate changes.
+//
+// The date used instead is the newest day any line of the model was read
+// against its source, which is the honest answer to what a crawler is asking:
+// the page changed when its figures did.
+const CODE_ROUTES: { href: AppPathname; lastModified: string }[] = [
+  { href: "/calculator", lastModified: UPDATED_ON },
 ];
 
 function isLocale(value: unknown): value is (typeof routing.locales)[number] {
@@ -141,6 +158,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: routeUrl(route.href, doc.language as string),
         lastModified: doc._updatedAt,
+        alternates: { languages },
+      });
+    }
+  }
+
+  // The code-owned routes. Every locale exists by construction — the route is
+  // declared in three languages in routing.ts — so the hreflang set is complete
+  // and needs no document lookup to assemble.
+  for (const route of CODE_ROUTES) {
+    const languages: Record<string, string> = Object.fromEntries(
+      routing.locales.map((locale) => [locale, routeUrl(route.href, locale)]),
+    );
+    languages["x-default"] = routeUrl(route.href, routing.defaultLocale);
+
+    for (const locale of routing.locales) {
+      entries.push({
+        url: routeUrl(route.href, locale),
+        lastModified: route.lastModified,
         alternates: { languages },
       });
     }

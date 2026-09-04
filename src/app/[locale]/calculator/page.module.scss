@@ -1,0 +1,163 @@
+@use "../../../styles/mixins";
+
+// --- The prose under the calculator -----------------------------------------
+//
+// Reading, not a table. The one design decision that matters here is that the
+// four country blocks are set apart from the running text: they are the same
+// four things the tool above lists, in the same order, so the eye should be
+// able to find "Malta" without reading the paragraph before it. Everything
+// else is ordinary body copy at a readable measure.
+
+.body,
+.pageFoot {
+  // The same width the tool sets on itself. Prose that runs wider than the
+  // instrument it explains reads as two pages stacked.
+  --container-max-width: 74rem;
+}
+
+.body {
+  padding-top: var(--space-7);
+}
+
+.block {
+  padding-top: var(--space-6);
+  margin-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  &:first-child {
+    padding-top: 0;
+    margin-top: 0;
+    border-top: 0;
+  }
+}
+
+.h2 {
+  @include mixins.measure;
+
+  max-width: var(--measure-wide);
+  margin: 0 0 var(--space-4);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+}
+
+.lead,
+.text {
+  @include mixins.measure;
+
+  max-width: var(--measure-wide);
+  margin: 0;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+}
+
+.lead {
+  margin-bottom: var(--space-5);
+}
+
+// --- The four cost types, and the four exclusions ---------------------------
+//
+// A description list rather than bullets: each item is a named thing followed
+// by a sentence about it, which is what <dl> is for, and the name is the part
+// a reader scans for.
+
+.defs {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.def {
+  padding-top: var(--space-4);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+}
+
+.term {
+  @include mixins.measure;
+
+  max-width: var(--measure-wide);
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--tracking-tight);
+}
+
+.desc {
+  @include mixins.measure;
+
+  max-width: var(--measure-wide);
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+// --- The four jurisdictions -------------------------------------------------
+//
+// Two columns where there is room, one where there is not. Each block carries
+// its own rule on the reading edge so the set reads as four items rather than
+// as one long column of paragraphs — the same four the tool above ranks.
+
+.countries {
+  display: grid;
+  gap: var(--space-5) var(--space-6);
+
+  // Two by two, not three and a widow. There are four of them and there
+  // always will be four — `auto-fit` was solving a problem this set does not
+  // have and leaving the fourth alone on its own row.
+  @include mixins.breakpoint-up(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.country {
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-accent);
+}
+
+.h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+
+.country .text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+
+.sourcesLink {
+  @include mixins.link;
+  @include mixins.tap-target;
+
+  margin-top: var(--space-3);
+  font-size: var(--fs-body);
+}
+
+// --- The date and the basis -------------------------------------------------
+
+.pageFoot {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.updated {
+  @include mixins.figure-text;
+
+  margin: 0;
+  padding-top: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  border-top: var(--border-hairline) solid var(--color-line);
+}
+
+.method {
+  @include mixins.measure;
+
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

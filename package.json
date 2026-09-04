@@ -13,6 +13,7 @@
     "routes": "tsx scripts/routes.ts",
     "enquiry:targets": "tsx scripts/enquiry-targets.ts",
     "canonicals": "tsx scripts/canonicals.ts",
+    "costmodel": "tsx scripts/costmodel.ts",
     "figures": "node scripts/figures/build.mjs",
     "figures:verify": "node scripts/figures/render.mjs && node scripts/figures/check.mjs && node scripts/figures/embed.mjs && node scripts/figures/embed-check.mjs",
     "typegen": "sanity schema extract && sanity typegen generate",

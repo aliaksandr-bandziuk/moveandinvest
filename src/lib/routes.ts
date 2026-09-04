@@ -50,6 +50,11 @@ export function slugHref(slug: string) {
  *  having one constant rather than the string "/#enquiry" in eleven places. */
 export const ENQUIRY_HREF = { pathname: "/enquiry" } as const;
 
+/** The evidence page. A constant for the same reason ENQUIRY_HREF is one: the
+ *  prose under the calculator, the method note and the footer all point at it,
+ *  and its path differs per locale. */
+export const SOURCES_HREF = { pathname: "/sources" } as const;
+
 /** A section of the home page, for the footer's shortcut column. The leading
  *  slash matters: these are followed from jurisdiction pages too, not only from
  *  the home route. */

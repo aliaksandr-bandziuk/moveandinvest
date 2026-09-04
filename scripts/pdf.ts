@@ -9,9 +9,17 @@ import { COUNTRY_LABELS, COUNTRY_PAGES, SOURCE_NOTE } from "./copy/jurisdictions
 //
 //   npx tsx scripts/pdf.ts
 //
-// Prerequisites, both checked and named in the error: `npm run build` (the
-// fonts come out of .next/static/media) and `npm i -D playwright`. Same
-// arrangement as scripts/og.ts — see scripts/playwright.d.ts.
+// Prerequisites, both checked and named in the error:
+//
+//   1. next/font has downloaded the three families at least once — `npm run
+//      dev` is enough, `npm run build` also works. scripts/embedFonts.ts reads
+//      whichever is present. It used to demand a production build, which meant
+//      a five-minute build to print one document.
+//   2. `npm i --no-save playwright` (NOT `-D`: playwright must not enter
+//      package.json — see the note in scripts/playwright.d.ts) followed by
+//      `npx playwright install chromium`.
+//
+// Same arrangement as scripts/og.ts.
 //
 // WHY A GENERATOR AND NOT A DESIGNED FILE. This document carries thresholds,
 // taxes and totals, and the site's entire position is that those are checked

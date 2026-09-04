@@ -53,6 +53,11 @@ export const FOOTER_GROUPS: FooterGroup[] = [
       { key: "comparison", href: homeSection("comparison") },
       { key: "method", href: homeSection("method") },
       { key: "cost", href: homeSection("cost") },
+      // A ROUTE, NOT AN ANCHOR, unlike the four rows around it. The calculator
+      // is a page of its own for the reason /enquiry became one: a tool is
+      // what other people link to, and a fragment cannot carry a title or be
+      // counted separately. Added 2 September 2026.
+      { key: "calculator", href: "/calculator" },
       { key: "route", href: homeSection("route") },
       // REPOINTED FROM "/#faq" ON 25 AUGUST 2026, when /faq was published.
       // The home page still has its section 06 and still has that id, so the

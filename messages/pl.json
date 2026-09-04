@@ -45,6 +45,7 @@
       "comparison": "Porównanie",
       "method": "Jak liczymy",
       "cost": "Rzeczywisty koszt",
+      "calculator": "Kalkulator kosztów",
       "route": "Dobór ścieżki",
       "faq": "Częste pytania",
       "enquiry": "Wyślij zgłoszenie",
@@ -295,5 +296,160 @@
     "contents": "Spis treści",
     "progressLabel": "Postęp czytania",
     "home": "Strona główna"
+  },
+  "calculator": {
+    "metaTitle": "Ile naprawdę kosztuje wejście do programu pobytowego",
+    "metaDescription": "Programy podają jedną kwotę, a zapłacić trzeba więcej. Deklarowane minimum obok rzeczywistego kosztu wejścia w Grecji, Portugalii, na Malcie i w ZEA — pozycja po pozycji, z przepisem i datą odczytu.",
+    "heading": "Ile naprawdę kosztuje pobyt za inwestycję",
+    "intro": "Programy podają minimum od {grLow} do {ptAdvertised}. Zapłacić trzeba więcej: na wierzch wchodzą podatki przy zakupie, wpłaty na rzecz państwa, opłaty i pośrednicy. Na Malcie ten narzut to {mtGap}, czwarta część całej kwoty. Podaj swoją kwotę — zobaczysz, wejście do których z czterech programów pokrywa.",
+    "bandTitle": "Cztery programy pobytu za inwestycję",
+    "bandNote": "wszystkie kwoty w euro",
+    "qValue": "Jakim budżetem dysponujesz?",
+    "valueAria": "Twoja kwota w euro",
+    "sliderAria": "Twoja kwota",
+    "colProgramme": "Program",
+    "colAdvertised": "Deklarowane minimum",
+    "colReal": "Ile trzeba naprawdę",
+    "colBar": "Z czego się składa",
+    "colYours": "Twoja kwota",
+    "verdictSome": "Budżet {budget} pokrywa wejście do {n} z czterech.",
+    "verdictAll": "Budżet {budget} pokrywa wejście do wszystkich czterech. Najdrożej: {name} — {total}.",
+    "verdictNearest": "Najbliżej: {name} — brakuje {short}.",
+    "verdictNone": "Budżet {budget} nie pokrywa żadnego z czterech. Najbliżej: {name} — brakuje {short}.",
+    "emptyPrompt": "Podaj kwotę, a pojawi się odpowiedź.",
+    "fits": "starcza",
+    "fitsSub": "zostanie {left}",
+    "missBy": "brakuje {short}",
+    "missSub": "deklarowane {advertised}",
+    "cutTag": "twoje {value}",
+    "workingLabel": "Pokaż wszystkie koszty pozycja po pozycji",
+    "amountLabel": "Jeśli nieruchomość jest droższa od minimum — jej cena",
+    "structureLabel": "Z czego składa się narzut",
+    "notes": {
+      "gr": "W Attyce, Salonikach i na dużych wyspach próg wynosi 800 000 € — wtedy trzeba 866 000 €. Przy renowacji zabytku lub zmianie przeznaczenia próg to 250 000 € — wtedy 274 000 €.",
+      "pt": "Nieruchomość jest w programie portugalskim wyłączona ustawą, inwestuje się w fundusz. Wniosek online zdejmuje 25% opłat AIMA — około 3 400 €.",
+      "mt": "Mieszkania można nie kupować, tylko wynająć: 114 000 € za pierwszy rok. Ale najem to wydatek, a nie wkład, i trzeba go potwierdzać co roku przez pierwsze pięć lat.",
+      "ae": "Próg jest podany w dirhamach: 2 000 000 AED. Przeliczony po kursie 4,288, odczytanym 23 sierpnia 2026 roku."
+    },
+    "eyebrow": "Kalkulator kosztów",
+    "groups": {
+      "purchase-tax": "Podatki przy zakupie",
+      "state-contribution": "Wpłaty na rzecz państwa",
+      "lease": "Najem w ramach programu",
+      "professional": "Notariusz i prawnik",
+      "agency": "Prowizja agenta",
+      "fund": "Opłaty funduszu",
+      "permit": "Opłaty za kartę pobytu"
+    },
+    "basisNote": "Jeden główny wnioskodawca, bez osób zależnych: wszystko, co trzeba zapłacić, aby uzyskać zezwolenie i utrzymać je do pierwszego przedłużenia. Koszty roczne po tym okresie są na stronach jurysdykcji.",
+    "ctaHeading": "Pasujące ścieżki są. Następny krok to firma z licencją w wybranej jurysdykcji.",
+    "ctaLabel": "Wyślij zgłoszenie",
+    "ctaNote": "Nie sprzedajemy nieruchomości i nie świadczymy usług prawnych. Znajdujemy licencjonowaną firmę w danej jurysdykcji i mówimy, co dokładnie jej o tobie przekazano.",
+    "columnLine": "Pozycja",
+    "columnBasis": "Podstawa",
+    "columnAmount": "Kwota",
+    "flat": "stała",
+    "perYear": "rocznie × {n}",
+    "discount": "−25% online",
+    "confidence": {
+      "primary": "akt",
+      "secondary": "reprodukcja",
+      "custom": "zwyczaj rynkowy"
+    },
+    "sourceLabel": "źródło",
+    "share": "Skopiuj link do tego wyliczenia",
+    "shareDone": "Skopiowano",
+    "jurisdictionCta": "Pełny przewodnik",
+    "updated": "Pozycje sprawdzone ze źródłami nie później niż {date}",
+    "method": "Podstawa wyliczenia: jeden główny wnioskodawca bez osób zależnych i wszystko, co trzeba zapłacić, aby uzyskać zezwolenie i utrzymać je do pierwszego przedłużenia. Skład rodziny nie jest tu pytaniem: zweryfikowaną kwotę za osobę zależną publikują tylko dwie z czterech jurysdykcji, a grecki przepis nie ustala jej wcale — pole zmieniające jeden kraj na cztery wprowadzałoby w błąd co do trzech.",
+    "tiers": {
+      "250": "Renowacja lub zmiana przeznaczenia — €250 000",
+      "400": "Pozostałe rejony — €400 000",
+      "800": "Attyka, Saloniki, duże wyspy — €800 000"
+    },
+    "capAdvertised": "deklarowane",
+    "capReal": "trzeba",
+    "body": {
+      "extrasHeading": "Dodatkowe koszty ponad minimalną inwestycję",
+      "extrasLead": "Narzut ponad deklarowane minimum składa się z czterech źródeł. Programy ważą je różnie, dlatego i różnica jest różna: od {ptShare} w Portugalii do {mtShare} na Malcie.",
+      "extrasTaxesTerm": "Podatki przy zakupie nieruchomości",
+      "extrasTaxes": "płaci się od ceny obiektu i rosną razem z nią. W Grecji podatek od przeniesienia własności z dopłatą gminną wynosi {grRate}, czyli przy obiekcie za {grAdvertised} to {grTransferTax}. Na Malcie opłata skarbowa to 5%, czyli {mtStampDuty}. W ZEA opłata rejestracyjna departamentu gruntów to 4%, czyli {aeDld}.",
+      "extrasStateTerm": "Wpłaty na rzecz państwa",
+      "extrasState": "istnieją tylko na Malcie i dają łącznie {mtContribTotal}: opłata administracyjna {mtAdminFee}, wpłata rządowa {mtContribution} i obowiązkowa darowizna na organizację pozarządową {mtNgo}. Nie zależą od ceny mieszkania i są takie same przy zakupie i najmie — dlatego maltańska różnica jest największa.",
+      "extrasPermitsTerm": "Opłaty za kartę pobytu",
+      "extrasPermits": "są zwykle najmniejsze i najbardziej przewidywalne. W Portugalii odwrotnie: rozpatrzenie wniosku {ptAnalysis}, wydanie {ptGrant}, pierwsze przedłużenie {ptRenewal}. Wniosek online zdejmuje z nich 25%.",
+      "extrasAgentsTerm": "Usługi prawnika i prowizja agenta",
+      "extrasAgents": "to jedyna grupa, o którą można się targować, i jedyna, w której nie mamy przepisu, tylko praktykę rynkową. W rozbiciu takie pozycje są osobno oznaczone.",
+      "countriesHeading": "Koszt pobytu za inwestycję według krajów",
+      "grHeading": "Grecja — {grAdvertised} deklarowane, {grReal} naprawdę",
+      "grText": "Próg zależy od tego, gdzie jest obiekt i czym jest. {grAdvertised} obejmuje cały kraj poza Attyką, Salonikami i dużymi wyspami; tam jest {grHigh}, a wejście kosztuje {grHighReal}. Próg {grLow} jest otwarty tylko przy renowacji zabytku lub zmianie przeznaczenia, wejście — {grLowReal}. Z narzutu {grGap} prawie połowa przypada na prawnika i agenta.",
+      "aeHeading": "Złota wiza ZEA — {aeAed} deklarowane, {aeReal} naprawdę",
+      "aeText": "Minimum jest podane w dirhamach, więc w euro płynie razem z kursem; na {aeDate} to {aeAdvertised}. Obiekt nie musi być jeden — wystarczy kilka o łącznej wartości. Ponad połowa narzutu {aeGap} to opłata rejestracyjna departamentu gruntów.",
+      "mtHeading": "Malta — {mtAdvertised} deklarowane, {mtReal} naprawdę",
+      "mtText": "Największa różnica z czterech: narzut {mtGap}, czwarta część całej kwoty. Powodem są wpłaty na rzecz państwa, które nie zależą od ceny mieszkania. Mieszkania można nie kupować, tylko wynająć od {mtRent} rocznie: wtedy pierwszy rok kosztuje {mtRentFirstYear}, ale najem to wydatek, a nie wkład, i trzeba go potwierdzać co roku przez pierwsze pięć lat.",
+      "ptHeading": "Złota wiza Portugalii — {ptAdvertised} deklarowane, {ptReal} naprawdę",
+      "ptText": "Najmniejszy narzut, {ptShare}. Nieruchomość jest w tym programie wyłączona ustawą od 2023 roku, inwestuje się w fundusz. Główna część narzutu to opłaty AIMA i opłaty funduszu za pierwszy rok. Wniosek online zdejmuje 25% opłat, około {ptOnlineSaving}.",
+      "excludedHeading": "Czego nie ma w kwocie: rodzina, przedłużenia, posiadanie",
+      "excludedLead": "Wyliczenie dotyczy jednego głównego wnioskodawcy bez osób zależnych i sięga pierwszego przedłużenia karty. Poza nim zostają cztery rzeczy.",
+      "excludedFamilyTerm": "Rodzina.",
+      "excludedFamily": "Sprawdzona kwota za osobę zależną jest opublikowana tylko w dwóch jurysdykcjach z czterech, a grecki przepis nie ustala jej wcale. Nie publikujemy pola, które byłoby prawdziwe o dwóch krajach i zmyślone o dwóch innych.",
+      "excludedAfterTerm": "Wszystko po pierwszym przedłużeniu:",
+      "excludedAfter": "drugie i kolejne przedłużenia, opłaty funduszu od drugiego roku, maltański najem od drugiego roku.",
+      "excludedOwningTerm": "Posiadanie:",
+      "excludedOwning": "podatki od nieruchomości, utrzymanie, ubezpieczenie, opłaty komunalne.",
+      "excludedRateTerm": "Kurs.",
+      "excludedRate": "Próg ZEA jest podany w dirhamach, więc jego cena w euro zmienia się razem z kursem.",
+      "sourcesHeading": "Skąd wzięte są liczby i jak je sprawdzić",
+      "sourcesText": "Pod każdą pozycją w rozbiciu stoi przepis, który ją ustala, i dzień, w którym go odczytano. Pozycje mają jeden z trzech poziomów: przepis, źródło wtórne, praktyka rynkowa. Trzeci — prawnik i agent — jest jedynym, gdzie kwota jest negocjowalna; reszta zmienia się tylko razem z prawem.",
+      "sourcesLink": "Wszystkie źródła z odnośnikami"
+    },
+    "lines": {
+      "gr": {
+        "transfer-tax": "Podatek od przeniesienia (ΦΜΑ)",
+        "notary": "Notariusz",
+        "land-registry": "Kataster",
+        "legal": "Prawnik",
+        "agency": "Prowizja agenta",
+        "permit-fee": "Opłata za wniosek (e-paravolo)",
+        "permit-card": "Karta pobytu",
+        "permit-renewal": "Pierwsze przedłużenie"
+      },
+      "pt": {
+        "aima-analysis": "AIMA: rozpatrzenie wniosku",
+        "aima-grant": "AIMA: wydanie zezwolenia",
+        "aima-renewal": "AIMA: pierwsze przedłużenie",
+        "legal": "Prawnik",
+        "fund-charges": "Opłaty funduszu"
+      },
+      "mt": {
+        "stamp-duty": "Opłata skarbowa",
+        "rent": "Najem kwalifikowany",
+        "admin-fee": "Opłata administracyjna",
+        "contribution": "Wkład rządowy",
+        "ngo-donation": "Darowizna na NGO",
+        "residence-card": "Karta pobytu",
+        "notary-legal": "Notariusz i prawnik"
+      },
+      "ae": {
+        "golden-visa-fees": "Opłaty rządowe za złotą wizę",
+        "dld-transfer": "Opłata rejestracyjna DLD",
+        "dld-admin": "Opłaty administracyjne DLD i trustee",
+        "agency": "Prowizja agenta"
+      }
+    },
+    "lineNotes": {
+      "gr": {
+        "transfer-tax": "Liczony od wartości podatkowej, która nie zawsze równa się zapłaconej cenie.",
+        "notary": "Pierwszy próg taryfy jest sporny: 0,80% w tekście skodyfikowanym, 1% u dwóch wydawnictw prawniczych. Przyjęto niższą stawkę."
+      },
+      "mt": {
+        "stamp-duty": "Żadna stawka obniżona nie jest dostępna nabywcy, który potrzebowałby zgody ministra.",
+        "rent": "Najem to koszt, a nie wkład. Na tej ścieżce nie wnosi się nic."
+      },
+      "ae": {
+        "dld-transfer": "Zgodnie z aktem opłata dzieli się po połowie ze sprzedającym, «o ile nie uzgodniono inaczej». Warto ją założyć, ale jest negocjowalna.",
+        "agency": "Do prowizji dolicza się VAT 5%, którego ta pozycja nie zawiera."
+      }
+    }
   }
 }

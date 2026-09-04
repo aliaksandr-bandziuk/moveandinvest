@@ -14,13 +14,13 @@ import { COUNTRY_LABELS } from "./copy/jurisdictions";
 //
 // TWO PREREQUISITES, both of which this script checks and names:
 //
-//   npm run build   — the fonts are read out of .next/static/media, which is
-//                     where next/font puts the woff2 files it downloaded. This
-//                     script deliberately does not fetch from Google: the
-//                     images must be set in the SAME files the site serves, and
-//                     a second download is a second chance to get a different
-//                     one.
-//   npm i -D playwright  — a one-off dependency, not in package.json, exactly
+//   npm run dev     — run once, so next/font downloads the woff2 files.
+//                     scripts/embedFonts.ts reads them out of whichever build
+//                     is present, dev or production. This script deliberately
+//                     does not fetch from Google: the images must be set in the
+//                     SAME files the site serves, and a second download is a
+//                     second chance to get a different one.
+//   npm i --no-save playwright  — a one-off, not in package.json, exactly
 //                     as scripts/generate-map.mjs treats topojson. It is needed
 //                     to run this generator and never to build or serve the
 //                     site; carrying a browser in the dependency tree of a

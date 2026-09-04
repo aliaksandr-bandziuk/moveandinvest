@@ -1,22 +1,41 @@
+import { published } from "../../src/lib/costModel";
+
 // The verified cost figures, extracted from scripts/facts.ts on 24 Aug 2026 so
 // that a second consumer could read them without importing that script — which
 // throws on a missing write token at module load and would take a PDF
 // generator down with it.
 //
-// Same rule as copy/jurisdictions.ts, and it is the reason both files exist:
-// a figure lives in ONE place, and everything that needs it imports from
-// there. `scripts/facts.ts` writes these to Sanity, `scripts/pdf.ts` prints
-// them.
+// SINCE 2 SEPTEMBER 2026 THE TWO MONEY FIELDS ARE NOT WRITTEN HERE. They are
+// computed from src/lib/costModel.ts, which holds the same costs as an ordered
+// list of lines — each with its rate, the instrument that sets it, the date it
+// was read, and whether an authority sets it at all.
 //
-// EVERY NUMBER HERE WAS CHECKED AGAINST A PRIMARY SOURCE ON 23 AUGUST 2026.
-// The working is in docs/figures-verification-2026-08-23.md, one section per
-// jurisdiction, with the statute or the ministry page and its date. A number
-// may not change here without that document changing in the same commit.
+// The reason is not tidiness. This file used to carry a literal `extras` and a
+// prose `breakdown` describing it, and they had already drifted apart: the
+// Greek literal said €36,000, its own prose priced notaries at a flat 1.5%
+// that no tariff supports, and docs/figures-verification-2026-08-23.md — the
+// dossier the literal is supposed to derive from — scored €34,000 as correct
+// at the €400,000 level. A calculator built on top of that would have had a
+// fourth number. See docs/costmodel-verification-2026-09-02.md.
+//
+// So the rule this file has always stated now holds mechanically: a figure
+// lives in ONE place, and everything that needs it imports from there.
+// `scripts/facts.ts` writes these to Sanity, `scripts/pdf.ts` prints them,
+// the calculator recomputes them at other inputs, and none of the four can
+// disagree with the others.
+//
+// EVERY NUMBER BEHIND THEM WAS CHECKED AGAINST A PRIMARY SOURCE, and the
+// working is in docs/figures-verification-2026-08-23.md,
+// docs/property-verification-2026-08-24.md and the per-jurisdiction dossiers,
+// with the corrections of 2 September 2026 in
+// docs/costmodel-verification-2026-09-02.md. A rate may not change in
+// costModel.ts without one of those changing in the same commit.
 //
 // BASIS: one main applicant, no dependants. Family members are priced
 // completely differently from one jurisdiction to the next — in Portugal a
 // spouse costs the same as the main applicant, on Malta a spouse is free — so
-// a per-family column would compare four different things.
+// a per-family column would compare four different things. The calculator does
+// not take family composition as an input either, and costModel.ts says why.
 //
 // PERIOD: everything payable to get in and hold the permit through its first
 // renewal.
@@ -27,13 +46,12 @@
 export interface FactSeed {
   /** ISO alpha-2, lowercased — the suffix in both document ids. */
   code: string;
-  /** The figure the programme advertises, converted to euro. */
+  /** The figure the programme advertises, converted to euro. Derived from
+   *  costModel.ts for the four published jurisdictions. */
   advertised: number;
-  /** Taxes, professional fees, government charges and the first renewal. */
+  /** Taxes, professional fees, government charges and the first renewal.
+   *  Derived from costModel.ts for the four published jurisdictions. */
   extras: number;
-  /** What the extras figure is actually made of. Not written to Sanity — it
-   *  is here so the next person to verify a number knows what to verify. */
-  breakdown: string;
   /** Which deadline this route can meet. Cumulative — see matching.ts. */
   speedBand: "weeks" | "months" | "long";
   /** Comparative advantages only. A value ticked on all five would stop
@@ -50,11 +68,10 @@ export const FACTS: FactSeed[] = [
     // over 3,100 inhabitants; €400,000 everywhere else; €250,000 only for a
     // change of use to residential, a factory idle five years, or the full
     // restoration of a listed building — with the work FINISHED before the
-    // application. The table carries €400,000 and says the rest in a note.
-    advertised: 400_000,
-    extras: 36_000,
-    breakdown:
-      "transfer tax 3.09% (3% + 3% municipal surcharge on the tax) 12,360; notary ~1.5% 6,000; legal ~1.5% 6,000; agency ~2% 8,000; e-paravolo 2,000 + card 16; first renewal 2,000",
+    // application. The table carries €400,000 and says the rest in a note;
+    // the calculator takes the tier as an input, which is where a reader in
+    // Attica can finally act on it.
+    ...published("gr"),
     // The permit card takes months and the backlog reached 18 months, but
     // art. 10 of Law 5038/2023 issues a bebaiosi on filing that ITSELF confers
     // lawful residence and the rights of the permit until the decision. That
@@ -72,11 +89,10 @@ export const FACTS: FactSeed[] = [
     // Fund subscription, subalinea vii of art. 3(1) of Lei 23/2007. The two
     // real-estate options and the plain capital transfer were revoked by
     // Lei 56/2023 art. 53; art. 3(5) additionally bars any investment aimed
-    // directly or indirectly at real estate.
-    advertised: 500_000,
-    extras: 28_000,
-    breakdown:
-      "AIMA fees from 1 Mar 2026: analysis 842.80 + grant 8,418.90 + first renewal 4,210.30 = 13,472 (25% less if filed online); legal ~8,000; fund subscription and management charges ~6,500 over the first year",
+    // directly or indirectly at real estate. So there is no transfer tax, no
+    // notary and no agent in this stack — the whole variable part is what the
+    // fund charges.
+    ...published("pt"),
     // Statute says 90 days (art. 82(5) Lei 23/2007). Reality is a year to
     // three: filing to biometrics 6–24 months, biometrics to card 6–18, and
     // AIMA still reported ~30,000 pending files on 4 Aug 2026.
@@ -95,10 +111,12 @@ export const FACTS: FactSeed[] = [
     // 1 Jan 2025) and L.N. 146 of 2025 (22 Jul 2025). The €300,000 the site
     // used to publish was the pre-reform floor for the south of Malta and
     // Gozo; that regional discount no longer exists.
-    advertised: 375_000,
-    extras: 126_000,
-    breakdown:
-      "stamp duty 5% 18,750; administrative fee 60,000; government contribution 37,000; NGO donation 2,000; residence card 500; notary and legal ~7,750. Leasing instead of buying: 14,000/yr rent and no stamp duty. Agency commission excluded — on Malta the seller normally pays it",
+    //
+    // These figures are the PURCHASE route. Leasing at €14,000 a year is the
+    // other half of the programme and it is not in the published bar, because
+    // a bar comparing a stake with a rent compares a thing you keep with a
+    // thing you spend. The calculator carries both, and says which is which.
+    ...published("mt"),
     // Residency Malta publishes no processing time at all; the agents'
     // handbook says only "reasonable times". The regulations allow 8 months
     // after the letter of approval in principle just to complete the purchase
@@ -119,13 +137,12 @@ export const FACTS: FactSeed[] = [
     // no ICP, GDRFA or DLD page supports it, and GDRFA's property-owner page
     // requires a completed building.
     //
-    // Converted at 4.288 AED/EUR on 23 Aug 2026. The rate is part of the
-    // figure, not a constant: the previous 490,000 came from 4.08 and was
-    // 24,000 euro out by the time anyone read it. Re-convert when re-checking.
-    advertised: 466_000,
-    extras: 31_000,
-    breakdown:
-      "golden visa government fees AED 9,884.75 (medical 700, Emirates ID 1,153, residency 2,856.75, DLD 4,020, admin 1,155) = 2,305; DLD transfer 4% + admin ~19,640 and agency ~2% ~9,330 — both market practice, not confirmed by a DLD tariff page",
+    // THE RATE IS PART OF THE FIGURE, NOT A CONSTANT, and it is now the model
+    // that says so: costModel.ts converts at AED_PER_EUR and takes a rate as
+    // an input, so the euro threshold moves when the rate does. The previous
+    // 490,000 came from 4.08 and was 24,000 euro out by the time anyone read
+    // it. Re-convert when re-checking, in costModel.ts.
+    ...published("ae"),
     // DLD publishes 7–10 working days, GDRFA about 5, ICP two days for the
     // entry permit. Title deed to Emirates ID is realistically 2–4 weeks.
     speedBand: "weeks",
@@ -137,20 +154,25 @@ export const FACTS: FactSeed[] = [
   },
   {
     code: "cy",
+    // THE ONE ROW STILL WRITTEN BY HAND, and deliberately so. Cyprus is not in
+    // costModel.ts because it is not published: gov.cy returns 403 to an
+    // automated request, mip.gov.cy has an expired certificate and the tax
+    // department's PDF is robots-blocked, so every figure below rests on
+    // secondary sources. Modelling it line by line would dress the weakest
+    // data in the project in the same clothes as the strongest.
+    //
     // Regulation 6(2), revised criteria of 2 May 2023. €300,000 EXCLUDING
     // VAT, plus €50,000 of secured annual income from abroad, +€15,000 for a
     // spouse and +€10,000 per minor child, health insurance, and an annual
     // proof that the investment is still held.
     //
-    // Deferred on the site, and the figures below are the weakest in this
-    // file: gov.cy returns 403 to an automated request, mip.gov.cy has an
-    // expired certificate and the tax department's PDF is robots-blocked, so
-    // everything here rests on secondary sources. Do not publish Cyprus until
-    // a primary source has been read by a human.
+    // Do not publish Cyprus until a primary source has been read by a human.
+    // Extras below: VAT at the reduced 5% 15,000 (19% if the reduced rate does
+    // not apply, which is 57,000); legal ~1% 3,000; permit and immigration
+    // fees ~500. Transfer fees are NIL where VAT was paid, and the 6(2) route
+    // requires a first-sale property — so they are not in the stack at all.
     advertised: 300_000,
     extras: 19_000,
-    breakdown:
-      "VAT at the reduced 5% 15,000 (19% if the reduced rate does not apply, which is 57,000); legal ~1% 3,000; permit and immigration fees ~500. Transfer fees are NIL where VAT was paid, and the 6(2) route requires a first-sale property — so they are not in the stack at all",
     speedBand: "months",
     strengths: ["tax"],
   },

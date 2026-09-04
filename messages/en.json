@@ -45,6 +45,7 @@
       "comparison": "Comparison",
       "method": "How we count",
       "cost": "The real cost",
+      "calculator": "Cost calculator",
       "route": "Find your route",
       "faq": "Common questions",
       "enquiry": "Send an enquiry",
@@ -295,5 +296,160 @@
     "contents": "Contents",
     "progressLabel": "Reading progress",
     "home": "Home"
+  },
+  "calculator": {
+    "metaTitle": "What entry to a residency programme actually costs",
+    "metaDescription": "Programmes name one figure and you pay more. The advertised minimum beside the real cost of entry in Greece, Portugal, Malta and the UAE — line by line, with the act that sets each one and the day it was read.",
+    "heading": "What residency by investment actually costs",
+    "intro": "Programmes advertise a minimum of {grLow} to {ptAdvertised}. You pay more: purchase taxes, contributions to the state, permit fees and intermediaries land on top. On Malta that extra is {mtGap}, a quarter of the whole sum. Name your own figure and see which of the four it covers.",
+    "bandTitle": "Four residency-by-investment programmes",
+    "bandNote": "every sum in euro",
+    "qValue": "What is your budget?",
+    "valueAria": "Your sum, in euro",
+    "sliderAria": "Your sum",
+    "colProgramme": "Programme",
+    "colAdvertised": "Advertised minimum",
+    "colReal": "What it really takes",
+    "colBar": "What it is made of",
+    "colYours": "Your sum",
+    "verdictSome": "A budget of {budget} covers entry to {n} of the four.",
+    "verdictAll": "A budget of {budget} covers entry to all four. Dearest of them: {name} — {total}.",
+    "verdictNearest": "Nearest: {name} — short by {short}.",
+    "verdictNone": "A budget of {budget} covers none of the four. Nearest: {name} — short by {short}.",
+    "emptyPrompt": "Name a sum and the answer appears.",
+    "fits": "covered",
+    "fitsSub": "{left} left over",
+    "missBy": "short by {short}",
+    "missSub": "advertised at {advertised}",
+    "cutTag": "your {value}",
+    "workingLabel": "Show every cost, line by line",
+    "amountLabel": "If the asset costs more than the minimum — its price",
+    "structureLabel": "What the extra is made of",
+    "notes": {
+      "gr": "In Attica, Thessaloniki and the large islands the threshold is €800,000 — then it takes €866,000. For a listed restoration or a change of use it is €250,000 — then €274,000.",
+      "pt": "Property is excluded from the Portuguese programme by statute; the investment goes into a fund. Filing online takes 25% off the AIMA fees — about €3,400.",
+      "mt": "Housing can be leased rather than bought: €114,000 for the first year. But rent is spent, not staked, and it has to be evidenced every year for the first five.",
+      "ae": "The threshold is set in dirhams: AED 2,000,000. Converted at 4.288, read on 23 August 2026."
+    },
+    "eyebrow": "Cost calculator",
+    "groups": {
+      "purchase-tax": "Purchase taxes",
+      "state-contribution": "Contributions to the state",
+      "lease": "Lease under the programme",
+      "professional": "Notary and lawyer",
+      "agency": "Agency commission",
+      "fund": "Fund charges",
+      "permit": "Residence-permit fees"
+    },
+    "basisNote": "One main applicant, no dependants: everything payable to enter and to hold the permit through its first renewal. Annual costs after that are on each jurisdiction's own page.",
+    "ctaHeading": "Two routes fit. The next step is a firm licensed in the one you pick.",
+    "ctaLabel": "Send an enquiry",
+    "ctaNote": "This site does not sell property and does not give legal advice. It finds you a licensed firm in the jurisdiction and tells you what it was told about you.",
+    "columnLine": "Line",
+    "columnBasis": "Basis",
+    "columnAmount": "Amount",
+    "flat": "flat",
+    "perYear": "a year × {n}",
+    "discount": "−25% online",
+    "confidence": {
+      "primary": "act",
+      "secondary": "reproduction",
+      "custom": "market custom"
+    },
+    "sourceLabel": "source",
+    "share": "Copy a link to these numbers",
+    "shareDone": "Copied",
+    "jurisdictionCta": "The full guide",
+    "updated": "Lines read against their sources no later than {date}",
+    "method": "Basis: one main applicant, no dependants, and everything payable to enter and to hold the permit through its first renewal. Family composition is not an input, because only two of the four jurisdictions publish a per-dependant figure and the Greek regulation sets none at all — a control that changed one country in four would misinform about three.",
+    "tiers": {
+      "250": "Restoration or change of use — €250,000",
+      "400": "Everywhere else — €400,000",
+      "800": "Attica, Thessaloniki, large islands — €800,000"
+    },
+    "capAdvertised": "advertised",
+    "capReal": "really",
+    "body": {
+      "extrasHeading": "The costs on top of the minimum investment",
+      "extrasLead": "The extra above the advertised minimum comes from four sources. The programmes weight them differently, which is why the gap differs: from {ptShare} in Portugal to {mtShare} on Malta.",
+      "extrasTaxesTerm": "Property purchase taxes",
+      "extrasTaxes": "are charged on the price of the asset and grow with it. In Greece the transfer tax with its municipal surcharge is {grRate}, which on a {grAdvertised} property is {grTransferTax}. On Malta stamp duty is 5%, or {mtStampDuty}. In the UAE the land department's registration fee is 4%, or {aeDld}.",
+      "extrasStateTerm": "Contributions to the state",
+      "extrasState": "exist only on Malta and come to {mtContribTotal}: an administrative fee of {mtAdminFee}, a government contribution of {mtContribution} and a compulsory donation to a registered NGO of {mtNgo}. They do not move with the price of the housing and are the same on the purchase and the lease route — which is why the Maltese gap is the largest.",
+      "extrasPermitsTerm": "Residence-permit fees",
+      "extrasPermits": "are usually the smallest and the most predictable. In Portugal they are not: {ptAnalysis} to consider the application, {ptGrant} to grant it, {ptRenewal} for the first renewal. Filing online takes 25% off them.",
+      "extrasAgentsTerm": "A lawyer and an agent",
+      "extrasAgents": "are the one group you can negotiate over, and the one where we have no statute — only market practice. Those lines are marked as such in the working.",
+      "countriesHeading": "The cost of residency by investment, country by country",
+      "grHeading": "Greece — {grAdvertised} advertised, {grReal} in reality",
+      "grText": "The threshold depends on where the property is and what it is. {grAdvertised} covers the whole country except Attica, Thessaloniki and the large islands; there it is {grHigh}, and entry costs {grHighReal}. The {grLow} threshold is open only for a listed restoration or a change of use, where entry costs {grLowReal}. Of the {grGap} extra, nearly half is the lawyer and the agent.",
+      "aeHeading": "UAE golden visa — {aeAed} advertised, {aeReal} in reality",
+      "aeText": "The minimum is set in dirhams, so its price in euro moves with the rate; on {aeDate} it was {aeAdvertised}. It need not be a single property — several qualify on their combined value. More than half of the {aeGap} extra is the land department's registration fee.",
+      "mtHeading": "Malta — {mtAdvertised} advertised, {mtReal} in reality",
+      "mtText": "The largest gap of the four: {mtGap} on top, a quarter of the whole sum. The cause is the contributions to the state, which do not move with the price of the housing. Housing can be leased rather than bought, from {mtRent} a year: the first year then costs {mtRentFirstYear}, but rent is spent rather than staked, and it has to be evidenced every year for the first five.",
+      "ptHeading": "Portugal golden visa — {ptAdvertised} advertised, {ptReal} in reality",
+      "ptText": "The smallest gap, {ptShare}. Property has been excluded from this programme by statute since 2023; the investment goes into a fund. Most of the extra is the AIMA fees and the fund's charges for the first year. Filing online takes 25% off the fees, about {ptOnlineSaving}.",
+      "excludedHeading": "What the figure excludes: family, later renewals, ownership",
+      "excludedLead": "The calculation is for one main applicant with no dependants, carried to the first renewal of the permit. Four things sit outside it.",
+      "excludedFamilyTerm": "Family.",
+      "excludedFamily": "A checkable per-dependant figure is published in only two of the four jurisdictions, and the Greek regulation sets none at all. We do not publish a field that would be right about two countries and invented about two others.",
+      "excludedAfterTerm": "Everything after the first renewal:",
+      "excludedAfter": "the second renewal and those after it, the fund's charges from the second year, the Maltese lease from the second year.",
+      "excludedOwningTerm": "Ownership:",
+      "excludedOwning": "property taxes, upkeep, insurance, utilities.",
+      "excludedRateTerm": "The rate.",
+      "excludedRate": "The Emirati threshold is set in dirhams, so its price in euro moves with the exchange rate.",
+      "sourcesHeading": "Where the figures come from and how to check them",
+      "sourcesText": "Under every line in the working stands the act that sets it and the day that act was read. Lines carry one of three levels: statute, secondary source, market practice. The third — the lawyer and the agent — is the only one where the sum is negotiable; everything else moves only when the law does.",
+      "sourcesLink": "Every source, with links"
+    },
+    "lines": {
+      "gr": {
+        "transfer-tax": "Transfer tax (ΦΜΑ)",
+        "notary": "Notary",
+        "land-registry": "Land registry",
+        "legal": "Lawyer",
+        "agency": "Agent's commission",
+        "permit-fee": "Permit application (e-paravolo)",
+        "permit-card": "Residence card",
+        "permit-renewal": "First renewal"
+      },
+      "pt": {
+        "aima-analysis": "AIMA: analysis of the application",
+        "aima-grant": "AIMA: grant of the permit",
+        "aima-renewal": "AIMA: first renewal",
+        "legal": "Lawyer",
+        "fund-charges": "Fund charges"
+      },
+      "mt": {
+        "stamp-duty": "Stamp duty",
+        "rent": "Qualifying lease",
+        "admin-fee": "Administrative fee",
+        "contribution": "Government contribution",
+        "ngo-donation": "NGO donation",
+        "residence-card": "Residence card",
+        "notary-legal": "Notary and lawyer"
+      },
+      "ae": {
+        "golden-visa-fees": "Golden visa government fees",
+        "dld-transfer": "DLD transfer fee",
+        "dld-admin": "DLD administration and trustee",
+        "agency": "Agent's commission"
+      }
+    },
+    "lineNotes": {
+      "gr": {
+        "transfer-tax": "Charged on the taxable value, which is not always the price paid.",
+        "notary": "The first band of the tariff is disputed: 0.80% in the codified text, 1% in two legal publishers. The lower figure is used."
+      },
+      "mt": {
+        "stamp-duty": "No reduced rate is open to a buyer who would have needed ministerial permission.",
+        "rent": "Rent is a cost, not a stake. Nothing is committed on this route."
+      },
+      "ae": {
+        "dld-transfer": "The instrument splits this fee equally with the seller «unless agreed otherwise». Budget it, but it is negotiable.",
+        "agency": "VAT at 5% applies to the commission and is not included here."
+      }
+    }
   }
 }
