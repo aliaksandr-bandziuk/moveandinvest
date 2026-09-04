@@ -80,6 +80,12 @@ export interface CostCalculatorLabels {
   ctaLabel: string;
   ctaNote: string;
 
+  /** The dialog the call to action opens. Only used where a form was passed
+   *  in — see `enquiryForm`. */
+  dialogTitle: string;
+  dialogClose: string;
+  dialogNote: string;
+
   columnLine: string;
   columnBasis: string;
   columnAmount: string;
@@ -106,6 +112,14 @@ interface CostCalculatorProps {
   labels: CostCalculatorLabels;
   /** Where the call to action goes, already resolved for the locale. */
   enquiryHref: string;
+  /** THE ENQUIRY FORM, PASSED IN RATHER THAN IMPORTED. It lives in
+   *  `components/marketing` and this component lives in `components/country`,
+   *  and reaching across by deep path is the dependency direction CLAUDE.md
+   *  forbids. The page owns the composition; this component owns the box it
+   *  goes in.
+   *
+   *  Omit it and the call to action stays what it was: a link to /enquiry. */
+  enquiryForm?: React.ReactNode;
   locale: string;
 }
 
@@ -146,6 +160,7 @@ export function CostCalculator({
   jurisdictions,
   labels,
   enquiryHref,
+  enquiryForm,
   locale,
 }: CostCalculatorProps) {
   const ordered = CALC_CODES.map((code) =>
@@ -539,6 +554,26 @@ export function CostCalculator({
             </div>
           </div>
 
+          {/* THE SAME FORM, IN A BOX OVER THE ANSWER — not a shorter one, and
+              not a page away.
+              
+              Not shorter, because the calculator knows exactly one of the six
+              things that form asks: the budget. It does not know which country
+              the reader wants (it says which ones fit, which is a different
+              statement), or their deadline, or their goal, or their situation,
+              or their name. A "short form because we already know" would have
+              saved one field out of six and cost the promise on /for-partners
+              that those six arrive in that order.
+              
+              Not a page away, because the reader has just done arithmetic
+              about their own money and the next screen used to be a blank
+              form. Here the budget arrives ticked, the figures ride along
+              hidden, and the sentence they were reading a second ago is
+              repeated at the top of the box.
+              
+              The dialog is opened by the control and by nothing else. With no
+              JavaScript the button below is an ordinary link to /enquiry, and
+              this whole element is inert. */}
           <div className={styles.next}>
             <p className={styles.nextHeading}>{labels.ctaHeading}</p>
             {/* The one link out of this page, and it does not leave empty
@@ -554,6 +589,29 @@ export function CostCalculator({
             </a>
             <p className={styles.nextNote}>{labels.ctaNote}</p>
           </div>
+
+          {enquiryForm ? (
+            <dialog className={styles.modal} data-calc-dialog aria-label={labels.dialogTitle}>
+              <div className={styles.modalPanel} data-calc-panel>
+                <div className={styles.modalHead}>
+                  {/* The verdict sentence again, written here by the control
+                      from the same string the dark band shows. Copied rather
+                      than composed a second time: two sentences saying the
+                      same thing in slightly different words is how they end
+                      up disagreeing. */}
+                  <p className={styles.modalVerdict} data-calc-verdict />
+                  <button
+                    className={styles.modalClose}
+                    type="button"
+                    data-calc-close
+                    aria-label={labels.dialogClose}
+                  />
+                </div>
+                <p className={styles.modalNote}>{labels.dialogNote}</p>
+                <div className={styles.modalBody}>{enquiryForm}</div>
+              </div>
+            </dialog>
+          ) : null}
         </CostCalculatorControl>
       </div>
     </section>

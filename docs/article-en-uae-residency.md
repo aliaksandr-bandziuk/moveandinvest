@@ -10,8 +10,8 @@
 
 ## Metadata
 
-**Meta title (55 characters):**
-`UAE golden visa rules in 2026 and what actually changed`
+**Meta title (53 characters):**
+`UAE golden visa requirements in 2026 and what changed`
 
 **Meta description (155 characters):**
 `AED 2,000,000 and the article that sets it, the AED 750,000 route that was repealed in April, and the two 2026 changes with no published instrument at all.`

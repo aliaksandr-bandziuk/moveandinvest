@@ -52,13 +52,21 @@ interface EntryConfig {
    *  the plugin's translation-metadata document. One value so that renaming an
    *  entry cannot rename two of the three. */
   key: string;
-  /** The source file per language, under docs/. */
-  sources: Record<Locale, string>;
+  /** The source file per language, under docs/.
+   *
+   *  PARTIAL SINCE 4 SEPTEMBER 2026. Until then every entry had to exist in all
+   *  three languages, which was true of the first six and stopped being true
+   *  with "greece-living": its subject has real search demand in English and
+   *  almost none in Russian, while the same words in Polish belong to
+   *  holiday-home buyers. Forcing a translation nobody searches for is worse
+   *  than publishing one language — it costs the work and then dilutes the
+   *  entry set. A missing language here means "deliberately not written". */
+  sources: Partial<Record<Locale, string>>;
   /** Which figure each marker in each language resolves to, in the order the
    *  alt texts are listed in that file's metadata block. The marker index and
    *  the file name are deliberately not the same thing: a localisation may
    *  carry a different diagram in the same position. */
-  figures: Record<Locale, string[]>;
+  figures: Partial<Record<Locale, string[]>>;
   /** The entry's date on the site. ONE DATE FOR ALL THREE: they are one piece
    *  of work in three languages, and three different dates would tell a reader
    *  the Polish version is newer research when it is the same research. */
@@ -207,6 +215,28 @@ const ENTRIES: Record<string, EntryConfig> = {
     countries: ["country-ae"],
   },
 
+  // LIVING IN GREECE, added 4 September 2026. The first entry on this site that
+  // is not about a permit: it answers what the country costs once you are in
+  // it. Written because the term cluster around living, moving and cost of
+  // living in Greece carries 34,390 monthly impressions at competition 25 or
+  // below — and because every page currently ranking for it is published by a
+  // firm selling golden visas, with figures that name no source at all.
+  //
+  // ENGLISH ONLY, AND THAT IS THE FINDING RATHER THAN A GAP. Russian demand for
+  // this theme is a handful of impressions; Polish demand under the same words
+  // is holiday-home buyers, a different reader entirely.
+  "greece-living": {
+    key: "article-greece-living",
+    sources: {
+      en: "article-en-greece-living.md",
+    },
+    figures: {
+      en: ["gr-living-budget-en", "gr-living-regions-en", "gr-living-rent-en"],
+    },
+    publishedAt: "2026-09-04T09:00:00.000Z",
+    category: "relocation",
+    countries: ["country-gr"],
+  },
   "malta-residency": {
     key: "article-malta-residency",
     sources: {
@@ -302,12 +332,35 @@ function checkFooterKeys(): void {
 /** Every entry's slug in every language, read from the markdown headers rather
  *  than from a table kept beside them. One source, so a slug cannot be renamed
  *  in the file and stay stale in a link. */
+/** The languages this entry was actually written in, in the canonical order.
+ *  Everything that used to iterate LOCALES blindly goes through this. */
+function localesOf(config: EntryConfig): Locale[] {
+  return LOCALES.filter((locale) => config.sources[locale]);
+}
+
+/** The source file for a language this entry was written in. Throws rather than
+ *  returning undefined: every caller reached here through localesOf, so a miss
+ *  is a bug in the entry record, not a condition to handle. */
+function sourceOf(config: EntryConfig, locale: Locale): string {
+  const source = config.sources[locale];
+  if (!source) {
+    throw new Error(`Entry has no ${locale} source file. Check its ENTRIES record.`);
+  }
+  return source;
+}
+
+/** The figures for a language. Absent means none, which is a legitimate state:
+ *  a one-language entry declares figures for that language only. */
+function figuresOf(config: EntryConfig, locale: Locale): string[] {
+  return config.figures[locale] ?? [];
+}
+
 function entrySlugs(): Record<string, Record<Locale, string>> {
   const out: Record<string, Record<Locale, string>> = {};
   for (const [name, config] of Object.entries(ENTRIES)) {
     const perLocale = {} as Record<Locale, string>;
-    for (const locale of LOCALES) {
-      const raw = readFileSync(join(DOCS, config.sources[locale]), "utf8");
+    for (const locale of localesOf(config)) {
+      const raw = readFileSync(join(DOCS, sourceOf(config, locale)), "utf8");
       const header = raw
         .split("\n")
         .slice(1, 12)
@@ -419,7 +472,7 @@ function backticked(line: string, what: string): string {
 }
 
 function parse(locale: Locale, config: EntryConfig): Parsed {
-  const source = config.sources[locale];
+  const source = sourceOf(config, locale);
   const raw = readFileSync(join(DOCS, source), "utf8");
   const lines = raw.split("\n");
 
@@ -465,9 +518,9 @@ function parse(locale: Locale, config: EntryConfig): Parsed {
   const alts = lines
     .filter((line) => /^\d+\. `/.test(line))
     .map((line) => backticked(line, "alt text"));
-  if (alts.length !== config.figures[locale].length) {
+  if (alts.length !== figuresOf(config, locale).length) {
     throw new Error(
-      `${source}: ${alts.length} alt texts but ${config.figures[locale].length} figures.`,
+      `${source}: ${alts.length} alt texts but ${figuresOf(config, locale).length} figures.`,
     );
   }
 
@@ -608,7 +661,7 @@ async function run() {
   const write = process.argv.slice(2).includes("--write");
   checkFooterKeys();
   const { name, config } = selectEntry();
-  const parsedAll = LOCALES.map((locale) => parse(locale, config));
+  const parsedAll = localesOf(config).map((locale) => parse(locale, config));
   // Every entry's slug in every language, so a link from this body to another
   // entry resolves without a network call and fails loudly if it cannot.
   const slugs = entrySlugs();
@@ -626,7 +679,7 @@ async function run() {
     // differs.
     const body = assemble(
       parsed,
-      config.figures[parsed.locale].map((name) => `image-DRYRUN-${name}`),
+      figuresOf(config, parsed.locale).map((name) => `image-DRYRUN-${name}`),
       makeResolver(parsed.locale, slugs),
     );
 
@@ -680,7 +733,7 @@ async function run() {
         `${parsed.locale}: meta title or description is over the limit.`,
       );
     }
-    if (count("image") !== config.figures[parsed.locale].length) {
+    if (count("image") !== figuresOf(config, parsed.locale).length) {
       throw new Error(
         `${parsed.locale}: ${count("image")} figures placed, 3 expected.`,
       );
@@ -701,7 +754,7 @@ async function run() {
     // `npm run figures:verify`. Telling somebody to run the command they have
     // already run is worse than saying nothing: they run it again, nothing
     // changes, and the next thing they doubt is the file list.
-    const missing = config.figures[parsed.locale].filter(
+    const missing = figuresOf(config, parsed.locale).filter(
       (name) => !existsSync(join(FIGURES, `${name}.svg`)),
     );
     if (missing.length > 0) {
@@ -745,7 +798,7 @@ async function run() {
     // the body that references it can be assembled. Sanity deduplicates by file
     // hash, so re-running this does not create a second copy of a figure.
     const assetIds: string[] = [];
-    for (const name of config.figures[parsed.locale]) {
+    for (const name of figuresOf(config, parsed.locale)) {
       const asset = await client.assets.upload(
         "image",
         readFileSync(join(FIGURES, `${name}.svg`)),
@@ -800,7 +853,7 @@ async function run() {
     _id: `translation.metadata.${config.key}`,
     _type: "translation.metadata",
     schemaTypes: ["article"],
-    translations: LOCALES.map((locale) => ({
+    translations: localesOf(config).map((locale) => ({
       _key: locale,
       _type: "internationalizedArrayReferenceValue",
       value: {

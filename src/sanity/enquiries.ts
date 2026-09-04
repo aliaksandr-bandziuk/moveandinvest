@@ -45,7 +45,14 @@ export interface EnquiryPayload {
    *  An "article" enquiry carries less than the other two by design: an address,
    *  a sentence, and whichever jurisdiction the guide was about. Asking a reader
    *  who is still reading for a budget is how a foot-of-page form gets skipped. */
-  kind?: "enquiry" | "brief" | "article";
+  kind?: "enquiry" | "brief" | "article" | "calc";
+  /** Calculator dialog only: a phone number, a messenger handle, or whatever
+   *  else the reader offered. Free text on purpose — see the field's note. */
+  reach?: string;
+  /** Calculator dialog only. Permission to be contacted about this enquiry,
+   *  which is NOT `consentToShare` and must never be read as it: nothing from
+   *  that dialog goes to a partner until there has been a conversation. */
+  consentToContact?: boolean;
   /** WHAT THE CALCULATOR SHOWED, when the enquiry came from it. Absent on
    *  every other route, which is most of them.
    *

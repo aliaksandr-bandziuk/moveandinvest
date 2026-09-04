@@ -1,0 +1,193 @@
+@use "../../../styles/mixins";
+
+// ON THE DARK PLANE, and it inherits it rather than painting its own. This
+// form has exactly one mount point — inside the calculator's dialog, which is
+// already dark — so a background here would be a second opinion about the same
+// pixel. Everything below is sized to fit that box without a scrollbar: four
+// fields, a checkbox and a button.
+
+// NAMES CHOSEN TO NOT COLLIDE: `.duo`, `.cell`, `.control`, `.actions` rather
+// than the obvious `.pair`, `.field`, `.input`, `.foot`. CSS Modules hash class
+// names, so in the browser two modules on one page cannot clash — but the
+// project's offline render harness stubs that hashing and compiles both
+// stylesheets as written, and this form only ever renders inside the
+// calculator, whose module owns all four of those names. The calculator's own
+// `.head` and `.foot` were renamed for exactly this reason in September.
+.wrap {
+  color: var(--color-on-dark);
+}
+
+// TIGHTER ON A PHONE, and measured rather than guessed: at 390×780 the four
+// fields, the checkbox and the button came to 699px inside a 669px box, so the
+// form the reader was promised would not scroll, scrolled by thirty pixels.
+// The savings are spread — gaps, the box's own padding, two rows of textarea
+// instead of three — rather than taken out of one thing, because no single one
+// of them is worth 30px on its own. On a viewport shorter than about 700px it
+// still scrolls a little, and that is the honest limit of four fields.
+.form {
+  display: grid;
+  gap: var(--space-2);
+
+  @include mixins.breakpoint-up(sm) {
+    gap: var(--space-3);
+  }
+}
+
+// Off-screen rather than display:none: a bot that parses CSS skips a hidden
+// input, and one that does not, fills this one.
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Name and address side by side from the first breakpoint that can hold them.
+// Stacked on a phone, where two half-width text inputs are two inputs nobody
+// can type in.
+.duo {
+  display: grid;
+  gap: var(--space-3);
+
+  @include mixins.breakpoint-up(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cell {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.label {
+  font-size: var(--fs-nano);
+  line-height: var(--lh-nano);
+  color: var(--color-on-dark-muted);
+}
+
+.control {
+  @include mixins.focus-ring-on-dark;
+
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-on-dark);
+  background: rgb(255 255 255 / 5%);
+  border: var(--border-hairline) solid var(--color-on-dark-hairline);
+  border-radius: var(--radius-s);
+
+  &::placeholder {
+    color: var(--color-on-dark-muted);
+  }
+}
+
+.textarea {
+  block-size: 4.2em;
+  resize: vertical;
+
+  @include mixins.breakpoint-up(sm) {
+    block-size: 6em;
+  }
+}
+
+.consent {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--fs-nano);
+  line-height: 1.5;
+  color: var(--color-on-dark-muted);
+  cursor: pointer;
+
+  input {
+    flex: none;
+    margin-block-start: 0.15em;
+    accent-color: var(--color-accent);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+}
+
+.button {
+  @include mixins.tap-target;
+  @include mixins.focus-ring-on-dark;
+
+  flex: none;
+  padding-inline: var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-accent-contrast);
+  cursor: pointer;
+  background: var(--color-accent);
+  border: 0;
+  border-radius: var(--radius-s);
+
+  &:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+.fine {
+  flex: 1 1 14rem;
+  margin: 0;
+  font-size: var(--fs-nano);
+  line-height: 1.5;
+  color: var(--color-on-dark-muted);
+}
+
+.fineLink {
+  @include mixins.link;
+}
+
+// --- Result panels ----------------------------------------------------------
+// Literal ids inside :global(), same as the four forms before it — the route
+// redirects to `#calc-sent` and CSS Modules would otherwise scope the id. All
+// three are listed, including the one that says the fault is ours; leaving it
+// out is a mistake two older forms made and nobody saw for weeks, because the
+// panel simply never appeared.
+.result {
+  display: none;
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+  border: var(--border-hairline) solid var(--color-on-dark-hairline);
+  border-radius: var(--radius-s);
+}
+
+:global(#calc-sent):target,
+:global(#calc-error):target,
+:global(#calc-failed):target {
+  display: block;
+}
+
+:global(#calc-sent):target ~ .form {
+  display: none;
+}
+
+.failed {
+  border-color: var(--color-accent-on-dark);
+}
+
+.resultTitle {
+  font-size: var(--fs-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+}
+
+.resultBody {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark-muted);
+}

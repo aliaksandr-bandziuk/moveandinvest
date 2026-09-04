@@ -28,7 +28,12 @@ export interface EnquiryFormProps {
    *  A closed pair rather than a path: the server allows exactly these two
    *  values and resolves each to a route out of routing.ts itself. A form that
    *  could name its own redirect target would be an open redirect the day
-   *  somebody widened the check. */
+   *  somebody widened the check.
+   *
+   *  The calculator briefly had a third value here, when its dialog opened this
+   *  form. It opens its own now — four fields instead of six, because what it
+   *  produces is a conversation rather than a qualified enquiry. See
+   *  CalcEnquiryForm. */
   from?: "home" | "enquiry";
   fork: {
     chosenIndex: string;

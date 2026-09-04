@@ -32,7 +32,7 @@ export const FAQ_PAGE_COPY: Record<Locale, FaqPageCopy> = {
     howToRead:
       "The line under an answer links to the section of our sources page where that figure was checked, with the statute number, the article and the gazette date. An answer with no such line either states no figure, or is about how this site itself works.",
     seo: {
-      metaTitle: "FAQ: residency by investment in five jurisdictions — moveandinvest",
+      metaTitle: "Fifty-two golden visa questions, answered from the law",
       metaDescription:
         "Fifty-two questions on residency by investment in Portugal, Greece, Malta, the UAE and Cyprus. Every figure links to the statute it came from; where no primary source exists, we say so.",
     },
@@ -45,7 +45,7 @@ export const FAQ_PAGE_COPY: Record<Locale, FaqPageCopy> = {
     howToRead:
       "Строка под ответом ведёт в тот раздел нашей страницы источников, где эта цифра сверялась, — с номером закона, статьёй и датой официальной газеты. Если такой строки нет, значит в ответе нет цифры либо он о том, как устроен сам сайт.",
     seo: {
-      metaTitle: "Золотая виза: 52 вопроса и ответы по закону — moveandinvest",
+      metaTitle: "52 вопроса о золотой визе — ответы по закону, moveandinvest",
       metaDescription:
         "Пятьдесят два вопроса о ВНЖ за инвестиции в Португалии, Греции, на Мальте, в ОАЭ и на Кипре. Каждая цифра со ссылкой на закон; где первоисточника нет, мы так и пишем.",
     },

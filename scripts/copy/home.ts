@@ -300,7 +300,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       body: "An enquiry arrives with its questions already answered — jurisdiction, budget, timing, goal — and with what the person wrote in their own words. Before sending it they went through the four-question comparison and a jurisdiction page, so they are asking already knowing what they are asking about. Paid per qualified lead where your profession permits it, and free where it does not — on Malta, in the UAE and in Portugal a lawyer may not pay for an introduction, and there we ask for nothing. We take no part in your fee either way.",
     },
     seo: {
-      metaTitle: "Relocation and property in five jurisdictions — moveandinvest",
+      metaTitle: "Golden visa programs: five compared, every figure sourced",
       metaDescription: "Compare residency routes, minimum investment, time to a first permit and tax regimes across Portugal, Greece, Malta, the UAE and Cyprus.",
     },
   },

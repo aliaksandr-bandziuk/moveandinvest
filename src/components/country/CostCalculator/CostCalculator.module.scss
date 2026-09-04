@@ -954,6 +954,142 @@ $grid: 7rem 14rem minmax(0, 1fr) 11rem;
   }
 }
 
+// --- The enquiry, over the answer -------------------------------------------
+//
+// A real <dialog>, opened with showModal() and nothing else. That buys the
+// three things a hand-built overlay has to reimplement badly: the top layer,
+// so nothing on the page can sit above it; a focus trap and a restore on
+// close; and Escape. The element ships closed, which means `display: none`,
+// which means a browser without <dialog> shows nothing at all — and that is
+// exactly right, because in that browser the control never intercepts the
+// click and the button is still a link to /enquiry.
+//
+// WHAT IS INSIDE IS THE ENQUIRY FORM ITSELF, the same component /enquiry
+// renders, with its own dark plane, its own container and its own section
+// rhythm. Two rules below trim that rhythm to modal proportions. They reach
+// the embedded markup by element and by the one global class the layout owns,
+// never by another module's class names — those are hashed, and a stylesheet
+// that guessed at them would break silently on the next build.
+
+.modal {
+  // CENTRED BY HAND, because the reset takes the browser's own centring away.
+  // A <dialog> is `position: fixed; inset: 0; width: fit-content; margin: auto`
+  // in the user-agent stylesheet, and globals.scss zeroes every margin on the
+  // page — so without this line the box opens flat against the top-left corner
+  // and the backdrop is only ever to the right of it. Found by measuring the
+  // open dialog, not by reading the rule: it rendered at x=0, y=0.
+  margin: auto;
+  max-inline-size: min(46rem, 100% - 2rem);
+  max-block-size: min(86svh, 100% - 2rem);
+  padding: 0;
+  overflow: hidden;
+  color: var(--color-on-dark);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+}
+
+.modal::backdrop {
+  background: rgb(11 15 22 / 66%);
+}
+
+.modalPanel {
+  max-block-size: min(86svh, 100vh - 2rem);
+  overflow-y: auto;
+  background: var(--color-dark);
+  border: var(--border-hairline) solid var(--color-on-dark-hairline);
+  border-radius: var(--radius-s);
+}
+
+// STICKY, because the form below it is long and the way out has to stay
+// reachable. It also keeps the reader's own figure in view while they answer
+// questions about it, which is the entire argument for opening the form here
+// rather than on a page of its own.
+.modalHead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--color-dark);
+  border-block-end: var(--border-hairline) solid var(--color-on-dark-hairline);
+
+  @include mixins.breakpoint-up(sm) {
+    padding: var(--space-4) var(--space-4) var(--space-3);
+  }
+}
+
+.modalVerdict {
+  margin: 0;
+  font-size: var(--fs-nano);
+  line-height: 1.45;
+
+  @include mixins.breakpoint-up(sm) {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+  }
+}
+
+// Under the sticky strip rather than in it: it is read once, on the way in,
+// and a promise that scrolls away is the right weight for a promise the form
+// underneath then keeps.
+.modalNote {
+  padding-inline: var(--space-3);
+  margin: var(--space-3) 0 0;
+
+  @include mixins.breakpoint-up(sm) {
+    padding-inline: var(--space-4);
+  }
+  font-size: var(--fs-nano);
+  line-height: 1.5;
+  color: var(--color-on-dark-muted);
+}
+
+.modalClose {
+  @include mixins.focus-ring-on-dark;
+
+  position: relative;
+  flex: none;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 32%;
+    inset-block-start: calc(50% - 1px);
+    block-size: 2px;
+    background: var(--color-on-dark);
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+// The padding around whatever form was passed in. Here rather than inside the
+// form, because the box owns its own margins and a form that carried them
+// could not be dropped into anything else.
+.modalBody {
+  padding: var(--space-3);
+
+  @include mixins.breakpoint-up(sm) {
+    padding: var(--space-4);
+  }
+}
+
 // --- Movement ---------------------------------------------------------------
 //
 // NOTHING BELOW CHANGES A RESTING STATE. Every rule here is a transition, and
@@ -1019,6 +1155,58 @@ $grid: 7rem 14rem minmax(0, 1fr) 11rem;
 
   .disclose::before {
     transition: transform var(--motion-base) var(--motion-ease);
+  }
+
+  // THE DIALOG, BOTH WAYS. A <dialog> is `display: none` when closed, so a
+  // plain transition has nothing to run against in either direction: opening
+  // starts from a box that was not being rendered, and closing removes it in
+  // the same frame. `@starting-style` supplies the first of those — the state
+  // the box is in for the frame before it is shown — and `allow-discrete` on
+  // `display` and `overlay` holds the element and the top layer in place until
+  // the closing transition has finished.
+  //
+  // The resting state is inside this query and not outside it, which is the
+  // rule the rest of this block follows for a different reason: `opacity: 0`
+  // declared unconditionally would hide the dialog outright for a reader who
+  // asked for less motion, in a browser that ignored the rest of it.
+  .modal {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.99);
+    transition:
+      opacity var(--motion-open) var(--motion-ease),
+      transform var(--motion-open) var(--motion-ease),
+      overlay var(--motion-open) allow-discrete,
+      display var(--motion-open) allow-discrete;
+  }
+
+  .modal[open] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .modal[open] {
+      opacity: 0;
+      transform: translateY(0.75rem) scale(0.99);
+    }
+  }
+
+  .modal::backdrop {
+    opacity: 0;
+    transition:
+      opacity var(--motion-open) var(--motion-ease),
+      overlay var(--motion-open) allow-discrete,
+      display var(--motion-open) allow-discrete;
+  }
+
+  .modal[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .modal[open]::backdrop {
+      opacity: 0;
+    }
   }
 
   // THE WORKING, AND EVERY CITATION INSIDE IT. `interpolate-size:

@@ -24,6 +24,7 @@ import { buildRow, type Row } from "@/components/country/CostCalculator/rows";
 import { baseInputs } from "@/lib/calcSummary";
 import { buildMetadata } from "@/lib/metadata";
 import { ENQUIRY_HREF, SOURCES_HREF, slugHref } from "@/lib/routes";
+import { CalcEnquiryForm } from "@/components/marketing";
 import { sanityFetch } from "@/sanity/client";
 import { COUNTRY_ROWS_QUERY, HOME_TAGS } from "@/sanity/queries";
 import type { CountryRowResult } from "@/sanity/types";
@@ -133,6 +134,9 @@ function buildLabels(t: Translator): CostCalculatorLabels {
     ctaHeading: t("ctaHeading"),
     ctaLabel: t("ctaLabel"),
     ctaNote: t("ctaNote"),
+    dialogTitle: t("dialogTitle"),
+    dialogClose: t("dialogClose"),
+    dialogNote: t("dialogNote"),
 
     columnLine: t("columnLine"),
     columnBasis: t("columnBasis"),
@@ -325,6 +329,30 @@ export default async function Calculator({
         jurisdictions={jurisdictions}
         labels={labels}
         enquiryHref={getPathname({ href: ENQUIRY_HREF, locale })}
+        enquiryForm={
+          <CalcEnquiryForm
+            labels={{
+              nameLabel: t("enquiry.nameLabel"),
+              namePlaceholder: t("enquiry.namePlaceholder"),
+              emailLabel: t("enquiry.emailLabel"),
+              emailPlaceholder: t("enquiry.emailPlaceholder"),
+              reachLabel: t("enquiry.reachLabel"),
+              reachPlaceholder: t("enquiry.reachPlaceholder"),
+              messageLabel: t("enquiry.messageLabel"),
+              messagePlaceholder: t("enquiry.messagePlaceholder"),
+              consentLabel: t("enquiry.consentLabel"),
+              honeypotLabel: t("enquiry.honeypotLabel"),
+              submitLabel: t("enquiry.submitLabel"),
+              fine: t("enquiry.fine"),
+              privacyLabel: t("enquiry.privacyLabel"),
+              sent: { title: t("enquiry.sent.title"), body: t("enquiry.sent.body") },
+              error: { title: t("enquiry.error.title"), body: t("enquiry.error.body") },
+              broke: { title: t("enquiry.broke.title"), body: t("enquiry.broke.body") },
+            }}
+            locale={locale}
+            privacyHref={getPathname({ href: "/privacy", locale })}
+          />
+        }
         locale={locale}
       />
 

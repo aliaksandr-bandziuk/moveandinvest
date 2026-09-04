@@ -10,8 +10,8 @@
 
 ## Metadata
 
-**Meta title (56 characters):**
-`Malta permanent residence programme: cost and rules 2026`
+**Meta title (55 characters):**
+`Malta residence permit: MPRP cost, rules and nomad visa`
 
 **Meta description (160 characters):**
 `What the MPRP costs above the price of the flat, the yearly obligation no brochure mentions, and why Malta publishes no minimum stay — but the cheap route does.`

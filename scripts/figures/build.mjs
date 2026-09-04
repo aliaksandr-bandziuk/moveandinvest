@@ -243,6 +243,38 @@ const GR_TAX = [
   { key: "c", years: 7 },
 ];
 
+// --- The Greece living guide's numbers ---------------------------------------
+// ELSTAT Household Budget Survey 2024, plus two commercial rent datasets. The
+// survey is a state instrument; the rent figures are not, and the third figure
+// below says so on its face rather than in a footnote, because the whole point
+// of drawing them is that they measure different things.
+
+// Shares of the average household budget. The remainder is unlabelled on
+// purpose: naming it "other" would imply the survey groups it that way.
+const GR_BUDGET = [
+  { key: "food", share: 20.7, eur: 356.68 },
+  { key: "housing", share: 14.4, eur: 247.51 },
+  { key: "transport", share: 13.3, eur: 229.75 },
+  { key: "eatingOut", share: 11.8, eur: 203.87 },
+  { key: "health", share: 7.8, eur: 134.46 },
+];
+
+// Monthly household expenditure by region, against the national average. The
+// two extremes and the middle: drawing all thirteen regions would be a chart
+// nobody reads to learn that Attica is dear.
+const GR_REGIONS = [
+  { key: "attica", eur: 2030.27, pct: 117.7 },
+  { key: "national", eur: 1724.54, pct: 100 },
+  { key: "sterea", eur: 1184.58, pct: 68.7 },
+];
+
+// Asking range against the concluded average, per square metre. `ask` is a
+// range because listings are a range; `signed` is a point because a lease is.
+const GR_RENT = [
+  { key: "attica", askLow: 7.5, askHigh: 22.0, signed: 9.2 },
+  { key: "thessaloniki", askLow: 4.9, askHigh: 12.0, signed: 7.7 },
+];
+
 // --- Figure 1: what a purchase achieves -------------------------------------
 // GROUPED BY ANSWER, NOT LISTED BY COUNTRY, and that is the whole reason this
 // is a picture rather than the table already in the article. The table answers
@@ -1448,7 +1480,7 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026" },
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
@@ -1646,7 +1678,41 @@ const L = {
       z400: "The rest of Greece",
       z250: "Conversion or restoration only,\nworks completed before filing",
     },
+    // --- Greece: living ------------------------------------------------------
+    perMonth: (v) =>
+      `${v.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`,
+    perSqm: (v) => `${v.toFixed(1)} €/m²`,
+    grBudget: {
+      food: "Food and non-alcoholic drinks",
+      housing: "Housing",
+      transport: "Transport",
+      eatingOut: "Restaurants, cafés and hotels",
+      health: "Health",
+    },
+    grRegions: {
+      attica: "Attica",
+      national: "National average",
+      sterea: "Sterea Ellada",
+    },
+    grRent: { attica: "Attica", thessaloniki: "Thessaloniki" },
+    grRentLegend: {
+      ask: "Asking prices in listings, range",
+      signed: "Concluded leases, average",
+    },
     figures: {
+      grLivingBudget: {
+        title: "Where a Greek household's money goes",
+        note: "Shares of average monthly expenditure, 1,724.54 € in total. Renting households put 17.1 % of all spending into rent alone.",
+      },
+      grLivingRegions: {
+        title: "The gap between the dearest and the cheapest region",
+        note: "Average household expenditure per month. The dearest region costs almost double the cheapest one.",
+      },
+      grLivingRent: {
+        title: "What landlords ask against what tenants signed",
+        note: "Per square metre. Listings are Q2 2026; leases cover 124 areas. Both are commercial datasets, not public registers.",
+      },
+
       mtCost: {
         title: "What Maltese permanent residence costs above the property",
         note: "The purchase rows come to 118,250 €; notary and legal fees, which carry no published tariff, take it to about 126,000 €.",
@@ -2051,6 +2117,162 @@ mkdirSync(OUT, { recursive: true });
 // TWO ENTRIES' FIGURES, ONE GENERATOR. The list is per language rather than per
 // entry because that is what the filename carries; which entry a figure belongs
 // to is recorded in scripts/articles.ts, where the marker order lives.
+// --- Figure: what a Greek household actually spends on ----------------------
+// SHARES, NOT EUROS, AS THE BAR. The euro amount sits at the end of each row
+// because a reader wants both, but the bar is the share: it is the part of the
+// finding that survives inflation and that transfers to a household spending
+// more or less than the average.
+function grLivingBudget(L) {
+  const width = 1200;
+  const height = 700;
+  const max = 24;
+  const x0 = 430;
+  const x1 = width - 300;
+  const scale = (v) => ((x1 - x0) * v) / max;
+  let body = "";
+
+  GR_BUDGET.forEach((row, i) => {
+    const y = 232 + i * 74;
+    body += text(48, y + 5, L.grBudget[row.key], { size: 16, weight: 500 });
+    const w = scale(row.share);
+    body += `<path d="M${x0} ${y - 14} h${w - 4} a4 4 0 0 1 4 4 v20 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${C.accent}"/>`;
+    body += text(x0 + w + 14, y + 5, `${row.share.toFixed(1)} %`, {
+      size: 15,
+      family: FONT_MONO,
+    });
+    body += text(width - 48, y + 5, L.perMonth(row.eur), {
+      size: 15,
+      family: FONT_MONO,
+      fill: C.muted,
+      anchor: "end",
+    });
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.grLivingBudget.title,
+    L.eyebrow,
+    L.checked(L.dates.greeceLiving),
+    body,
+    L.figures.grLivingBudget.note,
+  );
+}
+
+// --- Figure: the regional gap ------------------------------------------------
+// THE NATIONAL AVERAGE IS A ROW, NOT A LINE. Drawn as one of the three bars so
+// that the two extremes are read against it rather than against the axis: the
+// finding is that the cheapest region is a third below the average and the
+// dearest a fifth above, not that either is far from zero.
+function grLivingRegions(L) {
+  const width = 1200;
+  const height = 580;
+  const max = 2200;
+  const x0 = 430;
+  const x1 = width - 300;
+  const scale = (v) => ((x1 - x0) * v) / max;
+  let body = "";
+
+  GR_REGIONS.forEach((row, i) => {
+    const y = 240 + i * 84;
+    const isAverage = row.key === "national";
+    body += text(48, y + 5, L.grRegions[row.key], {
+      size: 16,
+      weight: isAverage ? 600 : 500,
+    });
+    const w = scale(row.eur);
+    // The average carries the muted fill: colour on this site says status, and
+    // the status here is "this is the yardstick", not "this is the winner".
+    body += `<path d="M${x0} ${y - 15} h${w - 4} a4 4 0 0 1 4 4 v22 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${isAverage ? C.pending : C.accent}"/>`;
+    body += text(x0 + w + 14, y + 5, L.perMonth(row.eur), {
+      size: 15,
+      family: FONT_MONO,
+    });
+    body += text(width - 48, y + 5, `${row.pct.toFixed(1)} %`, {
+      size: 15,
+      family: FONT_MONO,
+      fill: C.muted,
+      anchor: "end",
+    });
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.grLivingRegions.title,
+    L.eyebrow,
+    L.checked(L.dates.greeceLiving),
+    body,
+    L.figures.grLivingRegions.note,
+  );
+}
+
+// --- Figure: asked against signed --------------------------------------------
+// A RANGE AND A POINT ON ONE AXIS, WHICH IS THE WHOLE ARGUMENT. Listings are a
+// range and a lease is a number, so drawing them in the same shape would be the
+// error the figure exists to correct. The point lands near the bottom of the
+// range in both cities, and that is the finding.
+function grLivingRent(L) {
+  const width = 1200;
+  const height = 640;
+  const max = 24;
+  const x0 = 430;
+  const x1 = width - 220;
+  const scale = (v) => ((x1 - x0) * v) / max;
+  let body = "";
+
+  GR_RENT.forEach((row, i) => {
+    const y = 258 + i * 132;
+    body += text(48, y + 5, L.grRent[row.key], { size: 16, weight: 500 });
+
+    const a = x0 + scale(row.askLow);
+    const b = x0 + scale(row.askHigh);
+    body += `<rect x="${a}" y="${y - 12}" width="${b - a}" height="24" rx="4" fill="${C.hairline}"/>`;
+    // The two ends are anchored OUTWARD, away from the bar. Anchoring them
+    // inward puts both labels inside a narrow range and they collide — which is
+    // exactly what Thessaloniki, the narrowest range here, did on the first draw.
+    body += text(a - 12, y + 6, L.perSqm(row.askLow), {
+      size: 13,
+      family: FONT_MONO,
+      fill: C.muted,
+      anchor: "end",
+    });
+    body += text(b + 12, y + 6, L.perSqm(row.askHigh), {
+      size: 13,
+      family: FONT_MONO,
+      fill: C.muted,
+    });
+
+    const p = x0 + scale(row.signed);
+    body += `<circle cx="${p}" cy="${y}" r="9" fill="${C.accent}"/>`;
+    body += text(p, y - 26, L.perSqm(row.signed), {
+      size: 15,
+      family: FONT_MONO,
+      weight: 600,
+      anchor: "middle",
+    });
+  });
+
+  // The legend has to exist here and nowhere else in this file: every other
+  // figure carries one series, and a reader who has never seen a range beside a
+  // point will otherwise read the bar as the value.
+  const ly = height - 168;
+  body += `<rect x="48" y="${ly - 11}" width="20" height="16" rx="3" fill="${C.hairline}"/>`;
+  body += text(78, ly + 2, L.grRentLegend.ask, { size: 14, fill: C.muted });
+  body += `<circle cx="440" cy="${ly - 3}" r="8" fill="${C.accent}"/>`;
+  body += text(460, ly + 2, L.grRentLegend.signed, { size: 14, fill: C.muted });
+
+  return frame(
+    width,
+    height,
+    L.figures.grLivingRent.title,
+    L.eyebrow,
+    L.checked(L.dates.greeceLiving),
+    body,
+    L.figures.grLivingRent.note,
+  );
+}
+
 const PLAN = {
   ru: [
     ["qualifies", qualifies],
@@ -2091,6 +2313,11 @@ const PLAN = {
     ["mt-cost", mtCost],
     ["mt-presence", mtPresence],
     ["mt-tests", mtTests],
+    // The living guide, 4 September 2026. English only: the entry exists in one
+    // language because the demand does.
+    ["gr-living-budget", grLivingBudget],
+    ["gr-living-regions", grLivingRegions],
+    ["gr-living-rent", grLivingRent],
   ],
   pl: [
     ["qualifies", qualifies],

@@ -1,5 +1,6 @@
 export { AlertsSignup, type AlertsSignupLabels } from "./AlertsSignup";
 export { AskBlock, type AskBlockLabels } from "./AskBlock";
+export { CalcEnquiryForm, type CalcEnquiryLabels } from "./CalcEnquiryForm";
 export { EnquiryForm, type EnquiryFormProps, ROUTE_ANSWERS_KEY } from "./EnquiryForm";
 export { FaqSection, type FaqEntry, type FaqFilterOption } from "./FaqSection";
 export { HomeHero } from "./HomeHero";

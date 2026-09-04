@@ -363,6 +363,36 @@
     "ctaHeading": "Następny krok to firma z licencją w wybranej jurysdykcji.",
     "ctaLabel": "Wyślij zgłoszenie",
     "ctaNote": "Nie sprzedajemy nieruchomości i nie świadczymy usług prawnych. Znajdujemy licencjonowaną firmę w danej jurysdykcji i mówimy, co dokładnie jej o tobie przekazano. Twoje wyliczenie pojedzie razem ze zgłoszeniem — nie trzeba powtarzać liczb w formularzu.",
+    "dialogTitle": "Zgłoszenie na podstawie twojego wyliczenia",
+    "dialogClose": "Zamknij",
+    "dialogNote": "Twoje wyliczenie jest dołączone do zgłoszenia — nie trzeba powtarzać liczb. Reszta dotyczy ciebie.",
+    "enquiry": {
+      "nameLabel": "Imię",
+      "namePlaceholder": "Jak się do Ciebie zwracać",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "you@example.com",
+      "reachLabel": "Telefon lub komunikator, jeśli tak wygodniej",
+      "reachPlaceholder": "+48…, @telegram",
+      "messageLabel": "Co jest ważne w Twojej sprawie",
+      "messagePlaceholder": "Rodzina, obywatelstwo, terminy, wybrana nieruchomość — wszystko, czego wyliczenie nie wie",
+      "consentLabel": "Zgadzam się na kontakt w sprawie tego zgłoszenia",
+      "honeypotLabel": "Nie wypełniaj tego pola",
+      "submitLabel": "Wyślij",
+      "fine": "Dane służą wyłącznie do odpowiedzi. Nic nie trafia do partnera bez rozmowy i Twojej osobnej zgody.",
+      "privacyLabel": "Polityka prywatności",
+      "sent": {
+        "title": "Zgłoszenie dotarło",
+        "body": "Odpowiedź zwykle przychodzi w ciągu jednego dnia roboczego. W międzyczasie nie trzeba nic robić."
+      },
+      "error": {
+        "title": "Czegoś brakuje",
+        "body": "Potrzebny jest adres i zaznaczona zgoda — bez nich nie ma dokąd ani na jakiej podstawie odpowiedzieć."
+      },
+      "broke": {
+        "title": "To nasza wina",
+        "body": "Zgłoszenie nie przeszło, i to po naszej stronie. Napisz na adres ze strony kontaktowej — zajmę się tym ręcznie."
+      }
+    },
     "columnLine": "Pozycja",
     "columnBasis": "Podstawa",
     "columnAmount": "Kwota",

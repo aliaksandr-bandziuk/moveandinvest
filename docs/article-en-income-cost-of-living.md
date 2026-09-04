@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (53 characters):**
-`Golden visa income requirements and real living costs`
+**Meta title (58 characters):**
+`Cost of living in Greece, Portugal and Malta: real figures`
 
 **Meta description (151 characters):**
-`Three of four investment routes demand no proof of income. What each country makes you prove, with law citations, and what living there actually costs.`
+`What living in Greece, Portugal, Malta and Dubai actually costs — and what income each country makes you prove, with the law citation for every figure.`
 
 **Excerpt:**
 `The routes that cost the most money test income the least. Greece, Malta and the UAE ask investors to prove nothing about their income; Portugal is the one exception and almost nobody writing about it says so. Every threshold below is quoted from the instrument that sets it, and the cost-of-living half explains why one comparison table would be a lie.`

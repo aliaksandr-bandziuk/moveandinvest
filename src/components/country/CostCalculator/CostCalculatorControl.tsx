@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { CALC_YEARS as YEARS, baseInputs } from "@/lib/calcSummary";
-import { budgetBandFor, mergeRouteAnswers } from "@/lib/routeAnswers";
+import { applyRouteAnswers, setBudgetBand } from "@/lib/prefillEnquiry";
+import { budgetBandFor, mergeRouteAnswers, readRouteAnswers } from "@/lib/routeAnswers";
 import { CALC_CODES, type CalcCode } from "@/lib/costModel";
 
 import type { CostCalculatorLabels } from "./CostCalculator";
@@ -67,6 +68,8 @@ export function CostCalculatorControl({
     const slider = root.querySelector<HTMLInputElement>('[data-input="slider"]');
     const verdictNode = root.querySelector<HTMLElement>("[data-verdict]");
     const cutTag = root.querySelector<HTMLElement>("[data-cut-tag]");
+    const dialog = root.querySelector<HTMLDialogElement>("[data-calc-dialog]");
+    const dialogVerdict = root.querySelector<HTMLElement>("[data-calc-verdict]");
 
     /** The name the server printed, read back rather than passed in — the
      *  country registry owns it, and a second copy here would be a second
@@ -337,6 +340,42 @@ export function CostCalculatorControl({
       }
     }
 
+    // --- The enquiry, over the answer -----------------------------------------
+    //
+    // The dialog is server-rendered and closed; this opens it, fills it from
+    // what is on screen, and gets out of the way. No markup is created here —
+    // the form inside is the same component /enquiry renders, and it posts and
+    // redirects on its own with or without this file.
+
+    /** Returns false when there is nothing to open, which is the signal to let
+     *  the link do what a link does. That happens on a page with no form
+     *  passed in, and in a browser without <dialog> — the second is why the
+     *  button is still an anchor with a real href and not a <button>. */
+    function openDialog(): boolean {
+      if (!dialog || typeof dialog.showModal !== "function") return false;
+
+      // The verdict sentence, copied rather than composed a second time.
+      if (dialogVerdict && verdictNode) {
+        dialogVerdict.textContent = verdictNode.textContent;
+      }
+
+      const answers = readRouteAnswers();
+      applyRouteAnswers(dialog, answers);
+      // After, and on purpose: this one replaces rather than defers. See the
+      // note on setBudgetBand.
+      setBudgetBand(dialog, answers.budget);
+
+      dialog.showModal();
+      return true;
+    }
+
+    // Clicking the backdrop closes it. The panel inside covers the whole box,
+    // so the dialog element is the target only when the click landed outside.
+    function onDialogClick(event: MouseEvent) {
+      if (event.target === dialog) dialog?.close();
+    }
+    dialog?.addEventListener("click", onDialogClick);
+
     // --- The fragment ---------------------------------------------------------
     // Ordinary search parameters, not an encoded blob: a link pasted into a
     // message is read by a person before it is opened by a browser.
@@ -423,7 +462,7 @@ export function CostCalculatorControl({
 
     function onClick(event: MouseEvent) {
       const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(
-        "[data-preset],[data-share],[data-calc-cta]",
+        "[data-preset],[data-share],[data-calc-cta],[data-calc-close]",
       );
       if (!target || !root!.contains(target)) return;
 
@@ -439,6 +478,11 @@ export function CostCalculatorControl({
       // keystroke would put fifty writes a second into sessionStorage while
       // someone drags the slider, and would leave the last idle screen behind
       // for a reader who never followed the link. Following it is the intent.
+      if (target.dataset.calcClose !== undefined) {
+        dialog?.close();
+        return;
+      }
+
       if (target.dataset.calcCta !== undefined) {
         const band = budgetBandFor(parseDigits(valueField?.value ?? ""));
         mergeRouteAnswers({
@@ -447,6 +491,11 @@ export function CostCalculatorControl({
           // then opened the calculator keeps their deadline and their goal.
           ...(band ? { budget: band } : {}),
         });
+        // Written first, opened second: the dialog fills itself from what was
+        // just stored. If there is nothing to open the click is not
+        // intercepted at all and the anchor navigates to /enquiry, where the
+        // same handover is read on mount.
+        if (openDialog()) event.preventDefault();
         return;
       }
 
@@ -483,6 +532,14 @@ export function CostCalculatorControl({
     sync("field");
     paint();
 
+    // COMING BACK FROM A SUBMISSION. The form posts normally and the server
+    // answers with a redirect to this page and a fragment, and the panel that
+    // fragment targets — sent, or one of the two failures — is inside the
+    // dialog, which a fresh page load renders closed. Without this the reader
+    // would land back on the calculator with no sign that anything had
+    // happened. The fragments are the form's own; see CalcEnquiryForm.
+    if (/^#calc-(sent|error|failed)$/.test(window.location.hash)) openDialog();
+
     root.addEventListener("input", onInput);
     root.addEventListener("change", onInput);
     root.addEventListener("focusout", onBlur);
@@ -500,6 +557,7 @@ export function CostCalculatorControl({
       root.removeEventListener("focusout", onBlur);
       root.removeEventListener("click", onClick);
       if (timer) clearTimeout(timer);
+      dialog?.removeEventListener("click", onDialogClick);
       cancelAnimationFrame(frame);
       if (settle !== undefined) cancelAnimationFrame(settle);
       for (const play of running.values()) play.cancel();

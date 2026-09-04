@@ -380,7 +380,23 @@ export async function POST(request: NextRequest) {
               // three things instead of nine, and it comes back to the guide.
               rawKind === "article"
               ? "article"
-              : "reader";
+              : // The calculator's dialog, added 4 September 2026. Another
+                // branch of the reader path for the same reasons the guide
+                // block is one — same honeypot, same rate limit, same two
+                // delivery channels — and it differs in three ways: it asks
+                // for a name, an address, a way to be reached and a sentence;
+                // its consent is permission to be contacted rather than
+                // permission to be passed to a firm; and it comes back to the
+                // calculator, into the dialog it was sent from.
+                //
+                // WHY THE SHORT ASK IS HONEST HERE. What this produces is a
+                // conversation, not a qualified enquiry: the six questions the
+                // long form asks get asked by a person on the call, who can
+                // hear an answer the form has no box for. The budget is not
+                // among them either way — the calculator has it to the euro.
+                rawKind === "calc"
+                ? "calc"
+                : "reader";
 
   // The brief is submitted from a property page and returns to it. Everything
   // else about it is a reader enquiry — same honeypot, same rate limit, same
@@ -407,7 +423,10 @@ export async function POST(request: NextRequest) {
   // the server resolves that to a route out of routing.ts. Letting the form
   // name the path instead would be an open redirect the day somebody loosened
   // the check on it, and the value would still have to be translated here.
-  const fromEnquiryPage = field(form, "from") === "enquiry";
+  // WHICH OF THE LONG FORM'S TWO MOUNT POINTS THIS IS. The calculator's dialog
+  // does not use this — it is its own kind and has its own target below.
+  const readerPage =
+    field(form, "from") === "enquiry" ? segment("/enquiry", locale) : "";
 
   const readerTarget = (fragment: string) =>
     kind === "brief"
@@ -423,9 +442,12 @@ export async function POST(request: NextRequest) {
           // runs, and landing somewhere real beats a trailing slash and a
           // redirect.
           `${segment("/blog", locale)}${returnTo ? `/${returnTo}` : ""}#ask-${fragment}`
-        : fromEnquiryPage
-          ? `${segment("/enquiry", locale)}#enquiry-${fragment}`
-          : `#enquiry-${fragment}`;
+        : kind === "calc"
+          ? // Back into the dialog it was sent from. Its panels carry their own
+            // ids, so the calculator's control can tell a return from a
+            // submission apart from an ordinary visit.
+            `${segment("/calculator", locale)}#calc-${fragment}`
+          : `${readerPage}#enquiry-${fragment}`;
   const subscribeTarget = (fragment: string) => `${returnTo}#alerts-${fragment}`;
   // The question form is on TWO pages since 31 August 2026 — /contacts, where
   // it started, and /faq, where a reader who has read fifty-two answers and not
@@ -521,8 +543,17 @@ export async function POST(request: NextRequest) {
     return handleQuestion(request, form, locale, questionTarget);
   }
 
+  const isCalc = kind === "calc";
   const email = field(form, "email").slice(0, MAX_SHORT);
-  const consent = form.get("consentToShare") === "on";
+  // TWO CONSENTS, NEVER MERGED. `consentToShare` is permission to pass a
+  // person's circumstances to a third party; `consentToContact` is permission
+  // to write back or ring. Different purposes, different bases, different
+  // withdrawal — and here they are also different facts, because nothing from
+  // the calculator's dialog reaches a partner until somebody has spoken to the
+  // person first.
+  const consent = isCalc
+    ? form.get("consentToContact") === "on"
+    : form.get("consentToShare") === "on";
 
   // The two fields without which the enquiry cannot be acted on at all. The
   // rest of the form is optional by design: someone who has not decided
@@ -559,7 +590,14 @@ export async function POST(request: NextRequest) {
     // second version of itself for a form that differs by two fields.
     city: field(form, "city").slice(0, MAX_SHORT),
     purpose: oneOf(field(form, "purpose"), ALLOWED.purpose),
-    kind: kind === "brief" ? "brief" : kind === "article" ? "article" : "enquiry",
+    kind:
+      kind === "brief"
+        ? "brief"
+        : kind === "article"
+          ? "article"
+          : kind === "calc"
+            ? "calc"
+            : "enquiry",
     // Spread rather than `source: undefined`, so the stored document has no
     // key at all for the two forms that have no such thing.
     ...(kind === "article" && returnTo ? { source: returnTo } : {}),
@@ -591,7 +629,11 @@ export async function POST(request: NextRequest) {
       : {}),
     name: field(form, "name").slice(0, MAX_SHORT),
     email,
-    consentToShare: consent,
+    // A phone number, a Telegram handle, or nothing. Free text and only from
+    // the calculator's dialog — see the note on the field itself.
+    ...(isCalc ? { reach: field(form, "reach").slice(0, MAX_SHORT) } : {}),
+    ...(isCalc ? { consentToContact: consent } : {}),
+    consentToShare: isCalc ? false : consent,
     locale,
     submittedAt: new Date().toISOString(),
   };

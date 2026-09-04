@@ -222,6 +222,11 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
   // the guide's jurisdiction, and nothing else — so the email must not print
   // rows for a budget and a timeline nobody was asked for.
   const isArticle = payload.kind === "article";
+  // The calculator's dialog. It asks four things, none of them the six the
+  // long form asks, so the block below prints none of those rows — the same
+  // rule the guide block follows, for the same reason: a row reading "—" for
+  // a question nobody was asked makes the sender look evasive.
+  const isCalc = payload.kind === "calc";
 
   return {
     // The subject and the heading say which form it came from, because the
@@ -234,14 +239,21 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
       ? "Бриф по недвижимости"
       : isArticle
         ? "Заявка из гайда"
-        : "Новая заявка с сайта",
+        : isCalc
+          ? "Заявка из калькулятора"
+          : "Новая заявка с сайта",
     openingLine: payload.name
       ? `${payload.name} — ${payload.email}`
       : `Без имени — ${payload.email}`,
     primaryBlock: {
-      heading: isBrief ? "Что ищет" : "Случай",
+      heading: isBrief ? "Что ищет" : isCalc ? "Расчёт и случай" : "Случай",
       lines: [
-        { label: "Юрисдикция", value: decode(WHERE, payload.where) },
+        // WHAT THEY SAW, FIRST. On an enquiry from the dialog this is the
+        // substance rather than the context: it is the only thing in the
+        // message that came from the site rather than from the person, and it
+        // is what the call starts from.
+        ...(isCalc ? calcLines(payload.calc) : []),
+        ...(isCalc ? [] : [{ label: "Юрисдикция", value: decode(WHERE, payload.where) }]),
         // Only the brief asks these. Included conditionally rather than shown
         // as "—", so the internal email has no rows that mean nothing.
         ...(isBrief
@@ -253,13 +265,15 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         // The short form asks for none of these three, so it prints none of
         // them: a row reading "не указан" for a question nobody was asked is a
         // row that makes the sender look evasive rather than brief.
-        ...(isArticle
+        ...(isArticle || isCalc
           ? []
           : [{ label: "Бюджет", value: decode(BUDGET, payload.budget) }]),
-        ...(isBrief || isArticle
+        ...(isBrief || isArticle || isCalc
           ? []
           : [{ label: "Срок", value: decode(TIMELINE, payload.timeline) }]),
-        ...(isBrief || isArticle ? [] : [{ label: "Цели", value: goals || "—" }]),
+        ...(isBrief || isArticle || isCalc
+          ? []
+          : [{ label: "Цели", value: goals || "—" }]),
         {
           label: "Своими словами",
           value: payload.situation || "Ничего не написал.",
@@ -271,8 +285,13 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
       lines: [
         // First, because it is the only line here that changes what to say
         // back: everything under it describes the submission, this describes
-        // the person's money.
-        ...calcLines(payload.calc),
+        // the person's money. On an enquiry from the dialog it has already
+        // been printed above, in the block it is the substance of.
+        ...(isCalc ? [] : calcLines(payload.calc)),
+        // HOW TO REACH THEM BESIDES THE ADDRESS, when they offered anything.
+        // Free text and printed as given — a handle is not a number and this
+        // site does not pretend to know which it is.
+        ...(payload.reach ? [{ label: "Как связаться", value: payload.reach }] : []),
         { label: "Язык страницы", value: LOCALE_LABEL[locale] },
         // WHICH GUIDE IT CAME OFF, and the only place this fact is ever
         // recorded. It is deliberately not sent to analytics — see the note on
@@ -281,7 +300,18 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         ...(payload.source
           ? [{ label: "Со страницы", value: `/blog/${payload.source}` }]
           : []),
-        { label: "Согласие на передачу партнёру", value: payload.consentToShare ? "да" : "нет" },
+        // TWO DIFFERENT PERMISSIONS, and the line says which one was given.
+        // Reading "согласие на передачу партнёру: да" off an enquiry where the
+        // reader only agreed to be contacted is exactly the mistake that makes
+        // a consent record worthless.
+        ...(isCalc
+          ? [{ label: "Согласие на связь", value: payload.consentToContact ? "да" : "нет" }]
+          : [
+              {
+                label: "Согласие на передачу партнёру",
+                value: payload.consentToShare ? "да" : "нет",
+              },
+            ]),
         { label: "Время", value: formatSubmittedAt(payload.submittedAt) },
       ],
     },
@@ -322,8 +352,34 @@ function buildPartnerInternal(payload: PartnerEnquiryPayload): EmailContent {
 // jurisdiction, never resold — is the same promise the page makes, because a
 // confirmation that quietly widens the terms is how consent stops meaning
 // anything.
+//
+// WHAT HAPPENS NEXT IS NOT THE SAME FOR EVERY FORM, and this letter is the one
+// place a reader is told. An enquiry off the long form named a jurisdiction and
+// agreed to be introduced to a firm in it, so it says so. One from the
+// calculator's dialog named nothing and agreed only to be contacted — telling
+// that reader their enquiry is on its way to a lawyer would be describing a
+// permission they did not give.
+const NEXT_STEP: Record<Locale, { standard: string; calc: string }> = {
+  ru: {
+    standard:
+      "Дальше мы передадим её юристу или консультанту, который работает именно в выбранной вами юрисдикции — одному, и только ему. Заявку мы не перепродаём и процента со сделки не берём.",
+    calc: "Сначала я напишу или позвоню сам: калькулятор считает типовой вход, а про вашу семью, гражданство и сроки он ничего не знает. Юристу или консультанту в нужной юрисдикции заявка уйдёт после этого разговора и только с вашего согласия. Мы её не перепродаём и процента со сделки не берём.",
+  },
+  pl: {
+    standard:
+      "Przekażemy je prawnikowi lub doradcy pracującemu dokładnie w wybranej przez Pana/Panią jurysdykcji — jednemu i tylko jemu. Zgłoszeń nie odsprzedajemy i nie bierzemy procentu od transakcji.",
+    calc: "Najpierw odezwę się osobiście — mailem albo telefonicznie: kalkulator liczy typowe wejście i nic nie wie o Pana/Pani rodzinie, obywatelstwie ani terminach. Do prawnika lub doradcy w odpowiedniej jurysdykcji zgłoszenie trafi po tej rozmowie i tylko za Pana/Pani zgodą. Nie odsprzedajemy zgłoszeń i nie bierzemy procentu od transakcji.",
+  },
+  en: {
+    standard:
+      "We will pass it to the lawyer or adviser who works in the jurisdiction you chose — one of them, and only them. We do not resell enquiries and take no percentage of any transaction.",
+    calc: "I will write or call first: the calculator prices a typical entry and knows nothing about your family, your citizenship or your deadlines. It goes to a lawyer or adviser in the right jurisdiction after that conversation, and only with your agreement. We do not resell enquiries and take no percentage of any transaction.",
+  },
+};
+
 function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): EmailContent {
   const name = payload.name.trim();
+  const next = NEXT_STEP[locale][payload.kind === "calc" ? "calc" : "standard"];
 
   if (locale === "ru") {
     return {
@@ -331,7 +387,7 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
       openingLine: name ? `${name}, здравствуйте.` : "Здравствуйте.",
       bodyParagraphs: [
         "Пишу подтвердить, что заявка дошла. Её читает человек, автоответчика между нами нет.",
-        "Дальше мы передадим её юристу или консультанту, который работает именно в выбранной вами юрисдикции — одному, и только ему. Заявку мы не перепродаём и процента со сделки не берём.",
+        next,
         "Обычно ответ приходит в течение рабочего дня. Ничего делать в это время не нужно.",
       ],
       footNote:
@@ -346,7 +402,7 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
       openingLine: name ? `Dzień dobry, ${name}.` : "Dzień dobry.",
       bodyParagraphs: [
         "Piszę, żeby potwierdzić, że zgłoszenie dotarło. Czyta je człowiek — między nami nie ma automatu.",
-        "Przekażemy je prawnikowi lub doradcy pracującemu dokładnie w wybranej przez Pana/Panią jurysdykcji — jednemu i tylko jemu. Zgłoszeń nie odsprzedajemy i nie bierzemy procentu od transakcji.",
+        next,
         "Odpowiedź zwykle przychodzi w ciągu jednego dnia roboczego. W międzyczasie nie trzeba nic robić.",
       ],
       footNote:
@@ -360,7 +416,7 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
     openingLine: name ? `Hello ${name},` : "Hello,",
     bodyParagraphs: [
       "Writing to confirm your enquiry arrived. A person reads these — there is no autoresponder in between.",
-      "We will pass it to the lawyer or adviser who works in the jurisdiction you chose — one of them, and only them. We do not resell enquiries and take no percentage of any transaction.",
+      next,
       "A reply usually comes within one working day. There is nothing you need to do in the meantime.",
     ],
     footNote:
@@ -582,15 +638,31 @@ export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendRe
       ? "Бриф"
       : payload.kind === "article"
         ? "Заявка из гайда"
-        : "Заявка с сайта";
+        : payload.kind === "calc"
+          ? "Заявка из калькулятора"
+          : "Заявка с сайта";
   // WHAT GOES AFTER THE DASH. Normally the jurisdiction, which is what a
   // subject line is for — you can triage a mailbox on it. A guide covering
   // several countries sends no jurisdiction at all, and "Заявка из гайда — —"
   // is a subject that triages nothing, so the guide's own slug stands in.
+  //
+  // AN ENQUIRY OFF THE CALCULATOR CARRIES THE MONEY TOO, because that is what
+  // makes one of these worth opening before the others: the country says which
+  // partner it is for and the figure says whether it clears their floor, and
+  // both fit in a subject line.
   const about =
-    payload.where || !payload.source
-      ? decode(WHERE, payload.where)
-      : payload.source;
+    payload.kind === "calc"
+      ? // No jurisdiction was asked for, so the figure carries the line on its
+        // own. It still triages: it says whether the case clears anybody's
+        // floor before the message is opened.
+        payload.calc
+          ? eur(payload.calc.budget)
+          : "без расчёта"
+      : payload.calc
+        ? `${decode(WHERE, payload.where)} · ${eur(payload.calc.budget)}`
+        : payload.where || !payload.source
+          ? decode(WHERE, payload.where)
+          : payload.source;
 
   const result = await notify(
     `${label} — ${about}`,

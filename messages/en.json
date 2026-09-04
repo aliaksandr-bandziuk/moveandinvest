@@ -363,6 +363,36 @@
     "ctaHeading": "The next step is a firm licensed in the jurisdiction you pick.",
     "ctaLabel": "Send an enquiry",
     "ctaNote": "This site does not sell property and does not give legal advice. It finds you a licensed firm in the jurisdiction and tells you what it was told about you. Your figures travel with the enquiry, so you will not be asked for them twice.",
+    "dialogTitle": "An enquiry built on your figures",
+    "dialogClose": "Close",
+    "dialogNote": "Your calculation is attached to the enquiry, so there is no need to repeat the figures. The rest is about you.",
+    "enquiry": {
+      "nameLabel": "Name",
+      "namePlaceholder": "What to call you",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "reachLabel": "Phone or messenger, if that suits you better",
+      "reachPlaceholder": "+48…, @telegram",
+      "messageLabel": "What matters about your case",
+      "messagePlaceholder": "Family, citizenship, deadlines, a property in mind — anything the calculation does not know",
+      "consentLabel": "I agree to be contacted about this enquiry",
+      "honeypotLabel": "Leave this field empty",
+      "submitLabel": "Send",
+      "fine": "The details are here so we can reply. Nothing reaches a partner without a conversation and your separate agreement.",
+      "privacyLabel": "Privacy policy",
+      "sent": {
+        "title": "It arrived",
+        "body": "A reply usually comes within one working day. There is nothing you need to do in the meantime."
+      },
+      "error": {
+        "title": "Something is missing",
+        "body": "The address and the consent box are both needed — without them there is nowhere to reply and no basis to."
+      },
+      "broke": {
+        "title": "This one is on us",
+        "body": "The enquiry did not go through, and the fault is ours. Write to the address on the contacts page and it will be handled by hand."
+      }
+    },
     "columnLine": "Line",
     "columnBasis": "Basis",
     "columnAmount": "Amount",
