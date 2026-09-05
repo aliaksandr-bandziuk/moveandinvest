@@ -55,7 +55,7 @@ What remains is a €500,000 fund subscription (subparagraph vii). The fund must
 
 The €1.5 million capital transfer that still appears in articles no longer exists.
 
-**Timelines.** The statute (art. 82(5) of Lei 23/2007) gives the authority 90 days to decide. In practice a card takes one to three years: submission to biometrics runs 6–24 months, biometrics to card 6–18. As of 4 August 2026, AIMA reports roughly 30,000 pending files. Any article promising "6 to 9 months" is describing the law, not the queue.
+**Timelines.** The statute (art. 82 of Lei 23/2007) gives 60 days to decide a grant and 30 to decide a renewal, with tacit approval on a renewal where the delay is not the applicant's. In practice a card takes one to three years: submission to biometrics runs 6–24 months, biometrics to card 6–18. As of 4 August 2026, AIMA reports roughly 30,000 pending files. Any article promising "6 to 9 months" is describing the law, not the queue.
 
 **The full cost.** AIMA fees from 1 March 2026: €842.80 to process, €8,418.90 to issue, €4,210.30 to renew, €8,418.90 per family member, with a 25% discount for online submission. A single applicant to first renewal is about €13,470 in fees alone; a family of three about €40,400. With a lawyer and fund commissions the real figure is €30,000–50,000 for one applicant and €65,000–90,000 for a family.
 
@@ -97,7 +97,7 @@ The practical consequence: the plan of "buy a studio in Athens, let it nightly, 
 
 #### Greek processing times and the full cost
 
-There is no statutory issuing deadline at all. On filing, a βεβαίωση is issued under article 10 of Law 5038/2023, and that document by itself confers lawful stay and the rights attaching to the permit until a decision is made — so waiting does not mean being out of status. As of November 2025 there were 13,499 pending files, 10,703 of them in Attica, with waits reaching 18 months and now shortening.
+The statutory issuing deadline is two months from the complete file reaching the issuing authority, under article 100 §10 — and the queue has run well past it for years. On filing, a βεβαίωση is issued under article 10 of Law 5038/2023, and that document by itself confers lawful stay and the rights attaching to the permit until a decision is made — so waiting does not mean being out of status. As of November 2025 there were 13,499 pending files, 10,703 of them in Attica, with waits reaching 18 months and now shortening.
 
 Costs on top of the €400,000 tier: transfer tax of 3% plus a 3% municipal surcharge on the tax itself, so 3.09%; an e-paravolo of €2,000 per application plus €16 for printing the card. VAT on new builds (24%) is suspended until 31 December 2026, so ΦΜΑ is what is actually paid in practice. The fee per family member is not set in the KYA, so we do not publish one. The total lands around €34,000. At the €800,000 tier the same set comes to about €67,000.
 
@@ -173,8 +173,8 @@ One Cypriot point we did establish, and it changes the budget: transfer fees are
 
 | Jurisdiction | Advertised | Actual |
 | --- | --- | --- |
-| Greece | 2–4 months | No statutory deadline; 13,499 files queued as of November 2025, up to 18 months |
-| Portugal | 6–9 months | Statute gives 90 days; one to three years in practice, about 30,000 files queued |
+| Greece | 2–4 months | Statute gives two months (art. 100 §10); the queue does not — 13,499 files as of November 2025, up to 18 months |
+| Portugal | 6–9 months | Statute gives 60 days for a grant; one to three years in practice, about 30,000 files queued |
 | Malta | 4–6 months | No published time; 6–12 months end to end |
 | UAE | 3–6 weeks | 2–4 weeks from title deed to Emirates ID |
 
@@ -230,11 +230,11 @@ Because the primary sources were unreachable when we checked: gov.cy returns 403
 The permit is valid in the issuing state; Schengen movement and rights in other member states are a separate question answered by each country's own law.
 
 ? How long does a decision actually take?
-Greece has no statutory deadline and had 13,499 files queued in November 2025. Portugal's statute gives 90 days but takes one to three years against roughly 30,000 pending files. The UAE takes two to four weeks.
+Greece's statute gives two months and its queue held 13,499 files in November 2025. Portugal's statute gives 60 days for a grant but takes one to three years against roughly 30,000 pending files. The UAE takes two to four weeks.
 
 ### What else here bears on this
 
-Two of the five jurisdictions in this piece have a guide of their own. What Portugal asks a resident to prove, and what its ten-year citizenship clock changed, is worked through in [the Portugal guide](entry:portugal-residency). What Greece asks, and why permanent residence there counts days rather than permits, is in [the Greece guide](entry:greece-residency). The income question that runs under all five — who tests it, who does not, and what living in each actually costs — is [a piece of its own](entry:income-cost-of-living). The Emirates, the other jurisdiction here where a purchase is the whole route, has [a guide of its own](entry:uae-residency). And every act named above, with the date each was read, is on [the sources page](/sources).
+Two of the five jurisdictions in this piece have a guide of their own. What Portugal asks a resident to prove, and what its ten-year citizenship clock changed, is worked through in [the Portugal guide](entry:portugal-residency). What Greece asks, and why permanent residence there counts days rather than permits, is in [the Greece guide](entry:greece-residency). The income question that runs under all five — who tests it, who does not, and what living in each actually costs — is [a piece of its own](entry:income-cost-of-living). The Emirates, the other jurisdiction here where a purchase is the whole route, has [a guide of its own](entry:uae-residency). Once a route is chosen, who may file the application and what each portal asks for is in [the application guide](entry:golden-visa-application), and what follows a Portuguese permit — renewals, the card, permanent residence — is in [its own guide](entry:portugal-after-permit). If the phrase itself is the question, [what a golden visa actually is](/golden-visa) is a page of its own. And every act named above, with the date each was read, is on [the sources page](/sources).
 
 ### Where these figures come from
 
@@ -247,7 +247,7 @@ We compare rules and do not provide legal services: none of this is legal or tax
 ## Keywords
 
 **Head terms:**
-golden visa, residency by investment, residence permit for buying property, golden visa Greece, Greece golden visa 2026, UAE golden visa property, Malta permanent residence, Portugal golden visa
+golden visa property, golden visa real estate, residency by investment, residence permit for buying property, golden visa property investment, golden visa for property owners, golden visa through property, buy property and get residency
 
 **Mid-tail:**
 which countries give residency for property, buy property get EU residency, golden visa real estate 2026, MPRP Malta requirements, Dubai golden visa 2 million, Portugal golden visa property abolished, EU residence by investment comparison

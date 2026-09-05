@@ -275,6 +275,125 @@ const GR_RENT = [
   { key: "thessaloniki", askLow: 4.9, askHigh: 12.0, signed: 7.7 },
 ];
 
+// --- The Portugal "after the permit" guide's numbers -------------------------
+// One axis in years, from the grant to naturalisation. The two bands are the
+// permit's own terms; the three markers are the thresholds that open on top of
+// it. Article 76(1) sits outside the axis on purpose — a status with no expiry
+// cannot be drawn on a timeline without implying it ends somewhere.
+const PT_AFTER_BANDS = [
+  { key: "first", from: 0, to: 2 },
+  { key: "renewal", from: 2, to: 5 },
+];
+const PT_AFTER_MARKS = [
+  { key: "permanent", at: 5 },
+  { key: "citizenshipEu", at: 7 },
+  { key: "citizenship", at: 10 },
+];
+
+// The two statuses the market treats as one. Rows are the questions that
+// actually separate them; the answer text lives in the locale block.
+const PT_STATUSES = ["basis", "years", "purpose", "movement"];
+
+// --- Golden visa: the application -------------------------------------------
+// THE LANES ARE ORDERED BY WHEN THE CAPITAL IS COMMITTED, not alphabetically,
+// because that ordering is the claim. Portugal and Greece take the money before
+// the file exists; Malta screens first and takes it after. `money` names the
+// step that is filled, and a lane may have none.
+const GV_APPLY_LANES = [
+  {
+    key: "pt",
+    money: "ptTransfer",
+    steps: ["ptTransfer", "ptFile", "ptSchedule", "ptDecision", "ptCard"],
+  },
+  { key: "gr", money: "grBuy", steps: ["grBuy", "grFile", "grDecision", "grPermit"] },
+  {
+    key: "mt",
+    money: "mtCommit",
+    steps: ["mtFile", "mtPay1", "mtDiligence", "mtApproval", "mtPay2", "mtCommit"],
+  },
+  { key: "ae", money: null, steps: ["aeNominate", "aeFile", "aeDecision", "aeResidence"] },
+];
+
+// What Malta charges the main applicant, in the order the money leaves. The
+// investment is not here: these are the state's own charges, which is the only
+// comparison that holds against a Greek permit fee.
+const GV_FEES = [
+  { key: "submission", value: 15000 },
+  { key: "approval", value: 45000 },
+  { key: "contribution", value: 37000 },
+  { key: "donation", value: 2000 },
+];
+const GV_GREECE_FEE = 2016;
+
+// --- Golden passport: the naturalisation clocks -----------------------------
+// YEARS, NOT MONTHS, and the Maltese row is a range because the statute is one:
+// twelve continuous months plus four years inside the six before them is five
+// at the floor and can stretch to seven. Drawing it as a single bar at five
+// would print a precision Cap. 188 does not have. The Emirates has no bar at
+// all — a zero would read as "instant" when the truth is "no route to apply".
+const GV_PASSPORT_CLOCKS = [
+  { key: "pt", years: 10, mark: 7 },
+  { key: "gr", years: 7 },
+  { key: "mt", years: 5, to: 7 },
+  { key: "ae", years: null },
+];
+const GV_PASSPORT_MAX = 10;
+
+// The three periods every comparison table merges.
+const GV_CLOCK_ROWS = ["counts", "abroad", "gets", "also"];
+
+// --- Malta: the nomad permit -------------------------------------------------
+// FOUR BLOCKS AND A WALL. The permit's whole shape is that it ends, and a bar
+// chart of "four years" would say the opposite — it would read as a duration
+// like any other. The wall is drawn because the finding is the stop.
+const MT_NOMAD_YEARS = [
+  { key: "y1", taxed: false },
+  { key: "y2", taxed: true },
+  { key: "y3", taxed: true },
+  { key: "y4", taxed: true },
+];
+const MT_NOMAD_ALLOWED = ["employer", "company", "clients", "family"];
+const MT_NOMAD_FORBIDDEN = ["local", "dependants", "permanent", "citizenship"];
+
+// --- Malta: the residence card ----------------------------------------------
+// GROUPED BY AMOUNT, NOT LISTED BY BASIS, for the same reason the qualifying
+// figure groups by answer: the reader's question is "what will this cost me",
+// and fourteen rows of basis-then-fee answers it fourteen times over.
+// --- Португалия: переезд ------------------------------------------------------
+// СУБРЕГИОНЫ NUTS III И МЕДИАНА ПО СТРАНЕ, без муниципалитета Лиссабон: он
+// другая единица наблюдения, и поставить его в тот же ряд значило бы сравнить
+// несравнимое. Его значение уходит в примечание.
+// --- Греция: два маршрута, которые рынок путает --------------------------------
+// ДВЕ КОЛОНКИ, А НЕ ТАБЛИЦА НА ТРИ: сравнивать надо ровно то, что смешивают, —
+// инвесторское разрешение статьи 100 и трудовой Tech Visa статьи 79Α. Третий
+// столбец увёл бы внимание с того, что это разные главы кодекса.
+const GR_PROCESS_ROWS = ["basis", "threshold", "work", "duration", "ends", "onward"];
+
+const PT_MOVE_RENT = [
+  { key: "lisboaGrande", value: 14.38 },
+  { key: "madeira", value: 11.97 },
+  { key: "setubal", value: 11.35 },
+  { key: "algarve", value: 10.71 },
+  { key: "porto", value: 10.13 },
+  { key: "national", value: 9.46, ref: true },
+];
+const PT_MOVE_RENT_MAX = 16;
+
+// ИНДЕКС, А НЕ ЕВРО. INE публикует разницу в процентах между покупателями с
+// домицилием в стране и за рубежом, но не абсолютные цены по каждой группе.
+// Рисовать евро значило бы напечатать цифру, которой в источнике нет.
+const PT_MOVE_PREMIUM = [
+  { key: "lisboa", premium: 49.0 },
+  { key: "porto", premium: 35.6 },
+];
+
+const MT_CARD_FEES = [
+  { key: "f500", lines: 1 },
+  { key: "f100", lines: 3 },
+  { key: "f50", lines: 3 },
+  { key: "free", lines: 3 },
+];
+
 // --- Figure 1: what a purchase achieves -------------------------------------
 // GROUPED BY ANSWER, NOT LISTED BY COUNTRY, and that is the whole reason this
 // is a picture rather than the table already in the article. The table answers
@@ -1164,7 +1283,7 @@ const L = {
     // different date in it is a sentence that will eventually disagree with
     // itself in one language and not the others.
     checked: (date) => `Все цифры сверены с первоисточником ${date}`,
-    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года" },
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года", greeceLiving: "5 сентября 2026 года", portugalMove: "5 сентября 2026 года" },
     ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
     ptRoutes: {
       d7: "D7, собственный доход",
@@ -1362,7 +1481,64 @@ const L = {
       z400: "Остальная территория Греции",
       z250: "Только перевод в жильё или реставрация,\nработы завершены до подачи",
     },
+    // --- Греция: жизнь и переезд ---------------------------------------------
+    perMonth: (v) =>
+      `${v.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`,
+    perSqm: (v) => `${v.toFixed(1).replace(".", ",")} €/м²`,
+    grBudget: {
+      food: "Питание и безалкогольные напитки",
+      housing: "Жильё",
+      transport: "Транспорт",
+      eatingOut: "Рестораны, кафе и гостиницы",
+      health: "Здоровье",
+    },
+    grRegions: {
+      attica: "Аттика",
+      national: "Среднее по стране",
+      sterea: "Стереа-Эллада",
+    },
+    pct: (v) => `${v.toFixed(1).replace(".", ",")} %`,
+    grRent: { attica: "Аттика", thessaloniki: "Салоники" },
+    // --- Португалия: переезд -------------------------------------------------
+    ptMoveRent: {
+      lisboaGrande: "Большой Лиссабон",
+      madeira: "Мадейра",
+      setubal: "Полуостров Сетубал",
+      algarve: "Алгарве",
+      porto: "Агломерация Порту",
+      national: "Медиана по стране",
+    },
+    perSqm2: (v) => `${v.toFixed(2).replace(".", ",")} €/м²`,
+    ptMoveRentAxis: "Медиана по новым договорам, I квартал 2026 года",
+    ptMovePremiumLanes: { lisboa: "Большой Лиссабон", porto: "Агломерация Порту" },
+    ptMovePremiumRows: { home: "домицилий в Португалии", abroad: "домицилий за рубежом" },
+    ptMovePremiumBase: "100",
+    ptMovePremiumValue: (v) => `+${v.toFixed(1).replace(".", ",")} %`,
+    grRentLegend: {
+      ask: "Объявления, диапазон",
+      signed: "Заключённые договоры, среднее",
+    },
     figures: {
+      ptMoveRent: {
+        title: "Сколько стоит аренда по подписанным договорам",
+        note: "Муниципалитет Лиссабон — 17,42 €/м², самая высокая медиана в стране.",
+      },
+      ptMovePremium: {
+        title: "Надбавка покупателя с домицилием за рубежом",
+        note: "За единицу принята цена метра у покупателей с налоговым домицилием в Португалии. Четвёртый квартал 2025 года.",
+      },
+      grLivingBudget: {
+        title: "На что уходят деньги греческого домохозяйства",
+        note: "Доли среднего месячного расхода, всего 1 724,54 €. За одну аренду арендующие отдают 17,1 % всех трат.",
+      },
+      grLivingRegions: {
+        title: "Самая дорогая область против самой дешёвой",
+        note: "Средний расход домохозяйства в месяц. Самая дорогая область обходится почти вдвое дороже самой дешёвой.",
+      },
+      grLivingRent: {
+        title: "Объявления против подписанных договоров",
+        note: "За квадратный метр. Объявления — второй квартал 2026 года, договоры — по 124 районам.",
+      },
       mtCost: {
         title: "Сколько стоит ПМЖ Мальты сверх цены объекта",
         note: "Ряды покупки дают 118 250 €; до примерно 126 000 € добавляют нотариус и юрист, у которых тарифа нет.",
@@ -1480,7 +1656,7 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026" },
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
@@ -1694,12 +1870,244 @@ const L = {
       national: "National average",
       sterea: "Sterea Ellada",
     },
+    pct: (v) => `${v.toFixed(1)} %`,
     grRent: { attica: "Attica", thessaloniki: "Thessaloniki" },
+    // --- Greece: the two routes the market confuses --------------------------
+    grProcessHeads: {
+      // Латинская A, не греческая альфа: подмножество Inter не несёт греческих
+      // глифов, и embed.mjs справедливо на этом падает. В теле статьи греческая
+      // буква остаётся внутри дословной цитаты, где шрифты не урезаны.
+      investor: "Art. 100 — property",
+      startup: "Art. 100A — startup",
+      tech: "Art. 79A — Tech Visa",
+    },
+    grProcessRows: {
+      basis: "What it is granted for",
+      threshold: "The threshold",
+      work: "Right to work in Greece",
+      duration: "How long it runs",
+      ends: "What ends it",
+      onward: "Where it leads",
+    },
+    grProcessInvestor: {
+      basis: "An investment completed\nbefore filing",
+      threshold: "800,000 / 400,000 /\n250,000 € by zone",
+      work: "None at all — §9",
+      duration: "Five years, renewable",
+      ends: "Absence does not — §4",
+      onward: "Permanent residence,\nthen citizenship",
+    },
+    grProcessStartup: {
+      basis: "Capital paid into a\nregistered startup",
+      threshold: "250,000 €, up to 33 %\nof the company",
+      work: "None at all — §9",
+      duration: "One year, then two\nat a time",
+      ends: "Losing the two jobs or\nthe shares — §2, §10",
+      onward: "Renewal while the\ninvestment is held",
+    },
+    grProcessTech: {
+      basis: "A twelve-month contract\nat a registered startup",
+      threshold: "Salary at 1.6× the\naverage gross wage",
+      work: "Immediate, that one\nemployer only",
+      duration: "Twelve months",
+      ends: "The job ending, with\nimmediate departure",
+      onward: "EU Blue Card, same\nemployer only",
+    },
     grRentLegend: {
       ask: "Asking prices in listings, range",
       signed: "Concluded leases, average",
     },
+    // --- Portugal: after the permit ------------------------------------------
+    ptAfterBands: { first: "First title, 2 years", renewal: "Renewals, 3 years each" },
+    ptAfterMarks: {
+      permanent: "Permanent residence",
+      citizenshipEu: "Citizenship: EU, CPLP",
+      citizenship: "Citizenship: others",
+    },
+    ptAfterAxis: "Years of legal residence",
+    ptAfterNoExpiry: "The permanent authorisation itself has no expiry — art. 76(1). Only its card is renewed, every five years.",
+    ptStatusHeads: { national: "National permanent", eu: "EU long-term resident" },
+    ptStatusRows: {
+      basis: "Set by",
+      years: "Years required",
+      purpose: "What it secures",
+      movement: "Other member states",
+    },
+    ptStatusNational: {
+      basis: "Article 80 of Lei 23/2007",
+      years: "Five, as temporary resident",
+      purpose: "Your position in Portugal",
+      movement: "No rights conferred",
+    },
+    ptStatusEu: {
+      basis: "Directive 2003/109/EC",
+      years: "Five, lawful residence",
+      purpose: "Mobility inside the EU",
+      movement: "Subject to their terms",
+    },
+    // --- Golden visa: the application ----------------------------------------
+    gvApplyLanes: { pt: "Portugal", gr: "Greece", mt: "Malta", ae: "UAE" },
+    gvApplySteps: {
+      ptTransfer: "Transfer\nthe funds",
+      ptFile: "File on\nPortal ARI",
+      ptSchedule: "AIMA sets the\nappointment",
+      ptDecision: "Decision",
+      ptCard: "Residence\ncard",
+      grBuy: "Complete\nthe purchase",
+      grFile: "File on the\nministry portal",
+      grDecision: "Decision,\n2 months",
+      grPermit: "Permit",
+      mtFile: "Licensed agent\nfiles",
+      mtPay1: "15,000 €",
+      mtDiligence: "Due\ndiligence",
+      mtApproval: "Approval",
+      mtPay2: "45,000 €",
+      mtCommit: "Property and\n37,000 €",
+      aeNominate: "Nomination\nrequest",
+      aeFile: "Application\non ICP",
+      aeDecision: "Decision",
+      aeResidence: "Residence,\n5 or 10 years",
+    },
+    gvApplyLegend: "Filled: the stage at which the capital is committed",
+    gvFeeSteps: {
+      submission: "On submission",
+      approval: "After approval",
+      contribution: "Contribution",
+      donation: "NGO donation",
+    },
+    gvFeeAmounts: {
+      submission: "15,000 €",
+      approval: "+45,000 €",
+      contribution: "+37,000 €",
+      donation: "+2,000 €",
+    },
+    gvFeeTotal: (v) => `${v.toLocaleString("en-GB")} € in total`,
+    gvFeeGreece: "Greece, in total\n2,016 €",
+    gvFeeAxis: "Cumulative state charges, main applicant",
+    // --- Golden passport ------------------------------------------------------
+    gvPassportLanes: { pt: "Portugal", gr: "Greece", mt: "Malta", ae: "UAE" },
+    gvPassportValues: {
+      pt: "10 years",
+      gr: "7 years",
+      mt: "5–7 years",
+      ae: "No period published",
+    },
+    gvPassportMark: "7 for EU and CPLP citizens",
+    gvPassportNone: "Nationality is granted on nomination. There is no application.",
+    gvPassportAxis: "Years of residence before naturalisation",
+    gvClockHeads: {
+      permit: "The permit's clock",
+      longTerm: "Long-term residence",
+      naturalisation: "Naturalisation",
+    },
+    gvClockRows: {
+      counts: "What it counts",
+      abroad: "Time spent abroad",
+      gets: "What it gets you",
+      also: "What else it asks",
+    },
+    gvClockPermit: {
+      counts: "Holding the permit",
+      abroad: "In Greece, no obstacle\n(art. 100 §4)",
+      gets: "A valid card",
+      also: "The programme's\nown terms",
+    },
+    gvClockLongTerm: {
+      counts: "Lawful, uninterrupted\nresidence",
+      abroad: "Capped\n(art. 144 §1)",
+      gets: "Long-term resident\nstatus",
+      also: "Income and, often,\nlanguage",
+    },
+    // --- Malta: the nomad permit ---------------------------------------------
+    mtNomadHeads: { allowed: "Allowed", forbidden: "Not permitted" },
+    mtNomadAllowed: {
+      employer: "Employment by a\nforeign employer",
+      company: "Self-employment through a\ncompany registered abroad",
+      clients: "Freelancing for clients\nestablished abroad",
+      family: "A spouse and\ndependent children",
+    },
+    mtNomadForbidden: {
+      local: "Any economic activity with\nemployers or companies\nregistered in Malta",
+      dependants: "Adding dependants after\napproval, newborns aside",
+      permanent: "Any route onward to\npermanent residence",
+      citizenship: "Any route onward\nto citizenship",
+    },
+    mtNomadYears: { y1: "Year 1", y2: "Year 2", y3: "Year 3", y4: "Year 4" },
+    // --- Malta: the residence card -------------------------------------------
+    mtCardLanes: { first: "First application", renewal: "Renewal" },
+    mtCardWait: "8-10 weeks. Interim receipt: no travel, no re-entry",
+    mtCardMarks: {
+      submit: "Submission",
+      approve: "Approval",
+      notice: "Notice with PIN,\nby post",
+      collect: "Collect in person,\nMsida",
+    },
+    mtCardWindow: "The only window",
+    mtCardRenewMarks: { open: "3 months before", close: "6 weeks before", expiry: "Permit expires" },
+    mtCardRenewNote: "Travel is generally possible on a valid passport and the existing card",
+    mtCardFeeAmounts: { f500: "€500", f100: "€100", f50: "€50", free: "Free" },
+    mtCardFeeBases: {
+      f500: "Long-term residence",
+      f100: "Economic self-sufficiency\nPosted workers\nPermanent residence scheme, renewals only",
+      f50: "Study and post-study; traineeship\nFamily reunification (S.L. 217.06) and the family member policy\nPartner, child or parent of a Maltese citizen; medical, religious, temporary",
+      free: "Exempt persons\nVictims of human trafficking\nVolunteers",
+    },
+    mtNomadFree: "No Maltese\ntax charge",
+    mtNomadTaxed: "10% on\nauthorised work",
+    mtNomadPresence: "Five months in every twelve, proved by bank statements",
+    mtNomadWall: "Four years maximum.\nNo renewal, and no\nonward status.",
+    gvClockNaturalisation: {
+      counts: "Residence actually spent",
+      abroad: "Does not count",
+      gets: "A passport",
+      also: "Language, history\nand culture exams",
+    },
     figures: {
+      ptAfterTimeline: {
+        title: "From the first permit to a passport",
+        note: "Years of legal residence, not calendar years: a permit renewed from abroad advances the bands and none of the markers.",
+      },
+      ptAfterStatuses: {
+        title: "Two statuses the market treats as one",
+        note: "Article 80 opens by setting the long-term resident regime aside. The statute keeps them parallel; most guides merge them.",
+      },
+      mtCardTimeline: {
+        title: "Two months you cannot leave, and a six-week window",
+        note: "The receipt says on its face that it is not a travel document. The renewal window opens three months out and closes six weeks out.",
+      },
+      mtCardFees: {
+        title: "What the permit costs, by the basis you applied under",
+        note: "Under economic self-sufficiency a further €100 at renewal buys a two-year permit instead of a one-year one.",
+      },
+      mtNomadLimits: {
+        title: "What the nomad permit allows, and what it forbids",
+        note: "The prohibition on Maltese employers and companies disqualifies rather than inconveniences.",
+      },
+      mtNomadClock: {
+        title: "One year at nothing, three at 10%, then a wall",
+        note: "The window runs twelve months from the later of the permit's issue or 1 January 2024.",
+      },
+      gvApplySequence: {
+        title: "Where the money sits when you file",
+        note: "The UAE lane is unshaded: its golden residence also turns on profession and talent, so no one stage carries the capital.",
+      },
+      grProcessCompare: {
+        title: "Three Greek routes the market keeps fusing",
+        note: "Article 100A was added in December 2024 and article 79A in February 2026. Neither touched article 100.",
+      },
+      gvPassportClocks: {
+        title: "How long each passport actually takes",
+        note: "Malta is a range because its statute is one: twelve continuous months plus four years inside the six before them.",
+      },
+      gvPassportCounts: {
+        title: "Three clocks that comparison tables merge",
+        note: "A holder can satisfy the first indefinitely, never start the second and never approach the third.",
+      },
+      gvApplyFees: {
+        title: "What the state charges to look at you",
+        note: "Malta only, and the investment is excluded. Add 7,500 € per adult dependant other than the spouse, and 500 € per residence card.",
+      },
+
       grLivingBudget: {
         title: "Where a Greek household's money goes",
         note: "Shares of average monthly expenditure, 1,724.54 € in total. Renting households put 17.1 % of all spending into rent alone.",
@@ -1830,6 +2238,7 @@ const L = {
     },
     eyebrow: "Poradniki i badania",
     checked: (date) => `Każda liczba sprawdzona ze źródłem pierwotnym ${date}`,
+    pct: (v) => `${v.toFixed(1).replace(".", ",")} %`,
     dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  , uae: "30 sierpnia 2026 roku", malta: "1 września 2026 roku" },
     ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
     ptRoutes: {
@@ -2126,7 +2535,10 @@ function grLivingBudget(L) {
   const width = 1200;
   const height = 700;
   const max = 24;
-  const x0 = 430;
+  // 480 and not 430: the Cyrillic label for food and non-alcoholic beverages is
+  // wider than the English one and ran into the bar. Widened for every locale
+  // rather than abbreviating one language's category name.
+  const x0 = 480;
   const x1 = width - 300;
   const scale = (v) => ((x1 - x0) * v) / max;
   let body = "";
@@ -2136,7 +2548,7 @@ function grLivingBudget(L) {
     body += text(48, y + 5, L.grBudget[row.key], { size: 16, weight: 500 });
     const w = scale(row.share);
     body += `<path d="M${x0} ${y - 14} h${w - 4} a4 4 0 0 1 4 4 v20 a4 4 0 0 1 -4 4 h-${w - 4} z" fill="${C.accent}"/>`;
-    body += text(x0 + w + 14, y + 5, `${row.share.toFixed(1)} %`, {
+    body += text(x0 + w + 14, y + 5, L.pct(row.share), {
       size: 15,
       family: FONT_MONO,
     });
@@ -2188,7 +2600,7 @@ function grLivingRegions(L) {
       size: 15,
       family: FONT_MONO,
     });
-    body += text(width - 48, y + 5, `${row.pct.toFixed(1)} %`, {
+    body += text(width - 48, y + 5, L.pct(row.pct), {
       size: 15,
       family: FONT_MONO,
       fill: C.muted,
@@ -2273,6 +2685,600 @@ function grLivingRent(L) {
   );
 }
 
+// --- Figure: from the first permit to a passport -----------------------------
+// THE AXIS IS YEARS OF LEGAL RESIDENCE, NOT CALENDAR TIME, and the note says so:
+// a permit renewed from abroad advances the bands and none of the markers.
+function ptAfterTimeline(L) {
+  const width = 1200;
+  const height = 600;
+  const x0 = 96;
+  const x1 = width - 96;
+  const maxYears = 10;
+  const scale = (v) => x0 + ((x1 - x0) * v) / maxYears;
+  const y = 300;
+  let body = "";
+
+  PT_AFTER_BANDS.forEach((band, i) => {
+    const a = scale(band.from);
+    const b = scale(band.to);
+    body += `<rect x="${a}" y="${y - 22}" width="${b - a}" height="44" rx="4" fill="${i === 0 ? C.accent : C.pending}"/>`;
+    body += text((a + b) / 2, y + 6, L.ptAfterBands[band.key], {
+      size: 14,
+      fill: C.onAccent,
+      anchor: "middle",
+      weight: 500,
+    });
+  });
+
+  // Markers sit ABOVE the band with their label above the tick, so that the
+  // year scale below stays a clean row of numbers.
+  // TWO HEIGHTS, ALTERNATING. Three labels on one line collided on the first
+  // draw — "Permanent residence" ran into "Citizenship" — and the rightmost one
+  // fell off the canvas. Odd marks sit higher; the last is anchored to its end.
+  PT_AFTER_MARKS.forEach((mark, i) => {
+    const x = scale(mark.at);
+    const lift = i % 2 === 1 ? 44 : 0;
+    const last = i === PT_AFTER_MARKS.length - 1;
+    body += `<line x1="${x}" y1="${y - 78 - lift}" x2="${x}" y2="${y - 22}" stroke="${C.line}" stroke-width="1"/>`;
+    body += `<circle cx="${x}" cy="${y - 78 - lift}" r="7" fill="${C.accent}"/>`;
+    body += text(last ? x + 16 : x, y - 96 - lift, L.ptAfterMarks[mark.key], {
+      size: 14,
+      anchor: last ? "end" : "middle",
+      weight: 500,
+    });
+  });
+
+  for (let v = 0; v <= maxYears; v += 1) {
+    body += text(scale(v), y + 52, String(v), {
+      size: 13,
+      family: FONT_MONO,
+      fill: C.muted,
+      anchor: "middle",
+    });
+  }
+  body += text(x0, y + 92, L.ptAfterAxis, { size: 13, fill: C.muted });
+
+  // The one fact that does not fit on an axis.
+  body += text(x0, y + 136, L.ptAfterNoExpiry, { size: 15, weight: 500 });
+
+  return frame(
+    width,
+    height,
+    L.figures.ptAfterTimeline.title,
+    L.eyebrow,
+    L.checked(L.dates.portugalAfter),
+    body,
+    L.figures.ptAfterTimeline.note,
+  );
+}
+
+// --- Figure: two statuses the market treats as one ---------------------------
+// TWO COLUMNS, NO COLOUR DIFFERENCE. Neither status is better; colour on this
+// site says covered or not, and both of these are covered. The separation is
+// carried by position and by the heading, which is what the statute does too.
+function ptAfterStatuses(L) {
+  const width = 1200;
+  const height = 700;
+  const colA = 400;
+  const colB = 810;
+  let body = "";
+
+  body += text(colA, 216, L.ptStatusHeads.national, { size: 16, weight: 600 });
+  body += text(colB, 216, L.ptStatusHeads.eu, { size: 16, weight: 600 });
+  body += `<line x1="48" y1="238" x2="${width - 48}" y2="238" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  PT_STATUSES.forEach((key, i) => {
+    const y = 286 + i * 76;
+    body += text(48, y, L.ptStatusRows[key], { size: 15, weight: 500 });
+    body += text(colA, y, L.ptStatusNational[key], { size: 14, fill: C.muted });
+    body += text(colB, y, L.ptStatusEu[key], { size: 14, fill: C.muted });
+    if (i < PT_STATUSES.length - 1) {
+      body += `<line x1="48" y1="${y + 26}" x2="${width - 48}" y2="${y + 26}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.ptAfterStatuses.title,
+    L.eyebrow,
+    L.checked(L.dates.portugalAfter),
+    body,
+    L.figures.ptAfterStatuses.note,
+  );
+}
+
+// --- Figure: the order of operations ----------------------------------------
+// A ROW PER JURISDICTION RATHER THAN A SHARED TIMELINE, because the stages do
+// not correspond: Malta has a screening step Portugal does not, and Portugal has
+// a scheduling step nobody else has. Aligning them on one axis would invent a
+// correspondence the procedures do not have. What is comparable is the position
+// of one stage inside its own row, and that is what the fill marks.
+function gvApplySequence(L) {
+  const width = 1240;
+  const height = 820;
+  const trackX = 258;
+  const trackW = width - 48 - trackX;
+  let body = "";
+
+  body += text(48, 190, L.gvApplyLegend, { size: 13, fill: C.muted });
+
+  GV_APPLY_LANES.forEach((lane, li) => {
+    const y = 268 + li * 128;
+    body += text(48, y + 6, L.gvApplyLanes[lane.key], { size: 16, weight: 600 });
+    const gap = 12;
+    const stepW = (trackW - gap * (lane.steps.length - 1)) / lane.steps.length;
+    lane.steps.forEach((step, si) => {
+      const x = trackX + si * (stepW + gap);
+      const filled = step === lane.money;
+      body += `<rect x="${x.toFixed(1)}" y="${y - 34}" width="${stepW.toFixed(1)}" height="68" rx="6" fill="${filled ? C.accent : C.bg}" stroke="${filled ? C.accent : C.line}" stroke-width="1"/>`;
+      const label = L.gvApplySteps[step];
+      const first = label.includes("\n") ? y - 5 : y + 6;
+      body += text(x + stepW / 2, first, label, {
+        size: 13,
+        anchor: "middle",
+        fill: filled ? C.onAccent : C.text,
+        weight: filled ? 500 : 400,
+      });
+      if (si < lane.steps.length - 1) {
+        const cx = x + stepW + gap / 2;
+        body += `<path d="M ${(cx - 3).toFixed(1)} ${y - 5} L ${(cx + 3).toFixed(1)} ${y} L ${(cx - 3).toFixed(1)} ${y + 5}" fill="none" stroke="${C.line}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      }
+    });
+    if (li < GV_APPLY_LANES.length - 1) {
+      body += `<line x1="48" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.gvApplySequence.title,
+    L.eyebrow,
+    L.checked(L.dates.goldenVisaApply),
+    body,
+    L.figures.gvApplySequence.note,
+  );
+}
+
+// --- Figure: what processing costs ------------------------------------------
+// CUMULATIVE BARS, NOT INCREMENTS, so the height reads as the running total the
+// applicant has paid. The Greek fee is drawn as a rule across the whole plot
+// rather than as a fifth bar: at 2,016 € against 99,000 € a bar would be two
+// pixels tall and would read as an error rather than as the finding.
+function gvApplyFees(L) {
+  const width = 1200;
+  const height = 800;
+  const baseline = 616;
+  const top = 236;
+  const plotX = 300;
+  const plotW = width - 48 - plotX;
+  const total = GV_FEES.reduce((sum, step) => sum + step.value, 0);
+  const scale = (v) => ((baseline - top) * v) / total;
+  let body = "";
+
+  body += text(48, 190, L.gvFeeAxis, { size: 13, fill: C.muted });
+
+  const gap = 10;
+  const stepW = (plotW - gap * (GV_FEES.length - 1)) / GV_FEES.length;
+  let cum = 0;
+  GV_FEES.forEach((step, i) => {
+    cum += step.value;
+    const h = scale(cum);
+    const x = plotX + i * (stepW + gap);
+    body += `<rect x="${x.toFixed(1)}" y="${(baseline - h).toFixed(1)}" width="${stepW.toFixed(1)}" height="${h.toFixed(1)}" fill="${C.accent}"/>`;
+    body += text(x + stepW / 2, baseline - h - 18, L.gvFeeAmounts[step.key], {
+      size: 15,
+      weight: 600,
+      anchor: "middle",
+    });
+    body += text(x + stepW / 2, baseline + 34, L.gvFeeSteps[step.key], {
+      size: 13,
+      fill: C.muted,
+      anchor: "middle",
+    });
+  });
+
+  body += text(48, top - 4, L.gvFeeTotal(total), { size: 15, weight: 600 });
+
+  const gy = baseline - scale(GV_GREECE_FEE);
+  body += `<line x1="48" y1="${gy.toFixed(1)}" x2="${width - 48}" y2="${gy.toFixed(1)}" stroke="${C.text}" stroke-width="1.5" stroke-dasharray="6 5"/>`;
+  body += text(48, gy - 46, L.gvFeeGreece, { size: 13, weight: 500 });
+
+  body += `<line x1="48" y1="${baseline}" x2="${width - 48}" y2="${baseline}" stroke="${C.line}" stroke-width="1"/>`;
+
+  return frame(
+    width,
+    height,
+    L.figures.gvApplyFees.title,
+    L.eyebrow,
+    L.checked(L.dates.goldenVisaApply),
+    body,
+    L.figures.gvApplyFees.note,
+  );
+}
+
+// --- Figure: the naturalisation clocks --------------------------------------
+function gvPassportClocks(L) {
+  const width = 1200;
+  const height = 720;
+  const plotX = 300;
+  // 210 rather than 100: the value label sits outside the bar, and at ten
+  // years the bar reached the margin and pushed "10 years" off the canvas.
+  const plotW = width - 210 - plotX;
+  const step = plotW / GV_PASSPORT_MAX;
+  let body = "";
+
+  body += text(48, 190, L.gvPassportAxis, { size: 13, fill: C.muted });
+
+  for (let year = 0; year <= GV_PASSPORT_MAX; year += 2) {
+    const x = plotX + year * step;
+    body += `<line x1="${x.toFixed(1)}" y1="228" x2="${x.toFixed(1)}" y2="560" stroke="${C.hairline}" stroke-width="1"/>`;
+    body += text(x, 590, String(year), { size: 12, fill: C.muted, anchor: "middle" });
+  }
+
+  GV_PASSPORT_CLOCKS.forEach((lane, i) => {
+    const y = 268 + i * 74;
+    body += text(48, y + 6, L.gvPassportLanes[lane.key], { size: 16, weight: 600 });
+    if (lane.years === null) {
+      body += text(plotX, y + 6, L.gvPassportNone, { size: 14, fill: C.muted });
+      return;
+    }
+    const w = lane.years * step;
+    body += `<rect x="${plotX}" y="${y - 16}" width="${w.toFixed(1)}" height="32" fill="${C.accent}"/>`;
+    if (lane.to) {
+      const extra = (lane.to - lane.years) * step;
+      body += `<rect x="${(plotX + w).toFixed(1)}" y="${y - 16}" width="${extra.toFixed(1)}" height="32" fill="none" stroke="${C.accent}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    }
+    const end = plotX + (lane.to ?? lane.years) * step;
+    body += text(end + 14, y + 6, L.gvPassportValues[lane.key], { size: 14, weight: 600 });
+    if (lane.mark) {
+      const mx = plotX + lane.mark * step;
+      body += `<line x1="${mx.toFixed(1)}" y1="${y - 26}" x2="${mx.toFixed(1)}" y2="${y + 26}" stroke="${C.onAccent}" stroke-width="2"/>`;
+      body += text(mx, y - 38, L.gvPassportMark, { size: 12, fill: C.muted, anchor: "middle" });
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.gvPassportClocks.title,
+    L.eyebrow,
+    L.checked(L.dates.goldenPassport),
+    body,
+    L.figures.gvPassportClocks.note,
+  );
+}
+
+// --- Figure: the three clocks ------------------------------------------------
+function gvPassportCounts(L) {
+  const width = 1200;
+  const colA = 380;
+  const colB = 630;
+  const colC = 880;
+  const height = 760;
+  let body = "";
+
+  body += text(colA, 212, L.gvClockHeads.permit, { size: 15, weight: 600 });
+  body += text(colB, 212, L.gvClockHeads.longTerm, { size: 15, weight: 600 });
+  body += text(colC, 212, L.gvClockHeads.naturalisation, { size: 15, weight: 600 });
+  body += `<line x1="48" y1="234" x2="${width - 48}" y2="234" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  GV_CLOCK_ROWS.forEach((key, i) => {
+    const y = 288 + i * 96;
+    body += text(48, y, L.gvClockRows[key], { size: 15, weight: 500 });
+    body += text(colA, y, L.gvClockPermit[key], { size: 13, fill: C.muted });
+    body += text(colB, y, L.gvClockLongTerm[key], { size: 13, fill: C.muted });
+    body += text(colC, y, L.gvClockNaturalisation[key], { size: 13, fill: C.muted });
+    if (i < GV_CLOCK_ROWS.length - 1) {
+      body += `<line x1="48" y1="${y + 44}" x2="${width - 48}" y2="${y + 44}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.gvPassportCounts.title,
+    L.eyebrow,
+    L.checked(L.dates.goldenPassport),
+    body,
+    L.figures.gvPassportCounts.note,
+  );
+}
+
+// --- Figure: what the nomad permit allows and forbids ------------------------
+function mtNomadLimits(L) {
+  const width = 1200;
+  const height = 800;
+  const colA = 100;
+  const colB = 650;
+  let body = "";
+
+  body += text(colA, 212, L.mtNomadHeads.allowed, { size: 16, weight: 600 });
+  body += text(colB, 212, L.mtNomadHeads.forbidden, { size: 16, weight: 600, fill: C.accent });
+  body += `<line x1="48" y1="236" x2="${width - 48}" y2="236" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  const rows = Math.max(MT_NOMAD_ALLOWED.length, MT_NOMAD_FORBIDDEN.length);
+  for (let i = 0; i < rows; i += 1) {
+    const y = 292 + i * 106;
+    const left = MT_NOMAD_ALLOWED[i];
+    const right = MT_NOMAD_FORBIDDEN[i];
+    if (left) body += text(colA, y, L.mtNomadAllowed[left], { size: 14, fill: C.muted });
+    if (right) body += text(colB, y, L.mtNomadForbidden[right], { size: 14, fill: C.muted });
+    if (i < rows - 1) {
+      body += `<line x1="48" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  }
+
+  return frame(
+    width,
+    height,
+    L.figures.mtNomadLimits.title,
+    L.eyebrow,
+    L.checked(L.dates.maltaNomad),
+    body,
+    L.figures.mtNomadLimits.note,
+  );
+}
+
+// --- Figure: the four-year clock ---------------------------------------------
+function mtNomadClock(L) {
+  const width = 1200;
+  const height = 620;
+  const startX = 100;
+  const blockW = 180;
+  const gap = 10;
+  const top = 300;
+  const blockH = 90;
+  let body = "";
+
+  MT_NOMAD_YEARS.forEach((year, i) => {
+    const x = startX + i * (blockW + gap);
+    body += text(x + blockW / 2, top - 22, L.mtNomadYears[year.key], {
+      size: 13,
+      fill: C.muted,
+      anchor: "middle",
+    });
+    body += `<rect x="${x}" y="${top}" width="${blockW}" height="${blockH}" rx="4" fill="${year.taxed ? C.accent : C.bg}" stroke="${C.accent}" stroke-width="${year.taxed ? 0 : 1.5}"${year.taxed ? "" : ' stroke-dasharray="6 4"'}/>`;
+    body += text(x + blockW / 2, top + 38, year.taxed ? L.mtNomadTaxed : L.mtNomadFree, {
+      size: 14,
+      anchor: "middle",
+      weight: 500,
+      fill: year.taxed ? C.onAccent : C.text,
+    });
+  });
+
+  const stripEnd = startX + MT_NOMAD_YEARS.length * (blockW + gap) - gap;
+  const wallX = stripEnd + 22;
+  body += `<line x1="${wallX}" y1="${top - 40}" x2="${wallX}" y2="${top + blockH + 40}" stroke="${C.text}" stroke-width="3"/>`;
+  body += text(wallX + 20, top + 14, L.mtNomadWall, { size: 14, weight: 500 });
+
+  body += text(startX, top + blockH + 62, L.mtNomadPresence, { size: 13, fill: C.muted });
+
+  return frame(
+    width,
+    height,
+    L.figures.mtNomadClock.title,
+    L.eyebrow,
+    L.checked(L.dates.maltaNomad),
+    body,
+    L.figures.mtNomadClock.note,
+  );
+}
+
+// --- Figure: the card timeline ----------------------------------------------
+function mtCardTimeline(L) {
+  const width = 1240;
+  const height = 780;
+  const left = 260;
+  const right = width - 88;
+  let body = "";
+
+  // First application
+  const yA = 300;
+  body += text(48, yA + 6, L.mtCardLanes.first, { size: 16, weight: 600 });
+  body += `<line x1="${left}" y1="${yA}" x2="${right}" y2="${yA}" stroke="${C.line}" stroke-width="1"/>`;
+  const bandFrom = left + 40;
+  const bandTo = left + 520;
+  body += `<rect x="${bandFrom}" y="${yA - 22}" width="${bandTo - bandFrom}" height="44" rx="4" fill="${C.accent}"/>`;
+  body += text((bandFrom + bandTo) / 2, yA + 6, L.mtCardWait, {
+    size: 13,
+    anchor: "middle",
+    fill: C.onAccent,
+    weight: 500,
+  });
+  const marks = [
+    { key: "submit", x: bandFrom, anchor: "middle" },
+    { key: "approve", x: bandTo, anchor: "middle" },
+    { key: "notice", x: bandTo + 140, anchor: "middle" },
+    { key: "collect", x: right, anchor: "end" },
+  ];
+  marks.forEach((m) => {
+    body += `<line x1="${m.x}" y1="${yA - 30}" x2="${m.x}" y2="${yA + 30}" stroke="${C.text}" stroke-width="1.5"/>`;
+    body += text(m.x, yA + 58, L.mtCardMarks[m.key], { size: 13, fill: C.muted, anchor: m.anchor });
+  });
+
+  // Renewal
+  const yB = 520;
+  body += text(48, yB + 6, L.mtCardLanes.renewal, { size: 16, weight: 600 });
+  body += `<line x1="${left}" y1="${yB}" x2="${right}" y2="${yB}" stroke="${C.line}" stroke-width="1"/>`;
+  const winFrom = left + 440;
+  const winTo = left + 740;
+  body += `<rect x="${winFrom}" y="${yB - 22}" width="${winTo - winFrom}" height="44" rx="4" fill="none" stroke="${C.accent}" stroke-width="1.5"/>`;
+  body += text((winFrom + winTo) / 2, yB + 6, L.mtCardWindow, {
+    size: 13,
+    anchor: "middle",
+    weight: 500,
+  });
+  body += text(winFrom, yB + 58, L.mtCardRenewMarks.open, { size: 13, fill: C.muted, anchor: "middle" });
+  body += text(winTo, yB + 58, L.mtCardRenewMarks.close, { size: 13, fill: C.muted, anchor: "middle" });
+  body += `<line x1="${right}" y1="${yB - 30}" x2="${right}" y2="${yB + 30}" stroke="${C.text}" stroke-width="2.5"/>`;
+  body += text(right, yB - 44, L.mtCardRenewMarks.expiry, { size: 13, fill: C.muted, anchor: "end" });
+  body += text(left, yB + 106, L.mtCardRenewNote, { size: 13, fill: C.muted });
+
+  return frame(
+    width,
+    height,
+    L.figures.mtCardTimeline.title,
+    L.eyebrow,
+    L.checked(L.dates.maltaCard),
+    body,
+    L.figures.mtCardTimeline.note,
+  );
+}
+
+// --- Figure: the fees --------------------------------------------------------
+function mtCardFees(L) {
+  const width = 1200;
+  const height = 760;
+  const basisX = 260;
+  let body = "";
+  let y = 250;
+
+  MT_CARD_FEES.forEach((row, i) => {
+    body += text(48, y, L.mtCardFeeAmounts[row.key], { size: 22, weight: 600 });
+    body += text(basisX, y, L.mtCardFeeBases[row.key], { size: 14, fill: C.muted });
+    const bottom = y + (row.lines - 1) * 27;
+    if (i < MT_CARD_FEES.length - 1) {
+      body += `<line x1="48" y1="${bottom + 28}" x2="${width - 48}" y2="${bottom + 28}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+    y = bottom + 56;
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.mtCardFees.title,
+    L.eyebrow,
+    L.checked(L.dates.maltaCard),
+    body,
+    L.figures.mtCardFees.note,
+  );
+}
+
+// --- Figure: article 100 against article 79Α ---------------------------------
+function grProcessCompare(L) {
+  const width = 1200;
+  const height = 920;
+  // Три колонки вместо двух: рынок сливает воедино три разных инструмента, и
+  // таблица показывает их по отдельности. Ширины подобраны под самую длинную
+  // строку в каждой колонке при 13px, поэтому подписи разбиты вручную.
+  const colA = 330;
+  const colB = 620;
+  const colC = 910;
+  let body = "";
+
+  body += text(colA, 216, L.grProcessHeads.investor, { size: 15, weight: 600 });
+  // Все три заголовка одного цвета: колонки равноправны, а хронологию — какая
+  // норма когда появилась — несёт подпись словами, а не оттенок.
+  body += text(colB, 216, L.grProcessHeads.startup, { size: 15, weight: 600 });
+  body += text(colC, 216, L.grProcessHeads.tech, { size: 15, weight: 600 });
+  body += `<line x1="48" y1="240" x2="${width - 48}" y2="240" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  GR_PROCESS_ROWS.forEach((key, i) => {
+    const y = 292 + i * 84;
+    body += text(48, y, L.grProcessRows[key], { size: 15, weight: 500 });
+    body += text(colA, y, L.grProcessInvestor[key], { size: 13, fill: C.muted });
+    body += text(colB, y, L.grProcessStartup[key], { size: 13, fill: C.muted });
+    body += text(colC, y, L.grProcessTech[key], { size: 13, fill: C.muted });
+    if (i < GR_PROCESS_ROWS.length - 1) {
+      body += `<line x1="48" y1="${y + 40}" x2="${width - 48}" y2="${y + 40}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.grProcessCompare.title,
+    L.eyebrow,
+    L.checked(L.dates.greeceProcess),
+    body,
+    L.figures.grProcessCompare.note,
+  );
+}
+
+// --- Figure: аренда по субрегионам -------------------------------------------
+function ptMoveRent(L) {
+  const width = 1200;
+  const height = 800;
+  const x0 = 420;
+  const x1 = width - 260;
+  const scale = (v) => ((x1 - x0) * v) / PT_MOVE_RENT_MAX;
+  let body = "";
+
+  body += text(48, 190, L.ptMoveRentAxis, { size: 13, fill: C.muted });
+
+  PT_MOVE_RENT.forEach((row, i) => {
+    const y = 262 + i * 66;
+    body += text(48, y + 5, L.ptMoveRent[row.key], {
+      size: 15,
+      weight: row.ref ? 600 : 400,
+    });
+    const w = scale(row.value);
+    body += `<rect x="${x0}" y="${y - 16}" width="${w.toFixed(1)}" height="32" rx="3" fill="${row.ref ? C.pending : C.accent}"/>`;
+    body += text(x0 + w + 14, y + 5, L.perSqm2(row.value), {
+      size: 15,
+      family: FONT_MONO,
+      weight: row.ref ? 600 : 400,
+    });
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.ptMoveRent.title,
+    L.eyebrow,
+    L.checked(L.dates.portugalMove),
+    body,
+    L.figures.ptMoveRent.note,
+  );
+}
+
+// --- Figure: надбавка для покупателя из-за рубежа -----------------------------
+function ptMovePremium(L) {
+  const width = 1200;
+  const height = 760;
+  const x0 = 340;
+  const x1 = width - 190;
+  const scale = (v) => ((x1 - x0) * v) / 150;
+  let body = "";
+
+  PT_MOVE_PREMIUM.forEach((lane, i) => {
+    const top = 250 + i * 190;
+    body += text(48, top, L.ptMovePremiumLanes[lane.key], { size: 16, weight: 600 });
+
+    const rows = [
+      { key: "home", value: 100, ref: true },
+      { key: "abroad", value: 100 + lane.premium, ref: false },
+    ];
+    rows.forEach((row, j) => {
+      const y = top + 48 + j * 52;
+      body += text(48, y + 5, L.ptMovePremiumRows[row.key], { size: 13, fill: C.muted });
+      const w = scale(row.value);
+      body += `<rect x="${x0}" y="${y - 15}" width="${w.toFixed(1)}" height="30" rx="3" fill="${row.ref ? C.pending : C.accent}"/>`;
+      body += text(x0 + w + 14, y + 5, row.ref ? L.ptMovePremiumBase : L.ptMovePremiumValue(lane.premium), {
+        size: 15,
+        family: FONT_MONO,
+        weight: row.ref ? 400 : 600,
+      });
+    });
+
+    if (i < PT_MOVE_PREMIUM.length - 1) {
+      body += `<line x1="48" y1="${top + 152}" x2="${width - 48}" y2="${top + 152}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.ptMovePremium.title,
+    L.eyebrow,
+    L.checked(L.dates.portugalMove),
+    body,
+    L.figures.ptMovePremium.note,
+  );
+}
+
 const PLAN = {
   ru: [
     ["qualifies", qualifies],
@@ -2293,6 +3299,13 @@ const PLAN = {
     ["mt-cost", mtCost],
     ["mt-presence", mtPresence],
     ["mt-tests", mtTests],
+    // Переезд в Грецию, 5 сентября 2026 года.
+    ["gr-living-budget", grLivingBudget],
+    ["gr-living-regions", grLivingRegions],
+    ["gr-living-rent", grLivingRent],
+    // Переезд в Португалию, 5 сентября 2026 года.
+    ["pt-move-rent", ptMoveRent],
+    ["pt-move-premium", ptMovePremium],
   ],
   en: [
     ["qualifies", qualifies],
@@ -2318,6 +3331,23 @@ const PLAN = {
     ["gr-living-budget", grLivingBudget],
     ["gr-living-regions", grLivingRegions],
     ["gr-living-rent", grLivingRent],
+    // Portugal after the permit, 4 September 2026. English only.
+    ["pt-after-timeline", ptAfterTimeline],
+    ["pt-after-statuses", ptAfterStatuses],
+    // Греческий процесс, 5 сентября 2026 года.
+    ["gr-process-compare", grProcessCompare],
+    // The application guide, 5 September 2026. English only.
+    ["gv-apply-sequence", gvApplySequence],
+    ["gv-apply-fees", gvApplyFees],
+    // The passport question, 5 September 2026. English only.
+    ["gv-passport-clocks", gvPassportClocks],
+    ["gv-passport-counts", gvPassportCounts],
+    // The Maltese nomad permit, 5 September 2026. English only.
+    ["mt-nomad-limits", mtNomadLimits],
+    ["mt-nomad-clock", mtNomadClock],
+    // The Maltese residence card, 5 September 2026. English only.
+    ["mt-card-timeline", mtCardTimeline],
+    ["mt-card-fees", mtCardFees],
   ],
   pl: [
     ["qualifies", qualifies],

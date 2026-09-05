@@ -303,13 +303,13 @@ Cypru na tej stronie nie ma. Jego kryteriów nie da się odczytać w źródle pi
 ## Keywords
 
 **Head terms:**
-koszty życia w portugalii, koszty życia w grecji, koszty życia na malcie, koszty życia w dubaju, złota wiza portugalia, złota wiza grecja, złota wiza dubaj, wiza d7 portugalia, średnie zarobki w portugalii, obywatelstwo za inwestycje
+koszty życia w portugalii, koszty życia w grecji, koszty życia na malcie, koszty życia w dubaju, średnie zarobki w portugalii, obywatelstwo za inwestycje
 
 **Mid-tail:**
-ile kosztuje miesięczne życie w portugalii, miesięczny koszt utrzymania w portugalii, ile kosztuje życie w portugalii 2026, karta pobytu portugalia, malta pobyt stały, wiza dla cyfrowych nomadów, złota wiza zea, ile zarabia się na malcie, ile kosztuje wynajem mieszkania w lizbonie
+ile kosztuje miesięczne życie w portugalii, miesięczny koszt utrzymania w portugalii, ile kosztuje życie w portugalii 2026, karta pobytu portugalia, malta pobyt stały, wiza dla cyfrowych nomadów, ile zarabia się na malcie, ile kosztuje wynajem mieszkania w lizbonie
 
 **Long tail:**
-czy w portugalii jest drogo, czy w portugalii jest taniej niż w polsce, czy w grecji jest taniej niż w polsce, ile wynosi średnia pensja w portugalii, jakie są minusy życia w portugalii, czy polak może zamieszkać w portugalii, jak zamieszkać na stałe w portugalii, jak zamieszkać w portugalii na emeryturze, ile kosztuje miesięczne życie w grecji, ile zarabia przeciętny grek, ile kosztuje wynajem mieszkania w grecji, jak zamieszkać w grecji, jakie są koszty życia na cyprze, czy polak może zamieszkać na cyprze, jakie są koszty życia w dubaju, ile kosztuje złota wiza w dubaju, co daje złota wiza w dubaju, ile trzeba zarabiać żeby dostać wizę d7, jaki dochód trzeba udokumentować w grecji, gdzie taniej mieszkać portugalia czy grecja
+czy w portugalii jest drogo, czy w portugalii jest taniej niż w polsce, czy w grecji jest taniej niż w polsce, ile wynosi średnia pensja w portugalii, jakie są minusy życia w portugalii, jak zamieszkać na stałe w portugalii, jak zamieszkać w portugalii na emeryturze, ile kosztuje miesięczne życie w grecji, ile zarabia przeciętny grek, ile kosztuje wynajem mieszkania w grecji, jak zamieszkać w grecji, jakie są koszty życia na cyprze, czy polak może zamieszkać na cyprze, jakie są koszty życia w dubaju, ile kosztuje złota wiza w dubaju, co daje złota wiza w dubaju, ile trzeba zarabiać żeby dostać wizę d7, jaki dochód trzeba udokumentować w grecji, gdzie taniej mieszkać portugalia czy grecja
 
 **Keywords placed in subheadings:**
 „Koszty życia w Portugalii, Grecji, na Malcie i w Dubaju"; „Koszty życia w Grecji: 1724,54 euro miesięcznie"; „Koszty życia na Malcie"; „Koszty życia w Portugalii"; „Koszty życia w Dubaju"; „Jaki dochód trzeba udokumentować"; „Portugalia: dochód na pobyt równa się płacy minimalnej"; „Czy portugalska złota wiza zwalnia z wykazania dochodu?"; „Grecja: 3500 euro miesięcznie dla osób niezależnych finansowo"; „Malta: 42 000 euro rocznie u nomady"; „Emiraty: 5000 dolarów miesięcznie za pracę zdalną"; „Czy Polak może tam zamieszkać"; „Gdzie niższe wymagania dochodowe".

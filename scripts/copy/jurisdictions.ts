@@ -43,9 +43,9 @@ const COUNTRY_PAGES_RAW: CountryPageSeed[] = [
     route: { en: "Golden Visa (fund)", ru: "Golden Visa (фонд)", pl: "Golden Visa (fundusz)" },
     minimumInvestment: "€500,000",
     timeToPermit: {
-      en: "90 days by law, a year or more in practice",
-      ru: "90 дней по закону, год и больше на практике",
-      pl: "90 dni według ustawy, rok i więcej w praktyce",
+      en: "60 days by law, a year or more in practice",
+      ru: "60 дней по закону, год и больше на практике",
+      pl: "60 dni według ustawy, rok i więcej w praktyce",
     },
     taxRegime: {
       en: "IFICI, 20% flat for 10 years",

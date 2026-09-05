@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint && node scripts/check-client-boundary.mjs",
+    "keywords": "node scripts/keywords.mjs",
     "routes": "tsx scripts/routes.ts",
     "enquiry:targets": "tsx scripts/enquiry-targets.ts",
     "canonicals": "tsx scripts/canonicals.ts",

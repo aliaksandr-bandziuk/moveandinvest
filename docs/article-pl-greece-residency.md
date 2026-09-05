@@ -98,6 +98,14 @@ Minimalna powierzchnia występuje w §2(a) i §2(b) i nigdzie indziej: «απα�
 
 Do wszystkich czterech odnosi się co innego — zasada jednej nieruchomości, «σε ένα μόνο ακίνητο», tymi samymi słowami w każdym punkcie. Zsumowanie dwóch zakupów, żeby dobić do progu, jest wykluczone. Według §1(b) udział w współwłasności liczy się tylko wtedy, gdy współwłaścicielami są małżonkowie albo partnerzy z umowy o wspólnym pożyciu; w przeciwnym razie udział każdego musi samodzielnie sięgać progu.
 
+#### Drugie zezwolenie inwestorskie: artykuł 100Α i ścieżka startupowa
+
+Obok czterech progów nieruchomościowych stoi drugie zezwolenie inwestorskie, o którym greckie strony zwykle milczą, a zagraniczne błędnie je datują. **Artykuł 100Α kodeksu migracyjnego**, dodany artykułem 44 ustawy 5162/2024 i uruchomiony wspólną decyzją ministerialną z listopada 2025 roku, daje typ **Β.6** za **250 000 euro** wniesione do kapitału przedsiębiorstwa z krajowego rejestru startupów „Elevate Greece" — akcjami przy podwyższeniu kapitału albo obligacjami przy emisji obligacji.
+
+Warunki są inne niż przy nieruchomości. Udział nie może przekraczać **33%** kapitału ani głosów; przedsiębiorstwo musi utworzyć **dwa nowe miejsca pracy** w pierwszym roku i utrzymać ten stan przez **pięć lat**; same akcje są **zablokowane na pięć lat**; zezwolenie wydaje się na rok i przedłuża po dwa lata; **nie daje prawa do pracy** — tymi samymi słowami co zezwolenie nieruchomościowe; za naruszenie grozi **50 000 euro** kary administracyjnej.
+
+Dla obywatela Polski nie zmienia to nic: swoboda przepływu osób jest szersza niż jakiekolwiek zezwolenie inwestorskie. Dla obywatela państwa trzeciego z polską kartą pobytu jest to trzecia ścieżka obok dwóch pozostałych — i jest to udział w spółce na wczesnym etapie, a nie akt własności, więc przy tej samej cenie nie są wymienne. Akty źródłowe są na [stronie źródeł](/sources).
+
 ### Ograniczenia złotej wizy: zakaz najmu krótkoterminowego, odsprzedaż i prawo do pracy
 
 To sekcja, której najczęściej brakuje na stronie napisanej przez kogoś, kto sprzedaje ci nieruchomość.
@@ -354,7 +362,7 @@ Portugalia to drugi kraj w tym zestawie z prawdziwą ścieżką dochodową i jes
 
 ### Źródła: skąd pochodzi każda liczba
 
-Każda liczba powyżej sięga aktu, który ją ustanawia. Przepisy migracyjne pochodzą z ustawy 5038/2023 — artykuły 95, 100, 143–145, 160, 161 i 163, czytane artykuł po artykule — wraz z artykułami 29, 37 i 38 ustawy 5275/2026, ΦΕΚ Α΄ 17 z 6 lutego 2026. Kwota 3 500 euro pochodzi z KYA 225679/2024, ΦΕΚ Β΄ 5223 z 17 września 2024. Płaca minimalna z KYA 8934/2026, ΦΕΚ Β΄ 1759 z 27 marca 2026. Przepisy podatkowe z artykułów 5A, 5B i 5C ustawy 4172/2013, a termin z decyzji Α.1217/2020. Prawo pobytu w drugim państwie członkowskim z dyrektywy 2003/109/WE, Dz.U. L 16/44 z 23 stycznia 2004.
+Każda liczba powyżej sięga aktu, który ją ustanawia. Przepisy migracyjne pochodzą z ustawy 5038/2023 — artykuły 95, 100, 143–145, 160, 161 i 163, czytane artykuł po artykule — wraz z artykułami 29, 37 i 38 ustawy 5275/2026, ΦΕΚ Α΄ 17 z 6 lutego 2026. Artykuł 100Α, zezwolenie startupowe, dodano artykułem 44 ustawy 5162/2024, ΦΕΚ Α΄ 198 z 5 grudnia 2024, a jego dokumenty ustala KYA 216761 z 12 listopada 2025, ΦΕΚ Β΄ 6138 z 18 listopada 2025; czytaliśmy przy tym opublikowany przez ministerstwo finansów projekt, a nie stronę dziennika. Ustawę 5307/2026, ΦΕΚ Α΄ 90 z 11 czerwca 2026, przeszliśmy artykuł po artykule 5 września 2026 i nie dotyka ona żadnego z przepisów na tej stronie. Kwota 3 500 euro pochodzi z KYA 225679/2024, ΦΕΚ Β΄ 5223 z 17 września 2024. Płaca minimalna z KYA 8934/2026, ΦΕΚ Β΄ 1759 z 27 marca 2026. Przepisy podatkowe z artykułów 5A, 5B i 5C ustawy 4172/2013, a termin z decyzji Α.1217/2020. Prawo pobytu w drugim państwie członkowskim z dyrektywy 2003/109/WE, Dz.U. L 16/44 z 23 stycznia 2004.
 
 **Osiem rzeczy na tej stronie nie jest sprawdzonych do tego standardu, i każda jest oznaczona tam, gdzie występuje.** Lista wysp powyżej 3 100 mieszkańców, od której zależy strefa 800 000. Czy nieżonaty inwestor bez partnera może sprowadzić rodzica według artykułu 95 §2(d). Dwanaście czy czternaście wypłat we wzorze z artykułu 144. Wyraźne oficjalne potwierdzenie zaliczania lat inwestorskich. Treść wyjaśnienia ministerstwa z listopada 2022, którego dosłownie mamy tytuł, a istotę w streszczeniu. Artykuły 5 i 15 dyrektywy 2003/109/WE, które wróciły w streszczeniu, nie w cytacie. Polska ustawa o cudzoziemcach, której nie czytaliśmy wcale. I umowa o unikaniu podwójnego opodatkowania między Polską a Grecją, której również nie czytaliśmy.
 

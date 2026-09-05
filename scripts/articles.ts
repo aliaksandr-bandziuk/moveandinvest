@@ -225,13 +225,39 @@ const ENTRIES: Record<string, EntryConfig> = {
   // ENGLISH ONLY, AND THAT IS THE FINDING RATHER THAN A GAP. Russian demand for
   // this theme is a handful of impressions; Polish demand under the same words
   // is holiday-home buyers, a different reader entirely.
+  // AFTER THE PERMIT, added 4 September 2026. The cluster nobody writes: what
+  // happens between the grant and citizenship. 83 queries, 9,860 impressions,
+  // and competition between 1 and 9 on most of them — the emptiest search
+  // results this project has found. Its narrowest sub-theme, the residence card
+  // itself, was not mentioned anywhere on this site before.
+  //
+  // PUBLISHING THIS REQUIRED EDITING THE D7 ENTRY. Two of its sections aimed at
+  // the same queries; they were cut to a paragraph and a link so the two pages
+  // do not compete. See the brief.
+  "portugal-after-permit": {
+    key: "article-portugal-after-permit",
+    sources: {
+      en: "article-en-portugal-after-permit.md",
+    },
+    figures: {
+      en: ["pt-after-timeline-en", "pt-after-statuses-en"],
+    },
+    publishedAt: "2026-09-04T12:00:00.000Z",
+    category: "relocation",
+    countries: ["country-pt"],
+  },
   "greece-living": {
     key: "article-greece-living",
     sources: {
       en: "article-en-greece-living.md",
+      // Локализация, а не перевод: по-русски интент выражается словом
+      // «переезд», а запросов про «жизнь в Греции» и «стоимость жизни в
+      // Греции» практически нет. Рамка и ключи другие, факты те же.
+      ru: "article-ru-greece-living.md",
     },
     figures: {
       en: ["gr-living-budget-en", "gr-living-regions-en", "gr-living-rent-en"],
+      ru: ["gr-living-budget-ru", "gr-living-regions-ru", "gr-living-rent-ru"],
     },
     publishedAt: "2026-09-04T09:00:00.000Z",
     category: "relocation",
@@ -269,6 +295,97 @@ const ENTRIES: Record<string, EntryConfig> = {
     // worth, not because the entry is about a court judgment.
     category: "relocation",
     countries: ["country-mt"],
+  },
+  "golden-visa-application": {
+    key: "article-golden-visa-application",
+    sources: {
+      en: "article-en-golden-visa-application.md",
+    },
+    figures: {
+      en: ["gv-apply-sequence-en", "gv-apply-fees-en"],
+    },
+    publishedAt: "2026-09-05T09:00:00.000Z",
+    // "rules" and not "relocation": the subject is the procedure itself — who
+    // may file, on what deadline and on what grounds a file stops — and every
+    // figure traces to a procedure registry, a legal notice or an agency FAQ
+    // rather than to what living somewhere is like.
+    category: "rules",
+    countries: ["country-pt", "country-gr", "country-mt", "country-ae"],
+  },
+  "golden-passport": {
+    key: "article-golden-passport",
+    sources: {
+      en: "article-en-golden-passport.md",
+    },
+    figures: {
+      en: ["gv-passport-clocks-en", "gv-passport-counts-en"],
+    },
+    publishedAt: "2026-09-05T15:00:00.000Z",
+    // "rules" rather than "relocation": the subject is what four nationality
+    // regimes require, and the piece exists because the market's own phrase —
+    // golden passport — names nothing any of them issues.
+    category: "rules",
+    countries: ["country-gr", "country-mt", "country-pt", "country-ae"],
+  },
+  "malta-nomad": {
+    key: "article-malta-nomad",
+    sources: {
+      en: "article-en-malta-nomad.md",
+    },
+    figures: {
+      en: ["mt-nomad-limits-en", "mt-nomad-clock-en"],
+    },
+    publishedAt: "2026-09-05T16:00:00.000Z",
+    // "relocation" rather than "rules": the reader deciding on this permit is
+    // deciding where to live for the next four years, and what they take from
+    // the page is whether five months a year on the island is a life they want.
+    category: "relocation",
+    countries: ["country-mt"],
+  },
+  "malta-card": {
+    key: "article-malta-card",
+    sources: {
+      en: "article-en-malta-card.md",
+    },
+    figures: {
+      en: ["mt-card-timeline-en", "mt-card-fees-en"],
+    },
+    publishedAt: "2026-09-05T17:00:00.000Z",
+    // "rules": the page is about one document and the administrative procedure
+    // around it — the wait, the window, the fee schedule and the portal rules
+    // that end applications without a decision.
+    category: "rules",
+    countries: ["country-mt"],
+  },
+  "portugal-move": {
+    key: "article-portugal-move",
+    sources: {
+      // Только по-русски: английский спрос на «moving to portugal» держат
+      // экспат-медиа, а русский кластер «переезд» — 1 830 показов при
+      // конкуренции 0–18 и почти без конкурентов с источниками.
+      ru: "article-ru-portugal-move.md",
+    },
+    figures: {
+      ru: ["pt-move-rent-ru", "pt-move-premium-ru"],
+    },
+    publishedAt: "2026-09-05T18:00:00.000Z",
+    // "relocation": читатель решает, ехать ли, а не какой документ подавать.
+    category: "relocation",
+    countries: ["country-pt"],
+  },
+  "greece-process": {
+    key: "article-greece-process",
+    sources: {
+      en: "article-en-greece-process.md",
+    },
+    figures: {
+      en: ["gr-process-compare-en"],
+    },
+    publishedAt: "2026-09-05T19:00:00.000Z",
+    // "rules": предмет — процедура по статье 100 и то, что февральский закон
+    // 5275/2026 на самом деле сделал, а чего не делал.
+    category: "rules",
+    countries: ["country-gr"],
   },
 };
 

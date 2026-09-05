@@ -10,8 +10,8 @@
 
 ## Metadata
 
-**Meta title (55 characters):**
-`Malta residence permit: MPRP cost, rules and nomad visa`
+**Meta title (56 characters):**
+`Malta permanent residence programme: what the MPRP costs`
 
 **Meta description (160 characters):**
 `What the MPRP costs above the price of the flat, the yearly obligation no brochure mentions, and why Malta publishes no minimum stay — but the cheap route does.`
@@ -97,20 +97,13 @@ What Malta does publish is an absence rule for **long-term resident status**, wh
 
 ![2]
 
-### Malta nomad residence permit: a fraction of the price, and the only route that counts your days
+### The other Maltese route, and why it inverts this one
 
-The Nomad Residence Permit is for people earning outside Malta — employed by a foreign employer, self-employed through a foreign company, or freelancing for clients established abroad.
+The Nomad Residence Permit is the cheap way into Malta and the only Maltese route whose renewal is decided by where you actually were: **€42,000** a year earned outside Malta, **10%** tax on authorised work, and renewal only against "a bank statement showing payment transactions carried out in Malta as proof that they have resided in Malta for a cumulative period of at least five (5) months over the previous twelve (12) months".
 
-- minimum gross income **€42,000 a year**. Applications submitted before 1 April 2024 keep the old **€32,400**;
-- valid **one year**, renewable three times, **four years maximum**;
-- renewal requires "a bank statement showing payment transactions carried out in Malta as proof that they have resided in Malta for a cumulative period of at least five (5) months over the previous twelve (12) months";
-- tax: **10% on income derived from authorised work** under S.L. 123.210, with nothing chargeable "before the end of 12 months from the later of: a. the date on which the nomad residence permit is issued; or b. the 1st of January 2024".
+**The comparison is the point.** The nomad permit demands five months a year in the country and proves it against your bank statements. The MPRP demands about €126,000 and, so far as anything published shows, nothing else. The programme that asks least of your money asks most of your time.
 
-And, in the agency's own words: "The fact that an applicant is issued with a Nomad Residence Permit does not necessarily mean that the applicant is entitled to be subject to Maltese tax."
-
-**The comparison is the point.** The nomad permit demands five months a year in the country and proves it against your bank statements. The MPRP demands about €126,000 and, so far as anything published shows, nothing else. A reader who wants to actually live in Malta for four years and pay 10% is being sold the wrong product by almost everyone who sells Malta.
-
-The nomad permit's ceiling is real, though: four years, and no route onward. It is a way to be somewhere, not a way to stay.
+Its ceiling is real, though — four years, and the agency states in terms that it leads to no permanent residence and no citizenship. What it asks, what it forbids, and what happens at the end are set out in [the nomad permit guide](entry:malta-nomad).
 
 ### Malta tax residence: 183 days, and what "non-dom" actually gets you
 
@@ -223,7 +216,7 @@ The last published position, from March 2022, is that both agencies suspended pr
 
 ### What else here bears on this
 
-Greece is the other EU jurisdiction in this set where the permit and the residence clock come apart, and the mechanism is worked through in [its own guide](entry:greece-residency) — including the suspension of Russian and Belarusian applicants, which Greece never published at all. What a property purchase actually achieves in each of the five jurisdictions is in [the property piece](entry:property-residency). The income thresholds side by side, with what living in each place costs, are in [the income piece](entry:income-cost-of-living). The UAE is the comparison for anyone whose real question is tax rather than a European passport, and it is in [its own guide](entry:uae-residency). Every act named above, with the date each was read, is on [the sources page](/sources), and what has changed in the rules and by which instrument is on [the rule-change log](/changes).
+Greece is the other EU jurisdiction in this set where the permit and the residence clock come apart, and the mechanism is worked through in [its own guide](entry:greece-residency) — including the suspension of Russian and Belarusian applicants, which Greece never published at all. What a property purchase actually achieves in each of the five jurisdictions is in [the property piece](entry:property-residency). The income thresholds side by side, with what living in each place costs, are in [the income piece](entry:income-cost-of-living). The UAE is the comparison for anyone whose real question is tax rather than a European passport, and it is in [its own guide](entry:uae-residency). The nomad permit — what it asks, what it forbids and where it stops — is in [its own guide](entry:malta-nomad). The card itself, the eight-to-ten-week wait and the fee schedule by basis are in [the residence card guide](entry:malta-card). Whether any of this reaches a passport is in [the passport piece](entry:golden-passport). Every act named above, with the date each was read, is on [the sources page](/sources), and what has changed in the rules and by which instrument is on [the rule-change log](/changes).
 
 ### Sources: where each figure comes from
 
@@ -243,11 +236,13 @@ Greece is the other EU jurisdiction in this set where the permit and the residen
 
 ## Keywords
 
-**Primary:** malta permanent residence programme, malta residency by investment cost, malta mprp requirements 2026
+**Head terms:**
+malta permanent residence programme, malta residency by investment cost, malta mprp requirements 2026
 
-**Secondary:** malta golden visa cost, malta permanent residence minimum stay, malta nomad residence permit income requirement, malta tax residence 183 days, malta remittance basis non-dom, malta citizenship by merit, malta citizenship by investment closed, malta global residence programme 15 per cent, malta naturalisation residence requirement, mprp annual compliance, malta residency for russian citizens
+**Mid-tail:**
+malta golden visa cost, malta permanent residence minimum stay, malta tax residence 183 days, malta remittance basis non-dom, malta citizenship by merit, malta citizenship by investment closed, malta global residence programme 15 per cent, malta naturalisation residence requirement, mprp annual compliance, malta residency for russian citizens
 
-**Questions targeted:** how much does malta permanent residence cost, do you have to live in malta for permanent residence, does mprp give tax residency in malta, can you still buy maltese citizenship, how long until maltese citizenship, malta nomad visa how many months in malta
+**Questions targeted:** how much does malta permanent residence cost, do you have to live in malta for permanent residence, does mprp give tax residency in malta, can you still buy maltese citizenship, how long until maltese citizenship
 
 ---
 

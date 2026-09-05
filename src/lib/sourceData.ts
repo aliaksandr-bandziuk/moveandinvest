@@ -240,9 +240,9 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
         verdict: "corrected",
         finding: {
-          en: "The statute (art. 82(5) of Lei 23/2007) allows 90 days for a decision. In practice it runs one to three years: filing to biometrics 6–24 months, biometrics to card 6–18. AIMA reported roughly 30,000 pending cases on 4 August 2026.",
-          ru: "Закон (ст. 82(5) Lei 23/2007) даёт 90 дней на решение. Фактически — от года до трёх: подача → биометрия 6–24 месяца, биометрия → карта 6–18. На 4 августа 2026 года AIMA сообщает о примерно 30 000 нерассмотренных дел.",
-          pl: "Ustawa (art. 82(5) Lei 23/2007) daje 90 dni na decyzję. W praktyce trwa to od roku do trzech: złożenie → biometria 6–24 miesiące, biometria → karta 6–18. Na 4 sierpnia 2026 AIMA podaje około 30 000 nierozpatrzonych spraw.",
+          en: "Art. 82 of Lei 23/2007 allows 60 days to decide a grant and 30 to decide a renewal, with tacit approval on renewal where the delay is not the applicant's. In practice it runs one to three years: filing to biometrics 6–24 months, biometrics to card 6–18. AIMA reported roughly 30,000 pending cases on 4 August 2026.",
+          ru: "Ст. 82 Lei 23/2007 даёт 60 дней на решение о выдаче и 30 — на решение о продлении, с молчаливым согласием при продлении, если задержка не по вине заявителя. Фактически — от года до трёх: подача → биометрия 6–24 месяца, биометрия → карта 6–18. На 4 августа 2026 года AIMA сообщает о примерно 30 000 нерассмотренных дел.",
+          pl: "Art. 82 Lei 23/2007 daje 60 dni na decyzję o wydaniu i 30 dni na decyzję o przedłużeniu, z milczącą zgodą przy przedłużeniu, gdy zwłoka nie leży po stronie wnioskodawcy. W praktyce trwa to od roku do trzech: złożenie → biometria 6–24 miesiące, biometria → karta 6–18. Na 4 sierpnia 2026 AIMA podaje około 30 000 nierozpatrzonych spraw.",
         },
       },
       {
@@ -390,9 +390,9 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
         verdict: "corrected",
         finding: {
-          en: "The statute sets no issuing deadline. On filing, a βεβαίωση is issued (art. 10 of Law 5038/2023) which by itself confers lawful residence and the rights of the permit until a decision. In November 2025 there were 13,499 pending cases, 10,703 of them in Attica; waits reached 18 months and are now shortening.",
-          ru: "Срока выдачи в законе нет. При подаче выдаётся βεβαίωση (ст. 10 Закона 5038/2023) — она сама по себе даёт законное пребывание и права по разрешению до решения. На ноябрь 2025 года — 13 499 нерассмотренных дел, 10 703 из них в Аттике; сроки доходили до 18 месяцев и сейчас сокращаются.",
-          pl: "Ustawa nie wyznacza terminu wydania. Przy złożeniu wniosku wydawana jest βεβαίωση (art. 10 ustawy 5038/2023), która sama w sobie daje legalny pobyt i uprawnienia z zezwolenia do czasu decyzji. W listopadzie 2025 czekało 13 499 spraw, z tego 10 703 w Attyce; terminy sięgały 18 miesięcy i obecnie się skracają.",
+          en: "Art. 100 §10 gives two months from the complete file reaching the issuing authority. On filing, a βεβαίωση is issued (art. 10 of Law 5038/2023) which by itself confers lawful residence and the rights of the permit until a decision. In November 2025 there were 13,499 pending cases, 10,703 of them in Attica; waits reached 18 months and are now shortening.",
+          ru: "Ст. 100 §10 даёт два месяца с момента поступления полного досье в орган выдачи. При подаче выдаётся βεβαίωση (ст. 10 Закона 5038/2023) — она сама по себе даёт законное пребывание и права по разрешению до решения. На ноябрь 2025 года — 13 499 нерассмотренных дел, 10 703 из них в Аттике; сроки доходили до 18 месяцев и сейчас сокращаются.",
+          pl: "Art. 100 §10 daje dwa miesiące od wpłynięcia kompletnych akt do organu wydającego. Przy złożeniu wniosku wydawana jest βεβαίωση (art. 10 ustawy 5038/2023), która sama w sobie daje legalny pobyt i uprawnienia z zezwolenia do czasu decyzji. W listopadzie 2025 czekało 13 499 spraw, z tego 10 703 w Attyce; terminy sięgały 18 miesięcy i obecnie się skracają.",
         },
       },
       {
@@ -466,6 +466,34 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         citation: "Law 5038/2023, art. 10 (the βεβαίωση)",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/10",
         kind: "reproduction",
+      },
+      {
+        citation:
+          "Law 5038/2023, art. 100Α — the startup investor permit (type Β.6), added by art. 44 of Law 5162/2024 (ΦΕΚ Α΄ 198/05.12.2024)",
+        url: "https://archive.opengov.gr/minfin/?p=13181",
+        kind: "reproduction",
+        caveat: {
+          en: "The link is the Ministry of National Economy and Finance's own published text of the bill, where the provision is numbered art. 41. The enacted wording in the gazette was not read; the November 2025 joint ministerial decision below legislates against «το άρθρο 100Α του ν. 5038/2023» by name, which is what corroborates it.",
+          ru: "По ссылке — опубликованный самим Министерством национальной экономики и финансов текст законопроекта, где норма идёт под номером 41. Принятая редакция в газете не прочитана; совместное министерское решение от ноября 2025 года, ниже, ссылается на «το άρθρο 100Α του ν. 5038/2023» поимённо — этим и подтверждается.",
+          pl: "Pod linkiem jest opublikowany przez samo Ministerstwo Gospodarki Narodowej i Finansów tekst projektu, gdzie przepis ma numer 41. Uchwalonego brzmienia w dzienniku nie przeczytano; wspólna decyzja ministerialna z listopada 2025 poniżej powołuje się na «το άρθρο 100Α του ν. 5038/2023» z nazwy, i to ją potwierdza.",
+        },
+      },
+      {
+        citation:
+          "KYA 216761/12.11.2025 — ΦΕΚ Β΄ 6138/18.11.2025, documents for making and holding a startup investment under art. 100Α",
+        url: "https://www.forin.gr/articles/article/87754/kua-216761-2025",
+        kind: "reproduction",
+      },
+      {
+        citation:
+          "Law 5307/2026 — ΦΕΚ Α΄ 90/11.06.2026, the EU Pact implementation law: 265 articles, of which art. 179 alone touches the Migration Code",
+        url: "https://www.taxheaven.gr/law/5307/2026",
+        kind: "reproduction",
+        caveat: {
+          en: "Read on 5 September 2026 as a table of contents in full, article by article, to establish what the law does not touch. Art. 179 amends art. 144 on EU long-term resident status, and only in respect of beneficiaries of international protection; its wording was read in the ministry's published bill. Arts. 95, 100, 100Α and 79Α are untouched.",
+          ru: "Прочитано 5 сентября 2026 года целиком как оглавление, статья за статьёй, чтобы установить, чего закон не трогает. Статья 179 меняет статью 144 о статусе долгосрочного резидента ЕС и только в части получателей международной защиты; её текст прочитан в опубликованном министерством законопроекте. Статьи 95, 100, 100Α и 79Α не затронуты.",
+          pl: "Przeczytane 5 września 2026 w całości jako spis treści, artykuł po artykule, aby ustalić, czego ustawa nie dotyka. Artykuł 179 zmienia artykuł 144 o statusie rezydenta długoterminowego UE i wyłącznie w zakresie beneficjentów ochrony międzynarodowej; jego brzmienie przeczytano w opublikowanym przez ministerstwo projekcie. Artykuły 95, 100, 100Α i 79Α są nietknięte.",
+        },
       },
       {
         citation: "Law 4172/2013, art. 5A (non-dom)",

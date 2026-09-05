@@ -240,13 +240,13 @@ Czego **nie** potwierdziliśmy w źródle pierwotnym, a co jest zaznaczone w mie
 ## Keywords
 
 **Head terms:**
-przeprowadzka do portugalii, jak zamieszkać w portugalii, karta pobytu w portugalii, pobyt stały w portugalii, obywatelstwo portugalskie, wiza d7 portugalia, złota wiza portugalia, życie w portugalii, numer NIF portugalia, koszty życia w portugalii
+przeprowadzka do portugalii, jak zamieszkać w portugalii, karta pobytu w portugalii, pobyt stały w portugalii, obywatelstwo portugalskie, wiza d7 portugalia, złota wiza portugalia, życie w portugalii, numer NIF portugalia
 
 **Mid-tail:**
-certyfikat rejestracji obywatela ue portugalia, CRUE portugalia, rejestracja obywatela ue w portugalii, czy polak może zamieszkać w portugalii, jak zamieszkać w portugalii na emeryturze, obywatelstwo portugalskie po ilu latach, obywatelstwo portugalskie nowe przepisy 2026, rezydencja podatkowa portugalia, IFICI portugalia podatki, polacy kupują nieruchomości w hiszpanii
+certyfikat rejestracji obywatela ue portugalia, CRUE portugalia, rejestracja obywatela ue w portugalii, czy polak może zamieszkać w portugalii, obywatelstwo portugalskie po ilu latach, obywatelstwo portugalskie nowe przepisy 2026, rezydencja podatkowa portugalia, IFICI portugalia podatki, polacy kupują nieruchomości w hiszpanii
 
 **Long tail:**
-czy polak potrzebuje wizy do portugalii, ile trzeba zarabiać żeby zamieszkać w portugalii, jaki dochód trzeba udokumentować w portugalii jako obywatel ue, gdzie zarejestrować pobyt w portugalii, ile kosztuje certyfikat rejestracji w portugalii, jak długo można mieszkać w portugalii bez rejestracji, pobyt stały w portugalii po 5 latach, obywatelstwo portugalskie po 7 latach dla obywateli ue, egzamin z portugalskiego do obywatelstwa, ile dni trzeba mieszkać w portugalii żeby być rezydentem podatkowym, wiza dla małżonka spoza ue w portugalii, łączenie rodzin w portugalii dla obywatela ue, czy w portugalii jest taniej niż w polsce, dlaczego polacy kupują nieruchomości za granicą
+czy polak potrzebuje wizy do portugalii, ile trzeba zarabiać żeby zamieszkać w portugalii, jaki dochód trzeba udokumentować w portugalii jako obywatel ue, gdzie zarejestrować pobyt w portugalii, ile kosztuje certyfikat rejestracji w portugalii, jak długo można mieszkać w portugalii bez rejestracji, pobyt stały w portugalii po 5 latach, obywatelstwo portugalskie po 7 latach dla obywateli ue, egzamin z portugalskiego do obywatelstwa, ile dni trzeba mieszkać w portugalii żeby być rezydentem podatkowym, wiza dla małżonka spoza ue w portugalii, łączenie rodzin w portugalii dla obywatela ue, dlaczego polacy kupują nieruchomości za granicą
 
 **Keywords placed in subheadings:**
 „Polak nie potrzebuje wizy D7 ani złotej wizy"; „Pobyt do trzech miesięcy: bez formalności"; „Pobyt powyżej trzech miesięcy: jakie są warunki"; „Certyfikat rejestracji CRUE: gdzie, kiedy i ile kosztuje"; „Pobyt stały w Portugalii po pięciu latach"; „Obywatelstwo portugalskie: dla obywatela Unii siedem lat"; „Podatki: 183 dni i stawka 20 procent"; „A jeśli małżonek albo rodzic nie jest obywatelem Unii"; „Ile kosztuje życie w Portugalii"; „Liczby w obiegu bez podstawy prawnej".

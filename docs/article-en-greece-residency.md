@@ -29,7 +29,7 @@
 
 ## Article
 
-Greece runs two entirely different residence routes and a reader is usually shown only one of them. There is the investor permit, which asks for €800,000 in Attica and €400,000 in most of the rest of the country. And there is a permit for people who simply live on their own income, which asks for no purchase at all — only €3,500 a month.
+Greece runs three entirely different residence routes and a reader is usually shown one of them. There is the investor permit on property, which asks for €800,000 in Attica and €400,000 in most of the rest of the country. There is a second investor permit, far less visible, which asks for €250,000 of equity in a registered startup instead of a building. And there is a permit for people who simply live on their own income, which asks for no purchase at all — only €3,500 a month.
 
 Neither of those is the interesting number. The interesting question is what either one leads to, and there the whole market gets it wrong in the same way: it argues about which permit counts towards permanent residence, when the statute does not count permits at all. It counts days.
 
@@ -40,13 +40,14 @@ Everything below is quoted from the instrument that sets it, with the article nu
 | Route | Type | What it asks for | Employment in Greece | Term |
 | --- | --- | --- | --- | --- |
 | Investor permit, property | Β.5 | €800,000, €400,000 or €250,000 depending on where and what | Prohibited | 5 years, renewable |
+| Investor permit, startup | Β.6 | €250,000 into a registered startup, for no more than 33% of it | Prohibited | 1 year, then 2 at a time |
 | Holders of sufficient resources | Ι.8 | €3,500 a month, or savings | Prohibited | 3 years, renewable |
 | EU long-term resident | Μ.1 | 5 years of actual residence, income, Greek | Permitted | 5 years, renewable |
 | National ten-year permit | Μ.2 | 10 years of continuous lawful residence | Permitted | 10 years |
 
 ![1]
 
-Two things in that table are worth reading twice. Both entry routes forbid working in Greece, which surprises people who assumed a residence permit implies a right to earn. And both permanent statuses are reached by residing, which is the subject of the section this guide is built around.
+Two things in that table are worth reading twice. All three entry routes forbid working in Greece, which surprises people who assumed a residence permit implies a right to earn. And both permanent statuses are reached by residing, which is the subject of the section this guide is built around.
 
 ### Greece golden visa requirements 2026: the €800,000, €400,000 and €250,000 thresholds
 
@@ -80,6 +81,14 @@ The minimum surface appears in §2(a) and §2(b) and nowhere else: «απαιτ�
 **Neither €250,000 route states any minimum floor area.** Pages that print "120 m²" as a rule of the Greek programme are overstating it by half the programme.
 
 What does apply to all four is the single-property rule — «σε ένα μόνο ακίνητο», in identical words in each point. You cannot add two purchases together to reach a threshold. Under §1(b), an undivided share counts only where the co-owners are spouses or partners under a cohabitation agreement; otherwise each share must independently clear the threshold.
+
+#### The second investor permit: article 100A and the startup route
+
+Beside the four property thresholds sits a second investor permit that most Greek pages omit and most foreign ones misdate. **Article 100A of the Migration Code**, added by article 44 of Law 5162/2024 and made usable by a joint ministerial decision of November 2025, grants type **Β.6** for **€250,000** paid into the capital of an enterprise on the Elevate Greece national startup registry — shares in a capital increase, or bonds on a bond issue.
+
+Its conditions are not the property ones. The holding may not exceed **33%** of the company or its votes; the enterprise must create **two new jobs** in the first year and hold that headcount for **five years**; the shares are **locked for five years**; the permit runs **one year and then two at a time**; it confers **no right to work**, in article 100's own words; and breaching any of it costs **€50,000**.
+
+That is equity in an early-stage company, not a title deed, and the two are not interchangeable at the same price. The full reading — the paragraph numbers, the documents, and why so much of this market credits the route to the wrong law and the wrong year — is in [the piece on the Greek procedure](entry:greece-process).
 
 ### Greece golden visa restrictions: the short-term rental ban, resale and the right to work
 
@@ -375,11 +384,11 @@ New applications have been suspended since 2022 by decision of the Ministry of M
 
 ### What else here bears on this
 
-Portugal is the other country in this set with a real income route, and it is worked through in [its own guide](entry:portugal-residency) — including the €920 a golden visa investor must also prove, which is the mirror image of the €3,500 above. The income thresholds of all five jurisdictions side by side, with what living in each costs, are in [the income piece](entry:income-cost-of-living). What a property purchase achieves in each of the five is in [the property piece](entry:property-residency). Every act named above, with the date each was read, is on [the sources page](/sources).
+Portugal is the other country in this set with a real income route, and it is worked through in [its own guide](entry:portugal-residency) — including the €920 a golden visa investor must also prove, which is the mirror image of the €3,500 above. The income thresholds of all five jurisdictions side by side, with what living in each costs, are in [the income piece](entry:income-cost-of-living). What a property purchase achieves in each of the five is in [the property piece](entry:property-residency). What the country is like to live in — what a household actually spends, region by region, and what rent is signed rather than asked — is in [the living guide](entry:greece-living). Who may file the application, on what deadline and on what grounds it stops is in [the application guide](entry:golden-visa-application). The Greek procedure specifically — the fifty days, the apostille, the fee, and what the February 2026 law did and did not change — is in [the process guide](entry:greece-process). Every act named above, with the date each was read, is on [the sources page](/sources).
 
 ### Sources: where each figure comes from
 
-Every figure above traces to the instrument that sets it. The immigration provisions come from Law 5038/2023 — articles 95, 100, 143 to 145, 160, 161 and 163 — read article by article, together with articles 29, 37 and 38 of Law 5275/2026, ΦΕΚ Α΄ 17 of 6 February 2026. The €3,500 comes from KYA 225679/2024, ΦΕΚ Β΄ 5223 of 17 September 2024. The minimum wage comes from KYA 8934/2026, ΦΕΚ Β΄ 1759 of 27 March 2026. The tax provisions come from articles 5A, 5B and 5C of Law 4172/2013, with the filing deadline from decision Α.1217/2020 and the implementing decisions listed by AADE. The suspension for Russian and Belarusian citizens comes from the Ministry of Migration and Asylum's own announcements of 28 February and 1 April 2022, and the underlying instrument is Commission Recommendation C(2022) 2028 final.
+Every figure above traces to the instrument that sets it. The immigration provisions come from Law 5038/2023 — articles 95, 100, 143 to 145, 160, 161 and 163 — read article by article, together with articles 29, 37 and 38 of Law 5275/2026, ΦΕΚ Α΄ 17 of 6 February 2026. Article 100Α, the startup permit, was added by article 44 of Law 5162/2024, ΦΕΚ Α΄ 198 of 5 December 2024, and its documents are set by KYA 216761 of 12 November 2025, ΦΕΚ Β΄ 6138 of 18 November 2025; the text read for it is the finance ministry's published bill, not the gazette page. Law 5307/2026, ΦΕΚ Α΄ 90 of 11 June 2026, was walked article by article on 5 September 2026 and touches none of the provisions on this page. The €3,500 comes from KYA 225679/2024, ΦΕΚ Β΄ 5223 of 17 September 2024. The minimum wage comes from KYA 8934/2026, ΦΕΚ Β΄ 1759 of 27 March 2026. The tax provisions come from articles 5A, 5B and 5C of Law 4172/2013, with the filing deadline from decision Α.1217/2020 and the implementing decisions listed by AADE. The suspension for Russian and Belarusian citizens comes from the Ministry of Migration and Asylum's own announcements of 28 February and 1 April 2022, and the underlying instrument is Commission Recommendation C(2022) 2028 final.
 
 **Seven things on this page are not verified to that standard, and each is marked where it appears.** The list of islands above 3,100 inhabitants, which decides the €800,000 zone. Whether an unmarried investor with no partner may bring a parent under article 95 §2(d). Whether the article 144 income formula is applied on twelve payments or fourteen. Any express official statement that investor years count towards permanent residence. The text of the April 2026 circular, which we have through trade press. The body of the ministry's November 2022 clarification, of which we obtained the heading verbatim and the substance in summary. And the position of the Ι.8 permit for Russian and Belarusian citizens, on which nothing is stated in either direction.
 

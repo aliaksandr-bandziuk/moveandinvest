@@ -72,7 +72,7 @@ export const CHANGES_REVIEWED_ON: IsoDate = "2026-09-01";
 /** When a row last actually changed. Deliberately separate from the above: a
  *  quiet month is not an abandoned page, and the reader is entitled to tell
  *  the difference. */
-export const CHANGES_UPDATED_ON: IsoDate = "2026-09-01";
+export const CHANGES_UPDATED_ON: IsoDate = "2026-09-05";
 
 // Newest first, and the order is ASSERTED below rather than trusted. A row
 // added in the wrong place is invisible: the page renders it wherever it sits,
@@ -222,6 +222,26 @@ const RULE_CHANGES_RAW: RuleChange[] = [
       pl: "Uchwała Rady Ministrów 179/2025, zmieniająca uchwałę 65/2022",
     },
     section: "ae",
+  },
+  {
+    effective: "2025-11-18",
+    country: "gr",
+    what: {
+      en: "Greece's second investor permit became usable. Article 100Α of the Migration Code, which grants a residence permit for €250,000 of equity in a registered startup, had been on the books since December 2024 with no documents prescribed; a joint ministerial decision set them, along with a €2,500 electronic fee.",
+      ru: "Второе инвесторское разрешение Греции стало рабочим. Статья 100Α Кодекса о миграции, дающая ВНЖ за 250 000 евро в капитале зарегистрированного стартапа, лежала в законе с декабря 2024 года без установленных документов; совместное министерское решение их установило вместе с электронной пошлиной 2 500 евро.",
+      pl: "Drugie greckie zezwolenie inwestorskie stało się użyteczne. Artykuł 100Α kodeksu migracyjnego, dający pobyt za 250 000 euro udziałów w zarejestrowanym startupie, obowiązywał od grudnia 2024 bez ustalonych dokumentów; wspólna decyzja ministerialna je ustaliła, wraz z opłatą elektroniczną 2 500 euro.",
+    },
+    instrument: {
+      en: "KYA 216761/12.11.2025 — ΦΕΚ Β΄ 6138 of 18.11.2025, under art. 100Α of Law 5038/2023, added by art. 44 of Law 5162/2024 (ΦΕΚ Α΄ 198 of 05.12.2024)",
+      ru: "KYA 216761/12.11.2025 — ΦΕΚ Β΄ 6138 от 18.11.2025, по ст. 100Α Закона 5038/2023, добавленной ст. 44 Закона 5162/2024 (ΦΕΚ Α΄ 198 от 05.12.2024)",
+      pl: "KYA 216761/12.11.2025 — ΦΕΚ Β΄ 6138 z 18.11.2025, na podstawie art. 100Α ustawy 5038/2023, dodanego art. 44 ustawy 5162/2024 (ΦΕΚ Α΄ 198 z 05.12.2024)",
+    },
+    moved: {
+      en: "This route was missing from the Greek pages on this site until 5 September 2026, and the market it is missing from is larger: most pages describing it credit it to the February 2026 law, which neither created nor amended it.",
+      ru: "До 5 сентября 2026 года этого маршрута на греческих страницах сайта не было, и рынок ошибается шире: большинство описывающих его страниц приписывают маршрут февральскому закону 2026 года, который его не создавал и не менял.",
+      pl: "Do 5 września 2026 tej ścieżki nie było na greckich stronach tego serwisu, a rynek myli się szerzej: większość opisujących ją stron przypisuje ją ustawie z lutego 2026, która jej nie utworzyła ani nie zmieniła.",
+    },
+    section: "gr",
   },
   {
     effective: "2025-10-22",

@@ -93,7 +93,10 @@ export const FACTS: FactSeed[] = [
     // notary and no agent in this stack — the whole variable part is what the
     // fund charges.
     ...published("pt"),
-    // Statute says 90 days (art. 82(5) Lei 23/2007). Reality is a year to
+    // Statute says 60 days for a grant, 30 for a renewal (art. 82 Lei
+    // 23/2007) — not the 90 days this comment carried until 5 Sep 2026, which
+    // came from an early draft and never matched the verification file.
+    // Reality is a year to
     // three: filing to biometrics 6–24 months, biometrics to card 6–18, and
     // AIMA still reported ~30,000 pending files on 4 Aug 2026.
     speedBand: "long",

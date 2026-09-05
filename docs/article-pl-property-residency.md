@@ -117,7 +117,7 @@ Obywatel Polski może oczywiście kupić grecką nieruchomość i wynajmować j�
 
 #### Terminy i pełny koszt greckiej złotej wizy
 
-Terminu wydania nie ma w ustawie w ogóle. Przy złożeniu wniosku wydawane jest βεβαίωση (art. 10 ustawy 5038/2023) — ten dokument sam w sobie daje legalny pobyt i prawa wynikające z zezwolenia do czasu decyzji, więc oczekiwanie nie oznacza nielegalności. W listopadzie 2025 roku w kolejce było 13 499 spraw, z czego 10 703 w Attyce; terminy sięgały 18 miesięcy i obecnie się skracają.
+Termin wydania w ustawie jest — dwa miesiące od wpłynięcia kompletnych akt do organu wydającego, art. 100 §10 — a kolejka od lat go przekracza. Przy złożeniu wniosku wydawane jest βεβαίωση (art. 10 ustawy 5038/2023) — ten dokument sam w sobie daje legalny pobyt i prawa wynikające z zezwolenia do czasu decyzji, więc oczekiwanie nie oznacza nielegalności. W listopadzie 2025 roku w kolejce było 13 499 spraw, z czego 10 703 w Attyce; terminy sięgały 18 miesięcy i obecnie się skracają.
 
 Koszty ponad próg przy poziomie 400 000 euro: podatek od przeniesienia własności 3 % plus dopłata gminna 3 % liczona od samego podatku, czyli 3,09 %; opłata e-paravolo 2 000 euro za wniosek plus 16 euro za wydruk karty. VAT od nowych budynków (24 %) jest zawieszony do 31 grudnia 2026 roku, więc w praktyce płaci się ΦΜΑ. Opłaty za członka rodziny KYA nie ustala, więc jej nie publikujemy. Łącznie wychodzi około 34 000 euro. Przy poziomie 800 000 euro ten sam zestaw daje około 67 000 euro.
 
@@ -127,7 +127,7 @@ Artykuł 53 ustawy Lei 56/2023 „Mais Habitação" uchylił podpunkty i, iii or
 
 Zostaje subskrypcja funduszu na 500 000 euro (podpunkt vii): fundusz nienieruchomościowy, termin co najmniej pięć lat, minimum 60 % aktywów w spółkach z siedzibą w Portugalii. Są też trasy rzadko wymieniane: dziesięć miejsc pracy (osiem na obszarach słabo zaludnionych, bez progu kapitałowego), 500 000 euro na badania naukowe (400 000 na obszarach słabo zaludnionych), 250 000 euro na dziedzictwo kulturowe (220 000), 500 000 euro w spółkę z utworzeniem pięciu stałych miejsc pracy. Transfer kapitału 1,5 mln euro już nie istnieje.
 
-**Terminy.** Ustawa (art. 82(5) Lei 23/2007) daje 90 dni na decyzję. W praktyce od złożenia do karty mija rok do trzech: od wniosku do biometrii 6–24 miesiące, od biometrii do karty 6–18. Na 4 sierpnia 2026 roku AIMA raportuje około 30 000 nierozpatrzonych spraw.
+**Terminy.** Ustawa (art. 82 Lei 23/2007) daje 60 dni na decyzję o wydaniu i 30 dni na decyzję o przedłużeniu, z milczącą zgodą przy przedłużeniu, gdy zwłoka nie leży po stronie wnioskodawcy. W praktyce od złożenia do karty mija rok do trzech: od wniosku do biometrii 6–24 miesiące, od biometrii do karty 6–18. Na 4 sierpnia 2026 roku AIMA raportuje około 30 000 nierozpatrzonych spraw.
 
 **Koszty.** Opłaty AIMA od 1 marca 2026: rozpatrzenie 842,80 euro, wydanie 8 418,90, przedłużenie 4 210,30, członek rodziny 8 418,90, przy wniosku online rabat 25 %. Jeden wnioskodawca do pierwszego przedłużenia to około 13 470 euro samych opłat, rodzina trzyosobowa około 40 400. Z prawnikiem i prowizjami funduszu realnie 30 000–50 000 euro na osobę i 65 000–90 000 na rodzinę.
 
@@ -181,8 +181,8 @@ Jedną rzecz ustaliliśmy i zmienia ona kosztorys: opłat za przeniesienie włas
 
 | Jurysdykcja | Deklarowane | Faktyczne |
 | --- | --- | --- |
-| Grecja | 2–4 miesiące | Brak terminu w ustawie; 13 499 spraw w kolejce w listopadzie 2025, do 18 miesięcy |
-| Portugalia | 6–9 miesięcy | Ustawa daje 90 dni; faktycznie rok do trzech, około 30 000 spraw w kolejce |
+| Grecja | 2–4 miesiące | Ustawa daje dwa miesiące (art. 100 §10), kolejka nie: 13 499 spraw w listopadzie 2025, do 18 miesięcy |
+| Portugalia | 6–9 miesięcy | Ustawa daje 60 dni na wydanie; faktycznie rok do trzech, około 30 000 spraw w kolejce |
 | Malta | 4–6 miesięcy | Termin niepublikowany; 6–12 miesięcy od początku do końca |
 | ZEA | 3–6 tygodni | 2–4 tygodnie od aktu własności do Emirates ID |
 
@@ -234,7 +234,7 @@ Nie. Nieruchomość jest obowiązkowa, ale obok niej płaci się wkład państwo
 Bo źródła pierwotne były niedostępne w momencie sprawdzania: gov.cy odpowiada błędem 403, certyfikat mip.gov.cy wygasł. Próg opublikowany bez przeczytania ustawy rozchodzi się dalej i nigdy nie jest odwoływany. Liczby pojawią się, gdy źródło się otworzy.
 
 ? Ile realnie trwa decyzja?
-W Grecji terminu w ustawie nie ma, w kolejce w listopadzie 2025 było 13 499 spraw. W Portugalii ustawa daje 90 dni, faktycznie mija rok do trzech przy około 30 000 nierozpatrzonych spraw. W ZEA dwa do czterech tygodni.
+W Grecji ustawa daje dwa miesiące, a w kolejce w listopadzie 2025 było 13 499 spraw. W Portugalii ustawa daje 60 dni na wydanie, faktycznie mija rok do trzech przy około 30 000 nierozpatrzonych spraw. W ZEA dwa do czterech tygodni.
 
 ### Co jeszcze na tej stronie ma tu znaczenie
 
@@ -251,7 +251,7 @@ Porównujemy przepisy i nie świadczymy usług prawnych: ten tekst nie jest pora
 ## Semantyka
 
 **Wysokoczęstotliwościowe:**
-złota wiza, złota wiza Grecja, pobyt za zakup nieruchomości, nieruchomości w Grecji, złota wiza ZEA, Dubaj złota wiza nieruchomość, MPRP Malta, złota wiza Portugalia
+złota wiza, pobyt za zakup nieruchomości, nieruchomości w Grecji, Dubaj złota wiza nieruchomość, MPRP Malta
 
 **Średnie:**
 czy Polak potrzebuje złotej wizy, zakup nieruchomości w Grecji 2026, złota wiza Grecja próg 2026, pobyt stały Malta nieruchomość, złota wiza Dubaj 2 miliony dirhamów, zniesienie złotej wizy Portugalia

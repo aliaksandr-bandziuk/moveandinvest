@@ -111,7 +111,7 @@ For context on the local pay scale, the statutory minimum wage rose to **€920 
 
 Every page on this subject is published by someone who profits from your arrival, so here is the part they leave out.
 
-**The administration is slow and the wait is not published as a rule.** As of November 2025 there were 13,499 undecided residence applications, 10,703 of them in Attica. The law sets no issuing deadline for this permit at all. What protects an applicant in the meantime is the certificate issued on filing, which grants lawful stay until a decision — but the decision itself arrives when it arrives.
+**The administration is slow and the wait is not published as a rule.** As of November 2025 there were 13,499 undecided residence applications, 10,703 of them in Attica. The law does set an issuing deadline for the investment permit — two months from the complete file reaching the authority, under article 100 §10 — and the queue has been longer than that for years. What protects an applicant in the meantime is the certificate issued on filing, which grants lawful stay until a decision — but the decision itself arrives when it arrives.
 
 **Costs vary by region far more than by lifestyle.** The near-double gap between Attica and Sterea Ellada means the choice of town matters more to a budget than most personal habits do.
 
@@ -147,6 +147,10 @@ By regional household expenditure, Sterea Ellada at €1,184.58 a month. The isl
 **Do I have to live in Greece to keep the permit?**
 To hold the permit, no. To reach permanent residence, yes — the statute counts days spent in the country, not years of permit ownership.
 
+### Where this sits in the rest of the site
+
+This page is about the country. What the permits themselves require — the golden visa thresholds, the FIP visa's €3,500 a month, permanent residence, citizenship at seven years and the 7% pensioner rate in full — is in [the Greece guide](entry:greece-residency). How the Greek income tests compare with the Portuguese, Maltese and Emirati ones, and what living in each of those costs, is in [the income piece](entry:income-cost-of-living). What a property purchase achieves in each jurisdiction is in [the property piece](entry:property-residency). Who may file the application, on what deadline and on what grounds it stops is in [the application guide](entry:golden-visa-application). And if the word golden visa is what brought you here, [what it actually means](/golden-visa) is a page of its own.
+
 ### If you are past reading and into deciding
 
 This site does not sell property and does not give legal advice. What it does is put a person who has worked out what they are asking in front of a licensed firm in the right jurisdiction — a lawyer or a tax adviser who is regulated where the file will be filed.
@@ -174,7 +178,7 @@ living in greece, move to greece, cost of living in greece by region, expats in 
 living in greece as an expat, expat living in greece, american living in greece, living in greece as a foreigner, best place to retire in greece, average rent in greece per square metre, greek household expenditure 2024, minimum wage greece 2026, efka contributions 2026
 
 **Long tail:**
-how much do you need to live in greece per month, is it expensive to live in greece, bad things about living in greece, living in greece pros and cons, quality of life in greece, can i work in greece on a golden visa, do i have to live in greece to keep the permit, how much does it cost to live in greece as an american, cost of living crete greece, living in corfu greece, living in rhodes
+how much do you need to live in greece per month, is it expensive to live in greece, bad things about living in greece, living in greece pros and cons, quality of life in greece, do i have to live in greece to keep the permit, how much does it cost to live in greece as an american, cost of living crete greece, living in corfu greece, living in rhodes
 
 **Keywords placed in subheadings:**
 "How to move to Greece legally"; "Cost of living in Greece by region"; "Rent in Greece: what is asked and what is signed"; "Best place to live in Greece"; "Living in Greece as a foreigner"; "Bad things about living in Greece: the pros and cons"; "Best place to retire in Greece".

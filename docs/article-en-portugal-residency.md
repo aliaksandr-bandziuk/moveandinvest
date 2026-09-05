@@ -153,27 +153,13 @@ That figure is a minister's oral statement carried by the Lusa news agency, not 
 
 Any page promising a specific number of months is describing either the statute or a hope. The statute says 60 days. The queue is 30,000 files.
 
-### Renewing a Portuguese residence permit: two years, then three
+### After the permit: renewal, and permanent residence at five years
 
-**Article 75(1)** makes the temporary residence permit valid for **two years** from the issue of the title, renewable for **successive three-year periods**.
+**Article 75(1)** makes the temporary permit valid for **two years** from the issue of the title, renewable for **successive three-year periods**. At five years, **article 80** opens permanent residence — on five cumulative conditions, of which the one people miss is that the income test applies again at that point.
 
-Neither 2025 amendment changed those periods. Lei 61/2025 rewrote only paragraph 2 of article 75, tightening the CPLP route so that an applicant under the CPLP agreement must hold a residence visa rather than a short-stay visa or mere lawful entry.
+Two things about that stage are worth knowing before you reach it. Under **article 76(1)** the permanent authorisation has no validity limit at all: what gets renewed every five years is the card, not the status. And the statute asks for "Português básico" and names no CEFR level — the A2 that every page publishes comes from regulation, not from article 80.
 
-*A source note, because this guide's rule is to give one: the current wording of article 75(1) was readable only in a secondary compilation, since the official consolidated text is served through a script and the public prosecution database truncates this law partway. The indirect confirmation is that Lei 61/2025 re-enacts article 75 and renders paragraph 1 as unchanged.*
-
-### Portugal permanent residency after 5 years: what article 80 requires
-
-**Article 80** grants a permanent residence permit to a foreign citizen who cumulatively:
-
-- has held a temporary residence permit for **at least five years**;
-- has not been sentenced, in the last five years, to a penalty or penalties exceeding one year in prison, singly or together;
-- **has means of subsistence as defined by the same order** — the Portaria 1563/2007 scale again;
-- has accommodation;
-- **proves knowledge of basic Portuguese**.
-
-Under **article 76(1)** the permanent permit has no validity limit; the card itself is renewed every five years.
-
-Two points worth taking away. First, the income question does not disappear at the five-year mark — article 80(1)(c) puts it there too. Second, **the statute says "Português básico" and names no CEFR level.** The A2 that every page publishes comes from regulation, not from article 80, and the page that states it is not quoting this law.
+The whole of that stage — the card itself, what the renewal costs, what article 80 requires line by line, and why EU long-term resident status is a different thing — is set out in our guide to the Portuguese residence card, renewal and permanent residency.
 
 ### Portuguese citizenship after the 2026 law: ten years, or seven
 
@@ -321,7 +307,7 @@ portugal d7 visa income requirements 2026, portugal d7 visa minimum income, port
 how much passive income is enough for a d7 visa in portugal, how much money do you need in the bank to get residency in portugal, portugal d7 visa proof of income, portugal d7 visa rental income, what counts as passive income for the d7 visa, does the portugal golden visa require proof of income, portugal d8 visa income requirement 3680, is the d8 only for tech workers, where do i file a d7 visa application, how long does it take to get an aima appointment in 2026, aima backlog 2026, what happens if i miss my aima appointment, how to renew a residence permit in portugal, how long does it take to get permanent residence in portugal, does the new citizenship law affect permanent residency in portugal, when does the residency clock start for portuguese citizenship, are pending citizenship applications protected under the new law, portuguese citizenship 7 years for cplp nationals, do i need a language test for portuguese citizenship, can a d7 visa holder benefit from ifici, is nhr still available in portugal in 2026, does portugal tax foreign pension income, when can i bring my family to portugal on a d7 visa
 
 **Keywords placed in subheadings:**
-"Portugal residency routes in 2026"; "Portugal D7 visa requirements: €920 a month"; "What counts as passive income for the D7"; "Portugal D7 visa proof of income"; "Does the Portugal golden visa require proof of income?"; "Portugal D8 digital nomad visa requirements"; "How to apply for a D7 visa"; "Where the D7 application is filed"; "AIMA processing times and the backlog in 2026"; "Renewing a Portuguese residence permit"; "Portugal permanent residency after 5 years"; "Portuguese citizenship after the 2026 law"; "When the clock starts"; "Portugal tax for residents: the 183-day rule and the IFICI 20% regime"; "Family reunification in Portugal".
+"Portugal residency routes in 2026"; "Portugal D7 visa requirements: €920 a month"; "What counts as passive income for the D7"; "Portugal D7 visa proof of income"; "Does the Portugal golden visa require proof of income?"; "Portugal D8 digital nomad visa requirements"; "How to apply for a D7 visa"; "Where the D7 application is filed"; "AIMA processing times and the backlog in 2026"; "After the permit: renewal, and permanent residence at five years"; "Portuguese citizenship after the 2026 law"; "When the clock starts"; "Portugal tax for residents: the 183-day rule and the IFICI 20% regime"; "Family reunification in Portugal".
 
 ---
 
