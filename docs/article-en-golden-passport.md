@@ -58,7 +58,17 @@ The commercial pages ranking for this query mostly do state a presence requireme
 
 ### Malta: the only one that ever sold a passport
 
-Malta is the exception that proves the shape of the market, and its history is worked through in full in our Malta guide. In short: the citizenship-by-investment scheme was held contrary to EU law on 29 April 2025; Act XXI of 2025 then amended the Citizenship Act, Cap. 188, and the subsidiary legislation that ran the condemned scheme was rewritten rather than repealed, into rules for naturalisation on the basis of merit. There is no published price and payment alone does not qualify.
+Malta is the exception that proves the shape of the market, and its history is worked through in full in our Malta guide. The sequence is short and each step has a number.
+
+**29 April 2025** — the Court of Justice, Grand Chamber, in **Case C-181/23, Commission v Malta**, held that by operating the investor citizenship scheme Malta failed to fulfil its obligations under article 20 TFEU and article 4(3) TEU. The judgment's own words for what was wrong: a scheme under which nationality is "essentially granted in exchange for predetermined payments or investments" is the "commercialisation of the granting of the status of national of a Member State".
+
+**24 July 2025** — **Act XXI of 2025** substituted article 10(9) of the Citizenship Act, Cap. 188, with a power to naturalise "by merit", for exceptional services or an exceptional contribution to Malta or to humanity, and deleted the definition of "individual investor programme" from article 2. No amount appears in the Act.
+
+**29 July 2025** — **Legal Notice 159 of 2025** amended rather than repealed the subsidiary legislation, S.L. 188.06, which is now titled the *Granting of Citizenship by Naturalisation on the Basis of Merit Regulations*. It deleted Part IV, headed "Special provisions applicable to naturalisation for exceptional services by direct investment", together with the Second and Third Schedules. The words "direct investment" no longer appear in it, and neither does any euro figure — only "applicable non-refundable administrative fees", unquantified.
+
+So no price is published **in the law**. But this is where the honest version of the sentence has to be longer than the market's, because the Maltese state has not finished tidying up: the agency's own services page still carries, live, the direct-investment route with its figures spelled out — €600,000 and €750,000 of "exceptional direct investment", €700,000 of property or €16,000 of annual rent, a €10,000 donation — under update stamps as recent as February 2026 and with no notice of closure, beside a separate agency document for the merit route that publishes no figure at all and says the decision is discretionary, case by case, and final.
+
+Those figures have had no legal basis since Part IV was deleted. They are still on the government's website. A page that tells you Malta charges €600,000 for a passport is quoting the state accurately and the law not at all — and if you are being sold that route today, the instrument behind it does not exist.
 
 Ordinary naturalisation is what remains, and it is not the "about five years" that comparison tables print — this site's own included, until we read the statute. Articles 10(1) and 11 of Cap. 188 require an applicant to have
 

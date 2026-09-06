@@ -201,7 +201,9 @@
     "official": "oficjalne",
     "reproduction": "reprodukcja",
     "checkedOn": "Każdy wiersz sprawdzono ze źródłem pierwotnym {date}, poza wierszami z własną datą.",
+    "revisedOn": "Tekst tej strony ostatnio zmienił się {date}.",
     "rechecked": "Sprawdzone ponownie {date}",
+    "permalinkLabel": "Odnośnik do tego źródła: {citation}",
     "verdicts": {
       "confirmed": "potwierdzone",
       "corrected": "poprawione",
@@ -220,6 +222,9 @@
       "moved": "Co przesunęło się tutaj"
     },
     "noInstrument": "Brak opublikowanego aktu",
+    "filterLegend": "Filtruj dziennik według jurysdykcji",
+    "filterAll": "Wszystkie",
+    "filterCount": "Pokazano {n} z {total} wierszy — tylko ta jurysdykcja.",
     "seeWorking": "Zobacz wyliczenia →",
     "toSources": "Każda liczba i jej źródło →",
     "notCovered": "Brak wierszy dla: {countries}. Nikt ich jeszcze nie sprawdzał, a to nie to samo, co brak zmian.",

@@ -43,3 +43,15 @@
   text-transform: uppercase;
   color: var(--color-accent);
 }
+
+// THE SECOND STAMP, SET BELOW THE FIRST AND QUIETER THAN IT. Two dates in one
+// nano-caps accent line would read as one date wrapped, which is the whole
+// failure this pair exists to fix. So: its own line, and --color-text-muted
+// against the first line's accent, because the two are not equals. The check
+// date is the page's argument; the revision date is bookkeeping about the
+// document, useful to a reader who was here last week and to nobody else.
+.revised {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+}

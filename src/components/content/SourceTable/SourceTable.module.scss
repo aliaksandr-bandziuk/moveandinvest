@@ -213,6 +213,42 @@
   font-size: var(--fs-small);
   line-height: var(--lh-small);
   color: var(--color-text-muted);
+  scroll-margin-top: var(--space-6);
+}
+
+// WHAT A READER SEES WHEN THEY ARRIVE AT ONE ACT OUT OF SIXTY-FOUR. The browser
+// scrolls the target to the top of the viewport and then says nothing about
+// which line it meant, and in a list of citations that all look alike that is
+// no arrival at all. A left rule and a tinted ground name the line without
+// moving it — no layout shift, so nothing under the pointer jumps.
+//
+// It stays highlighted rather than fading after a second: the reader followed
+// this link to compare a sentence in an article against a source, which takes
+// as long as it takes, and a highlight that has already gone by the time they
+// look up is decoration.
+.source:target {
+  margin-inline: calc(var(--space-3) * -1);
+  padding-inline: var(--space-3);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-row-hover);
+}
+
+// The act's own address. It has to recede — this is the sixty-fourth repetition
+// of the same glyph down the page, and at the weight of the citation beside it
+// the column of hashes would read as a decorative rule. It recedes by SIZE, not
+// by contrast: --color-line would have made it invisibly faint, and this is
+// text, so it keeps --color-text-muted at 5.95:1. Full contrast on hover and on
+// keyboard focus, where it has been asked for.
+.permalink {
+  color: var(--color-text-muted);
+  font-size: var(--fs-nano);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
 }
 
 .sourceLink {

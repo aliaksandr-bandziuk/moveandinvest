@@ -146,6 +146,12 @@ export default async function Changes({
     moved: t("columns.moved"),
     noInstrument: t("noInstrument"),
     seeWorking: t("seeWorking"),
+    filterLegend: t("filterLegend"),
+    filterAll: t("filterAll"),
+    // `t.raw`, not `t`: the string carries {n} and {total} for the client
+    // enhancer to substitute, and next-intl would read those as ICU arguments
+    // it has no values for and throw at render.
+    filterCount: t.raw("filterCount"),
   };
 
   const notCovered = CHANGES_NOT_COVERED.map(

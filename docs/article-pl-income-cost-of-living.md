@@ -33,7 +33,7 @@ Zacznijmy od liczby, po którą tu przyszliście, i od zastrzeżenia, bez które
 
 Na jedynej mierze, która pozwala uczciwie porównać te kraje — porównawczym indeksie poziomu cen Eurostatu — Portugalia i Grecja leżą około 14 procent poniżej średniej unijnej, a Malta około 8 procent poniżej. Dla Polaka to znaczy, że żaden z tych krajów nie jest tani w sensie, w jakim tani bywa urlop poza sezonem. To są kraje o poziomie cen zbliżonym do średniej europejskiej, w których mieszka się za pieniądze porównywalne z tym, co się wydaje w większym polskim mieście.
 
-Drugie zastrzeżenie jest ważniejsze. Żeby tam zamieszkać na stałe, trzeba nie tylko mieć na życie, ale **udokumentować** dochód w wysokości, którą wyznacza prawo — i tu zaczyna się rzecz, o której prawie nikt nie pisze. Ścieżki, które kosztują najwięcej, badają dochód najmniej. Kup mieszkanie w Atenach za 800 000 euro, a Grecja nie zapyta o twoje zarobki ani razu. Pokaż Malcie 500 000 euro majątku, a wymogu dochodowego w rozporządzeniu po prostu nie ma. Ale przyjdź do tych samych krajów jako zwykły człowiek pracujący zdalnie, a będziesz dokumentować od 920 do 3500 euro miesięcznie, bezterminowo.
+Drugie zastrzeżenie jest ważniejsze. Żeby tam zamieszkać na stałe, trzeba nie tylko mieć na życie, ale **udokumentować** dochód w wysokości, którą wyznacza prawo — i tu zaczyna się rzecz, o której prawie nikt nie pisze. Ścieżki, które kosztują najwięcej, badają dochód najmniej. Kup mieszkanie w Atenach za 800 000 euro, a Grecja nie zapyta o twoje zarobki ani razu. Pokaż Malcie 500 000 euro majątku, a rozporządzenie nie poda żadnej kwoty dochodu: jest badanie majątku i nieujęty w liczbach warunek wystarczalności. Ale przyjdź do tych samych krajów jako zwykły człowiek pracujący zdalnie, a będziesz dokumentować od 920 do 3500 euro miesięcznie, bezterminowo.
 
 Ten tekst ma dwie części: ile realnie kosztuje życie w każdym z tych krajów według oficjalnych statystyk, i jaki dochód trzeba udokumentować, żeby w ogóle dostać tam pobyt.
 
@@ -190,11 +190,11 @@ Arytmetyka greckiego systemu wygląda więc tak. Dokumentuj 3500 euro miesięczn
 
 ### Malta: 42 000 euro rocznie u nomady i badanie majątku zamiast dochodu
 
-#### Maltański pobyt stały: wymogu dochodowego nie ma
+#### Maltański pobyt stały: kwoty dochodu nie ma, a co jest na jej miejscu
 
 Maltański program pobytu stałego reguluje **S.L. 217.26** w brzmieniu nadanym obwieszczeniami 310 z 2024 i 146 z 2025 roku. Przepis 9(2) ustanawia badanie **majątku**, nie dochodu: wnioskodawca musi posiadać aktywa „having a value of not less than five hundred thousand euro (€500,000), out of which a minimum of one hundred and fifty thousand euro (€150,000) shall be in the form of financial assets", czyli o wartości nie niższej niż 500 000 euro, z czego co najmniej 150 000 w aktywach finansowych, albo 650 000 euro, z czego co najmniej 75 000 finansowych.
 
-Wymogu dochodowego wyrażonego w euro nie ma w akcie nigdzie. Jest wymóg jakościowy: stabilne i regularne środki wystarczające na utrzymanie się bez korzystania z maltańskiej pomocy społecznej — i żadna kwota do niego nie jest przypisana. Każda strona publikująca „wymóg dochodowy MPRP" w euro publikuje coś, czego w prawie nie ma.
+Kwoty dochodu w euro nie ma w akcie nigdzie — samo słowo *income* w nim nie występuje. Jest za to **[przepis 15(1)(d)](/sources#mt-sl-217-26)**, warunek jakościowy: wnioskodawca musi otrzymywać „stable and regular resources which are sufficient to maintain himself and his dependants without recourse to the social assistance system of Malta" — stabilne i regularne środki wystarczające na utrzymanie siebie i osób na utrzymaniu bez korzystania z maltańskiej pomocy społecznej. To jest badanie środków i jest ono bez liczby. Uczciwie brzmi to więc nie „Malta o dochód nie pyta", tylko „Malta pyta i nie publikuje kwoty". Każda strona publikująca „wymóg dochodowy MPRP" w euro publikuje coś, czego w prawie nie ma.
 
 #### Zniżka dla Gozo i południa Malty została zniesiona
 
@@ -226,9 +226,9 @@ Jeśli gdzieś widzieliście 3500 dolarów, ta liczba jest nieaktualna. Wciąż 
 
 #### Emiraty nie mają płacy minimalnej, co usuwa punkt odniesienia
 
-Ustawowej płacy minimalnej w Zjednoczonych Emiratach Arabskich nie ma. Artykuł 27 federalnego dekretu z mocą ustawy 33 z 2021 roku to upoważnienie — „The Cabinet may... issue a resolution setting the minimum wage for Workers" — i w ogólnej postaci nie zostało wykonane. Uchwała rządu 1 z 2022 roku, rozporządzenie wykonawcze, artykułu o płacy minimalnej nie zawiera.
+Ustawowej płacy minimalnej w Zjednoczonych Emiratach Arabskich nie ma. Artykuł 27 federalnego dekretu z mocą ustawy 33 z 2021 roku to upoważnienie, a rozstrzygają jego końcowe słowa: „The Cabinet may, upon the proposal of the Minister and in coordination with the Concerned Authorities, issue a resolution setting the minimum wage for Workers, **or any category of them**". Upoważnienie można wykonać wobec wyodrębnionej grupy, nie tylko wobec całości zatrudnionych — a uchwały wykonującej je w postaci ogólnej nie znaleźliśmy. Uchwała rządu 1 z 2022 roku, rozporządzenie wykonawcze, artykułu o płacy minimalnej nie zawiera: jej artykuł 16 „Wages" reguluje wyłącznie terminy i kanały wypłaty.
 
-Krążąca liczba 6000 dirhamów miesięcznie dotyczy **obywateli Emiratów** w sektorze prywatnym w ramach programu emiratyzacji. Nie jest to ogólny próg płacowy i nie obejmuje pracowników zagranicznych, o których jest ta strona.
+Krążąca liczba 6000 dirhamów miesięcznie dotyczy **obywateli Emiratów** w sektorze prywatnym od 1 stycznia 2026 roku i została ogłoszona przez ministerstwo pracy, a nie opublikowana uchwałą rządu, którą udałoby się nam odnaleźć. Czy przyjęto ją na podstawie zastrzeżenia „any category" z artykułu 27, czy w odrębnych ramach emiratyzacji — nie ustaliliśmy. Tak czy inaczej nie jest to ogólny próg płacowy i nie obejmuje pracowników zagranicznych, o których jest ta strona.
 
 Dla porównania to istotne. W Portugalii i Grecji próg dochodowy można odczytać wobec ustawowej płacy minimalnej: w Portugalii to dokładnie jedna taka płaca, w Grecji 3,8. W Emiratach takiego mianownika nie ma, więc 5000 dolarów miesięcznie nie da się ustawić na tej samej skali z niczym.
 
@@ -286,7 +286,7 @@ Bo trzy z czterech go nie publikują. Grecja i Malta podają inflację najmu bez
 
 ### Co jeszcze na tej stronie ma tu znaczenie
 
-Dwa z porównanych wyżej progów są rozłożone na czynniki w innym miejscu tej strony. Portugalskie 920 euro — te, których musi dowieść także inwestor — w [poradniku o Portugalii](entry:portugal-residency). Greckie 3 500 euro, trzy reżimy podatkowe i pytanie, czy lata inwestorskie kiedykolwiek dochodzą do pobytu stałego — w [poradniku o Grecji](entry:greece-residency). Co daje zakup nieruchomości w każdej z pięciu, odczytane z ustawy, jest w [tekście o nieruchomościach](entry:property-residency). Emiraty, jedyna jurysdykcja tutaj, która nie bada dochodu wcale i podatku dochodowego też nie pobiera, są w [poradniku o ZEA](entry:uae-residency). Wszystkie wymienione akty i zbiory danych z datą odczytu są na [stronie źródeł](/sources).
+Dwa z porównanych wyżej progów są rozłożone na czynniki w innym miejscu tej strony. Portugalskie 920 euro — te, których musi dowieść także inwestor — w [poradniku o Portugalii](entry:portugal-residency). Greckie 3 500 euro, trzy reżimy podatkowe i pytanie, czy lata inwestorskie kiedykolwiek dochodzą do pobytu stałego — w [poradniku o Grecji](entry:greece-residency). Co daje zakup nieruchomości w każdej z pięciu, odczytane z ustawy, jest w [tekście o nieruchomościach](entry:property-residency). Emiraty, jedyna jurysdykcja tutaj, która nie bada dochodu wcale i podatku dochodowego też nie pobiera, są w [poradniku o ZEA](entry:uae-residency). Maltańskie badanie majątku, ile program pobytu stałego kosztuje ponad cenę mieszkania i gdzie zniknęła zniżka dla Gozo — w [poradniku o Malcie](entry:malta-residency). Wszystkie wymienione akty i zbiory danych z datą odczytu są na [stronie źródeł](/sources).
 
 ### Źródła: skąd pochodzi każda liczba
 

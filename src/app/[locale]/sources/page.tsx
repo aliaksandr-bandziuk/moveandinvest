@@ -10,7 +10,13 @@ import { organizationRef } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import { routeUrl } from "@/lib/urls";
-import { CHECK_DATES, CHECKED_ON, SOURCE_SECTIONS } from "@/lib/sourceData";
+import {
+  CHECK_DATES,
+  CHECKED_ON,
+  REVISED_ON,
+  REVISED_ON_ISO,
+  SOURCE_SECTIONS,
+} from "@/lib/sourceData";
 import { sanityFetch } from "@/sanity/client";
 import { COUNTRY_ROWS_QUERY, HOME_TAGS, SOURCES_PAGE_QUERY, SOURCES_TAGS } from "@/sanity/queries";
 import type { CountryRowResult, SourcesPage } from "@/sanity/types";
@@ -129,6 +135,10 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
         }),
       ]),
     ),
+    // `t.raw`, not `t`: the string carries {citation} for the component to
+    // substitute per source, and next-intl would read it as an ICU argument it
+    // has no value for and throw at render.
+    permalinkLabel: t.raw("permalinkLabel"),
   };
 
   // THE BASELINE, AND IT NOW SAYS THAT IT IS ONE. This line used to render a
@@ -140,6 +150,15 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
   const checkedDate =
     CHECKED_ON[locale as keyof typeof CHECKED_ON] ?? CHECKED_ON.en;
   const checked = t("checkedOn", { date: checkedDate });
+
+  // AND THE SECOND DATE, which is about this document rather than about the
+  // law. See the note above REVISED_ON in src/lib/sourceData.ts for why one
+  // date could not carry both: on the day this line was added, the page had
+  // changed and thirty-one of its rows had not been re-read, and a single
+  // stamp has to lie about one or the other.
+  const revisedDate =
+    REVISED_ON[locale as keyof typeof REVISED_ON] ?? REVISED_ON.en;
+  const revised = t("revisedOn", { date: revisedDate });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -157,8 +176,14 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
     // AND NOW BOTH, because both events have happened. Three rows were read
     // again after the page was published, and a page that offers only a
     // datePublished tells an aggregator its newest fact is as old as its
-    // oldest. Bump this whenever a row gains a `checked` date later than it.
-    dateModified: "2026-08-28",
+    // oldest.
+    //
+    // IT READS REVISED_ON_ISO RATHER THAN A DATE TYPED HERE, because the typed
+    // one had already gone stale twice: `dateModified` says when the DOCUMENT
+    // changed, which is exactly what REVISED_ON means, and two hand-kept copies
+    // of one fact is how the site ended up auditing other people for stale
+    // "last updated" stamps while carrying one.
+    dateModified: REVISED_ON_ISO,
   };
 
   return (
@@ -200,7 +225,10 @@ export default async function Sources({ params }: { params: Promise<{ locale: st
             />
           ))}
 
-          <p className={styles.checked}>{checked}</p>
+          <p className={styles.checked}>
+            {checked}
+            <span className={styles.revised}>{revised}</span>
+          </p>
         </div>
       </section>
 

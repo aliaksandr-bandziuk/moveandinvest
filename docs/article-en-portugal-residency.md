@@ -118,7 +118,9 @@ One page in this market gets that right and deserves the credit: **MSP Lawyer** 
 
 ### How to apply for a D7 visa: the residence visa, four months, and the AIMA appointment
 
-There is no article of Lei 23/2007 dedicated to the D7. The route runs through the general residence visa in **article 58**, together with the general permit conditions of article 77 and the Portaria 1563/2007 scale. Articles 59 to 64 cover the specific visas — subordinate work, independent work, research, study, student mobility, family reunification — and none of them covers a person living on their own income.
+There is no article of Lei 23/2007 dedicated to the D7, and that is a fact about where to look rather than a gap in the law. Articles 59 to 64 create the specific residence visas — subordinate work, independent work, research, study, student mobility, family reunification — and none of them is for a person living on their own income. The contrast is worth holding on to: when Parliament wanted a dedicated article for remote workers it made one, article 61-B, by Lei 18/2022. For passive income it never did.
+
+So the answer to "which article is the D7" has three parts and only the last one carries a number you can quote at anybody: the general residence visa of **article 58**, the general permit conditions of **article 77**, and — for the categories themselves and the money — **article 24 of Decreto Regulamentar 84/2007** with **Portaria 1563/2007**, both set out earlier on this page. A page citing an article of Lei 23/2007 for the D7 is citing something that does not exist.
 
 Article 58 sets the mechanics:
 

@@ -76,7 +76,7 @@ Since February a claim has circulated in guide after guide: that Greece added a 
 
 Every one of those figures is in Greek law. Not one of them is in the February law.
 
-They are in **article 100A of the Migration Code**, added by **article 44 of Law 5162/2024**, published in Government Gazette A΄ 198 of 5 December 2024 — fourteen months before the law the market credits for it. It creates residence permit type **B.6**, «Άδεια διαμονής για πραγματοποίηση επένδυσης σε νεοφυή επιχείρηση», and it sets out:
+They are in **[article 100A of the Migration Code](/sources#gr-l5038-art-100a)**, added by **article 44 of Law 5162/2024**, published in Government Gazette A΄ 198 of 5 December 2024 — fourteen months before the law the market credits for it. It creates residence permit type **B.6**, «Άδεια διαμονής για πραγματοποίηση επένδυσης σε νεοφυή επιχείρηση», and it sets out:
 
 - **€250,000** contributed to the capital of an enterprise on the National Registry of Startup Enterprises, by taking up shares in a capital increase or bonds on a bond issue — §1;
 - a holding that must **not exceed 33%** of the company's capital or of its voting rights — §2(a);
@@ -88,7 +88,7 @@ They are in **article 100A of the Migration Code**, added by **article 44 of Law
 
 Two structural points are easy to miss. The money must be **remitted from abroad** for the purpose, though a spouse, a partner or a relative to the second degree may be the sender — §4. And the investment is certified not by the Ministry of Migration but by the **Directorate for Foreign Direct Investment of the Ministry of Development**, which is what the consulate and the permit decision wait on — §1 and §5.
 
-The route only became usable at the end of 2025. Article 100A leaves its paperwork to a joint ministerial decision, and that decision is **KYA 216761 of 12 November 2025**, Gazette B΄ 6138 of 18 November 2025. It sets the file: a registry certificate no more than two months old, proof of the shares or bonds, the bank remittance, the **ERGANI** personnel table evidencing the two new jobs, and a **€2,500 electronic fee**. Greek market reporting in the months after describes a route that is live and barely used.
+The route only became usable at the end of 2025. Article 100A leaves its paperwork to a joint ministerial decision, and that decision is **[KYA 216761 of 12 November 2025](/sources#gr-kya-216761-2025)**, Gazette B΄ 6138 of 18 November 2025. It sets the file: a registry certificate no more than two months old, proof of the shares or bonds, the bank remittance, the **ERGANI** personnel table evidencing the two new jobs, and a **€2,500 electronic fee**. Greek market reporting in the months after describes a route that is live and barely used.
 
 So the market did not invent a permit. It took a real one, moved it forward by fourteen months, and attached it to a law that added something else entirely — and gave the result the other provision's name.
 

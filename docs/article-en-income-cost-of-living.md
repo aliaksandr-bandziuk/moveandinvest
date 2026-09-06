@@ -31,7 +31,7 @@
 
 The routes that cost the most money test income the least.
 
-Buy €800,000 of property in Athens and Greece asks you to prove nothing whatsoever about what you earn. Put €500,000 of assets behind a Maltese permanent residence application and there is no income requirement in the regulations at all. Buy AED 2,000,000 of Dubai property and neither the federal authority nor the Land Department asks for a payslip. But apply to the same three countries as an ordinary person who works remotely or lives off investments, and you will be asked to document between €920 and €3,500 every month, indefinitely.
+Buy €800,000 of property in Athens and Greece asks you to prove nothing whatsoever about what you earn. Put €500,000 of assets behind a Maltese permanent residence application and the regulations name no income figure at all — only a capital test and an unquantified sufficiency condition. Buy AED 2,000,000 of Dubai property and neither the federal authority nor the Land Department asks for a payslip. But apply to the same three countries as an ordinary person who works remotely or lives off investments, and you will be asked to document between €920 and €3,500 every month, indefinitely.
 
 Portugal is the exception that almost no one writing about golden visas mentions, and it is the single most useful thing on this page: the Portuguese investment permit does **not** waive the means-of-subsistence test. The article that creates it disapplies exactly one requirement, and that requirement is the visa, not the income.
 
@@ -129,11 +129,11 @@ So the arithmetic of the Greek system is this. Prove €3,500 a month, forever, 
 
 ### Malta digital nomad visa salary requirement: €42,000, and a capital test for permanent residence
 
-#### Malta permanent residence income requirement: it does not exist
+#### Malta permanent residence income requirement: no figure exists, and what stands in its place
 
 The Malta Permanent Residence Programme is governed by **S.L. 217.26**, as amended by Legal Notices 310 of 2024 and 146 of 2025. Regulation 9(2) sets a test on **capital**, not income: the applicant must hold assets *"having a value of not less than five hundred thousand euro (€500,000), out of which a minimum of one hundred and fifty thousand euro (€150,000) shall be in the form of financial assets"*, or alternatively €650,000 of which at least €75,000 is financial.
 
-There is no euro income requirement anywhere in the instrument. The regulations carry a qualitative requirement that an applicant have stable and regular resources sufficient to maintain themselves without recourse to Malta's social assistance system, and no figure attaches to it. Any page publishing a euro "MPRP income requirement" is publishing something that is not in the law.
+No euro income figure appears anywhere in the instrument — the word *income* does not appear in it at all. What does appear is **[regulation 15(1)(d)](/sources#mt-sl-217-26)**, a qualitative condition: the applicant must be *"in receipt of stable and regular resources which are sufficient to maintain himself and his dependants without recourse to the social assistance system of Malta"*. That is a means test, and it is unquantified. So the honest statement is not that Malta asks nothing about your income; it is that Malta asks, and publishes no number. Any page printing a euro "MPRP income requirement" is printing something that is not in the law.
 
 #### The Gozo and southern Malta discount has been abolished
 
@@ -165,9 +165,9 @@ If you have read USD 3,500 somewhere, that figure is stale. It is still being re
 
 #### The UAE has no minimum wage, which removes the reference point
 
-There is no statutory minimum wage in the United Arab Emirates. Article 27 of Federal Decree-Law 33 of 2021 is an enabling power — *"The Cabinet may... issue a resolution setting the minimum wage for Workers"* — and it has not been exercised generally. Cabinet Resolution 1 of 2022, the executive regulation, contains no minimum-wage article.
+There is no statutory minimum wage in the United Arab Emirates. Article 27 of Federal Decree-Law 33 of 2021 is an enabling power, and its closing words are the ones that matter: *"The Cabinet may, upon the proposal of the Minister and in coordination with the Concerned Authorities, issue a resolution setting the minimum wage for Workers, **or any category of them**."* The power is exercisable for a sub-group, not only for the workforce as a whole — and we found no Cabinet resolution exercising it generally. Cabinet Resolution 1 of 2022, the executive regulation, contains no minimum-wage article; its article 16, "Wages", governs payment dates and channels only.
 
-The AED 6,000 monthly figure now circulating applies to **UAE nationals** in the private sector under an Emiratisation measure. It is not a general wage floor and it does not reach the expatriate workforce this page is about.
+The AED 6,000 monthly figure now circulating applies to **UAE nationals** in the private sector, from 1 January 2026, and it was announced by the labour ministry rather than published as a Cabinet resolution we could locate. Whether it was made under the "any category" limb of article 27 or under the separate Emiratisation framework, we could not establish. Either way it is not a general wage floor, and it does not reach the expatriate workforce this page is about.
 
 That matters for the comparison. In Portugal and Greece, the residence income threshold can be read against a legal minimum wage — one times it in Portugal, 3.8 times it in Greece. In the UAE there is no such denominator, so USD 5,000 a month cannot be placed on the same scale as anything.
 
@@ -287,7 +287,7 @@ Because three of the four do not publish one. Greece and Malta publish rent infl
 
 ### What else here bears on this
 
-Two of the thresholds compared above are worked through end to end elsewhere on this site. Portugal's €920 — the one an investor must also prove — is in [the Portugal guide](entry:portugal-residency). Greece's €3,500 permit, its three tax regimes and the question of whether investor years ever reach permanent residence are in [the Greece guide](entry:greece-residency). What a property purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). The Emirates, the one jurisdiction here that tests no income at all and levies no income tax either, is in [the UAE guide](entry:uae-residency). Every act and dataset named above, with the date each was read, is on [the sources page](/sources).
+Two of the thresholds compared above are worked through end to end elsewhere on this site. Portugal's €920 — the one an investor must also prove — is in [the Portugal guide](entry:portugal-residency). Greece's €3,500 permit, its three tax regimes and the question of whether investor years ever reach permanent residence are in [the Greece guide](entry:greece-residency). What a property purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). The Emirates, the one jurisdiction here that tests no income at all and levies no income tax either, is in [the UAE guide](entry:uae-residency). Malta's capital test, what its permanent residence programme costs above the property and how the Gozo discount disappeared are in [the Malta guide](entry:malta-residency). Every act and dataset named above, with the date each was read, is on [the sources page](/sources).
 
 ### Sources: where each figure comes from
 

@@ -1,5 +1,6 @@
 import type { RuleChange } from "@/lib/changeData";
 
+import { ChangeFilter } from "./ChangeFilter";
 import styles from "./ChangeLog.module.scss";
 
 export interface ChangeLogLabels {
@@ -14,6 +15,13 @@ export interface ChangeLogLabels {
   noInstrument: string;
   /** Prefix on the deep link into /sources. */
   seeWorking: string;
+  /** Announced to a screen reader in place of the visible chip row. */
+  filterLegend: string;
+  /** The first chip, and the default. */
+  filterAll: string;
+  /** "{n} of {total}", both replaced. Shown only while a jurisdiction is
+   *  selected — under "all" the number is the length of the table. */
+  filterCount: string;
 }
 
 // The rule-change log: what changed, when, by which act, and which of our own
@@ -56,8 +64,44 @@ export function ChangeLog({
   formatDate: (iso: string, approximate?: boolean) => string;
   sourcesHref: string;
 }) {
+  // The chips are built from the log itself, in the order the countries first
+  // appear, so a jurisdiction with no rows never gets a control that returns an
+  // empty table — and adding a row for a fifth country needs no edit here.
+  const codes: string[] = [];
+  for (const change of changes) {
+    if (!codes.includes(change.country)) codes.push(change.country);
+  }
+
   return (
-    <div className={styles.tableWrap}>
+    <ChangeFilter className={styles.root} countTemplate={labels.filterCount}>
+      <fieldset className={styles.filter}>
+        <legend className={styles.filterLegend}>{labels.filterLegend}</legend>
+        <ul className={styles.chips}>
+          {["all", ...codes].map((code, i) => {
+            const id = `change-${code}`;
+            return (
+              <li key={code}>
+                <input
+                  className={styles.input}
+                  type="radio"
+                  id={id}
+                  name="change-filter"
+                  value={code}
+                  defaultChecked={i === 0}
+                />
+                <label className={styles.chip} htmlFor={id}>
+                  {code === "all"
+                    ? labels.filterAll
+                    : (countryNames.get(code) ?? code.toUpperCase())}
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+        <p className={styles.count} data-change-count aria-live="polite" />
+      </fieldset>
+
+      <div className={styles.tableWrap}>
       <table className={styles.table}>
         <thead className={styles.head}>
           <tr>
@@ -74,6 +118,7 @@ export function ChangeLog({
               <tr
                 key={`${change.effective}-${index}`}
                 className={`${styles.row} ${orphan ? styles.orphan : ""}`}
+                data-codes={change.country}
               >
                 <th scope="row" className={styles.date} data-label={labels.date}>
                   <span className={styles.dateValue}>
@@ -115,7 +160,8 @@ export function ChangeLog({
           })}
         </tbody>
       </table>
-    </div>
+      </div>
+    </ChangeFilter>
   );
 }
 

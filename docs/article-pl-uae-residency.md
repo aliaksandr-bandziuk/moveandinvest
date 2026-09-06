@@ -180,7 +180,9 @@ Załącznik, art. 3:
 
 > „Residence Permits may be issued to family members … including the spouse and children, **regardless of age** and parents, for a renewable period of (10) ten years"
 
-Zwykła emiracka zasada — synowie do 25 lat, córki do zamążpójścia — **tu nie obowiązuje.** Nie ma wieku, w którym dziecko posiadacza złotej wizy wypada z zezwolenia. Rodzice są objęci tym samym dziesięcioletnim okresem.
+Zwykła emiracka zasada — synowie do 25 lat, niezamężne córki — to artykuł 54(1) głównego tekstu tej samej uchwały i do złotego pobytu **w ogóle nie sięga**: słów „Golden Residence" nie ma w artykułach od 1 do 80. To dwa odrębne reżimy, a nie zasada z wyjątkiem, i taka podstawa jest mocniejsza.
+
+Wiek zatem zezwolenia dziecka nie kończy. Zakończyć je mogą status samego sponsora, dziesięcioletnie odnowienie i trwające warunki artykułu 4 — samodzielne utrzymanie i ubezpieczenie zdrowotne. „Nie ma granicy wieku" jest ścisłe; „nigdy nie wypada" już nie. Rodzice są objęci tym samym dziesięcioletnim okresem.
 
 **Nie ma wymogu dochodowego dla sponsorowania rodziny.** Art. 4 stawia dwa warunki i żaden nie dotyczy wynagrodzenia: zdolność utrzymania siebie i rodziny bez wsparcia państwa oraz ważne ubezpieczenie zdrowotne. Wszystkie konkretne kwoty krążące w sieci pochodzą od firm sprzedających obsługę wniosków.
 

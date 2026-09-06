@@ -52,6 +52,18 @@
 // CYPRUS. Deferred on the site, and scripts/copy/costs.ts carries an explicit
 // instruction not to publish it until a human has read a primary source.
 //
+// THE GREEK STARTUP PERMIT, art. 100A. It is a second Greek investor route at
+// the same headline number as one of the tiers below — 250,000 EUR — and it is
+// deliberately absent, not overlooked. Nothing this calculator computes applies
+// to it: there is no transfer tax on subscribing share capital, no notary
+// scale, no cadastre fee and no agent commission. The one figure that IS
+// verified for it is the 2,500 EUR electronic fee for certifying the
+// investment, under KYA 216761/2025; the rest of what it costs is subscription
+// documentation and legal work, for which no published tariff exists. One
+// sourced line does not make a route, so the route stays out and the tier
+// labels below say "restoration or change of use" so the two cannot be
+// confused. See docs/greece-5307-verification-2026-09-05.md.
+//
 // EVERY FIGURE HERE IS TRACEABLE TO docs/property-verification-2026-08-24.md,
 // docs/figures-verification-2026-08-23.md or the per-jurisdiction dossiers,
 // and may not change without one of those changing in the same commit — the

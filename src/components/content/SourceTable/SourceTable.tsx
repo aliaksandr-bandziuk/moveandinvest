@@ -26,6 +26,10 @@ export interface SourceTableLabels {
    *  component's props unserialisable the day one of these becomes a client
    *  component, and the set of dates is three entries long. */
   recheckedByDate: Record<string, string>;
+  /** The accessible name of the little link that copies one act's own address.
+   *  Carries {citation}: "Link to Lei 56/2023" reads correctly in a list of
+   *  links; sixty-four identical "Permalink"s do not. */
+  permalinkLabel: string;
 }
 
 interface SourceTableProps {
@@ -111,7 +115,34 @@ export function SourceTable({
           <p className={styles.sourcesLabel}>{labels.sourcesLabel}</p>
           <ul className={styles.sourceList}>
             {sources.map((source) => (
-              <li key={source.url} className={styles.source}>
+              // ONE ANCHOR PER INSTRUMENT, which is what lets an article cite a
+              // norm instead of a page. Before this, the finest address the site
+              // could give was `/sources#gr`, and a reader sent there to check a
+              // sentence about art. 100Α landed at the top of twenty-nine Greek
+              // rows and had to find it. Namespaced by section because two
+              // sections legitimately cite the same act.
+              <li key={source.id} id={`${id}-${source.id}`} className={styles.source}>
+                {/* The address of this one act, so a reader can take it away.
+                    A real link and not a copy button: a button needs
+                    JavaScript, needs a clipboard permission the browser may
+                    refuse, and gives nothing to a reader who wants to see where
+                    it points before taking it.
+
+                    IT LEADS THE LINE RATHER THAN TRAILING IT, which is a fix
+                    for what rendering showed on 5 September 2026. Set after the
+                    citation, the hash landed immediately before the small-caps
+                    `official`/`reproduction` label and read as part of it —
+                    "art. 10 (the βεβαίωση) # REPRODUCTION" — so the one glyph
+                    whose job is to mark this row was being parsed as decoration
+                    on the next thing along. In front of the citation it is
+                    unambiguously the row's own handle. */}
+                <a
+                  className={styles.permalink}
+                  href={`#${id}-${source.id}`}
+                  aria-label={labels.permalinkLabel.replace("{citation}", source.citation)}
+                >
+                  #
+                </a>{" "}
                 {/* The citation is the link text, not the URL: it is the thing
                     that stays true when the link rots. */}
                 <a

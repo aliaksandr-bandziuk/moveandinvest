@@ -77,16 +77,38 @@
 // rule alone disappears in a printout and for a colourblind reader, the words
 // alone disappear when the column is scanned rather than read.
 .orphan {
-  @include mixins.breakpoint-up(md) {
-    box-shadow: inset 3px 0 0 0 var(--color-accent);
-  }
-
   border-left: 3px solid var(--color-accent);
   padding-left: var(--space-4);
 
   @include mixins.breakpoint-up(md) {
     border-left: 0;
     padding-left: 0;
+  }
+}
+
+// WHY THE DESKTOP RULE HANGS IN THE GUTTER RATHER THAN ON THE ROW'S OWN EDGE.
+// It was `box-shadow: inset 3px 0 0 0` on the row, and that is wrong in a way
+// only rendering shows: the table is border-collapsed with no left padding, so
+// the row's left edge IS the first glyph's left edge, and the rule was painted
+// over the first letter of the jurisdiction code. It clipped the stem of the U
+// in UAE — currently the only orphan row, and the only code in the set whose
+// first letter has a vertical stem at x=0; PORTUGAL and GREECE would have hidden
+// it behind a curve. Twelve pixels to the left puts the rule in the container's
+// gutter, which is never narrower than 20px (--gutter clamps at 1.25rem), so it
+// cannot push the page sideways at any width. Found by rendering the page on
+// 5 September 2026, not by reading the stylesheet.
+@include mixins.breakpoint-up(md) {
+  .orphan .date {
+    position: relative;
+  }
+
+  .orphan .date::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: calc(var(--space-3) * -1);
+    width: 3px;
+    background: var(--color-accent);
   }
 }
 
@@ -160,10 +182,17 @@
   font-weight: var(--font-weight-semibold);
 }
 
+// `block`, not `inline-block`, and the difference is a real defect found by
+// rendering the page on 5 September 2026. The link follows the "what moved
+// here" prose with no separator between them, so an inline-block box sits
+// flush against the full stop: "among the slowest.See the working →". It only
+// showed on rows that have BOTH a moved note and a section — rows with an
+// empty note put the link on its own line by accident and looked correct,
+// which is why reading the markup never caught it.
 .working {
   @include mixins.link;
 
-  display: inline-block;
+  display: block;
   margin-top: var(--space-2);
   font-size: var(--fs-nano);
   line-height: var(--lh-nano);
@@ -194,5 +223,83 @@
 // An empty fourth cell is common — plenty of rule changes moved nothing of ours
 // — and on cards an empty cell that still prints its own label is noise.
 .moved:empty {
+  display: none;
+}
+
+// --- Jurisdiction filter -----------------------------------------------------
+// Added 5 September 2026, when the log became something to interrogate rather
+// than only scroll. Same shape as the FAQ's filter and for the same reasons —
+// the chips are hidden until the enhancer marks the block, because a visible
+// control that does nothing is worse than no control.
+
+.root {
+  display: contents;
+}
+
+.filter {
+  display: none;
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-4);
+  min-width: 0;
+}
+
+.root[data-js="on"] .filter {
+  display: block;
+}
+
+.filterLegend {
+  @include mixins.visually-hidden;
+}
+
+.chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.input {
+  @include mixins.visually-hidden;
+}
+
+.chip {
+  display: block;
+  border: var(--border-hairline) solid var(--color-line);
+  border-radius: var(--radius-s);
+  // 0.62rem for the 44px tap-target floor, as on the FAQ.
+  padding: 0.62rem 0.85rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.input:checked + .chip {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+.input:focus-visible + .chip {
+  @include mixins.focus-ring;
+}
+
+.count {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+  // Reserves its line so selecting a jurisdiction does not jog the table up
+  // and down by one line height.
+  min-height: var(--lh-small);
+}
+
+// The enhancer sets `hidden` on a row; the UA default for that loses to any
+// class that sets `display`, which is how the FAQ's filter silently did
+// nothing once already.
+.row[hidden] {
   display: none;
 }

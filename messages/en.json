@@ -201,7 +201,9 @@
     "official": "official",
     "reproduction": "reproduction",
     "checkedOn": "Every row was checked against a primary source on {date}, except where a row carries a date of its own.",
+    "revisedOn": "The text of this page last changed on {date}.",
     "rechecked": "Re-checked {date}",
+    "permalinkLabel": "Link to this source: {citation}",
     "verdicts": {
       "confirmed": "confirmed",
       "corrected": "corrected",
@@ -220,6 +222,9 @@
       "moved": "What moved here"
     },
     "noInstrument": "No published act",
+    "filterLegend": "Filter the log by jurisdiction",
+    "filterAll": "All",
+    "filterCount": "Showing {n} of {total} rows — this jurisdiction only.",
     "seeWorking": "See the working →",
     "toSources": "Every figure and its source →",
     "notCovered": "No rows yet for {countries}: nobody has checked, which is not the same as nothing having happened.",

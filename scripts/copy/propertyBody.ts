@@ -213,9 +213,16 @@ The penalty for breaching a freeze is 50% of the income from the letting, with
 a €20,000 floor, doubling to the whole of the rents collected and a €40,000
 floor on a repeat within the same tax year.
 
-The often-quoted limits of two properties per taxpayer and 90 days a year are
-not in force anywhere. The law empowers ministers to impose them in designated
-areas; no such decision could be found.
+The often-quoted limits of two properties per taxpayer and 90 days a year sit
+in article 111 §8 of law 4446/2016 as things ministers **may** impose in
+designated zones, and the tax authority's own codified text still reads
+«μπορεί». No decision exercising that power could be found, so as far as we can
+establish the limits bind nobody — a negative we state as a search result, not
+as a certainty.
+
+The "60-day rule" now circulating is a different thing again. Sixty days is the
+line between a short-term let and an ordinary lease, not a ceiling on how long
+a property may be let.
 `,
     residencyLink: `
 A purchase can still lead to residency in Greece, which distinguishes it from
@@ -406,8 +413,14 @@ publishes a processing time for the permit.
 повторе в том же налоговом году — весь полученный доход, минимум €40 000.
 
 Часто упоминаемые ограничения «два объекта на налоговый номер» и «90 дней в
-году» нигде не действуют. Закон лишь даёт министрам право ввести их в
-отдельных зонах; ни одного такого решения найти не удалось.
+году» стоят в части 8 статьи 111 Закона 4446/2016 как то, что министры
+**могут** ввести в отдельных зонах, и в кодификации самой налоговой службы там
+по-прежнему «μπορεί». Решения, которое реализовало бы это полномочие, найти не
+удалось, так что, насколько мы можем судить, ограничения не связывают никого —
+и это результат поиска, а не утверждение о невозможности.
+
+Гуляющее сейчас «правило 60 дней» — вообще про другое. Шестьдесят дней это
+граница между посуточной сдачей и обычной арендой, а не потолок сдачи.
 `,
     residencyLink: `
 Покупка в Греции по-прежнему может вести к ВНЖ — этим страна отличается от
@@ -596,8 +609,15 @@ przy powtórzeniu w tym samym roku podatkowym — cały uzyskany dochód, nie mn
 niż €40 000.
 
 Często przywoływane limity „dwie nieruchomości na numer podatkowy" i „90 dni w
-roku" nigdzie nie obowiązują. Ustawa daje jedynie ministrom prawo wprowadzenia
-ich w wyznaczonych strefach; żadnej takiej decyzji nie udało się odnaleźć.
+roku" stoją w art. 111 ust. 8 ustawy 4446/2016 jako to, co ministrowie **mogą**
+wprowadzić w wyznaczonych strefach, a w tekście ujednoliconym samego urzędu
+skarbowego nadal widnieje „μπορεί". Decyzji wykonującej to upoważnienie nie
+udało się odnaleźć, więc na tyle, na ile możemy to ustalić, limity nikogo nie
+wiążą — i jest to wynik poszukiwań, a nie twierdzenie o niemożliwości.
+
+Krążąca dziś „zasada 60 dni" dotyczy czegoś innego. Sześćdziesiąt dni to
+granica między najmem krótkoterminowym a zwykłym najmem, a nie pułap
+wynajmowania.
 `,
     residencyLink: `
 Zakup w Grecji nadal może prowadzić do rezydencji, co odróżnia ją od

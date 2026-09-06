@@ -157,7 +157,13 @@ Annex article 3 is more generous than the market usually reports, and the most u
 | Parents | Included, same ten-year term |
 | Domestic staff | "in accordance with his financial solvency", with no numeric cap |
 
-The ordinary Emirati rule — sons sponsored to 25, daughters until they marry — **does not apply here.** There is no age at which a golden visa holder's child falls off the permit.
+The source is **article 3(1) of the annex** to Cabinet Resolution 65 of 2022, which says it in its own words:
+
+> "Residence Permits may be issued to family members of the Foreigner who has obtained Golden Residence Permit, including the spouse and children, **regardless of age** and parents, for a renewable period of (10) ten years"
+
+The ordinary Emirati rule — sons sponsored to 25, unmarried daughters — is article 54(1) of the main body of the same resolution, and **it does not reach the golden residence at all**: the words "Golden Residence" do not appear anywhere in articles 1 to 80. These are two separate regimes rather than a rule and its exception, which is a firmer footing than a carve-out would be.
+
+So no birthday ends a child's permit. What can still end it is the sponsor's own status and the ten-year renewal, together with the continuing conditions of article 4 — self-support and health insurance. "No age limit" is exact; "never falls off" would not be.
 
 **There is no income requirement to sponsor.** Article 4 imposes two conditions and neither is a salary: the ability "to support himself and his family without the need for government support", and valid health insurance. Every specific dirham figure we found for golden visa dependants came from commercial sponsorship services and traces to nothing.
 

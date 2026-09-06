@@ -5,6 +5,7 @@ import { richBlocks, type PortableContent } from "./copy/portable";
 import { LOCALES, type Locale } from "./copy/home";
 import { FOOTER_GROUPS } from "../src/lib/footerNav";
 import { routing } from "../src/i18n/routing";
+import { SOURCE_SECTIONS } from "../src/lib/sourceData";
 
 // Writes one Guides & Research entry — its three language versions and their
 // figures — into Sanity.
@@ -519,6 +520,29 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
     // A fragment is allowed on a route — /sources#gr is how an entry points at
     // its own working — and is carried through untouched.
     const [path, hash] = raw.split("#", 2);
+
+    // EXCEPT ON /sources, WHERE THE FRAGMENT IS CHECKED, because on that page
+    // it is the whole address. Since every instrument gained an anchor, an
+    // article cites a norm — /sources#gr-l5038-art-100a — rather than a page of
+    // sixty-four of them. A typo in that slug is the one link error a browser
+    // will not report: it loads /sources happily and scrolls nowhere, so the
+    // reader sent to verify one sentence lands at the top of the page and the
+    // citation silently stops being a citation. Nothing downstream would catch
+    // it. Checked here, at publish, against the same data the page renders.
+    if (path === "/sources" && hash) {
+      const known = new Set<string>();
+      for (const section of SOURCE_SECTIONS) {
+        known.add(section.key);
+        for (const source of section.sources) known.add(`${section.key}-${source.id}`);
+      }
+      if (!known.has(hash)) {
+        throw new Error(
+          `Link to "${raw}": no such anchor on /sources. Valid anchors are a section key ` +
+            `(${SOURCE_SECTIONS.map((s) => s.key).join(", ")}) or "<section>-<source id>" ` +
+            `as declared in src/lib/sourceData.ts.`,
+        );
+      }
+    }
     const declared = (routing.pathnames as Record<string, unknown>)[path ?? ""];
     if (declared === undefined) {
       throw new Error(

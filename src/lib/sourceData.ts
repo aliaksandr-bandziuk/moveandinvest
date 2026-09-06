@@ -65,6 +65,24 @@ export type Verdict =
   | "withdrawn";
 
 export interface SourceLink {
+  /** The anchor this instrument answers to, unique within its section, so the
+   *  page address of one act is `/sources#gr-l5038-art-100a` and an article can
+   *  cite the norm rather than the page.
+   *
+   *  HAND-WRITTEN AND NEVER DERIVED FROM `citation`, which is the whole point.
+   *  A slug computed from the citation text would change the day a citation is
+   *  corrected — and citations here get corrected; that is what the page is
+   *  for. Every link that had been made to the old anchor would then land at
+   *  the top of a 64-entry page with no indication of what it had been pointing
+   *  at, which is a worse failure than a stale citation, because it is silent.
+   *  So the id is a literal, and the rule is: an id may be added, and may not
+   *  be changed. If an instrument is replaced by another, the new one gets a
+   *  new id and the old row stays with its verdict set to `withdrawn`.
+   *
+   *  Only unique WITHIN a section: Act XXI of 2025 is cited under both `mt` and
+   *  `citizenship`, and forcing it to two different ids would say the two
+   *  sections were citing two different acts. */
+  id: string;
   /** The permanent reference: statute, article, gazette, date. Language-neutral
    *  by nature — a law number is the same number in every language, and
    *  translating one is how a citation stops being checkable. */
@@ -162,6 +180,12 @@ const CHECKED_2026_09_01: Record<Locale, string> = {
   pl: "1 września 2026",
 };
 
+const CHECKED_2026_09_05: Record<Locale, string> = {
+  en: "5 September 2026",
+  ru: "5 сентября 2026 года",
+  pl: "5 września 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
@@ -170,10 +194,42 @@ export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-08-28": CHECKED_2026_08_28,
   "2026-08-30": CHECKED_2026_08_30,
   "2026-09-01": CHECKED_2026_09_01,
+  "2026-09-05": CHECKED_2026_09_05,
 };
 
 /** The date that governs every row not carrying its own. */
 export const CHECKED_ON: Record<Locale, string> = CHECKED_2026_08_23;
+
+// TWO DATES AT THE FOOT, NOT ONE, AND THEY ANSWER DIFFERENT QUESTIONS.
+//
+// Until now this page ended with a single line: "checked on 23 August 2026".
+// That line was doing two jobs at once and doing the second one badly. A reader
+// asking "is this current?" wants to know when somebody last opened the law.
+// A reader who was here last week wants to know whether the page has changed
+// since. One date cannot answer both, and when they diverge the single date
+// answers the wrong one: on 5 September four instruments and two claims were
+// added to this page while thirty-one rows had not been re-read since
+// 23 August. A page stamped "5 September" would have implied thirty-one fresh
+// checks that did not happen; a page stamped "23 August" would have hidden two
+// corrections of the site's own worst errors.
+//
+// So: CHECKED_ON is about the LAW — the baseline date a row was read against
+// its source, overridden per row by `checked`. REVISED_ON is about the PAGE —
+// the day its own text last changed, for any reason including a rewritten
+// caveat or a new source with no new claim.
+//
+// THE RULE FOR BUMPING THEM, and it matters that they move independently:
+// re-reading a source and finding it unchanged moves that row's `checked` and
+// nothing else. Editing wording moves REVISED_ON and nothing else. Only actual
+// re-verification may move a check date — which is the discipline the whole
+// page exists to demonstrate, and the exact discipline the "last updated"
+// stamps this page audits other sites for are failing.
+export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_05;
+
+/** The ISO form of REVISED_ON, for the page's `dateModified`. Kept beside it so
+ *  the two cannot drift; the rendered strings are hand-written because Intl
+ *  abbreviates the Russian. */
+export const REVISED_ON_ISO = "2026-09-05";
 
 const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // --- Portugal -------------------------------------------------------------
@@ -274,6 +330,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
     ],
     sources: [
       {
+        id: "lei-56-2023",
         citation: "Lei 56/2023 (“Mais Habitação”), art. 53",
         url: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/117906/L%2056%202023%20POR.pdf",
         kind: "reproduction",
@@ -284,27 +341,32 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "aima-ari-vii",
         citation: "AIMA — ARI, subparagraph vii (fund subscription)",
         url: "https://aima.gov.pt/documents/ari-subalinea-7.pdf",
         kind: "official",
       },
       {
+        id: "aima-ari-other",
         citation:
           "AIMA — ARI, subparagraphs ii, v, vi, viii (the other routes)",
         url: "https://aima.gov.pt/documents/ari-subalinea-2.pdf",
         kind: "official",
       },
       {
+        id: "aima-fees",
         citation: "AIMA — table of fees and charges",
         url: "https://aima.gov.pt/documents/tabela-de-taxas-e-demais-encargos-a-cobrar-pelos-procedimentos-administrativos.pdf",
         kind: "official",
       },
       {
+        id: "portaria-352-2024",
         citation: "Portaria 352/2024/1 of 23 December 2024 (IFICI procedure)",
         url: "https://files.diariodarepublica.pt/1s/2024/12/24800/0004000045.pdf",
         kind: "official",
       },
       {
+        id: "financas-ifici",
         citation: "Portal das Finanças — IFICI",
         url: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-01018.aspx",
         kind: "official",
@@ -345,6 +407,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           en: "Since 1 September 2024 there are three tiers. €800,000 across all of Attica, the Thessaloniki regional unit, Mykonos, Thira (Santorini) and islands with populations above 3,100. €400,000 everywhere else. €250,000 only by exception: conversion of premises to residential use, reconstruction of an industrial building idle for five years, or full restoration of a listed building — and the works must be finished before the application is filed.",
           ru: "С 1 сентября 2024 года три уровня. €800 000 — вся Аттика, номовая единица Салоники, Миконос, Тира (Санторини) и острова с населением свыше 3 100 человек. €400 000 — остальная Греция. €250 000 — только как исключение: перевод помещений в жилые, реконструкция промышленного здания, простаивавшего пять лет, или полная реставрация здания-памятника, причём работы должны быть завершены до подачи.",
           pl: "Od 1 września 2024 obowiązują trzy poziomy. €800 000 — cała Attyka, jednostka regionalna Saloniki, Mykonos, Thira (Santorini) i wyspy powyżej 3 100 mieszkańców. €400 000 — reszta kraju. €250 000 — wyłącznie jako wyjątek: zmiana przeznaczenia lokali na mieszkalne, przebudowa budynku przemysłowego nieużywanego przez pięć lat albo pełna renowacja budynku zabytkowego, przy czym prace muszą być zakończone przed złożeniem wniosku.",
+        },
+      },
+      {
+        subject: {
+          en: "A second route at €250,000: the startup investor permit",
+          ru: "Второй маршрут за €250 000 — разрешение инвестора в стартап",
+          pl: "Druga ścieżka za €250 000 — zezwolenie inwestora w startup",
+        },
+        verdict: "corrected",
+        checked: "2026-09-05",
+        finding: {
+          en: "This site said no €250,000 startup route existed. It does. Art. 100Α of Law 5038/2023, added by art. 44 of Law 5162/2024 (Gazette Α΄ 198 of 5 December 2024), creates permit type Β.6 for €250,000 of share capital in an enterprise on the Elevate Greece registry — no more than 33% of it, two new jobs held for five years, a five-year lock on the shares, a permit issued for one year and renewed two years at a time, and, by §9, no right to work, in the same words the property permit uses. It became usable on 18 November 2025, when KYA 216761/2025 set the file and a €2,500 electronic fee. It is a different instrument from art. 100 at the same headline number and from the art. 79Α Tech Visa. The error came from reading one article instead of the code's table of contents, where art. 100Α stands one line below art. 100.",
+          ru: "Сайт утверждал, что маршрута за €250 000 через стартап не существует. Он существует. Статья 100Α Закона 5038/2023, добавленная статьёй 44 Закона 5162/2024 (ФЕК Α΄ 198 от 5 декабря 2024 года), создаёт разрешение типа Β.6 за €250 000 в уставный капитал предприятия из реестра Elevate Greece — не более 33% компании, два новых рабочих места, удерживаемых пять лет, пятилетний запрет на продажу долей, разрешение на год с продлением по два года и, по §9, без права на работу, теми же словами, что и «недвижимое» разрешение. Рабочим маршрут стал 18 ноября 2025 года, когда KYA 216761/2025 определила комплект документов и электронный сбор €2 500. Это другой инструмент, чем статья 100 с той же цифрой на витрине, и чем Tech Visa по статье 79Α. Ошибка возникла из чтения одной статьи вместо оглавления кодекса, где статья 100Α стоит строкой ниже статьи 100.",
+          pl: "Ta strona twierdziła, że ścieżka za €250 000 przez startup nie istnieje. Istnieje. Artykuł 100Α ustawy 5038/2023, dodany artykułem 44 ustawy 5162/2024 (Dziennik Α΄ 198 z 5 grudnia 2024), tworzy zezwolenie typu Β.6 za €250 000 kapitału zakładowego w przedsiębiorstwie z rejestru Elevate Greece — nie więcej niż 33% spółki, dwa nowe miejsca pracy utrzymywane przez pięć lat, pięcioletnia blokada udziałów, zezwolenie na rok odnawiane po dwa lata i, zgodnie z §9, bez prawa do pracy, tymi samymi słowami co zezwolenie nieruchomościowe. Użyteczna stała się 18 listopada 2025, gdy KYA 216761/2025 określiła komplet dokumentów i opłatę elektroniczną €2 500. To inny instrument niż artykuł 100 o tej samej liczbie na wystawie i niż Tech Visa z artykułu 79Α. Błąd wziął się z czytania jednego artykułu zamiast spisu treści kodeksu, gdzie artykuł 100Α stoi wiersz niżej niż artykuł 100.",
         },
       },
       {
@@ -452,6 +528,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
     ],
     sources: [
       {
+        id: "l5038-art-100",
         citation:
           "Law 5038/2023, art. 100 — ΦΕΚ Α΄ 81/01.04.2023, as amended by art. 64 of Law 5100/2024",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/100",
@@ -463,11 +540,13 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "l5038-art-10",
         citation: "Law 5038/2023, art. 10 (the βεβαίωση)",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/10",
         kind: "reproduction",
       },
       {
+        id: "l5038-art-100a",
         citation:
           "Law 5038/2023, art. 100Α — the startup investor permit (type Β.6), added by art. 44 of Law 5162/2024 (ΦΕΚ Α΄ 198/05.12.2024)",
         url: "https://archive.opengov.gr/minfin/?p=13181",
@@ -479,12 +558,14 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "kya-216761-2025",
         citation:
           "KYA 216761/12.11.2025 — ΦΕΚ Β΄ 6138/18.11.2025, documents for making and holding a startup investment under art. 100Α",
         url: "https://www.forin.gr/articles/article/87754/kua-216761-2025",
         kind: "reproduction",
       },
       {
+        id: "l5307-2026",
         citation:
           "Law 5307/2026 — ΦΕΚ Α΄ 90/11.06.2026, the EU Pact implementation law: 265 articles, of which art. 179 alone touches the Migration Code",
         url: "https://www.taxheaven.gr/law/5307/2026",
@@ -496,11 +577,13 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "l4172-art-5a",
         citation: "Law 4172/2013, art. 5A (non-dom)",
         url: "https://www.taxheaven.gr/law/4172/2013/arthro/5%CE%91",
         kind: "reproduction",
       },
       {
+        id: "kya-214926-2025",
         citation: "KYA 214926/2025 (procedure)",
         url: "https://www.e-nomothesia.gr/kat-allodapoi/kya-214926-2025.html",
         kind: "reproduction",
@@ -511,24 +594,28 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       // taken from a summary; where only a summary could be got, the guide
       // says so at the point of use rather than here.
       {
+        id: "l5038-art-95",
         citation:
           "Law 5038/2023, art. 95 — family members, as amended by art. 29 of Law 5275/2026 (ΦΕΚ Α΄ 17/06.02.2026)",
         url: "https://www.taxheaven.gr/law/5275/2026/arthro/29",
         kind: "reproduction",
       },
       {
+        id: "l5038-arts-143-145",
         citation:
           "Law 5038/2023, arts. 143–145 — EU long-term resident status (Μ.1)",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/144",
         kind: "reproduction",
       },
       {
+        id: "l5038-art-160",
         citation:
           "Law 5038/2023, art. 160 — proof of Greek, as amended by art. 37 of Law 5275/2026",
         url: "https://www.taxheaven.gr/law/5275/2026/arthro/37",
         kind: "reproduction",
       },
       {
+        id: "l5038-art-161",
         citation:
           "Law 5038/2023, art. 161 — the ten-year permit (Μ.2), replaced by art. 38 of Law 5275/2026",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/161",
@@ -540,41 +627,48 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "l5038-art-163",
         citation:
           "Law 5038/2023, art. 163 §8 — the permit for holders of sufficient resources (type Ι.8)",
         url: "https://www.taxheaven.gr/law/5038/2023/arthro/163",
         kind: "reproduction",
       },
       {
+        id: "kya-225679-2024",
         citation:
           "KYA 225679/2024 — the €3,500 a month, ΦΕΚ Β΄ 5223/17.09.2024",
         url: "https://migration.gov.gr/wp-content/uploads/2024/10/3_%CE%9A%CE%A5%CE%91-%CE%95%CF%80%CE%B1%CF%81%CE%BA%CF%8E%CE%BD-%CF%80%CF%8C%CF%81%CF%89%CE%BD.pdf",
         kind: "official",
       },
       {
+        id: "l4172-art-5b",
         citation: "Law 4172/2013, art. 5B — the 7% rate for foreign pensioners",
         url: "https://www.taxheaven.gr/law/4172/2013/arthro/5%CE%92",
         kind: "reproduction",
       },
       {
+        id: "l4172-art-5c",
         citation:
           "Law 4172/2013, art. 5C — the 50% exemption for relocating employees and self-employed",
         url: "https://www.taxheaven.gr/law/4172/2013/arthro/5%CE%93",
         kind: "reproduction",
       },
       {
+        id: "aade-5a-5b-5c",
         citation:
           "AADE — the three regimes of arts. 5A, 5B and 5C, with their implementing decisions",
         url: "https://www.aade.gr/sites/default/files/2023-08/forologika_kinitra_proselkysis_f.katoikiwn.pdf",
         kind: "official",
       },
       {
+        id: "suspension-2022-02",
         citation:
           "Ministry of Migration and Asylum — suspension of investment permits for citizens of the Russian Federation, 28 February 2022",
         url: "https://migration.gov.gr/en/anastoli-ekdosis-i-ananeosis-adeion-diamonis-ependytikoy-skopoy-gia-polites-tis-rosikis-omospondias-mechri-neoteras/",
         kind: "official",
       },
       {
+        id: "suspension-2022-04",
         citation:
           "Ministry of Migration and Asylum — renewals released, new applications still suspended, 1 April 2022",
         url: "https://migration.gov.gr/en/arsi-anastolis-exetasis-kai-ekdosis-ekkremon-aitiseon-ananeosis-kai-ypovolis-aitiseon-ananeosis-titlon-diamonis-politon-tis-rosikis-omospondias-kai-tis-leykorosias-diatireitai-mechri-neote/",
@@ -586,6 +680,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "directive-2003-109",
         citation:
           "Council Directive 2003/109/EC, arts. 3(2), 4(1), 14 and 15 — OJ L 16/44 of 23.01.2004",
         url: "https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2004:016:0044:0053:EN:PDF",
@@ -597,23 +692,27 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "recommendation-2022-2028",
         citation:
           "Commission Recommendation C(2022) 2028 final of 28 March 2022 — investor citizenship and residence schemes",
         url: "https://data.consilium.europa.eu/doc/document/ST-7916-2022-INIT/en/pdf",
         kind: "official",
       },
       {
+        id: "kya-8934-2026",
         citation:
           "KYA 8934/2026 — the minimum wage from 1 April 2026, ΦΕΚ Β΄ 1759/27.03.2026",
         url: "https://www.forin.gr/articles/article/89767/kua-8934-2026",
         kind: "reproduction",
       },
       {
+        id: "stegasi",
         citation: "stegasi.gov.gr — the raised thresholds",
         url: "https://stegasi.gov.gr/programs/afxisi-oriou-elachistis-ependysis-se-akinita-gia-apoktisi-golden-visa/",
         kind: "official",
       },
       {
+        id: "aade-transfer-tax",
         citation: "AADE — real estate transfer tax",
         url: "https://www.aade.gr/en/greeks-abroad-non-residents/property-taxation/real-estate-transfer-tax",
         kind: "official",
@@ -655,6 +754,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           en: "€300,000 was the south-Malta and Gozo threshold before the reform; there is no regional difference any more. Under L.N. 310/2024 from 1 January 2025 and L.N. 146/2025 of 22 July 2025: purchase €375,000 anywhere, or rent €14,000 a year; government contribution €37,000 either way; administrative fee €60,000 for the main applicant; NGO donation €2,000; €7,500 per dependant, with spouse, minor children and adult children with a disability free; card €500 per person. Held for five years. Plus proof of assets: €500,000 of which €150,000 financial, or €650,000 of which €75,000.",
           ru: "€300 000 — это порог для юга Мальты и Гозо до реформы; региональной разницы больше нет. По L.N. 310/2024 с 1 января 2025 года и L.N. 146/2025 от 22 июля 2025 года: покупка €375 000 где угодно либо аренда €14 000 в год; государственный взнос €37 000 в обоих случаях; административный сбор €60 000 на основного заявителя; пожертвование НКО €2 000; €7 500 за иждивенца, при этом супруг, несовершеннолетние дети и совершеннолетние дети с инвалидностью — бесплатно; карта €500 с человека. Держать пять лет. Плюс подтверждение активов: €500 000, из них €150 000 финансовых, либо €650 000, из них €75 000.",
           pl: "€300 000 to był próg dla południa Malty i Gozo przed reformą; różnicy regionalnej już nie ma. Zgodnie z L.N. 310/2024 od 1 stycznia 2025 i L.N. 146/2025 z 22 lipca 2025: zakup €375 000 gdziekolwiek albo najem €14 000 rocznie; wkład rządowy €37 000 w obu przypadkach; opłata administracyjna €60 000 na głównego wnioskodawcę; darowizna na NGO €2 000; €7 500 za osobę zależną, przy czym małżonek, małoletnie dzieci i dorosłe dzieci z niepełnosprawnością bezpłatnie; karta €500 od osoby. Utrzymanie przez pięć lat. Plus potwierdzenie aktywów: €500 000, w tym €150 000 finansowych, albo €650 000, w tym €75 000.",
+        },
+      },
+      {
+        subject: {
+          en: "Whether the MPRP regulations state an income requirement",
+          ru: "Есть ли в правилах MPRP требование к доходу",
+          pl: "Czy przepisy MPRP stawiają wymóg dochodu",
+        },
+        verdict: "corrected",
+        checked: "2026-09-05",
+        finding: {
+          en: "This site said the regulations name no income requirement at all. They name no FIGURE, which is a different sentence. The word «income» does not appear in S.L. 217.26 — but regulation 15(1)(d) requires the applicant to be «in receipt of stable and regular resources which are sufficient to maintain himself and his dependants without recourse to the social assistance system of Malta». That is a means test, unquantified: no amount, no formula, no wage or poverty line to compute it from. So Malta asks about income and publishes no number, and any page printing a euro «MPRP income requirement» is printing something the law does not contain.",
+          ru: "Сайт утверждал, что в правилах вообще нет требования к доходу. Нет ЦИФРЫ — а это другое утверждение. Слово «income» в S.L. 217.26 не встречается, но правило 15(1)(d) требует, чтобы заявитель «располагал стабильными и регулярными средствами, достаточными для содержания себя и иждивенцев без обращения к системе социальной помощи Мальты». Это проверка достаточности средств, и она не оцифрована: ни суммы, ни формулы, ни зарплаты или черты бедности, от которых её можно было бы посчитать. То есть Мальта о доходе спрашивает и числа не публикует, а любая страница с евровым «требованием к доходу MPRP» печатает то, чего в законе нет.",
+          pl: "Ta strona twierdziła, że przepisy w ogóle nie stawiają wymogu dochodu. Nie podają LICZBY — a to inne zdanie. Słowo «income» w S.L. 217.26 nie występuje, ale przepis 15(1)(d) wymaga, by wnioskodawca «dysponował stabilnymi i regularnymi środkami wystarczającymi na utrzymanie siebie i osób zależnych bez korzystania z systemu pomocy społecznej Malty». To test wystarczalności środków i nie jest zliczbowany: ani kwoty, ani wzoru, ani płacy czy progu ubóstwa, od których dałoby się go policzyć. Malta więc o dochód pyta i liczby nie publikuje, a każda strona drukująca eurowy «wymóg dochodowy MPRP» drukuje coś, czego w ustawie nie ma.",
         },
       },
       {
@@ -755,51 +868,87 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
     ],
     sources: [
       {
+        id: "sl-217-26",
         citation: "S.L. 217.26, as amended by L.N. 310/2024 and L.N. 146/2025",
         url: "https://residencymalta.gov.mt/wp-content/uploads/2025/08/S.L.217.26-Amended-by-LN-310-of-2024_-LN-146-of-2025.pdf",
         kind: "official",
       },
       {
+        id: "c-181-23",
+        citation:
+          "Case C-181/23, Commission v Malta — Court of Justice, Grand Chamber, judgment of 29 April 2025",
+        url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A62023CJ0181",
+        kind: "official",
+      },
+      {
+        id: "act-xxi-2025",
+        citation:
+          "Maltese Citizenship (Amendment) Act, Act XXI of 2025 — Government Gazette 21,474 of 24 July 2025, substituting art. 10(9) of Cap. 188",
+        url: "https://legislation.mt/eli/act/2025/21/eng",
+        kind: "official",
+      },
+      {
+        id: "ln-159-2025",
+        citation:
+          "L.N. 159 of 2025 — Government Gazette 21,478 of 29 July 2025, retitling S.L. 188.06 as the Granting of Citizenship by Naturalisation on the Basis of Merit Regulations and deleting Part IV with the Second and Third Schedules",
+        url: "https://legislation.mt/eli/ln/2025/159/eng",
+        kind: "official",
+        caveat: {
+          en: "Read 5 September 2026 together with the consolidated S.L. 188.06: no contribution, investment, property or fee amount survives anywhere in the regulations. The Community Malta Agency's own services page nonetheless still published the deleted direct-investment route and its figures — €600,000 and €750,000, €700,000 of property or €16,000 of rent, a €10,000 donation — under update stamps as recent as February 2026 and with no notice of closure. The instrument governs; the page is stale.",
+          ru: "Прочитано 5 сентября 2026 года вместе со сводным текстом S.L. 188.06: ни одной суммы взноса, инвестиции, недвижимости или сбора в регламенте не осталось. При этом на собственной странице услуг Community Malta Agency по-прежнему опубликован удалённый маршрут за прямую инвестицию с суммами — 600 000 и 750 000 евро, 700 000 евро недвижимости или 16 000 евро аренды, пожертвование 10 000 евро — с отметками обновления вплоть до февраля 2026 года и без уведомления о закрытии. Действует акт; страница устарела.",
+          pl: "Przeczytane 5 września 2026 wraz z tekstem ujednoliconym S.L. 188.06: w rozporządzeniu nie pozostała żadna kwota wkładu, inwestycji, nieruchomości ani opłaty. Mimo to własna strona usług Community Malta Agency nadal publikuje usuniętą ścieżkę inwestycji bezpośredniej wraz z kwotami — 600 000 i 750 000 euro, 700 000 euro nieruchomości albo 16 000 euro najmu, darowizna 10 000 euro — ze znacznikami aktualizacji sięgającymi lutego 2026 i bez informacji o zamknięciu. Obowiązuje akt; strona jest nieaktualna.",
+        },
+      },
+      {
+        id: "ln-146-2025",
         citation: "L.N. 146 of 2025",
         url: "https://residencymalta.gov.mt/wp-content/uploads/2025/07/L.N-146-of-2025.pdf",
         kind: "official",
       },
       {
+        id: "rma-handbook",
         citation: "Residency Malta — agents' handbook v4.0, 28 January 2025",
         url: "https://residencymalta.gov.mt/wp-content/uploads/2025/02/3926-RM-Amends-to-2253-Agents-Handbook-Final-Jan-25.pdf",
         kind: "official",
       },
       {
+        id: "mtca-remittance",
         citation: "MTCA — guidelines on the remittance basis",
         url: "https://mtca.gov.mt/docs/default-source/documents/mtca-guidelines-on-the-remittance-under-the-income-tax.pdf",
         kind: "official",
       },
       {
+        id: "mtca-property",
         citation: "MTCA — buying property",
         url: "https://mtca.gov.mt/personal-tax/property-taxes/buying-property",
         kind: "official",
       },
       {
+        id: "rma-nomad-faq",
         citation: "Residency Malta — Nomad Residence Permit FAQ v14.1, 17 April 2026",
         url: "https://nomad.residencymalta.gov.mt/new-faqs/",
         kind: "official",
       },
       {
+        id: "mtca-tax-residence",
         citation: "MTCA — tax residence",
         url: "https://mtca.gov.mt/personal-tax/individual/tax-residence",
         kind: "official",
       },
       {
+        id: "sl-123-210",
         citation: "MTCA — Nomad Residence Permits (Income Tax) Rules, S.L. 123.210, guidelines of 12 March 2026",
         url: "https://mtca.gov.mt/docs/default-source/documents/personal-tax/legal-and-technical/guidelines/nomad-guidelines---12-03-2026.pdf",
         kind: "official",
       },
       {
+        id: "rma-mprp-framework",
         citation: "Residency Malta — legal framework, MPRP",
         url: "https://residencymalta.gov.mt/legal-framework-mprp-2/",
         kind: "official",
       },
       {
+        id: "sl-217-26-consolidated",
         citation: "S.L. 217.26 on the legislation portal — consolidated 22 July 2025",
         url: "https://legislation.mt/eli/sl/217.26/eng",
         kind: "official",
@@ -963,6 +1112,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       // service pages, which is a tier below what the Portuguese and Greek
       // sections stand on. That gap is now closed.
       {
+        id: "fdl-29-2021",
         citation:
           "Federal Decree-Law No. 29 of 2021 on Entry and Residence of Foreigners — Official Gazette 712, in force 26.10.2021",
         url: "https://uaelegislation.gov.ae/en/legislations/1528",
@@ -974,6 +1124,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "cr-65-2022",
         citation:
           "Cabinet Resolution No. 65 of 2022, Executive Regulation and its Golden Residence Annex — Official Gazette 731, in force 03.10.2022",
         url: "https://uaelegislation.gov.ae/en/legislations/1601",
@@ -985,24 +1136,28 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "cd-85-2022",
         citation:
           "Cabinet Decision No. 85 of 2022 on Determination of Tax Residency, art. 4 — in force 01.03.2023",
         url: "https://tax.gov.ae/Datafolder/Files/Legislation/Corporate%20Tax/Cabinet%20Decision%2085%20of%202022%20-%20For%20publishing.pdf",
         kind: "official",
       },
       {
+        id: "md-27-2023",
         citation:
           "Ministerial Decision No. 27 of 2023, arts. 3 to 6 — how days, homes and employment are counted",
         url: "https://mof.gov.ae/wp-content/uploads/2023/03/Ministerial-Decision-27-of-2023-of-Tax-Residency.pdf",
         kind: "official",
       },
       {
+        id: "cd-49-2023",
         citation:
           "Cabinet Decision No. 49 of 2023, art. 2 — the AED 1,000,000 turnover test for a natural person, and the licence-based exclusions",
         url: "https://mof.gov.ae/wp-content/uploads/2023/05/Cabinet-Decision-No.-49-of-2023.pdf",
         kind: "official",
       },
       {
+        id: "cd-116-2022",
         citation:
           "Cabinet Decision No. 116 of 2022, art. 2(1) — the AED 375,000 corporate tax band",
         url: "https://uaelegislation.gov.ae/en/legislations/1614/download",
@@ -1014,36 +1169,43 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         },
       },
       {
+        id: "icp-long-absence",
         citation: "ICP — entry after a long absence, and who is exempt",
         url: "https://icp.gov.ae/en/services-details/?serviceid=68e352d65ae59b00117383fc",
         kind: "official",
       },
       {
+        id: "dld-taskeen",
         citation: "DLD — Investor Residence application (Taskeen), the two-year permit",
         url: "https://dubailand.gov.ae/en/eservices/request-for-investor-visa/",
         kind: "official",
       },
       {
+        id: "dld-golden-investor",
         citation: "DLD — Request for Golden Visa (Investor)",
         url: "https://dubailand.gov.ae/en/eservices/request-for-golden-visa-investor/",
         kind: "official",
       },
       {
+        id: "dld-golden-retired",
         citation: "DLD — Request for Golden Visa (Retired)",
         url: "https://dubailand.gov.ae/en/eservices/request-for-golden-visa-retired/",
         kind: "official",
       },
       {
+        id: "gdrfa-golden",
         citation: "GDRFA — issuing a golden residence permit (investors)",
         url: "https://www.gdrfad.gov.ae/en/services/8ea80da4-f43e-11eb-0320-0050569629e8",
         kind: "official",
       },
       {
+        id: "icp-entry-permit",
         citation: "ICP — entry permit service",
         url: "https://icp.gov.ae/en/services-details/?serviceid=68e34eea5ae59b00117383d5",
         kind: "official",
       },
       {
+        id: "uae-taxation",
         citation: "u.ae — taxation",
         url: "https://u.ae/en/information-and-services/finance-and-investment/taxation",
         kind: "official",
@@ -1053,12 +1215,14 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       // that no official page confirmed. It is set by a published instrument,
       // and this is that instrument — item 1 of its schedule.
       {
+        id: "ecr-30-2013",
         citation:
           "Executive Council Resolution 30 of 2013 — fees of the Land Department",
         url: "https://dlp.dubai.gov.ae/Legislation%20Reference/2013/ECR%2030%20of%202013.html",
         kind: "official",
       },
       {
+        id: "dld-sale-fees",
         citation: "DLD — property sale registration, fees and trustee charges",
         url: "https://dubailand.gov.ae/en/eservices/property-sale-registration/",
         kind: "official",
@@ -1068,6 +1232,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       // prevailing custom. It is what lets the finding say the 2% rests on
       // nothing official, rather than that we looked and did not find it.
       {
+        id: "dld-broker-commission",
         citation: "DLD — frequently asked questions, broker commission",
         url: "https://dubailand.gov.ae/en/frequently-asked-questions/",
         kind: "official",
@@ -1144,32 +1309,38 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
     ],
     sources: [
       {
+        id: "lei-organica-1-2026",
         citation: "Lei Orgânica 1/2026 — Diário da República, 18 May 2026",
         url: "https://files.diariodarepublica.pt/1s/2026/05/09500/0000200020.pdf",
         kind: "official",
       },
       {
+        id: "pt-promulgation",
         citation: "Presidency of Portugal — promulgation, 3 May 2026",
         url: "https://www.presidencia.pt/atualidade/toda-a-atualidade/2026/05/presidente-da-republica-promulga-decreto-da-assembleia-da-republica/",
         kind: "official",
       },
       {
+        id: "l3284-2004",
         citation:
           "Greek Citizenship Code (Law 3284/2004), Ministry of the Interior",
         url: "https://www.ypes.gr/kodikas-ellinikis-ithageneias/",
         kind: "official",
       },
       {
+        id: "act-xxi-2025",
         citation: "Act XXI of 2025 (Malta)",
         url: "https://legislation.mt/eli/act/2025/21/eng",
         kind: "official",
       },
       {
+        id: "sl-188-06",
         citation: "S.L. 188.06 — naturalisation on the basis of merit",
         url: "https://komunita.gov.mt/wp-content/uploads/2026/02/Citizenship-by-Naturalisation-on-the-Basis-of-Merit.pdf",
         kind: "official",
       },
       {
+        id: "uae-nationality",
         citation: "u.ae — Emirati nationality",
         url: "https://u.ae/en/information-and-services/passports-and-traveling/emirati-nationality",
         kind: "official",
@@ -1241,3 +1412,28 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
 // export so a future consumer cannot forget it. See src/lib/typography.ts.
 export const SOURCE_SECTIONS: SourceSection[] =
   tightenDeep(SOURCE_SECTIONS_RAW);
+
+// THE ANCHORS ARE A PUBLIC INTERFACE, SO THEY ARE CHECKED AT BUILD TIME. Two
+// sources in one section sharing an id would produce two elements with the same
+// DOM id: the browser would jump to the first, silently, and the second act
+// would be uncitable. Nothing about the rendered page would look wrong. A throw
+// at module load fails `next build` instead, which is the only moment anyone is
+// looking.
+for (const section of SOURCE_SECTIONS) {
+  const seen = new Set<string>();
+  for (const source of section.sources) {
+    if (!source.id) {
+      throw new Error(
+        `sourceData: source "${source.citation}" in section "${section.key}" has no id. ` +
+          `Every instrument needs one — it is the anchor an article links to.`,
+      );
+    }
+    if (seen.has(source.id)) {
+      throw new Error(
+        `sourceData: duplicate source id "${source.id}" in section "${section.key}". ` +
+          `Ids must be unique within a section; give the newer instrument its own.`,
+      );
+    }
+    seen.add(source.id);
+  }
+}
