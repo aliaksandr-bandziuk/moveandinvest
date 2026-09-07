@@ -44,6 +44,21 @@ import { tightenDeep } from "./typography";
 export type IsoDate = string;
 
 export interface RuleChange {
+  /** The anchor this change answers to, so `/changes#mt-cjeu-c-181-23` addresses
+   *  one row rather than a log of twenty-three. Same contract as the source ids
+   *  in sourceData.ts, and for the same reason: hand-written, never derived.
+   *
+   *  A slug computed from the effective date would move the day a date is
+   *  corrected, and this log corrects dates — that is what it is for. Every
+   *  link made to the old anchor would then land silently at the top of the
+   *  page. So: an id may be ADDED and may not be CHANGED. A row withdrawn as
+   *  wrong keeps its id and says so; it does not vanish, because something out
+   *  there may be citing it.
+   *
+   *  Named for the change rather than the date, because the anchor is meant to
+   *  be read in a citation: `/changes#mt-citizenship-merit-route` says what it
+   *  points at, `/changes#mt-2025-07-24` does not. */
+  id: string;
   /** The day the change TOOK EFFECT, which is the date a reader plans around —
    *  not the day it was signed and not the day it was reported. Where only a
    *  month is established, the first of that month with `approximate` set. */
@@ -84,6 +99,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
   // this set to among the slowest — and the temptation to promote it out of
   // chronological order is exactly what makes a news page rather than a log.
   {
+    id: "pt-naturalisation-ten-years",
     effective: "2026-05-19",
     country: "pt",
     what: {
@@ -104,6 +120,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "citizenship",
   },
   {
+    id: "ae-investor-visa-no-minimum",
     effective: "2026-04-01",
     approximate: true,
     country: "ae",
@@ -121,6 +138,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "gr-minimum-wage-2026",
     effective: "2026-04-01",
     approximate: true,
     country: "gr",
@@ -142,6 +160,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "gr",
   },
   {
+    id: "ae-golden-visa-no-prepayment",
     effective: "2026-02-20",
     approximate: true,
     country: "ae",
@@ -154,6 +173,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "gr-migration-code-5275-2026",
     effective: "2026-02-06",
     country: "gr",
     what: {
@@ -174,6 +194,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "gr",
   },
   {
+    id: "ae-russia-tax-treaty",
     effective: "2026-01-01",
     country: "ae",
     what: {
@@ -189,6 +210,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "pt-minimum-wage-2026",
     effective: "2026-01-01",
     country: "pt",
     what: {
@@ -209,6 +231,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "pt",
   },
   {
+    id: "ae-work-mission-visit-visa",
     effective: "2025-11-27",
     country: "ae",
     what: {
@@ -224,6 +247,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "gr-startup-permit-usable",
     effective: "2025-11-18",
     country: "gr",
     what: {
@@ -244,6 +268,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "gr",
   },
   {
+    id: "pt-family-reunification-two-years",
     effective: "2025-10-22",
     country: "pt",
     what: {
@@ -264,6 +289,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
   // finding: the scheme did not end and get replaced, it was rewritten in
   // place.
   {
+    id: "mt-citizenship-merit-route",
     effective: "2025-07-24",
     country: "mt",
     what: {
@@ -284,6 +310,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "citizenship",
   },
   {
+    id: "mt-mprp-fees-and-licensing",
     effective: "2025-07-22",
     country: "mt",
     what: {
@@ -304,6 +331,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "mt",
   },
   {
+    id: "mt-cjeu-c-181-23",
     effective: "2025-04-29",
     country: "mt",
     what: {
@@ -324,6 +352,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "citizenship",
   },
   {
+    id: "pt-consular-fee-110",
     effective: "2025-03-11",
     country: "pt",
     what: {
@@ -339,6 +368,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "pt",
   },
   {
+    id: "mt-mprp-thresholds-gozo-ended",
     effective: "2025-01-01",
     country: "mt",
     what: {
@@ -359,6 +389,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "mt",
   },
   {
+    id: "pt-ifici-replaces-nhr",
     effective: "2024-12-23",
     country: "pt",
     what: {
@@ -374,6 +405,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "pt",
   },
   {
+    id: "gr-fip-threshold-3500",
     effective: "2024-09-17",
     country: "gr",
     what: {
@@ -394,6 +426,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "gr",
   },
   {
+    id: "ae-blue-residence",
     effective: "2024-09-02",
     country: "ae",
     what: {
@@ -414,6 +447,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "gr-golden-visa-four-thresholds",
     effective: "2024-09-01",
     country: "gr",
     what: {
@@ -434,6 +468,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "gr",
   },
   {
+    id: "ae-corporate-tax-natural-person",
     effective: "2023-06-01",
     country: "ae",
     what: {
@@ -449,6 +484,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "ae-tax-residency-test",
     effective: "2023-03-01",
     country: "ae",
     what: {
@@ -464,6 +500,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "ae",
   },
   {
+    id: "gr-suspension-russia-belarus",
     effective: "2022-04-01",
     country: "gr",
     what: {
@@ -480,6 +517,7 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     section: "gr",
   },
   {
+    id: "ae-poland-tax-treaty",
     effective: "2016-01-01",
     country: "ae",
     what: {
@@ -512,6 +550,27 @@ for (let i = 1; i < RULE_CHANGES_RAW.length; i += 1) {
 }
 
 export const RULE_CHANGES: RuleChange[] = tightenDeep(RULE_CHANGES_RAW);
+
+// THE ANCHORS ARE A PUBLIC INTERFACE, SO THEY ARE CHECKED AT BUILD TIME. Two
+// rows sharing an id would render two elements with the same DOM id: the
+// browser jumps to the first, silently, and the second row becomes uncitable
+// with nothing about the page looking wrong. A throw fails `next build`, which
+// is the only moment anybody is looking.
+{
+  const seen = new Set<string>();
+  for (const change of RULE_CHANGES) {
+    if (!change.id) {
+      throw new Error(
+        `changeData: the ${change.country} change of ${change.effective} has no id. ` +
+          `Every row needs one — it is the address an article or an outside site cites.`,
+      );
+    }
+    if (seen.has(change.id)) {
+      throw new Error(`changeData: duplicate change id "${change.id}".`);
+    }
+    seen.add(change.id);
+  }
+}
 
 /** Jurisdictions this site covers that have NO row above, and the reason.
  *  Rendered as a sentence under the log rather than left to inference: a reader

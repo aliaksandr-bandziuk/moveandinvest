@@ -314,6 +314,15 @@ czy w portugalii jest drogo, czy w portugalii jest taniej niż w polsce, czy w g
 **Keywords placed in subheadings:**
 „Koszty życia w Portugalii, Grecji, na Malcie i w Dubaju"; „Koszty życia w Grecji: 1724,54 euro miesięcznie"; „Koszty życia na Malcie"; „Koszty życia w Portugalii"; „Koszty życia w Dubaju"; „Jaki dochód trzeba udokumentować"; „Portugalia: dochód na pobyt równa się płacy minimalnej"; „Czy portugalska złota wiza zwalnia z wykazania dochodu?"; „Grecja: 3500 euro miesięcznie dla osób niezależnych finansowo"; „Malta: 42 000 euro rocznie u nomady"; „Emiraty: 5000 dolarów miesięcznie za pracę zdalną"; „Czy Polak może tam zamieszkać"; „Gdzie niższe wymagania dochodowe".
 
+**Не выравнивать с английской версией. Решение от 6 сентября 2026.**
+Из английской версии термины `cost of living in portugal`, `cost of living in
+malta` и `cost of living in greece` сняты: по-английски это 17 100 запросов в
+месяц, которыми владеют отдельные страницы — две в контент-плане, греческая уже
+опубликована. По-польски таких страниц нет и не планируется: контент-план в
+четвёртый раз отклонил новые польские страницы на тех же данных. Эта статья —
+лучшая позиция сайта, 6,92, и держится она именно на `koszty życia`. Снять их
+здесь значит сломать единственное, что работает.
+
 ---
 
 ## What differs from the English and Russian versions, and why

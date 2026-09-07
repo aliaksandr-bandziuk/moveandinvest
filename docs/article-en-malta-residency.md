@@ -242,7 +242,7 @@ malta permanent residence programme, malta residency by investment cost, malta m
 **Mid-tail:**
 malta golden visa cost, malta permanent residence minimum stay, malta tax residence 183 days, malta remittance basis non-dom, malta citizenship by merit, malta citizenship by investment closed, malta global residence programme 15 per cent, malta naturalisation residence requirement, mprp annual compliance, malta residency for russian citizens
 
-**Questions targeted:** how much does malta permanent residence cost, do you have to live in malta for permanent residence, does mprp give tax residency in malta, can you still buy maltese citizenship, how long until maltese citizenship
+**Questions targeted:** how much does malta permanent residence cost, do you have to live in malta for permanent residence, does mprp give tax residency in malta, how long until maltese citizenship
 
 ---
 

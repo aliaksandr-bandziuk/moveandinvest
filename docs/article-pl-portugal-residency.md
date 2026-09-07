@@ -240,7 +240,7 @@ Czego **nie** potwierdziliśmy w źródle pierwotnym, a co jest zaznaczone w mie
 ## Keywords
 
 **Head terms:**
-przeprowadzka do portugalii, jak zamieszkać w portugalii, karta pobytu w portugalii, pobyt stały w portugalii, obywatelstwo portugalskie, wiza d7 portugalia, złota wiza portugalia, życie w portugalii, numer NIF portugalia
+przeprowadzka do portugalii, jak zamieszkać w portugalii, wiza d7 portugalia, złota wiza portugalia
 
 **Mid-tail:**
 certyfikat rejestracji obywatela ue portugalia, CRUE portugalia, rejestracja obywatela ue w portugalii, czy polak może zamieszkać w portugalii, obywatelstwo portugalskie po ilu latach, obywatelstwo portugalskie nowe przepisy 2026, rezydencja podatkowa portugalia, IFICI portugalia podatki, polacy kupują nieruchomości w hiszpanii
@@ -250,6 +250,23 @@ czy polak potrzebuje wizy do portugalii, ile trzeba zarabiać żeby zamieszkać 
 
 **Keywords placed in subheadings:**
 „Polak nie potrzebuje wizy D7 ani złotej wizy"; „Pobyt do trzech miesięcy: bez formalności"; „Pobyt powyżej trzech miesięcy: jakie są warunki"; „Certyfikat rejestracji CRUE: gdzie, kiedy i ile kosztuje"; „Pobyt stały w Portugalii po pięciu latach"; „Obywatelstwo portugalskie: dla obywatela Unii siedem lat"; „Podatki: 183 dni i stawka 20 procent"; „A jeśli małżonek albo rodzic nie jest obywatelem Unii"; „Ile kosztuje życie w Portugalii"; „Liczby w obiegu bez podstawy prawnej".
+
+**Проверено 6 сентября 2026: польского португальского спроса нет, и это не повод переписывать страницу.**
+
+Замер по всем трём выгрузкам: `przeprowadzka do portugalii` 70,
+`jak zamieszkać w portugalii` 20, `karta pobytu portugalia` **0**,
+`numer NIF portugalia` **0**, `obywatelstwo portugalskie` **0**,
+`złota wiza portugalia` 20, `wiza d7 portugalia` 10. Единственный
+непустой польский португальский кластер — `koszty życia w portugalii` 240, и им
+владеет `article-pl-income-cost-of-living.md`, которая стоит на 6,92 — лучшая
+позиция сайта.
+
+Снято четыре термина с нулевым спросом. Остальное оставлено как есть.
+
+**Эта страница не трафиковая, и её не надо оптимизировать дальше.** Она держит
+верный польский угол — поляку не нужна ни D7, ни золотая виза, достаточно
+регистрации в гмине за 18 евро — и служит полнотой набора и перелинковкой. Пятая
+проверка подряд даёт тот же ответ про польский сегмент; шестую делать не нужно.
 
 ---
 

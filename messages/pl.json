@@ -225,12 +225,15 @@
     "filterLegend": "Filtruj dziennik według jurysdykcji",
     "filterAll": "Wszystkie",
     "filterCount": "Pokazano {n} z {total} wierszy — tylko ta jurysdykcja.",
+    "permalinkLabel": "Odnośnik do tej zmiany: {change}",
     "seeWorking": "Zobacz wyliczenia →",
     "toSources": "Każda liczba i jej źródło →",
     "notCovered": "Brak wierszy dla: {countries}. Nikt ich jeszcze nie sprawdzał, a to nie to samo, co brak zmian.",
     "reviewedOn": "Cały rejestr przejrzano ostatnio {date}.",
     "updatedOn": "Wiersz zmieniono ostatnio {date}.",
-    "cadence": "Jest przeglądany w całości za każdym razem, gdy jurysdykcja jest badana pod poradnik — to jest kadencja, którą ten projekt faktycznie utrzyma, a nie miesiąc, którego nie utrzyma."
+    "cadence": "Jest przeglądany w całości za każdym razem, gdy jurysdykcja jest badana pod poradnik — to jest kadencja, którą ten projekt faktycznie utrzyma, a nie miesiąc, którego nie utrzyma.",
+    "citeIntro": "Powołujesz się na jedną z tych zasad? Każdy wiersz ma własny adres — znak # obok niego — a cały dziennik jest opublikowany jako dane pod adresem",
+    "citeTerms": "Można cytować i wykorzystywać swobodnie, ze wskazaniem źródła. Autorytetem jest akt wskazany w wierszu; ta strona jest tylko jego zapisem."
   },
   "goldenVisa": {
     "columns": {

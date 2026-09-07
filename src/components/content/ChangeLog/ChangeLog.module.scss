@@ -62,6 +62,7 @@
 .row {
   display: block;
   padding-block: var(--space-4);
+  scroll-margin-top: var(--space-6);
   border-bottom: var(--border-hairline) solid var(--color-hairline);
 
   @include mixins.breakpoint-up(md) {
@@ -302,4 +303,40 @@
 // nothing once already.
 .row[hidden] {
   display: none;
+}
+
+// WHAT A READER SEES WHEN THEY ARRIVE AT ONE ROW OUT OF TWENTY-THREE. The
+// browser scrolls the target to the top and then says nothing about which row
+// it meant. A tinted ground names it without moving it — no layout shift, so
+// nothing under the pointer jumps. It does not fade: somebody followed this
+// link to check one rule against one act, which takes as long as it takes.
+//
+// A cell selector, not the row: `background` on a `display: table-row` is
+// painted behind the cells rather than by them, and a cell with its own
+// background would hide it. Every cell of this table is transparent, so this
+// works today — and would stop working silently the day one is not, which is
+// why it is set on the cells.
+.row:target > * {
+  background: var(--color-row-hover);
+}
+
+// The row's own address. It recedes by SIZE, not by contrast: this is text, so
+// it keeps --color-text-muted at 5.95:1. Full contrast on hover and on keyboard
+// focus, where it has been asked for.
+// `block`, not `inline-block`, and this is the SECOND time in this one file —
+// see the note on `.working` above. An inline-block sits on the line it was
+// written on; the margin-top applies and changes nothing visible. In the date
+// cell it must start its own line under the jurisdiction code.
+.permalink {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--fs-nano);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
 }

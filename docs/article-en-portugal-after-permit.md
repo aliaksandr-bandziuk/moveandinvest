@@ -108,22 +108,22 @@ One point belongs here rather than there: what accumulates towards naturalisatio
 
 ### Frequently asked questions
 
-**When does permanent residence in Portugal expire?**
+? When does permanent residence in Portugal expire?
 It does not. Article 76(1) states that the permanent authorisation has no limit of validity. The card is renewed every five years; the status behind it is not re-applied for.
 
-**How often do I renew a Portuguese residence permit?**
+? How often do I renew a Portuguese residence permit?
 The first title runs two years from its date of issue, then renewals run three years each, under article 75(1).
 
-**How long does the residence card take to arrive after approval?**
+? How long does the residence card take to arrive after approval?
 No statute sets a deadline for issuing the card, and AIMA publishes none. The law gives 60 days for a decision on a grant; in practice that stage runs one to three years, with about 30 000 cases undecided as of 4 August 2026.
 
-**What does permanent residency in Portugal cost?**
+? What does permanent residency in Portugal cost?
 The published fees are 842,80 € to examine the application, 8 418,90 € for a grant and 4 210,30 € for a renewal, reduced by 25 % for online submission.
 
-**Do I need A2 Portuguese for permanent residence?**
+? Do I need A2 Portuguese for permanent residence?
 The statute says "basic Portuguese" and specifies no level. A2 comes from regulation, not from article 80.
 
-**Is EU long-term resident status the same as Portuguese permanent residence?**
+? Is EU long-term resident status the same as Portuguese permanent residence?
 No. Article 80 explicitly sets the long-term resident regime aside before setting out its own conditions. They are parallel statuses with different purposes.
 
 ### Where this sits in the rest of the site

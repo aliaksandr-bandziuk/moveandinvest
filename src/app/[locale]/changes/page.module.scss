@@ -47,3 +47,19 @@
   line-height: var(--lh-small);
   color: var(--color-text-muted);
 }
+
+// The citation offer, set quieter than the dates above it: it addresses the
+// small number of readers who republish, not the many who read.
+.cite {
+  margin-top: var(--space-3);
+  max-width: var(--measure-wide);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+
+  a {
+    @include mixins.link;
+
+    font-family: var(--font-mono);
+  }
+}

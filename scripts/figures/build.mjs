@@ -76,6 +76,13 @@ function text(x, y, content, opts = {}) {
     anchor = "start",
     tracking = 0,
     upper = false,
+    // ПЕРЕЧЁРКИВАНИЕ ОТДАЁТСЯ SVG, А НЕ СЧИТАЕТСЯ РУКАМИ. Первая версия
+    // португальской схемы рисовала <line> поверх текста, а длину брала как
+    // «число знаков × 8.6». В Inter на 17px это занижение примерно втрое на
+    // строках с пробелами и знаком евро: «Property purchase» оказалось
+    // зачёркнуто по слог «pur». Ширину глифов знает рендерер, и спрашивать
+    // надо его.
+    decoration = null,
   } = opts;
   const scaled = t(size);
   const raw = upper ? String(content).toUpperCase() : String(content);
@@ -92,7 +99,7 @@ function text(x, y, content, opts = {}) {
               `<tspan x="${x}" dy="${i === 0 ? 0 : Math.round(scaled * 1.45)}">${esc(line)}</tspan>`,
           )
           .join("");
-  return `<text x="${x}" y="${y}" font-family="${family}" font-size="${scaled}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}"${tracking ? ` letter-spacing="${(tracking * TYPE).toFixed(2)}"` : ""}>${inner}</text>`;
+  return `<text x="${x}" y="${y}" font-family="${family}" font-size="${scaled}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}"${tracking ? ` letter-spacing="${(tracking * TYPE).toFixed(2)}"` : ""}${decoration ? ` text-decoration="${decoration}"` : ""}>${inner}</text>`;
 }
 
 function frame(width, height, title, eyebrow, footnote, body, note) {
@@ -1656,7 +1663,48 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026" },
+    ptGvHeads: { sub: "Subparagraph", ask: "What it asks", status: "Status" },
+    ptGvSub: { i: "i", ii: "ii", iii: "iii", iv: "iv", v: "v", vi: "vi", vii: "vii", viii: "viii" },
+    ptGvAsk: {
+      i: "Capital transfer of 1.5m €",
+      ii: "Ten jobs created",
+      iii: "Property purchase",
+      iv: "Property purchase plus rehabilitation",
+      v: "500,000 € into research",
+      vi: "250,000 € into cultural heritage",
+      vii: "500,000 € into a fund",
+      viii: "500,000 € into a company creating five jobs",
+    },
+    ptGvNote: {
+      i: "",
+      ii: "Eight in low-density areas. No capital threshold at all",
+      iii: "",
+      iv: "",
+      v: "400,000 € in low-density areas",
+      vi: "220,000 € in low-density areas",
+      vii: "Not a real-estate fund, five years, 60% seated in Portugal",
+      viii: "",
+    },
+    ptGvStatus: { dead: "Repealed 2023", live: "In force" },
+    ptGvFeeAxis: "Fees payable to AIMA, in force from 1 March 2026. Each charge stands on its own; they are not paid at once.",
+    ptGvFeeNames: {
+      consider: "To consider the application",
+      issue: "To issue the permit",
+      renew: "To renew it",
+      family: "Each family member",
+    },
+    ptGvFeeAmounts: {
+      consider: "842.80 €",
+      issue: "8,418.90 €",
+      renew: "4,210.30 €",
+      family: "8,418.90 €",
+    },
+    ptGvFeeTotals: {
+      one: "One applicant, filing to first renewal: about 13,470 € in fees alone.",
+      family: "A family of three: about 40,400 €.",
+      online: "Less 25% when the application is filed online.",
+    },
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
@@ -2102,6 +2150,20 @@ const L = {
       gvPassportCounts: {
         title: "Three clocks that comparison tables merge",
         note: "A holder can satisfy the first indefinitely, never start the second and never approach the third.",
+      },
+      ptGvRoutes: {
+        title: "What is left of article 3(1)",
+        // ОДНА СТРОКА, И ЭТО ОГРАНИЧЕНИЕ frame, А НЕ СТИЛЬ. Подпись ставится на
+        // height − 92, а линейка подвала на height − 68: под неё отведено
+        // ровно 24px, то есть одна строка 13px. Двухстрочная подпись
+        // (через \n, потому что text() сам не переносит) выглядит в коде
+        // безобидно, а на отрисовке её второй ряд перечёркнут линейкой.
+        // Поймано отрисовкой 6 сентября 2026 на обеих португальских схемах.
+        note: "Article 53 of Lei 56/2023 repealed three subparagraphs at once; article 3(5) closes the fund workaround.",
+      },
+      ptGvFees: {
+        title: "What AIMA charges, and the ratio nobody warns about",
+        note: "Legal fees and fund commissions are excluded: those are market prices, not published ones.",
       },
       gvApplyFees: {
         title: "What the state charges to look at you",
@@ -3279,6 +3341,143 @@ function ptMovePremium(L) {
   );
 }
 
+// --- Portugal golden visa: what article 3(1) still offers --------------------
+// EIGHT ROWS, THREE OF THEM STRUCK OUT, and the strike-through is the point of
+// the drawing. Every competing page presents the surviving routes as a list,
+// which answers "what can I do" and silently loses "what happened to the thing
+// I came here for". A reader arriving from an advertisement for the property
+// route needs to find that route on the page and see it crossed out; a list it
+// is missing from reads as a list that forgot it.
+//
+// Colour carries the status and the status also carries a word: the repealed
+// rows are accent-coloured AND say "Repealed 2023", the surviving ones are
+// plain AND say "In force". Neither alone survives a printout or a colourblind
+// reader.
+const PT_GV_ROUTES = [
+  { key: "i", dead: true },
+  { key: "ii", dead: false },
+  { key: "iii", dead: true },
+  { key: "iv", dead: true },
+  { key: "v", dead: false },
+  { key: "vi", dead: false },
+  { key: "vii", dead: false },
+  { key: "viii", dead: false },
+];
+
+function ptGvRoutes(L) {
+  const width = 1200;
+  // 980, НЕ 900. Восемь строк по 74 от 262 доводят последнюю до 780, а frame
+  // ставит подпись на height − 92. При 900 подпись легла поверх строки viii —
+  // поймано отрисовкой, в коде не видно.
+  const height = 980;
+  const xSub = 48;
+  // 320, НЕ 190: слово SUBPARAGRAPH в капители с трекингом 2.2 занимает 250px и
+  // при 190 налезало на заголовок соседней колонки.
+  const xAsk = 320;
+  const xStatus = 940;
+  let body = "";
+
+  body += text(xSub, 200, L.ptGvHeads.sub, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xAsk, 200, L.ptGvHeads.ask, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xStatus, 200, L.ptGvHeads.status, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xSub}" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  PT_GV_ROUTES.forEach((row, i) => {
+    const y = 262 + i * 74;
+    const fill = row.dead ? C.muted : C.text;
+
+    body += text(xSub, y, L.ptGvSub[row.key], { size: 16, family: FONT_MONO, fill });
+    body += text(xAsk, y, L.ptGvAsk[row.key], {
+      size: 17,
+      weight: 500,
+      fill,
+      // Третий носитель того же факта, после цвета и слова «Repealed 2023».
+      decoration: row.dead ? "line-through" : null,
+    });
+    if (L.ptGvNote[row.key]) {
+      body += text(xAsk, y + 25, L.ptGvNote[row.key], { size: 13, fill: C.muted });
+    }
+    body += text(xStatus, y, row.dead ? L.ptGvStatus.dead : L.ptGvStatus.live, {
+      size: 15,
+      weight: row.dead ? 600 : 400,
+      fill: row.dead ? C.accent : C.text,
+    });
+
+    if (i < PT_GV_ROUTES.length - 1) {
+      body += `<line x1="${xSub}" y1="${y + 40}" x2="${width - 48}" y2="${y + 40}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width,
+    height,
+    L.figures.ptGvRoutes.title,
+    L.eyebrow,
+    L.checked(L.dates.portugalGoldenVisa),
+    body,
+    L.figures.ptGvRoutes.note,
+  );
+}
+
+// --- Portugal golden visa: the fee ladder ------------------------------------
+// NOT CUMULATIVE, unlike the Maltese fee figure, and the difference is the
+// finding. Malta's fees are a sequence you pay through; these four are separate
+// charges whose whole interest is that they differ by an order of magnitude —
+// issuing the permit costs ten times considering the application. Stacking them
+// would hide exactly the ratio worth seeing, so each stands on its own baseline
+// and the totals are said in words underneath.
+const PT_GV_FEES = [
+  { key: "consider", value: 842.8 },
+  { key: "issue", value: 8418.9 },
+  { key: "renew", value: 4210.3 },
+  { key: "family", value: 8418.9 },
+];
+
+function ptGvFees(L) {
+  const width = 1200;
+  // 900, НЕ 800: три строки итогов под осью и подпись frame на height − 92
+  // накладывались друг на друга. Поймано отрисовкой.
+  const height = 900;
+  const baseline = 604;
+  const top = 250;
+  const plotX = 120;
+  const plotW = width - 48 - plotX;
+  const max = Math.max(...PT_GV_FEES.map((f) => f.value));
+  const scale = (v) => ((baseline - top) * v) / max;
+  let body = "";
+
+  body += text(48, 196, L.ptGvFeeAxis, { size: 13, fill: C.muted });
+
+  const gap = 40;
+  const barW = (plotW - gap * (PT_GV_FEES.length - 1)) / PT_GV_FEES.length;
+  PT_GV_FEES.forEach((fee, i) => {
+    const h = scale(fee.value);
+    const x = plotX + i * (barW + gap);
+    body += `<rect x="${x.toFixed(1)}" y="${(baseline - h).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${C.accent}"/>`;
+    body += text(x + barW / 2, baseline - h - 18, L.ptGvFeeAmounts[fee.key], {
+      size: 17, weight: 600, anchor: "middle",
+    });
+    body += text(x + barW / 2, baseline + 34, L.ptGvFeeNames[fee.key], {
+      size: 14, fill: C.muted, anchor: "middle",
+    });
+  });
+
+  body += `<line x1="48" y1="${baseline}" x2="${width - 48}" y2="${baseline}" stroke="${C.line}" stroke-width="1"/>`;
+  body += text(48, baseline + 96, L.ptGvFeeTotals.one, { size: 16, weight: 600 });
+  body += text(48, baseline + 124, L.ptGvFeeTotals.family, { size: 16, weight: 600 });
+  body += text(48, baseline + 154, L.ptGvFeeTotals.online, { size: 13, fill: C.muted });
+
+  return frame(
+    width,
+    height,
+    L.figures.ptGvFees.title,
+    L.eyebrow,
+    L.checked(L.dates.portugalGoldenVisa),
+    body,
+    L.figures.ptGvFees.note,
+  );
+}
+
 const PLAN = {
   ru: [
     ["qualifies", qualifies],
@@ -3348,6 +3547,11 @@ const PLAN = {
     // The Maltese residence card, 5 September 2026. English only.
     ["mt-card-timeline", mtCardTimeline],
     ["mt-card-fees", mtCardFees],
+    // The Portuguese golden visa, 6 September 2026. English only: the cluster
+    // is 22,200 searches a month in English against 260 in Russian and 20 in
+    // Polish, so the entry exists in one language because the demand does.
+    ["pt-gv-routes", ptGvRoutes],
+    ["pt-gv-fees", ptGvFees],
   ],
   pl: [
     ["qualifies", qualifies],

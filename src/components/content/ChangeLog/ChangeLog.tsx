@@ -22,6 +22,11 @@ export interface ChangeLogLabels {
   /** "{n} of {total}", both replaced. Shown only while a jurisdiction is
    *  selected — under "all" the number is the length of the table. */
   filterCount: string;
+  /** The accessible name of the little link that carries one row's own address.
+   *  Carries {change}: "Link to this change: Portugal doubled its naturalisation
+   *  period" reads correctly in a list of links; twenty-three identical
+   *  "Permalink"s do not. */
+  permalinkLabel: string;
 }
 
 // The rule-change log: what changed, when, by which act, and which of our own
@@ -112,11 +117,18 @@ export function ChangeLog({
           </tr>
         </thead>
         <tbody>
-          {changes.map((change, index) => {
+          {changes.map((change) => {
             const orphan = change.instrument === null;
             return (
+              // ONE ANCHOR PER CHANGE, so an outside page can cite the rule
+              // rather than the log. This is the page's whole outreach value:
+              // nobody else publishes a dated, sourced rule tracker, and a
+              // tracker gets linked because somebody needs to write "as of this
+              // date the rule is this" — which needs the address of that row,
+              // not of twenty-three rows.
               <tr
-                key={`${change.effective}-${index}`}
+                id={change.id}
+                key={change.id}
                 className={`${styles.row} ${orphan ? styles.orphan : ""}`}
                 data-codes={change.country}
               >
@@ -128,6 +140,29 @@ export function ChangeLog({
                     {countryNames.get(change.country) ??
                       change.country.toUpperCase()}
                   </span>
+                  {/* This row's own address, so a reader can take it away. A
+                      real link and not a copy button: a button needs
+                      JavaScript and a clipboard permission the browser may
+                      refuse, and shows nothing before it is pressed.
+
+                      IN THE DATE CELL, NOT AT THE END OF THE PROSE, and that
+                      is a fix for what rendering showed. Set after the "what
+                      moved here" sentence it landed flush against the full
+                      stop — "row, withdrawn.#" — which is the same defect this
+                      stylesheet already carries a note about for `.working`,
+                      committed the day before. The first column is where the
+                      row's identity lives: the date, the jurisdiction, and now
+                      the address, which is what an anchor names. */}
+                  <a
+                    className={styles.permalink}
+                    href={`#${change.id}`}
+                    aria-label={labels.permalinkLabel.replace(
+                      "{change}",
+                      pick(change.what, locale),
+                    )}
+                  >
+                    #
+                  </a>
                 </th>
 
                 <td className={styles.what} data-label={labels.change}>

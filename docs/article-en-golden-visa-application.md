@@ -145,25 +145,25 @@ The published guidance names failure modes that no ranking guide mentions, and a
 
 ### Frequently asked questions
 
-**Can I apply for a golden visa myself, without an agent or a lawyer?**
+? Can I apply for a golden visa myself, without an agent or a lawyer?
 In Portugal, Greece and the UAE, yes. In Malta, no: Residency Malta Agency states that MPRP applications must be submitted through a licensed agent, and the regulations restrict that licence to accountants, auditors, lawyers and financial advisors carrying at least €500,000 of professional indemnity cover.
 
-**Do I have to make the investment before I apply?**
+? Do I have to make the investment before I apply?
 In Portugal and Greece, yes — the bank declaration attesting the transfer and the notarial and Land Registry evidence are application documents, and they cannot exist beforehand. In Malta the order is reversed: €15,000 is paid on submission, €45,000 after approval, and the qualifying property and the €37,000 contribution follow the approval.
 
-**Can somebody file the application for me while I am abroad?**
+? Can somebody file the application for me while I am abroad?
 In Greece, yes, through a proxy under a power of attorney executed before a Greek consulate or a foreign notary with a Hague apostille; on the listed-property route the application may be made before entering Greece. In Portugal a duly mandated legal representative can be registered on the Portal ARI and can receive notifications at a professional address, though the residential and tax addresses of the investor still have to be given where the analysis requires them.
 
-**How long does a golden visa application take?**
+? How long does a golden visa application take?
 Greece sets two months in article 100 §10, and its procedure registry publishes 50 days. Portugal sets 60 days for a grant and 30 for a renewal in article 82, against a queue of one to three years. Malta publishes no applicant deadline. The UAE publishes none either, and runs in weeks.
 
-**What documents does a golden visa need?**
+? What documents does a golden visa need?
 A valid passport for every nationality held, a criminal record certificate recent enough to satisfy the receiving state, evidence that the money moved and is still there, tax and social security clearance, evidence of the asset, health cover, and a photograph to specification. Portugal adds a declaration on the applicant's honour about the investment's minimum amount and duration.
 
-**What happens if my golden visa application is refused?**
+? What happens if my golden visa application is refused?
 You are notified before the decision is finalised, not after. Refunds of amounts already paid are conditional: Portugal processes them only after validation and on receipt of your bank details, and Malta's €60,000 administrative fee is non-refundable by design.
 
-**Where do I check my golden visa application status?**
+? Where do I check my golden visa application status?
 Wherever you filed it. Portugal shows "em análise" on the portal and handles enquiries through the contact form; the UAE keeps status inside the ICP account; Greece keeps it on the ministry portal; in Malta your agent holds it.
 
 ### Where this sits in the rest of the site
@@ -195,7 +195,7 @@ The questions on this page have a general answer, which is above, and a specific
 golden visa application, golden visa application process, how to apply for golden visa, apply for golden visa, golden visa requirements, documents required for golden visa, golden visa processing time, golden visa application status
 
 **Mid-tail:**
-golden visa apply, golden visa documents required, golden visa required documents, portugal golden visa processing time, portugal golden visa process, golden visa application status check, apply for golden visa uae, golden visa application dubai, portal ari, mprp licensed agent
+golden visa apply, golden visa documents required, golden visa required documents, portugal golden visa process, golden visa application status check, apply for golden visa uae, golden visa application dubai, portal ari, mprp licensed agent
 
 **Long tail:**
 can i apply for a golden visa without a lawyer, do i have to make the investment before applying for a golden visa, does a power of attorney for a greek golden visa need an apostille, how long does aima take to decide a golden visa application, how recent must a criminal record certificate be for a portuguese golden visa, what is the malta mprp administrative fee and is it refundable, when is the malta contribution paid, who can be a licensed agent for the malta permanent residence programme, how do i check my golden visa application status, what does em analise mean on the portal ari, is there a deadline for deciding a greek golden visa application, why are golden visa applications refused

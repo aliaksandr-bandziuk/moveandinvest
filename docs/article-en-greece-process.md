@@ -139,31 +139,31 @@ Three gaps, stated because a page whose subject is other people's unsourced clai
 
 ### Frequently asked questions
 
-**How long does the Greek golden visa process take?**
+? How long does the Greek golden visa process take?
 The state's procedure registry publishes a deadline of completion of 50 days, and article 100 §10 sets two months in the statute. The queue is the real constraint: 13,499 files were pending in November 2025, 10,703 in Attica.
 
-**What does the Greek state charge to process it?**
+? What does the Greek state charge to process it?
 €2,016 — €2,000 for the permit plus €16 for the electronic printout.
 
-**Can somebody file for me while I am abroad?**
+? Can somebody file for me while I am abroad?
 Yes, under a power of attorney executed before a Greek consulate or a foreign notary and carrying the Hague apostille. On the listed-property route the application can be made before entering Greece.
 
-**Do I have to pay for the property before applying?**
+? Do I have to pay for the property before applying?
 Yes. Article 100 §3 requires the price paid in full before filing, and §5 limits payment to a crossed cheque, transfer or card terminal through a provider operating in Greece.
 
-**Is there a €250,000 Greek golden visa for startups?**
+? Is there a €250,000 Greek golden visa for startups?
 Yes, and it is older than most of the pages describing it. It is article 100A of the Migration Code, added by article 44 of Law 5162/2024 in December 2024 and made usable by a joint ministerial decision of November 2025: €250,000 into an enterprise on the Elevate Greece registry, no more than 33% of it, two new jobs held for five years, a five-year lock on the shares, and no right to work. The February 2026 law neither created it nor amended it.
 
-**Can I work in Greece on the startup golden visa?**
+? Can I work in Greece on the startup golden visa?
 No. Article 100A §9 uses the same words as the property permit: the permit establishes no right of access to any form of employment. The Greek route that does carry an immediate work right is the Tech Visa, and it is not an investment.
 
-**What is the Greek Tech Visa?**
+? What is the Greek Tech Visa?
 A twelve-month national visa, category Z.13, for working exclusively at an enterprise on the Elevate Greece registry, requiring a twelve-month contract at 1.6 times the average gross annual salary and high professional qualifications. It gives the right to work for that employer without a separate residence permit.
 
-**What happens if I lose the job on a Tech Visa?**
+? What happens if I lose the job on a Tech Visa?
 Unless the employer breached the contract, you must leave Greece immediately and the employer must notify the consulate so the visa is revoked.
 
-**Can the Tech Visa lead to permanent residence?**
+? Can the Tech Visa lead to permanent residence?
 Not directly. It cannot use the change-of-purpose route except in one case, and the onward step the provision does offer is an EU Blue Card applied for before expiry, while still at the same employer.
 
 ### Where this sits in the rest of the site

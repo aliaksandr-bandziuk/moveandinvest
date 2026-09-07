@@ -374,6 +374,25 @@ const ENTRIES: Record<string, EntryConfig> = {
     category: "relocation",
     countries: ["country-pt"],
   },
+  "portugal-golden-visa": {
+    key: "article-portugal-golden-visa",
+    sources: {
+      en: "article-en-portugal-golden-visa.md",
+    },
+    figures: {
+      en: ["pt-gv-routes-en", "pt-gv-fees-en"],
+    },
+    publishedAt: "2026-09-06T12:00:00.000Z",
+    // "rules": предмет — что осталось в статье 3(1) после Lei 56/2023 и что
+    // статья 90-A на самом деле снимает, а чего не снимает.
+    category: "rules",
+    countries: ["country-pt"],
+    // АНГЛИЙСКАЯ ТОЛЬКО, и это решение по спросу, а не незаконченная работа.
+    // `portugal golden visa` — 22 200 показов в английском; `золотая виза
+    // португалии` — 260, `złota wiza portugalia` — 20. Русский португальский
+    // спрос идёт в «внж португалии» и «гражданство португалии», то есть в
+    // portugal-residency и в будущую F4. См. блок ключей в конце файла статьи.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {
@@ -792,6 +811,13 @@ function shapeOf(block: PortableContent | ImageBlock): string {
   return block.style === "normal" ? "p" : block.style;
 }
 
+/** The plain text of a block, for the heading check below. Empty for anything
+ *  that is not a run of spans — an image or a table has no heading text. */
+function textOf(block: PortableContent | ImageBlock): string {
+  if (block._type !== "block") return "";
+  return (block.children ?? []).map((span) => span.text ?? "").join("");
+}
+
 // --- Write -------------------------------------------------------------------
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -826,6 +852,41 @@ async function run() {
 
     const count = (kind: string) =>
       body.filter((block) => shapeOf(block) === kind).length;
+
+    // A FAQ HEADING WITH NO FAQ UNDER IT IS AN ERROR, NOT A COUNT OF ZERO.
+    //
+    // Found on 7 September 2026, and it had been true of ten articles and 74
+    // questions. A question is marked with "? " — deliberately explicit, see the
+    // note on QUESTION in copy/portable.ts — and every article written since
+    // 4 September used a bold line instead, copied from a sibling that had the
+    // same defect. The converter did exactly what it promises: a bold line is a
+    // paragraph. So the accordion silently became prose, the FAQ schema went out
+    // empty, and the only trace was the words "no questions" sitting quietly in
+    // a line of a dozen other numbers.
+    //
+    // The line below was already printed "because it was zero and nobody
+    // noticed". Printing was not enough. A heading that announces questions and
+    // a body that contains none is a contradiction the script can see, so it
+    // stops instead of reporting it.
+    const FAQ_HEADINGS = [
+      "frequently asked questions",
+      "częste pytania",
+      "najczęstsze pytania",
+      "частые вопросы",
+    ];
+    const announcesFaq = body.some(
+      (block) =>
+        shapeOf(block).startsWith("h") &&
+        FAQ_HEADINGS.includes(textOf(block).trim().toLowerCase()),
+    );
+    const hasFaq = body.some((block) => shapeOf(block).startsWith("faq"));
+    if (announcesFaq && !hasFaq) {
+      throw new Error(
+        `${parsed.locale}: there is a "frequently asked questions" heading but no ` +
+          `question was parsed. A question is a line beginning "? " — a bold line ` +
+          `is a paragraph. See QUESTION in scripts/copy/portable.ts.`,
+      );
+    }
 
     // PRINTED BECAUSE IT WAS ZERO AND NOBODY NOTICED. Four entries and about
     // 62 000 words went out with no link between them, and nothing in the

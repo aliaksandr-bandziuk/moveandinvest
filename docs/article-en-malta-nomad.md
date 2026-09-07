@@ -114,28 +114,28 @@ Wanting both — permanence and a low entry cost — is wanting a product Malta 
 
 ### Frequently asked questions
 
-**What are the Malta digital nomad visa requirements?**
+? What are the Malta digital nomad visa requirements?
 Income of at least €42,000 gross a year earned outside Malta, from a foreign employer, a company registered abroad, or clients established abroad; a lease or purchase agreement covering the permit's full duration; a police conduct certificate under six months old; and health insurance of at least €100,000 valid in Malta and across the EU or UK.
 
-**How long can you stay on the Malta nomad residence permit?**
+? How long can you stay on the Malta nomad residence permit?
 One year at a time, renewable three times, to a maximum of four years. There is no fifth year and no extension.
 
-**Does the Malta nomad visa lead to permanent residence or citizenship?**
+? Does the Malta nomad visa lead to permanent residence or citizenship?
 No. The agency states that it "does not lead to any sort of permanent/long-term residency or citizenship."
 
-**How many months a year must I spend in Malta?**
+? How many months a year must I spend in Malta?
 At least five out of every twelve, and at renewal you prove it with a bank statement showing payment transactions carried out in Malta.
 
-**Can I work for a Maltese company on a nomad permit?**
+? Can I work for a Maltese company on a nomad permit?
 No. A holder cannot offer services to, or be engaged in any economic activity with, employers or companies based or registered in Malta. Doing so puts the permit at risk of revocation.
 
-**What tax do digital nomads pay in Malta?**
+? What tax do digital nomads pay in Malta?
 10% on income derived from authorised work under S.L. 123.210, with nothing chargeable before the end of twelve months from the later of the permit's issue or 1 January 2024. Whether you are taxable in Malta at all is a separate question decided by separate rules.
 
-**How much does the Malta nomad visa cost and how long does it take?**
+? How much does the Malta nomad visa cost and how long does it take?
 €300 per person to apply and €100 per person for the card, with processing stated at 30 working days from the receipt of funds, excluding any visa.
 
-**Can I bring my family?**
+? Can I bring my family?
 A spouse, minor children, adult unmarried children who are principally dependent, and adult children unable to support themselves for medical reasons. They have to be included in the application: once it is paid for and approved, dependants can only be added at renewal, and newborns are the sole exception.
 
 ### Where this sits in the rest of the site

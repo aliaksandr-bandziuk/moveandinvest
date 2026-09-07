@@ -129,22 +129,22 @@ Combine that with the regional figures and the arithmetic is straightforward: a 
 
 ### Frequently asked questions
 
-**How much do you need to live in Greece per month?**
+? How much do you need to live in Greece per month?
 The average Greek household spends €1,724.54 a month according to the 2024 Household Budget Survey — €2,030.27 in Attica, €1,184.58 in Sterea Ellada. A household renting rather than owning puts 17.1% of its total spending into rent.
 
-**Is it expensive to live in Greece?**
+? Is it expensive to live in Greece?
 Relative to the local minimum wage of €920 a month, yes. Relative to northern Europe, no. Both statements are true and the second one is the one guides print.
 
-**What is the average rent in Greece?**
+? What is the average rent in Greece?
 There is no official figure. Concluded leases average €9.2 per square metre in Attica and €7.7 in Thessaloniki; asking prices in listings run from €7.5 to €22.0 in Attica.
 
-**Can I work in Greece on a golden visa?**
+? Can I work in Greece on a golden visa?
 No. The investment permit does not carry the right to work. Self-employment requires registration with e-EFKA and monthly contributions from €150.46 upwards.
 
-**Where is the cheapest place to live in Greece?**
+? Where is the cheapest place to live in Greece?
 By regional household expenditure, Sterea Ellada at €1,184.58 a month. The islands are the opposite: the Cyclades are the most expensive part of the country.
 
-**Do I have to live in Greece to keep the permit?**
+? Do I have to live in Greece to keep the permit?
 To hold the permit, no. To reach permanent residence, yes — the statute counts days spent in the country, not years of permit ownership.
 
 ### Where this sits in the rest of the site

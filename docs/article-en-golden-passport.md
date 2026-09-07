@@ -122,25 +122,25 @@ A person can satisfy the first indefinitely, never begin the second, and never a
 
 ### Frequently asked questions
 
-**Is there such a thing as a golden passport?**
+? Is there such a thing as a golden passport?
 Not as a legal status. The nearest thing that existed in Europe among these jurisdictions was the Maltese citizenship-by-investment scheme, held contrary to EU law in Case C-181/23 on 29 April 2025. What is on sale now is residence, not citizenship.
 
-**Does the Greek golden visa lead to citizenship?**
+? Does the Greek golden visa lead to citizenship?
 Only in the sense that living in Greece for seven years leads to citizenship for anybody. The permit grants no accelerated route, no reduced period and no price. And because article 100 §4 makes absence no obstacle to renewing it, a holder living elsewhere can keep the permit for decades and accumulate nothing.
 
-**Is there citizenship by investment in Greece?**
+? Is there citizenship by investment in Greece?
 No. Greek law has an investor residence permit and it has ordinary naturalisation, and nothing connects them except time spent in the country.
 
-**How long does Greek citizenship take, and what does it cost?**
+? How long does Greek citizenship take, and what does it cost?
 Seven years of lawful residence. The application fee is €550 and the ΠΕΓΠ examination is €150; the examination covers Greek at roughly B1 plus history, geography and culture, with a 70% pass mark.
 
-**Which of these gives a European passport fastest?**
+? Which of these gives a European passport fastest?
 On the face of the statutes, Malta: five years at the floor, though structured as twelve continuous months plus four years within the preceding six, so it can stretch to seven. Greece is seven years. Portugal is ten, or seven for EU and Portuguese-speaking-country citizens. But the ranking only means something for someone who will actually live there, and for someone who will not, none of the three arrives at all.
 
-**Can a golden visa lead to Emirati citizenship?**
+? Can a golden visa lead to Emirati citizenship?
 Investors are a named category in the Emirati rules, and no one may apply. Citizenship is granted on nomination by federal entities, through the Rulers' and Crown Princes' Courts, the Executive Council offices and the Cabinet. A residence permit does not begin that process.
 
-**Do the years on a golden visa count towards citizenship if I do not live there?**
+? Do the years on a golden visa count towards citizenship if I do not live there?
 In Greece and Malta, on the published rules, no — naturalisation counts residence actually spent. In Portugal the period runs from the issue of the permit, but what it counts is time lived in Portugal. This is the most consequential misunderstanding in the market.
 
 ### Where this sits in the rest of the site

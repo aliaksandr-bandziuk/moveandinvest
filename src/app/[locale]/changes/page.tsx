@@ -152,6 +152,10 @@ export default async function Changes({
     // enhancer to substitute, and next-intl would read those as ICU arguments
     // it has no values for and throw at render.
     filterCount: t.raw("filterCount"),
+    // `t.raw` again: the string carries {change} for the component to substitute
+    // per row, and next-intl would read it as an ICU argument it has no value
+    // for and throw at render.
+    permalinkLabel: t.raw("permalinkLabel"),
   };
 
   const notCovered = CHANGES_NOT_COVERED.map(
@@ -239,6 +243,19 @@ export default async function Changes({
             {t("reviewedOn", { date: dayFormat.format(new Date(CHANGES_REVIEWED_ON)) })}{" "}
             {t("updatedOn", { date: dayFormat.format(new Date(CHANGES_UPDATED_ON)) })}{" "}
             {t("cadence")}
+          </p>
+
+          {/* HOW TO CITE THIS, SAID OUT LOUD. The log is the one thing on this
+              site that other people have a reason to link to — no competitor
+              audited publishes a cross-jurisdiction rule tracker with dates and
+              acts — and a thing gets cited when citing it is cheap. So both
+              addresses are offered here rather than left to be discovered: the
+              anchor beside each row, and the whole log as data at one stable
+              URL that carries all three languages and never takes a locale
+              prefix. */}
+          <p className={styles.cite}>
+            {t("citeIntro")}{" "}
+            <a href="/changes.json">/changes.json</a>. {t("citeTerms")}
           </p>
         </div>
       </section>

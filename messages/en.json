@@ -225,12 +225,15 @@
     "filterLegend": "Filter the log by jurisdiction",
     "filterAll": "All",
     "filterCount": "Showing {n} of {total} rows — this jurisdiction only.",
+    "permalinkLabel": "Link to this change: {change}",
     "seeWorking": "See the working →",
     "toSources": "Every figure and its source →",
     "notCovered": "No rows yet for {countries}: nobody has checked, which is not the same as nothing having happened.",
     "reviewedOn": "The whole log was last gone through on {date}.",
     "updatedOn": "A row last changed on {date}.",
-    "cadence": "It is reviewed in full whenever a jurisdiction is researched for a guide, which is the cadence this project can actually keep rather than a month it cannot."
+    "cadence": "It is reviewed in full whenever a jurisdiction is researched for a guide, which is the cadence this project can actually keep rather than a month it cannot.",
+    "citeIntro": "Citing one of these rules? Each row carries its own address — the # beside it — and the whole log is published as data at",
+    "citeTerms": "Free to quote and to build on, with attribution. The instrument named in each row is the authority; this page is a record of it."
   },
   "goldenVisa": {
     "columns": {

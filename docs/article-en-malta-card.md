@@ -117,28 +117,28 @@ What the published material does not settle is the deadline for appealing, or wh
 
 ### Frequently asked questions
 
-**What is a Malta TRC card?**
+? What is a Malta TRC card?
 Nothing — Malta does not use the term. The document is the eResidence card, issued by Identità. "TRC" is borrowed from the Portuguese título de residência and does not appear in Maltese sources.
 
-**How long does a Malta residence permit take?**
+? How long does a Malta residence permit take?
 Eight to ten weeks from submission for non-EU nationals, processed case by case. For EU and EEA nationals, Identità responds within 48 working hours to arrange biometrics.
 
-**Can I travel while my Malta residence application is being processed?**
+? Can I travel while my Malta residence application is being processed?
 On a first application, no. The blue or white interim receipt is expressly not a travel document and cannot be used for travel or re-entry into Malta. On a renewal, travel is generally possible on a valid passport and the existing valid card.
 
-**When can I renew my Malta residence card?**
+? When can I renew my Malta residence card?
 No earlier than three months before it expires and no later than six weeks before. Holders of Residency Malta instruments — the permanent residence programme or the nomad permit — renew through that agency instead.
 
-**How much does a Malta residence permit cost?**
+? How much does a Malta residence permit cost?
 €500 for long-term residence, €100 for economic self-sufficiency and posted workers, €50 for most other bases including study and family routes, and nothing for exempt persons, trafficking victims and volunteers.
 
-**Where do I collect my Malta residence card?**
+? Where do I collect my Malta residence card?
 At Identità in Msida, Monday to Friday between 07:30 and 13:00, without an appointment, bringing the collection letter, the interim receipt and your passport. A notification with a PIN is posted to the address on file, and only the applicant may collect it.
 
-**How long is a Malta residence card valid?**
+? How long is a Malta residence card valid?
 For EU and EEA nationals the eResidence document is generally issued for five years, and a dependant's validity matches the sponsor's. For non-EU nationals it follows the basis of the permit, and under economic self-sufficiency a two-year permit can be obtained at renewal for an extra €100.
 
-**What happens if I miss a document request?**
+? What happens if I miss a document request?
 The portal withdraws the application automatically after sixty days.
 
 ### Where this sits in the rest of the site

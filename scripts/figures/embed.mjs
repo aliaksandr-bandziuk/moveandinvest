@@ -172,7 +172,15 @@ mkdirSync(TMP, { recursive: true });
 
 let total = 0;
 
-for (const file of readdirSync(DIR).filter((name) => name.endsWith(".svg"))) {
+// НЕОБЯЗАТЕЛЬНЫЙ ФИЛЬТР ПО ИМЕНИ, добавлен 6 сентября 2026. Полный прогон по
+// 75 файлам не укладывается в лимит оболочки на машине пользователя (около
+// 120 секунд через мост), а добавление одной схемы требует пересобрать одну
+// схему. `node scripts/figures/embed.mjs pt-gv-` берёт только совпадающие;
+// без аргументов поведение прежнее — все.
+const only = process.argv.slice(2);
+const matches = (name) => only.length === 0 || only.some((part) => name.includes(part));
+
+for (const file of readdirSync(DIR).filter((name) => name.endsWith(".svg") && matches(name))) {
   const svg = readFileSync(join(DIR, file), "utf8");
   const faces = used(svg);
 

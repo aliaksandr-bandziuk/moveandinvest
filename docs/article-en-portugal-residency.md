@@ -1,4 +1,4 @@
-# Portugal D7 visa requirements, residency and citizenship in 2026
+# Portugal D7 visa requirements in 2026: €920 a month, indexed to the minimum wage
 
 **Slug:** `portugal-d7-visa-requirements-and-residency`
 **Language:** en
@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (51 characters):**
-`Portugal D7 visa requirements and residency in 2026`
+**Meta title (56 characters):**
+`Portugal D7 visa requirements 2026: €920 a month, by law`
 
-**Meta description (156 characters):**
-`What Portugal actually requires: €920 a month for the D7, no income waiver for the golden visa, and citizenship at ten years. Every figure with its article.`
+**Meta description (155 characters):**
+`The D7 asks €920 a month — the national minimum wage, indexed to it and not to the IAS. Every requirement below is quoted from the instrument that sets it.`
 
 **Excerpt:**
 `Portugal asks a D7 applicant to prove €920 a month — the national minimum wage, indexed to it and not to the IAS. It asks a golden visa investor to prove the same, which almost no page about the golden visa mentions. And since 19 May 2026 it asks for ten years of residence before citizenship, not five. Every figure below is quoted from the instrument that sets it, with the date the text was read.`
@@ -300,16 +300,48 @@ Naming those is the point rather than an apology for them. A guide that reads th
 ## Keywords
 
 **Head terms:**
-portugal d7 visa, portugal d7 visa requirements, portugal digital nomad visa, portugal d8 visa, portugal golden visa, portugal residence permit, moving to portugal, portugal residency, portugal passive income visa, portuguese citizenship, portugal permanent residency, AIMA portugal
+portugal d7 visa, portugal d7 visa requirements, d7 visa portugal, portuguese d7 visa, portugal passive income visa, d7 visa requirements portugal, portugal d7 visa income requirements
 
 **Mid-tail:**
-portugal d7 visa income requirements 2026, portugal d7 visa minimum income, portugal minimum wage 2026, portugal retirement visa, portugal citizenship after 5 years, portugal citizenship 10 years, portugal residence permit renewal, portugal family reunification, portugal NHR IFICI, portugal tax residency 183 days
+portugal d7 visa income requirements 2026, portugal d7 visa minimum income, portugal minimum wage 2026, portugal retirement visa, portugal d7 visa savings requirement, d7 visa portugal for retirees, portugal d7 visa bank statement, portugal d7 visa application process
 
 **Long tail:**
-how much passive income is enough for a d7 visa in portugal, how much money do you need in the bank to get residency in portugal, portugal d7 visa proof of income, portugal d7 visa rental income, what counts as passive income for the d7 visa, does the portugal golden visa require proof of income, portugal d8 visa income requirement 3680, is the d8 only for tech workers, where do i file a d7 visa application, how long does it take to get an aima appointment in 2026, aima backlog 2026, what happens if i miss my aima appointment, how to renew a residence permit in portugal, how long does it take to get permanent residence in portugal, does the new citizenship law affect permanent residency in portugal, when does the residency clock start for portuguese citizenship, are pending citizenship applications protected under the new law, portuguese citizenship 7 years for cplp nationals, do i need a language test for portuguese citizenship, can a d7 visa holder benefit from ifici, is nhr still available in portugal in 2026, does portugal tax foreign pension income, when can i bring my family to portugal on a d7 visa
+how much passive income is enough for a d7 visa in portugal, how much money do you need in the bank to get residency in portugal, portugal d7 visa proof of income, portugal d7 visa rental income, what counts as passive income for the d7 visa, does the portugal golden visa require proof of income, where do i file a d7 visa application, how long does it take to get an aima appointment in 2026, what happens if i miss my aima appointment, can a d7 visa holder benefit from ifici, when can i bring my family to portugal on a d7 visa, is the d7 income figure the ias or the minimum wage, does rental income count for the d7, how much does a d7 visa cost in total
 
 **Keywords placed in subheadings:**
 "Portugal residency routes in 2026"; "Portugal D7 visa requirements: €920 a month"; "What counts as passive income for the D7"; "Portugal D7 visa proof of income"; "Does the Portugal golden visa require proof of income?"; "Portugal D8 digital nomad visa requirements"; "How to apply for a D7 visa"; "Where the D7 application is filed"; "AIMA processing times and the backlog in 2026"; "After the permit: renewal, and permanent residence at five years"; "Portuguese citizenship after the 2026 law"; "When the clock starts"; "Portugal tax for residents: the 183-day rule and the IFICI 20% regime"; "Family reunification in Portugal".
+
+**Сужено до D7 6 сентября 2026, и вот почему — плюс что отсюда уйдёт.**
+
+Страница держала **двенадцать** головных терминов: D7, D8, золотая виза,
+разрешение на проживание, переезд, резидентство, пассивный доход, гражданство,
+ПМЖ и AIMA. По объёму это 315 980 показов заявленного намерения на одной
+странице в 34 КБ — D7 46 180, D8 18 010, золотая виза 143 340, гражданство
+71 080, переезд и резидентство 37 370. Ни одна страница не может быть про всё
+это сразу, и Гугл решает, что она про «Португалию», а не про D7.
+
+Разбор выдачи 6 сентября: по `portugal d7 visa requirements` в топе восемь
+страниц, посвящённых **только** D7, три из них с прицелом на граждан США. Наша
+страница стоит на 58,85 по своему же слагу. Дилюция — самая вероятная причина, и
+она проверяемая: запросы по D7 в Search Console **названы поимённо**, то есть
+страница участвует в реальной выдаче и проигрывает в ней, а не собирает
+случайные показы.
+
+**Что отсюда уходит и куда — по контент-плану, разделы уже запланированы:**
+
+- гражданство Португалии → C2 (50 250 показов), после чего раздел
+  «Portuguese citizenship after the 2026 law» сжимается до указателя;
+- D8 и цифровые кочевники → C7 (14 470), тогда же сжимается
+  «Portugal D8 digital nomad visa requirements»;
+- «moving to portugal from the US / from the UK» → D1 и D2;
+- ПМЖ и продление → уже есть `portugal-after-permit`, раздел «After the permit»
+  сжимается до указателя прямо сейчас при следующей правке текста;
+- золотая виза Португалии (143 340) — самый крупный кластер, и своей страницы у
+  него в плане нет. Это дыра в плане, а не в статье.
+
+**До выхода C2 и C7 разделы остаются на месте.** Убрать тему раньше, чем у неё
+появится дом, — это потерять её совсем, а не сфокусировать страницу. Из ключей
+термины сняты сразу: заявка на запрос и наличие абзаца — разные вещи.
 
 ---
 

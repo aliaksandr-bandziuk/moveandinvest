@@ -1,4 +1,4 @@
-# Golden visa income requirements, and what living there actually costs
+# Golden visa income requirements, and what each country actually publishes about living costs
 
 **Slug:** `golden-visa-income-requirements-and-living-costs`
 **Language:** en
@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (58 characters):**
-`Cost of living in Greece, Portugal and Malta: real figures`
+**Meta title (57 characters):**
+`Golden visa income requirements: which routes test income`
 
-**Meta description (151 characters):**
-`What living in Greece, Portugal, Malta and Dubai actually costs — and what income each country makes you prove, with the law citation for every figure.`
+**Meta description (154 characters):**
+`Three of four investment routes ask nothing about your income. Portugal is the exception. Every threshold here is quoted from the instrument that sets it.`
 
 **Excerpt:**
 `The routes that cost the most money test income the least. Greece, Malta and the UAE ask investors to prove nothing about their income; Portugal is the one exception and almost nobody writing about it says so. Every threshold below is quoted from the instrument that sets it, and the cost-of-living half explains why one comparison table would be a lie.`
@@ -171,7 +171,7 @@ The AED 6,000 monthly figure now circulating applies to **UAE nationals** in the
 
 That matters for the comparison. In Portugal and Greece, the residence income threshold can be read against a legal minimum wage — one times it in Portugal, 3.8 times it in Greece. In the UAE there is no such denominator, so USD 5,000 a month cannot be placed on the same scale as anything.
 
-### Cost of living in Portugal, Greece, Malta and Dubai: why one table would be a lie
+### Why one living-cost table for these four countries would be a lie
 
 Here is where most pages on this topic stop being useful.
 
@@ -200,7 +200,7 @@ Read that as: Portugal and Greece sit roughly 14% below the EU average price lev
 
 **The UAE cannot be placed on this scale at all.** It is not in the index, and there is no equivalent series. Every four-country comparison you will read that includes Dubai has solved this by using a crowdsourced aggregator for all four, which trades comparability for the appearance of it.
 
-#### Cost of living in Greece: €1,724.54 a month, the only current official figure
+#### Greece publishes €1,724.54 a month, and it is the only current official figure here
 
 The Hellenic Statistical Authority's Household Budget Survey for 2024, published on 25 September 2025 from a sample of 6,198 households, puts average monthly household expenditure at **€1,724.54**, up 3.6% on the previous year's €1,663.82.
 
@@ -208,7 +208,7 @@ Put that beside the FIP threshold and the comparison becomes concrete: **Greece 
 
 On rents, Greece publishes direction but not level. Residential rents rose 6.8% in the year to July 2026; the housing group as a whole rose 8.8% and was the largest single contributor to headline inflation of 3.4%. There is no standalone rent index in euros — rents appear only as a consumer-price sub-index — so anyone quoting an average Greek rent in euros is not quoting an official Greek statistic.
 
-#### Cost of living in Malta: an eleven-year-old survey and no official rent figure
+#### Malta publishes an eleven-year-old survey and no rent level at all
 
 Malta's most recent published household budget survey covers **2015** and puts average annual expenditure at €22,346. A new wave ran from November 2024 to November 2025 and had not been published as of 28 August 2026.
 
@@ -218,7 +218,7 @@ Malta publishes rent inflation but no rent level: the rent sub-index rose 3.6% i
 
 Which produces a genuine oddity worth naming: **the MPRP sets a legal rent floor of €14,000 a year, and there is no official Maltese statistic that would tell you whether that is above or below the market.**
 
-#### Cost of living in Portugal: the figure exists and we could not read it at source
+#### Portugal publishes both, and we could not read either at source
 
 Portugal's statistical office published the results of its 2022–2023 household expenditure survey on 20 December 2023, and a quarterly median rent series that resumed on 26 June 2026 after being suspended earlier in the year.
 
@@ -226,7 +226,7 @@ We could not open either release. Every route to the office's own server failed 
 
 So the position is this: figures for Portuguese household spending and median rent are in circulation, they originate from a real official release, and we have not seen the release. They are therefore not on this page. The comparative price level index above carries the Portuguese comparison instead, and it is the better instrument anyway.
 
-#### Cost of living in Dubai: a rental index that publishes no rents
+#### Dubai publishes a rental index that contains no rents
 
 The UAE is the weakest link in every comparison of these five jurisdictions, and no page we found says so.
 
@@ -304,16 +304,32 @@ Cyprus is absent from this page. Its criteria could not be read in a primary sou
 ## Keywords
 
 **Head terms:**
-golden visa income requirement, golden visa salary requirements, portugal d7 visa income requirements, malta digital nomad visa salary requirements, uae remote work visa requirements, cost of living portugal, cost of living greece, cost of living malta, cheapest golden visa europe
+golden visa income requirement, golden visa salary requirements, golden visa salary requirement, salary requirement for golden visa, do golden visas have income requirements, residence permit income requirement, which golden visa has no income requirement
 
 **Mid-tail:**
-greece financially independent person visa, malta permanent residence programme requirements, dubai golden visa salary requirements, greece fip vs golden visa, malta permanent residence programme cost, portugal vs greece cost of living
+golden visa proof of income, income test residency by investment, means of subsistence residence permit, minimum income for residency by investment, investment visa without income proof, household budget survey greece 2024, malta household budget survey year, eurostat price level index greece portugal malta
 
 **Long tail:**
-criteria for financially independent person visa in greece, what are the requirements for obtaining the fip visa for greece in 2026, greece golden visa income requirement, what is the minimum income requirement for a digital nomad visa, what are the requirements to qualify for a digital nomad visa in malta, is the malta property threshold lower in gozo, what are the requirements for a remote working visa in the uae, salary certificate format uae for remote work visa, does the uae have a minimum wage, can you live on 1000 euros a month in greece, is 2000 euro a good salary in malta, how much income do i need to live comfortably in portugal, average rent in greece official statistics, malta household budget survey year
+does a golden visa require proof of income, which european residence permit asks least about income, can you get residency by investment with no salary, is there an income requirement for the portugal golden visa, why do golden visas not check income, does the uae have a minimum wage, dubai smart rental index does it publish rents, is there an official average rent in greece, why can you not compare cost of living between these countries, what is a comparative price level index
 
 **Keywords placed in subheadings:**
-"Golden visa income requirements: the routes side by side"; "Portugal: the D7 income requirement is the minimum wage"; "Does the Portuguese golden visa waive proof of income?"; "The D8 digital nomad visa"; "Greece FIP visa requirements: €3,500 a month"; "Greece golden visa income requirement: there is not one"; "Malta digital nomad visa salary requirement: €42,000"; "Malta permanent residence income requirement: it does not exist"; "UAE remote work visa requirements: USD 5,000 a month"; "The UAE has no minimum wage"; "Cost of living in Portugal, Greece, Malta and Dubai"; "Cost of living in Greece: €1,724.54 a month"; "Cost of living in Malta"; "Cost of living in Portugal"; "Cost of living in Dubai"; "Which country is cheapest depends on what you have".
+"Golden visa income requirements: the routes side by side"; "Portugal: the D7 income requirement is the minimum wage"; "Does the Portuguese golden visa waive proof of income?"; "Greece FIP visa requirements: €3,500 a month"; "Greece golden visa income requirement: there is not one"; "Malta digital nomad visa salary requirement: €42,000"; "Malta permanent residence income requirement: it does not exist"; "UAE remote work visa requirements: USD 5,000 a month"; "The UAE has no minimum wage"; "Why one living-cost table for these four countries would be a lie"; "Greece publishes €1,724.54 a month"; "Malta publishes an eleven-year-old survey"; "Portugal publishes both, and we could not read either at source"; "Dubai publishes a rental index that contains no rents"; "Which country is cheapest depends on what you have".
+
+**Что снято с этой страницы и почему — 6 сентября 2026.**
+Головными терминами здесь стояли `cost of living portugal`, `cost of living
+greece`, `cost of living malta`, `portugal d7 visa income requirements`,
+`malta digital nomad visa salary requirements`, `dubai golden visa salary
+requirements`, `greece fip visa requirements`, `malta permanent residence
+programme requirements` и `cheapest golden visa europe`. Ни одним из них эта
+страница владеть не может: каждый — более длинный вариант термина, которым уже
+владеет другая наша страница (greece-living, portugal-residency, malta-nomad,
+malta-residency, greece-residency, uae-residency), а три «cost of living»
+зарезервированы за отдельными страницами C1 и C6 контент-плана. Проверка
+`npm run keywords` показывала чистый прогон, потому что сравнивала строки, а не
+намерения; с 6 сентября она сравнивает и множества слов.
+
+`cheapest golden visa europe` снят по выдаче, а не по столкновению: все девять
+результатов — списки на 15–17 стран, а у нас пять.
 
 ---
 
@@ -326,3 +342,5 @@ This is a localisation rather than a translation. The facts are identical and co
 **The Russian version leads with the amount.** Russian search leads with the outcome and the number — "какой доход нужен для ВНЖ", "сколько денег должно быть на счету". It also has a serious trap the English does not: the bare phrase "подтверждение дохода для ВНЖ" belongs overwhelmingly to the Russian domestic annual residence-confirmation procedure, so every heading in the Russian version binds the income question to a named country.
 
 **The Polish version leads with cost of living.** Polish search for these five jurisdictions has almost no depth on income thresholds and considerable depth on what living there costs and what people earn. The Polish version therefore opens on cost and attaches the thresholds as the answer to "could I actually move there". It also has to signal permanent residence in its subheadings, because Polish cost-of-living queries are heavily contaminated with holiday budgeting.
+
+**The cost-of-living terms were removed from the English version on 6 September 2026 and deliberately left on the Russian and Polish ones.** This asymmetry is a decision, not an oversight, and it exists because the three languages have different owners for the same idea. In English, `cost of living in portugal`, `cost of living in malta` and `cost of living in greece` are 17,100 searches a month that belong to dedicated pages — two of them scheduled in the content plan, the Greek one already published — so a five-country comparison holding those terms is a page competing with its own site. In Russian the demand is not phrased that way at all: the intent is carried by "переезд", the Russian move-to-Greece article says in its own keyword block that "стоимость жизни в Греции" stays here, and no other Russian page claims it. In Polish there is no competing page and none is planned — the content plan rejected new Polish pages for the fourth time on the same evidence — and this article is the best-ranking page on the site at position 6.92, which it holds precisely because it is a cost-of-living page. Harmonising the three keyword sets would fix nothing in English and break the one page that works.
