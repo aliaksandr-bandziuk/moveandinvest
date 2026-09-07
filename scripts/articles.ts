@@ -374,6 +374,40 @@ const ENTRIES: Record<string, EntryConfig> = {
     category: "relocation",
     countries: ["country-pt"],
   },
+  "malta-citizenship": {
+    key: "article-malta-citizenship",
+    sources: {
+      en: "article-en-malta-citizenship.md",
+    },
+    figures: {
+      en: ["mt-chain-en", "mt-routes-en"],
+    },
+    publishedAt: "2026-09-07T14:00:00.000Z",
+    // "rules": предмет — что именно сделали три акта и чем отличается удаление
+    // от приостановки.
+    category: "rules",
+    countries: ["country-mt"],
+    // Английская. Русский и польский кластеры пока держит статья про золотой
+    // паспорт; разводить будем при F3, а не задним числом.
+  },
+  "portugal-living": {
+    key: "article-portugal-living",
+    sources: {
+      en: "article-en-portugal-living.md",
+    },
+    figures: {
+      en: ["pt-living-rent-en", "pt-living-domicile-en"],
+    },
+    publishedAt: "2026-09-07T12:00:00.000Z",
+    // "costs": предмет — что стоит аренда и покупка по данным INE, а не какой
+    // документ подавать.
+    category: "costs",
+    countries: ["country-pt"],
+    // АНГЛИЙСКАЯ ТОЛЬКО, решение по спросу. Русский португальский спрос идёт в
+    // «переезд» и живёт в article-ru-portugal-move.md; польский кластер
+    // `koszty życia w portugalii` держит польская income-статья, стоящая на
+    // 6,92. См. блок ключей в конце файла статьи.
+  },
   "portugal-golden-visa": {
     key: "article-portugal-golden-visa",
     sources: {
@@ -392,6 +426,25 @@ const ENTRIES: Record<string, EntryConfig> = {
     // португалии` — 260, `złota wiza portugalia` — 20. Русский португальский
     // спрос идёт в «внж португалии» и «гражданство португалии», то есть в
     // portugal-residency и в будущую F4. См. блок ключей в конце файла статьи.
+  },
+  "portugal-citizenship": {
+    key: "article-portugal-citizenship",
+    sources: {
+      en: "article-en-portugal-citizenship.md",
+    },
+    figures: {
+      en: ["pt-nat-clock-en", "pt-nat-limbs-en"],
+    },
+    publishedAt: "2026-09-07T15:00:00.000Z",
+    // "rules": предмет — текст Lei Orgânica 1/2026 по статьям, а не маршрут.
+    category: "rules",
+    countries: ["country-pt"],
+    // АНГЛИЙСКАЯ ТОЛЬКО. Кластер `portuguese citizenship` — 144 570 показов,
+    // но выиграть можно не его: генеричный запрос отдаёт консульства, gov.pt
+    // и Википедию. Берём закон: `portugal nationality law` — 2 900 при
+    // конкуренции 2, `portugal citizenship law` — 880 при конкуренции 7 и
+    // самом дорогом клике в проекте. Ни на одной странице выдачи не назван
+    // сам акт. Русский кластер держит portugal-move.
   },
   "greece-process": {
     key: "article-greece-process",

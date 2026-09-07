@@ -90,14 +90,47 @@ form quoted.
    would not cross-refer to a repealed portaria. The DRE status line could not
    be read. Confidence: medium-high, not certainty.
 
-#### D8 digital nomad — no statutory threshold
+#### D8 digital nomad — the threshold IS in law, and we said it was not
 
-**Lei 23/2007, art. 61.º-B contains no income figure and no multiple of the
-minimum wage.** The widely circulated "four times the minimum wage" (€3,680 a
-month at the 2026 RMMG) could not be traced to any portaria, decreto or
-despacho; it appears only on consultancy and law-firm pages. AIMA's own
-checklists were unreachable, so an administratively fixed figure cannot be ruled
-out. **The article must not state the 4× figure as law.**
+**CORRECTED 7 SEPTEMBER 2026. THE PREVIOUS ENTRY HERE WAS WRONG AND HAD BEEN
+PUBLISHED IN SIX FILES.** It read: the four-times-the-minimum-wage figure "could
+not be traced to any portaria, decreto or despacho" and must be treated as
+practice guidance rather than law. It is law.
+
+**Decreto Regulamentar n.º 4/2022, de 30 de setembro** — the regulation that
+implements Lei 18/2022 — sets it, in two places, for the two D8 variants.
+
+Art. 18.º-B, for the **temporary-stay** visa under art. 54.º(1)(i) of Lei
+23/2007, alínea c):
+
+> "Comprovativo de rendimentos médios mensais auferidos no exercício de
+> atividade profissional subordinada ou independente nos últimos três meses de
+> valor mínimo equivalente a quatro remunerações mínimas mensais garantidas"
+
+Art. 31.º-A n.º 1, for the **residence** visa under art. 61.º-B, alínea c) —
+word for word the same sentence. Art. 31.º-A n.º 2 sends an applicant without
+the residence visa to the procedure of arts. 88.º and 89.º of Lei 23/2007.
+Art. 7.º: in force thirty days after publication.
+https://files.dre.pt/1s/2022/09/19000/0002800097.pdf
+
+**What was right and stays right:** art. 61.º-B of Lei 23/2007 itself states no
+figure. Its single paragraph requires only that the employment relationship or
+the service contract be demonstrated. The figure lives in the regulation, not in
+the statute — which is why searching the statute and stopping there produced a
+false negative.
+
+**What to write instead, and it is the better finding.** The law fixes a
+**multiplier of the RMMG measured over the last three months**, not a euro
+amount. At the 2026 RMMG of €920 that is €3,680 — so the market's figure is
+correct for 2026 and expires with the year. A page printing "€3,680" without the
+year and without the multiplier is printing a number with a shelf life, and that
+is the criticism the table should have made.
+
+**THE LESSON, AND IT IS THE SAME ONE AS ART. 15.º THE SAME MORNING:** a negative
+claim about a whole legal order needs the search that produced it written down —
+which instruments were opened, and which were not. This one was published as
+"untraceable to any portaria, decreto or despacho" when the implementing decreto
+regulamentar had not been opened at all.
 
 ### Greece
 

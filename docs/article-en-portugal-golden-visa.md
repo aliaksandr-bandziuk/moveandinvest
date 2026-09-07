@@ -136,7 +136,7 @@ Against five years for everybody before. The law also added an examination in cu
 
 **The transitional rule is article 7(2):** proceedings already pending on 19 May 2026 are decided under the previous text. It is the pending application that is protected, not the pending residence.
 
-And the period runs from the **issue** of the residence permit. On a route where the card can take one to three years to arrive, that is the difference between a ten-year plan and a thirteen-year one.
+Article 5 of the same law does something the market has not reported at all: it **repeals article 15(4) of Lei 37/81**, the paragraph inserted by Lei Orgânica 1/2024 that made the time waiting for a residence permit count towards naturalisation once the permit was granted. On a route where the card can take one to three years to arrive, that paragraph was worth a third of the clock. What is left is article 15(1) — lawful presence under any title, visa or authorisation — which starts when a title exists, not when one is requested. So the honest sentence is the pair: a file pending on 19 May 2026 still counts from the request, and anything after it does not. That is the difference between a ten-year plan and a thirteen-year one, and which of the two you are on depends on a date in the past.
 
 This is the single fact most often missing from pages selling the route. On 6 September 2026 the largest investment-migration site's Portugal golden visa page did not mention the change at all; the second still described renewable two-year permits without naming where the road ends.
 

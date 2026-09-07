@@ -91,11 +91,15 @@ The exception in article 90-A is singular and explicit. It removes the visa. It 
 
 We checked whether the 2025 reforms changed this. Lei 23/2007 was amended three times in 2025: Lei 9/2025 of 13 February, Lei 55-C/2025 of 22 July and Lei 61/2025 of 22 October. The amendment lists in the first and third name neither article 77 nor article 90-A, and the consolidated text incorporating all three still reads as quoted.
 
-#### The D8 digital nomad visa: the widely quoted figure is not in any instrument
+#### The D8 digital nomad visa: a multiplier, and the euro figure everybody prints instead
 
 Article 61-B of Lei 23/2007 creates the digital nomad residence visa. It requires the applicant to demonstrate the employment relationship or the service contract. **It contains no income figure and no multiple of the minimum wage.**
 
-The figure in general circulation is four times the minimum wage, which would be €3,680 a month in 2026. We could not trace it to any portaria, decreto or despacho. It appears on consultancy and law-firm pages and nowhere we could read in the legislation. That does not prove no such figure is applied — an immigration authority can operate a published checklist that is not itself legislation — but it does mean nobody should present €3,680 as Portuguese law, and we do not.
+The threshold is one level down, in **Decreto Regulamentar 4/2022 of 30 September 2022**, which implements that law. Article 18-B(c) for the temporary-stay variant and article 31-A(1)(c) for the residence variant use identical words: average monthly income over the last three months of at least four guaranteed minimum monthly wages.
+
+So the number is law, and it is not a number. It is four times the RMMG — €3,680 at the 2026 rate of €920, and a different figure every January. The pages that print "€3,680" without the year or the multiplier are right this year and stale next.
+
+**This corrects what stood here until 7 September 2026**, which said the four-times figure could not be traced to any instrument. We had read article 61-B, found it silent on money, and stopped short of the regulation that implements it. See [our sources page](/sources#pt-dr-4-2022).
 
 ### Greece FIP visa requirements: €3,500 a month, and nothing for the golden visa
 
@@ -277,7 +281,7 @@ USD 5,000 a month, for employees and for company owners alike, as stated on the 
 No. The federal authority and the Dubai Land Department both state the condition as ownership of property worth at least AED 2,000,000, and neither lists salary, income or savings among the requirements.
 
 ? Does the Portuguese D8 digital nomad visa require four times the minimum wage?
-That figure is widely published and we could not find it in any Portuguese legal instrument. Article 61-B of Lei 23/2007 requires proof of the employment or service relationship and states no income figure. Treat €3,680 as practice guidance of unknown status, not as law.
+Yes, but the requirement is a multiplier rather than a euro amount: Decreto Regulamentar 4/2022, articles 18-B(c) and 31-A(1)(c), ask for average monthly income over the last three months of at least four guaranteed minimum monthly wages. At the 2026 RMMG of €920 that is €3,680. Article 61-B of Lei 23/2007 itself states no figure — it is in the implementing regulation.
 
 ? Which of these countries is cheapest to live in?
 On the only comparable measure, Eurostat's price level index, Portugal and Greece sit about 14% below the EU average and Malta about 8% below. The UAE is not in the index and has no equivalent series, so a four-way comparison including Dubai cannot be made from official statistics.

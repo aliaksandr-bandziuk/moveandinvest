@@ -186,6 +186,12 @@ const CHECKED_2026_09_05: Record<Locale, string> = {
   pl: "5 września 2026",
 };
 
+const CHECKED_2026_09_07: Record<Locale, string> = {
+  en: "7 September 2026",
+  ru: "7 сентября 2026 года",
+  pl: "7 września 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
@@ -195,6 +201,7 @@ export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-08-30": CHECKED_2026_08_30,
   "2026-09-01": CHECKED_2026_09_01,
   "2026-09-05": CHECKED_2026_09_05,
+  "2026-09-07": CHECKED_2026_09_07,
 };
 
 /** The date that governs every row not carrying its own. */
@@ -224,12 +231,12 @@ export const CHECKED_ON: Record<Locale, string> = CHECKED_2026_08_23;
 // re-verification may move a check date — which is the discipline the whole
 // page exists to demonstrate, and the exact discipline the "last updated"
 // stamps this page audits other sites for are failing.
-export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_05;
+export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_07;
 
 /** The ISO form of REVISED_ON, for the page's `dateModified`. Kept beside it so
  *  the two cannot drift; the rendered strings are hand-written because Intl
  *  abbreviates the Russian. */
-export const REVISED_ON_ISO = "2026-09-05";
+export const REVISED_ON_ISO = "2026-09-07";
 
 const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // --- Portugal -------------------------------------------------------------
@@ -327,8 +334,31 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Opłaty AIMA od 1 marca 2026: rozpatrzenie €842,80, wydanie €8 418,90, odnowienie €4 210,30, członek rodziny €8 418,90, zniżka 25% przy złożeniu online. Jeden wnioskodawca do pierwszego odnowienia to około €13 470 samych opłat; rodzina trzyosobowa około €40 400. Z prawnikiem i prowizjami funduszu realnie €30–50 tys. na osobę i €65–90 tys. na rodzinę.",
         },
       },
+      {
+        subject: {
+          en: "OUR OWN ERROR — “the D8’s four-times-the-minimum-wage figure is in no instrument”",
+          ru: "НАША СОБСТВЕННАЯ ОШИБКА — «четырёхкратности минимальной зарплаты для D8 нет ни в одном акте»",
+          pl: "NASZ WŁASNY BŁĄD — \u201eczterokrotności płacy minimalnej dla D8 nie ma w żadnym akcie\u201d",
+        },
+        verdict: "corrected",
+        checked: "2026-09-07",
+        finding: {
+          en: "We published, in six files, that the widely quoted four-times-the-minimum-wage threshold for the D8 could not be traced to any portaria, decreto or despacho, and named two sites as printing a figure that was not law. It is law. Decreto Regulamentar 4/2022 of 30 September 2022, art. 18-B(c) for the temporary-stay visa and art. 31-A(1)(c) for the residence visa, both require “rendimentos médios mensais … nos últimos três meses de valor mínimo equivalente a quatro remunerações mínimas mensais garantidas”. What was right and stays right: art. 61-B of Lei 23/2007 itself states no figure. We read the statute, found it silent, and did not open the regulation that implements it. The finding that survives is better than the one we lost: the law fixes a MULTIPLIER over a three-month average, not a euro amount — €3,680 at the 2026 RMMG of €920, and a different number every January.",
+          ru: "Мы опубликовали в шести файлах, что широко цитируемый порог «четыре минимальные зарплаты» для D8 не прослеживается ни до одной portaria, decreto или despacho, и назвали два сайта как печатающие цифру, которая нормой не является. Она норма. Decreto Regulamentar 4/2022 от 30 сентября 2022 года, ст. 18-B(c) для визы временного пребывания и ст. 31-A(1)(c) для резидентской визы, обе требуют «rendimentos médios mensais … nos últimos três meses de valor mínimo equivalente a quatro remunerações mínimas mensais garantidas». Верным осталось одно: в самой ст. 61-B Lei 23/2007 суммы нет. Мы прочитали закон, увидели молчание и не открыли исполняющий его регламент. Уцелевшая находка лучше потерянной: закон фиксирует КРАТНОСТЬ по среднему за три месяца, а не сумму в евро — 3680 евро при RMMG 2026 года в 920 евро и другое число каждый январь.",
+          pl: "Opublikowaliśmy w sześciu plikach, że szeroko cytowany próg \u201eczterokrotność płacy minimalnej\u201d dla D8 nie da się wywieść z żadnej portarii, dekretu ani despacho, i wskazaliśmy dwa serwisy jako drukujące liczbę, która normą nie jest. Jest normą. Decreto Regulamentar 4/2022 z 30 września 2022, art. 18-B(c) dla wizy pobytu czasowego i art. 31-A(1)(c) dla wizy rezydenckiej, oba wymagają \u201erendimentos médios mensais … nos últimos três meses de valor mínimo equivalente a quatro remunerações mínimas mensais garantidas\u201d. Prawdą pozostaje jedno: sam art. 61-B Lei 23/2007 kwoty nie podaje. Przeczytaliśmy ustawę, zobaczyliśmy milczenie i nie otworzyliśmy wykonującego ją rozporządzenia. Ustalenie, które przetrwało, jest lepsze od utraconego: prawo ustala KROTNOŚĆ liczoną ze średniej z trzech miesięcy, a nie kwotę w euro — 3680 euro przy RMMG 920 euro na 2026 rok i inna liczba każdego stycznia.",
+        },
+      },
     ],
     sources: [
+      {
+        // id БЕЗ ПРЕФИКСА СЕКЦИИ: якорь строится как `${section.key}-${id}`,
+        // и "pt-dr-4-2022" дал бы /sources#pt-pt-dr-4-2022.
+        id: "dr-4-2022",
+        citation:
+          "Decreto Regulamentar 4/2022, de 30 de setembro — arts. 18.º-B and 31.º-A (D8 income threshold)",
+        url: "https://files.dre.pt/1s/2022/09/19000/0002800097.pdf",
+        kind: "official",
+      },
       {
         id: "lei-56-2023",
         citation: "Lei 56/2023 (“Mais Habitação”), art. 53",
@@ -1260,10 +1290,11 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Portugalia — \u201epięć lat do obywatelstwa\u201d",
         },
         verdict: "corrected",
+        checked: "2026-09-07",
         finding: {
-          en: "Lei Orgânica 1/2026 (Diário da República, 18 May 2026, in force from 19 May) rewrote art. 6(1)(b) of Lei 37/81: seven years for nationals of Portuguese-speaking countries and of the EU, ten years for everybody else. Plus an examination in the language and in culture, history and state symbols, and a solemn declaration of adherence to the rule of law. It is not retroactive — applications filed before it came into force are decided under the previous text. The period runs from the ISSUE of the residence permit, not from the application.",
-          ru: "Lei Orgânica 1/2026 (Diário da República, 18 мая 2026 года, в силе с 19 мая) переписала ст. 6(1)(b) Lei 37/81: семь лет для граждан португалоязычных стран и ЕС, десять лет для всех остальных. Плюс экзамен по языку и по культуре, истории и государственным символам, плюс торжественная декларация о приверженности принципам правового государства. Обратной силы нет: дела, поданные до вступления в силу, решаются по прежней редакции. Срок считается от выдачи вида на жительство, а не от подачи заявления.",
-          pl: "Lei Orgânica 1/2026 (Diário da República, 18 maja 2026, w mocy od 19 maja) przepisała art. 6(1)(b) Lei 37/81: siedem lat dla obywateli krajów portugalskojęzycznych i UE, dziesięć lat dla pozostałych. Plus egzamin z języka oraz z kultury, historii i symboli państwowych, plus uroczysta deklaracja przywiązania do zasad państwa prawa. Bez mocy wstecznej: sprawy złożone przed wejściem w życie rozstrzyga się według poprzedniego brzmienia. Okres liczy się od WYDANIA zezwolenia na pobyt, a nie od złożenia wniosku.",
+          en: "Lei Orgânica 1/2026 (Diário da República, 18 May 2026, in force from 19 May) rewrote art. 6(1)(b) of Lei 37/81: seven years for nationals of Portuguese-speaking countries and of the EU, ten years for everybody else. Plus an examination in the language and in culture, history and state symbols, and a solemn declaration of adherence to the rule of law. It is not retroactive — applications filed before it came into force are decided under the previous text (art. 7(2)). And art. 5 of the same law REPEALS art. 15(4) of Lei 37/81, the paragraph inserted by Lei Orgânica 1/2024 that made time in the residence-permit queue count once the permit was granted. So there are two regimes: a file pending on 19 May 2026 still counts from the date the permit was REQUESTED; after that date what remains is art. 15(1), lawful presence under any title, visa or authorisation — which no longer reaches back over a queue that can run one to three years.",
+          ru: "Lei Orgânica 1/2026 (Diário da República, 18 мая 2026 года, в силе с 19 мая) переписала ст. 6(1)(b) Lei 37/81: семь лет для граждан португалоязычных стран и ЕС, десять лет для всех остальных. Плюс экзамен по языку и по культуре, истории и государственным символам, плюс торжественная декларация о приверженности принципам правового государства. Обратной силы нет: дела, поданные до вступления в силу, решаются по прежней редакции (ст. 7(2)). И ст. 5 того же закона ОТМЕНЯЕТ ст. 15(4) Lei 37/81 — пункт, внесённый Lei Orgânica 1/2024, по которому время ожидания вида на жительство засчитывалось задним числом после его выдачи. Отсюда два режима: по делу, поданному до 19 мая 2026 года, срок по-прежнему идёт с даты подачи заявления на ВНЖ; после этой даты остаётся ст. 15(1) — законное присутствие по любому титулу, визе или разрешению, и очередь длиной от года до трёх лет в срок больше не попадает.",
+          pl: "Lei Orgânica 1/2026 (Diário da República, 18 maja 2026, w mocy od 19 maja) przepisała art. 6(1)(b) Lei 37/81: siedem lat dla obywateli krajów portugalskojęzycznych i UE, dziesięć lat dla pozostałych. Plus egzamin z języka oraz z kultury, historii i symboli państwowych, plus uroczysta deklaracja przywiązania do zasad państwa prawa. Bez mocy wstecznej: sprawy złożone przed wejściem w życie rozstrzyga się według poprzedniego brzmienia (art. 7(2)). A art. 5 tej samej ustawy UCHYLA art. 15(4) Lei 37/81 — ustęp wprowadzony przez Lei Orgânica 1/2024, dzięki któremu czas oczekiwania na zezwolenie na pobyt liczył się wstecz po jego wydaniu. Stąd dwa reżimy: w sprawie zawisłej 19 maja 2026 okres nadal biegnie od daty ZŁOŻENIA wniosku o pobyt; po tej dacie zostaje art. 15(1), czyli legalna obecność na podstawie dowolnego tytułu, wizy lub zezwolenia — a kolejka trwająca od roku do trzech lat już się nie liczy.",
         },
       },
       {
@@ -1312,6 +1343,13 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         id: "lei-organica-1-2026",
         citation: "Lei Orgânica 1/2026 — Diário da República, 18 May 2026",
         url: "https://files.diariodarepublica.pt/1s/2026/05/09500/0000200020.pdf",
+        kind: "official",
+      },
+      {
+        id: "lei-organica-1-2024",
+        citation:
+          "Lei Orgânica 1/2024 — Diário da República, 5 March 2024 (art. 15(4), repealed 19 May 2026)",
+        url: "https://files.diariodarepublica.pt/1s/2024/03/04600/0000200019.pdf",
         kind: "official",
       },
       {

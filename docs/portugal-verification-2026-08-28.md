@@ -179,10 +179,65 @@ CEFR level appears in this statute either** — same caution as art. 80.
 **CPLP presumption, art. 6.º n.º 10:** nationals of Portuguese-speaking countries
 are presumed to satisfy the language limb unless a lack of Portuguese is manifest.
 
-**How residence is counted, art. 15.º:** n.º 1 counts anyone lawfully present
-under any title, visa or authorisation of the immigration regime; n.º 3
-aggregates broken periods only within a window of 6, 9 or 12 years for stateless
-persons, CPLP and EU citizens, and everyone else respectively.
+**How residence is counted, art. 15.º — VERBATIM, re-read at the official PDF on
+2026-09-07. This replaces the paraphrase that stood here before, which was too
+narrow and had propagated into three published articles.**
+
+> "1 — Para os efeitos do disposto nos artigos precedentes, entende-se que
+> residem legalmente no território português os indivíduos que aqui se encontram,
+> com a sua situação regularizada perante as autoridades portuguesas, ao abrigo
+> de qualquer dos títulos, vistos ou autorizações previstos no regime de entrada,
+> permanência, saída e afastamento de estrangeiros e no regime do direito de
+> asilo.
+>
+> 2 — O disposto no número anterior não prejudica os regimes especiais de
+> residência legal resultantes de tratados ou acordos internacionais vinculativos
+> do Estado português, designadamente no âmbito da União Europeia e da Comunidade
+> dos Países de Língua Portuguesa.
+>
+> 3 — Para os efeitos de contagem de prazos de residência legal previstos na
+> presente lei, considera-se a soma de todos os períodos de residência legal em
+> território nacional, seguidos ou interpolados, desde que os mesmos tenham
+> decorrido num intervalo máximo de 6, 9 ou 12 anos, consoante os interessados
+> sejam apátridas, cidadãos nacionais de países de língua oficial portuguesa e de
+> Estados-Membros da União Europeia, ou cidadãos de outros países.
+>
+> 4 — [Revogado.]
+>
+> 5 — Para efeitos do disposto no n.º 4 do artigo 6.º, consideram-se ainda como
+> residindo legalmente no território português as crianças e jovens filhos de
+> estrangeiros e acolhidos em instituição pública, cooperativa, social ou privada
+> com acordo de cooperação com o Estado."
+
+**THE REPEAL OF N.º 4 IS THE MOST CONSEQUENTIAL SENTENCE IN THIS FILE, AND
+NOBODY IN THE ENGLISH-LANGUAGE MARKET HAS IT.** The chronology:
+
+- **Lei Orgânica 1/2024 of 5 March 2024** inserted art. 15.º n.º 4:
+  > "Para os efeitos de contagem de prazos de residência legal previstos na
+  > presente lei, considera-se igualmente o tempo decorrido desde o momento em
+  > que foi requerida a autorização de residência temporária, desde que a mesma
+  > venha a ser deferida."
+
+  Time in the AIMA queue counted, retrospectively, once the permit was granted.
+  https://files.diariodarepublica.pt/1s/2024/03/04600/0000200019.pdf
+- **Lei Orgânica 1/2026, art. 5.º (norma revogatória)** repeals it, verbatim:
+  > "São revogados os n.os 5, 7 e 13 do artigo 6.º, as alíneas b) e d) do n.º 1 e
+  > os n.os 3 e 4 do artigo 9.º, o n.º 4 do artigo 12.º-B, o artigo 13.º e o n.º
+  > 4 do artigo 15.º da Lei n.º 37/81"
+- **Art. 8.º:** in force the day after publication — 19 May 2026.
+- **Art. 7.º n.º 2** keeps the previous text, n.º 4 included, for procedures
+  pending on that date.
+
+**So the start date is not one date, it is two regimes.** For a file pending on
+19 May 2026, the clock still runs from the date the residence permit was
+*requested*. For anything after, n.º 4 is gone and what remains is n.º 1: legal
+residence is regularised presence **under any title, visa or authorisation** of
+the immigration or asylum regime — which is broader than the residence card and
+includes a national residence visa, but does not reach back to cover a queue.
+
+**What must NOT be written.** Do not write "the period runs from the issue of the
+residence permit" flat. It is a paraphrase of a repeal, not a rule the statute
+states, and it is wrong for pending files. Write the repeal.
 
 **The transitional rule, and it is the sentence that matters most to a reader —
 art. 7.º:**
@@ -312,17 +367,18 @@ people's numbers is only fair if it is specific.
 
 | Figure published | By | Reality |
 |---|---|---|
-| D8 "€3,680 a month, four times the minimum wage" | Global Citizen Solutions, Taxes for Expats | Art. 61-B states no figure. Untraceable to any portaria, decreto or despacho. |
+| ~~D8 "€3,680 a month, four times the minimum wage"~~ | ~~Global Citizen Solutions, Taxes for Expats~~ | **THIS ROW WAS OUR ERROR, WITHDRAWN 7 SEPTEMBER 2026.** The figure is law: Decreto Regulamentar 4/2022, arts. 18.º-B(c) and 31.º-A(1)(c), "quatro remunerações mínimas mensais garantidas". Art. 61-B is silent, but the regulation is not. €3,680 is correct at the 2026 RMMG of €920. See the cost-of-living verification file. |
 | D7 "€760 a month single, €1,140 couple"; "D8 Lite €2,820" | Wise | The 2023 minimum wage and 4× the 2022 one. Roughly 17% understated; a reader following it would be refused. Page stamped February 2026. |
 | D7 "€7,200 per annum" | Greenback Tax Services | The 2021-era figure. About 35% understated. |
 | "Citizenship after 5 years of legal residence" for retirees | imin-portugal | Wrong since 19 May 2026. Page last modified December 2025. |
 | No D7 income figure at all, in a 10,000-word retirement guide | Get Golden Visa | Two separate cost-of-living sections, no threshold. |
 
-One page deserves credit rather than criticism and the article should give it:
-**MSP Lawyer** describes the €3,680 as a standardised consular and AIMA practice
-rather than as law. They did not name art. 61-B or demonstrate the silence, but
-they were honest about the status of the number. Claiming to be first to notice
-would be false.
+**MSP Lawyer**, which we praised for describing the €3,680 as consular and AIMA
+practice rather than as law, was in fact also wrong, in the same direction we
+were: it is law, in Decreto Regulamentar 4/2022. The credit stands only for
+their caution about the number's status, not for their account of it. Nothing
+about the D8 threshold on this page survived the 7 September re-read, and the
+article must not carry the old framing in any language.
 
 ---
 

@@ -23,7 +23,7 @@
 
 1. `Diagram of Portuguese residence routes in 2026: the D7 for holders of own income and the D8 for remote workers, both with a residence visa; the investment permit without a visa but with the same means-of-subsistence test; and the property investment route abolished in 2023.`
 2. `Timeline of the Portuguese naturalisation clock: five years of residence for applications filed up to 18 May 2026, and from 19 May 2026 seven years for European Union and Portuguese-speaking country nationals and ten years for everyone else.`
-3. `Table comparing the D7 income threshold set by law, 920 euros a month in 2026, against figures published by four ranking websites: 760 euros, 7200 euros a year, 3680 euros for the D8 and one page with no figure at all.`
+3. `Table comparing the D7 income threshold set by law, 920 euros a month in 2026, against figures published by ranking websites: 760 euros, 7200 euros a year, and one page with no figure at all.`
 
 ---
 
@@ -40,13 +40,13 @@ Everything below is quoted from the act that sets it, with the article number an
 | Route | Residence visa needed | Income test | What it actually requires |
 | --- | --- | --- | --- |
 | D7, holders of own income | Yes | €920 a month | Stable, regular income: pension, rent, dividends, royalties |
-| D8, remote work | Yes | No figure in the statute | Proof of the employment or service relationship |
+| D8, remote work | Yes | Four minimum wages, from the regulation not the statute | Proof of the employment or service relationship |
 | Investment permit (golden visa) | No | €920 a month, not waived | €500,000 fund subscription or another qualifying activity |
 | Property purchase | Dash | Dash | Abolished in 2023, with no replacement |
 
 ![1]
 
-Two rows in that table are where readers are most often misled, and both are dealt with in full below: the investment permit's income test, which is real, and the D8's income figure, which is not.
+Two rows in that table are where readers are most often misled, and both are dealt with in full below: the investment permit's income test, which is real and which almost nobody mentions, and the D8's income figure, which is real but is a multiplier rather than the euro amount everybody prints.
 
 ### Portugal D7 visa requirements: €920 a month, indexed to the minimum wage
 
@@ -106,15 +106,17 @@ In exchange for the waived visa, art. 90-A(1) adds its own conditions: a valid S
 
 The practical consequence is small in money and large in paperwork. €920 a month is the lowest income bar of any Portuguese route, and an investor who has moved half a million euros will clear it. But it is a document to produce, and a page that tells you the golden visa has no income requirement has told you something that is not in the law.
 
-### Portugal D8 digital nomad visa requirements: the €3,680 figure is not in any law
+### Portugal D8 digital nomad visa requirements: the threshold is a multiplier, not a euro figure
 
 **Article 61-B of Lei 23/2007** creates the residence visa for remote professional activity. It requires the applicant to demonstrate the employment relationship or the provision-of-services contract, according to which applies. **It states no income figure and no multiple of the minimum wage.**
 
-The figure in general circulation is four times the minimum wage — €3,680 a month at the 2026 rate. We could not trace it to any portaria, decreto or despacho. It appears on consultancy and law-firm pages and in none of the legislation we could read.
+The figure is one level down, in the regulation that implements the law. **Decreto Regulamentar 4/2022 of 30 September 2022** sets it twice, once for each D8 variant: article 18-B(c) for the temporary-stay visa and article 31-A(1)(c) for the residence visa, in the same words both times — proof of average monthly income over **the last three months** of at least "quatro remunerações mínimas mensais garantidas", four guaranteed minimum monthly wages.
 
-That does not prove no such figure is applied. An immigration authority can operate a published checklist that is not itself legislation, and consular practice can standardise around a number without a legal instrument. What it means is that €3,680 must not be presented as Portuguese law, and that a reader planning around it is planning around practice whose status nobody has demonstrated.
+So the threshold is real and it is law. What it is not is a euro figure. It is an index, and the number moves every January with the minimum wage: €3,680 at the 2026 RMMG of €920, and something else next year without a word of the law changing.
 
-One page in this market gets that right and deserves the credit: **MSP Lawyer** describes the figure as a standard applied by consulates and AIMA rather than as a statutory threshold. They do not name article 61-B or show the silence in it, which is what this page adds.
+That is the part the market gets wrong, and it gets it wrong quietly. A page that prints "€3,680" and stops has printed a figure with a shelf life; a reader who finds that page in 2027 will be planning against last year's minimum wage. The two things worth carrying away are the multiplier and the three-month averaging period, because those are what the regulation actually fixes.
+
+**A correction, and it is ours.** Until 7 September 2026 this page said the opposite: that the four-times figure could not be traced to any portaria, decreto or despacho and should not be treated as law. That was wrong. We had read article 61-B, found it silent, and stopped — without opening the decreto regulamentar that implements it. The error and the instrument that corrects it are both on our [sources page](/sources#pt-dr-4-2022).
 
 ### How to apply for a D7 visa: the residence visa, four months, and the AIMA appointment
 
@@ -227,7 +229,6 @@ An audit of other people's numbers is only fair if it is specific, so here are t
 
 | Published figure | Where | What the instrument says |
 | --- | --- | --- |
-| D8 "€3,680 a month, four times the minimum wage" | Global Citizen Solutions, Taxes for Expats | Article 61-B states no figure. Untraceable to any portaria, decreto or despacho. |
 | D7 "€760 a month single, €1,140 a couple"; "D8 Lite €2,820" | Wise | The 2023 minimum wage, and four times the 2022 one. About 17% below the current threshold. |
 | D7 "€7,200 per annum" | Greenback Tax Services | The 2021-era figure. About 35% below. |
 | "Citizenship after five years of legal residence" | imin-portugal, retirement guide | Wrong for applications filed since 19 May 2026. |
@@ -252,7 +253,7 @@ Yes. Article 90-A(1)(a) of Lei 23/2007 disapplies only subparagraph (a) of artic
 No. The property routes were repealed in 2023, and the same law separately prohibits investment channelled directly or indirectly into real estate, which closes the route through a housing fund as well. What remains is a €500,000 fund subscription and a small number of non-property options.
 
 ? Does the D8 digital nomad visa require four times the minimum wage?
-That figure is widely published and we could not find it in any Portuguese legal instrument. Article 61-B requires proof of the employment or service relationship and states no amount. Treat €3,680 as consular and administrative practice of undemonstrated status, not as law.
+It is set by Decreto Regulamentar 4/2022, articles 18-B(c) and 31-A(1)(c), as four guaranteed minimum monthly wages averaged over the last three months. At the 2026 RMMG of €920 that is €3,680, and it moves every January. Article 61-B of Lei 23/2007 itself states no amount — the figure is in the implementing regulation, not in the statute.
 
 ? What counts as passive income for a D7 application?
 Pensions, income from movable or immovable property, income from intellectual property and income from financial investments — the categories named in article 24 of Decreto Regulamentar 84/2007. The order also requires the resources to be "stable and regular", which a single lump-sum transfer does not satisfy.

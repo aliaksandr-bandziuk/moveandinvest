@@ -119,6 +119,32 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     },
     section: "citizenship",
   },
+  // SAME DAY AS THE ROW ABOVE, AND A SEPARATE ROW ON PURPOSE. The period and the
+  // start date are two different rules in two different articles, they moved in
+  // opposite directions for the two groups of applicants, and a reader who holds
+  // a pending file needs the second one without the first. Merging them would
+  // have produced a row that is true on average and wrong for everybody.
+  {
+    id: "pt-queue-time-stops-counting",
+    effective: "2026-05-19",
+    country: "pt",
+    what: {
+      en: "Portugal stopped counting the wait for a residence permit towards naturalisation. Since March 2024 the clock had run from the day the permit was applied for, as long as it was later granted — a provision written for an immigration queue that takes one to three years. It is now repealed. What remains is the general rule: lawful presence under a title, visa or authorisation. Files pending on 19 May keep the old counting.",
+      ru: "Португалия перестала засчитывать ожидание вида на жительство в срок для натурализации. С марта 2024 года отсчёт шёл со дня подачи заявления на ВНЖ при условии, что его в итоге выдали, — норма, написанная под миграционную очередь длиной от года до трёх лет. Теперь она отменена. Остаётся общее правило: законное присутствие по титулу, визе или разрешению. По делам, находившимся в производстве на 19 мая, счёт остаётся прежним.",
+      pl: "Portugalia przestała zaliczać oczekiwanie na zezwolenie na pobyt do okresu naturalizacji. Od marca 2024 bieg liczono od dnia złożenia wniosku o pobyt, o ile zezwolenie ostatecznie wydano — przepis pisany pod kolejkę imigracyjną trwającą od roku do trzech lat. Został uchylony. Zostaje zasada ogólna: legalna obecność na podstawie tytułu, wizy lub zezwolenia. Sprawy zawisłe 19 maja zachowują dawne liczenie.",
+    },
+    instrument: {
+      en: "Lei Orgânica 1/2026 of 18 May, art. 5, repealing art. 15(4) of Lei 37/81 — the paragraph inserted by Lei Orgânica 1/2024 of 5 March; the transitional rule is art. 7(2)",
+      ru: "Lei Orgânica 1/2026 от 18 мая, ст. 5, отменяющая ст. 15(4) Lei 37/81 — пункт, внесённый Lei Orgânica 1/2024 от 5 марта; переходная норма — ст. 7(2)",
+      pl: "Lei Orgânica 1/2026 z 18 maja, art. 5, uchylający art. 15(4) Lei 37/81 — ustęp wprowadzony przez Lei Orgânica 1/2024 z 5 marca; przepis przejściowy to art. 7(2)",
+    },
+    moved: {
+      en: "Our own sentence, in three articles, that the period runs “from the issue of the residence permit, not from the application”. That was a paraphrase of the repeal, not a rule the statute states, and it was wrong for anyone whose file was already pending. Corrected on 7 September 2026.",
+      ru: "Нашу собственную фразу в трёх статьях о том, что срок идёт «от выдачи вида на жительство, а не от подачи заявления». Это был пересказ отмены, а не норма закона, и для тех, чьё дело уже было в производстве, он был неверен. Исправлено 7 сентября 2026 года.",
+      pl: "Nasze własne zdanie w trzech artykułach, że okres biegnie „od wydania zezwolenia na pobyt, a nie od złożenia wniosku”. To była parafraza uchylenia, a nie norma ustawy, i dla każdego, czyja sprawa była już zawisła, była błędna. Poprawione 7 września 2026.",
+    },
+    section: "citizenship",
+  },
   {
     id: "ae-investor-visa-no-minimum",
     effective: "2026-04-01",

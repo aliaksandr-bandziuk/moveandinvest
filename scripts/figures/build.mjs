@@ -211,11 +211,15 @@ const PT_CLOCK = [
 // audit of other people's figures is only fair if it is specific — and because
 // an unnamed "some pages say" is the same rhetorical move this site exists to
 // avoid.
+// ЧЕТЫРЕ СТРОКИ, А НЕ ПЯТЬ. Строка про D8 («3 680 €, ни в одном акте нет»)
+// снята 7 сентября 2026: цифра есть в акте — Decreto Regulamentar 4/2022,
+// ст. 18.º-B(c) и 31.º-A(1)(c), четыре RMMG за последние три месяца. Ошибка
+// была наша, и держать чужую верную цифру в списке чужих неверных нельзя.
+// Схема и без неё про порог D7, а D8 в ней всегда был чужеродным.
 const PT_PUBLISHED = [
   { key: "law", ok: true },
   { key: "wise", ok: false },
   { key: "greenback", ok: false },
-  { key: "d8", ok: false },
   { key: "ggv", ok: false },
 ];
 
@@ -818,9 +822,10 @@ function ptClock(L) {
 // and each says in text what it is.
 function ptPublished(L) {
   const width = 1200;
-  // 760: five rows at 82px put the last second line at 594, and the note is
-  // drawn at height-92.
-  const height = 760;
+  // 680: четыре ряда по 82 от y=240 доводят вторую строку последнего до 512,
+  // подпись frame идёт на height − 92, то есть на 588. Было 760 под пять рядов;
+  // после снятия строки про D8 там осталась дыра в 80px.
+  const height = 680;
   let body = "";
 
   PT_PUBLISHED.forEach((row, i) => {
@@ -1294,13 +1299,11 @@ const L = {
     ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
     ptRoutes: {
       d7: "D7, собственный доход",
-      d8: "D8, удалённая работа",
       ari: "ВНЖ за инвестиции",
       property: "Покупка недвижимости",
     },
     ptRouteNotes: {
       d7: "Пенсия, аренда, дивиденды, роялти",
-      d8: "Подтверждение трудовых отношений",
       ari: "Фонд 500 000 € или другой маршрут",
       property: "Отменена в 2023 году, замены нет",
     },
@@ -1413,21 +1416,18 @@ const L = {
       law: "Portaria 1563/2007, ст. 2(2)",
       wise: "Wise",
       greenback: "Greenback Tax Services",
-      d8: "Global Citizen Solutions, Taxes for Expats",
       ggv: "Get Golden Visa",
     },
     ptPublishedNotes: {
       law: "Норма: 100% минимальной зарплаты 2026 года",
       wise: "Минимальная зарплата 2023 года, на 17% ниже",
       greenback: "Уровень 2021 года, на 35% ниже",
-      d8: "D8: суммы нет ни в одном акте",
       ggv: "Гайд для пенсионеров на 10 000 слов",
     },
     ptPublishedFigures: {
       law: "920 € в месяц",
       wise: "760 € в месяц",
       greenback: "7 200 € в год",
-      d8: "3 680 € в месяц",
       ggv: "цифры нет",
     },
     incomeGroups: { none: "Доход не проверяют", tested: "Доход проверяют" },
@@ -1663,7 +1663,110 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026" },
+    ptNatAxis: "Years from the residence application",
+    ptNatLegend: {
+      counted: "Queue counted",
+      uncounted: "Queue not counted",
+      residence: "Residence period",
+    },
+    ptNatBars: {
+      old: {
+        label: "Nationality file pending on 19 May 2026",
+        note: "Five years, and article 15(4) counts the wait for the permit inside them",
+      },
+      new7: {
+        label: "Filed after 19 May: EU and Portuguese-speaking countries",
+        note: "Seven years, and the wait is no longer inside them",
+      },
+      new10: {
+        label: "Filed after 19 May: every other nationality",
+        note: "Ten years, and the wait is no longer inside them",
+      },
+    },
+    ptNatHeads: { art: "Article", cond: "What it requires", status: "Status" },
+    // ПЕРЕНОСЫ ПРОСТАВЛЕНЫ РУКАМИ, И ЭТО НЕ СТИЛЬ. От xBody 210 до колонки
+    // статуса 980 ровно 770px, а строка идёт 15px × 1.33 = 20px — это около
+    // сорока четырёх знаков. Однострочные подписи первой версии прошли под
+    // колонкой статуса насквозь: «and the political organis» ушло за холст,
+    // а «Doubled in 2026» легло поверх «everybody else». SVG не переносит
+    // сам; перенос — это \n, который text() превращает в tspan.
+    ptNatCond: {
+      a: "Legal age under Portuguese law\nor under the law of origin",
+      b: "Seven years of legal residence for EU and\nCPLP citizens, ten for everybody else",
+      c: "Sufficient knowledge of the language, and\nof Portuguese culture, history, symbols",
+      d: "Sufficient knowledge of the rights and\nduties of nationality, and of the state",
+      e: "A solemn declaration of adherence to the\nprinciples of the democratic rule of law",
+    },
+    ptNatStatus: {
+      same: "Unchanged",
+      doubled: "Doubled in 2026",
+      widened: "Widened in 2026",
+      fresh: "New in 2026",
+    },
+    mtChainHeads: { when: "When", what: "What was done" },
+    mtChainDates: {
+      judgment: "29 April 2025",
+      act: "24 July 2025",
+      notice: "29 July 2025",
+      page: "Still, in 2026",
+    },
+    mtChainWhat: {
+      judgment: "Case C-181/23, Commission v Malta",
+      act: "Act XXI of 2025",
+      notice: "L.N. 159 of 2025 — Part IV deleted",
+      page: "The agency's own pages show the old figures",
+    },
+    mtChainNote: {
+      judgment: "Court of Justice, Grand Chamber. Almost no page describing the scheme names it.",
+      act: "Gazette 21,474. Substituted article 10(9) of Cap. 188, the enabling provision.",
+      notice: "Gazette 21,478. Retitled S.L. 188.06; removed Part IV and two Schedules.",
+      page: "600,000 € and 750,000 € under February 2026 timestamps, seen 6 September 2026.",
+    },
+    mtRouteHeads: { merit: "Naturalisation on merit", ordinary: "Ordinary naturalisation" },
+    mtRouteLabels: {
+      residence: "Residence required",
+      shows: "The application must show",
+      grounds: "Decided on",
+      decidedBy: "Overseen by",
+      fee: "Fee in the instrument",
+    },
+    mtRouteMerit: {
+      residence: "At least eight months",
+      shows: "Property and language",
+      grounds: "Six named grounds",
+      decidedBy: "A separate Office of the Regulator",
+      fee: "None published",
+    },
+    mtRouteOrdinary: {
+      residence: "Five years, spread over up to seven",
+      shows: "The ordinary conditions of Cap. 188",
+      grounds: "Length of residence",
+      decidedBy: "The ordinary process",
+      fee: "Outside these regulations",
+    },
+    ptLivingRentAxis: "Median rent per square metre in new leases, Q1 2026. Every area shown is above the national median.",
+    ptLivingRentNames: {
+      lisbonCity: "Lisbon, municipality",
+      greaterLisbon: "Greater Lisbon",
+      madeira: "Madeira",
+      setubal: "Setúbal Peninsula",
+      algarve: "Algarve",
+      porto: "Porto Metro Area",
+    },
+    ptLivingRentAmounts: {
+      lisbonCity: "17.42 €",
+      greaterLisbon: "14.38 €",
+      madeira: "11.97 €",
+      setubal: "11.35 €",
+      algarve: "10.71 €",
+      porto: "10.13 €",
+    },
+    ptLivingRentNational: "Portugal 9.46 €",
+    ptLivingDomicileAxis: "Median price per square metre by the buyer's tax domicile, Q4 2025. Index, not euros.",
+    ptLivingDomicileNames: { greaterLisbon: "Greater Lisbon", porto: "Porto Metropolitan Area" },
+    ptLivingDomicileAmounts: { greaterLisbon: "149.0", porto: "135.6" },
+    ptLivingDomicileBase: "100 — domiciled in Portugal",
     ptGvHeads: { sub: "Subparagraph", ask: "What it asks", status: "Status" },
     ptGvSub: { i: "i", ii: "ii", iii: "iii", iv: "iv", v: "v", vi: "vi", vii: "vii", viii: "viii" },
     ptGvAsk: {
@@ -1708,13 +1811,11 @@ const L = {
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
-      d8: "D8, remote work",
       ari: "Investment permit",
       property: "Property purchase",
     },
     ptRouteNotes: {
       d7: "Pension, rent, dividends, royalties",
-      d8: "Proof of the employment relationship",
       ari: "\u20ac500,000 fund or another qualifying route",
       property: "Abolished in 2023, with no replacement",
     },
@@ -1827,21 +1928,18 @@ const L = {
       law: "Portaria 1563/2007, art. 2(2)",
       wise: "Wise",
       greenback: "Greenback Tax Services",
-      d8: "Global Citizen Solutions, Taxes for Expats",
       ggv: "Get Golden Visa",
     },
     ptPublishedNotes: {
       law: "The instrument: 100% of the 2026 minimum wage",
       wise: "The 2023 minimum wage, about 17% below",
       greenback: "The 2021-era figure, about 35% below",
-      d8: "D8: no figure exists in any instrument",
       ggv: "A ten-thousand-word retirement guide",
     },
     ptPublishedFigures: {
       law: "\u20ac920 a month",
       wise: "\u20ac760 a month",
       greenback: "\u20ac7,200 a year",
-      d8: "\u20ac3,680 a month",
       ggv: "no figure",
     },
     incomeGroups: { none: "No income test", tested: "Income tested" },
@@ -2151,6 +2249,22 @@ const L = {
         title: "Three clocks that comparison tables merge",
         note: "A holder can satisfy the first indefinitely, never start the second and never approach the third.",
       },
+      mtChain: {
+        title: "Ninety-one days from judgment to deletion",
+        note: "The last row is not an instrument. It is what a government web page still displayed thirteen months later.",
+      },
+      mtRoutes: {
+        title: "Two routes, and only one of them has a price",
+        note: "The merit regulations set no fee: they say fees established by the Agency apply. No figure exists in the instrument.",
+      },
+      ptLivingRent: {
+        title: "What the median lease was signed at",
+        note: "Median rent in new residential leases, first quarter of 2026, from 39,395 signed contracts — not from advertisements.",
+      },
+      ptLivingDomicile: {
+        title: "The premium a foreign tax domicile pays",
+        note: "An index: 100 is the median paid by buyers domiciled in Portugal. The release publishes the difference, not the two prices.",
+      },
       ptGvRoutes: {
         title: "What is left of article 3(1)",
         // ОДНА СТРОКА, И ЭТО ОГРАНИЧЕНИЕ frame, А НЕ СТИЛЬ. Подпись ставится на
@@ -2164,6 +2278,20 @@ const L = {
       ptGvFees: {
         title: "What AIMA charges, and the ratio nobody warns about",
         note: "Legal fees and fund commissions are excluded: those are market prices, not published ones.",
+      },
+      ptNatClock: {
+        title: "Thirteen years, from the same starting event",
+        // ПОДПИСЬ ОТРЕЗАЛАСЬ СПРАВА. 13px × 1.33 = 17.3px, от 48 до правого
+        // поля 1104px — примерно 125 знаков. Первая версия была 137 и ушла
+        // за холст на «does not». Поймано отрисовкой.
+        note: "Three years is the upper end of the permit wait. At the lower end every bar shortens and the gap does not.",
+      },
+      ptNatLimbs: {
+        // 43 ЗНАКА, НЕ 62. Заголовок идёт 26px × 1.33 = 34.6px, и на холсте
+        // 1200 в него влезает около пятидесяти знаков. Первая версия
+        // обрезалась на «are n». Поймано отрисовкой.
+        title: "What article 6(1) asks, and what is new",
+        note: "The statute names no CEFR level in limb (c). A2 is administrative practice, which is a different thing with a different future.",
       },
       gvApplyFees: {
         title: "What the state charges to look at you",
@@ -2305,13 +2433,11 @@ const L = {
     ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
     ptRoutes: {
       d7: "D7, dochód własny",
-      d8: "D8, praca zdalna",
       ari: "Pobyt za inwestycję",
       property: "Zakup nieruchomości",
     },
     ptRouteNotes: {
       d7: "Emerytura, najem, dywidendy, tantiemy",
-      d8: "Potwierdzenie stosunku pracy",
       ari: "Fundusz 500 000 € lub inna ścieżka",
       property: "Zniesiona w 2023 roku, bez zamiennika",
     },
@@ -2424,21 +2550,18 @@ const L = {
       law: "Portaria 1563/2007, art. 2(2)",
       wise: "Wise",
       greenback: "Greenback Tax Services",
-      d8: "Global Citizen Solutions, Taxes for Expats",
       ggv: "Get Golden Visa",
     },
     ptPublishedNotes: {
       law: "Akt: 100% płacy minimalnej na 2026 rok",
       wise: "Płaca minimalna z 2023 roku, o 17% niżej",
       greenback: "Wartość z 2021 roku, o 35% niżej",
-      d8: "D8: kwoty nie ma w żadnym akcie",
       ggv: "Poradnik emerycki na 10 000 słów",
     },
     ptPublishedFigures: {
       law: "920 € miesięcznie",
       wise: "760 € miesięcznie",
       greenback: "7 200 € rocznie",
-      d8: "3 680 € miesięcznie",
       ggv: "brak liczby",
     },
     incomeGroups: { none: "Bez badania dochodu", tested: "Dochód badany" },
@@ -3478,6 +3601,367 @@ function ptGvFees(L) {
   );
 }
 
+// --- Portugal: median rent per square metre ---------------------------------
+// A REFERENCE LINE, NOT A SEVENTH BAR. The national median is not one more
+// place on the list — it is the level the six named areas are all above, and
+// the finding of the release is that every one of them cleared it. Drawn as a
+// bar it would read as "and also Portugal", which is the one reading that is
+// wrong.
+const PT_LIVING_RENT = [
+  { key: "lisbonCity", value: 17.42 },
+  { key: "greaterLisbon", value: 14.38 },
+  { key: "madeira", value: 11.97 },
+  { key: "setubal", value: 11.35 },
+  { key: "algarve", value: 10.71 },
+  { key: "porto", value: 10.13 },
+];
+const PT_LIVING_NATIONAL = 9.46;
+
+function ptLivingRent(L) {
+  const width = 1200;
+  const height = 800;
+  const baseline = 600;
+  const top = 250;
+  // 210, НЕ 120, и это поле под подпись опорной линии. При 120 подпись шла
+  // поверх столбцов: тёмный текст на тёмной заливке, нечитаемо над Мадейрой и
+  // Сетубалом. Поймано отрисовкой. Пояснение при этом ушло в строку описания
+  // сверху, где место есть, а у линии осталось только число.
+  const plotX = 210;
+  const plotW = width - 48 - plotX;
+  const max = Math.max(...PT_LIVING_RENT.map((r) => r.value));
+  const scale = (v) => ((baseline - top) * v) / max;
+  let body = "";
+
+  body += text(48, 196, L.ptLivingRentAxis, { size: 13, fill: C.muted });
+
+  const gap = 26;
+  const barW = (plotW - gap * (PT_LIVING_RENT.length - 1)) / PT_LIVING_RENT.length;
+  PT_LIVING_RENT.forEach((row, i) => {
+    const h = scale(row.value);
+    const x = plotX + i * (barW + gap);
+    body += `<rect x="${x.toFixed(1)}" y="${(baseline - h).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${C.accent}"/>`;
+    body += text(x + barW / 2, baseline - h - 18, L.ptLivingRentAmounts[row.key], {
+      size: 16, weight: 600, anchor: "middle",
+    });
+    body += text(x + barW / 2, baseline + 34, L.ptLivingRentNames[row.key], {
+      size: 13, fill: C.muted, anchor: "middle",
+    });
+  });
+
+  const ny = baseline - scale(PT_LIVING_NATIONAL);
+  body += `<line x1="48" y1="${ny.toFixed(1)}" x2="${width - 48}" y2="${ny.toFixed(1)}" stroke="${C.text}" stroke-width="1.5" stroke-dasharray="6 5"/>`;
+  body += text(48, ny - 12, L.ptLivingRentNational, { size: 14, weight: 600 });
+
+  body += `<line x1="48" y1="${baseline}" x2="${width - 48}" y2="${baseline}" stroke="${C.line}" stroke-width="1"/>`;
+
+  return frame(
+    width, height,
+    L.figures.ptLivingRent.title, L.eyebrow,
+    L.checked(L.dates.portugalLiving), body,
+    L.figures.ptLivingRent.note,
+  );
+}
+
+// --- Portugal: what a foreign tax domicile pays ------------------------------
+// AN INDEX, AND THE FIGURE SAYS SO IN THREE PLACES: the axis line, the baseline
+// label and the note. The release publishes the DIFFERENCE between the two
+// groups and not the absolute price of either, so a chart in euros would be an
+// invention. The baseline at 100 is the domestic buyer, drawn as a solid rule
+// rather than a bar because it is the thing being compared against.
+const PT_DOMICILE = [
+  { key: "greaterLisbon", value: 149.0 },
+  { key: "porto", value: 135.6 },
+];
+const PT_DOMICILE_BASE = 100;
+
+function ptLivingDomicile(L) {
+  const width = 1200;
+  const height = 760;
+  const baseline = 560;
+  const top = 260;
+  const plotX = 360;
+  const plotW = width - 48 - plotX;
+  const max = 160;
+  const scale = (v) => ((baseline - top) * v) / max;
+  let body = "";
+
+  body += text(48, 200, L.ptLivingDomicileAxis, { size: 13, fill: C.muted });
+
+  const gap = 90;
+  const barW = (plotW - gap) / 2;
+  PT_DOMICILE.forEach((row, i) => {
+    const h = scale(row.value);
+    const x = plotX + i * (barW + gap);
+    body += `<rect x="${x.toFixed(1)}" y="${(baseline - h).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${C.accent}"/>`;
+    body += text(x + barW / 2, baseline - h - 20, L.ptLivingDomicileAmounts[row.key], {
+      size: 19, weight: 600, anchor: "middle",
+    });
+    body += text(x + barW / 2, baseline + 34, L.ptLivingDomicileNames[row.key], {
+      size: 14, fill: C.muted, anchor: "middle",
+    });
+  });
+
+  // Подпись базовой линии держать КОРОТКОЙ: слева от plotX её всего 312px, и
+  // длинная строка уезжает поверх первого столбца — тёмным по тёмному. Полное
+  // пояснение живёт в подписи кадра, где место есть. Тот же дефект был у
+  // опорной линии в ptLivingRent, поймано отрисовкой 7 сентября 2026.
+  const by = baseline - scale(PT_DOMICILE_BASE);
+  body += `<line x1="48" y1="${by.toFixed(1)}" x2="${width - 48}" y2="${by.toFixed(1)}" stroke="${C.text}" stroke-width="2"/>`;
+  body += text(48, by - 14, L.ptLivingDomicileBase, { size: 14, weight: 600 });
+
+  body += `<line x1="48" y1="${baseline}" x2="${width - 48}" y2="${baseline}" stroke="${C.line}" stroke-width="1"/>`;
+
+  return frame(
+    width, height,
+    L.figures.ptLivingDomicile.title, L.eyebrow,
+    L.checked(L.dates.portugalLiving), body,
+    L.figures.ptLivingDomicile.note,
+  );
+}
+
+// --- Malta: the chain from judgment to deletion ------------------------------
+// VERTICAL, NOT HORIZONTAL, and that is a decision taken after the Portuguese
+// figures. A horizontal timeline puts four dated captions side by side and each
+// one has to fit a column about 250px wide; these captions name gazette numbers
+// and cannot be shortened without losing the thing that makes them checkable.
+// Stacked rows give every caption the full width of the frame.
+//
+// THE FOURTH ROW IS NOT A STEP. The first three are instruments; the last is
+// the state of a government web page thirteen months later. It is set in the
+// accent and says so in words, because drawing it as a fourth instrument would
+// assert that somebody legislated it.
+const MT_CHAIN = [
+  { key: "judgment", live: false },
+  { key: "act", live: false },
+  { key: "notice", live: false },
+  { key: "page", live: true },
+];
+
+function mtChain(L) {
+  const width = 1200;
+  // 900, НЕ 820: четыре строки по 132 от y=272 доводят подпись последней до 696,
+  // а frame ставит свою на height − 92. При 820 они наложились. Поймано
+  // отрисовкой.
+  const height = 900;
+  const xDate = 48;
+  const xBody = 330;
+  // ПОДПИСЬ СТРОКИ — ДО ~88 ЗНАКОВ. От xBody до правого поля 822px, и на 13px
+  // это примерно восемьдесят восемь знаков. Три из четырёх подписей первой
+  // версии уехали за край: считать длину надо здесь, а не надеяться.
+
+  let body = "";
+
+  body += text(xDate, 200, L.mtChainHeads.when, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xBody, 200, L.mtChainHeads.what, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xDate}" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  MT_CHAIN.forEach((row, i) => {
+    const y = 272 + i * 132;
+    const fill = row.live ? C.accent : C.text;
+    body += text(xDate, y, L.mtChainDates[row.key], { size: 17, weight: 600, fill });
+    body += text(xBody, y, L.mtChainWhat[row.key], { size: 17, weight: 500, fill });
+    body += text(xBody, y + 28, L.mtChainNote[row.key], { size: 13, fill: C.muted });
+    if (i < MT_CHAIN.length - 1) {
+      body += `<line x1="${xDate}" y1="${y + 78}" x2="${width - 48}" y2="${y + 78}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.mtChain.title, L.eyebrow,
+    L.checked(L.dates.maltaCitizenship), body,
+    L.figures.mtChain.note,
+  );
+}
+
+// --- Malta: merit against ordinary naturalisation ----------------------------
+// TWO COLUMNS, and the row that matters is the last one. Everything above it
+// invites the reader to compare two routes on their conditions; the fee row
+// says that one of them cannot be compared on price at all, because no price is
+// published. A table that omitted that row would read as though the merit route
+// simply costs more or less.
+const MT_ROUTE_ROWS = ["residence", "shows", "grounds", "decidedBy", "fee"];
+
+function mtRoutes(L) {
+  const width = 1200;
+  // 980, НЕ 860: пять строк по 118 от y=282 доводят последнюю до 754, а frame
+  // ставит подпись на height − 92. При 860 они наложились — третий раз за день
+  // одна и та же арифметика, поэтому она теперь считается явно:
+  // height >= 282 + (rows - 1) * 118 + 62 + 92 + 68.
+  const height = 980;
+  const xLabel = 48;
+  const colA = 400;
+  // 780, не 800: самая длинная строка правой колонки при 15px доходила
+  // вплотную до правого поля.
+  const colB = 780;
+  let body = "";
+
+  body += text(colA, 208, L.mtRouteHeads.merit, { size: 15, weight: 600 });
+  body += text(colB, 208, L.mtRouteHeads.ordinary, { size: 15, weight: 600 });
+  body += `<line x1="${xLabel}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  MT_ROUTE_ROWS.forEach((key, i) => {
+    const y = 282 + i * 118;
+    const accent = key === "fee";
+    body += text(xLabel, y, L.mtRouteLabels[key], { size: 14, fill: C.muted, weight: 500 });
+    body += text(colA, y, L.mtRouteMerit[key], { size: 15, weight: accent ? 600 : 400, fill: accent ? C.accent : C.text });
+    body += text(colB, y, L.mtRouteOrdinary[key], { size: 15, weight: 400 });
+    if (i < MT_ROUTE_ROWS.length - 1) {
+      body += `<line x1="${xLabel}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.mtRoutes.title, L.eyebrow,
+    L.checked(L.dates.maltaCitizenship), body,
+    L.figures.mtRoutes.note,
+  );
+}
+
+// --- Portugal: the naturalisation clock, drawn from one starting event -------
+// THREE BARS ON ONE AXIS, AND THE AXIS IS THE ARGUMENT. Every page in this
+// market compares five years against ten, which compares two periods measured
+// from two different events — and so understates the change. Article 15(4)
+// counted the permit queue inside the old five; its repeal puts the same queue
+// outside the new ten. Measured from the day residence was applied for, which
+// is the one date the applicant actually remembers, that is five against
+// thirteen. Drawing it from the residence title instead would have hidden the
+// whole of the second change.
+const PT_NAT_BARS = [
+  { key: "old", counted: true, years: 5 },
+  { key: "new7", counted: false, years: 7 },
+  { key: "new10", counted: false, years: 10 },
+];
+const PT_NAT_QUEUE = 3;
+
+function ptNatClock(L) {
+  const width = 1200;
+  // 860: три ряда по 130 от y=268 доводят низ последней полосы до 602, ось на
+  // 636, её подписи на 660, легенду на 700 — а frame ставит свою подпись на
+  // height − 92, то есть на 768. Формула та же, что на mt-routes:
+  // height >= (низ последнего ряда) + 62 + 92 + 68.
+  const height = 860;
+  const x0 = 300;
+  // 130, НЕ 60: подпись значения ставится в конце полосы на +14, и при 60
+  // «13» упиралось в правое поле. Ширину под неё надо отдать оси.
+  const x1 = width - 130;
+  const SPAN = 13; // years, the widest bar plus the queue
+  const px = (years) => x0 + (years / SPAN) * (x1 - x0);
+
+  let body = "";
+
+  PT_NAT_BARS.forEach((bar, i) => {
+    const y = 268 + i * 130;
+    body += text(48, y, L.ptNatBars[bar.key].label, { size: 16, weight: 600 });
+    body += text(48, y + 24, L.ptNatBars[bar.key].note, { size: 13, fill: C.muted });
+
+    const top = y + 42;
+    const h = 34;
+    // The queue always occupies the same three years of the axis. What changes
+    // is whether it is inside the period, so it is drawn filled when counted
+    // and hollow when not — position alone would say nothing.
+    if (bar.counted) {
+      body += `<rect x="${px(0)}" y="${top}" width="${px(PT_NAT_QUEUE) - px(0)}" height="${h}" fill="${C.accent}"/>`;
+      body += `<rect x="${px(PT_NAT_QUEUE)}" y="${top}" width="${px(bar.years) - px(PT_NAT_QUEUE)}" height="${h}" fill="${C.text}"/>`;
+      body += text(px(bar.years) + 14, top + 24, `${bar.years}`, { size: 17, weight: 600 });
+    } else {
+      body += `<rect x="${px(0)}" y="${top}" width="${px(PT_NAT_QUEUE) - px(0)}" height="${h}" fill="none" stroke="${C.line}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+      body += `<rect x="${px(PT_NAT_QUEUE)}" y="${top}" width="${px(PT_NAT_QUEUE + bar.years) - px(PT_NAT_QUEUE)}" height="${h}" fill="${C.text}"/>`;
+      body += text(px(PT_NAT_QUEUE + bar.years) + 14, top + 24, `${PT_NAT_QUEUE + bar.years}`, { size: 17, weight: 600 });
+    }
+  });
+
+  const axisY = 636;
+  body += `<line x1="${px(0)}" y1="${axisY}" x2="${px(SPAN)}" y2="${axisY}" stroke="${C.line}" stroke-width="1"/>`;
+  for (let year = 0; year <= 12; year += 2) {
+    body += `<line x1="${px(year)}" y1="${axisY}" x2="${px(year)}" y2="${axisY + 7}" stroke="${C.line}" stroke-width="1"/>`;
+    body += text(px(year), axisY + 26, `${year}`, { size: 13, fill: C.muted, anchor: "middle" });
+  }
+  // НАД ОСЬЮ, А НЕ НА СТРОКЕ ДЕЛЕНИЙ. На +26 подпись шла тем же рядом, что и
+  // цифры делений, и «0» с «2» легли поверх слов «temporary residence was».
+  // Поймано отрисовкой.
+  body += text(48, axisY - 12, L.ptNatAxis, { size: 13, fill: C.muted });
+
+  // Legend on one line at 700: the swatches are 16px squares on the text
+  // baseline, so they sit from 688 to 704 and clear the frame note at 768.
+  const legendY = 700;
+  let lx = 48;
+  const swatch = (fillAttr, label) => {
+    let out = `<rect x="${lx}" y="${legendY - 13}" width="16" height="16" ${fillAttr}/>`;
+    out += text(lx + 24, legendY, label, { size: 13, fill: C.muted });
+    lx += 24 + label.length * 8 + 44;
+    return out;
+  };
+  body += swatch(`fill="${C.accent}"`, L.ptNatLegend.counted);
+  body += swatch(`fill="none" stroke="${C.line}" stroke-width="1.5" stroke-dasharray="5 4"`, L.ptNatLegend.uncounted);
+  body += swatch(`fill="${C.text}"`, L.ptNatLegend.residence);
+
+  return frame(
+    width, height,
+    L.figures.ptNatClock.title, L.eyebrow,
+    L.checked(L.dates.portugalCitizenship), body,
+    L.figures.ptNatClock.note,
+  );
+}
+
+// --- Portugal: the five limbs of article 6(1) --------------------------------
+// THE STATUS COLUMN IS THE POINT, and it is why this is a table rather than a
+// list. Three of the five limbs are new or widened in 2026, and the market
+// reports one of them. A list of conditions would read as a static description
+// of a requirement; the column says which of them a reader's own notes from
+// last year are now wrong about.
+const PT_NAT_LIMBS = [
+  { key: "a", status: "same" },
+  { key: "b", status: "doubled" },
+  { key: "c", status: "widened" },
+  { key: "d", status: "fresh" },
+  { key: "e", status: "fresh" },
+];
+
+function ptNatLimbs(L) {
+  const width = 1200;
+  // 960: пять рядов по 118 от y=272 доводят подпись последнего до 772, и
+  // height >= 772 + 62 + 92 + 68 даёт 994 — но подпись последнего ряда идёт на
+  // +28, а не на +62, поэтому запас берётся от неё: 772 + 92 + 68 = 932.
+  // 960 оставляет 28px и держит ту же плотность, что на mt-chain.
+  const height = 960;
+  const xArt = 48;
+  const xBody = 210;
+  // 980: самая длинная строка статуса — «Doubled in 2026» на 15px, и от 980 до
+  // правого поля 1152 её хватает. Колонку левее ставить нельзя: подпись limb
+  // (d) при 15px доходит до 950.
+  const xStatus = 980;
+  let body = "";
+
+  body += text(xArt, 200, L.ptNatHeads.art, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xBody, 200, L.ptNatHeads.cond, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xStatus, 200, L.ptNatHeads.status, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xArt}" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  PT_NAT_LIMBS.forEach((row, i) => {
+    const y = 272 + i * 118;
+    const moved = row.status !== "same";
+    body += text(xArt, y, `6(1)(${row.key})`, { size: 16, family: FONT_MONO, fill: moved ? C.text : C.muted });
+    body += text(xBody, y, L.ptNatCond[row.key], { size: 15, weight: moved ? 500 : 400, fill: moved ? C.text : C.muted });
+    body += text(xStatus, y, L.ptNatStatus[row.status], {
+      size: 15,
+      weight: moved ? 600 : 400,
+      fill: moved ? C.accent : C.muted,
+    });
+    if (i < PT_NAT_LIMBS.length - 1) {
+      body += `<line x1="${xArt}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptNatLimbs.title, L.eyebrow,
+    L.checked(L.dates.portugalCitizenship), body,
+    L.figures.ptNatLimbs.note,
+  );
+}
+
 const PLAN = {
   ru: [
     ["qualifies", qualifies],
@@ -3552,6 +4036,18 @@ const PLAN = {
     // Polish, so the entry exists in one language because the demand does.
     ["pt-gv-routes", ptGvRoutes],
     ["pt-gv-fees", ptGvFees],
+    // Жизнь и цены в Португалии, 7 сентября 2026. Английская только: русский
+    // спрос выражен словом «переезд», польский держит польская income-статья.
+    ["pt-living-rent", ptLivingRent],
+    ["pt-living-domicile", ptLivingDomicile],
+    // Гражданство Мальты после решения Суда ЕС, 7 сентября 2026. Английская.
+    ["mt-chain", mtChain],
+    ["mt-routes", mtRoutes],
+    // Закон о гражданстве Португалии, 7 сентября 2026. Английская: русский
+    // спрос по гражданству Португалии держит portugal-move, и разводить его
+    // надо там.
+    ["pt-nat-clock", ptNatClock],
+    ["pt-nat-limbs", ptNatLimbs],
   ],
   pl: [
     ["qualifies", qualifies],

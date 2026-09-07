@@ -21,7 +21,7 @@
 
 **Image alt texts:**
 
-1. `Naturalisation periods compared. Portugal requires ten years, or seven for citizens of EU and Portuguese-speaking countries, counted from the issue of the permit. Greece requires seven years of lawful residence. Malta requires twelve continuous months immediately before the application plus four years within the preceding six, a minimum of five years that may be spread across as much as seven. The UAE has no published period, because its nationality cannot be applied for at all.`
+1. `Naturalisation periods compared. Portugal requires ten years, or seven for citizens of EU and Portuguese-speaking countries. Greece requires seven years of lawful residence. Malta requires twelve continuous months immediately before the application plus four years within the preceding six, a minimum of five years that may be spread across as much as seven. The UAE has no published period, because its nationality cannot be applied for at all.`
 2. `Three columns separating the three clocks that comparison tables merge: the permit's own renewal clock, the presence test for long-term resident status, and the naturalisation period. The rows show what each one counts, whether time spent outside the country counts towards it, and what each one actually gets you at the end.`
 
 ---
@@ -88,7 +88,7 @@ Portugal was the fast route to a European passport and stopped being one on **19
 
 Two details decide whether the arithmetic works for a given person, and both are routinely misreported.
 
-The first is the start date. The period is counted **from the issue of the residence permit**, not from the application, not from the investment, and not from first entry. Against an AIMA queue that runs one to three years between filing and a card, the difference between those dates is not a rounding error — it is a third of the clock.
+The first is the start date, and it changed on the same day as the period, in a different article of the same law. Between March 2024 and 19 May 2026, article 15(4) of Lei 37/81 counted the time from the day the residence permit was **applied for**, provided it was later granted — a paragraph written for an immigration queue that runs one to three years between filing and a card. **Article 5 of Lei Orgânica 1/2026 repeals it.** What remains is article 15(1): lawful residence means being in Portugal with regularised status under any title, visa or authorisation of the immigration or asylum regime. That is broader than the plastic card — a national residence visa is a title — but it does not reach back over a queue. Against one to three years of waiting, that is not a rounding error; it is a third of the clock. And article 7(2) preserves the old counting for any file already pending on 19 May 2026, so two people who applied a month apart are now on two different rules.
 
 The second is the same one as Greece and Malta. What accumulates towards naturalisation is time actually lived in Portugal. A permit renewed from abroad preserves the status and builds nothing towards a passport. What follows a Portuguese permit — the renewals, the card, and permanent residence at five years, which is a different status on a different clock again — is set out in its own guide.
 
@@ -141,7 +141,7 @@ On the face of the statutes, Malta: five years at the floor, though structured a
 Investors are a named category in the Emirati rules, and no one may apply. Citizenship is granted on nomination by federal entities, through the Rulers' and Crown Princes' Courts, the Executive Council offices and the Cabinet. A residence permit does not begin that process.
 
 ? Do the years on a golden visa count towards citizenship if I do not live there?
-In Greece and Malta, on the published rules, no — naturalisation counts residence actually spent. In Portugal the period runs from the issue of the permit, but what it counts is time lived in Portugal. This is the most consequential misunderstanding in the market.
+In Greece and Malta, on the published rules, no — naturalisation counts residence actually spent. Portugal has two rules at once since 19 May 2026: a file pending on that date still counts from the day the permit was applied for, while anything later counts lawful presence under a title, visa or authorisation, the queue no longer included. Either way, what it counts is time lived in Portugal. This is the most consequential misunderstanding in the market.
 
 ### Where this sits in the rest of the site
 
@@ -158,7 +158,7 @@ If citizenship is the objective rather than a permit, the question that decides 
 - Malta — Case C-181/23, *Commission v Malta*, judgment of 29 April 2025; the Maltese Citizenship Act, Cap. 188, as amended by Act XXI of 2025, and S.L. 188.06 as amended by L.N. 159 of 2025; the naturalisation conditions quoted from articles 10(1) and 11 of Cap. 188: our verification file for Malta, 1 September 2026.
 - Greece — the seven-year naturalisation period under Law 3284/2004 as amended, the €550 application fee, the €150 examination fee, and the ΠΕΓΠ at B1 plus history, geography and culture with a 70% pass mark: our verification file for Greece, 28 August 2026. The examination's administering authority, its legal basis in Law 4735/2020 amending article 7 of the Citizenship Code, and the payment and identity-matching conditions: the National Registry of Administrative Public Services record for the examination, read 5 September 2026.
 - Greece — absence being no obstacle to renewing the investor permit: article 100 §4 of Law 5038/2023, read in full in the same verification file. The presence requirement for long-term residence: article 144 §1.
-- Portugal — ten years, seven for citizens of EU and Portuguese-speaking countries, counted from the issue of the permit, with a culture and history examination and no CEFR level named: Lei Orgânica 1/2026, in force 19 May 2026, as recorded in our verification file for Portugal, 28 August 2026.
+- Portugal — ten years, seven for citizens of EU and Portuguese-speaking countries, with a culture and history examination and no CEFR level named, and with article 15(4) repealed so that time waiting for the permit no longer counts: Lei Orgânica 1/2026, in force 19 May 2026, as recorded in our verification file for Portugal, 28 August 2026 and re-read 7 September 2026.
 - UAE — the categories eligible for naturalisation, the retention of the original nationality, and the quoted sentence on nomination: the UAE government's official platform page on Emirati nationality, read 5 September 2026.
 - Not established, and therefore not published: exactly what counts as residence for the purposes of the seven-year Greek period, which the Citizenship Code's own text would have to settle; and whether that Code contains a discretionary honorary-naturalisation route and on what terms, which was not read in this round. The "183 days a year" that consultancy pages attach to Greek naturalisation is the tax-residency threshold and is not a condition of the Citizenship Code.
 
@@ -170,10 +170,10 @@ If citizenship is the objective rather than a permit, the question that decides 
 golden passport, golden visa citizenship, citizenship by investment, greece citizenship by investment, greece golden visa citizenship, golden citizenship, eu passport by investment, european passport by investment
 
 **Mid-tail:**
-eu residency by investment, european residency by investment, portugal golden visa to citizenship, portuguese citizenship by investment, portugal passport by investment, residency by investment malta, malta citizenship by investment, golden visa to passport, citizenship by investment europe, greek citizenship seven years, uae citizenship for investors
+eu residency by investment, european residency by investment, portugal golden visa to citizenship, portuguese citizenship by investment, portugal passport by investment, residency by investment malta, golden visa to passport, citizenship by investment europe, greek citizenship seven years, uae citizenship for investors
 
 **Long tail:**
-is there such a thing as a golden passport, does the greece golden visa lead to citizenship, is there citizenship by investment in greece, how long does greek citizenship take, how much does greek citizenship cost, what is the pegp exam, do golden visa years count towards citizenship if i live abroad, can you still buy maltese citizenship, how many years to naturalise in malta, when does the portuguese naturalisation clock start, does the portugal golden visa still lead to a passport in ten years, can a golden visa lead to emirati citizenship, can you apply for uae citizenship, which golden visa gives a european passport fastest
+is there such a thing as a golden passport, does the greece golden visa lead to citizenship, is there citizenship by investment in greece, how long does greek citizenship take, how much does greek citizenship cost, what is the pegp exam, do golden visa years count towards citizenship if i live abroad, how many years to naturalise in malta, when does the portuguese naturalisation clock start, does the portugal golden visa still lead to a passport in ten years, can a golden visa lead to emirati citizenship, can you apply for uae citizenship, which golden visa gives a european passport fastest
 
 **Keywords placed in subheadings:**
 "Is there such a thing as a golden passport?"; "Greece citizenship by investment: the route that does not exist"; "Greece golden visa citizenship: seven years, and what the seven years count"; "Malta: the only one that ever sold a passport"; "Portugal: ten years, seven for some, counted from a date most pages get wrong"; "The UAE: the only law here that names investors, and the only one you cannot apply under"; "The three clocks people confuse".

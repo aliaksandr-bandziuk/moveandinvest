@@ -23,7 +23,7 @@
 
 1. `Schemat ścieżek pobytowych w Portugalii dla obywateli państw trzecich: D7 dla żyjących z dochodu własnego i D8 dla pracy zdalnej, obie z wizą pobytową; pobyt za inwestycję bez wizy, ale z tym samym wymogiem środków utrzymania; oraz zniesiona w 2023 roku ścieżka za zakup nieruchomości.`
 2. `Skala lat pobytu przed obywatelstwem portugalskim: pięć lat dla spraw złożonych do 18 maja 2026 włącznie, a od 19 maja 2026 siedem lat dla obywateli Unii Europejskiej i krajów portugalskojęzycznych oraz dziesięć lat dla pozostałych.`
-3. `Tabela: ustawowy próg dochodowy dla wizy D7, 920 euro miesięcznie w 2026 roku, wobec liczb publikowanych przez cztery wysoko pozycjonowane serwisy: 760 euro, 7200 euro rocznie, 3680 euro dla D8 i jedna strona bez żadnej liczby.`
+3. `Tabela: ustawowy próg dochodowy dla wizy D7, 920 euro miesięcznie w 2026 roku, wobec liczb publikowanych przez wysoko pozycjonowane serwisy: 760 euro, 7200 euro rocznie i jedna strona bez żadnej liczby.`
 
 ---
 
@@ -174,7 +174,6 @@ Ta tabela dotyczy ścieżek dla obywateli państw trzecich, ale warto ją znać 
 
 | Publikowana liczba | Gdzie | Co mówi akt |
 | --- | --- | --- |
-| D8: „3680 € miesięcznie, czterokrotność płacy minimalnej" | Global Citizen Solutions, Taxes for Expats | Artykuł 61.º-B nie podaje żadnej kwoty. Nie da się jej wywieść z żadnego aktu. |
 | D7: „760 € dla jednej osoby, 1140 € dla pary" | Wise | Płaca minimalna z 2023 roku, o około 17 procent poniżej obowiązującego progu. |
 | D7: „7200 € rocznie" | Greenback Tax Services | Wartość z 2021 roku, o około 35 procent poniżej. |
 | „Obywatelstwo po pięciu latach pobytu" | imin-portugal, poradnik emerycki | Nieprawda dla wniosków złożonych od 19 maja 2026. |

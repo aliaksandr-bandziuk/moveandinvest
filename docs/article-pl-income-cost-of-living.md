@@ -154,11 +154,15 @@ Wyjątek w artykule 90-A jest pojedynczy i nazwany wprost. Znosi wizę. Nie znos
 
 Sprawdziliśmy, czy nie zmieniły tego reformy z 2025 roku. Lei 23/2007 nowelizowano w 2025 trzykrotnie: Lei 9/2025 z 13 lutego, Lei 55-C/2025 z 22 lipca i Lei 61/2025 z 22 października. W wykazach zmienianych artykułów pierwszej i trzeciej ustawy nie ma ani artykułu 77, ani 90-A, a tekst jednolity uwzględniający wszystkie trzy brzmi tak, jak zacytowano.
 
-#### Wiza D8 dla cyfrowych nomadów: liczby, której nie ma w żadnym akcie
+#### Wiza D8 dla cyfrowych nomadów: krotność, a nie kwota w euro
 
 Artykuł 61-B Lei 23/2007 tworzy wizę pobytową dla pracy zdalnej. Wymaga wykazania stosunku pracy albo umowy o świadczenie usług. **Nie zawiera żadnej kwoty ani wielokrotności płacy minimalnej.**
 
-W obiegu jest liczba „czterokrotność płacy minimalnej", czyli 3680 euro miesięcznie według stawki na 2026 rok. Nie udało się jej odnaleźć w żadnym rozporządzeniu ani dekrecie. Występuje na stronach doradców i kancelarii, a nie tam, gdzie zdołaliśmy przeczytać przepisy. To nie dowodzi, że takiej kwoty się nie stosuje — urząd może prowadzić opublikowaną listę kontrolną, która sama w sobie prawem nie jest — ale znaczy, że nie wolno podawać 3680 euro jako normy prawa portugalskiego, i my tego nie robimy.
+Próg leży poziom niżej — w **Decreto Regulamentar 4/2022 z 30 września 2022**, które wykonuje tę ustawę. Art. 18.º-B(c) dla wizy pobytu czasowego i art. 31.º-A(1)(c) dla wizy rezydenckiej mówią to samo: średni dochód miesięczny z ostatnich trzech miesięcy nie niższy niż czterokrotność gwarantowanej minimalnej płacy miesięcznej.
+
+Liczba jest więc normą prawa — i liczbą przy tym nie jest. To czterokrotność RMMG: 3680 euro przy stawce 920 euro na 2026 rok i inna kwota każdego stycznia. Strony drukujące „3680 €" bez roku i bez krotności mają rację w tym roku, a w następnym już nie.
+
+**To poprawia to, co stało tu do 7 września 2026** — że czterokrotności nie da się wywieść z żadnego aktu. Przeczytaliśmy artykuł 61-B, zobaczyliśmy, że o kwocie milczy, i nie sięgnęliśmy po wykonujące go rozporządzenie. Zob. [stronę źródeł](/sources#pt-dr-4-2022).
 
 ### Grecja: 3500 euro miesięcznie dla osób niezależnych finansowo
 
