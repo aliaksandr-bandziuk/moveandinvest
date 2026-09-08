@@ -34,7 +34,7 @@ That is the actual state of this market in September 2026: not wrong information
 
 This page names the instrument, quotes the text, and separates the two changes that happened on the same day and are constantly reported as one. The second of them is missing from the English-language market almost entirely, and it is worth more to a golden visa holder than the headline.
 
-### The instrument
+### Lei Orgânica 1/2026: the instrument that changed Portuguese nationality law
 
 **Lei Orgânica n.º 1/2026, published in the Diário da República of 18 May 2026, in force from 19 May.** Article 8 is the entry-into-force provision and it is the short kind: the law enters into force the day after its publication.
 
@@ -42,7 +42,7 @@ Article 2 lists what it rewrites in Lei n.º 37/81, the Nationality Act: article
 
 The text was promulgated by the President on 3 May 2026 after an earlier version of the same reform had been sent to the Constitutional Court and returned. That history matters for one specific reason, set out below, and for no other.
 
-### Change one: the period, article 6(1)(b)
+### Portuguese citizenship now takes ten years: article 6(1)(b)
 
 This is the part the market has, if not always with a date attached. The qualifying period, in the statute's own words:
 
@@ -64,7 +64,7 @@ Three further conditions in the same article are newer than the numbers and get 
 
 **Article 6(10)** keeps a presumption for nationals of Portuguese-speaking countries: they are presumed to satisfy the language limb unless a lack of Portuguese is manifest.
 
-### Change two: the start date, article 15 — and this is the one nobody has
+### When the ten years start: article 15(4) repealed, and nobody else has this
 
 Here is a question almost no English-language page about Portuguese citizenship answers, and it decides the arithmetic more often than the period does.
 
@@ -96,7 +96,7 @@ Two things follow from reading that sentence rather than a summary of it.
 
 There is a third paragraph worth knowing, unchanged and widely misread: **article 15(3)** allows the periods to be broken. It counts the sum of all periods of legal residence, continuous or interpolated, provided they fall within a maximum window of 6, 9 or 12 years — for stateless persons, for CPLP and EU citizens, and for everybody else respectively. So the ten years for a third-country national need not be consecutive, but they must fit inside twelve.
 
-### The two changes are one day and two rules, and mixing them produces a wrong answer
+### Why mixing the two Portuguese nationality changes gives a wrong answer
 
 The transitional provision is **article 7(2)**, and it is the sentence that decides which set of rules a particular reader lives under:
 
@@ -118,7 +118,7 @@ Note what "pending" attaches to. It is the *nationality* proceeding that has to 
 
 This is where the arithmetic bites for the investment routes. A golden visa applicant who filed in 2023, waited two and a half years for a card, and has not yet applied for nationality now has those two and a half years counted at zero. Under the law as it stood in April 2026, they counted in full. That is not a change in the period from five to ten; it is a change from five to ten *plus* the loss of up to three years already served. The route's own arithmetic is set out in our [Portugal golden visa guide](entry:portugal-golden-visa).
 
-### What the Constitutional Court did and did not strike down
+### What the Portuguese Constitutional Court struck down, and what it left standing
 
 An earlier version of this reform went to the Constitutional Court, which is why some pages report that the ten-year period was found unconstitutional. It was not.
 
@@ -128,13 +128,13 @@ An earlier version of this reform went to the Constitutional Court, which is why
 
 A separate diploma creating loss of nationality as an accessory criminal penalty was vetoed in May 2026 for unconstitutionality and **is not in force**. It is frequently reported alongside this law and is not part of it.
 
-### What the reform did not change
+### What the 2026 Portuguese nationality reform did not change
 
 Descent, marriage and birth in Portugal are not what this law rewrote, and the pages that describe the change as "Portugal ends easy citizenship" flatten a distinction that matters to more people than the investment routes do.
 
 Naturalisation by residence, article 6, is what moved. Attribution by descent — the route most searched under "Portuguese citizenship by descent" — runs on articles 1 and 5, which article 2 of the new law also touches but does not lengthen into a residence period. Citizenship by marriage runs on article 3. Anyone in those categories reading a headline about ten years is reading about somebody else's route.
 
-### How to check this yourself, which takes about four minutes
+### How to check Portuguese nationality law yourself in four minutes
 
 1. Open the Lei Orgânica 1/2026 PDF on the Diário da República site. It is the 18 May 2026 issue of the 1st series.
 2. Find article 2, the altering provision, and read the republished article 6(1)(b) under it. That is the period.
@@ -144,7 +144,7 @@ Naturalisation by residence, article 6, is what moved. Attribution by descent �
 
 Every act named here has its own line, with its own link, on our [sources page](/sources#citizenship).
 
-### Questions
+### Frequently asked questions about Portuguese citizenship after Lei Orgânica 1/2026
 
 ? Is Portuguese citizenship now five years or ten?
 Both, depending on when your nationality application was filed. Files pending on 19 May 2026 are decided under the old text, which is five years. Files opened after that date are seven years for citizens of EU member states and Portuguese-speaking countries and ten for everybody else. The rule is article 7(2) of Lei Orgânica 1/2026.
@@ -164,7 +164,7 @@ It leads to the same naturalisation route as any other residence permit, on the 
 ? Was the ten-year period found unconstitutional?
 No. Acórdão 1133/2025 struck four norms of an earlier decree, none of them the qualifying periods. The text was then revised and promulgated on 3 May 2026.
 
-### Where this sits in the rest of the site
+### More on Portuguese residence and citizenship
 
 The comparison of naturalisation periods across all five jurisdictions is in [the passport comparison](entry:golden-passport). The Portuguese residence permit itself — renewals, permanent residence at five years, and what actually has to be spent in the country — is in [Portugal residency](entry:portugal-residency). The investment route and its own arithmetic are in [the golden visa guide](entry:portugal-golden-visa).
 
@@ -184,7 +184,7 @@ portugal citizenship 10 years, portugal citizenship law change, lei organica 1/2
 is portuguese citizenship five years or ten years, does waiting for a residence permit count towards portuguese citizenship, what did lei organica 1/2026 change, was the portuguese ten year rule found unconstitutional, what language level does portuguese citizenship require, does the new portuguese citizenship law apply retroactively, which portuguese citizenship applications are decided under the old law, what is article 15 of the portuguese nationality act, does the golden visa still lead to a portuguese passport, can the ten years of residence in portugal be interrupted
 
 **Keywords placed in subheadings:**
-"The instrument"; "Change one: the period, article 6(1)(b)"; "Change two: the start date, article 15"; "The two changes are one day and two rules"; "What the Constitutional Court did and did not strike down"; "What the reform did not change".
+"Lei Orgânica 1/2026: the instrument that changed Portuguese nationality law"; "Portuguese citizenship now takes ten years: article 6(1)(b)"; "When the ten years start: article 15(4) repealed, and nobody else has this"; "Why mixing the two Portuguese nationality changes gives a wrong answer"; "What the Portuguese Constitutional Court struck down, and what it left standing"; "What the 2026 Portuguese nationality reform did not change"; "How to check Portuguese nationality law yourself in four minutes"; "Frequently asked questions about Portuguese citizenship after Lei Orgânica 1/2026"; "More on Portuguese residence and citizenship".
 
 **Английская страница. Русская версия — отдельным пунктом плана, не здесь.**
 Русский `гражданство португалии` — крупный кластер, но его сейчас держит

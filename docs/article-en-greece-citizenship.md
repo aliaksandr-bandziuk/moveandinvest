@@ -34,7 +34,7 @@ That answer is correct for one group of people and wrong by five years for anoth
 
 The Greek Citizenship Code, Law 3284/2004, sets **three** different periods. Which one applies to you turns on your nationality and on a closed list of residence titles that most pages never mention.
 
-### The three periods
+### The three Greek naturalisation periods: three, seven and twelve years
 
 ![1]
 
@@ -53,7 +53,7 @@ The provision asks for «μια τουλάχιστον συνεχή τριετί
 
 **And no period at all** for ομογενείς — people of Greek descent — and for those born in Greece who have lived there continuously since.
 
-### The list that decides between seven and twelve
+### The closed list in article 5(1)(ε) decides between seven years and twelve
 
 Article 5(1)(ε) requires the applicant to hold one of an **exhaustive list** of residence titles, lettered αα) to αι). It is not a formality. It is the switch between the seven-year route and the twelve-year one.
 
@@ -65,7 +65,7 @@ For a reader on some other title — and there are many kinds of Greek residence
 
 **One caution we are printing because we got it wrong ourselves.** Until 8 September 2026 our own Greece guide criticised a law firm by name for publishing "12 years continuous residence required for Greek citizenship", and gave the correction as "Seven". Twelve years is a real provision of the Code. It is the wrong figure for a golden visa holder and the right one for somebody else, and we had read only the seven-year sentence before calling it wrong. That correction has been withdrawn.
 
-### The conditions are in two articles, and the examination is in the second one
+### Greek citizenship conditions sit in two articles, and the exam is in article 5A
 
 This is the other thing the market gets structurally wrong: it treats naturalisation as one article. The Code splits it.
 
@@ -79,7 +79,7 @@ This is the other thing the market gets structurally wrong: it treats naturalisa
 
 **No CEFR level appears in article 5Α.** The B1 in general circulation, and the 70% pass mark for the ΠΕΓΠ examination, come from the level below the statute. That is not a reason to disbelieve them; it is a reason to know which of the two your plan depends on, because an administrative standard changes without a parliament. The same gap exists in Portuguese law, where the market prints A2 for a statute that names nothing.
 
-### What the periods are counted from, and the word that does the work
+### Greek naturalisation needs continuous residence, with no window for gaps
 
 «Συνεχή» — continuous. In all three tiers.
 
@@ -89,17 +89,17 @@ That has a practical consequence for anyone holding a residence permit that requ
 
 You can put your own dates into our [naturalisation clock](/naturalisation-clock), which now carries all three Greek tiers alongside Portugal and Malta.
 
-### The historic figure, and why a stale page will quote it
+### Why some pages still say ten years for Greek citizenship
 
 If a page tells you ten years within the last twelve, it is quoting the **original 2004 text**, which required «δέκα συνολικά έτη την τελευταία δωδεκαετία» — ten years in total within the last twelve — with five for stateless persons and recognised refugees and five for Olympic athletes. That text is superseded. Its survival on advice pages is a useful test: a page still printing it has not opened the Code since before the reform that replaced it.
 
-### Where this text was read, and how current it is
+### Where this text of the Greek Citizenship Code was read, and how current it is
 
 The Ministry of the Interior publishes a consolidated text of the Citizenship Code at ypes.gr, **consolidated to 17 September 2025**, prepared under licence by a legal-information provider. The ministry's own header says the edition is informational and subject to checking against the Government Gazette, and we repeat that here rather than burying it: this page rests on the ministry's consolidation, not on the Gazette itself.
 
 **One thing we have not resolved, and will not assert.** Item αθ) of the qualifying list cites the investment permit "under article 16 of Law 4251/2014" — the old Migration Code, which Law 5038/2023 replaced, and where the investor permit is now article 100. The consolidation is dated well after that replacement and still carries the old citation. Greek codifying statutes commonly provide that references to a repealed law are read as references to the corresponding provisions of the new one; we have not found or excluded such a provision in Law 5038/2023, whose final articles we could not reach. So we are naming the question and not answering it.
 
-### Questions
+### Frequently asked questions about Greek citizenship
 
 ? How many years of residence does Greek citizenship require?
 Three, seven or twelve, depending on who you are and what permit you hold. Three continuous years for nationals of an EU member state, for a spouse of a Greek with a child, for someone with parental custody of a Greek-national child born in Greece, and for stateless persons. Seven for everybody else holding a residence title on the closed list of article 5(1)(ε), which includes the investor permit. Twelve under article 5(3) for a holder of any other valid non-temporary title.
@@ -119,7 +119,7 @@ No. All three periods are «συνεχή» — continuous — and the Code provi
 ? Why do some pages say ten or twelve years?
 Twelve is real: it is article 5(3), for a title outside the qualifying list. Ten within twelve is the original 2004 wording, since superseded, and a page still printing it has not reopened the Code in years.
 
-### Where this sits in the rest of the site
+### More on Greek residence and citizenship
 
 The Greek investor permit itself — thresholds by zone, what article 100 requires and what it does not — is in [the Greece residence guide](entry:greece-residency). The process and the statutory decision deadlines are in [the Greek procedure](entry:greece-process). Portugal's own reform, which moved in the opposite direction on 19 May 2026, is in [Portugal's nationality law](entry:portugal-citizenship).
 
@@ -139,7 +139,7 @@ greek citizenship test, greek citizenship by investment, how many years for gree
 how many years of residence do you need for greek citizenship, does the greek golden visa count towards citizenship, is there greek citizenship by investment, what language level is required for greek citizenship, can the seven years for greek citizenship be interrupted, why do some pages say twelve years for greek citizenship, which residence permits qualify for greek naturalisation, what is article 5 of the greek citizenship code, do eu citizens get greek citizenship faster, what is the difference between article 5 and article 5a
 
 **Keywords placed in subheadings:**
-"The three periods"; "The list that decides between seven and twelve"; "The conditions are in two articles, and the examination is in the second one"; "What the periods are counted from"; "The historic figure".
+"The three Greek naturalisation periods: three, seven and twelve years"; "The closed list in article 5(1)(ε) decides between seven years and twelve"; "Greek citizenship conditions sit in two articles, and the exam is in article 5A"; "Greek naturalisation needs continuous residence, with no window for gaps"; "Why some pages still say ten years for Greek citizenship"; "Where this text of the Greek Citizenship Code was read, and how current it is"; "Frequently asked questions about Greek citizenship"; "More on Greek residence and citizenship".
 
 **Английская страница.** Русский `гражданство греции` — 2 170 схлопнутых при
 конкуренции 18, идёт отдельным пунктом F5 и пишется под свой интент, а не

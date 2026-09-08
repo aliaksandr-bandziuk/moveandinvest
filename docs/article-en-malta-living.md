@@ -36,7 +36,7 @@ The spread between the lowest and the highest is a factor of 2.8. Not one of tho
 
 This one does, and it starts with the thing that makes Malta unusual.
 
-### Malta registers its leases, and the register is public
+### Rent in Malta: the public lease register says €850, not €1,400
 
 Since **1 January 2020**, every private residential lease in Malta has had to be registered with the **Housing Authority**. Not surveyed, not sampled — registered, as a legal duty, by the landlord.
 
@@ -50,7 +50,7 @@ The two datasets do not agree, and the size of the disagreement has been measure
 
 **In an earlier 2022 study**, the Bank compared the whole distributions rather than the medians, and the result is starker still: in 2021, **51% of registered properties rented for under €700 a month**, against **under 9% of advertised ones**.
 
-### Before using that as a discount, read the next paragraph
+### Why the registered Maltese rent is not a discount you can ask for
 
 It would be easy, and wrong, to conclude that Maltese rent is 40% cheaper than the internet says and to budget accordingly.
 
@@ -64,7 +64,7 @@ The register's own local figures give a feel for the level. In **St Paul's Bay**
 
 **One caution about dates, and we would rather lose the sale than skip it.** The newest register report we could find published covers the second half of **2023**. Presenting €850 as a 2026 figure would be exactly the error this page exists to point at. It is the newest official median for a newly signed lease; it is not this year's.
 
-### Now the part that no page on that first screen mentions
+### Malta stopped measuring household spending after the 2015–2016 survey
 
 Rent is the half of "cost of living" that Malta measures well. The other half it does not measure at all.
 
@@ -80,7 +80,7 @@ Until then, there is no current official answer to what a Maltese household spen
 
 That is not a gap in Maltese statistics so much as a fact about the calendar, and it is about to close. It is worth knowing which side of it you are reading on.
 
-### What Malta does measure every month
+### What Malta does measure monthly: the harmonised index of consumer prices
 
 Prices, as opposed to spending, are current and published monthly.
 
@@ -93,7 +93,7 @@ The composition is more useful than the headline to anyone deciding whether to m
 
 A national average of 2.3% therefore understates the increase facing someone who eats out and goes out, and overstates it for someone who does not.
 
-### What this page will not tell you
+### What this page will not tell you about the cost of living in Malta
 
 Three things, and each is a decision rather than an omission.
 
@@ -103,7 +103,7 @@ Three things, and each is a decision rather than an omission.
 
 **A purchase price.** The lease register prices renting, not buying. Nothing in it supports a statement about property prices, and this page makes none.
 
-### Questions
+### Frequently asked questions about the cost of living in Malta
 
 ? How much does it cost to live in Malta per month?
 There is no current official answer, and that is the honest position rather than an evasion. Malta's last completed Household Budget Survey covers 2015–2016; the next was collected between November 2024 and December 2025 and is due to be published before the end of 2026. The monthly figures in circulation — anywhere between €782 and €2,205 for one person — are not drawn from a national expenditure survey, because there has not been one for a decade.
@@ -123,7 +123,7 @@ The Housing Authority publishes periodic rent reports drawn from it, and the Cen
 ? Does the €850 figure include bills?
 It is contractual rent. Utilities, the annual registration of the contract, agency fees where an agent is used, and the deposit are separate, and the register does not price them.
 
-### Where this sits in the rest of the site
+### More on living and residence in Malta
 
 Malta's residence routes, and what each of them actually costs to obtain, are in [the Malta residence guide](entry:malta-residency). The nomad permit and its own income threshold are in [the Maltese nomad permit](entry:malta-nomad). What the citizenship route became after the Court of Justice ruled against it is in [Malta citizenship after C-181/23](entry:malta-citizenship).
 
@@ -143,7 +143,7 @@ average rent in malta, rent prices in malta, cost of living in malta for single 
 why do rent figures for malta differ between websites, what is the median rent on a registered lease in malta, how much is rent in st pauls bay malta, does malta publish official cost of living data, what is the difference between registered and advertised rents in malta, is 1000 euros a month enough to live in malta, when is the maltese household budget survey published, what is the annual inflation rate in malta, how many rental contracts are registered in malta, is rent in malta cheaper than advertised
 
 **Keywords placed in subheadings:**
-"Malta registers its leases, and the register is public"; "Before using that as a discount, read the next paragraph"; "Now the part that no page on that first screen mentions"; "What Malta does measure every month"; "What this page will not tell you".
+"Rent in Malta: the public lease register says €850, not €1,400"; "Why the registered Maltese rent is not a discount you can ask for"; "Malta stopped measuring household spending after the 2015–2016 survey"; "What Malta does measure monthly: the harmonised index of consumer prices"; "What this page will not tell you about the cost of living in Malta"; "Frequently asked questions about the cost of living in Malta"; "More on living and residence in Malta".
 
 **Английская страница.** Русский мальтийский спрос почти весь про породу собак:
 из 4 860 показов 2 610 — мальтипу и мальтезы, на резидентство 250. Польского

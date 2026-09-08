@@ -1,4 +1,4 @@
-# Living in Greece as an American: the two instruments nobody on the results page mentions
+# Living in Greece as an American: the 1950 tax treaty and the social security agreement
 
 **Slug:** `living-in-greece-as-an-american`
 **Language:** en
@@ -34,7 +34,7 @@ Some of it is good. People who have actually done it are worth reading, and the 
 
 But between them those pages mention neither of the two instruments that decide an American's position in Greece more than anything else on the list — and one of them is old enough to be a surprise.
 
-### First, the boring part: Greek law has no American category
+### Greek immigration law has no American category
 
 There is no US-specific route. Greek immigration law divides the world into EU/EEA/Swiss citizens and **third-country nationals**, and an American is in the second group along with everyone else outside the Union. That means a national visa first, then a residence permit, on one of the ordinary routes.
 
@@ -66,7 +66,7 @@ This is not a Greek problem and there is nothing in Greek law that addresses it.
 
 **We are not tax advisers and this page does not tell you what to do.** What it can do is name the instruments precisely, so that the questions you ask a professional are the right ones.
 
-### The Greek special tax regimes are worth less to an American, and no page says so
+### Greek special tax regimes are worth less to an American than to a European
 
 Greece runs three attractive regimes for new tax residents, and every relocation page mentions them: the flat charge on foreign income, the 7% rate for foreign pensioners, and the 50% exemption on Greek employment and business income. Their conditions, article by article, are in our Greek material.
 
@@ -76,7 +76,7 @@ Reducing the Greek side of that equation does not automatically reduce the total
 
 What we will say plainly is this: **a Greek non-dom regime is not the same offer to an American as it is to a European, and the pages listing those regimes as an unqualified benefit are not writing for you.**
 
-### The social security agreement, which is the practical one
+### The US–Greece social security agreement and certificate of coverage GR/USA 1
 
 The United States and Greece have a totalization agreement — one of about thirty the US maintains. It is the instrument that stops a person paying into two social security systems for the same work.
 
@@ -88,7 +88,7 @@ An employee taken on by a Greek employer is in the same position, with the emplo
 
 This is one of the few genuinely mechanical answers in the whole subject, and it appears on none of the pages ranking above this one.
 
-### Naturalisation: an American is on seven years, not three
+### Greek citizenship for an American takes seven years, not three
 
 If the plan runs that far: Greece sets three different naturalisation periods, and an American gets the middle one.
 
@@ -96,13 +96,13 @@ Three continuous years is for nationals of an EU member state and three narrow f
 
 The whole structure, with the article numbers and the exact categories, is in [Greek citizenship law](entry:greece-citizenship). The point here is only that an American should read the seven-year row and not the three-year one, which is the row most summaries print.
 
-### What it costs, from Greek statistics rather than from Numbeo
+### The cost of living in Greece, from Greek statistics rather than from Numbeo
 
 Every page on that results screen prices Greece. Almost all of them price it from crowd-sourced submissions.
 
 Greece's own statistical authority publishes household expenditure and rents, and those figures are what [our guide to living in Greece](entry:greece-living) uses. They say something different from the advertisements, and they say it with a release name and a date attached.
 
-### What this page deliberately does not do
+### What this page will not tell an American about Greece
 
 **It does not compare Greece to the United States as a place to live.** That is what the Reddit threads are for, and they are better at it than we would be.
 
@@ -110,7 +110,7 @@ Greece's own statistical authority publishes household expenditure and rents, an
 
 **It does not tell you the American filing thresholds or the foreign bank account reporting limits.** Those are US rules, published by US authorities, and this site verifies European immigration and tax instruments rather than the Internal Revenue Code. Naming them is useful; reciting figures we have not read at their source is exactly what we criticise other pages for.
 
-### Questions
+### Frequently asked questions about living in Greece as an American
 
 ? Is there a special visa for Americans moving to Greece?
 No. Greek immigration law recognises EU, EEA and Swiss citizens on one hand and third-country nationals on the other. An American is a third-country national and uses the same routes as anyone else outside the Union: a national visa followed by a residence permit.
@@ -130,7 +130,7 @@ Seven continuous years, holding a residence title on the closed list in article 
 ? Is Greece cheaper than the United States?
 Cheaper on most measured items, but the comparisons you will find are generally built from crowd-sourced data rather than from either country's statistics. Greek official household expenditure figures, with the release they come from, are in our guide to living in Greece.
 
-### Where this sits in the rest of the site
+### More on Greek residence, citizenship and costs
 
 The residence routes and their thresholds are in [the Greece residence guide](entry:greece-residency). The procedure and the deadlines are in [the Greek procedure](entry:greece-process). The naturalisation periods are in [Greek citizenship law](entry:greece-citizenship). What Greece costs, from official statistics, is in [living in Greece](entry:greece-living).
 
@@ -150,7 +150,7 @@ us greece tax treaty, americans moving to greece taxes, can a us citizen live in
 does the us greece tax treaty stop double taxation, do americans pay social security in greece, can americans use the greek 7 percent pension regime, how long until an american can get greek citizenship, is there a special visa for americans in greece, what year was the us greece tax treaty signed, do i still file a us tax return if i live in greece, which social security system does an american freelancer in greece pay into, is the greek non dom regime worth it for an american
 
 **Keywords placed in subheadings:**
-"Greek law has no American category"; "The tax treaty between the United States and Greece was signed in 1950"; "American citizenship is taxed, not American residence"; "The Greek special tax regimes are worth less to an American"; "The social security agreement"; "Naturalisation: an American is on seven years, not three".
+"Greek immigration law has no American category"; "The tax treaty between the United States and Greece was signed in 1950"; "American citizenship is taxed, not American residence"; "Greek special tax regimes are worth less to an American than to a European"; "The US–Greece social security agreement and certificate of coverage GR/USA 1"; "Greek citizenship for an American takes seven years, not three"; "The cost of living in Greece, from Greek statistics rather than from Numbeo"; "What this page will not tell an American about Greece"; "Frequently asked questions about living in Greece as an American"; "More on Greek residence, citizenship and costs".
 
 **Английская страница, и другой аудитории у неё быть не может.**
 

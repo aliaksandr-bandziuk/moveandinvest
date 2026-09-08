@@ -703,6 +703,14 @@ function entrySlugs(): Record<string, Record<Locale, string>> {
   return out;
 }
 
+/** Where an entry answers, from its own record. ONE DEFINITION, because the
+ *  resolver and the dry-run report each had their own and they disagreed: the
+ *  resolver built the right URL while the report printed /blog/ for everything.
+ *  A report that contradicts the code is worse than no report. */
+function entryPath(config: EntryConfig, slug: string): string {
+  return (config.kind ?? "research") === "reference" ? `/${slug}` : `/blog/${slug}`;
+}
+
 function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, string>>) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
 
@@ -874,6 +882,7 @@ async function assertNoSlugCollision(
   }
 
   // 3. Jurisdiction and property pages, from the dataset.
+  let reachedDataset = false;
   if (projectId && dataset) {
     try {
       const read = createClient({
@@ -886,6 +895,7 @@ async function assertNoSlugCollision(
         `*[_type in ["countryPage", "propertyPage"] && defined(slug.current)]{ "slug": slug.current, "type": _type }`,
       );
       for (const row of rows) taken.set(row.slug, `a ${row.type}`);
+      reachedDataset = true;
     } catch (error) {
       console.warn(
         `\n  ! Could not reach the dataset to check jurisdiction and property slugs: ${
@@ -894,6 +904,12 @@ async function assertNoSlugCollision(
       );
     }
   }
+
+  console.log(
+    `      slug check: ${taken.size} addresses already taken (${
+      reachedDataset ? "routes, entries and Sanity pages" : "routes and entries only"
+    })`,
+  );
 
   for (const parsed of parsedAll) {
     const owner = taken.get(parsed.slug);
@@ -1213,7 +1229,13 @@ async function run() {
     console.log(
       [
         `${parsed.locale}  ${parsed.title}`,
-        `      /blog/${parsed.slug}`,
+        // THE PATH BY KIND, and until 8 September 2026 this line printed
+        // "/blog/" unconditionally. The resolver above was already correct, so
+        // the code did the right thing and the report said otherwise — on the
+        // one line a human reads to confirm where the page is about to go. The
+        // first reference entry's dry run printed /blog/moving-to-portugal-from
+        // -the-uk for a page that answers at the root.
+        `      ${entryPath(config, parsed.slug)}`,
         `      ${words} words, category: ${config.category}, sources: ${parsed.sources.join(", ")}`,
         `      meta title ${parsed.metaTitle.length} chars, description ${parsed.metaDescription.length} chars`,
         `      ${body.length} blocks: ${count("h2")} h2, ${count("h3")} h3, ${count("p")} paragraphs, ` +

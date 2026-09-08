@@ -34,7 +34,7 @@ They disagree because there are two visas. Portugal created both of them on the 
 
 This page separates them, quotes the provisions that create each, and then sets out something that appears on no page in this market: the regulation governing the second one still directs anyone already in Portugal to a procedure that Parliament abolished on 4 June 2024.
 
-### The two visas, in the statute's own words
+### The two D8 visas in the statute's own words: article 54(1)(i) and article 61-B
 
 ![1]
 
@@ -52,7 +52,7 @@ Read the two descriptions side by side and they are the same activity. Read what
 
 Note also what neither of them contains: **an amount of money**. Both are silent on income.
 
-### Where the €3,680 comes from, and why it is not really €3,680
+### The D8 income requirement: where €3,680 comes from, and why it moves
 
 The figure lives one level down, in **Decreto Regulamentar 84/2007** — the regulation that implements the immigration law — in two articles inserted into it by **Decreto Regulamentar 4/2022 of 30 September 2022**.
 
@@ -70,7 +70,7 @@ Two things follow, and both are missing from the pages that print the number.
 
 **A correction we owe here.** Until 7 September 2026 our own pages said this threshold could not be traced to any Portuguese legal instrument and should not be treated as law. That was wrong: we read article 61-B, found it silent about money, and did not open the regulation implementing it. The correction and the instrument are both on our [sources page](/sources#pt-dr-4-2022).
 
-### The part nobody has: the regulation's in-country route was abolished two years ago
+### The D8 in-country route points at paragraphs abolished in June 2024
 
 Article 31-A has a second paragraph, and it is the only place in the entire D8 regime that addresses somebody who is already in Portugal without the visa:
 
@@ -92,7 +92,7 @@ The regulation has not been amended since. Its seventh and latest amendment is D
 
 Nor does the general escape hatch help. Article 122(1) of Lei 23/2007 lists the cases where a residence permit is granted **with exemption from the residence visa** — nineteen of them, from minors born in Portugal to investors to, since October 2025, children in institutional care. One of them, paragraph (q), covers a person who holds a **temporary-stay visa for research or highly qualified activity** and wants to convert. That is the entry immediately next to the remote-work one in article 54. The remote-work temporary-stay visa is not in the list.
 
-### What that means in practice, stated carefully
+### What the abolished D8 cross-reference means for an applicant in Portugal
 
 It means the published rules give the D8 no working in-country route, in either variant. The temporary-stay visa is not on the conversion list, and the residence visa's own regulation sends you to repealed paragraphs.
 
@@ -100,7 +100,7 @@ It does not mean conversion is impossible. An immigration authority can operate 
 
 What it does mean for everybody else is one sentence: **get the visa before you go.** The consulate is the route, not a plan to arrive and sort it out. That is the opposite of what the D8's reputation suggests, and it is the single most consequential thing on this page.
 
-### Which of the two you want, and it is usually not close
+### Which D8 visa to apply for, and why the choice is usually not close
 
 ^ The two D8 variants
 | | Temporary stay | Residence |
@@ -114,7 +114,7 @@ What it does mean for everybody else is one sentence: **get the visa before you 
 
 If you intend to try Portugal for a season, the temporary-stay visa is the honest instrument and nothing is lost. If you intend to stay, it is a year spent outside every clock that matters — and since 19 May 2026 those clocks are considerably longer than the market still says. Naturalisation is now ten years for most nationalities, seven for citizens of the EU and Portuguese-speaking countries, and the paragraph that let time in the permit queue count was repealed on the same day. That is set out in full in our guide to [Portugal's nationality law](entry:portugal-citizenship).
 
-### How to check this page in about six minutes
+### How to check the Portuguese D8 rules yourself in six minutes
 
 1. Open Decreto Regulamentar 4/2022 on the Diário da República site and find articles 18-B and 31-A. Read alínea c) of each. They are the same sentence.
 2. Read article 31-A(2). Note the words "n.º 2 e seguintes dos artigos 88.º e 89.º".
@@ -126,7 +126,7 @@ Every instrument named here has its own line and its own link on our [sources pa
 
 **One credit, because this page is not first to everything.** The two-variant distinction does exist in this market — a Lisbon law firm has it as a chapter of a YouTube video. What no page has, as far as we can find, is what follows from the distinction: the conversion list, the repeal, and the cross-reference left standing.
 
-### Questions
+### Frequently asked questions about the Portugal D8 digital nomad visa
 
 ? How much income does the Portugal D8 digital nomad visa require?
 Four times the guaranteed minimum monthly wage, averaged over the last three months — article 18-B(c) of Decreto Regulamentar 84/2007 for the temporary-stay visa and article 31-A(1)(c) for the residence visa. At the 2026 minimum wage of €920 that is €3,680 a month. It is not a fixed euro figure: it moves every January, and pages that print only the euro amount go stale without changing a word.
@@ -146,7 +146,7 @@ No. The D7 is for people living on their own income — pensions, rent, dividend
 ? Do I need to spend time in Portugal to keep a D8 residence permit?
 The residence permit carries the ordinary absence rules of Lei 23/2007, not a rule of its own, and they are stricter than most pages selling the visa suggest. What the permit requires after it is issued — renewals, presence, permanent residence at five years — is set out in [what happens after the permit](entry:portugal-after-permit).
 
-### Where this sits in the rest of the site
+### More on Portuguese visas and residence
 
 The D7 and the investment route, with their own income tests, are in [Portugal residency](entry:portugal-residency). The naturalisation arithmetic after the May 2026 law is in [Portugal's nationality law](entry:portugal-citizenship). What living in Portugal actually costs, from the national statistics rather than from advertisements, is in [cost of living in Portugal](entry:portugal-living).
 
@@ -164,7 +164,7 @@ portugal d8 visa income requirement, portugal digital nomad visa income, d8 temp
 how much income do i need for the portugal d8 visa, is the portugal digital nomad visa a residence visa or a temporary stay visa, can i apply for the d8 visa from inside portugal, does the portugal d8 visa lead to citizenship, why do sites say 2800 for the portugal digital nomad visa, what is the difference between the d7 and d8 visas in portugal, does the d8 income test look at my contract or my last three months, what happened to manifestacao de interesse for remote workers, can a temporary stay visa be converted to a residence permit in portugal, is 3680 euros the permanent requirement for the portugal d8
 
 **Keywords placed in subheadings:**
-"The two visas, in the statute's own words"; "Where the €3,680 comes from, and why it is not really €3,680"; "The part nobody has: the regulation's in-country route was abolished two years ago"; "Which of the two you want".
+"The two D8 visas in the statute's own words: article 54(1)(i) and article 61-B"; "The D8 income requirement: where €3,680 comes from, and why it moves"; "The D8 in-country route points at paragraphs abolished in June 2024"; "What the abolished D8 cross-reference means for an applicant in Portugal"; "Which D8 visa to apply for, and why the choice is usually not close"; "How to check the Portuguese D8 rules yourself in six minutes"; "Frequently asked questions about the Portugal D8 digital nomad visa"; "More on Portuguese visas and residence".
 
 **Английская страница.** Русский `виза цифрового кочевника португалия` — 170,
 польский — ниже порога. Обе версии темы держат `portugal-move` и польская

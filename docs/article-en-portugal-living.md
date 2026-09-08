@@ -74,7 +74,7 @@ Madeira at **€11.97** is the second most expensive area in the country to rent
 
 The Algarve at **€10.71** and Setúbal at **€11.35** sit between Porto and Greater Lisbon. Setúbal in particular is the commuter answer to Lisbon prices, and at €11.35 against Lisbon's €17.42 it is a discount rather than an escape.
 
-### Buying instead of renting: €2,198 a square metre, rising 17.5% a year
+### House prices in Portugal: €2,198 a square metre, rising 17.5% a year
 
 In the fourth quarter of 2025 the median price of housing sold in Portugal was **€2,198 per square metre**, up **17.5%** year on year — again an acceleration, against 16.1% the quarter before. For the whole of 2025 the median was €2,076.
 
@@ -94,7 +94,7 @@ The volume moved the other way: **41,789 transactions, down 5.3%** year on year.
 
 Prices rose in twenty-four of the twenty-six NUTS III subregions. Two fell: Alto Tâmega e Barroso by 12.1% and Madeira by 8.3% — so Madeira is simultaneously the second most expensive place to rent and one of only two places where the purchase price came down.
 
-### The 49% nobody publishes: what a foreign buyer pays per square metre
+### Property in Portugal costs a foreign buyer 49% more per square metre
 
 This is the figure that repaid going to the source, and we have found it nowhere else in English.
 
@@ -111,7 +111,7 @@ What it does mean practically is that the regional medians in the table above ar
 
 The release does not publish the absolute price for each domicile group, only the difference between them. That is why the figure above is drawn as an index rather than in euros.
 
-### What Portugal costs against the rest of the EU
+### The cost of living in Portugal compared with the rest of the EU
 
 The one measure that is computed by a single office on a single method for every member state is Eurostat's **comparative price level index** for household final consumption, where the EU average is 100.
 
@@ -119,7 +119,7 @@ Portugal stands at **86.6** on the 2025 round — roughly 13% below the EU avera
 
 For context inside this site's other jurisdictions: Greece is at 86 on the 2024 round, Malta at 91.9 on the 2025 preliminary round.
 
-### The number we will not print, and why
+### Household spending in Portugal: the figure this page will not print
 
 Every page on this subject eventually quotes an average household's total annual spending. For Portugal the figure in circulation is €24,190 a year, attributed to the 2022/2023 household budget survey.
 
@@ -129,7 +129,7 @@ So the figure may well be right. We have not seen it in the source, we cannot te
 
 What stands in its place is what is verifiable: the rent and purchase medians above, the Eurostat price level, and the statutory figures below.
 
-### What the law says you need: €920 a month
+### The income Portuguese law requires for residence: €920 a month
 
 Two numbers govern the paperwork rather than the shopping.
 
@@ -139,7 +139,7 @@ The **IAS**, the social support index used across Portuguese administrative law,
 
 Put beside the rent figures, the arithmetic is uncomfortable and worth stating plainly: the income Portugal requires a resident to prove is below the median rent on a seventy-square-metre flat in its capital.
 
-### Frequently asked questions
+### Frequently asked questions about the cost of living in Portugal
 
 ? What is the average rent in Portugal?
 The state does not publish an average; it publishes a median, which is more useful. In the first quarter of 2026 the median rent in new leases was €9.46 per square metre nationally and €17.42 in the municipality of Lisbon. At seventy square metres that is roughly €662 and €1,219 a month respectively.
@@ -165,17 +165,17 @@ Because the household expenditure survey behind such budgets could not be read a
 ? Is the rent figure based on asking prices?
 No. It is computed from new leases actually signed and registered — 39,395 of them in the first quarter of 2026. That is what separates it from an index built on advertisements.
 
-### Where this sits in the rest of the site
+### More on living, residence and property in Portugal
 
 What Portugal asks a resident to prove, and how the D7 test is built on that €920, is in [the Portugal guide](entry:portugal-residency). What is left of the investment route after the 2023 repeal is in [the golden visa piece](entry:portugal-golden-visa). How Portugal's thresholds compare with the Greek, Maltese and Emirati ones is in [the income comparison](entry:income-cost-of-living), and what living in Greece costs on the same kind of official data is in [the Greece guide](entry:greece-living). Every act named here, with the date it was read, is on [the sources page](/sources).
 
-### If you are working out whether the numbers add up
+### Work out your own cost of living in Portugal
 
 We do not sell property and we do not give legal advice. What we do is put a person who knows what they are asking in front of a licensed firm in the right jurisdiction.
 
 The figures above answer what things cost. They do not answer whether a particular move works, because that depends on which permit you would hold, where the income comes from and how it is taxed once you are resident — and those three interact. If you are weighing Lisbon against Porto, or Portugal against somewhere else in this set, send the question through the enquiry form and say what you actually want at the end of it. We take no part in the fee.
 
-### Sources: where each figure comes from
+### Sources for these Portuguese cost-of-living figures
 
 - The median rent of €9.46 per square metre, the 9.1% annual rise, the 39,395 new contracts, the regional and municipal medians, the universality of the increase across every NUTS III subregion and all twenty-four municipalities above a hundred thousand inhabitants, and the 15.1% rise in Vila Nova de Famalicão: INE, «Estatísticas de Rendas da Habitação ao nível local», first quarter of 2026, published 26 June 2026. Read in the office's own portal on 5 September 2026.
 - The median purchase price of €2,198 per square metre, the 17.5% annual rise, the 41,789 transactions, the 2025 full-year median of €2,076, the regional and municipal medians, the rise in twenty-four of twenty-six subregions and the falls in Alto Tâmega e Barroso and Madeira, and the tax-domicile differences of 49.0% and 35.6%: INE, «Estatísticas de Preços da Habitação ao nível local», fourth quarter of 2025, published 24 April 2026. Read in the office's own portal on 5 September 2026.
@@ -197,7 +197,7 @@ average rent in portugal, rent prices in portugal, house prices in portugal, is 
 what is the average rent in portugal, how much does it cost to live in lisbon, is portugal still cheap to live in, where is the cheapest place to live in portugal, do foreigners pay more for property in portugal, how much money do i need to move to portugal, is portugal cheaper than spain to live, what is the median price per square metre in portugal, how much is rent in porto portugal, are portuguese rents based on asking prices or signed contracts, what is the ias in portugal, how much has rent risen in portugal
 
 **Keywords placed in subheadings:**
-"Rent in Portugal: €9.46 a square metre"; "Cost of living in Lisbon: the rent alone exceeds the minimum wage"; "Cost of living in Porto: €10.13"; "The Algarve, Madeira and the Setúbal peninsula"; "Buying instead of renting: €2,198 a square metre"; "The 49% nobody publishes: what a foreign buyer pays per square metre"; "What Portugal costs against the rest of the EU"; "The number we will not print, and why"; "What the law says you need: €920 a month".
+"Rent in Portugal: €9.46 a square metre, from 39,395 signed contracts"; "House prices in Portugal: €2,198 a square metre, rising 17.5% a year"; "Property in Portugal costs a foreign buyer 49% more per square metre"; "The cost of living in Portugal compared with the rest of the EU"; "Household spending in Portugal: the figure this page will not print"; "The income Portuguese law requires for residence: €920 a month"; "Frequently asked questions about the cost of living in Portugal"; "More on living, residence and property in Portugal"; "Work out your own cost of living in Portugal"; "Sources for these Portuguese cost-of-living figures".
 
 **Английская страница; русской и польской версий не будет — решение по спросу.**
 Русский португальский спрос выражен словом «переезд», и его держит

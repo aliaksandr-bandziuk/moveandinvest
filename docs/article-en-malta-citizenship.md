@@ -34,7 +34,7 @@ One of those is close to right. The rest describe a state of affairs that ended 
 
 This page sets out what the instruments actually did, in the order they did it, with the gazette number of each. It is short on adjectives because the chain does not need any.
 
-### What happened, in three instruments and ninety-one days
+### How Malta citizenship by investment closed: three instruments in ninety-one days
 
 ![1]
 
@@ -49,7 +49,7 @@ This page sets out what the instruments actually did, in the order they did it, 
 
 Ninety-one days from judgment to deletion.
 
-### "Suspended" is the wrong word, and the difference is not pedantic
+### Malta citizenship by investment is repealed, not suspended
 
 The most accurate page on the first results screen at the time of writing belongs to a Maltese firm. It describes the ruling, it mentions the 24 July amendment, and it labels the status **"Suspended"**. It does not name the case number, Act XXI or L.N. 159.
 
@@ -88,7 +88,7 @@ So any page giving you a figure for Malta citizenship by merit is not quoting th
 
 **Oversight sits with a separate Office of the Regulator**, under articles 25, 25A and 25B.
 
-### The government's own page still lists the old contributions
+### Malta's own government page still lists the repealed contributions
 
 On 6 September 2026 — sixteen months after the judgment, thirteen after the deletion — the services pages of the Community Malta Agency, the government body concerned, still published the **€600,000 and €750,000** contribution figures of the deleted route, under page timestamps dated February 2026.
 
@@ -104,11 +104,11 @@ Ordinary naturalisation asks for **twelve continuous months of residence immedia
 
 Read that carefully, because the arithmetic is not what it looks like. The minimum is **five years of residence**, but they may be spread across a window of up to **seven years** — the four need only fall somewhere inside the preceding six, and they need not be continuous. That is more forgiving than a flat five-year rule for anyone whose residence has gaps, and less forgiving than it sounds for anyone hoping the twelve months can be waived. They cannot.
 
-### What this page does not cover
+### What this page does not cover about Maltese citizenship
 
 Citizenship by descent and by marriage are separate routes under Cap. 188 with their own conditions. We have not read those provisions against the source, so they are not described here rather than being summarised from secondary accounts.
 
-### Frequently asked questions
+### Frequently asked questions about Malta citizenship by investment
 
 ? Can you still buy Maltese citizenship?
 No. Part IV of S.L. 188.06, which contained the scheme, was deleted by L.N. 159 of 2025 on 29 July 2025, together with the Second and Third Schedules. The instrument was retitled at the same time.
@@ -134,17 +134,17 @@ Twelve continuous months of residence immediately before applying, plus four yea
 ? Does the Maltese permanent residence programme lead to citizenship?
 It is a separate instrument with separate conditions and it is not a naturalisation route. What it costs and what it requires is set out in our Malta residence guide.
 
-### Where this sits in the rest of the site
+### More on Maltese residence and citizenship
 
 What the Maltese permanent residence programme costs and requires is in [the Malta guide](entry:malta-residency). How Malta's position compares with the Portuguese and Greek routes to a passport is in [the passport piece](entry:golden-passport). The residence card and its renewal are in [the card guide](entry:malta-card), and the nomad permit in [the nomad guide](entry:malta-nomad). Every act named here, with the date it was read, is on the sources page: the judgment at [C-181/23](/sources#mt-c-181-23), the amending act at [Act XXI of 2025](/sources#mt-act-xxi-2025), the deletion at [L.N. 159 of 2025](/sources#mt-ln-159-2025) and the regulations at [S.L. 188.06](/sources#citizenship-sl-188-06).
 
-### If you were counting on this route
+### If you were counting on Malta citizenship by investment
 
 We do not sell property, we do not sell citizenship and we do not give legal advice. What we do is put a person who knows what they are asking in front of a licensed firm in the right jurisdiction.
 
 If Malta was your plan because of the passport, the honest position is that the plan needs rebuilding rather than adjusting: the merit route is not a priced product, and nobody can sell you a place in it. If what you actually wanted was EU residence rather than an EU passport, Malta still has a permanent residence programme and it is a different question with a published price. If it was the passport specifically, the routes that remain in this set are ordinary naturalisation somewhere — and those are measured in years of living there. Send the question through the enquiry form and say which of the two you meant. We take no part in the fee.
 
-### Sources: where each figure comes from
+### Sources for these Maltese citizenship figures
 
 - The judgment, its date and its court: Case C-181/23, Commission v Malta, Court of Justice of the European Union, Grand Chamber, judgment of 29 April 2025.
 - The substitution of article 10(9) of Cap. 188: Maltese Citizenship (Amendment) Act, Act XXI of 2025, Government Gazette 21,474 of 24 July 2025.
@@ -167,7 +167,7 @@ malta citizenship by merit, malta citizenship by investment closed, is malta cit
 was the malta citizenship programme suspended or abolished, what did the court of justice decide about malta citizenship, how much does malta citizenship by merit cost, why do sites still show 600000 for malta citizenship, what is s.l. 188.06, how long does ordinary naturalisation in malta take, is there still a golden passport in malta, what replaced malta citizenship by investment, does malta permanent residence lead to citizenship, what are the merit grounds for maltese citizenship
 
 **Keywords placed in subheadings:**
-"What happened, in three instruments and ninety-one days"; "«Suspended» is the wrong word"; "Malta citizenship by merit: what stands in its place"; "What is not published: the price"; "The government's own page still lists the old contributions"; "Maltese nationality law: the ordinary route".
+"How Malta citizenship by investment closed: three instruments in ninety-one days"; "Malta citizenship by investment is repealed, not suspended"; "Malta citizenship by merit: what stands in its place"; "Malta's own government page still lists the repealed contributions"; "Maltese nationality law: the ordinary route, and what it really asks"; "What this page does not cover about Maltese citizenship"; "Frequently asked questions about Malta citizenship by investment"; "More on Maltese residence and citizenship"; "If you were counting on Malta citizenship by investment"; "Sources for these Maltese citizenship figures".
 
 **Английская страница. Русская и польская версии — по спросу, не сейчас.**
 Русский `гражданство мальты` и польский аналог в кластере есть, но обе версии

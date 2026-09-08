@@ -1,4 +1,4 @@
-# Moving to Portugal from the UK: everyone is still explaining Brexit, and the treaty changed underneath them
+# Moving to Portugal from the UK: the 2025 tax treaty that replaced the 1968 one
 
 **Slug:** `moving-to-portugal-from-the-uk`
 **Language:** en
@@ -13,8 +13,8 @@
 **Meta title (57 characters):**
 `Moving to Portugal from the UK: the treaty changed in 2025`
 
-**Meta description (150 characters):**
-`The UK-Portugal tax convention signed in 1968 was replaced in 2025 and took effect here on 6 April 2026. What that changed, and what it left exactly as it was.`
+**Meta description (141 characters):**
+`The UK-Portugal tax convention signed in 1968 was replaced in 2025 and reached UK income tax on 6 April 2026. What changed, and what did not.`
 
 **Excerpt:**
 `Search this and you get the Brexit answer: freedom of movement ended, you need a visa now. True, and five years old. The instrument that actually decides a Briton's tax position in Portugal was replaced at the end of 2025 — a convention signed in 1968 gave way to one signed in September 2025, which reached UK income tax on 6 April 2026. The tax advisers' page on the first screen was written before it was signed.`
@@ -112,7 +112,7 @@ The date explains it rather than condemning it: the page is dated 11 February 20
 
 That is one page, named, opened in full, and it is the only page here we are making a claim about. The others on that screen we did not open, and we are not going to tell you what is in them.
 
-### Questions
+### Frequently asked questions about moving to Portugal from the UK
 
 ? Is there still a UK–Portugal double taxation treaty after Brexit?
 Yes, and it is a new one. The convention signed on 27 March 1968 was replaced by a convention signed on 15 September 2025, which entered into force on 29 December 2025. Brexit did not end the treaty; the two countries renegotiated it separately.
@@ -132,7 +132,7 @@ Ten years of legal residence. Seven applies to nationals of EU member states and
 ? Does the treaty decide whether I still pay UK tax?
 No. Whether you remain UK-resident is decided by the UK's own statutory residence test, not by the convention. The convention allocates taxing rights between two countries once your residence in each is established.
 
-### Where this sits in the rest of the site
+### More on Portuguese visas, residence and citizenship
 
 Routes and thresholds are in [the Portugal residence guide](entry:portugal-residency); remote work in [the D8 page](entry:portugal-nomad); the investment route in [the golden visa page](entry:portugal-golden-visa); naturalisation in [Portugal's nationality law](entry:portugal-citizenship). The American version of this move, where the tax position is genuinely different because the United States taxes citizenship rather than residence, is in [moving to Portugal from the US](entry:portugal-americans). What Portugal costs, from INE, is in [the cost of living in Portugal](entry:portugal-living).
 
@@ -152,7 +152,7 @@ uk portugal double taxation treaty, uk portugal tax treaty 2025, moving to portu
 is there still a uk portugal double taxation treaty, when does the new uk portugal tax convention apply, which country taxes my uk pension if i live in portugal, was the uk portugal tax treaty replaced, do british citizens need a visa to move to portugal, how long until a uk citizen can get portuguese citizenship, does the uk portugal treaty cover government service pensions, what changed in the uk portugal tax treaty in 2025
 
 **Keywords placed in subheadings:**
-"The UK–Portugal tax treaty was replaced in 2025, after fifty-seven years"; "When the new UK–Portugal convention actually applies to you"; "What the 2025 convention did not change: pensions"; "Government service pensions are the exception, and nationality decides it"; "Visa routes for British citizens moving to Portugal are not on this page"; "Portuguese citizenship for UK citizens still takes ten years"; "What this page will not compute for a British taxpayer"; "What the leading tax guide for moving to Portugal from the UK leaves out".
+"The UK–Portugal tax treaty was replaced in 2025, after fifty-seven years"; "When the new UK–Portugal convention actually applies to you"; "What the 2025 convention did not change: pensions"; "Government service pensions are the exception, and nationality decides it"; "Visa routes for British citizens moving to Portugal are not on this page"; "Portuguese citizenship for UK citizens still takes ten years"; "What this page will not compute for a British taxpayer"; "What the leading tax guide for moving to Portugal from the UK leaves out"; "Frequently asked questions about moving to Portugal from the UK"; "More on Portuguese visas, residence and citizenship".
 
 **Английская страница.**
 

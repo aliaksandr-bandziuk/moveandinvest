@@ -1,4 +1,4 @@
-# Moving to Portugal from the US: the clock starts later than you think, and the sentence you need is not in the treaty
+# Moving to Portugal from the US: the ten-year citizenship clock and the treaty's saving clause
 
 **Slug:** `moving-to-portugal-from-the-us`
 **Language:** en
@@ -52,7 +52,7 @@ If it was not, paragraph 4 does not exist for you, and what remains is paragraph
 
 We are deliberately not writing the sentence you will see elsewhere, that the period "runs from the issue of the residence permit". That is a paraphrase of a repeal rather than a rule the statute states, and it is wrong for pending files. **We published that sentence ourselves and had to correct six pages.**
 
-### Interrupted years, and the window an American gets
+### Interrupted residence in Portugal: the twelve-year window for an American
 
 The other half of article 15 rarely appears in English at all. Paragraph 3 lets separate periods of legal residence be added together, so long as they all fall inside a window: six years for stateless persons, nine for nationals of Portuguese-speaking countries and of EU member states, **twelve for citizens of other countries**.
 
@@ -118,7 +118,7 @@ Get Golden Visa's guide for Americans is a thorough page — forty-five thousand
 
 That is one page, named, opened in full, and it is the only page we are making a claim about.
 
-### Questions
+### Frequently asked questions about moving to Portugal from the US
 
 ? How long does it take to get Portuguese citizenship as an American?
 Ten years of legal residence. Seven applies to nationals of EU member states and of Portuguese-speaking countries; an American is on ten. Interrupted periods may be added together provided they fall within a twelve-year window, under article 15(3) of the Nationality Act.
@@ -138,7 +138,7 @@ No. Portuguese immigration law recognises EU, EEA and Swiss citizens on one hand
 ? Do I still file a US tax return if I live in Portugal?
 The United States taxes its citizens on worldwide income wherever they live, and the saving clause in the Protocol preserves that. Moving to Portugal does not end a US filing obligation; it adds a Portuguese one. The thresholds and mechanics are US rules and we do not print figures for them here.
 
-### Where this sits in the rest of the site
+### More on Portuguese visas, residence and citizenship
 
 Routes and thresholds are in [the Portugal residence guide](entry:portugal-residency); remote work is in [the D8 page](entry:portugal-nomad); the investment route is in [the golden visa page](entry:portugal-golden-visa); the whole naturalisation picture, including the repeal that this page turns on, is in [Portugal's nationality law](entry:portugal-citizenship). What Portugal costs, from INE rather than from crowd-sourced submissions, is in [the cost of living in Portugal](entry:portugal-living).
 
@@ -158,7 +158,7 @@ us portugal tax treaty, portugal citizenship for americans, how long to get port
 when do the ten years for portuguese citizenship start, does the aima queue count towards portuguese citizenship, does the us portugal tax treaty have a saving clause, where is the saving clause in the us portugal tax treaty, do americans pay social security in portugal, which social security system does an american freelancer in portugal pay into, can interrupted years count for portuguese citizenship, is there a special visa for americans in portugal, what changed for portuguese citizenship on 19 may 2026, do i still file a us return if i live in portugal
 
 **Keywords placed in subheadings:**
-"Portuguese citizenship takes ten years, and the starting line moved on 19 May 2026"; "Interrupted years, and the window an American gets"; "The visa routes for Americans moving to Portugal are not on this page"; "The saving clause is not where a lawyer would look for it"; "Which social security system you actually pay into"; "Taxes for Americans in Portugal: what this page will not compute"; "What the leading guide for Americans moving to Portugal leaves out".
+"Portuguese citizenship takes ten years, and the starting line moved on 19 May 2026"; "Interrupted residence in Portugal: the twelve-year window for an American"; "The visa routes for Americans moving to Portugal are not on this page"; "The saving clause is not where a lawyer would look for it"; "Which social security system you actually pay into"; "Taxes for Americans in Portugal: what this page will not compute"; "What the leading guide for Americans moving to Portugal leaves out"; "Frequently asked questions about moving to Portugal from the US"; "More on Portuguese visas, residence and citizenship".
 
 Все девять подзаголовков несут ключ. Первая редакция от 8 сентября имела четыре
 служебных — «The number moved in 2024», «Where the routes and thresholds live»,
