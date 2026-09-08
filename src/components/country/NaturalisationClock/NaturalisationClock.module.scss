@@ -1,0 +1,238 @@
+@use "../../../styles/mixins";
+
+// THE VISIBILITY RULE IS FIRST BECAUSE EVERYTHING ELSE DEPENDS ON IT.
+//
+// `data-off` rather than the `hidden` attribute, and that is a scar rather than
+// a preference: in a CSS module, a `display` set on a class outranks `hidden`,
+// and the element stays on screen with nothing in the markup to explain why.
+// This codebase has paid for that twice. `[data-off]` is owned by this file, so
+// nothing can outrank it by accident.
+.caveat[data-off="true"] {
+  display: none;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heading {
+  margin: 0;
+}
+
+.intro {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--color-text-muted);
+}
+
+// --- The controls ------------------------------------------------------------
+// A grid rather than a row of inline fields: five controls of three different
+// shapes (two dates, three radio pairs) do not share a baseline, and forcing
+// them onto one produces a form whose labels sit at five different heights.
+.controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-m);
+  background: var(--color-row-hover);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  // A fieldset carries a default border and padding in every browser and they
+  // are not the ones this grid wants.
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.fieldLabel {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--fs-small);
+  // A legend is not a flex child in every engine, so the label is styled as a
+  // block and the fieldset's gap is what separates it from the control.
+  padding: 0;
+}
+
+.fieldNote {
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+}
+
+.input {
+  font: inherit;
+  padding: var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-s);
+  background: var(--color-surface);
+  color: var(--color-text);
+  // A native date field is content-sized and comes out narrower than the text
+  // beside it in Safari; a min-width keeps the two controls the same width.
+  min-width: 12rem;
+  max-width: 100%;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  cursor: pointer;
+}
+
+// --- The answer --------------------------------------------------------------
+
+.summary {
+  margin: 0;
+  font-size: var(--fs-body-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+// Wide content scrolls inside its own container, never the page body: three
+// columns of dates and citations do not fit a phone, and a table that widens
+// the document breaks every other section on the page with it.
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  // COLUMN WIDTHS ARE DECLARED, and the first render is why. Left to itself the
+  // browser gave the date column eight hundred pixels for a hundred and fifty
+  // of content and squeezed the citations — the column carrying the actual
+  // answer got the least room. `fixed` plus three widths puts the space where
+  // the reading happens.
+  table-layout: fixed;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 18%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 22%;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 62%;
+  }
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--space-3) var(--space-3) var(--space-3) 0;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  thead th {
+    font-size: var(--fs-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.where {
+  // NO `nowrap`, AND THE FIRST RENDER AFTER THE COLUMNS WERE FIXED IS WHY.
+  // With the column pinned at 14%, "United Arab Emirates" had nowhere to go
+  // and printed straight over the date beside it. A name that does not fit its
+  // column wraps; it does not silently claim the next one.
+  font-weight: var(--font-weight-semibold);
+  hyphens: none;
+}
+
+.when {
+  // No min-width: the column width above owns this now, and a min-width larger
+  // than the declared share would silently override it.
+  white-space: normal;
+}
+
+.date {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+}
+
+.verdictWord {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.cellNote {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+}
+
+.rule {
+  max-width: 44ch;
+}
+
+.instrument {
+  display: block;
+  font-size: var(--fs-small);
+}
+
+.caveats {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.caveat {
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+  // The accent rule hangs in the container's gutter rather than on the item's
+  // own edge, for the reason the change log records: an inset shadow on an
+  // element with no left padding paints over the first glyph.
+  position: relative;
+  padding-left: var(--space-3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block: 0.35em auto;
+    left: 0;
+    width: 3px;
+    height: 0.9em;
+    background: var(--color-line);
+  }
+}
+
+// A row whose verdict is not a date reads differently, and the difference is
+// the point: the tool is saying it does not know rather than saying "never".
+.table tr[data-verdict="unread"] .when,
+.table tr[data-verdict="no-route"] .when {
+  color: var(--color-text-muted);
+}
+
+.sources {
+  margin: 0;
+  font-size: var(--fs-small);
+}

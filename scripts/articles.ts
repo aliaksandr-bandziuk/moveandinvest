@@ -427,6 +427,37 @@ const ENTRIES: Record<string, EntryConfig> = {
     // спрос идёт в «внж португалии» и «гражданство португалии», то есть в
     // portugal-residency и в будущую F4. См. блок ключей в конце файла статьи.
   },
+  "malta-living": {
+    key: "article-malta-living",
+    sources: {
+      en: "article-en-malta-living.md",
+    },
+    figures: {
+      en: ["mt-rent-gap-en", "mt-measures-en"],
+    },
+    publishedAt: "2026-09-07T20:00:00.000Z",
+    // "relocation": предмет — что стоит жить, а не как получить статус.
+    category: "relocation",
+    countries: ["country-mt"],
+    // АНГЛИЙСКАЯ ТОЛЬКО. Русский мальтийский спрос — это порода собак: из 4 860
+    // показов 2 610 мальтипу и мальтезы, на резидентство 250. Польского нет.
+  },
+  "portugal-nomad": {
+    key: "article-portugal-nomad",
+    sources: {
+      en: "article-en-portugal-nomad.md",
+    },
+    figures: {
+      en: ["pt-d8-variants-en", "pt-d8-chain-en"],
+    },
+    publishedAt: "2026-09-07T18:00:00.000Z",
+    // "rules": предмет — что на самом деле создают ст. 54(1)(i) и 61-B и куда
+    // ведёт отсылка ст. 31.º-A(2) регламента.
+    category: "rules",
+    countries: ["country-pt"],
+    // АНГЛИЙСКАЯ ТОЛЬКО: `portugal digital nomad visa` — 14 470 показов в
+    // английском, русский аналог 170, польский ниже порога.
+  },
   "portugal-citizenship": {
     key: "article-portugal-citizenship",
     sources: {
@@ -580,7 +611,26 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
           `Link to unknown entry "${name}". Known: ${Object.keys(slugs).join(", ")}`,
         );
       }
-      return `${prefix}/blog/${perLocale[locale]}`;
+      // ENTRY БЕЗ ЭТОГО ЯЗЫКА — ОШИБКА, А НЕ ПУСТОЕ МЕСТО.
+      //
+      // Найдено 7 сентября 2026 своей же ссылкой: русская income-статья
+      // сослалась на `portugal-nomad`, который английский только. Резолвер
+      // подставлял undefined и возвращал «/ru/blog/undefined» — ссылку,
+      // которая рендерится, публикуется и ведёт в 404. Ни один шаг ниже её бы
+      // не заметил: это валидная строка.
+      //
+      // Кросс-язычная ссылка невозможна по устройству: у каждого языка свой
+      // slug, внешние ссылки в теле запрещены, руками slug писать нельзя. Так
+      // что единственное правильное поведение — падать здесь и заставить автора
+      // либо снять ссылку, либо завести версию на этом языке.
+      const slug = perLocale[locale];
+      if (!slug) {
+        throw new Error(
+          `Link to entry "${name}" from the ${locale} body, but that entry has no ${locale} version. ` +
+            `It exists in: ${Object.keys(perLocale).join(", ")}. Remove the link or add the ${locale} source.`,
+        );
+      }
+      return `${prefix}/blog/${slug}`;
     }
 
     if (!raw.startsWith("/")) {

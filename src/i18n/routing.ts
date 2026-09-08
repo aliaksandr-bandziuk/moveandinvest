@@ -108,6 +108,19 @@ export const routing = defineRouting({
     // borrowing the Russian transliteration would produce a slug that is
     // neither language's.
     "/calculator": { en: "/calculator", ru: "/kalkulyator", pl: "/kalkulator" },
+    // THE NATURALISATION CLOCK, 7 September 2026. Its own address for the same
+    // reason the calculator has one: a tool is the thing other people link to,
+    // and this is the first tool on the site that answers a question about a
+    // DATE rather than a price.
+    //
+    // The Russian is transliterated, as everywhere else here. The Polish takes
+    // its own word — "zegar" is the word, and borrowing the transliteration
+    // would give a slug that is neither language's.
+    "/naturalisation-clock": {
+      en: "/naturalisation-clock",
+      ru: "/chasy-naturalizatsii",
+      pl: "/zegar-naturalizacji",
+    },
     "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc" },
     "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla" },
     // The rule-change log. Translated like every other fixed route, and the

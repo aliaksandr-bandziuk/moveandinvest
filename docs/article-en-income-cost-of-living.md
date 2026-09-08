@@ -95,11 +95,9 @@ We checked whether the 2025 reforms changed this. Lei 23/2007 was amended three 
 
 Article 61-B of Lei 23/2007 creates the digital nomad residence visa. It requires the applicant to demonstrate the employment relationship or the service contract. **It contains no income figure and no multiple of the minimum wage.**
 
-The threshold is one level down, in **Decreto Regulamentar 4/2022 of 30 September 2022**, which implements that law. Article 18-B(c) for the temporary-stay variant and article 31-A(1)(c) for the residence variant use identical words: average monthly income over the last three months of at least four guaranteed minimum monthly wages.
+The threshold is one level down, in the regulation: articles 18-B(c) and 31-A(1)(c) of Decreto Regulamentar 84/2007 use identical words for the two D8 variants — average monthly income over the last three months of at least four guaranteed minimum monthly wages.
 
-So the number is law, and it is not a number. It is four times the RMMG — €3,680 at the 2026 rate of €920, and a different figure every January. The pages that print "€3,680" without the year or the multiplier are right this year and stale next.
-
-**This corrects what stood here until 7 September 2026**, which said the four-times figure could not be traced to any instrument. We had read article 61-B, found it silent on money, and stopped short of the regulation that implements it. See [our sources page](/sources#pt-dr-4-2022).
+So the number is law, and it is not a number. It is four times the RMMG — €3,680 at the 2026 rate of €920, and a different figure every January. The pages that print "€3,680" without the year or the multiplier are right this year and stale next. Which of the two D8 visas that threshold buys you, and why it matters more than the money, is in the [D8 guide](entry:portugal-nomad).
 
 ### Greece FIP visa requirements: €3,500 a month, and nothing for the golden visa
 
@@ -311,7 +309,7 @@ Cyprus is absent from this page. Its criteria could not be read in a primary sou
 golden visa income requirement, golden visa salary requirements, golden visa salary requirement, salary requirement for golden visa, do golden visas have income requirements, residence permit income requirement, which golden visa has no income requirement
 
 **Mid-tail:**
-golden visa proof of income, income test residency by investment, means of subsistence residence permit, minimum income for residency by investment, investment visa without income proof, household budget survey greece 2024, malta household budget survey year, eurostat price level index greece portugal malta
+golden visa proof of income, income test residency by investment, means of subsistence residence permit, minimum income for residency by investment, investment visa without income proof, household budget survey greece 2024, eurostat price level index greece portugal malta
 
 **Long tail:**
 does a golden visa require proof of income, which european residence permit asks least about income, can you get residency by investment with no salary, is there an income requirement for the portugal golden visa, why do golden visas not check income, does the uae have a minimum wage, dubai smart rental index does it publish rents, is there an official average rent in greece, why can you not compare cost of living between these countries, what is a comparative price level index

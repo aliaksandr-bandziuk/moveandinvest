@@ -336,6 +336,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       },
       {
         subject: {
+          en: "Can a remote worker already in Portugal convert to a residence permit?",
+          ru: "Может ли удалёнщик, уже находящийся в Португалии, перейти на ВНЖ?",
+          pl: "Czy pracownik zdalny już w Portugalii może przejść na zezwolenie na pobyt?",
+        },
+        verdict: "added",
+        checked: "2026-09-07",
+        finding: {
+          en: "Not on the published rules, and the defect is a live one. Art. 31-A(2) of DR 84/2007 — the only in-country route the D8 regime names — sends the applicant to “o procedimento definido no n.º 2 e seguintes dos artigos 88.º e 89.º”. Art. 2 of Decreto-Lei 37-A/2024 repealed arts. 88(2), 88(6) and 89(2), (4) and (5) on 4 June 2024, and the regulation's last amendment is DR 1/2024 of 17 January 2024 — five months earlier. So a regulation in force names a repealed procedure. Nor does art. 122(1) help: its nineteen alíneas include the holder of a temporary-stay visa for research or highly qualified activity, al. q), and not the remote-work one at art. 54(1)(i). Lei 40/2024 preserves the old regime only for proceedings begun before 4 June 2024 and for people already contributing to social security. This is about the published rules, not about AIMA's practice, which we could not reach.",
+          ru: "По опубликованным правилам — нет, и дефект действующий. Ст. 31-A(2) DR 84/2007, единственный маршрут внутри страны, который называет режим D8, отсылает заявителя к «o procedimento definido no n.º 2 e seguintes dos artigos 88.º e 89.º». Ст. 2 Decreto-Lei 37-A/2024 отменила ст. 88(2), 88(6) и 89(2), (4) и (5) 4 июня 2024 года, а последняя правка регламента — DR 1/2024 от 17 января 2024 года, пятью месяцами раньше. То есть действующий регламент называет отменённую процедуру. Ст. 122(1) тоже не выручает: среди её девятнадцати пунктов есть держатель визы временного пребывания для исследований или высококвалифицированной деятельности, п. q), и нет держателя визы для удалённой работы по ст. 54(1)(i). Lei 40/2024 сохраняет прежний режим только для дел, начатых до 4 июня 2024 года, и для тех, кто уже платил взносы. Речь об опубликованных правилах, а не о практике AIMA, до которой мы не добрались.",
+          pl: "Według opublikowanych przepisów nie, a wada jest aktualna. Art. 31-A(2) DR 84/2007 — jedyna ścieżka wewnątrz kraju, jaką nazywa reżim D8 — odsyła wnioskodawcę do „o procedimento definido no n.º 2 e seguintes dos artigos 88.º e 89.º”. Art. 2 Decreto-Lei 37-A/2024 uchylił art. 88(2), 88(6) oraz 89(2), (4) i (5) 4 czerwca 2024, a ostatnia nowelizacja rozporządzenia to DR 1/2024 z 17 stycznia 2024 — pięć miesięcy wcześniej. Obowiązujące rozporządzenie nazywa zatem uchyloną procedurę. Art. 122(1) też nie ratuje: wśród jego dziewiętnastu punktów jest posiadacz wizy pobytu czasowego dla badań lub działalności wysoko wykwalifikowanej, lit. q), a nie ten od pracy zdalnej z art. 54(1)(i). Lei 40/2024 zachowuje dawny reżim tylko dla spraw wszczętych przed 4 czerwca 2024 i dla osób już odprowadzających składki. Rzecz dotyczy przepisów opublikowanych, nie praktyki AIMA, do której nie dotarliśmy.",
+        },
+      },
+      {
+        subject: {
           en: "OUR OWN ERROR — “the D8’s four-times-the-minimum-wage figure is in no instrument”",
           ru: "НАША СОБСТВЕННАЯ ОШИБКА — «четырёхкратности минимальной зарплаты для D8 нет ни в одном акте»",
           pl: "NASZ WŁASNY BŁĄD — \u201eczterokrotności płacy minimalnej dla D8 nie ma w żadnym akcie\u201d",
@@ -355,8 +369,39 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         // и "pt-dr-4-2022" дал бы /sources#pt-pt-dr-4-2022.
         id: "dr-4-2022",
         citation:
-          "Decreto Regulamentar 4/2022, de 30 de setembro — arts. 18.º-B and 31.º-A (D8 income threshold)",
+          "Decreto Regulamentar 4/2022, de 30 de setembro — inserting arts. 18.º-B and 31.º-A into Decreto Regulamentar 84/2007 (D8 income threshold and the in-country cross-reference)",
         url: "https://files.dre.pt/1s/2022/09/19000/0002800097.pdf",
+        kind: "official",
+      },
+      {
+        id: "dl-37-a-2024",
+        citation:
+          "Decreto-Lei 37-A/2024, de 3 de junho — art. 2, repealing arts. 88(2), 88(6) and 89(2), (4), (5) of Lei 23/2007",
+        url: "https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?artigo_id=3807A0002&nid=3807&tabela=lei_velhas&pagina=1&ficha=1&so_miolo=&nversao=1",
+        kind: "reproduction",
+        caveat: {
+          en: "Read at the Procuradoria-Geral Distrital de Lisboa's legal database, which reproduces the official text; the Diário da República PDF was not reachable when checked.",
+          ru: "Прочитано в правовой базе Окружной генеральной прокуратуры Лиссабона, которая воспроизводит официальный текст; PDF Diário da República на момент сверки был недоступен.",
+          pl: "Odczytane w bazie prawnej Prokuratury Generalnej Okręgu Lizbona, która reprodukuje tekst oficjalny; PDF Diário da República był w chwili sprawdzenia nieosiągalny.",
+        },
+      },
+      {
+        id: "lei-40-2024",
+        citation:
+          "Lei 40/2024, de 7 de novembro — transitional protection for proceedings begun before 4 June 2024",
+        url: "https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=3835&tabela=leis",
+        kind: "reproduction",
+        caveat: {
+          en: "Same database, same caveat.",
+          ru: "Та же база, та же оговорка.",
+          pl: "Ta sama baza, to samo zastrzeżenie.",
+        },
+      },
+      {
+        id: "lei-61-2025",
+        citation:
+          "Lei 61/2025, de 22 de outubro — art. 89(4) replaced, art. 122(1)(s) added",
+        url: "https://files.diariodarepublica.pt/1s/2025/10/20400/0000900017.pdf",
         kind: "official",
       },
       {
@@ -895,8 +940,56 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Zezwolenie dla nomadów kosztuje ułamek MPRP — i to ono ma zasadę obecności: do przedłużenia potrzebny jest „wyciąg bankowy pokazujący transakcje płatnicze przeprowadzone na Malcie jako dowód, że przebywali na Malcie łącznie co najmniej pięć (5) miesięcy w ciągu poprzednich dwunastu (12) miesięcy”. Próg dochodu €42 000 rocznie (€32 400 dla wniosków sprzed 1 kwietnia 2024), po roku naraz, trzy przedłużenia, maksymalnie cztery lata, 10% od pracy dozwolonej wg S.L. 123.210. Program kosztujący około €126 000 ponad cenę mieszkania nie publikuje żadnej zasady obecności.",
         },
       },
+      {
+        subject: {
+          en: "What does it cost to live in Malta?",
+          ru: "Сколько стоит жить на Мальте?",
+          pl: "Ile kosztuje życie na Malcie?",
+        },
+        verdict: "added",
+        checked: "2026-09-07",
+        finding: {
+          en: "Two answers, and one of them is an absence. RENT is measured well: private residential leases must be registered with the Housing Authority since 1 January 2020, and 60,339 contracts were active at the end of 2023. The Central Bank of Malta put the median rent on a lease NEWLY SIGNED in 2023 at €850 a month, against advertised medians of €1,400 on Facebook Marketplace and €1,500 across aggregated agency listings — but the sets differ, 44% of registered lets having three or more bedrooms against 53% of agency listings, and the register also contains renewals whose rent has not moved. EVERYTHING ELSE is not measured currently: NSO's last completed Household Budget Survey covers 2015–2016. The next was collected from November 2024 to December 2025 and is due to be published before the end of 2026. Prices, as opposed to spending, are monthly: HICP for March 2026 was 2.3% a year, with recreation and culture at 4.6% and restaurants and accommodation at 3.9%.",
+          ru: "Два ответа, и один из них — отсутствие. АРЕНДА измеряется хорошо: частные жилые договоры с 1 января 2020 года подлежат регистрации в Housing Authority, на конец 2023 года действующих было 60 339. Центробанк Мальты дал медиану ВНОВЬ ПОДПИСАННОГО в 2023 году договора — €850 в месяц против медиан объявлений €1 400 на Facebook Marketplace и €1 500 по сводным данным агентств. Но наборы разные: у зарегистрированных три и более спальни у 44%, у агентских объявлений — у 53%, и в реестре лежат продления, где ставка не менялась. ВСЁ ОСТАЛЬНОЕ сейчас не измеряется: последнее завершённое обследование бюджетов домохозяйств NSO — за 2015–2016 годы. Следующее собирали с ноября 2024 по декабрь 2025, публикация обещана до конца 2026 года. Цены, в отличие от расходов, считают ежемесячно: HICP за март 2026 — 2,3% годовых, отдых и культура 4,6%, рестораны и размещение 3,9%.",
+          pl: "Dwie odpowiedzi, a jedna z nich to brak. CZYNSZ jest mierzony dobrze: prywatne najmy mieszkaniowe od 1 stycznia 2020 podlegają rejestracji w Housing Authority, a na koniec 2023 aktywnych było 60 339 umów. Bank Centralny Malty podał medianę czynszu umowy NOWO PODPISANEJ w 2023: €850 miesięcznie, wobec median ofertowych €1 400 na Facebook Marketplace i €1 500 w zagregowanych danych agencji. Zbiory są jednak różne: wśród zarejestrowanych trzy sypialnie lub więcej ma 44%, wśród ofert agencyjnych 53%, a w rejestrze są też przedłużenia z niezmienioną stawką. CAŁA RESZTA nie jest obecnie mierzona: ostatnie zakończone badanie budżetów gospodarstw domowych NSO obejmuje lata 2015–2016. Kolejne zbierano od listopada 2024 do grudnia 2025, publikacja zapowiedziana przed końcem 2026. Ceny, w odróżnieniu od wydatków, liczy się co miesiąc: HICP za marzec 2026 to 2,3% rocznie, rekreacja i kultura 4,6%, restauracje i zakwaterowanie 3,9%.",
+        },
+      },
     ],
     sources: [
+      {
+        id: "ha-rent-report-2023h2",
+        citation:
+          "Housing Authority (Malta) — Rent Report, 2023 H2 update (register of private residential leases)",
+        url: "https://housingauthority.gov.mt/wp-content/uploads/2024/05/Rent-Report-2023-H2-Update-Housing-Authority.pdf",
+        kind: "official",
+      },
+      {
+        id: "cbm-wp-4-2025",
+        citation:
+          "Central Bank of Malta, Working Paper WP/4/2025, S. Spiteri — registered against advertised rents, 2023",
+        url: "https://www.centralbankmalta.org/site/Publications/Economic%20Research/2025/WP-04-2025.pdf",
+        kind: "official",
+      },
+      {
+        id: "cbm-registered-rents-2022",
+        citation:
+          "Central Bank of Malta, Research Bulletin 2022, B. Micallef and T. M. Gauci — registered against advertised rents",
+        url: "https://www.centralbankmalta.org/site/Reports-Articles/2022/Registered-Rents.pdf",
+        kind: "official",
+      },
+      {
+        id: "nso-hbs",
+        citation:
+          "NSO Malta — Household Budget Survey: last completed 2015–2016, next due before the end of 2026",
+        url: "https://nso.gov.mt/the-household-budget-survey-hbs-explained/",
+        kind: "official",
+      },
+      {
+        id: "nso-hicp-2026-03",
+        citation: "NSO Malta — Harmonised Index of Consumer Prices, March 2026 (released 16 April 2026)",
+        url: "https://nso.gov.mt/harmonised-index-of-consumer-prices-hicp-march-2026/",
+        kind: "official",
+      },
       {
         id: "sl-217-26",
         citation: "S.L. 217.26, as amended by L.N. 310/2024 and L.N. 146/2025",

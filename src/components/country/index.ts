@@ -8,6 +8,11 @@ export {
   type CostCalculatorJurisdiction,
   type CostCalculatorLabels,
 } from "./CostCalculator";
+export {
+  NaturalisationClock,
+  NaturalisationClockControl,
+  type ClockLabels,
+} from "./NaturalisationClock";
 export { CountryChip } from "./CountryChip";
 export { CountryComparisonTable } from "./CountryComparisonTable";
 export { JurisdictionCards } from "./JurisdictionCards";

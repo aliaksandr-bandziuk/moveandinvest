@@ -106,17 +106,13 @@ In exchange for the waived visa, art. 90-A(1) adds its own conditions: a valid S
 
 The practical consequence is small in money and large in paperwork. €920 a month is the lowest income bar of any Portuguese route, and an investor who has moved half a million euros will clear it. But it is a document to produce, and a page that tells you the golden visa has no income requirement has told you something that is not in the law.
 
-### Portugal D8 digital nomad visa requirements: the threshold is a multiplier, not a euro figure
+### Portugal D8 digital nomad visa requirements: four minimum wages, and two different visas
 
-**Article 61-B of Lei 23/2007** creates the residence visa for remote professional activity. It requires the applicant to demonstrate the employment relationship or the provision-of-services contract, according to which applies. **It states no income figure and no multiple of the minimum wage.**
+**Article 61-B of Lei 23/2007** creates the residence visa for remote professional activity, and **article 54(1)(i)** creates a temporary-stay visa for the same activity. Both are called the D8. Neither states an income figure.
 
-The figure is one level down, in the regulation that implements the law. **Decreto Regulamentar 4/2022 of 30 September 2022** sets it twice, once for each D8 variant: article 18-B(c) for the temporary-stay visa and article 31-A(1)(c) for the residence visa, in the same words both times — proof of average monthly income over **the last three months** of at least "quatro remunerações mínimas mensais garantidas", four guaranteed minimum monthly wages.
+The figure is one level down, in the regulation: articles 18-B(c) and 31-A(1)(c) of Decreto Regulamentar 84/2007 both require average monthly income over **the last three months** of at least four guaranteed minimum monthly wages. At the 2026 minimum wage of €920 that is €3,680 — this year. It is a multiplier, not a euro amount, and it moves every January.
 
-So the threshold is real and it is law. What it is not is a euro figure. It is an index, and the number moves every January with the minimum wage: €3,680 at the 2026 RMMG of €920, and something else next year without a word of the law changing.
-
-That is the part the market gets wrong, and it gets it wrong quietly. A page that prints "€3,680" and stops has printed a figure with a shelf life; a reader who finds that page in 2027 will be planning against last year's minimum wage. The two things worth carrying away are the multiplier and the three-month averaging period, because those are what the regulation actually fixes.
-
-**A correction, and it is ours.** Until 7 September 2026 this page said the opposite: that the four-times figure could not be traced to any portaria, decreto or despacho and should not be treated as law. That was wrong. We had read article 61-B, found it silent, and stopped — without opening the decreto regulamentar that implements it. The error and the instrument that corrects it are both on our [sources page](/sources#pt-dr-4-2022).
+Which of the two visas you hold decides everything that follows, and only one of them leads to a residence permit. The full comparison, the income test in the regulation's own words, and the reason a remote worker already in Portugal has no published route to convert are all in the [D8 guide](entry:portugal-nomad).
 
 ### How to apply for a D7 visa: the residence visa, four months, and the AIMA appointment
 
@@ -169,35 +165,13 @@ The whole of that stage — the card itself, what the renewal costs, what articl
 
 The rule changed this year, and pages written before May are now wrong.
 
-**Lei Orgânica n.º 1/2026 of 18 May 2026** amended and republished the Nationality Law. Under its article 8 it entered into force the day after publication — **19 May 2026**.
-
-**Article 6(1)(b)** now requires legal residence in Portugal of at least **seven years for nationals of Portuguese-speaking countries and citizens of European Union member states**, or **ten years for nationals of other countries**.
+**Lei Orgânica n.º 1/2026 of 18 May 2026**, in force from 19 May, rewrote article 6(1)(b) of the Nationality Law: **seven years** of legal residence for nationals of Portuguese-speaking countries and citizens of EU member states, **ten years** for everybody else. It was five for everyone before. Article 6(1) also gained an examination in culture, history and national symbols and a solemn declaration of adherence to the democratic rule of law, and the statute names **no CEFR level** for the language — the A2 in circulation is regulation-level, not statutory.
 
 ![2]
 
-Article 6(1) also now requires the applicant to demonstrate, by test or certificate, sufficient knowledge of the Portuguese language **and of Portuguese culture, history and national symbols**; sufficient knowledge of the fundamental rights and duties of Portuguese nationality and of the political organisation of the State; and a solemn declaration of adherence to the fundamental principles of the democratic rule of law. The culture-and-symbols limb and the declaration are new.
+Two sentences decide what happens to a reader already living here. **Article 7(2)** keeps the old five-year rule for nationality proceedings pending on 19 May 2026. And **article 5 of the same law repealed article 15(4)**, under which time spent waiting for a residence permit had counted towards the period since March 2024 — so for anything filed after that date, the AIMA queue no longer counts.
 
-Under **article 6(10)**, nationals of Portuguese-speaking countries are presumed to satisfy the language limb unless a lack of Portuguese is manifest.
-
-#### When the clock starts, and who is protected by the transitional rule
-
-This is the sentence that decides what happens to a reader already living in Portugal.
-
-**Article 7(2) of Lei Orgânica 1/2026:** *"Aos procedimentos administrativos pendentes à data da entrada em vigor da presente lei aplica-se a Lei n.º 37/81, de 3 de outubro, na redação anterior à presente lei."*
-
-Administrative proceedings **pending on 19 May 2026 are decided under the previous law** — the five-year rule. Applications filed on or after that date fall under the new periods.
-
-**Article 15** governs how residence is counted: it counts anyone lawfully present under any title, visa or authorisation of the immigration regime, and paragraph 3 aggregates broken periods only within a window of six, nine or twelve years — for stateless persons, for CPLP and EU citizens, and for everyone else respectively.
-
-**On the Constitutional Court.** In December 2025 the court found four norms of the earlier decree unconstitutional, among them an automatic bar on applicants with convictions over two years and the assessment of requirements at the date of petition rather than of decision. The seven- and ten-year periods were not among the norms struck down. The President then vetoed and returned the text; the revised version became Lei Orgânica 1/2026.
-
-*We read that decision in a mirror of the court's own PDF rather than at the court's domain, which was unreachable, and it is reported here in summary rather than quoted for that reason.*
-
-#### The language requirement is not "A2" in the statute
-
-Same finding as for permanent residence, and it is worth repeating because the two are separate provisions and neither says it.
-
-Article 6(1)(c) requires proof "through a test or a certificate" of sufficient knowledge of the language, culture, history and national symbols. **It names no CEFR level.** The A2 in general circulation is regulation-level. If your plan depends on the exact level, that is a question for the implementing rules and for someone who works with them, not for a statute that does not mention it.
+That is the whole of what a D7 applicant needs here. The statute article by article, the two counting regimes running side by side, and what the Constitutional Court did and did not strike down are in [Portugal's nationality law](entry:portugal-citizenship).
 
 ### Portugal tax for residents: the 183-day rule and the IFICI 20% regime
 

@@ -158,11 +158,9 @@ Sprawdziliśmy, czy nie zmieniły tego reformy z 2025 roku. Lei 23/2007 nowelizo
 
 Artykuł 61-B Lei 23/2007 tworzy wizę pobytową dla pracy zdalnej. Wymaga wykazania stosunku pracy albo umowy o świadczenie usług. **Nie zawiera żadnej kwoty ani wielokrotności płacy minimalnej.**
 
-Próg leży poziom niżej — w **Decreto Regulamentar 4/2022 z 30 września 2022**, które wykonuje tę ustawę. Art. 18.º-B(c) dla wizy pobytu czasowego i art. 31.º-A(1)(c) dla wizy rezydenckiej mówią to samo: średni dochód miesięczny z ostatnich trzech miesięcy nie niższy niż czterokrotność gwarantowanej minimalnej płacy miesięcznej.
+Próg leży poziom niżej, w rozporządzeniu: art. 18.º-B(c) i 31.º-A(1)(c) Decreto Regulamentar 84/2007 mówią to samo o obu wariantach D8 — średni dochód miesięczny z ostatnich trzech miesięcy nie niższy niż czterokrotność gwarantowanej minimalnej płacy miesięcznej.
 
-Liczba jest więc normą prawa — i liczbą przy tym nie jest. To czterokrotność RMMG: 3680 euro przy stawce 920 euro na 2026 rok i inna kwota każdego stycznia. Strony drukujące „3680 €" bez roku i bez krotności mają rację w tym roku, a w następnym już nie.
-
-**To poprawia to, co stało tu do 7 września 2026** — że czterokrotności nie da się wywieść z żadnego aktu. Przeczytaliśmy artykuł 61-B, zobaczyliśmy, że o kwocie milczy, i nie sięgnęliśmy po wykonujące go rozporządzenie. Zob. [stronę źródeł](/sources#pt-dr-4-2022).
+Liczba jest więc normą prawa — i liczbą przy tym nie jest. To czterokrotność RMMG: 3680 euro przy stawce 920 euro na 2026 rok i inna kwota każdego stycznia. Strony drukujące „3680 €" bez roku i bez krotności mają rację w tym roku, a w następnym już nie. A warianty D8 są dwa — wiza pobytu czasowego z art. 54(1)(i) i wiza rezydencka z art. 61-B — o wspólnym progu, i to dlatego jedna liczba w obiegu ukrywa, że wizy są dwie.
 
 ### Grecja: 3500 euro miesięcznie dla osób niezależnych finansowo
 

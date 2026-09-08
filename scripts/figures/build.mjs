@@ -1663,7 +1663,86 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026" },
+    mtRentBars: {
+      register: "Housing Authority register",
+      facebook: "Facebook Marketplace",
+      agency: "Estate agency listings",
+    },
+    mtRentNotes: {
+      register: "Median rent on a lease newly signed in 2023",
+      facebook: "Median asking price, peer-to-peer listings",
+      agency: "Median asking price, aggregated agency dataset",
+    },
+    mtMeasureHeads: { what: "What", cadence: "How often", latest: "Newest published" },
+    mtMeasureWhat: {
+      hicp: "Consumer prices (HICP)",
+      rent: "Registered private leases",
+      hbs: "What a household spends",
+    },
+    mtMeasureCadence: {
+      hicp: "Every month",
+      rent: "Periodic reports since Jan 2020",
+      hbs: "Once a decade, in practice",
+    },
+    mtMeasureLatest: {
+      hicp: "March 2026 — 2.3% a year",
+      rent: "Second half of 2023",
+      hbs: "2015–2016",
+    },
+    ptD8Heads: { temp: "Temporary stay", res: "Residence" },
+    ptD8Labels: {
+      created: "Created by",
+      paperwork: "Paperwork rule",
+      length: "Length",
+      income: "Income test",
+      permit: "Leads to a residence permit",
+      list: "On the art. 122 conversion list",
+      naturalisation: "Counts towards naturalisation",
+    },
+    ptD8Temp: {
+      created: "Art. 54(1)(i)\nof Lei 23/2007",
+      paperwork: "Art. 18-B\nof DR 84/2007",
+      length: "Under one year",
+      income: "Four minimum wages,\nthree-month average",
+      permit: "No",
+      list: "No",
+      naturalisation: "No",
+    },
+    ptD8Res: {
+      created: "Art. 61-B\nof Lei 23/2007",
+      paperwork: "Art. 31-A\nof DR 84/2007",
+      length: "Leads to a permit",
+      income: "The same,\nword for word",
+      permit: "Yes",
+      list: "Not applicable",
+      naturalisation: "Yes, as\nlawful residence",
+    },
+    ptD8ChainHeads: { when: "When", what: "What happened" },
+    ptD8ChainDates: {
+      insert: "30 Sep 2022",
+      amend: "17 Jan 2024",
+      repeal: "4 Jun 2024",
+      transitional: "8 Nov 2024",
+      newpara: "23 Oct 2025",
+      today: "Today",
+    },
+    ptD8ChainWhat: {
+      insert: "The cross-reference is written",
+      amend: "The regulation is amended for the last time",
+      repeal: "The procedure is repealed",
+      transitional: "The transitional rule is widened, not the route",
+      newpara: "The paragraph is refilled with something else",
+      today: "The cross-reference still stands",
+    },
+    ptD8ChainNote: {
+      insert: "DR 4/2022 inserts art. 31-A. Its n.º 2 sends an applicant without the visa to arts. 88 and 89.",
+      amend: "DR 1/2024, the seventh amendment to DR 84/2007. It does not touch art. 31-A.",
+      repeal: "DL 37-A/2024, art. 2: arts. 88(2), 88(6), 89(2), 89(4) and 89(5) of Lei 23/2007.",
+      transitional: "Lei 40/2024 protects proceedings already begun and people already contributing.",
+      newpara: "Lei 61/2025 gives art. 89 a new n.º 4, about certified business incubators.",
+      today: "Two years and three months of a regulation naming a procedure that does not exist.",
+    },
     ptNatAxis: "Years from the residence application",
     ptNatLegend: {
       counted: "Queue counted",
@@ -2278,6 +2357,26 @@ const L = {
       ptGvFees: {
         title: "What AIMA charges, and the ratio nobody warns about",
         note: "Legal fees and fund commissions are excluded: those are market prices, not published ones.",
+      },
+      mtRentGap: {
+        title: "Three medians for one market, all for 2023",
+        // ПОТОЛОК ПОДПИСИ ~125 ЗНАКОВ: 13px × 1.33 = 17.3px на 1104px от
+        // левого поля. Первая версия была 147 и обрезалась на «53% of age».
+        note: "The sets differ: 44% of registered lets have three or more bedrooms, against 53% of agency listings.",
+      },
+      mtMeasures: {
+        title: "What Malta measures, and how often",
+        note: "Prices are counted monthly. Household spending was last counted in 2015–2016; the new count is still being processed.",
+      },
+      ptD8Variants: {
+        title: "One name, two visas, one income test",
+        // 134 знака ушли за правое поле на «there are two». Потолок здесь —
+        // около 125: 13px × 1.33 = 17.3px на 1104px от левого поля.
+        note: "Both variants are called the D8, and the euro figure quoted for them fits both — which is how it hides that there are two.",
+      },
+      ptD8Chain: {
+        title: "A cross-reference to a procedure that was repealed",
+        note: "The regulation has not been amended since January 2024. The paragraphs it names were repealed in June 2024.",
       },
       ptNatClock: {
         title: "Thirteen years, from the same starting event",
@@ -3819,6 +3918,213 @@ function mtRoutes(L) {
   );
 }
 
+// --- Malta: the registered rent against the advertised one -------------------
+// THE REGISTER BAR CARRIES THE ACCENT AND THE OTHER TWO DO NOT, which is the
+// whole argument of the figure: one of these three numbers was signed and two
+// were asked for. Drawing all three in one colour would make it a price range;
+// drawing the register apart makes it a claim about provenance. The note under
+// the bars does the honest work of saying the sets differ in size, so the
+// picture cannot be read as a straight 43% discount.
+const MT_RENT_BARS = [
+  { key: "register", value: 850, signed: true },
+  { key: "facebook", value: 1400, signed: false },
+  { key: "agency", value: 1500, signed: false },
+];
+
+function mtRentGap(L) {
+  const width = 1200;
+  // 860: три ряда по 150 от y=250 доводят низ последней полосы до 646, ось на
+  // 690, подписи делений на 716, подпись frame на height − 92 = 768.
+  const height = 860;
+  const x0 = 430;
+  // 150 под подпись значения в конце полосы: «1 500 €» на 17px это ~90px.
+  const x1 = width - 150;
+  const MAX = 1600;
+  const px = (v) => x0 + (v / MAX) * (x1 - x0);
+
+  let body = "";
+  MT_RENT_BARS.forEach((bar, i) => {
+    const y = 250 + i * 150;
+    body += text(48, y, L.mtRentBars[bar.key], { size: 17, weight: 600, fill: bar.signed ? C.accent : C.text });
+    body += text(48, y + 26, L.mtRentNotes[bar.key], { size: 13, fill: C.muted });
+    const top = y + 46;
+    const h = 40;
+    body += `<rect x="${px(0)}" y="${top}" width="${px(bar.value) - px(0)}" height="${h}" fill="${bar.signed ? C.accent : C.line}"/>`;
+    body += text(px(bar.value) + 16, top + 28, `${bar.value.toLocaleString("en-GB").replace(/,/g, " ")} €`, {
+      size: 19, weight: 600, family: FONT_MONO, fill: bar.signed ? C.accent : C.text,
+    });
+    if (i < MT_RENT_BARS.length - 1) {
+      body += `<line x1="48" y1="${y + 112}" x2="${width - 48}" y2="${y + 112}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  const axisY = 690;
+  body += `<line x1="${px(0)}" y1="${axisY}" x2="${px(MAX)}" y2="${axisY}" stroke="${C.line}" stroke-width="1"/>`;
+  for (let v = 0; v <= MAX; v += 400) {
+    body += `<line x1="${px(v)}" y1="${axisY}" x2="${px(v)}" y2="${axisY + 7}" stroke="${C.line}" stroke-width="1"/>`;
+    body += text(px(v), axisY + 26, `${v.toLocaleString("en-GB").replace(/,/g, " ")}`, { size: 13, fill: C.muted, anchor: "middle" });
+  }
+
+  return frame(
+    width, height,
+    L.figures.mtRentGap.title, L.eyebrow,
+    L.checked(L.dates.maltaLiving), body,
+    L.figures.mtRentGap.note,
+  );
+}
+
+// --- Malta: the cadence of what is measured ----------------------------------
+// A THREE-ROW TABLE AND THE THIRD ROW IS THE FINDING. Rows one and two exist to
+// establish that Malta measures carefully, so that row three reads as a gap in
+// the calendar rather than as a country without statistics. Ordering them by
+// frequency — monthly, periodic, decadal — makes the drop legible without a
+// word of commentary.
+const MT_MEASURES = ["hicp", "rent", "hbs"];
+
+function mtMeasures(L) {
+  const width = 1200;
+  // 720: три ряда по 118 от y=282 доводят последний до 518, подпись frame на
+  // height − 92 = 628. Формула та же, что на mt-routes.
+  const height = 720;
+  const xWhat = 48;
+  const colCadence = 470;
+  const colLatest = 810;
+  let body = "";
+
+  body += text(xWhat, 208, L.mtMeasureHeads.what, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(colCadence, 208, L.mtMeasureHeads.cadence, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(colLatest, 208, L.mtMeasureHeads.latest, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xWhat}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  MT_MEASURES.forEach((key, i) => {
+    const y = 282 + i * 118;
+    const stale = key === "hbs";
+    body += text(xWhat, y, L.mtMeasureWhat[key], { size: 16, weight: 500, fill: stale ? C.accent : C.text });
+    body += text(colCadence, y, L.mtMeasureCadence[key], { size: 15, fill: stale ? C.accent : C.text });
+    body += text(colLatest, y, L.mtMeasureLatest[key], {
+      size: 15, family: FONT_MONO, weight: stale ? 600 : 400, fill: stale ? C.accent : C.text,
+    });
+    if (i < MT_MEASURES.length - 1) {
+      body += `<line x1="${xWhat}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.mtMeasures.title, L.eyebrow,
+    L.checked(L.dates.maltaLiving), body,
+    L.figures.mtMeasures.note,
+  );
+}
+
+// --- Portugal: the two D8 variants -------------------------------------------
+// THE LAST THREE ROWS ARE WHY THIS IS A TABLE AND NOT A PARAGRAPH. The first
+// four invite a comparison and produce a shrug: two visas, same money. The
+// last three are where the shrug stops — one column is all "No", and one of
+// those noes ("on the art. 122 conversion list") is a fact nobody in this
+// market has published at all. Ordering them the other way round would have
+// buried it under the money.
+const PT_D8_ROWS = ["created", "paperwork", "length", "income", "permit", "list", "naturalisation"];
+
+function ptD8Variants(L) {
+  const width = 1200;
+  // 1060: семь рядов по 100 от y=250 доводят последний до 850, а его вторая
+  // строка идёт на +27, то есть на 877. frame ставит подпись на height − 92 =
+  // 968. Ряды по 100, а не по 118 как на mt-routes, именно потому что ячейки
+  // здесь двухстрочные и 118 дало бы холст под 1200.
+  const height = 1060;
+  const xLabel = 48;
+  // 380 и 780: ячейки переносятся руками примерно по 20 знаков на строку,
+  // 15px × 1.33 = 20px, и 400px колонки — это ровно столько.
+  const colA = 380;
+  const colB = 780;
+  let body = "";
+
+  body += text(colA, 208, L.ptD8Heads.temp, { size: 15, weight: 600 });
+  body += text(colB, 208, L.ptD8Heads.res, { size: 15, weight: 600, fill: C.accent });
+  body += `<line x1="${xLabel}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  PT_D8_ROWS.forEach((key, i) => {
+    // 276, А НЕ 250. При 250 между линейкой шапки и первой строкой оставалось
+    // 12px, а между рядами — 44, и «Temporary stay» читалось как часть ряда
+    // «Created by», а не как заголовок колонки. Поймано отрисовкой.
+    const y = 276 + i * 100;
+    // Три последних ряда — те, ради которых схема существует.
+    const decisive = key === "permit" || key === "list" || key === "naturalisation";
+    body += text(xLabel, y, L.ptD8Labels[key], { size: 14, fill: C.muted, weight: 500 });
+    body += text(colA, y, L.ptD8Temp[key], {
+      size: 15,
+      weight: decisive ? 600 : 400,
+      fill: decisive ? C.muted : C.text,
+    });
+    body += text(colB, y, L.ptD8Res[key], {
+      size: 15,
+      weight: decisive ? 600 : 400,
+      fill: decisive ? C.accent : C.text,
+    });
+    if (i < PT_D8_ROWS.length - 1) {
+      body += `<line x1="${xLabel}" y1="${y + 56}" x2="${width - 48}" y2="${y + 56}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptD8Variants.title, L.eyebrow,
+    L.checked(L.dates.portugalNomad), body,
+    L.figures.ptD8Variants.note,
+  );
+}
+
+// --- Portugal: the dangling cross-reference ----------------------------------
+// SIX ROWS AND THE LAST ONE HAS NO DATE, which is the point of drawing it as a
+// chain rather than a list of amendments. Five dated steps and then a present
+// tense: the reader is meant to notice that the sequence never closes. The last
+// row carries the accent for the same reason the Maltese chain gives it to the
+// agency page still selling a deleted route — the live defect, not the history.
+const PT_D8_CHAIN = [
+  { key: "insert", live: false },
+  { key: "amend", live: false },
+  { key: "repeal", live: false },
+  { key: "transitional", live: false },
+  { key: "newpara", live: false },
+  { key: "today", live: true },
+];
+
+function ptD8Chain(L) {
+  const width = 1200;
+  // 1150, НЕ 1090. При 1090 подпись frame вставала на 998, а подпись
+  // последнего ряда — на 960: 38px, и подвал схемы читался как седьмой ряд
+  // цепочки. На mt-chain этот зазор 112. Поймано отрисовкой.
+  const height = 1150;
+  const xDate = 48;
+  const xBody = 330;
+  // ПОДПИСЬ РЯДА — ДО ~88 ЗНАКОВ, как на mt-chain: от xBody до правого поля
+  // 822px, на 13px × 1.33 это примерно восемьдесят восемь.
+  let body = "";
+
+  body += text(xDate, 200, L.ptD8ChainHeads.when, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xBody, 200, L.ptD8ChainHeads.what, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xDate}" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  PT_D8_CHAIN.forEach((row, i) => {
+    const y = 272 + i * 132;
+    const fill = row.live ? C.accent : C.text;
+    body += text(xDate, y, L.ptD8ChainDates[row.key], { size: 17, weight: 600, fill });
+    body += text(xBody, y, L.ptD8ChainWhat[row.key], { size: 17, weight: 500, fill });
+    body += text(xBody, y + 28, L.ptD8ChainNote[row.key], { size: 13, fill: C.muted });
+    if (i < PT_D8_CHAIN.length - 1) {
+      body += `<line x1="${xDate}" y1="${y + 78}" x2="${width - 48}" y2="${y + 78}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptD8Chain.title, L.eyebrow,
+    L.checked(L.dates.portugalNomad), body,
+    L.figures.ptD8Chain.note,
+  );
+}
+
 // --- Portugal: the naturalisation clock, drawn from one starting event -------
 // THREE BARS ON ONE AXIS, AND THE AXIS IS THE ARGUMENT. Every page in this
 // market compares five years against ten, which compares two periods measured
@@ -4048,6 +4354,14 @@ const PLAN = {
     // надо там.
     ["pt-nat-clock", ptNatClock],
     ["pt-nat-limbs", ptNatLimbs],
+    // Виза цифрового кочевника D8, 7 сентября 2026. Английская: русский спрос
+    // по D8 — 170 запросов, польский ниже порога.
+    ["pt-d8-variants", ptD8Variants],
+    ["pt-d8-chain", ptD8Chain],
+    // Жизнь и цены на Мальте, 7 сентября 2026. Английская: русский мальтийский
+    // спрос — это порода собак, польского нет.
+    ["mt-rent-gap", mtRentGap],
+    ["mt-measures", mtMeasures],
   ],
   pl: [
     ["qualifies", qualifies],

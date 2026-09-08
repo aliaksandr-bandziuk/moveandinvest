@@ -1,0 +1,14 @@
+@use "../../../styles/mixins";
+
+// The tool sets its own measure: a three-column table of dates and citations
+// wants more room than running prose, and less than the full container. The
+// calculator settled on 74rem and this page keeps the same, so the two tools
+// do not sit at two different widths on the same site.
+.main {
+  --container-max-width: 74rem;
+
+  padding-block: var(--space-7) var(--space-9);
+  padding-inline: var(--gutter);
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+}
