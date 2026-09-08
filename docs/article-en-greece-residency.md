@@ -232,7 +232,7 @@ On that basis annual minimum-wage earnings are **€12,880**, and the article 14
 
 ### Greek citizenship after seven years: the naturalisation period and the examination
 
-Naturalisation under Law 3284/2004 requires **seven years** of lawful residence. The application fee is €550 and the examination fee €150. The examination, the ΠΕΓΠ, tests Greek at B1 together with history, geography and culture, with a pass mark of 70%.
+Naturalisation under Law 3284/2004 requires **seven years** of lawful residence for the holder of an investor permit — the Code has three tiers, and this is the middle one: three years for EU nationals and a few family categories, seven with a title on the list of article 5(1)(ε), twelve under article 5(3) with any other non-temporary title. The application fee is €550 and the examination fee €150. The examination, the ΠΕΓΠ, tests Greek at B1 together with history, geography and culture, with a pass mark of 70%.
 
 The thing to take from this section is that Greece runs **three separate clocks** and almost every guide melts two of them together:
 
@@ -326,7 +326,7 @@ An audit is only fair if it is specific. These were checked on 28 August 2026 ag
 | "The minimum investment is €250,000 in Greek real estate in 2026" | Get Golden Visa; Astons uses "from €250K" in its title | €250,000 is two exceptions requiring completed conversion or an unperformed restoration. §2(a) and §2(b) set €800,000 and €400,000 |
 | The programme framed under Law 4251/2014 | Get Golden Visa | That code was replaced. The golden visa is article 100 of Law 5038/2023 |
 | "50% income tax reduction for up to seven years" listed as a benefit of the income permit | Global Citizen Solutions, FIP page | Article 5C taxes Greek working income. Article 163 §8(γ) forbids the holder from working in Greece |
-| "12 years continuous residence required for Greek citizenship" | Lexidy | Seven, under Law 3284/2004. The same page cites nothing, and contradicts the rest of the market |
+| "12 years continuous residence required for Greek citizenship" | Lexidy | **Our own correction, withdrawn 8 September 2026.** Twelve years is a real provision — article 5(3), for a holder of a residence title that is not on the list in article 5(1)(ε). It is not the figure for a golden visa holder, whose permit IS on that list at item αθ and who is on seven. We had read only the seven-year sentence and called the twelve wrong |
 | Golden visa "€3,500 a month" and other FIP figures with no decision number | Every FIP page checked | KYA 225679/2024, ΦΕΚ Β΄ 5223/17.09.2024, art. 1 §1(ι) |
 | A dedicated heading, "Understanding the Legal Framework", with no law cited anywhere on the page | Global Residence Index | Dash |
 
@@ -362,7 +362,7 @@ Neither permit gives a right to work in Greece. Article 100 §9 states that the 
 Yes. Article 163 §1 grants the permit to a person who has obtained an entry visa for one of the grounds of that article, so the national type D visa comes first. Its validity runs from 91 days to one year under article 7 §7.
 
 ? How long until Greek citizenship?
-Seven years of lawful residence under Law 3284/2004, with an examination testing Greek at B1 plus history, geography and culture at a 70% pass mark. Fees are €550 for the application and €150 for the examination.
+Seven years of lawful residence under Law 3284/2004 for a holder of the investor permit, three for EU nationals and twelve on a title outside the article 5(1)(ε) list, with an examination testing Greek at B1 plus history, geography and culture at a 70% pass mark. Fees are €550 for the application and €150 for the examination.
 
 ? Do I have to learn Greek for permanent residence?
 For the EU long-term status, yes: article 160 §1(d) asks for a certificate at B1 or above, and §2 allows an A2 holder to qualify by adding a history and culture certificate. Since February 2026 there is an alternative — article 37 of Law 5275/2026 accepts twelve consecutive years of lawful residence instead.

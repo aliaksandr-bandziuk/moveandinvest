@@ -70,7 +70,17 @@ const FAMILIES = {
 const fontPath = (family, subset, weight) =>
   join(FONTS, family, "files", `${family}-${subset}-${weight}-normal.woff2`);
 
-const SUBSETS = ["latin", "latin-ext", "cyrillic"];
+// GREEK ADDED 8 сентября 2026. The Greek citizenship figures print «συνεχή» and
+// the article letters «ε» and «αθ» — the Code's own lettering, which is the
+// whole point of quoting it — and the run died with "no glyph for εαθσυνχή".
+// Inter ships a greek subset; JetBrains Mono does not, and the loop below
+// already treats a missing subset file as normal rather than as an error, so
+// asking for it costs nothing where it does not exist.
+//
+// Order matters only for size: a character found in an earlier subset is not
+// asked of the later ones, and greek sits last because every figure has Latin
+// and only the Greek ones have this.
+const SUBSETS = ["latin", "latin-ext", "cyrillic", "greek"];
 
 /** Which characters each family/weight pair actually draws.
  *

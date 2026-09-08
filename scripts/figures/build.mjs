@@ -194,7 +194,11 @@ const TODAY_YEAR = 2026;
 // omits it answers a question they did not ask.
 const PT_ROUTES = [
   { key: "d7", visa: true, income: true },
-  { key: "d8", visa: true, income: false },
+  // D8 БОЛЬШЕ НЕ «БЕЗ ПОРОГА», с 8 сентября 2026. Порог у него есть и он в
+  // регламенте, а не в законе: DR 84/2007, ст. 18.º-B(c) и 31.º-A(1)(c) —
+  // четыре RMMG по среднему за три месяца. Схема говорила «no figure in the
+  // law» в той же строке, где подпись называет четырёхкратность.
+  { key: "d8", visa: true, income: "multiple" },
   { key: "ari", visa: false, income: true },
   { key: "property", gone: true },
 ];
@@ -774,7 +778,13 @@ function ptRoutes(L) {
       body += text(xVisa, y, row.visa ? L.ptCells.yes : L.ptCells.no, {
         size: 15, family: FONT_MONO, fill: row.visa ? C.text : C.muted,
       });
-      body += text(xIncome, y, row.income ? L.ptCells.tested : L.ptCells.silent, {
+      const incomeText =
+        row.income === "multiple"
+          ? L.ptCells.multiple
+          : row.income
+            ? L.ptCells.tested
+            : L.ptCells.silent;
+      body += text(xIncome, y, incomeText, {
         size: 15, family: FONT_MONO, fill: row.income ? C.accent : C.muted,
       });
     }
@@ -1295,19 +1305,21 @@ const L = {
     // different date in it is a sentence that will eventually disagree with
     // itself in one language and not the others.
     checked: (date) => `Все цифры сверены с первоисточником ${date}`,
-    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года", greeceLiving: "5 сентября 2026 года", portugalMove: "5 сентября 2026 года" },
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года", greeceLiving: "5 сентября 2026 года", portugalMove: "5 сентября 2026 года", portugalCitizenship: "7 сентября 2026 года" },
     ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
     ptRoutes: {
       d7: "D7, собственный доход",
+      d8: "D8 — удалённая работа",
       ari: "ВНЖ за инвестиции",
       property: "Покупка недвижимости",
     },
     ptRouteNotes: {
       d7: "Пенсия, аренда, дивиденды, роялти",
+      d8: "Четыре минимальные зарплаты, среднее за три месяца",
       ari: "Фонд 500 000 € или другой маршрут",
       property: "Отменена в 2023 году, замены нет",
     },
-    ptCells: { yes: "да", no: "нет", tested: "920 € в месяц", silent: "в законе нет суммы", gone: "маршрута нет" },
+    ptCells: { yes: "да", no: "нет", tested: "920 € в месяц", multiple: "4 \u00d7 минималка", silent: "в законе нет суммы", gone: "маршрута нет" },
     ptClock: {
       before: "Подано до 18 мая 2026",
       eu: "Граждане ЕС и португалоязычных стран",
@@ -1559,19 +1571,19 @@ const L = {
         note: "Сертификат MPRP отвечает только на первый. Два других решаются без него.",
       },
       ptRoutes: {
-        title: "Какие маршруты ВНЖ в Португалии существуют в 2026 году",
+        title: "Какие маршруты ВНЖ Португалии остались в 2026",
         note: "Инвестиционный маршрут снимает визу, но не подтверждение средств: ст. 90-A(1)(a).",
       },
       ptClock: {
-        title: "Сколько лет проживания нужно до гражданства Португалии",
-        note: "Lei Orgânica 1/2026 действует с 19 мая 2026 года. Дела, поданные до 18 мая включительно, решаются по прежней редакции.",
+        title: "Сколько лет до гражданства Португалии",
+        note: "Lei Orgânica 1/2026 действует с 19 мая 2026 года. Дела, поданные до 18 мая, решаются по прежней редакции.",
       },
       ptPublished: {
-        title: "Что говорит акт и что публикуют страницы из выдачи",
+        title: "Что говорит акт и что публикуют страницы",
         note: "Проверено 28 августа 2026 года. У каждой страницы отметка об обновлении свежее её собственной цифры.",
       },
       aeChain: {
-        title: "Чем установлен порог золотой визы ОАЭ, а чем — ничем",
+        title: "Чем установлен порог золотой визы, а чем — нет",
         note: "Проверены все 32 акта Дубая за 2026 год, реестр меморандумов и страница законодательства DLD.",
       },
       aeAbsence: {
@@ -1587,12 +1599,12 @@ const L = {
         note: "Каждая сумма приведена в том периоде, в каком её устанавливает акт: у Мальты — за год, у ОАЭ — в долларах.",
       },
       greeceScale: {
-        title: "Что Греция требует подтвердить и сколько там тратят",
+        title: "Что Греция требует подтвердить и сколько тратят",
         note: "Порог и минимальная зарплата — 2026 год; расходы домохозяйства — обследование за 2024 год.",
       },
       dataAge: {
-        title: "Насколько устарела официальная статистика расходов",
-        note: "Полоса — разрыв между годом наблюдения и сегодняшним днём. Именно он делает четыре цифры несопоставимыми.",
+        title: "Насколько устарела статистика расходов",
+        note: "Полоса — разрыв между годом наблюдения и сегодняшним днём. Он и делает четыре цифры несопоставимыми.",
       },
       qualifies: { title: "Что даёт покупка недвижимости в пяти юрисдикциях" },
       cost: {
@@ -1605,7 +1617,7 @@ const L = {
       },
       grPresence: {
         title: "Почему годы идут в зачёт одному и не идут другому",
-        note: "Ст. 144 §1 требует фактического проживания: отлучки не больше шести месяцев подряд и не больше десяти месяцев за пять лет.",
+        note: "Ст. 144 §1 требует фактического проживания: отлучки не более шести месяцев подряд и десяти за пять лет.",
       },
       grTax: {
         title: "Три налоговых режима Греции: 5A, 5B и 5C",
@@ -1615,6 +1627,53 @@ const L = {
         title: "Пороги золотой визы Греции по зонам",
         note: "Ст. 100 закона 5038/2023 в редакции ст. 64 закона 5100/2024. Действует с 1 сентября 2024 года.",
       },
+      ptNatClock: {
+        title: "Тринадцать лет от того же самого события",
+        note: "Три года — верхняя граница ожидания карты. По нижней каждая полоса короче, а разрыв между ними тот же.",
+      },
+      ptNatLimbs: {
+        title: "Что требует статья 6(1) и что в ней новое",
+        // Год ушёл из шапки колонки в подпись: «ИЗМЕНЕНИЯ 2026» в капители с
+        // трекингом выходило за правое поле на 58 пикселей.
+        note: "Статья 6(1) в редакции Lei Orgânica 1/2026. Уровня по общеевропейской шкале закон не называет: A2 — практика.",
+      },
+    },
+    ptNatAxis: "Годы со дня подачи заявления на ВНЖ",
+    ptNatLegend: {
+      counted: "Очередь засчитана",
+      uncounted: "Очередь не засчитана",
+      residence: "Срок проживания",
+    },
+    ptNatBars: {
+      old: {
+        label: "Дело о гражданстве в производстве на 19 мая 2026",
+        note: "Пять лет, и статья 15(4) держит ожидание карты внутри них",
+      },
+      new7: {
+        label: "Подано после 19 мая: ЕС и португалоязычные страны",
+        note: "Семь лет, и ожидание внутрь больше не входит",
+      },
+      new10: {
+        label: "Подано после 19 мая: любое другое гражданство",
+        note: "Десять лет, и ожидание внутрь больше не входит",
+      },
+    },
+    // ШАПКА НЕСЁТ ГОД, А ЯЧЕЙКИ НЕТ, и это вынужденно: «Расширено в 2026»
+    // на 15px × 1.33 от x=980 доходит до 1200 и уходит за правое поле 1152.
+    // Русские слова длиннее английских, а колонка ставилась под английские.
+    ptNatHeads: { art: "Статья", cond: "Что требует", status: "Изменения" },
+    ptNatCond: {
+      a: "Совершеннолетие по португальскому праву\nили по праву страны происхождения",
+      b: "Семь лет законного проживания для граждан\nЕС и CPLP, десять для всех остальных",
+      c: "Достаточное знание языка, а также\nкультуры, истории и символов",
+      d: "Достаточное знание прав и обязанностей\nгражданства и устройства государства",
+      e: "Торжественная декларация о приверженности\nпринципам правового государства",
+    },
+    ptNatStatus: {
+      same: "Без изменений",
+      doubled: "Удвоено",
+      widened: "Расширено",
+      fresh: "Новое",
     },
   },
 
@@ -1663,7 +1722,133 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026", greeceCitizenship: "8 September 2026", greeceAmericans: "8 September 2026", portugalAmericans: "8 September 2026", portugalUk: "8 September 2026" },
+    // ИМЕНА С ПРЕФИКСОМ grNat, А НЕ grTier. `grTierNotes` уже занят схемой
+    // порогов золотой визы по зонам, и дубликат ключа в одном объектном
+    // литерале в JavaScript не ошибка — побеждает последний. Первая версия
+    // напечатала три раза «undefined» на холсте и прошла проверку на поля.
+    grUsSteps: {
+      signed: "Signed",
+      protocol: "Protocol",
+      force: "In force",
+      since: "Since then",
+    },
+    grUsDates: {
+      signed: "20 February 1950",
+      protocol: "20 April 1953",
+      force: "1 January 1953",
+      since: "no further amendment",
+    },
+    grUsWhat: {
+      signed: "Convention for the avoidance of double taxation on income",
+      protocol: "Mutual assistance in collecting taxes, and nothing else",
+      force: "Operative from this date; instruments exchanged that December",
+      since: "Seventy-six years, through every change in treaty practice",
+    },
+    grUsHeads: { changes: "Greek residence changes", stays: "Greek residence does not touch" },
+    grUsChangesRows: ["tax", "social", "regimes"],
+    grUsLeft: {
+      tax: "Where income tax is primarily due",
+      social: "Which social security system receives contributions",
+      regimes: "Whether the Greek special tax regimes are available",
+    },
+    grUsRight: {
+      // От colRight 620 до правого поля 1152 — 532px, на 15px это около
+      // пятидесяти знаков, не пятидесяти пяти: строка в 54 знака ушла на 13px,
+      // в 55 — на 22px. Первая версия была 68 и ушла на 141px.
+      tax: "The annual US return on worldwide income",
+      social: "The certificate of coverage, form GR/USA 1",
+      regimes: "The saving clause at art. XIV(1), 1950 treaty",
+    },
+    ptUsClockCols: { before: "File pending on 19 May 2026", after: "Opened after that date" },
+    ptUsClockRows: ["rule", "queue", "gaps"],
+    ptUsClockLeft: {
+      rule: "Article 15(4), as inserted in March 2024",
+      queue: "The AIMA wait counts, once the permit is granted",
+      gaps: "Interrupted periods sum inside twelve years",
+    },
+    // Правая колонка от colRight 640 до правого поля 1152 — 512px, на 15px это
+    // около сорока восьми знаков. Мерено margins.mjs, не прикинуто.
+    ptUsClockRight: {
+      rule: "Article 15(1) alone — 15(4) is repealed",
+      queue: "An application is not a title or a visa",
+      gaps: "Unchanged: still twelve years",
+    },
+    ptUkSteps: ["signedOld", "forceOld", "signedNew", "forceNew"],
+    ptUkDates: {
+      signedOld: "27 March 1968",
+      forceOld: "17 January 1969",
+      signedNew: "15 September 2025",
+      forceNew: "29 December 2025",
+    },
+    ptUkWhat: {
+      signedOld: "The previous convention signed",
+      forceOld: "In force, and it stayed in force",
+      signedNew: "Its replacement signed",
+      forceNew: "In force — fifty-seven years after the first signature",
+    },
+    ptUkEffectHead: "And the two countries start on different days",
+    ptUkEffectRows: ["pt", "ukWithheld", "ukCorp", "ukIncome"],
+    ptUkEffect: {
+      pt: "Portugal · 1 January 2026",
+      ukWithheld: "UK, withheld taxes · 1 January 2026",
+      ukCorp: "UK, corporation tax · 1 April 2026",
+      ukIncome: "UK, income and capital gains · 6 April 2026",
+    },
+    ptUkPensionCols: { old: "1968, article 17(1)", now: "2025, article 17" },
+    ptUkPensionRows: ["who", "where", "carve"],
+    ptUkPensionLeft: {
+      who: "Pensions for past employment, and annuities",
+      where: "«taxable only in that State»",
+      carve: "Government service excluded in a parenthesis",
+    },
+    // Правая колонка от colRight 640 до правого поля 1152 — 512px, на 15px это
+    // около пятидесяти знаков. Мерено margins.mjs.
+    ptUkPensionRight: {
+      who: "Pensions and other similar remuneration",
+      where: "«taxable only in that State»",
+      carve: "Excluded by reference to art. 18(1)",
+    },
+    ptUsInstrRows: ["act", "treaty", "social"],
+    ptUsInstrWhat: {
+      act: "Nationality Act, Lei 37/81",
+      treaty: "Income tax convention",
+      social: "Social security agreement",
+    },
+    ptUsInstrWhen: {
+      act: "amended 19 May 2026",
+      treaty: "signed 6 September 1994",
+      social: "in force 1 August 1989",
+    },
+    ptUsInstrDecides: {
+      act: "How long until citizenship, and what counts as residence",
+      treaty: "Which country taxes what — and the Protocol, para. 1(b), keeps US taxation of US citizens",
+      social: "Which system receives contributions. Self-employed resident in Portugal: Portuguese, on form P/USA 1",
+    },
+    grNatTierBars: {
+      three: "Three continuous years",
+      seven: "Seven continuous years",
+      twelve: "Twelve continuous years",
+    },
+    grNatTierNotes: {
+      three: "EU nationals; spouse of a Greek WITH a child; custody of a Greek child born in Greece; stateless persons",
+      seven: "Everybody else holding a title on the closed list of art. 5(1)(ε) — the investor permit is item αθ",
+      twelve: "Any other valid residence title, temporary ones excepted — art. 5(3)",
+    },
+    grSplitHeads: { art: "Article", holds: "What it holds" },
+    grSplitWhat: {
+      five: "Formal conditions",
+      fiveA: "Substantive conditions",
+      fiveB: "Security grounds",
+    },
+    // ПОТОЛОК ПОДПИСИ РЯДА — ОКОЛО 95 ЗНАКОВ: от xBody 300 до правого поля
+    // 852px, на 13px × 1.33 это примерно девяносто восемь. Первые версии были
+    // 108 и 106 и обе ушли за холст. Поймано отрисовкой.
+    grSplitNote: {
+      five: "Legal age, no conviction in the last decade, no pending expulsion, the period, the title",
+      fiveA: "Sufficient Greek; history, geography, culture and customs; economic and social integration",
+      fiveB: "Assessed separately from everything above",
+    },
     mtRentBars: {
       register: "Housing Authority register",
       facebook: "Facebook Marketplace",
@@ -1890,15 +2075,17 @@ const L = {
     ptCols: { visa: "Visa needed", income: "Income test" },
     ptRoutes: {
       d7: "D7, own income",
+      d8: "D8 — remote work",
       ari: "Investment permit",
       property: "Property purchase",
     },
     ptRouteNotes: {
       d7: "Pension, rent, dividends, royalties",
+      d8: "Four minimum wages, averaged over three months",
       ari: "\u20ac500,000 fund or another qualifying route",
       property: "Abolished in 2023, with no replacement",
     },
-    ptCells: { yes: "yes", no: "no", tested: "\u20ac920 a month", silent: "no figure in the law", gone: "route removed" },
+    ptCells: { yes: "yes", no: "no", tested: "\u20ac920 a month", multiple: "4 \u00d7 minimum wage", silent: "no figure in the law", gone: "route removed" },
     ptClock: {
       before: "Filed up to 18 May 2026",
       eu: "EU and Portuguese-speaking country nationals",
@@ -2358,6 +2545,38 @@ const L = {
         title: "What AIMA charges, and the ratio nobody warns about",
         note: "Legal fees and fund commissions are excluded: those are market prices, not published ones.",
       },
+      grUsTreaty: {
+        title: "A treaty signed in 1950, amended once",
+        note: "Article XIV(1) is the saving clause: each country may tax its own citizens as though the convention had not been made.",
+      },
+      grUsChanges: {
+        title: "What moving to Greece changes for an American",
+        note: "The left column is Greek law. The right column is American law, and Greek residence does not reach it.",
+      },
+      ptUkTreaty: {
+        title: "One convention replaced, fifty-seven years apart",
+        note: "HMRC's own manual carries both, with the note that the previous one applied until the new one took effect.",
+      },
+      ptUkPensions: {
+        title: "The pensions article, before and after",
+        note: "Both name the state of residence. The wording was modernised; the rule was not changed.",
+      },
+      ptUsClock: {
+        title: "Ten years, counted two different ways",
+        note: "Article 7(2) of Lei Orgânica 1/2026 keeps the previous text for files already pending on 19 May 2026.",
+      },
+      ptUsInstruments: {
+        title: "Three instruments, three dates",
+        note: "The saving clause is not in Article 1 of the convention. Article 1 is one sentence about personal scope.",
+      },
+      grNatTiers: {
+        title: "Three periods, one law",
+        note: "All three are «συνεχή» — continuous. The Code gives no window inside which broken periods may be added together.",
+      },
+      grNatSplit: {
+        title: "Naturalisation is two articles, not one",
+        note: "The examination sits in article 5Α, and it names no CEFR level. The B1 in circulation comes from below the statute.",
+      },
       mtRentGap: {
         title: "Three medians for one market, all for 2023",
         // ПОТОЛОК ПОДПИСИ ~125 ЗНАКОВ: 13px × 1.33 = 17.3px на 1104px от
@@ -2394,7 +2613,7 @@ const L = {
       },
       gvApplyFees: {
         title: "What the state charges to look at you",
-        note: "Malta only, and the investment is excluded. Add 7,500 € per adult dependant other than the spouse, and 500 € per residence card.",
+        note: "Malta only, investment excluded. Add 7,500 € per adult dependant other than the spouse, 500 € per card.",
       },
 
       grLivingBudget: {
@@ -2411,12 +2630,12 @@ const L = {
       },
 
       mtCost: {
-        title: "What Maltese permanent residence costs above the property",
+        title: "What Maltese residence costs above the property",
         note: "The purchase rows come to 118,250 €; notary and legal fees, which carry no published tariff, take it to about 126,000 €.",
       },
       mtPresence: {
         title: "How many months a year each route demands",
-        note: "The empty row is a finding rather than an omission: five Maltese registers were walked on 1 September 2026 and none states a rule.",
+        note: "The empty row is a finding, not an omission: five Maltese registers walked on 1 September 2026, none states a rule.",
       },
       mtTests: {
         title: "Three questions Malta decides in three different ways",
@@ -2427,15 +2646,15 @@ const L = {
         note: "The investment permit waives the visa, not the means-of-subsistence test: art. 90-A(1)(a).",
       },
       ptClock: {
-        title: "Years of residence required before Portuguese citizenship",
-        note: "Lei Org\u00e2nica 1/2026 is in force from 19 May 2026. Proceedings filed up to and including 18 May are decided under the previous version.",
+        title: "Years of residence before Portuguese citizenship",
+        note: "Lei Orgânica 1/2026 is in force from 19 May 2026. Files submitted up to 18 May are decided under the old text.",
       },
       ptPublished: {
-        title: "What the instrument says against what ranking pages publish",
+        title: "The instrument against the ranking pages",
         note: "Checked on 28 August 2026. Every page carries a last-updated stamp newer than its own figure.",
       },
       aeChain: {
-        title: "What sets the golden visa threshold, and what sets nothing",
+        title: "What sets the threshold, and what sets nothing",
         note: "All 32 Dubai instruments of 2026 were checked, with the memorandum register and DLD's own page.",
       },
       aeAbsence: {
@@ -2451,7 +2670,7 @@ const L = {
         note: "Each amount is stated in the period its instrument uses: Malta's is annual, the Emirati one is in dollars.",
       },
       greeceScale: {
-        title: "What Greece asks you to prove against what Greece costs",
+        title: "What Greece asks you to prove, and what it costs",
         note: "The threshold and the minimum wage are 2026 figures; household spending is the 2024 survey.",
       },
       dataAge: {
@@ -2468,12 +2687,12 @@ const L = {
         note: "Art. 100 of Law 5038/2023 as amended by art. 64 of Law 5100/2024. In force since 1 September 2024.",
       },
       grTiers: {
-        title: "The four Greek golden visa thresholds and what attaches to each",
+        title: "Four Greek thresholds, and what attaches to each",
         note: "The single-property rule applies to all four. The minimum floor area appears in §2(a) and §2(b) only.",
       },
       grPresence: {
         title: "Why the years count for one holder and not another",
-        note: "Art. 144 §1 requires actual residence: absences under six consecutive months each, and ten months in total across the five years.",
+        note: "Art. 144 §1 requires actual residence: absences under six consecutive months, ten months across the five years.",
       },
       grTax: {
         title: "The three Greek special tax regimes: 5A, 5B and 5C",
@@ -2532,15 +2751,17 @@ const L = {
     ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
     ptRoutes: {
       d7: "D7, dochód własny",
+      d8: "D8 — praca zdalna",
       ari: "Pobyt za inwestycję",
       property: "Zakup nieruchomości",
     },
     ptRouteNotes: {
       d7: "Emerytura, najem, dywidendy, tantiemy",
+      d8: "Czterokrotność płacy minimalnej, średnia z trzech miesięcy",
       ari: "Fundusz 500 000 € lub inna ścieżka",
       property: "Zniesiona w 2023 roku, bez zamiennika",
     },
-    ptCells: { yes: "tak", no: "nie", tested: "920 € miesięcznie", silent: "ustawa nie podaje kwoty", gone: "ścieżki nie ma" },
+    ptCells: { yes: "tak", no: "nie", tested: "920 € miesięcznie", multiple: "4 \u00d7 płaca min.", silent: "ustawa nie podaje kwoty", gone: "ścieżki nie ma" },
     ptClock: {
       before: "Złożone do 18 maja 2026",
       eu: "Obywatele UE i krajów portugalskojęzycznych",
@@ -2735,7 +2956,7 @@ const L = {
     },
     figures: {
       mtCost: {
-        title: "Ile kosztuje stały pobyt na Malcie ponad cenę nieruchomości",
+        title: "Ile kosztuje pobyt na Malcie ponad cenę lokalu",
         note: "Wiersze zakupu dają 118 250 €; notariusz i prawnik, dla których nie ma taryfy, podnoszą to do około 126 000 €.",
       },
       mtPresence: {
@@ -2747,15 +2968,15 @@ const L = {
         note: "Certyfikat MPRP odpowiada tylko na pierwsze. Dwa pozostałe rozstrzygają się bez niego.",
       },
       ptRoutes: {
-        title: "Które ścieżki pobytowe w Portugalii istnieją w 2026 roku",
+        title: "Które ścieżki pobytowe w Portugalii istnieją",
         note: "Ścieżka inwestycyjna znosi wizę, nie badanie środków utrzymania: art. 90-A(1)(a).",
       },
       ptClock: {
         title: "Ile lat pobytu przed obywatelstwem portugalskim",
-        note: "Lei Orgânica 1/2026 obowiązuje od 19 maja 2026. Sprawy złożone do 18 maja włącznie rozpatruje się według poprzedniego brzmienia.",
+        note: "Lei Orgânica 1/2026 obowiązuje od 19 maja 2026. Sprawy złożone do 18 maja rozpatruje dawne brzmienie.",
       },
       ptPublished: {
-        title: "Co mówi akt, a co publikują strony z wyników wyszukiwania",
+        title: "Akt kontra strony z wyników wyszukiwania",
         note: "Sprawdzone 28 sierpnia 2026. Każda strona ma znacznik aktualizacji nowszy niż jej własna liczba.",
       },
       grTiers: {
@@ -2764,14 +2985,14 @@ const L = {
       },
       grPresence: {
         title: "Dlaczego lata liczą się jednemu, a drugiemu nie",
-        note: "Art. 144 §1 wymaga faktycznego zamieszkiwania: nieobecności poniżej sześciu miesięcy i najwyżej dziesięć miesięcy przez pięć lat.",
+        note: "Art. 144 §1 wymaga faktycznego zamieszkiwania: nieobecności poniżej sześciu miesięcy, dziesięć przez pięć lat.",
       },
       grTax: {
         title: "Trzy greckie reżimy podatkowe: 5A, 5B i 5C",
         note: "Słupek to okres w latach podatkowych. 5A zaczyna się od pierwszego roku wniosku, 5B od następnego.",
       },
       aeChain: {
-        title: "Co ustala pr\u00f3g emirackiej z\u0142otej wizy, a co nie ustala nic",
+        title: "Co ustala próg złotej wizy, a co nie ustala nic",
         note: "Sprawdzono 32 dubajskie akty z 2026 roku, rejestr memorandów i stronę legislacyjną DLD.",
       },
       aeAbsence: {
@@ -3918,6 +4139,338 @@ function mtRoutes(L) {
   );
 }
 
+// --- Britain and Portugal: a convention replaced, and two start dates --------
+// FOUR DATED ROWS AND THEN A BLOCK THAT IS NOT A ROW. The top half is the
+// replacement — 1968 signed, 1969 in force, 2025 signed, 2025 in force — and
+// the reader is meant to reach the fourth line and notice the gap between the
+// first signature and the third.
+//
+// THE EFFECT DATES ARE SET APART DELIBERATELY, under their own heading. They
+// are not another step in the sequence: they are four answers to a different
+// question, "from when does this reach me", and folding them into the timeline
+// would make eight rows that look like one story and are two.
+const PT_UK_ACCENT = new Set(["forceNew"]);
+
+function ptUkTreaty(L) {
+  const width = 1200;
+  // 1000: четыре ряда по 104 от y=240 доводят подпись последнего до 580, блок
+  // дат применения от 640 до 868, подпись frame на height − 92 = 908.
+  const height = 1000;
+  const xWhen = 48;
+  const xBody = 330;
+  let body = "";
+
+  L.ptUkSteps.forEach((key, i) => {
+    const y = 240 + i * 104;
+    const fill = PT_UK_ACCENT.has(key) ? C.accent : C.text;
+    body += text(xWhen, y, L.ptUkDates[key], { size: 17, weight: 600, fill });
+    body += text(xBody, y, L.ptUkWhat[key], { size: 16, weight: 500, fill });
+    if (i < L.ptUkSteps.length - 1) {
+      body += `<line x1="${xWhen}" y1="${y + 56}" x2="${width - 48}" y2="${y + 56}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  body += `<line x1="${xWhen}" y1="620" x2="${width - 48}" y2="620" stroke="${C.rule ?? C.hairline}" stroke-width="1"/>`;
+  body += text(xWhen, 664, L.ptUkEffectHead, { size: 15, weight: 600, fill: C.accent });
+  L.ptUkEffectRows.forEach((key, i) => {
+    body += text(xWhen, 706 + i * 42, L.ptUkEffect[key], { size: 15 });
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptUkTreaty.title, L.eyebrow,
+    L.checked(L.dates.portugalUk), body,
+    L.figures.ptUkTreaty.note,
+  );
+}
+
+// --- Britain and Portugal: the pensions article, before and after -----------
+// TWO COLUMNS THAT AGREE, which is the opposite of what a two-column figure
+// usually does and is the entire point. The middle row prints the same six
+// words on both sides. A reader who has just learned that a fifty-seven-year-old
+// treaty was replaced expects everything under it to have moved; this row is
+// the fastest way to show that this did not, and it is faster than the
+// paragraph that says so.
+function ptUkPensions(L) {
+  const width = 1200;
+  // 760: три ряда по 118 от y=282 доводят второй ряд последнего до 588, подпись
+  // frame на height − 92 = 668. Та же арифметика, что на pt-us-clock.
+  const height = 760;
+  const xLeft = 48;
+  const colRight = 640;
+  let body = "";
+
+  body += text(xLeft, 208, L.ptUkPensionCols.old, { size: 15, weight: 600 });
+  body += text(colRight, 208, L.ptUkPensionCols.now, { size: 15, weight: 600, fill: C.accent });
+  body += `<line x1="${xLeft}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  L.ptUkPensionRows.forEach((key, i) => {
+    const y = 282 + i * 118;
+    const same = key === "where";
+    body += text(xLeft, y, L.ptUkPensionLeft[key], { size: 15, weight: same ? 600 : 400 });
+    body += text(colRight, y, L.ptUkPensionRight[key], {
+      size: 15,
+      weight: same ? 600 : 400,
+      fill: C.accent,
+    });
+    if (i < L.ptUkPensionRows.length - 1) {
+      body += `<line x1="${xLeft}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptUkPensions.title, L.eyebrow,
+    L.checked(L.dates.portugalUk), body,
+    L.figures.ptUkPensions.note,
+  );
+}
+
+// --- Portugal and the US: the same ten years, counted twice ------------------
+// TWO COLUMNS SPLIT BY A DATE, not by a country. This is the one figure on the
+// site where both halves are the SAME law: article 15 of the Nationality Act
+// before and after 19 May 2026. A timeline was the first draft and it was
+// wrong — a timeline says "this happened, then that happened", and the reader
+// needs "which of these two is me". The third row exists to say that one thing
+// did NOT change, because a reader who sees two columns assumes everything in
+// them differs.
+function ptUsClock(L) {
+  const width = 1200;
+  // 760: три ряда по 118 от y=282 доводят второй ряд последнего до 588, подпись
+  // frame на height − 92 = 668. Та же арифметика, что на gr-us-changes.
+  const height = 760;
+  const xLeft = 48;
+  const colRight = 640;
+  let body = "";
+
+  body += text(xLeft, 208, L.ptUsClockCols.before, { size: 15, weight: 600 });
+  body += text(colRight, 208, L.ptUsClockCols.after, { size: 15, weight: 600, fill: C.accent });
+  body += `<line x1="${xLeft}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  L.ptUsClockRows.forEach((key, i) => {
+    const y = 282 + i * 118;
+    body += text(xLeft, y, L.ptUsClockLeft[key], { size: 15 });
+    body += text(colRight, y, L.ptUsClockRight[key], { size: 15, fill: C.accent });
+    if (i < L.ptUsClockRows.length - 1) {
+      body += `<line x1="${xLeft}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptUsClock.title, L.eyebrow,
+    L.checked(L.dates.portugalAmericans), body,
+    L.figures.ptUsClock.note,
+  );
+}
+
+// --- Portugal and the US: which instrument decides what ----------------------
+// THREE ROWS, AND THE DATE IS A COLUMN RATHER THAN A DECORATION. The point of
+// the figure is that these are three separate instruments made thirty-seven
+// years apart, and a fact from one of them answers nothing in the others —
+// which is the mistake the market page makes when it treats "moving to
+// Portugal" as one subject with one answer.
+function ptUsInstruments(L) {
+  const width = 1200;
+  // 860: три ряда по 152 от y=272 доводят третью строку последнего до 632,
+  // подпись frame на height − 92 = 768.
+  const height = 860;
+  const xLeft = 48;
+  let body = "";
+
+  L.ptUsInstrRows.forEach((key, i) => {
+    const y = 232 + i * 152;
+    body += text(xLeft, y, L.ptUsInstrWhat[key], { size: 17, weight: 600 });
+    body += text(xLeft, y + 26, L.ptUsInstrWhen[key], { size: 13, fill: C.accent, weight: 500 });
+    body += text(xLeft, y + 58, L.ptUsInstrDecides[key], { size: 14, fill: C.muted });
+    if (i < L.ptUsInstrRows.length - 1) {
+      body += `<line x1="${xLeft}" y1="${y + 96}" x2="${width - 48}" y2="${y + 96}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.ptUsInstruments.title, L.eyebrow,
+    L.checked(L.dates.portugalAmericans), body,
+    L.figures.ptUsInstruments.note,
+  );
+}
+
+// --- Greece and the US: a treaty with a date on it ---------------------------
+// FOUR ROWS AND THE LAST ONE HAS NO EVENT, which is the whole figure. Three
+// dated steps and then a row that says nothing happened for seventy-six years:
+// the reader is meant to reach the bottom and notice the sequence stops. The
+// last row carries the accent for the same reason the Maltese chain gives it to
+// the agency page still selling a deleted route — it is the live fact, not the
+// history.
+const GR_US_STEPS = [
+  { key: "signed", live: false },
+  { key: "protocol", live: false },
+  { key: "force", live: false },
+  { key: "since", live: true },
+];
+
+function grUsTreaty(L) {
+  const width = 1200;
+  // 900: четыре ряда по 132 от y=272 доводят подпись последнего до 696, подпись
+  // frame на height − 92 = 808. Та же арифметика, что на mt-chain.
+  const height = 900;
+  const xWhen = 48;
+  const xBody = 330;
+  let body = "";
+
+  body += text(xWhen, 200, L.grUsSteps.signed, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xBody, 200, L.grUsHeads.changes, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xWhen}" y1="218" x2="${width - 48}" y2="218" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  GR_US_STEPS.forEach((row, i) => {
+    const y = 272 + i * 132;
+    const fill = row.live ? C.accent : C.text;
+    body += text(xWhen, y, L.grUsDates[row.key], { size: 17, weight: 600, fill });
+    body += text(xBody, y, L.grUsSteps[row.key], { size: 17, weight: 500, fill });
+    body += text(xBody, y + 28, L.grUsWhat[row.key], { size: 13, fill: C.muted });
+    if (i < GR_US_STEPS.length - 1) {
+      body += `<line x1="${xWhen}" y1="${y + 78}" x2="${width - 48}" y2="${y + 78}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.grUsTreaty.title, L.eyebrow,
+    L.checked(L.dates.greeceAmericans), body,
+    L.figures.grUsTreaty.note,
+  );
+}
+
+// --- Greece and the US: what residence moves and what it does not ------------
+// TWO COLUMNS BECAUSE THE ARGUMENT IS A BOUNDARY, not a comparison. Everything
+// on the left is Greek law and moves when the reader moves; everything on the
+// right is American law and does not. A single list would invite the reader to
+// average the two halves, which is the error the whole page exists to prevent.
+function grUsChanges(L) {
+  const width = 1200;
+  // 760: три ряда по 118 от y=282 доводят второй ряд последнего до 588, подпись
+  // frame на height − 92 = 668.
+  const height = 760;
+  const xLeft = 48;
+  const colRight = 620;
+  let body = "";
+
+  body += text(xLeft, 208, L.grUsHeads.changes, { size: 15, weight: 600 });
+  body += text(colRight, 208, L.grUsHeads.stays, { size: 15, weight: 600, fill: C.accent });
+  body += `<line x1="${xLeft}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  L.grUsChangesRows.forEach((key, i) => {
+    const y = 282 + i * 118;
+    body += text(xLeft, y, L.grUsLeft[key], { size: 15 });
+    body += text(colRight, y, L.grUsRight[key], { size: 15, fill: C.accent });
+    if (i < L.grUsChangesRows.length - 1) {
+      body += `<line x1="${xLeft}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.grUsChanges.title, L.eyebrow,
+    L.checked(L.dates.greeceAmericans), body,
+    L.figures.grUsChanges.note,
+  );
+}
+
+// --- Greece: three naturalisation periods, one law ---------------------------
+// LENGTH DOES THE ARGUING. The whole point is that the market prints one number
+// where the Code has three, so the three have to be seen as different lengths
+// before a word is read. The middle bar carries the accent because it is the
+// one the reader most likely arrived believing — and the two either side of it
+// are the finding.
+const GR_TIERS_NAT = [
+  { key: "three", years: 3, accent: false },
+  { key: "seven", years: 7, accent: true },
+  { key: "twelve", years: 12, accent: false },
+];
+
+function grNatTiers(L) {
+  const width = 1200;
+  // 800: три ряда по 150 от y=250 доводят низ последней полосы до 646, ось на
+  // 690, её подписи на 716, подпись frame на height − 92 = 708 — столкнулись бы.
+  // Поэтому 860, как на mt-rent-gap, где та же конструкция.
+  const height = 860;
+  const x0 = 430;
+  const x1 = width - 150;
+  const MAX = 13;
+  const px = (v) => x0 + (v / MAX) * (x1 - x0);
+
+  let body = "";
+  GR_TIERS_NAT.forEach((bar, i) => {
+    const y = 250 + i * 150;
+    const hue = bar.accent ? C.accent : C.line;
+    body += text(48, y, L.grNatTierBars[bar.key], { size: 17, weight: 600, fill: bar.accent ? C.accent : C.text });
+    body += text(48, y + 26, L.grNatTierNotes[bar.key], { size: 13, fill: C.muted });
+    const top = y + 46;
+    body += `<rect x="${px(0)}" y="${top}" width="${px(bar.years) - px(0)}" height="40" fill="${hue}"/>`;
+    body += text(px(bar.years) + 16, top + 28, `${bar.years}`, {
+      size: 19, weight: 600, family: FONT_MONO, fill: bar.accent ? C.accent : C.text,
+    });
+    if (i < GR_TIERS_NAT.length - 1) {
+      body += `<line x1="48" y1="${y + 112}" x2="${width - 48}" y2="${y + 112}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  const axisY = 690;
+  body += `<line x1="${px(0)}" y1="${axisY}" x2="${px(MAX)}" y2="${axisY}" stroke="${C.line}" stroke-width="1"/>`;
+  for (let v = 0; v <= 12; v += 2) {
+    body += `<line x1="${px(v)}" y1="${axisY}" x2="${px(v)}" y2="${axisY + 7}" stroke="${C.line}" stroke-width="1"/>`;
+    body += text(px(v), axisY + 26, `${v}`, { size: 13, fill: C.muted, anchor: "middle" });
+  }
+
+  return frame(
+    width, height,
+    L.figures.grNatTiers.title, L.eyebrow,
+    L.checked(L.dates.greeceCitizenship), body,
+    L.figures.grNatTiers.note,
+  );
+}
+
+// --- Greece: the conditions live in two articles -----------------------------
+// THREE ROWS AND THE SECOND ONE IS THE FINDING. Every page in this market cites
+// "article 5" for the language examination, and the examination is not in
+// article 5. Drawing the split is cheaper than arguing it: the reader sees two
+// articles where they expected one, and the caption then says which holds what.
+const GR_SPLIT = ["five", "fiveA", "fiveB"];
+
+function grNatSplit(L) {
+  const width = 1200;
+  // 700: три ряда по 118 от y=282 доводят подпись последнего до 528, подпись
+  // frame на height − 92 = 608.
+  const height = 700;
+  const xArt = 48;
+  const xBody = 300;
+  let body = "";
+
+  body += text(xArt, 208, L.grSplitHeads.art, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += text(xBody, 208, L.grSplitHeads.holds, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
+  body += `<line x1="${xArt}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  GR_SPLIT.forEach((key, i) => {
+    const y = 282 + i * 118;
+    const accent = key === "fiveA";
+    const label = key === "five" ? "5" : key === "fiveA" ? "5Α" : "5Β";
+    body += text(xArt, y, label, { size: 20, family: FONT_MONO, weight: 600, fill: accent ? C.accent : C.text });
+    body += text(xBody, y, L.grSplitWhat[key], { size: 17, weight: 500, fill: accent ? C.accent : C.text });
+    body += text(xBody, y + 28, L.grSplitNote[key], { size: 13, fill: C.muted });
+    if (i < GR_SPLIT.length - 1) {
+      body += `<line x1="${xArt}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.grNatSplit.title, L.eyebrow,
+    L.checked(L.dates.greeceCitizenship), body,
+    L.figures.grNatSplit.note,
+  );
+}
+
 // --- Malta: the registered rent against the advertised one -------------------
 // THE REGISTER BAR CARRIES THE ACCENT AND THE OTHER TWO DO NOT, which is the
 // whole argument of the figure: one of these three numbers was signed and two
@@ -4196,7 +4749,12 @@ function ptNatClock(L) {
   const swatch = (fillAttr, label) => {
     let out = `<rect x="${lx}" y="${legendY - 13}" width="16" height="16" ${fillAttr}/>`;
     out += text(lx + 24, legendY, label, { size: 13, fill: C.muted });
-    lx += 24 + label.length * 8 + 44;
+    // 9 НА ЗНАК, А НЕ 8, И ЗАЗОР 52, А НЕ 44. Оценка ставилась по английским
+    // подписям; кириллица на 13px × 1.33 идёт примерно по 9px на знак, и на
+    // русской версии «Очередь засчитана» подошло к следующему квадрату
+    // вплотную. Ширину глифов здесь никто не меряет, поэтому запас берётся с
+    // той стороны, где ошибка видна.
+    lx += 24 + label.length * 9 + 52;
     return out;
   };
   body += swatch(`fill="${C.accent}"`, L.ptNatLegend.counted);
@@ -4234,10 +4792,11 @@ function ptNatLimbs(L) {
   const height = 960;
   const xArt = 48;
   const xBody = 210;
-  // 980: самая длинная строка статуса — «Doubled in 2026» на 15px, и от 980 до
-  // правого поля 1152 её хватает. Колонку левее ставить нельзя: подпись limb
-  // (d) при 15px доходит до 950.
-  const xStatus = 980;
+  // 950, А НЕ 980. Отрисовка 8 сентября: «Doubled in 2026» от 980 уходило за
+  // правое поле на 12px. Опасение, что левее нельзя из-за подписи limb (d),
+  // не подтвердилось — подписи переносятся руками по 44 знака и заканчиваются
+  // около 630, то есть до колонки статуса больше трёхсот пикселей запаса.
+  const xStatus = 950;
   let body = "";
 
   body += text(xArt, 200, L.ptNatHeads.art, { size: 12, fill: C.muted, weight: 500, tracking: 2.2, upper: true });
@@ -4295,6 +4854,10 @@ const PLAN = {
     // Переезд в Португалию, 5 сентября 2026 года.
     ["pt-move-rent", ptMoveRent],
     ["pt-move-premium", ptMovePremium],
+    // Гражданство Португалии по-русски, 7 сентября 2026. Кластер
+    // `гражданство португалии` — крупнейший португальский в русском.
+    ["pt-nat-clock", ptNatClock],
+    ["pt-nat-limbs", ptNatLimbs],
   ],
   en: [
     ["qualifies", qualifies],
@@ -4362,6 +4925,19 @@ const PLAN = {
     // спрос — это порода собак, польского нет.
     ["mt-rent-gap", mtRentGap],
     ["mt-measures", mtMeasures],
+    // Греческое гражданство, 8 сентября 2026. Английская: русский кластер идёт
+    // отдельным пунктом F5 и пишется под свой интент.
+    ["gr-nat-tiers", grNatTiers],
+    ["gr-nat-split", grNatSplit],
+    // Греция для американцев, 8 сентября 2026. Английская по определению.
+    ["gr-us-treaty", grUsTreaty],
+    ["gr-us-changes", grUsChanges],
+    // Португалия для американцев, 8 сентября 2026. Английская по определению.
+    ["pt-us-clock", ptUsClock],
+    ["pt-us-instruments", ptUsInstruments],
+    // Португалия для британцев, 8 сентября 2026. Английская по определению.
+    ["pt-uk-treaty", ptUkTreaty],
+    ["pt-uk-pensions", ptUkPensions],
   ],
   pl: [
     ["qualifies", qualifies],
@@ -4385,11 +4961,34 @@ const PLAN = {
   ],
 };
 
+// НИ ОДНА СХЕМА НЕ ВЫХОДИТ С «undefined» НА ХОЛСТЕ.
+//
+// Поставлено 8 сентября 2026 после двух случаев подряд. Первый — коллизия
+// ключей: `grTierNotes` уже существовал, дубликат в том же литерале молча
+// проиграл последнему объявлению. Второй нашёлся тем же грепом и жил дольше:
+// PT_ROUTES перечисляет четыре маршрута, а подписи были заведены для трёх, и
+// строка D8 печатала «undefined» дважды на трёх ОПУБЛИКОВАННЫХ схемах во всех
+// языках.
+//
+// Проверка на поля этого не ловит: «undefined» — короткое слово, оно никуда не
+// вылезает. Ловит только чтение холста глазами или вот эта строка.
+function assertNoUndefined(name, svg) {
+  if (svg.includes(">undefined<") || svg.includes("undefined")) {
+    const where = svg.indexOf("undefined");
+    throw new Error(
+      `${name}: на холсте напечатано "undefined" (позиция ${where}). ` +
+        `Обычно это отсутствующий ключ подписи или коллизия имён в объекте локали.`,
+    );
+  }
+}
+
 let n = 0;
 for (const [locale, figures] of Object.entries(PLAN)) {
   for (const [name, draw] of figures) {
     const file = join(OUT, `${name}-${locale}.svg`);
-    writeFileSync(file, draw(L[locale]), "utf8");
+    const svg = draw(L[locale]);
+    assertNoUndefined(`${name}-${locale}`, svg);
+    writeFileSync(file, svg, "utf8");
     console.log(`  ${name}-${locale}.svg`);
     n += 1;
   }

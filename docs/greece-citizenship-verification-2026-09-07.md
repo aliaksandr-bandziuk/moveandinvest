@@ -43,8 +43,17 @@ Opening: «Ο αλλοδαπός που επιθυμεί να γίνει Έλλ�
 - **ε.** «Να κατέχει έναν από τους παρακάτω τίτλους νόμιμης διαμονής:» followed
   by an **exhaustive list αα) to αι)**.
 
-**§3:** «Ο αλλοδαπός που κατέχει κάθε έγκυρο τίτλο διαμονής, **εκτός των
-προσωρινών**, και πληροί τις τυπικές …» — temporary titles are excluded.
+**§3 — AND THIS WAS MISREAD ON 7 SEPTEMBER.** It is not merely "temporary
+titles are excluded". It is a SEPARATE AND LONGER ROUTE. Verbatim fragment,
+re-read at the ministry's PDF on 8 September:
+
+> «διαμένει στην Ελλάδα νόμιμα για **δώδεκα (12) συνεχή έτη** πριν από την
+> υποβολή της αίτησης»
+
+A holder of any valid residence title other than those listed in §1(ε),
+temporary titles excepted, naturalises at **twelve** continuous years rather
+than seven. The list in §1(ε) is therefore not a gate that admits or refuses —
+it is the difference between a seven-year route and a twelve-year one.
 
 ## THE POINT FOR OUR READER: the investor permit is named in the list
 
@@ -99,13 +108,8 @@ names no level at all. Same caution as Portugal's A2.
 
 ## NOT READ — do not print
 
-- **The reduced or waived periods under §1(δ).** The consolidated text has
-  separate sentences for «τους κατόχους ιθαγένειας κράτους-μέλους της Ευρωπαϊκής
-  Ένωσης, τους συζύγους Έλληνα ή Ελληνίδας …», for spouses of Greek diplomatic
-  staff, and for «τους ομογενείς και για όσους έχουν γεννηθεί και κατοικούν
-  συνεχώς στην Ελλάδα» (for whom no period is required). **The numbers in the
-  first two are truncated in every rendering reached today and are not printed.**
-  Widely quoted figures exist; none was read.
+- ~~The reduced or waived periods under §1(δ).~~ **READ ON 8 SEPTEMBER, see the
+  section below.**
 - **The full list αα)–αι)** beyond αθ). Ten items, each truncated at about a
   hundred characters by the site's accessibility rendering.
 - **Άρθρο 5Β** (security grounds), **6** (documents), **7** (procedure) and
@@ -113,12 +117,56 @@ names no level at all. Same caution as Portugal's A2.
 - **The fees.** €550 application and €150 examination stand at tier B/C from the
   28 August pass and were not re-verified.
 
-**Why they are unread rather than skipped:** the ministry publishes the code as a
-JavaScript accordion whose text the accessibility tree truncates at roughly a
-hundred characters per item, Chrome's PDF viewer returns no text layer, and the
-unified PDF could not be fetched because its URL never appeared in a search
-result. The route that will work is to surface that PDF URL in a search, or to
-read the Gazette text of the amending laws article by article.
+**How the PDF was finally opened, 8 September 2026.** The fetcher refuses a URL
+that has not appeared in a user message, a previous fetch result or a search
+result — and the PDF link only ever appeared in our own tooling output. The
+chain that works: **fetch the ministry PAGE (which does appear in search
+results) and ask it for the link target; the PDF then becomes fetchable.** Worth
+remembering — it applies to every gated PDF, not just this one.
+
+The fetcher also refuses to return quotations longer than about 125 characters,
+so verbatim text has to be requested as several short fragments chosen to
+contain the numbers.
+
+## THE THREE TIERS, read 8 September 2026, and no page in this market prints
+## more than the middle one
+
+**Three continuous years — art. 5(1)(δ), second sentence.** Four categories, and
+only four:
+
+1. «κατόχους ιθαγένειας κράτους-μέλους της Ευρωπαϊκής Ένωσης» — nationals of an
+   EU member state;
+2. «τους συζύγους Έλληνα ή Ελληνίδας **με τέκνο**» — a spouse of a Greek **with a
+   child**; a spouse without a child does NOT qualify;
+3. «όσους έχουν τη γονική μέριμνα τέκνου ελληνικής ιθαγένειας, που έχει γεννηθεί
+   στην Ελλάδα» — parental custody of a Greek-national child born in Greece;
+4. «τους ανιθαγενείς» — stateless persons.
+
+Verbatim fragment for the period itself: «αρκεί η προηγούμενη νόμιμη διαμονή
+αυτών στην Ελλάδα επί **μια τουλάχιστον συνεχή τριετία**».
+
+**Seven continuous years — art. 5(1)(δ), first sentence.** «Να διαμένει στην
+Ελλάδα νόμιμα για **επτά συνεχή έτη** πριν από την υποβολή της αίτησης». Everyone
+else holding a title on the exhaustive list of §1(ε).
+
+**Twelve continuous years — art. 5(3).** Any other valid title, temporary ones
+excepted. See the correction above.
+
+**No period at all** — ομογενείς and those born and continuously resident in
+Greece.
+
+**Spouses of Greek diplomatic staff** — time spent abroad during the spouse's
+service counts, provided at least one year was spent in Greece.
+
+**Also read:** item αθ) of §1(ε) covers not only the investment permit under
+art. 16 of Law 4251/2014 but also property-owner permits under Laws 3386/2005
+and 4251/2014.
+
+**THE CROSS-REFERENCE QUESTION IS STILL OPEN** and nothing above resolves it:
+αθ) still cites the repealed Migration Code. Law 5038/2023's final and repealing
+articles remain unread — taxheaven's index stops at art. 150 of 192, and the
+Gazette text of the last forty-two articles was not located. **Do not publish the
+dangling-reference claim.**
 
 ## The historic figure, for the record
 

@@ -4,7 +4,11 @@ import {
   SITEMAP_COUNTRY_QUERY,
   SITEMAP_PROPERTY_QUERY,
 } from "@/sanity/queries";
-import type { ArticleSitemapDoc, SitemapCountryDoc } from "@/sanity/types";
+import type {
+  ArticleSitemapDoc,
+  PageKind,
+  SitemapCountryDoc,
+} from "@/sanity/types";
 
 // Which localised slug is which, across the eight pages whose URL is genuinely
 // translated: /greece, /gretsiya and /grecja are one page in three languages,
@@ -57,6 +61,14 @@ export interface SlugMap {
    *  one. What it can hold is the entry's stable key, and this is what turns
    *  that key into the slug for the language being rendered. */
   entriesByKey: SlugLookup;
+  /** Every entry slug, in every language, mapped to where that entry lives.
+   *
+   *  FOR THE CALLERS THAT HOLD A SLUG AND NOT THE DOCUMENT — the footer, which
+   *  resolves an entry by translation key and then has to build a URL for it.
+   *  Without this it would hardcode /blog/, which is the exact bug the `entry:`
+   *  resolver in scripts/articles.ts carried until 8 September 2026: not a 404
+   *  anybody reports, but a live-looking link to a page that answers elsewhere. */
+  entryKinds: Record<string, PageKind>;
 }
 
 /** What the grouping needs from a document, whatever type it is: which set it
@@ -163,10 +175,26 @@ export async function getSlugMap(): Promise<SlugMap> {
   const pages: SlugLookup = {};
   addGroup(pages, countryDocs.map(byCountry));
   addGroup(pages, propertyDocs.map(byCountry));
+  // REFERENCE ENTRIES BELONG IN THE TOP-LEVEL LOOKUP, because that is the route
+  // they answer on. The language switcher picks its lookup by route — /[slug]
+  // reads `pages` — so an entry left out of it would render a switcher with no
+  // siblings on a page that has them. They are grouped on `translationKey` like
+  // every other entry; only which lookup they land in differs.
+  addGroup(
+    pages,
+    entryDocs.filter((doc) => doc.pageKind === "reference").map(byTranslationKey),
+  );
 
+  // BOTH KINDS stay in `entries`, because `entriesByKey` is built from it and
+  // the footer resolves an entry by key without caring where it lives.
   const entries: SlugLookup = {};
   const entriesByKey: SlugLookup = {};
   addGroup(entries, entryDocs.map(byTranslationKey), entriesByKey);
 
-  return { pages, entries, entriesByKey };
+  const entryKinds: Record<string, PageKind> = {};
+  for (const doc of entryDocs) {
+    if (doc.slug) entryKinds[doc.slug] = doc.pageKind;
+  }
+
+  return { pages, entries, entriesByKey, entryKinds };
 }

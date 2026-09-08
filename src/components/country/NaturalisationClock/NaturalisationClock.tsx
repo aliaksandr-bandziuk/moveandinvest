@@ -41,7 +41,8 @@ export interface ClockLabels {
   qApplied: string;
   qAppliedNote: string;
   qGroup: string;
-  groupEuCplp: string;
+  groupEu: string;
+  groupCplp: string;
   groupOther: string;
   qFiled: string;
   qFiledNote: string;
@@ -146,15 +147,29 @@ export function NaturalisationClock({ labels, locale, input, allCaveats }: Props
         <fieldset className={styles.field}>
           <legend className={styles.fieldLabel}>{labels.qGroup}</legend>
           <div className={styles.choices}>
+            {/* THREE OPTIONS, NOT TWO, since 8 September 2026. Portugal treats
+                EU and CPLP citizens alike; Greece gives three years to EU
+                nationals and says nothing about CPLP. One bucket for both was
+                telling Brazilians the wrong Greek answer. */}
             <label className={styles.choice}>
               <input
                 type="radio"
                 name="group"
-                value="eu-or-cplp"
-                defaultChecked={input.group === "eu-or-cplp"}
+                value="eu"
+                defaultChecked={input.group === "eu"}
                 data-input="group"
               />
-              <span>{labels.groupEuCplp}</span>
+              <span>{labels.groupEu}</span>
+            </label>
+            <label className={styles.choice}>
+              <input
+                type="radio"
+                name="group"
+                value="cplp"
+                defaultChecked={input.group === "cplp"}
+                data-input="group"
+              />
+              <span>{labels.groupCplp}</span>
             </label>
             <label className={styles.choice}>
               <input

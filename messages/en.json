@@ -518,7 +518,6 @@
     "qApplied": "Date you applied for it",
     "qAppliedNote": "Only affects Portugal, and only under the transitional rule below — where it is worth up to three years.",
     "qGroup": "Your nationality",
-    "groupEuCplp": "EU member state or Portuguese-speaking country",
     "groupOther": "Anywhere else",
     "qFiled": "Had you filed for Portuguese citizenship before 19 May 2026?",
     "qFiledNote": "The nationality application, not the residence permit. Holding a permit from 2021 does not count; filing for citizenship on 18 May 2026 does. This is the most misreported sentence of the Portuguese reform.",
@@ -543,17 +542,20 @@
       "ptTransitional": "This date rests on article 7(2). Your nationality proceeding was pending on 19 May 2026, so the previous text applies to it whole — the five-year period and the counting from the residence application together, not one without the other.",
       "ptQueueGone": "Article 15(4), under which time spent waiting for the residence permit counted towards the period, was repealed on 19 May 2026. The clock starts at the permit, not at the application for it.",
       "grContinuous": "The seven years must be unbroken, and the Code offers no window inside which broken periods may be summed. A gap starts them again, so no date can be given from what you have entered.",
-      "grReduction": "Article 5(1)(δ) carries shorter periods for citizens of EU member states and for spouses of Greek citizens. We have not been able to read how long they are, so the standard seven years is shown. Do not treat it as the answer for your case.",
       "grTemporary": "Temporary residence titles do not qualify at all (article 5(3)), and the list of qualifying titles at article 5(1)(ε) is exhaustive. The investor permit is on it, at item αθ.",
       "mtBroken": "With residence broken, the four-years-within-six arithmetic needs your presence year by year, which this tool deliberately does not ask for. No date is given rather than a confident wrong one.",
       "mtFinalYear": "Whatever the earlier years look like, the twelve months immediately before the application must be continuous.",
-      "conditionsBeyondTime": "Time is one condition of several. Language, civics, good character, fees and the discretion of the deciding authority are not modelled here, and each can stop an application the calendar allows."
+      "conditionsBeyondTime": "Time is one condition of several. Language, civics, good character, fees and the discretion of the deciding authority are not modelled here, and each can stop an application the calendar allows.",
+      "grThreeYears": "Three continuous years, not seven — article 5(1)(δ) gives the shorter period to nationals of an EU member state, to a spouse of a Greek WITH a child, to anyone with parental custody of a Greek-national child born in Greece, and to stateless persons. A spouse without a child does not qualify.",
+      "grTwelveYears": "This assumes your residence title is one of those listed in article 5(1)(ε) — the investor permit is, at item αθ. On any other valid title, temporary ones excepted, article 5(3) asks for twelve continuous years instead. The tool does not ask which title you hold, so it cannot rule that out."
     },
     "names": {
       "pt": "Portugal",
       "gr": "Greece",
       "mt": "Malta",
       "ae": "United Arab Emirates"
-    }
+    },
+    "groupEu": "EU member state",
+    "groupCplp": "Portuguese-speaking country"
   }
 }

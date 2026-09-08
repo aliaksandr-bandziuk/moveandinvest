@@ -175,6 +175,7 @@ export default async function LocaleLayout({
             contactEmail={settings?.contactEmail}
             jurisdictions={jurisdictions}
             entrySlugs={entrySlugs}
+            entryKinds={slugMap.entryKinds}
           />
 
           {/* Both mounted once, here, and nowhere else. AnalyticsLoader

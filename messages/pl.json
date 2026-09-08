@@ -518,7 +518,6 @@
     "qApplied": "Data złożenia wniosku o nie",
     "qAppliedNote": "Dotyczy wyłącznie Portugalii i tylko w ramach przepisu przejściowego poniżej — tam warta jest do trzech lat.",
     "qGroup": "Twoje obywatelstwo",
-    "groupEuCplp": "Państwo członkowskie UE lub kraj portugalskojęzyczny",
     "groupOther": "Jakiekolwiek inne",
     "qFiled": "Czy złożyłeś wniosek o obywatelstwo portugalskie przed 19 maja 2026?",
     "qFiledNote": "Chodzi o wniosek o obywatelstwo, nie o zezwolenie na pobyt. Pobyt od 2021 się nie liczy; wniosek o obywatelstwo złożony 18 maja 2026 — tak. To najczęściej przekręcane zdanie portugalskiej reformy.",
@@ -543,17 +542,20 @@
       "ptTransitional": "Ta data stoi na art. 7(2). Twoje postępowanie o obywatelstwo było zawisłe 19 maja 2026, więc stosuje się do niego poprzednie brzmienie w całości — pięcioletni okres i liczenie od wniosku o pobyt razem, nie jedno bez drugiego.",
       "ptQueueGone": "Artykuł 15(4), na mocy którego oczekiwanie na zezwolenie na pobyt liczyło się do okresu, został uchylony 19 maja 2026. Bieg zaczyna się od wydania zezwolenia, nie od złożenia wniosku o nie.",
       "grContinuous": "Siedem lat musi być nieprzerwanych, a kodeks nie daje okna na sumowanie przerwanych okresów. Przerwa rozpoczyna je od nowa, więc z wprowadzonych danych nie da się podać daty.",
-      "grReduction": "Artykuł 5(1)(δ) przewiduje krótsze okresy dla obywateli państw członkowskich UE i dla małżonków obywateli greckich. Nie udało nam się odczytać, jak krótkie, więc pokazany jest standardowy okres siedmiu lat. Nie traktuj go jako odpowiedzi dla swojego przypadku.",
       "grTemporary": "Tymczasowe tytuły pobytowe nie kwalifikują się wcale (art. 5(3)), a wykaz tytułów kwalifikujących z art. 5(1)(ε) jest zamknięty. Zezwolenie inwestorskie jest w nim, pozycja αθ.",
       "mtBroken": "Przy przerwanym pobycie arytmetyka „cztery lata w ciągu sześciu” wymaga obecności rok po roku, o którą to narzędzie celowo nie pyta. Lepiej nie podać daty niż podać pewną i błędną.",
       "mtFinalYear": "Niezależnie od tego, jak wyglądają wcześniejsze lata, dwanaście miesięcy bezpośrednio przed złożeniem wniosku musi być nieprzerwanych.",
-      "conditionsBeyondTime": "Czas to jeden z kilku warunków. Język, wiedza o państwie, nieposzlakowana opinia, opłaty i uznanie organu nie są tu modelowane, a każde z nich może zatrzymać wniosek, na który kalendarz pozwala."
+      "conditionsBeyondTime": "Czas to jeden z kilku warunków. Język, wiedza o państwie, nieposzlakowana opinia, opłaty i uznanie organu nie są tu modelowane, a każde z nich może zatrzymać wniosek, na który kalendarz pozwala.",
+      "grThreeYears": "Trzy nieprzerwane lata, nie siedem: art. 5(1)(δ) daje krótszy okres obywatelom państw członkowskich UE, małżonkowi Greka lub Greczynki Z DZIECKIEM, osobom sprawującym pieczę nad dzieckiem o obywatelstwie greckim urodzonym w Grecji oraz bezpaństwowcom. Małżonek bez dziecka się nie kwalifikuje.",
+      "grTwelveYears": "Wyliczenie zakłada, że twój tytuł pobytowy jest na liście z art. 5(1)(ε) — zezwolenie inwestorskie jest, pozycja αθ. Przy każdym innym ważnym tytule, poza tymczasowymi, art. 5(3) wymaga dwunastu nieprzerwanych lat. Narzędzie nie pyta, jaki masz tytuł, więc nie może tego wykluczyć."
     },
     "names": {
       "pt": "Portugalia",
       "gr": "Grecja",
       "mt": "Malta",
       "ae": "ZEA"
-    }
+    },
+    "groupEu": "Państwo członkowskie UE",
+    "groupCplp": "Kraj portugalskojęzyczny"
   }
 }

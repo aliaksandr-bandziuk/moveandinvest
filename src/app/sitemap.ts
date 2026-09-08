@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { UPDATED_ON } from "@/lib/costModel";
-import { articleHref, slugHref } from "@/lib/routes";
+import { entryHref, slugHref } from "@/lib/routes";
 import type { AppPathname } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
 import { sanityFetchPublished } from "@/sanity/client";
@@ -268,7 +268,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const group of bySet.values()) {
     const languages: Record<string, string> = Object.fromEntries(
-      group.map((doc) => [doc.language, routeUrl(articleHref(doc.slug), doc.language)]),
+      group.map((doc) => [doc.language, routeUrl(entryHref(doc.slug, doc.pageKind), doc.language)]),
     );
 
     const defaultUrl = languages[routing.defaultLocale];
@@ -278,7 +278,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     for (const doc of group) {
       entries.push({
-        url: routeUrl(articleHref(doc.slug), doc.language),
+        url: routeUrl(entryHref(doc.slug, doc.pageKind), doc.language),
         lastModified: doc._updatedAt,
         alternates: { languages },
       });
@@ -287,7 +287,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const doc of solo) {
     entries.push({
-      url: routeUrl(articleHref(doc.slug), doc.language),
+      url: routeUrl(entryHref(doc.slug, doc.pageKind), doc.language),
       lastModified: doc._updatedAt,
     });
   }

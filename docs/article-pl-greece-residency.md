@@ -244,7 +244,7 @@ Stąd roczne wynagrodzenie minimalne to **12 880 euro**, a próg z artykułu 144
 
 ### Obywatelstwo greckie po siedmiu latach
 
-Naturalizacja według ustawy 3284/2004 wymaga **siedmiu lat** legalnego pobytu. Opłata od wniosku wynosi 550 euro, od egzaminu 150. Egzamin ΠΕΓΠ sprawdza grecki na poziomie B1 wraz z historią, geografią i kulturą, próg zdawalności to 70%.
+Naturalizacja według ustawy 3284/2004 wymaga **siedmiu lat** legalnego pobytu dla posiadacza zezwolenia inwestorskiego — Kodeks ma trzy progi, a to środkowy: trzy lata dla obywateli UE i kilku kategorii rodzinnych, siedem przy tytule z listy art. 5(1)(ε), dwanaście z art. 5(3) przy każdym innym tytule niebędącym tymczasowym. Opłata od wniosku wynosi 550 euro, od egzaminu 150. Egzamin ΠΕΓΠ sprawdza grecki na poziomie B1 wraz z historią, geografią i kulturą, próg zdawalności to 70%.
 
 Rzecz do zapamiętania: w Grecji działają **trzy osobne zegary**, a niemal każdy poradnik zlepia co najmniej dwa z nich — warunki przedłużenia samego zezwolenia, gdzie dla inwestora nieobecności wprost nie mają znaczenia; zaliczenie do pobytu stałego, czyli pięć albo dziesięć lat faktycznej obecności z limitem nieobecności; oraz okres do naturalizacji, siedem lat z własnym egzaminem.
 
@@ -303,7 +303,7 @@ Audyt jest uczciwy tylko wtedy, gdy jest konkretny. Sprawdzone 28 sierpnia 2026 
 | „Minimalna inwestycja to 250 000 euro w grecką nieruchomość w 2026" | Get Golden Visa; u Astons „od 250K" stoi w tytule | 250 000 to dwa wyjątki wymagające zakończonej zmiany przeznaczenia albo jeszcze niewykonanej renowacji. §2(a) i §2(b) ustalają 800 000 i 400 000 |
 | Program opisany według ustawy 4251/2014 | Get Golden Visa | Ten kodeks został zastąpiony. Złota wiza to artykuł 100 ustawy 5038/2023 |
 | „Obniżka podatku dochodowego o 50% do siedmiu lat" jako korzyść zezwolenia dochodowego | Global Citizen Solutions, strona o FIP | Artykuł 5C opodatkowuje grecki dochód z pracy. Artykuł 163 §8(γ) zabrania posiadaczowi pracować w Grecji |
-| „Do obywatelstwa potrzeba 12 lat nieprzerwanego pobytu" | Lexidy | Siedem, według ustawy 3284/2004. Ta sama strona nie powołuje się na nic i przeczy całemu rynkowi |
+| „Do obywatelstwa potrzeba 12 lat nieprzerwanego pobytu" | Lexidy | **Nasza własna poprawka, wycofana 8 września 2026.** Dwanaście lat to obowiązujący przepis — art. 5(3), dla posiadacza tytułu spoza listy z art. 5(1)(ε). Nie jest to liczba dla posiadacza złotej wizy: jego zezwolenie jest na liście, pozycja αθ, i obowiązuje go siedem lat. Przeczytaliśmy tylko zdanie o siedmiu latach i uznaliśmy dwanaście za błąd |
 | „3 500 euro miesięcznie" bez numeru decyzji | Wszystkie sprawdzone strony o FIP | KYA 225679/2024, ΦΕΚ Β΄ 5223/17.09.2024, art. 1 §1(ι) |
 | Polskojęzyczne strony o greckiej złotej wizie będące tłumaczeniem rosyjskich stron agencyjnych, z trzema różnymi terminami na jeden status | greece-invest.pl | Typ Β.5 według art. 100; typ Ι.8 według art. 163 §8. To dwa różne zezwolenia, nie trzy nazwy jednego |
 

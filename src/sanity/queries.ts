@@ -280,6 +280,11 @@ export const BLOG_ENTRIES_QUERY = groq`
     standfirst,
     category,
     sources,
+    // The listing shows BOTH kinds and links each to where it actually lives.
+    // A "reference" entry kept out of this listing would be reachable only
+    // from another entry's body — an orphan, which is the crawl problem the
+    // top-level address exists to fix, reintroduced one level up.
+    "pageKind": coalesce(pageKind, "research"),
     "countries": countries[]->{ _id, "code": code, "name": coalesce(name[$locale], name.en, code) }
   }
 `;
@@ -309,6 +314,10 @@ export const BLOG_ENTRY_QUERY = groq`
     standfirst,
     category,
     sources,
+    // Read by BOTH routes. /blog/[slug] must 404 a reference entry and the
+    // top-level [slug] must 404 a research one, so that one document never
+    // answers at two addresses — which is a duplicate, not a convenience.
+    "pageKind": coalesce(pageKind, "research"),
     body,
     "countries": countries[]->{ _id, "code": code, "name": coalesce(name[$locale], name.en, code) },
     "alternates": *[
@@ -353,6 +362,10 @@ export const BLOG_SITEMAP_QUERY = groq`
     language,
     "slug": slug.current,
     translationKey,
+    // The sitemap and the language switcher both build a URL from this row, and
+    // the two kinds have different URL shapes. coalesce() covers every entry
+    // published before the field existed.
+    "pageKind": coalesce(pageKind, "research"),
     // Selected for the SITEMAP, which must not list a page that tells crawlers
     // not to index it — the same filter the country and property queries above
     // carry, and which this one was missing. The language switcher reads the
@@ -366,6 +379,20 @@ export const BLOG_SITEMAP_QUERY = groq`
 // The contact page. The CHANNELS are not in here and never will be — they live
 // in src/lib/contactChannels.ts so that one definition feeds the page, the
 // ContactPoint in the JSON-LD and the footer at once. See contactsPage.ts.
+// The "reference" entries, for the top-level [slug] route's static params and
+// for the collision guard. Deliberately NOT filtered by publishedAt: a slug
+// that a draft already claims still collides with a jurisdiction slug, and the
+// guard has to see it.
+export const REFERENCE_SLUGS_QUERY = groq`
+  *[_type == "article"
+    && language == $locale
+    && pageKind == "reference"
+    && defined(slug.current)
+  ]{
+    "slug": slug.current
+  }
+`;
+
 export const CONTACTS_TAGS = ["contactsPage", "siteSettings"];
 
 export const CONTACTS_PAGE_QUERY = groq`

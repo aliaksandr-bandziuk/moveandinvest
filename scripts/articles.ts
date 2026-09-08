@@ -77,6 +77,19 @@ interface EntryConfig {
   category: string;
   /** Which jurisdictions the entry concerns. */
   countries: string[];
+  /** WHERE THE ENTRY LIVES, and the whole reason this field exists rather than
+   *  a second document type is in the note at the top of
+   *  src/sanity/schemaTypes/documents/article.ts.
+   *
+   *  "research" — the default, omitted from most records — puts the entry at
+   *  /blog/<slug>: a dated finding, and the date is the point.
+   *  "reference" puts it at /<slug>, beside the jurisdiction and property
+   *  pages: a standing page that gets revised rather than superseded.
+   *
+   *  A "reference" entry shares the top-level slug space with every
+   *  jurisdiction and property page, so `assertNoSlugCollision` below refuses
+   *  to publish one whose slug is already taken. */
+  kind?: "research" | "reference";
 }
 
 const ENTRIES: Record<string, EntryConfig> = {
@@ -120,9 +133,15 @@ const ENTRIES: Record<string, EntryConfig> = {
     // different article — a Pole needs none of the routes it describes — but
     // the pictures still carry, because the first one is what he does NOT need
     // and the third is the standard of the pages he will meet in search.
+    // РУССКАЯ ВЕРСИЯ НЕСЁТ ДВЕ СХЕМЫ ИЗ ТРЁХ С 7 сентября 2026, и это не
+    // недоделка. Шкала сроков натурализации (`pt-clock`) уехала вместе с
+    // разделом про гражданство на `portugal-citizenship`, где её место заняла
+    // более точная `pt-nat-clock` — с отменой ст. 15(4) и двумя режимами
+    // отсчёта. Держать здесь схему темы, которой на странице больше нет,
+    // значило бы иллюстрировать указатель.
     figures: {
       en: ["pt-routes-en", "pt-clock-en", "pt-published-en"],
-      ru: ["pt-routes-ru", "pt-clock-ru", "pt-published-ru"],
+      ru: ["pt-routes-ru", "pt-published-ru"],
       pl: ["pt-routes-pl", "pt-clock-pl", "pt-published-pl"],
     },
     publishedAt: "2026-08-28T12:00:00.000Z",
@@ -427,6 +446,89 @@ const ENTRIES: Record<string, EntryConfig> = {
     // спрос идёт в «внж португалии» и «гражданство португалии», то есть в
     // portugal-residency и в будущую F4. См. блок ключей в конце файла статьи.
   },
+  "greece-citizenship": {
+    key: "article-greece-citizenship",
+    sources: {
+      en: "article-en-greece-citizenship.md",
+    },
+    figures: {
+      en: ["gr-nat-tiers-en", "gr-nat-split-en"],
+    },
+    publishedAt: "2026-09-08T10:00:00.000Z",
+    // "rules": предмет — три срока Кодекса и закрытый перечень титулов.
+    category: "rules",
+    countries: ["country-gr"],
+    // АНГЛИЙСКАЯ ТОЛЬКО, и цель НЕ головной запрос кластера. `greek citizenship`
+    // — запрос про происхождение: первым в выдаче МИД Греции со словами
+    // «primarily acquired by descent». Берём слой закона: `greek citizenship
+    // law` 480 при конкуренции 12 и CPC $6,50. Русский кластер (2 170
+    // схлопнутых) идёт отдельным пунктом F5.
+  },
+  "portugal-uk": {
+    key: "article-portugal-uk",
+    sources: {
+      en: "article-en-portugal-uk.md",
+    },
+    figures: {
+      en: ["pt-uk-treaty-en", "pt-uk-pensions-en"],
+    },
+    publishedAt: "2026-09-08T16:00:00.000Z",
+    // "rules": предмет — смена конвенции и даты её применения.
+    category: "rules",
+    countries: ["country-pt"],
+    // ПЕРВАЯ REFERENCE-ЗАПИСЬ. Адрес /moving-to-portugal-from-the-uk, а не
+    // /blog/… — см. заметку над article.ts. Экспериментальная половина: D2 и D3
+    // на верхнем уровне, D1 и D5 в блоге, через месяц сравниваем обход.
+    kind: "reference",
+    // АНГЛИЙСКАЯ ТОЛЬКО. Стержень не тот, что у portugal-americans: Британия
+    // облагает по резидентству, поэтому «страна выезда не отпускает» здесь не
+    // работает. Взяли смену конвенции 2025 года — вся выдача объясняет Брексит.
+    // Два утверждения написаны и убиты на проверке, см. верификационный файл.
+  },
+  "portugal-americans": {
+    key: "article-portugal-americans",
+    // RESEARCH, and deliberately — the page went live under /blog on
+    // 8 September before the reference kind existed. Left there as the control
+    // half of the experiment: D1 and D5 under /blog, D2 and D3 at the root, all
+    // four published inside a week, and in a month Search Console says whether
+    // the top-level address is crawled sooner. Moving this one too would leave
+    // nothing to compare against, and the move costs one line whenever we want
+    // it.
+    sources: {
+      en: "article-en-portugal-americans.md",
+    },
+    figures: {
+      en: ["pt-us-clock-en", "pt-us-instruments-en"],
+    },
+    publishedAt: "2026-09-08T14:00:00.000Z",
+    // "rules": предмет — отмена пункта 4 статьи 15 и два режима подсчёта.
+    category: "rules",
+    countries: ["country-pt"],
+    // АНГЛИЙСКАЯ ТОЛЬКО: адресат — гражданин США. Стержень НЕ тот же, что в
+    // греческой статье: у Taxes for Expats на пересечении «США плюс Португалия»
+    // стоит куст специальных страниц, поэтому приём «двух инструментов, которых
+    // нет ни у кого» здесь запрещён и в тексте это сказано прямо. Берём часы:
+    // отмена ст. 15(4) 19 мая 2026 года и вопрос «десять лет от какого дня».
+  },
+  "greece-americans": {
+    key: "article-greece-americans",
+    sources: {
+      en: "article-en-greece-americans.md",
+    },
+    figures: {
+      en: ["gr-us-treaty-en", "gr-us-changes-en"],
+    },
+    publishedAt: "2026-09-08T12:00:00.000Z",
+    // "rules": предмет — два инструмента, договор 1950 года и соглашение по
+    // соцстрахованию, а не «каково там жить».
+    category: "rules",
+    countries: ["country-gr"],
+    // АНГЛИЙСКАЯ ТОЛЬКО, и иначе быть не может: адресат — гражданин США.
+    // Выдача по `living in greece as an american` (590 при конкуренции 16) —
+    // Reddit трижды, три ролика, Facebook, Quora и транспортная компания.
+    // Плюсами и минусами её не выиграть, поэтому заходим тем, чего там нет
+    // ни у кого: оговорка о сохранении права в art. XIV(1) и форма GR/USA 1.
+  },
   "malta-living": {
     key: "article-malta-living",
     sources: {
@@ -462,15 +564,23 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-portugal-citizenship",
     sources: {
       en: "article-en-portugal-citizenship.md",
+      ru: "article-ru-portugal-citizenship.md",
     },
     figures: {
       en: ["pt-nat-clock-en", "pt-nat-limbs-en"],
+      ru: ["pt-nat-clock-ru", "pt-nat-limbs-ru"],
     },
     publishedAt: "2026-09-07T15:00:00.000Z",
     // "rules": предмет — текст Lei Orgânica 1/2026 по статьям, а не маршрут.
     category: "rules",
     countries: ["country-pt"],
-    // АНГЛИЙСКАЯ ТОЛЬКО. Кластер `portuguese citizenship` — 144 570 показов,
+    // РУССКАЯ ДОБАВЛЕНА 7 сентября 2026 и написана не переводом. Кластер
+    // `гражданство португалии` — 3 120 схлопнутых показов, голова 720 при
+    // конкуренции 14, и русский интент другой: не «что говорит закон», а «как
+    // получить». Английский заход берёт слой закона, потому что генеричный
+    // `portuguese citizenship` отдаёт консульства и gov.pt.
+    //
+    // Кластер `portuguese citizenship` — 144 570 показов,
     // но выиграть можно не его: генеричный запрос отдаёт консульства, gov.pt
     // и Википедию. Берём закон: `portugal nationality law` — 2 900 при
     // конкуренции 2, `portugal citizenship law` — 880 при конкуренции 7 и
@@ -630,7 +740,14 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
             `It exists in: ${Object.keys(perLocale).join(", ")}. Remove the link or add the ${locale} source.`,
         );
       }
-      return `${prefix}/blog/${slug}`;
+      // THE PATH DEPENDS ON THE ENTRY'S KIND, and until 8 September 2026 this
+      // line was `${prefix}/blog/${slug}` unconditionally. A reference entry
+      // linked through that would have produced a live-looking /blog/ URL for
+      // a page that answers only at the root — not a 404 a reader reports, but
+      // a wrong link inside somebody else's article.
+      const target = ENTRIES[name];
+      const kind = target?.kind ?? "research";
+      return kind === "reference" ? `${prefix}/${slug}` : `${prefix}/blog/${slug}`;
     }
 
     if (!raw.startsWith("/")) {
@@ -709,6 +826,84 @@ function selectEntry(): { name: string; config: EntryConfig } {
   }
 
   return { name, config };
+}
+
+/** REFUSE A REFERENCE SLUG THAT IS ALREADY TAKEN.
+ *
+ *  A "reference" entry answers at /<slug>, which is the same address space as
+ *  every jurisdiction page, every property page and every static route in
+ *  src/i18n/routing.ts. Next.js resolves a static route before a dynamic
+ *  [slug], so an entry published at "faq" or "calculator" would never be
+ *  reachable — and nothing would say so. The document would exist, the sitemap
+ *  would list it, and the URL would show a different page.
+ *
+ *  THE SAME SHAPE AS THE /sources ANCHOR GUARD: a collision kills the run
+ *  rather than losing quietly. That guard was written after a duplicate anchor
+ *  silently won; this one is written before the equivalent can happen here.
+ *
+ *  The Sanity half runs on the DRY RUN TOO, with a read client and no token —
+ *  published country and property pages are public. If the dataset cannot be
+ *  reached the check degrades to the local half and says so, because a network
+ *  failure must not read as a clean bill of health. */
+async function assertNoSlugCollision(
+  name: string,
+  parsedAll: Parsed[],
+  projectId: string | undefined,
+  dataset: string | undefined,
+): Promise<void> {
+  const taken = new Map<string, string>();
+
+  // 1. Static routes, every locale spelling of every pathname.
+  for (const [route, value] of Object.entries(routing.pathnames)) {
+    const paths = typeof value === "string" ? [value] : Object.values(value);
+    for (const path of paths) {
+      const segment = path.replace(/^\//, "");
+      if (!segment || segment.includes("[")) continue;
+      taken.set(segment, `the static route ${route}`);
+    }
+  }
+
+  // 2. Every other reference entry in this file.
+  for (const [other, config] of Object.entries(ENTRIES)) {
+    if (other === name || (config.kind ?? "research") !== "reference") continue;
+    for (const locale of localesOf(config)) {
+      const raw = readFileSync(join(DOCS, sourceOf(config, locale)), "utf8");
+      const header = raw.split("\n").slice(1, 12).filter((l) => l.startsWith("**"));
+      taken.set(backticked(header[0] ?? "", "slug"), `entry "${other}"`);
+    }
+  }
+
+  // 3. Jurisdiction and property pages, from the dataset.
+  if (projectId && dataset) {
+    try {
+      const read = createClient({
+        projectId,
+        dataset,
+        apiVersion: "2026-08-15",
+        useCdn: false,
+      });
+      const rows: { slug: string; type: string }[] = await read.fetch(
+        `*[_type in ["countryPage", "propertyPage"] && defined(slug.current)]{ "slug": slug.current, "type": _type }`,
+      );
+      for (const row of rows) taken.set(row.slug, `a ${row.type}`);
+    } catch (error) {
+      console.warn(
+        `\n  ! Could not reach the dataset to check jurisdiction and property slugs: ${
+          error instanceof Error ? error.message : String(error)
+        }\n    Checked the static routes and the other entries only.`,
+      );
+    }
+  }
+
+  for (const parsed of parsedAll) {
+    const owner = taken.get(parsed.slug);
+    if (owner) {
+      throw new Error(
+        `The ${parsed.locale} slug "${parsed.slug}" is a reference entry, so it answers at /${parsed.slug} — but that address already belongs to ${owner}. ` +
+          `Rename the slug in docs/, or publish this entry as research (kind: "research", which puts it under /blog/).`,
+      );
+    }
+  }
 }
 
 interface Parsed {
@@ -1069,6 +1264,12 @@ async function run() {
     }
   }
 
+  // The collision check runs before the dry run returns, so that `npm run
+  // articles -- --entry x` without --write is a real gate rather than a parse.
+  if ((config.kind ?? "research") === "reference") {
+    await assertNoSlugCollision(name, parsedAll, projectId, dataset);
+  }
+
   if (!write) {
     console.log(
       "\nDry run. Nothing written. Re-run with --write to upload and publish.",
@@ -1126,6 +1327,11 @@ async function run() {
       publishedAt: config.publishedAt,
       standfirst: parsed.standfirst,
       category: config.category,
+      // Written explicitly rather than left to the schema's initialValue: that
+      // default applies in the Studio, not to a document created by this
+      // script, and an absent value would put a reference entry back under
+      // /blog/ on its next publish.
+      pageKind: config.kind ?? "research",
       countries: config.countries.map((id) => ({
         _key: id,
         _type: "reference",

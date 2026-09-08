@@ -34,6 +34,28 @@ import { CATEGORY_OPTIONS } from "../../../lib/categories";
 // THE SLUG LOCKS ON PUBLISH, same component the jurisdiction pages use. This
 // site has already paid once for moving live URLs; an entry that has been
 // published has been linked.
+// WHERE AN ENTRY LIVES IS A FIELD, NOT A DOCUMENT TYPE — decided 8 September
+// 2026, after the alternative had been drafted and rejected.
+//
+// The site has two page philosophies already. `countryPage` and `propertyPage`
+// fix their sections by name so that a reader comparing Greece with Malta
+// compares the SAME paragraph; this type is free-form, because a finding has
+// its own shape. The "moving to X from Y" family needed a top-level URL and
+// nothing else — same portable text, same figure markers, same editor. A third
+// document type would have bought one sentence, "this one is at the root", at
+// the price of a third slug space, its own queries, its own JSON-LD branch and
+// a migration to undo it.
+//
+// AND THE MOVE IS A HYPOTHESIS, which is the stronger reason. Whether a
+// top-level address is crawled sooner than a /blog leaf is unproven here: the
+// argument is that 37 of 93 URLs had ever been crawled and a blog leaf reached
+// only from a paginated listing is the worst position on the site for it. A
+// hypothesis deserves a switch, not a new entity — `pageKind` flips in a second
+// and the page moves. A document type does not come back.
+//
+// THE SLUG SPACE IS NOW SHARED. A "reference" entry competes for its address
+// with every jurisdiction and property slug, so a collision must break the
+// build rather than quietly win a route. See the guard in scripts/articles.ts.
 export const article = defineType({
   name: "article",
   title: "Guides & Research entry",
@@ -82,6 +104,23 @@ export const article = defineType({
       rows: 3,
       group: "content",
       validation: (Rule) => Rule.required().max(400),
+    }),
+    defineField({
+      name: "pageKind",
+      title: "Where this entry lives",
+      description:
+        "\"Research\" puts the entry at /blog/<slug>; \"Reference\" puts it at /<slug>, beside the jurisdiction and property pages. Both are listed in Guides & Research, and nothing else about the document changes.",
+      type: "string",
+      options: {
+        list: [
+          { title: "Research — a dated finding (/blog/…)", value: "research" },
+          { title: "Reference — a standing page (/…)", value: "reference" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "research",
+      group: "meta",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "category",

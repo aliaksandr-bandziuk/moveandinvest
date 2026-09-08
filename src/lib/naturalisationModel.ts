@@ -59,17 +59,22 @@ import type { Locale } from "@/i18n/routing";
 
 export type NatCode = "pt" | "gr" | "mt" | "ae";
 
-/** THE APPLICANT'S GROUP, NOT THEIR COUNTRY, and the distinction is the reason
- *  this is a two-value type rather than a list of nationalities.
+/** THE APPLICANT'S GROUP, NOT THEIR COUNTRY, and it is THREE values rather than
+ *  two because compressing it to two produced a wrong answer.
  *
- *  Portugal's short period is for citizens of EU member states and of
- *  Portuguese-speaking countries together — one rule, two very different sets
- *  of people. Greece's reduction (see CAVEATS.grReduction) is for EU citizens
- *  and spouses of Greeks, which is a different grouping again. Asking for a
- *  nationality would mean maintaining a map of every country in the world to
- *  two different groupings, and getting one wrong silently. Asking which group
- *  the reader is in puts the question where the reader can answer it. */
-export type NationalityGroup = "eu-or-cplp" | "other";
+ *  Portugal treats EU and CPLP citizens alike: seven years for both. Greece does
+ *  not — its three-year period under art. 5(1)(δ) is for EU nationals and has
+ *  nothing to say about Portuguese-speaking countries, so a Brazilian sitting in
+ *  an "EU or CPLP" bucket was being told three years in Athens when the answer
+ *  is seven. Found on 8 September 2026 when the reduced periods were finally
+ *  read at the ministry's consolidated text; the bucket had been wrong since the
+ *  tool shipped the day before.
+ *
+ *  Asking for a nationality instead would mean maintaining a map of every
+ *  country to several different groupings and getting one wrong silently.
+ *  Asking which group the reader is in puts the question where the reader can
+ *  answer it. */
+export type NationalityGroup = "eu" | "cplp" | "other";
 
 export interface ClockInput {
   /** The date the FIRST residence permit was issued, ISO yyyy-mm-dd. */
@@ -121,9 +126,11 @@ export type CaveatKey =
   | "ptQueueGone"
   /** GR: the seven years must be unbroken; a gap restarts them. */
   | "grContinuous"
-  /** GR: reduced periods exist for EU citizens and spouses of Greeks and we
-   *  have NOT read how long they are. Named, not guessed. */
-  | "grReduction"
+  /** GR: the three-year period, and exactly who gets it. */
+  | "grThreeYears"
+  /** GR: a title that is NOT on the exhaustive list of art. 5(1)(ε) puts the
+   *  applicant on twelve years under art. 5(3), not seven. */
+  | "grTwelveYears"
   /** GR: temporary residence titles do not qualify at all, art. 5(3). */
   | "grTemporary"
   /** MT: with residence broken we cannot compute the four-of-six arithmetic
@@ -192,7 +199,8 @@ export function addYears(iso: string, years: number): string {
 export const PT_REFORM_DATE = "2026-05-19";
 
 const PT_YEARS_NEW: Record<NationalityGroup, number> = {
-  "eu-or-cplp": 7,
+  eu: 7,
+  cplp: 7,
   other: 10,
 };
 /** Before 19 May 2026 the period was five years for everybody, with no group
@@ -205,7 +213,8 @@ const PT_YEARS_OLD = 5;
  *  Statelessness is not an input here, so the model carries the two it can
  *  determine. */
 const PT_WINDOW: Record<NationalityGroup, number> = {
-  "eu-or-cplp": 9,
+  eu: 9,
+  cplp: 9,
   other: 12,
 };
 
@@ -251,23 +260,37 @@ function portugal(input: ClockInput): ClockResult {
   };
 }
 
-const GR_YEARS = 7;
+/** Greece has three tiers, not one number, and no page in this market prints
+ *  more than the middle one.
+ *
+ *  THREE continuous years — art. 5(1)(δ), second sentence — for four categories
+ *  only: nationals of an EU member state, spouses of a Greek WITH A CHILD, those
+ *  with parental custody of a Greek-national child born in Greece, and stateless
+ *  persons. A spouse without a child does not qualify.
+ *
+ *  SEVEN continuous years — art. 5(1)(δ), first sentence — for everybody else
+ *  holding one of the titles on the exhaustive list of art. 5(1)(ε). The
+ *  investor permit is item αθ on that list.
+ *
+ *  TWELVE continuous years — art. 5(3) — for a holder of any other valid
+ *  residence title, temporary ones excepted. This is the tier that can hurt: it
+ *  is not a penalty, it is what applies when the title is simply not on the
+ *  list, and the tool cannot tell which title the reader holds. */
+const GR_YEARS_STANDARD = 7;
+const GR_YEARS_EU = 3;
 
 function greece(input: ClockInput): ClockResult {
   const caveats: CaveatKey[] = [
     "conditionsBeyondTime",
     "grTemporary",
+    // ALWAYS SHOWN, because the tool does not ask which residence title the
+    // reader holds and therefore cannot rule the twelve-year tier out. Better a
+    // standing warning than a date that silently assumes the good case.
+    "grTwelveYears",
   ];
 
-  // THE REDUCTION IS FLAGGED FOR EVERY EU READER AND NEVER APPLIED, because we
-  // have not read how long it is. Art. 5(1)(δ) carries separate sentences for
-  // EU citizens and for spouses of Greeks, and on 7 September 2026 every
-  // rendering of the consolidated text we could reach truncated them. Printing
-  // the figure in general circulation would be exactly the error this site
-  // audits other sites for. So an EU reader is told the standard period AND
-  // told that a shorter one exists which we have not verified — which is worse
-  // service than a number and better service than a wrong number.
-  if (input.group === "eu-or-cplp") caveats.push("grReduction");
+  const years = input.group === "eu" ? GR_YEARS_EU : GR_YEARS_STANDARD;
+  if (input.group === "eu") caveats.push("grThreeYears");
 
   // SEVEN CONTINUOUS YEARS, and "continuous" is load-bearing rather than
   // decorative: unlike Portugal, the Greek Code offers no window inside which
@@ -280,7 +303,7 @@ function greece(input: ClockInput): ClockResult {
       code: "gr",
       verdict: "unread",
       earliest: null,
-      years: GR_YEARS,
+      years,
       countedFrom: null,
       instrument: "Law 3284/2004, art. 5(1)(δ)",
       caveats,
@@ -290,8 +313,8 @@ function greece(input: ClockInput): ClockResult {
   return {
     code: "gr",
     verdict: "computed",
-    earliest: addYears(input.permitIssued, GR_YEARS),
-    years: GR_YEARS,
+    earliest: addYears(input.permitIssued, years),
+    years,
     countedFrom: "permit-issued",
     instrument: "Law 3284/2004, art. 5(1)(δ); qualifying titles art. 5(1)(ε), the investor permit at item αθ",
     caveats,

@@ -30,6 +30,21 @@ export function articleHref(slug: string) {
   return { pathname: "/blog/[slug]", params: { slug } } as const;
 }
 
+/** Where an entry lives, decided by its own `pageKind`.
+ *
+ *  ONE FUNCTION RATHER THAN A CONDITIONAL AT EVERY CALL SITE. The listing, the
+ *  sitemap, the language switcher, the hreflang set, the JSON-LD and the
+ *  `entry:` resolver in scripts/articles.ts all build this URL; nine copies of
+ *  `kind === "reference" ? … : …` is nine places for the two shapes to drift
+ *  apart, and the drift shows up as a link that 404s in one language only.
+ *
+ *  A reference entry uses the SAME route as a jurisdiction page, so their slugs
+ *  share one address space — see `assertNoSlugCollision` in scripts/articles.ts,
+ *  which refuses to publish one whose slug is already taken. */
+export function entryHref(slug: string, kind: "research" | "reference") {
+  return kind === "reference" ? slugHref(slug) : articleHref(slug);
+}
+
 /** A jurisdiction or property page. Its slug is translated per language and
  *  lives in the Sanity document, so the route is the shape and the slug is
  *  data — which is exactly what the object form says. */

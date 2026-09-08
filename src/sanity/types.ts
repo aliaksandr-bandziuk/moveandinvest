@@ -500,6 +500,11 @@ export interface EntryCountry {
   name: string;
 }
 
+/** The two addresses an entry can have. See the note at the top of
+ *  schemaTypes/documents/article.ts for why this is a field rather than a
+ *  second document type. */
+export type PageKind = "research" | "reference";
+
 export interface ArticleSummary {
   _id: string;
   title: string;
@@ -513,6 +518,10 @@ export interface ArticleSummary {
   category?: string | null;
   /** Keys into SOURCE_SECTIONS. Required by the schema — see article.ts. */
   sources: string[];
+  /** Where the entry lives: "research" at /blog/<slug>, "reference" at
+   *  /<slug>. The queries coalesce a missing value to "research", so this is
+   *  not optional even though the field was added on 8 September 2026. */
+  pageKind: PageKind;
   countries?: EntryCountry[] | null;
 }
 
@@ -537,6 +546,8 @@ export interface ArticleSitemapDoc {
   language: string;
   slug: string;
   translationKey?: string | null;
+  /** Which URL shape this row builds. Coalesced in the query, so never null. */
+  pageKind: PageKind;
   /** From the entry's own SEO block. Read by the sitemap only. */
   noIndex?: boolean | null;
 }

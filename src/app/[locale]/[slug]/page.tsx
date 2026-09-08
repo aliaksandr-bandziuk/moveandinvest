@@ -31,7 +31,11 @@ import { slugHref } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
 import { resolveRobots } from "@/lib/site";
 import { sanityFetch, sanityFetchPublished } from "@/sanity/client";
+import { EntryView, entryMetadata } from "../blog/[slug]/entry";
 import {
+  BLOG_ENTRY_QUERY,
+  BLOG_TAGS,
+  REFERENCE_SLUGS_QUERY,
   COUNTRY_FAQ_QUERY,
   COUNTRY_PAGE_QUERY,
   COUNTRY_ROWS_QUERY,
@@ -44,6 +48,7 @@ import {
   TABLE_COLUMNS_QUERY,
 } from "@/sanity/queries";
 import type {
+  ArticleDetail,
   CountryFaqResult,
   CountryPageResult,
   CountryRowResult,
@@ -129,6 +134,17 @@ async function getPage(locale: string, slug: string) {
   );
 }
 
+// A "reference" entry — an `article` whose pageKind puts it at the root rather
+// than under /blog. THE THIRD TYPE THIS ROUTE RESOLVES, added 8 September 2026;
+// the note at the top of this file was written when there were two.
+async function getEntry(locale: string, slug: string) {
+  return sanityFetch<ArticleDetail | null>(
+    BLOG_ENTRY_QUERY,
+    { locale, slug },
+    BLOG_TAGS,
+  );
+}
+
 async function getPropertyPage(locale: string, slug: string) {
   return sanityFetch<PropertyPageResult | null>(
     PROPERTY_PAGE_QUERY,
@@ -139,7 +155,8 @@ async function getPropertyPage(locale: string, slug: string) {
 
 type Resolved =
   | { kind: "jurisdiction"; page: CountryPageResult }
-  | { kind: "property"; page: PropertyPageResult };
+  | { kind: "property"; page: PropertyPageResult }
+  | { kind: "entry"; page: ArticleDetail };
 
 // Both types, one round trip's worth of latency. Not sequential: a sequential
 // lookup would make every property page pay for a miss on the jurisdiction
@@ -148,10 +165,17 @@ async function resolveSlug(
   locale: string,
   slug: string,
 ): Promise<Resolved | null> {
-  const [jurisdiction, property] = await Promise.all([
+  const [jurisdiction, property, entry] = await Promise.all([
     getPage(locale, slug),
     getPropertyPage(locale, slug),
+    getEntry(locale, slug),
   ]);
+
+  // A research entry shares no address with this route — it answers under /blog
+  // — and is fetched here only because the query is by slug. Dropped before the
+  // checks below so that a /blog slug which happens to match a jurisdiction
+  // slug is not reported as a conflict it is not.
+  const reference = entry?.pageKind === "reference" ? entry : null;
 
   if (jurisdiction && property) {
     console.error(
@@ -159,8 +183,20 @@ async function resolveSlug(
     );
   }
 
+  // THE PUBLISH GUARD SHOULD HAVE CAUGHT THIS — see assertNoSlugCollision in
+  // scripts/articles.ts, which refuses to publish a reference entry onto a slug
+  // that is already taken. Logged rather than trusted: that guard runs at
+  // publish time, and a jurisdiction page renamed in Studio afterwards would
+  // walk straight past it. The Sanity page wins, because it was here first.
+  if (reference && (jurisdiction || property)) {
+    console.error(
+      `[slug] Slug collision on /${locale}/${slug}: reference entry ${reference._id} against an existing page. Serving the page; rename the entry's slug.`,
+    );
+  }
+
   if (jurisdiction) return { kind: "jurisdiction", page: jurisdiction };
   if (property) return { kind: "property", page: property };
+  if (reference) return { kind: "entry", page: reference };
   return null;
 }
 
@@ -196,7 +232,7 @@ export async function generateStaticParams({
 }: {
   params: { locale: string };
 }) {
-  const [countries, properties] = await Promise.all([
+  const [countries, properties, entries] = await Promise.all([
     sanityFetchPublished<{ slug: string }[]>(
       COUNTRY_SLUGS_QUERY,
       { locale: params.locale },
@@ -207,11 +243,19 @@ export async function generateStaticParams({
       { locale: params.locale },
       ["propertyPage"],
     ),
+    sanityFetchPublished<{ slug: string }[]>(
+      REFERENCE_SLUGS_QUERY,
+      { locale: params.locale },
+      ["article"],
+    ),
   ]);
 
   // Deduplicated, because a collision would otherwise ask Next to prerender
-  // the same route twice.
-  const slugs = new Set([...countries, ...properties].map((page) => page.slug));
+  // the same route twice — and with entries in the set that is no longer a
+  // theoretical case: three sources now feed one address space.
+  const slugs = new Set(
+    [...countries, ...properties, ...entries].map((page) => page.slug),
+  );
 
   return [...slugs].map((slug) => ({ slug }));
 }
@@ -224,6 +268,13 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const resolved = await resolveSlug(locale, slug);
   if (!resolved) return {};
+
+  // An entry builds its own metadata — its hreflang comes from translationKey
+  // siblings rather than from a shared country reference, so none of the
+  // machinery below it applies.
+  if (resolved.kind === "entry") {
+    return entryMetadata({ locale, slug, kind: "reference" });
+  }
 
   const { page } = resolved;
   const siteUrl = getSiteUrl();
@@ -468,6 +519,10 @@ export default async function JurisdictionPage({
 
   const resolved = await resolveSlug(locale, slug);
   if (!resolved) notFound();
+
+  if (resolved.kind === "entry") {
+    return EntryView({ locale, slug, kind: "reference" });
+  }
 
   if (resolved.kind === "property") {
     return renderProperty({ locale, slug, page: resolved.page });

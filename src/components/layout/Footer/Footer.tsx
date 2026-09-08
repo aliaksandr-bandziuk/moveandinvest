@@ -1,10 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { FOOTER_GROUPS } from "@/lib/footerNav";
-import { articleHref } from "@/lib/routes";
+import { entryHref } from "@/lib/routes";
 import { CookieSettingsButton } from "../CookieSettingsButton";
 
 import type { AppHref } from "@/lib/routes";
+import type { PageKind } from "@/sanity/types";
 import styles from "./Footer.module.scss";
 
 export interface FooterJurisdiction {
@@ -29,6 +30,10 @@ interface FooterProps {
    *  not in this language: the row falls back to the greyed "soon" state, which
    *  is the same rule the section has held since launch. */
   entrySlugs?: Record<string, string>;
+  /** Where each of those entries lives, keyed by the same slug. Defaults to
+   *  "research" per entry, which is what every entry was before 8 September
+   *  2026 — see SlugMap.entryKinds. */
+  entryKinds?: Record<string, PageKind>;
 }
 
 // Three storeys, in this order: an invitation to write, the wordmark as a
@@ -50,6 +55,7 @@ export async function Footer({
   jurisdictions = [],
   year,
   entrySlugs = {},
+  entryKinds = {},
 }: FooterProps) {
   const t = await getTranslations("footer");
 
@@ -118,7 +124,11 @@ export async function Footer({
                       // for why the key rather than a path.
                       <Link
                         className={styles.link}
-                        href={articleHref(entrySlugs[link.entry] as string)}
+                        href={entryHref(
+                          entrySlugs[link.entry] as string,
+                          entryKinds[entrySlugs[link.entry] as string] ??
+                            "research",
+                        )}
                       >
                         {t(`links.${link.key}`)}
                       </Link>

@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { articleHref } from "@/lib/routes";
+import { entryHref } from "@/lib/routes";
 import { categoryLabel } from "@/lib/categories";
 import type { ArticleSummary } from "@/sanity/types";
 
@@ -73,7 +73,7 @@ export function ArticleList({
                   reader scanning a list clicks the headline, and a screen
                   reader listing links gets titles rather than eleven identical
                   "read more"s. */}
-              <Link href={articleHref(entry.slug)} className={styles.link}>
+              <Link href={entryHref(entry.slug, entry.pageKind)} className={styles.link}>
                 {entry.title}
               </Link>
             </h2>
