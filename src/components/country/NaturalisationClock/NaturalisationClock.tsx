@@ -116,7 +116,13 @@ export function NaturalisationClock({ labels, locale, input, allCaveats }: Props
 
   return (
     <section className={styles.root} data-clock>
-      <h2 className={styles.heading}>{labels.heading}</h2>
+      {/* h1, И ЭТО ИСПРАВЛЕНИЕ, а не стилистика. До 8 сентября 2026 года здесь
+          стоял h2, и у страницы часов не было h1 вообще: её главный заголовок
+          шёл вровень с «Юрисдикции», «На сайте» и «Проект» — заголовками
+          подвала. Для машины страница читалась как пять равноправных разделов,
+          ни один из которых не объявляет, чему она посвящена.
+          Размер оставлен прежним — см. .heading в модуле стилей. */}
+      <h1 className={styles.heading}>{labels.heading}</h1>
       <p className={styles.intro}>{labels.intro}</p>
 
       <form className={styles.controls} data-controls>

@@ -7,14 +7,15 @@
     "navLabel": "Main",
     "links": {
       "countries": "Jurisdictions",
-      "cost": "Cost",
       "calculator": "Cost calculator",
       "faq": "Questions",
       "working": "Sources",
       "about": "About",
       "forPartners": "For partners",
       "enquiry": "Send an enquiry",
-      "research": "Guides & Research"
+      "research": "Guides & Research",
+      "tools": "Tools",
+      "clock": "Naturalisation clock"
     },
     "menu": "Menu",
     "soon": "soon"
@@ -41,7 +42,8 @@
       "jurisdictions": "Jurisdictions",
       "site": "On this site",
       "guides": "Guides & Research",
-      "project": "Project"
+      "project": "Project",
+      "moving": "Moving from"
     },
     "links": {
       "goldenVisa": "What a golden visa is",
@@ -53,14 +55,20 @@
       "faq": "Common questions",
       "enquiry": "Send an enquiry",
       "ruleChanges": "Rule changes",
-      "movingGuides": "Moving guides",
-      "costOfLiving": "Cost of living",
+      "costOfLiving": "Cost of living in Portugal",
       "partners": "For partners",
       "sources": "About the project",
       "working": "Sources and working",
       "contacts": "Contact",
       "privacy": "Privacy",
-      "cookies": "Cookie choice"
+      "cookies": "Cookie choice",
+      "clock": "Naturalisation clock",
+      "portugalCitizenship": "Portuguese citizenship",
+      "maltaCitizenship": "Maltese citizenship",
+      "greeceCitizenship": "Greek citizenship",
+      "fromUs": "Portugal from the US",
+      "fromUk": "Portugal from the UK",
+      "greeceAmericans": "Greece for Americans"
     }
   },
   "home": {

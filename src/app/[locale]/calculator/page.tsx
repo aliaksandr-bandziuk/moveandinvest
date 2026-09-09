@@ -323,6 +323,10 @@ export default async function Calculator({
   return (
     <>
       <CostCalculator
+        // Единственный заголовок этой страницы, поэтому h1. Геройского блока у неё
+        // нет, и без этого /calculator оставался страницей без h1 вовсе — с четырьмя
+        // h2 в теле и ни одним заявлением о том, чему она посвящена.
+        level={1}
         eyebrow={t("eyebrow")}
         heading={t("heading")}
         intro={t("intro", figures)}

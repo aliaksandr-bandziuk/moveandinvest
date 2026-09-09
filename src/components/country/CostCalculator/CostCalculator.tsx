@@ -105,6 +105,13 @@ export interface CostCalculatorLabels {
 
 interface CostCalculatorProps {
   index?: string;
+  /** THE HEADING LEVEL, AND IT WAS HARDCODED TO 2 UNTIL 8 SEPTEMBER 2026 — which
+   *  left /calculator with no h1 at all, the same defect the naturalisation
+   *  clock had. The component is used on exactly one page today, where its head
+   *  IS the page's head, so that page passes 1. The default stays 2 so that
+   *  embedding it as a section of a jurisdiction page — which is what it was
+   *  written for — cannot emit a second h1 by accident. */
+  level?: 1 | 2;
   eyebrow: string;
   heading: string;
   intro: string;
@@ -154,6 +161,7 @@ const PRESETS = [250_000, 500_000, 800_000, 1_000_000];
 //    fewer countries than €250,000".
 export function CostCalculator({
   index,
+  level = 2,
   eyebrow,
   heading,
   intro,
@@ -433,7 +441,7 @@ export function CostCalculator({
   return (
     <section className={styles.section} id="calculator">
       <div className="container">
-        <SectionHead index={index} eyebrow={eyebrow} heading={heading} intro={intro} level={2} />
+        <SectionHead index={index} eyebrow={eyebrow} heading={heading} intro={intro} level={level} />
 
         <CostCalculatorControl labels={labels} locale={locale}>
           <div className={styles.tool}>

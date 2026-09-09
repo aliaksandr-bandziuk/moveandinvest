@@ -56,10 +56,28 @@ export const HEADER_NAV: HeaderLink[] = [
   // shelf: that submenu answers "which country", the calculator answers "how
   // much", and a tool sitting among five country names reads as a sixth
   // country no matter how it is set off.
+  // RENAMED FROM "cost" ON 9 SEPTEMBER 2026, AND THE RENAME IS THE POINT.
+  //
+  // The naturalisation clock shipped on 7 September with no entry in this bar
+  // and none in the footer. Its only inbound links were three sentences inside
+  // English article bodies — so the Russian and Polish versions of a tool we
+  // deliberately built in three languages had NO inbound link from anywhere on
+  // the site. For a page that is the state of an orphan: reachable only from
+  // search, and it will not reach search until something is crawled into it.
+  //
+  // WHY NOT HANG IT UNDER "Cost". The note below this one already settled the
+  // principle for the calculator: its first draft sat under "Jurisdictions",
+  // which was the wrong shelf because that submenu answers "which country" and
+  // the tool answers "how much". The clock answers "when", and under a heading
+  // reading "Cost" it would parse as a kind of expense. So the shelf is renamed
+  // to what actually stands on it — the tools — and Sources stays, because it
+  // is the working behind both of them and still reads better one level down
+  // than alone in a bar, where "Sources" is a word without an object.
   {
-    key: "cost",
+    key: "tools",
     children: [
       { key: "calculator", href: "/calculator" },
+      { key: "clock", href: "/naturalisation-clock" },
       { key: "working", href: "/sources" },
     ],
   },

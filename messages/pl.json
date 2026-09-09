@@ -7,14 +7,15 @@
     "navLabel": "Nawigacja główna",
     "links": {
       "countries": "Jurysdykcje",
-      "cost": "Koszty",
       "calculator": "Kalkulator kosztów",
       "faq": "Pytania",
       "working": "Źródła",
       "about": "O projekcie",
       "forPartners": "Dla partnerów",
       "enquiry": "Wyślij zapytanie",
-      "research": "Poradniki i badania"
+      "research": "Poradniki i badania",
+      "tools": "Narzędzia",
+      "clock": "Zegar naturalizacji"
     },
     "menu": "Menu",
     "soon": "wkrótce"
@@ -41,7 +42,8 @@
       "jurisdictions": "Jurysdykcje",
       "site": "Na stronie",
       "guides": "Poradniki i badania",
-      "project": "Projekt"
+      "project": "Projekt",
+      "moving": "Przeprowadzka z"
     },
     "links": {
       "goldenVisa": "Czym jest złota wiza",
@@ -53,14 +55,20 @@
       "faq": "Częste pytania",
       "enquiry": "Wyślij zgłoszenie",
       "ruleChanges": "Zmiany przepisów",
-      "movingGuides": "Poradniki przeprowadzki",
-      "costOfLiving": "Koszty życia",
+      "costOfLiving": "Koszty życia w Portugalii",
       "partners": "Dla partnerów",
       "sources": "O projekcie",
       "working": "Źródła i wyliczenia",
       "contacts": "Kontakt",
       "privacy": "Prywatność",
-      "cookies": "Wybór dotyczący cookie"
+      "cookies": "Wybór dotyczący cookie",
+      "clock": "Zegar naturalizacji",
+      "portugalCitizenship": "Obywatelstwo Portugalii",
+      "maltaCitizenship": "Obywatelstwo Malty",
+      "greeceCitizenship": "Obywatelstwo Grecji",
+      "fromUs": "Do Portugalii z USA",
+      "fromUk": "Do Portugalii z Wielkiej Brytanii",
+      "greeceAmericans": "Do Grecji z USA"
     }
   },
   "home": {

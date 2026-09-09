@@ -63,6 +63,10 @@ export const FOOTER_GROUPS: FooterGroup[] = [
       // what other people link to, and a fragment cannot carry a title or be
       // counted separately. Added 2 September 2026.
       { key: "calculator", href: "/calculator" },
+      // The second tool, added 9 September 2026 for the reason recorded in
+      // headerNav.ts: it shipped with no entry in either navigation, and its
+      // Russian and Polish versions had no inbound link from anywhere.
+      { key: "clock", href: "/naturalisation-clock" },
       { key: "route", href: homeSection("route") },
       // REPOINTED FROM "/#faq" ON 25 AUGUST 2026, when /faq was published.
       // The home page still has its section 06 and still has that id, so the
@@ -92,8 +96,42 @@ export const FOOTER_GROUPS: FooterGroup[] = [
       // rather than as the index. Nothing is orphaned by its removal.
       // Promised since launch and greyed out until 30 August 2026.
       { key: "ruleChanges", href: "/changes" },
-      { key: "movingGuides", entry: "article-portugal-residency" },
-      { key: "costOfLiving", entry: "article-income-cost-of-living" },
+      // REBUILT 9 SEPTEMBER 2026. The two rows that stood here pointed at the
+      // August queue — "Moving guides" at portugal-residency and "Cost of
+      // living" at the five-country income piece — from the period when this
+      // group was a list of promises rather than of published work. Replaced
+      // with the four largest verified clusters, which are also the four that
+      // do not go stale: three citizenship laws and the Portuguese cost of
+      // living.
+      //
+      // FOUR AND NOT NINE. A footer link is worth something only while there
+      // are few of them; a footer of sixty is boilerplate a reader skips and a
+      // crawler discounts. The rule this file now follows: a page sits here
+      // while it has no better parent, and the day a hub exists the hub takes
+      // the row and its children leave.
+      { key: "portugalCitizenship", entry: "article-portugal-citizenship" },
+      { key: "maltaCitizenship", entry: "article-malta-citizenship" },
+      { key: "greeceCitizenship", entry: "article-greece-citizenship" },
+      { key: "costOfLiving", entry: "article-portugal-living" },
+    ],
+  },
+  {
+    // THE PERSONA PAGES, ADDED 9 SEPTEMBER 2026. Three pages written for a
+    // reader defined by where they are leaving from rather than by where they
+    // are going, and until today each was reachable only through a cross-link
+    // inside another article's body.
+    //
+    // THIS GROUP HAS A CEILING AND SHOULD NOT OUTGROW IT. Three rows is a
+    // navigation; six is a directory, and a directory belongs on a page rather
+    // than under every page. When the fourth arrives — D3 is written and the
+    // Russian citizenship cluster gets its hub at F3 — this group's rows should
+    // collapse into one link to that hub. The English side has no such hub yet,
+    // and that gap is the thing to close before writing more of these.
+    key: "moving",
+    links: [
+      { key: "fromUs", entry: "article-portugal-americans" },
+      { key: "fromUk", entry: "article-portugal-uk" },
+      { key: "greeceAmericans", entry: "article-greece-americans" },
     ],
   },
   {
