@@ -1,0 +1,68 @@
+@use "../../../styles/mixins";
+
+// THE CONTAINER IS NOT OPTIONAL AND THIS FILE SHIPPED WITHOUT IT.
+//
+// The first version set `padding-block` and nothing else, so the page ran the
+// full width of the display with the text starting hard against the left edge.
+// The container is a real global class in globals.scss, but a page that sets
+// its own measure does it here instead — see the clock's stylesheet, which this
+// one now matches deliberately.
+//
+// 74rem, the same as /calculator and /naturalisation-clock. Three tools at
+// three different widths on one site reads as three sites.
+.main {
+  --container-max-width: 74rem;
+
+  padding-block: var(--space-7) var(--space-9);
+  padding-inline: var(--gutter);
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.heading {
+  margin: 0;
+  // The h1 is a sentence naming four countries, so it needs the wide measure
+  // rather than the reading one — at 24ch it broke into five lines.
+  max-width: var(--measure-wide);
+  text-wrap: balance;
+}
+
+.intro {
+  margin: 0;
+  max-width: var(--measure-max);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+}
+
+// The method line sits ABOVE the figures rather than under them. A reader
+// deciding whether to trust a number should not have to reach the bottom of
+// four tables to find out where it came from.
+.method {
+  margin: 0;
+  max-width: var(--measure-max);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-hairline);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--color-text-muted);
+}

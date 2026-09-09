@@ -539,6 +539,46 @@ const ENTRIES: Record<string, EntryConfig> = {
     // работает. Взяли смену конвенции 2025 года — вся выдача объясняет Брексит.
     // Два утверждения написаны и убиты на проверке, см. верификационный файл.
   },
+  "greece-uk": {
+    key: "article-greece-uk",
+    sources: {
+      en: "article-en-greece-uk.md",
+    },
+    figures: {
+      en: ["gr-uk-treaty-en", "gr-uk-pension-en"],
+    },
+    publishedAt: "2026-09-09T14:00:00.000Z",
+    category: "rules",
+    countries: ["country-gr"],
+    // REFERENCE. Пара к `malta-uk`: два соседних острова, две конвенции с
+    // разницей в сорок один год, совершенно разная механика. Ссылаются друг на друга.
+    kind: "reference",
+    // СТЕРЖЕНЬ: конвенция от 25 июня 1953 года без протоколов, без тай-брейкера
+    // и без статьи о дивидендах. Ловушка манулов HMRC поймана до письма: сводка
+    // описывает британского резидента (ст. X(1)), а не британца в Греции (ст. X(2)).
+    // На том же месте я ошибся на D2 с DT15602.
+  },
+  "malta-uk": {
+    key: "article-malta-uk",
+    sources: {
+      en: "article-en-malta-uk.md",
+    },
+    figures: {
+      en: ["mt-uk-relief-en", "mt-uk-timeline-en"],
+    },
+    publishedAt: "2026-09-09T15:00:00.000Z",
+    category: "rules",
+    countries: ["country-mt"],
+    kind: "reference",
+    // ПУНКТ БЫЛ СНЯТ ПЛАНОМ ПО ЧИСЛУ 80 — и это была ошибка. `british living
+    // in malta` и `living in malta from uk` — один ряд, то есть синонимы:
+    // 70 при конкуренции 28 и тренде +75. Кластер не мёртвый, а растущий.
+    // СТЕРЖЕНЬ: ст. 23(1) конвенции 1994 года сжимает британское
+    // освобождение до переведённого на Мальту. Лучший конкурент ставит ссылку
+    // на конвенцию и не содержит ни «1994», ни «Article 23».
+    // ОСТОРОЖНОСТЬ: Exchange of Notes по ст. 23(2) не читан, поэтому
+    // ни про одну мальтийскую программу не сказано, что она туда попадает.
+  },
   "portugal-americans": {
     key: "article-portugal-americans",
     // RESEARCH, and deliberately — the page went live under /blog on

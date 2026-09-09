@@ -13,6 +13,12 @@ export {
   NaturalisationClockControl,
   type ClockLabels,
 } from "./NaturalisationClock";
+export {
+  TransferTaxCalculator,
+  DEFAULT_PRICE as TRANSFER_TAX_DEFAULT_PRICE,
+  ORDER as TRANSFER_TAX_ORDER,
+  type TransferTaxLabels,
+} from "./TransferTaxCalculator";
 export { CountryChip } from "./CountryChip";
 export { CountryComparisonTable } from "./CountryComparisonTable";
 export { JurisdictionCards } from "./JurisdictionCards";

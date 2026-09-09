@@ -78,6 +78,10 @@ export const HEADER_NAV: HeaderLink[] = [
     children: [
       { key: "calculator", href: "/calculator" },
       { key: "clock", href: "/naturalisation-clock" },
+      // The third tool, added the day it shipped — 9 September 2026 — because
+      // the clock taught this file that a tool published without a navigation
+      // entry has no inbound link in two of its three languages.
+      { key: "transferTax", href: "/property-transfer-tax-calculator" },
       { key: "working", href: "/sources" },
     ],
   },

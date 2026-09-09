@@ -15,7 +15,8 @@
       "enquiry": "Send an enquiry",
       "research": "Guides & Research",
       "tools": "Tools",
-      "clock": "Naturalisation clock"
+      "clock": "Naturalisation clock",
+      "transferTax": "Property transfer tax calculator"
     },
     "menu": "Menu",
     "soon": "soon"
@@ -68,7 +69,8 @@
       "greeceCitizenship": "Greek citizenship",
       "fromUs": "Portugal from the US",
       "fromUk": "Portugal from the UK",
-      "greeceAmericans": "Greece for Americans"
+      "greeceAmericans": "Greece for Americans",
+      "transferTax": "Transfer tax calculator"
     }
   },
   "home": {
@@ -571,5 +573,60 @@
     },
     "groupEu": "EU member state",
     "groupCplp": "Portuguese-speaking country"
+  },
+  "transferTax": {
+    "eyebrow": "Transfer tax calculator",
+    "metaTitle": "Property transfer tax calculator for four jurisdictions",
+    "metaDescription": "What the state takes when the deed is signed, at your own price: Portuguese IMT and stamp duty, Greek FMA, Maltese duty and the Dubai transfer fee.",
+    "heading": "Property transfer tax calculator for Portugal, Greece, Malta and Dubai",
+    "intro": "Type the price and see what the state takes when the deed is signed. Every line names the instrument that sets it and the date we read that instrument — and says plainly where no authority sets the figure at all.",
+    "methodNote": "Portuguese figures read at source on 9 September 2026; Greek, Maltese and Emirati figures from the property dossier of 24 August 2026. Every instrument named here has its own dated line on",
+    "sourcesLabel": "our sources page",
+    "place": {
+      "pt": "Portugal",
+      "gr": "Greece",
+      "mt": "Malta",
+      "ae": "Dubai"
+    },
+    "instrument": {
+      "pt": "IMT under art. 17 of the Código do IMT, plus stamp duty under verba 1.1 of the general table. Mainland scale: Madeira and the Azores legislate their own and we have not read them.",
+      "gr": "ΦΜΑ, the real estate transfer tax, plus the municipal surcharge — which is charged on the tax and not on the price.",
+      "mt": "Duty on documents and transfers under Cap. 364, and it falls due at two separate moments rather than one.",
+      "ae": "The Dubai Land Department transfer fee under Executive Council Resolution 30/2013."
+    },
+    "lineName": {
+      "imt": "IMT, the municipal transfer tax",
+      "stamp": "Stamp duty, Imposto do Selo",
+      "fma": "ΦΜΑ with the municipal surcharge",
+      "dutyPromise": "Duty on the promise of sale",
+      "dutyDeed": "Duty on the deed",
+      "dldTransfer": "DLD transfer fee"
+    },
+    "priceLabel": "Purchase price",
+    "priceHint": "A starting figure, not a claim about what anything costs. Type your own.",
+    "totalLabel": "Transfer tax in total",
+    "effectiveLabel": "Effective rate",
+    "confidence": {
+      "primary": "instrument read",
+      "secondary": "reproduction",
+      "custom": "no authority sets it"
+    },
+    "checkedLabel": "read",
+    "ptCategoryLabel": "What the property is, under art. 17",
+    "ptCategory": {
+      "ownPermanent": "Own and permanent residence",
+      "otherHousing": "Other housing: a second home or a let",
+      "otherUrban": "Other urban property",
+      "rustic": "Rural land",
+      "haven": "Buyer resident in a listed tax haven"
+    },
+    "aeToggleLabel": "The buyer pays the whole fee",
+    "aeToggleNote": "Off is what the resolution says: shared equally between seller and buyer unless the parties agree otherwise. On is what the market usually does — and it is negotiable precisely because the resolution says otherwise.",
+    "cliffHeading": "Where the Portuguese scale jumps, and by how much",
+    "cliffBody": "Above {threshold} a single rate of 7.5% applies to the whole price rather than to the excess over the threshold. At {threshold} the tax is {below}; one euro more and it is {above}. That is {step} for one euro of price, and it is the only discontinuity in the scale.",
+    "smoothBody": "The lower flat threshold is not a cliff, and that is by construction: at {threshold} the marginal bands have already accumulated {below}, which is almost exactly 6% of it, so the flat band picks up at {above}.",
+    "scopeHeading": "What this calculator leaves out, and where the rest of it is",
+    "scopeBody": "Notary scales, land registry fees, agents' commissions and the Dubai administrative tariff are not on this page. Different instruments set them, and two tools computing the same charge is two tools that will one day disagree.",
+    "routeCostLink": "The full cost of a residence route is in the cost calculator"
   }
 }

@@ -1,0 +1,293 @@
+@use "../../../styles/mixins";
+
+// THE VISIBILITY RULE IS FIRST, FOR THE REASON THE CLOCK'S STYLESHEET GIVES.
+//
+// `data-off` rather than the `hidden` attribute: in a CSS module a `display`
+// set on a class outranks `hidden`, and the element stays on screen with
+// nothing in the markup to explain why. This codebase has paid for that twice.
+// `[data-off]` is owned by this file, so nothing can outrank it by accident.
+.caveat[data-off="true"] {
+  display: none;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+// --- One jurisdiction --------------------------------------------------------
+// A bordered block rather than a bare stack, because four of these run down the
+// page and the reader has to be able to see where one country's answer ends.
+// Border and background only — no shadow and no radius stacking, since nothing
+// here is lifted above anything else.
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+// Explicit size rather than inherited: this component renders at level 1 on
+// its own page and level 2 when embedded, and a heading that changes size with
+// its tag would make the same block look like two different components.
+.heading {
+  margin: 0;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+}
+
+.instrument {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--color-text-muted);
+}
+
+// --- Controls ----------------------------------------------------------------
+.controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-s);
+  background: var(--color-row-hover);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  min-width: 0;
+}
+
+.fieldLabel {
+  font-size: var(--fs-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-s);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  // Digits line up between the four blocks only if they are tabular. Four
+  // prices at four different widths is the thing that makes a comparison table
+  // look like four unrelated forms.
+  font-variant-numeric: tabular-nums;
+}
+
+.currency {
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+}
+
+// --- The lines ---------------------------------------------------------------
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.line:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.lineHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.lineName {
+  font-weight: var(--font-weight-semibold);
+}
+
+// Figures are set in the mono face, as they are in every diagram this site
+// draws. Money in the body face next to money in a chart looks like two
+// different sites, and the columns only line up in the face that was designed
+// to line them up.
+.lineAmount {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lineMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+}
+
+.rate {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+// The confidence tag carries the whole argument of this site, so it is not
+// decoration: `primary` means we read the instrument, `custom` means no
+// authority sets the figure at all. Colour separates the two states that differ
+// in KIND; `secondary` sits between them and takes the quiet treatment.
+.tag {
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-hairline);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tag[data-confidence="primary"] {
+  border-color: var(--color-line);
+  color: var(--color-text);
+}
+
+.tag[data-confidence="custom"] {
+  border-style: dashed;
+}
+
+.checked {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.citation,
+.caveat {
+  margin: 0;
+  max-width: 74ch;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.caveat {
+  padding-left: var(--space-2);
+  border-left: 2px solid var(--color-line);
+}
+
+// --- Total -------------------------------------------------------------------
+// The one lifted element in the block. Everything above it is evidence and
+// reads at one level; this is the answer, and it is the only place in the
+// component that spends the accent.
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-s);
+  background: var(--color-row-hover);
+  border-top: 2px solid var(--color-accent);
+}
+
+.totalLabel {
+  font-weight: var(--font-weight-semibold);
+}
+
+.totalAmount {
+  margin-inline-start: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.totalRate {
+  flex-basis: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// --- The Portuguese cliff ----------------------------------------------------
+// Set apart from the lines because it is not a line: it is a property of the
+// scale that the reader's own price may never touch, and it belongs to the
+// block rather than to any charge in it.
+.cliff {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-s);
+}
+
+.cliffHeading {
+  margin: 0;
+  font-size: var(--fs-body-lg);
+}
+
+.cliff p {
+  margin: 0;
+  max-width: 74ch;
+}
+
+.cliffSmooth {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+// --- Scope -------------------------------------------------------------------
+.scope {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.scopeHeading {
+  margin: 0;
+}
+
+.scope p {
+  margin: 0;
+  max-width: 74ch;
+  color: var(--color-text-muted);
+}

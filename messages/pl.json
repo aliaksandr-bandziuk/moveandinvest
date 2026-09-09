@@ -15,7 +15,8 @@
       "enquiry": "Wyślij zapytanie",
       "research": "Poradniki i badania",
       "tools": "Narzędzia",
-      "clock": "Zegar naturalizacji"
+      "clock": "Zegar naturalizacji",
+      "transferTax": "Kalkulator podatku od zakupu"
     },
     "menu": "Menu",
     "soon": "wkrótce"
@@ -68,7 +69,8 @@
       "greeceCitizenship": "Obywatelstwo Grecji",
       "fromUs": "Do Portugalii z USA",
       "fromUk": "Do Portugalii z Wielkiej Brytanii",
-      "greeceAmericans": "Do Grecji z USA"
+      "greeceAmericans": "Do Grecji z USA",
+      "transferTax": "Kalkulator podatku od zakupu"
     }
   },
   "home": {
@@ -571,5 +573,60 @@
     },
     "groupEu": "Państwo członkowskie UE",
     "groupCplp": "Kraj portugalskojęzyczny"
+  },
+  "transferTax": {
+    "eyebrow": "Kalkulator podatku od przeniesienia",
+    "metaTitle": "Kalkulator podatku od zakupu nieruchomości",
+    "metaDescription": "Ile państwo bierze przy podpisaniu aktu: portugalskie IMT i opłata skarbowa, grecki ΦΜΑ, maltańska opłata i opłata transferowa w Dubaju.",
+    "heading": "Kalkulator podatku od zakupu nieruchomości w Portugalii, Grecji, na Malcie i w Dubaju",
+    "intro": "Wpisz cenę i zobacz, ile państwo bierze przy podpisaniu aktu. Każda pozycja wskazuje akt, który ją ustala, i datę jego odczytania — a tam, gdzie żaden organ nie ustala kwoty, mówi o tym wprost.",
+    "methodNote": "Dane portugalskie odczytane u źródła 9 września 2026 roku; greckie, maltańskie i emirackie — z dossier nieruchomościowego z 24 sierpnia 2026 roku. Każdy wymieniony tu akt ma własny wiersz z datą na",
+    "sourcesLabel": "stronie źródeł",
+    "place": {
+      "pt": "Portugalia",
+      "gr": "Grecja",
+      "mt": "Malta",
+      "ae": "Dubaj"
+    },
+    "instrument": {
+      "pt": "IMT według art. 17 Kodeksu IMT oraz opłata skarbowa według pozycji 1.1 tabeli ogólnej. Skala kontynentalna: Madera i Azory ustalają własne, a my ich nie czytaliśmy.",
+      "gr": "ΦΜΑ, podatek od przeniesienia własności nieruchomości, plus dodatek gminny — naliczany od podatku, a nie od ceny.",
+      "mt": "Opłata od dokumentów i przeniesień według Cap. 364, płatna w dwóch różnych momentach, a nie w jednym.",
+      "ae": "Opłata transferowa Dubai Land Department według Rezolucji Rady Wykonawczej 30/2013."
+    },
+    "lineName": {
+      "imt": "IMT, gminny podatek od przeniesienia",
+      "stamp": "Opłata skarbowa, Imposto do Selo",
+      "fma": "ΦΜΑ z dodatkiem gminnym",
+      "dutyPromise": "Opłata przy rejestracji przyrzeczenia sprzedaży",
+      "dutyDeed": "Opłata przy akcie",
+      "dldTransfer": "Opłata transferowa DLD"
+    },
+    "priceLabel": "Cena zakupu",
+    "priceHint": "Liczba początkowa, nie twierdzenie o cenach. Wpisz własną.",
+    "totalLabel": "Podatek od przeniesienia łącznie",
+    "effectiveLabel": "Stawka efektywna",
+    "confidence": {
+      "primary": "akt odczytany",
+      "secondary": "reprodukcja",
+      "custom": "żaden organ nie ustala"
+    },
+    "checkedLabel": "odczytano",
+    "ptCategoryLabel": "Czym jest nieruchomość według art. 17",
+    "ptCategory": {
+      "ownPermanent": "Własne i stałe miejsce zamieszkania",
+      "otherHousing": "Inne mieszkanie: drugi dom lub najem",
+      "otherUrban": "Inna nieruchomość miejska",
+      "rustic": "Grunt rolny",
+      "haven": "Nabywca z listy rajów podatkowych"
+    },
+    "aeToggleLabel": "Nabywca płaci całą opłatę",
+    "aeToggleNote": "Wyłączone — tak mówi rezolucja: po połowie między sprzedającym a kupującym, o ile strony nie umówią się inaczej. Włączone — tak zwykle robi rynek, i jest to przedmiot negocjacji właśnie dlatego, że rezolucja mówi co innego.",
+    "cliffHeading": "Gdzie portugalska skala daje skok i jak duży",
+    "cliffBody": "Powyżej {threshold} jednolita stawka 7,5% stosuje się do całej ceny, a nie do nadwyżki ponad próg. Przy {threshold} podatek wynosi {below}; jedno euro wyżej — już {above}. To {step} za jedno euro ceny i jedyna nieciągłość w całej skali.",
+    "smoothBody": "Niższy próg stawki jednolitej nie jest skokiem, i to z założenia: przy {threshold} pasma progresywne zebrały już {below}, czyli prawie dokładnie 6% tej kwoty, więc pasmo jednolite podejmuje od {above}.",
+    "scopeHeading": "Czego ten kalkulator nie liczy i gdzie liczy się reszta",
+    "scopeBody": "Taryfy notarialne, opłaty katastralne, prowizje agentów i opłaty administracyjne DLD nie są tu uwzględnione. Ustalają je inne akty, a dwa narzędzia liczące tę samą opłatę to dwa narzędzia, które kiedyś się rozejdą.",
+    "routeCostLink": "Pełny koszt ścieżki pobytowej jest w kalkulatorze kosztów"
   }
 }

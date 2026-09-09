@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { UPDATED_ON } from "@/lib/costModel";
+import { PT_REFORM_DATE } from "@/lib/naturalisationModel";
+import { CHECKED_PT } from "@/lib/transferTaxModel";
 import { entryHref, slugHref } from "@/lib/routes";
 import type { AppPathname } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
@@ -74,8 +76,27 @@ const ROUTES: SingletonRoute[] = [
 // The date used instead is the newest day any line of the model was read
 // against its source, which is the honest answer to what a crawler is asking:
 // the page changed when its figures did.
+//
+// A DEFECT FOUND ON 9 SEPTEMBER 2026 WHILE ADDING THE THIRD OF THESE. The
+// naturalisation clock shipped on 7 September as a route of its own and was
+// never added to this list, so for two days it was a page with no sitemap
+// entry in any of its three languages. Nothing errored, nothing rendered
+// wrong, and the only symptom was an absence. That is exactly the failure mode
+// this list has: a route omitted here looks identical to a route that does not
+// exist.
+//
+// So the rule, written down where the next tool will be added: a page under
+// src/app/[locale]/ whose content comes from code and not from Sanity has an
+// entry HERE in the same commit that creates it.
 const CODE_ROUTES: { href: AppPathname; lastModified: string }[] = [
   { href: "/calculator", lastModified: UPDATED_ON },
+  // Its model carries no date of its own; the day the Portuguese reform it
+  // exists to explain took effect is the honest answer to when its content
+  // last changed.
+  { href: "/naturalisation-clock", lastModified: PT_REFORM_DATE },
+  // The transfer-tax calculator's figures ARE dated, per line, and the newest
+  // of them is the day the Portuguese scale was read at source.
+  { href: "/property-transfer-tax-calculator", lastModified: CHECKED_PT },
 ];
 
 function isLocale(value: unknown): value is (typeof routing.locales)[number] {

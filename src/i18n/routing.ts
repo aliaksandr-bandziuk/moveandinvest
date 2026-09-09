@@ -121,6 +121,29 @@ export const routing = defineRouting({
       ru: "/chasy-naturalizatsii",
       pl: "/zegar-naturalizacji",
     },
+    // THE TRANSFER-TAX CALCULATOR, 9 September 2026. Third tool, third address,
+    // and the reason it has one is not the reason the other two do.
+    //
+    // THIS ONE IS NOT A SEARCH PLAY. `portugal imt calculator` and every
+    // sibling phrase return zero across all four keyword waves, and the plan
+    // cancelled the item on that number on 7 September. The number was right
+    // and it was the wrong number: the note at the head of
+    // src/app/[locale]/calculator/page.tsx already records that a competitor's
+    // transfer-tax calculator "is a page, and it is the page their
+    // competitors' articles cite". A citable tool earns LINKS, and links are
+    // the binding constraint on everything else this site does.
+    //
+    // Which makes the address the product. A section of another page cannot be
+    // cited, and a tool nobody can link to cannot relieve the constraint it
+    // exists to relieve.
+    //
+    // The Russian is transliterated, as everywhere else in this file. The
+    // Polish takes its own words.
+    "/property-transfer-tax-calculator": {
+      en: "/property-transfer-tax-calculator",
+      ru: "/kalkulyator-naloga-pri-pokupke",
+      pl: "/kalkulator-podatku-od-zakupu",
+    },
     "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc" },
     "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla" },
     // The rule-change log. Translated like every other fixed route, and the

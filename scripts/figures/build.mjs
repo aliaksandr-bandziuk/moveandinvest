@@ -1808,7 +1808,7 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026", greeceCitizenship: "8 September 2026", greeceAmericans: "8 September 2026", portugalAmericans: "8 September 2026", portugalUk: "8 September 2026", uaeUk: "9 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026", greeceCitizenship: "8 September 2026", greeceAmericans: "8 September 2026", portugalAmericans: "8 September 2026", portugalUk: "8 September 2026", uaeUk: "9 September 2026", greeceUk: "9 September 2026", maltaUk: "9 September 2026" },
     // ИМЕНА С ПРЕФИКСОМ grNat, А НЕ grTier. `grTierNotes` уже занят схемой
     // порогов золотой визы по зонам, и дубликат ключа в одном объектном
     // литерале в JavaScript не ошибка — побеждает последний. Первая версия
@@ -1859,6 +1859,72 @@ const L = {
       rule: "Article 15(1) alone — 15(4) is repealed",
       queue: "An application is not a title or a visa",
       gaps: "Unchanged: still twelve years",
+    },
+    grUkRows: ["signed", "force", "effectGr", "effectUk", "mli"],
+    grUkKey: {
+      signed: "Signed",
+      force: "In force",
+      effectGr: "Effect in Greece",
+      effectUk: "Effect in the UK",
+      mli: "Synthesised MLI text",
+    },
+    grUkValue: {
+      signed: "25 June 1953",
+      force: "15 January 1954",
+      effectGr: "Financial year beginning 1 July 1951",
+      effectUk: "6 April 1952, income and capital gains tax",
+      mli: "Not published for Greece",
+    },
+    grUkNote: {
+      signed: "Brought into UK law by Statutory Instrument 1954 No. 142",
+      force: "No protocol has amended it since",
+      effectGr: "Companies from the accounting year ended after 1 March 1951",
+      effectUk: "1 April 1954 for corporation tax",
+      mli: "One is published for the 1994 UK-Malta convention",
+    },
+    grUkGateRows: ["resident", "taxed"],
+    grUkGateStep: {
+      resident: "Is a resident of Greece",
+      taxed: "Is subject to Greek tax in respect of that pension",
+    },
+    grUkGateNote: {
+      resident: "The condition every page prints",
+      taxed: "The condition the article adds, and the one that is left out",
+    },
+    grUkGateOutcome: "Then the UK-source pension is exempt from United Kingdom tax",
+    grUkGateAnd: "and",
+    mtUkSteps: ["relieved", "remitted", "shrunk"],
+    mtUkStepName: {
+      relieved: "The convention relieves the income in one state",
+      remitted: "The other state taxes it only on the amount remitted",
+      shrunk: "The relief applies only to the part that other state taxes",
+    },
+    mtUkStepNote: {
+      relieved: "Article 18 sends a private pension to the state of residence",
+      remitted: "Maltese law taxes a non-domiciled resident on what is brought in",
+      shrunk: "So the part you do not remit is not sheltered by the treaty either",
+    },
+    mtUkRows: ["signed", "force", "effect", "mli", "untouched"],
+    mtUkKey: {
+      signed: "Convention signed",
+      force: "In force",
+      effect: "Effect",
+      mli: "MLI effect",
+      untouched: "Unchanged by the MLI",
+    },
+    mtUkValue: {
+      signed: "12 May 1994",
+      force: "27 March 1995",
+      effect: "1 January 1996 in Malta",
+      mli: "1 January 2020",
+      untouched: "Articles 4, 18 and 23",
+    },
+    mtUkNote: {
+      signed: "SI 1995 No. 763. HMRC records one phrase omitted from the published text",
+      force: "Synthesised text with the MLI is published on gov.uk",
+      effect: "1 April 1996 UK corporation tax, 6 April 1996 income and capital gains tax",
+      mli: "In force 1 October 2018 for the UK, 1 April 2019 for Malta",
+      untouched: "What it added is a principal purpose test, under MLI article 7",
     },
     aeUkTestRows: ["uk", "treaty"],
     aeUkTestName: {
@@ -2682,6 +2748,22 @@ const L = {
       grUsChanges: {
         title: "What moving to Greece changes for an American",
         note: "The left column is Greek law. The right column is American law, and Greek residence does not reach it.",
+      },
+      grUkTreaty: {
+        title: "The UK-Greece convention in force, signed 1953",
+        note: "Read on 9 September 2026 on gov.uk and in the text of SI 1954 No. 142.",
+      },
+      grUkPension: {
+        title: "Article X(2) has two conditions, not one",
+        note: "Residence in Greece alone does not exempt a UK pension from UK tax.",
+      },
+      mtUkRelief: {
+        title: "Article 23(1): the relief narrows to what Malta taxes",
+        note: "UK-Malta convention signed 12 May 1994, in force 27 March 1995.",
+      },
+      mtUkTimeline: {
+        title: "Two instruments over one British person in Malta",
+        note: "The MLI reached this convention in 2020 and left articles 4, 18 and 23 alone.",
       },
       aeUkTests: {
         title: "Two tests, and neither is administered in Dubai",
@@ -4290,6 +4372,137 @@ function mtRoutes(L) {
 // a pair: the second test does not arise until the first is answered. An
 // unnumbered two-column figure would invite the reader to pick whichever looks
 // more favourable, which is exactly the mistake the page exists to prevent.
+// --- Greece for the British --------------------------------------------------
+// A RECORD CARD AND NOT A TIMELINE. A timeline of this convention would be one
+// tick in 1953 and seventy-three years of nothing, which draws badly and says
+// less than the rows do. The accented rows are the signature date and the last
+// one: what gov.uk publishes for Greece against what it publishes for Malta is
+// the checkable half of the MLI question, and the only half we assert.
+const GR_UK_ACCENT = new Set(["signed", "mli"]);
+
+function grUkTreaty(L) {
+  const width = 1200;
+  // 830, И ЭТО ИЗМЕРЕНО, А НЕ ПРИКИНУТО. Пять рядов по 96 от y=250 доводят
+  // нижнюю подпись последнего ряда до 662, а подпись frame стоит на height − 92.
+  // На 760 они наезжали друг на друга. РАЗВЁРТКА ПОЛЕЙ ЭТОГО НЕ ЛОВИТ: она
+  // меряет только правый край. Вертикальные наложения ловятся глазами, и рендер
+  // 9 сентября поймал сразу два.
+  const height = 830;
+  const xKey = 48;
+  const xVal = 360;
+  let body = "";
+
+  L.grUkRows.forEach((key, i) => {
+    const y = 250 + i * 96;
+    const accent = GR_UK_ACCENT.has(key);
+    body += text(xKey, y, L.grUkKey[key], { size: 15, weight: 600, fill: C.muted });
+    body += text(xVal, y, L.grUkValue[key], { size: 19, weight: 600, fill: accent ? C.accent : C.text });
+    body += text(xVal, y + 28, L.grUkNote[key], { size: 13, fill: C.muted });
+    if (i < L.grUkRows.length - 1) {
+      body += `<line x1="${xKey}" y1="${y + 58}" x2="${width - 48}" y2="${y + 58}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.grUkTreaty.title, L.eyebrow,
+    L.checked(L.dates.greeceUk), body,
+    L.figures.grUkTreaty.note,
+  );
+}
+
+// TWO CONDITIONS DRAWN AS TWO, with the word between them, because the whole
+// point of the figure is that the market prints the first and drops the second.
+// The outcome sits below both and not beside either.
+function grUkPension(L) {
+  const width = 1200;
+  // 700: строка вывода стоит на 530, подпись frame на height − 92. На 640 между
+  // ними оставалось 18 пикселей, и это читалось как одна строка в две.
+  const height = 700;
+  const xLeft = 48;
+  let body = "";
+
+  L.grUkGateRows.forEach((key, i) => {
+    const y = 260 + i * 130;
+    const accent = key === "taxed";
+    body += text(xLeft, y, L.grUkGateStep[key], { size: 20, weight: 600, fill: accent ? C.accent : C.text });
+    body += text(xLeft, y + 30, L.grUkGateNote[key], { size: 14, fill: C.muted });
+    if (i === 0) {
+      body += text(xLeft, y + 82, L.grUkGateAnd, { size: 15, weight: 600, family: FONT_MONO, fill: C.muted });
+    }
+  });
+
+  const yOut = 260 + 2 * 130 + 10;
+  body += `<line x1="${xLeft}" y1="${yOut - 34}" x2="${width - 48}" y2="${yOut - 34}" stroke="${C.line}" stroke-width="1"/>`;
+  body += text(xLeft, yOut, L.grUkGateOutcome, { size: 17, weight: 600 });
+
+  return frame(
+    width, height,
+    L.figures.grUkPension.title, L.eyebrow,
+    L.checked(L.dates.greeceUk), body,
+    L.figures.grUkPension.note,
+  );
+}
+
+// --- Malta for the British ----------------------------------------------------
+// THREE ORDERED STEPS AND NOT A NARROWING BAR. A bar whose width stood for the
+// remitted share would be inventing a proportion we do not have: the article
+// says the relief follows what is taxed and says nothing about how much that is.
+function mtUkRelief(L) {
+  const width = 1200;
+  const height = 700;
+  const xNum = 48;
+  const xBody = 130;
+  let body = "";
+
+  L.mtUkSteps.forEach((key, i) => {
+    const y = 260 + i * 130;
+    const accent = key === "shrunk";
+    body += text(xNum, y, `${i + 1}`, { size: 22, weight: 600, family: FONT_MONO, fill: accent ? C.accent : C.muted });
+    body += text(xBody, y, L.mtUkStepName[key], { size: 18, weight: 600, fill: accent ? C.accent : C.text });
+    body += text(xBody, y + 30, L.mtUkStepNote[key], { size: 14, fill: C.muted });
+    if (i < L.mtUkSteps.length - 1) {
+      body += `<line x1="${xNum}" y1="${y + 70}" x2="${width - 48}" y2="${y + 70}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.mtUkRelief.title, L.eyebrow,
+    L.checked(L.dates.maltaUk), body,
+    L.figures.mtUkRelief.note,
+  );
+}
+
+const MT_UK_ACCENT = new Set(["untouched"]);
+
+function mtUkTimeline(L) {
+  const width = 1200;
+  // 830 по той же причине, что и grUkTreaty: та же геометрия, тот же наезд.
+  const height = 830;
+  const xKey = 48;
+  const xVal = 360;
+  let body = "";
+
+  L.mtUkRows.forEach((key, i) => {
+    const y = 250 + i * 96;
+    const accent = MT_UK_ACCENT.has(key);
+    body += text(xKey, y, L.mtUkKey[key], { size: 15, weight: 600, fill: C.muted });
+    body += text(xVal, y, L.mtUkValue[key], { size: 19, weight: 600, fill: accent ? C.accent : C.text });
+    body += text(xVal, y + 28, L.mtUkNote[key], { size: 13, fill: C.muted });
+    if (i < L.mtUkRows.length - 1) {
+      body += `<line x1="${xKey}" y1="${y + 58}" x2="${width - 48}" y2="${y + 58}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.mtUkTimeline.title, L.eyebrow,
+    L.checked(L.dates.maltaUk), body,
+    L.figures.mtUkTimeline.note,
+  );
+}
+
 function aeUkTests(L) {
   const width = 1200;
   // 640: два ряда по 150 от y=250 доводят третью строку последнего до 486,
@@ -5251,6 +5464,10 @@ const PLAN = {
     ["ae-uk-tiebreak", aeUkTiebreak],
     ["ae-demand", aeDemand],
     ["ae-advice", aeAdvice],
+    ["gr-uk-treaty", grUkTreaty],
+    ["gr-uk-pension", grUkPension],
+    ["mt-uk-relief", mtUkRelief],
+    ["mt-uk-timeline", mtUkTimeline],
   ],
   pl: [
     ["qualifies", qualifies],

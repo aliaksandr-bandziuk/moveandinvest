@@ -67,6 +67,8 @@ export const FOOTER_GROUPS: FooterGroup[] = [
       // headerNav.ts: it shipped with no entry in either navigation, and its
       // Russian and Polish versions had no inbound link from anywhere.
       { key: "clock", href: "/naturalisation-clock" },
+      // The third tool, 9 September 2026. Same rule as the row above it.
+      { key: "transferTax", href: "/property-transfer-tax-calculator" },
       { key: "route", href: homeSection("route") },
       // REPOINTED FROM "/#faq" ON 25 AUGUST 2026, when /faq was published.
       // The home page still has its section 06 and still has that id, so the

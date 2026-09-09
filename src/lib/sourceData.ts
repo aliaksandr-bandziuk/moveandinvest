@@ -446,6 +446,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         url: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-01018.aspx",
         kind: "official",
       },
+      {
+        id: "cimt-art-17",
+        citation:
+          "Código do IMT art. 17 — the rate tables, as amended by Lei 73-A/2025 of 30 December 2025 (mainland)",
+        url: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cimt/Pages/cimt17.aspx",
+        kind: "official",
+      },
+      {
+        id: "selo-verba-1-1",
+        citation:
+          "Tabela Geral do Imposto do Selo, verba 1.1 — 0.8% on the onerous acquisition of immovable property",
+        url: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/selo/Pages/ccod-selo-tabgiselo.aspx",
+        kind: "official",
+      },
     ],
     note: {
       en: "The 2026 fees are the one weak point on this jurisdiction. AIMA's March revision of the fee table does not answer an automated request, so the figures to the cent come from two independent reports of that table rather than from the table itself. Treat them as secondary until the PDF can be read directly.",
@@ -792,6 +806,25 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         url: "https://www.aade.gr/en/greeks-abroad-non-residents/property-taxation/real-estate-transfer-tax",
         kind: "official",
       },
+      {
+        id: "uk-gr-dtc-1953",
+        citation:
+          "UK-Greece Double Taxation Convention, signed 25 June 1953, in force 15 January 1954 (SI 1954 No. 142)",
+        url: "https://www.gov.uk/government/publications/greece-tax-treaties/1953-uk-greece-double-taxation-convention-in-force",
+        kind: "official",
+      },
+      {
+        id: "hmrc-dt8250",
+        citation: "HMRC DT8250 — Greece: agreements in force",
+        url: "https://www.gov.uk/hmrc-internal-manuals/double-taxation-relief/dt8250",
+        kind: "official",
+      },
+      {
+        id: "hmrc-dt8252",
+        citation: "HMRC DT8252 — Greece: treaty summary (no dividend Article)",
+        url: "https://www.gov.uk/hmrc-internal-manuals/double-taxation-relief/dt8252",
+        kind: "official",
+      },
     ],
     note: {
       en: "The migration ministry's own golden-visa pages were out of date when this was checked: they still cited the repealed art. 20B of Law 4251/2014 and the €250,000 figure. That is why the thresholds here come from stegasi.gov.gr and from the statute, and not from the page a reader would most naturally land on.",
@@ -1074,6 +1107,34 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         id: "sl-217-26-consolidated",
         citation: "S.L. 217.26 on the legislation portal — consolidated 22 July 2025",
         url: "https://legislation.mt/eli/sl/217.26/eng",
+        kind: "official",
+      },
+      {
+        id: "uk-mt-dtc-1994",
+        citation:
+          "UK-Malta Double Taxation Convention, signed 12 May 1994, in force 27 March 1995",
+        url: "https://www.gov.uk/government/publications/malta-tax-treaties/1994-uk-malta-double-taxation-convention-in-force",
+        kind: "official",
+      },
+      {
+        id: "si-1995-763",
+        citation:
+          "Double Taxation Relief (Taxes on Income) (Malta) Order 1995, SI 1995 No. 763 — schedule text of arts. 4, 18 and 23",
+        url: "https://www.legislation.gov.uk/uksi/1995/763/made",
+        kind: "official",
+      },
+      {
+        id: "uk-mt-mli-synthesised",
+        citation:
+          "Synthesised text of the MLI and the 1994 UK-Malta convention — effect from 2020",
+        url: "https://www.gov.uk/government/publications/malta-tax-treaties/synthesised-text-of-the-multilateral-instrument-and-the-1994-uk-malta-double-taxation-convention",
+        kind: "official",
+      },
+      {
+        id: "hmrc-dt12906",
+        citation:
+          "HMRC DT12906 — Malta: notes, including the phrase omitted from the published SI text",
+        url: "https://www.gov.uk/hmrc-internal-manuals/double-taxation-relief/dt12906",
         kind: "official",
       },
     ],
