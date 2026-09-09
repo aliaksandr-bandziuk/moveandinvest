@@ -1722,7 +1722,7 @@ const L = {
     },
     eyebrow: "Guides & Research",
     checked: (date) => `Every figure checked against a primary source on ${date}`,
-    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026", greeceCitizenship: "8 September 2026", greeceAmericans: "8 September 2026", portugalAmericans: "8 September 2026", portugalUk: "8 September 2026" },
+    dates: { property: "23 August 2026", income: "28 August 2026" , portugal: "28 August 2026", greece: "28 August 2026"  , uae: "30 August 2026", malta: "1 September 2026", greeceLiving: "4 September 2026", portugalAfter: "4 September 2026", greeceProcess: "5 September 2026", goldenVisaApply: "5 September 2026", goldenPassport: "5 September 2026", maltaNomad: "5 September 2026", maltaCard: "5 September 2026", portugalGoldenVisa: "6 September 2026", portugalLiving: "7 September 2026", maltaCitizenship: "7 September 2026", portugalCitizenship: "7 September 2026", portugalNomad: "7 September 2026", maltaLiving: "7 September 2026", greeceCitizenship: "8 September 2026", greeceAmericans: "8 September 2026", portugalAmericans: "8 September 2026", portugalUk: "8 September 2026", uaeUk: "9 September 2026" },
     // ИМЕНА С ПРЕФИКСОМ grNat, А НЕ grTier. `grTierNotes` уже занят схемой
     // порогов золотой визы по зонам, и дубликат ключа в одном объектном
     // литерале в JavaScript не ошибка — побеждает последний. Первая версия
@@ -1773,6 +1773,50 @@ const L = {
       rule: "Article 15(1) alone — 15(4) is repealed",
       queue: "An application is not a title or a visa",
       gaps: "Unchanged: still twelve years",
+    },
+    aeUkTestRows: ["uk", "treaty"],
+    aeUkTestName: {
+      uk: "1 · The UK statutory residence test",
+      treaty: "2 · Article 4 of the UK–UAE convention, 2016",
+    },
+    aeUkTestWhat: {
+      uk: "Have you ceased to be resident in the United Kingdom?",
+      treaty: "Does the convention treat you as a resident of the UAE?",
+    },
+    aeUkTestWho: {
+      uk: "Administered by HMRC. Nothing the Emirates do affects it.",
+      treaty: "Domicile, habitual abode or centre of vital interests — not nationality.",
+    },
+    aeUkBreakRows: ["home", "abode", "national", "authorities"],
+    aeUkBreakStep: {
+      home: "A permanent home available to you",
+      abode: "Habitual abode",
+      national: "Nationality",
+      authorities: "The two tax authorities agree",
+    },
+    aeUkBreakNote: {
+      home: "Available, not lived in. A flat kept empty in Britain is available. If a home is available in both: centre of vital interests",
+      abode: "Reached only if the centre of vital interests cannot be determined, or no home is available in either state",
+      national: "The passport is the third step of four, not the first",
+      authorities: "Only for a national of both states or of neither",
+    },
+    aeMonths: ["Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    aeMarker: "Strikes on the UAE begin, 28 February 2026",
+    aeControl: "Control: «moving to portugal» shows no step in the same months",
+    aeAdviceCols: { not: "What the advice does NOT say", does: "What the same page does say" },
+    aeAdviceRows: ["level", "strikes", "flights"],
+    aeAdviceNot: {
+      level: "No advisory against all travel",
+      strikes: "No advisory against all but essential travel",
+      flights: "No statement that the situation has ended",
+    },
+    // Правая колонка от colRight 560 до правого поля 1152 — 592px, на 13px это
+    // около шестидесяти пяти знаков. Первая редакция стояла на 620/14 и две
+    // цитаты из трёх ушли за поле. Мерено margins.mjs, не прикинуто.
+    aeAdviceDoes: {
+      level: "«strikes and retaliatory attacks by Iran»",
+      strikes: "«Do not approach or touch any drone or missile fragments»",
+      flights: "«possible flight cancellations, periodic airspace closures»",
     },
     ptUkSteps: ["signedOld", "forceOld", "signedNew", "forceNew"],
     ptUkDates: {
@@ -2552,6 +2596,22 @@ const L = {
       grUsChanges: {
         title: "What moving to Greece changes for an American",
         note: "The left column is Greek law. The right column is American law, and Greek residence does not reach it.",
+      },
+      aeUkTests: {
+        title: "Two tests, and neither is administered in Dubai",
+        note: "The absence of Emirati income tax reaches you only after both are answered.",
+      },
+      aeUkTiebreak: {
+        title: "When both countries claim you: four steps, in order",
+        note: "Article 4(3) of the convention signed 12 April 2016, in force 25 December 2016.",
+      },
+      aeDemand: {
+        title: "«moving to dubai from the uk», by month",
+        note: "A step rather than a season: 880 in April and unchanged for four months since.",
+      },
+      aeAdvice: {
+        title: "One government page, both halves",
+        note: "UK travel advice for the UAE, updated 24 July 2026, read 9 September 2026.",
       },
       ptUkTreaty: {
         title: "One convention replaced, fifty-seven years apart",
@@ -4139,6 +4199,159 @@ function mtRoutes(L) {
   );
 }
 
+// --- Britain and the UAE: the two tests, and the tie-breaker -----------------
+// TWO ROWS AND THEY ARE NUMBERED, because the argument is a sequence rather than
+// a pair: the second test does not arise until the first is answered. An
+// unnumbered two-column figure would invite the reader to pick whichever looks
+// more favourable, which is exactly the mistake the page exists to prevent.
+function aeUkTests(L) {
+  const width = 1200;
+  // 640: два ряда по 150 от y=250 доводят третью строку последнего до 486,
+  // подпись frame на height − 92 = 548.
+  const height = 640;
+  const xLeft = 48;
+  let body = "";
+
+  L.aeUkTestRows.forEach((key, i) => {
+    const y = 250 + i * 150;
+    body += text(xLeft, y, L.aeUkTestName[key], { size: 17, weight: 600 });
+    body += text(xLeft, y + 30, L.aeUkTestWhat[key], { size: 15, fill: C.accent });
+    body += text(xLeft, y + 58, L.aeUkTestWho[key], { size: 13, fill: C.muted });
+    if (i < L.aeUkTestRows.length - 1) {
+      body += `<line x1="${xLeft}" y1="${y + 96}" x2="${width - 48}" y2="${y + 96}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.aeUkTests.title, L.eyebrow,
+    L.checked(L.dates.uaeUk), body,
+    L.figures.aeUkTests.note,
+  );
+}
+
+// THE THIRD STEP CARRIES THE ACCENT, and that is the whole figure. Every page in
+// this market treats the passport as the thing that settles residence; the
+// convention reaches it third, after a home left available in Britain and after
+// habitual abode. Accenting the first step instead would have drawn a diagram
+// that agrees with the market.
+const AE_BREAK_ACCENT = new Set(["national"]);
+
+function aeUkTiebreak(L) {
+  const width = 1200;
+  // 780: четыре ряда по 120 от y=240 доводят подпись последнего до 626, подпись
+  // frame на height − 92 = 688.
+  const height = 780;
+  const xNum = 48;
+  const xBody = 130;
+  let body = "";
+
+  L.aeUkBreakRows.forEach((key, i) => {
+    const y = 240 + i * 120;
+    const accent = AE_BREAK_ACCENT.has(key);
+    const fill = accent ? C.accent : C.text;
+    body += text(xNum, y, `${i + 1}`, { size: 22, weight: 600, family: FONT_MONO, fill: accent ? C.accent : C.faint ?? C.muted });
+    body += text(xBody, y, L.aeUkBreakStep[key], { size: 17, weight: 600, fill });
+    body += text(xBody, y + 28, L.aeUkBreakNote[key], { size: 13, fill: C.muted });
+    if (i < L.aeUkBreakRows.length - 1) {
+      body += `<line x1="${xNum}" y1="${y + 66}" x2="${width - 48}" y2="${y + 66}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.aeUkTiebreak.title, L.eyebrow,
+    L.checked(L.dates.uaeUk), body,
+    L.figures.aeUkTiebreak.note,
+  );
+}
+
+// --- Dubai demand, by month -------------------------------------------------
+// COLUMNS AND NOT A LINE, because the reader is meant to compare twelve
+// discrete monthly figures rather than to read a rate of change — and because a
+// line drawn through a step invites the eye to smooth it, which is the one
+// reading the figure exists to prevent. The marker sits BETWEEN February and
+// March rather than on a column: the strikes began on 28 February, which is the
+// boundary rather than either month.
+const AE_SERIES = [4400, 3600, 3600, 5400, 3600, 2900, 2400, 1300, 880, 880, 880, 880];
+
+function aeDemand(L) {
+  const width = 1200;
+  const height = 760;
+  const x0 = 96;
+  const x1 = width - 64;
+  const baseY = 560;
+  const topY = 250;
+  const MAX = 5400;
+  const slot = (x1 - x0) / AE_SERIES.length;
+  const barW = slot * 0.62;
+  const h = (v) => ((v / MAX) * (baseY - topY));
+  let body = "";
+
+  AE_SERIES.forEach((v, i) => {
+    const cx = x0 + slot * i + slot / 2;
+    const bh = h(v);
+    // Столбцы после ступени — акцентные: они и есть сегодняшний уровень.
+    const fill = i >= 8 ? C.accent : C.line;
+    body += `<rect x="${cx - barW / 2}" y="${baseY - bh}" width="${barW}" height="${bh}" fill="${fill}"/>`;
+    body += text(cx, baseY - bh - 12, `${v}`, { size: 12, family: FONT_MONO, fill: i >= 8 ? C.accent : C.muted, anchor: "middle" });
+    body += text(cx, baseY + 24, L.aeMonths[i], { size: 12, fill: C.muted, anchor: "middle" });
+  });
+
+  body += `<line x1="${x0}" y1="${baseY}" x2="${x1}" y2="${baseY}" stroke="${C.line}" stroke-width="1"/>`;
+
+  // Маркер на границе февраля и марта, а не на столбце.
+  const markX = x0 + slot * 7;
+  body += `<line x1="${markX}" y1="${topY - 20}" x2="${markX}" y2="${baseY}" stroke="${C.accent}" stroke-width="1" stroke-dasharray="4 4"/>`;
+  body += text(markX + 12, topY - 26, L.aeMarker, { size: 13, weight: 600, fill: C.accent });
+  body += text(x0, baseY + 62, L.aeControl, { size: 13, fill: C.muted });
+
+  return frame(
+    width, height,
+    L.figures.aeDemand.title, L.eyebrow,
+    L.checked(L.dates.uaeUk), body,
+    L.figures.aeDemand.note,
+  );
+}
+
+// --- The travel advice, both halves -----------------------------------------
+// THE LEFT COLUMN IS A LIST OF ABSENCES, which is unusual for a figure and is
+// the point: what the FCDO page does NOT say is half of what it says, and an
+// absence cannot be quoted. So the left side is our plain statement of what is
+// missing and the right side is the page's own words, in quotation marks. The
+// two are set in different registers deliberately.
+function aeAdvice(L) {
+  const width = 1200;
+  const height = 760;
+  const xLeft = 48;
+  // 560, А НЕ 620, и кегль правой колонки 13, а не 14. Там дословные цитаты с
+  // правительственной страницы, и сокращать их ради вёрстки нельзя: обрезанная
+  // цитата — это уже пересказ. Сдвинули колонку и уменьшили шрифт. От 560 до
+  // правого поля 1152 — 592px, на 13px это около шестидесяти пяти знаков.
+  const colRight = 560;
+  let body = "";
+
+  body += text(xLeft, 208, L.aeAdviceCols.not, { size: 15, weight: 600 });
+  body += text(colRight, 208, L.aeAdviceCols.does, { size: 15, weight: 600, fill: C.accent });
+  body += `<line x1="${xLeft}" y1="228" x2="${width - 48}" y2="228" stroke="${C.hairline}" stroke-width="1"/>`;
+
+  L.aeAdviceRows.forEach((key, i) => {
+    const y = 282 + i * 118;
+    body += text(xLeft, y, L.aeAdviceNot[key], { size: 14 });
+    body += text(colRight, y, L.aeAdviceDoes[key], { size: 13, fill: C.accent });
+    if (i < L.aeAdviceRows.length - 1) {
+      body += `<line x1="${xLeft}" y1="${y + 62}" x2="${width - 48}" y2="${y + 62}" stroke="${C.hairline}" stroke-width="1"/>`;
+    }
+  });
+
+  return frame(
+    width, height,
+    L.figures.aeAdvice.title, L.eyebrow,
+    L.checked(L.dates.uaeUk), body,
+    L.figures.aeAdvice.note,
+  );
+}
+
 // --- Britain and Portugal: a convention replaced, and two start dates --------
 // FOUR DATED ROWS AND THEN A BLOCK THAT IS NOT A ROW. The top half is the
 // replacement — 1968 signed, 1969 in force, 2025 signed, 2025 in force — and
@@ -4938,6 +5151,12 @@ const PLAN = {
     // Португалия для британцев, 8 сентября 2026. Английская по определению.
     ["pt-uk-treaty", ptUkTreaty],
     ["pt-uk-pensions", ptUkPensions],
+    // Дубай для британцев, 9 сентября 2026. Две страницы: справочник и
+    // датированная находка — схемы у каждой свои.
+    ["ae-uk-tests", aeUkTests],
+    ["ae-uk-tiebreak", aeUkTiebreak],
+    ["ae-demand", aeDemand],
+    ["ae-advice", aeAdvice],
   ],
   pl: [
     ["qualifies", qualifies],

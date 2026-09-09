@@ -464,6 +464,40 @@ const ENTRIES: Record<string, EntryConfig> = {
     // law` 480 при конкуренции 12 и CPC $6,50. Русский кластер (2 170
     // схлопнутых) идёт отдельным пунктом F5.
   },
+  "uae-uk": {
+    key: "article-uae-uk",
+    sources: {
+      en: "article-en-uae-uk.md",
+    },
+    figures: {
+      en: ["ae-uk-tests-en", "ae-uk-tiebreak-en"],
+    },
+    publishedAt: "2026-09-09T10:00:00.000Z",
+    category: "rules",
+    countries: ["country-ae"],
+    // REFERENCE. Справочник по налоговому положению британца, оно не меняется
+    // неделями. Всё, что меняется, — на парной блоговой `uae-changed`.
+    kind: "reference",
+    // ПЕРВАЯ РЕДАКЦИЯ БЫЛА СТАТЬЁЙ, и это поймал владелец: заголовок-тезис,
+    // разделы ступенями рассуждения, ответ к третьему из них. Переписано в
+    // форму посадочной. Вывод общий: reference отличается от research не только
+    // адресом, но и подачей, и это надо держать сознательно.
+  },
+  "uae-changed": {
+    key: "article-uae-changed",
+    sources: {
+      en: "article-en-uae-changed.md",
+    },
+    figures: {
+      en: ["ae-demand-en", "ae-advice-en"],
+    },
+    publishedAt: "2026-09-09T11:00:00.000Z",
+    category: "rules",
+    countries: ["country-ae"],
+    // RESEARCH, и дата здесь суть: положение движется. Ни оценки безопасности,
+    // ни прогноза, ни совета ехать. Цитируется страница Форин-офиса с датой
+    // обновления; жертвы и цели атрибутированы вторичному источнику.
+  },
   "portugal-uk": {
     key: "article-portugal-uk",
     sources: {
