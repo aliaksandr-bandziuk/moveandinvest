@@ -37,6 +37,34 @@
 // gate is intact, only its default is inverted.
 const LOAD_BEFORE_CONSENT = true;
 
+// ⚠ ANALYTICS IGNORE THE BANNER ENTIRELY. ONE LINE, FLIP IT BACK.
+//
+// Set at the owner's explicit instruction, 9 Sep 2026: "start all trackers
+// after website loading". While this is `true`, Google Analytics and Microsoft
+// Clarity load on every page load for every visitor, and NO stored decision
+// stops them — including "Only necessary".
+//
+// This is strictly stronger than LOAD_BEFORE_CONSENT above, which only covers
+// visitors who have not answered yet. Both are kept as separate lines because
+// they are separate decisions: that one inverts the default, this one removes
+// the gate. Setting this back to `false` restores the previous state exactly.
+//
+// WHILE THIS IS TRUE:
+//   * the banner's "Only necessary" button records a refusal that the
+//     analytics category no longer honours — the cookie is written, and
+//     `marketing` still reads from it, but analytics does not;
+//   * the privacy policy is false in three languages, and more broadly than
+//     before: it states not only that nothing loads before agreement, but
+//     that a refusal stops both tools;
+//   * Clarity may record a session on the page where a visitor types their
+//     budget and their circumstances into the enquiry form, after that
+//     visitor has explicitly declined.
+//
+// The banner, its copy and the policy text are NOT changed by this — they are
+// frozen by the owner's 23 Aug 2026 instruction and none of it may be reworded
+// as a side effect of this constant.
+const ANALYTICS_ALWAYS_ON = true;
+
 export type ConsentCategory = "analytics" | "marketing";
 
 export interface ConsentState {
@@ -102,10 +130,14 @@ export function getConsent(): ConsentState | null {
 /** Whether a category is granted.
  *
  *  False before any decision — consent is never inferred from scrolling, from
- *  clicking through, or from silence. The one exception is LOAD_BEFORE_CONSENT
- *  above, and it applies ONLY while no decision is stored: a visitor who has
- *  answered has answered, and the constant never overrides them. */
+ *  clicking through, or from silence. There are two exceptions, both constants
+ *  above and both `analytics` only. LOAD_BEFORE_CONSENT applies while no
+ *  decision is stored. ANALYTICS_ALWAYS_ON applies always and overrides a
+ *  stored refusal, which is the one place in this module where the visitor's
+ *  own answer does not win; it is the owner's standing instruction and the
+ *  cost of it is written out beside the constant. */
 export function hasConsent(category: ConsentCategory): boolean {
+  if (ANALYTICS_ALWAYS_ON && category === "analytics") return true;
   const stored = getConsent();
   if (stored) return stored[category];
   return LOAD_BEFORE_CONSENT && category === "analytics";
@@ -185,7 +217,18 @@ export function runWhenConsented(category: ConsentCategory, loader: () => void):
     // module exists to prevent, so when it happens by configuration it says
     // so in the console of whoever is looking — including, eventually, on a
     // production deployment where the flag was left behind.
-    if (LOAD_BEFORE_CONSENT && getConsent() === null) {
+    if (ANALYTICS_ALWAYS_ON && category === "analytics") {
+      const refused = getConsent()?.analytics === false;
+      console.warn(
+        `[consent] ANALYTICS_ALWAYS_ON is true — "${category}" loaded ` +
+          (refused
+            ? `DESPITE a stored refusal. The visitor pressed "Only necessary" and ` +
+              `the tools started anyway.`
+            : `without regard to the banner.`) +
+          ` While this is set the privacy policy's promise that a refusal stops ` +
+          `both tools is not true. src/lib/consent/consent.ts`,
+      );
+    } else if (LOAD_BEFORE_CONSENT && getConsent() === null) {
       console.warn(
         `[consent] LOAD_BEFORE_CONSENT is true — "${category}" loaded WITHOUT a ` +
           `decision. Temporary, for verification: while this is set the privacy ` +

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { onConsentChange, runWhenConsented } from "@/lib/consent/consent";
+import { hasConsent, onConsentChange, runWhenConsented } from "@/lib/consent/consent";
 import { isClarityLoaded, loadClarity, stopClarity } from "@/lib/consent/loadClarity";
 import { loadGoogleAnalytics, trackPageView } from "@/lib/consent/loadGoogleAnalytics";
 
@@ -29,8 +29,15 @@ export function AnalyticsLoader() {
     // trackPageView re-checks consent on every call; Clarity records
     // continuously and has no equivalent hook, so stopping it explicitly is
     // the only way a withdrawal takes effect before the next reload.
-    const unsubscribeStop = onConsentChange((state) => {
-      if (isClarityLoaded() && state?.analytics !== true) stopClarity();
+    //
+    // Asks `hasConsent` rather than reading `state.analytics` off the event.
+    // The two disagree while ANALYTICS_ALWAYS_ON is set — the stored refusal
+    // is real, the category is granted anyway — and this has to follow the
+    // category, or pressing "Only necessary" would stop Clarity in a build
+    // whose whole point is that it does not. One source of truth, so flipping
+    // the constant back restores withdrawal here with no second edit.
+    const unsubscribeStop = onConsentChange(() => {
+      if (isClarityLoaded() && !hasConsent("analytics")) stopClarity();
     });
 
     return () => {

@@ -471,6 +471,12 @@ sanctioned way to start a gated script, and the loaders create the elements
 themselves. A script tag mounted with an internal "if consented" check has
 already made its request by the time the check runs.
 
+**That rule describes the MECHANISM, and two constants in that file currently
+open it — see `ANALYTICS_ALWAYS_ON` below.** The architecture is what is being
+described here and it is worth keeping intact whatever the constants say: it is
+what makes the gate one line to close again rather than a rebuild. Do not read
+this paragraph as a description of what the site does for a visitor today.
+
 **The banner and the policy are frozen as of 23 Aug 2026 by the owner's
 instruction.** Everything in this section describes what is there and why; none
 of it is an outstanding task. The two paragraphs below are the reasoning behind
@@ -518,9 +524,36 @@ visitor types their budget and their circumstances into the enquiry form. The
 console prints a warning naming the constant and its file on every load it
 causes.
 
-**What still holds:** a stored decision always wins, so "Only necessary"
-genuinely stops both tools — measured. The gate is intact; only its default is
-inverted, which is what makes this one line to flip rather than a rebuild.
+**⚠ `ANALYTICS_ALWAYS_ON = true` in the same file, at the owner's instruction,
+9 Sep 2026: "start all trackers after website loading".** It is strictly
+stronger than the constant above and it supersedes what that one's "what still
+holds" paragraph used to say. A stored decision no longer wins for analytics:
+Google Analytics and Clarity load on every page load for every visitor, and
+pressing "Only necessary" does not stop them. `marketing` still reads from the
+stored choice and still gates nothing.
+
+Two separate constants rather than one, because they are two separate
+decisions — the first inverts the default, the second removes the gate — and
+setting `ANALYTICS_ALWAYS_ON` back to `false` restores the 23 Aug state
+exactly.
+
+**What this one costs, beyond the paragraph above.** The privacy policy is now
+false in a second way: it promises not only that nothing loads before
+agreement but that a refusal stops both tools. The banner's "Only necessary"
+button writes a cookie recording a refusal that the analytics category does
+not honour. `runWhenConsented` prints a warning saying so, and says
+specifically when it loaded despite a stored refusal.
+
+**Everything routes through `hasConsent("analytics")`, and that is what keeps
+it one line.** `AnalyticsLoader`'s withdrawal subscription used to read
+`state.analytics` off the consent event and would therefore have stopped
+Clarity on a refusal in a build whose whole point is that it does not; it asks
+`hasConsent` now. `trackPageView` and the `generate_lead` event already did.
+Nothing outside `consent.ts` reads the stored analytics flag.
+
+**The banner, its copy and the privacy text were NOT touched** — the 23 Aug
+freeze holds, and this change may not be used as the occasion to reword any of
+it.
 
 **The banner's own copy must not carry the strong claim.** It says declining
 breaks nothing and the choice can be changed — true in either state. It does
@@ -529,13 +562,18 @@ directly above the button would be a lie in the worst possible place. Leave it
 that way even after the constant goes back to `false`; the policy is where the
 mechanism is described.
 
-Measured against the network, not reasoned about. With `LOAD_BEFORE_CONSENT`
-false: before any decision, zero requests to googletagmanager,
-google-analytics or clarity.ms; after "Only necessary" and a reload, still
-zero; after "Accept", both load. With it true: both load with no decision, the
-warning fires, and a stored refusal still produces zero on the next load. Both
-states were checked. Re-run both after touching anything in
-`src/lib/consent/`.
+Measured against the network, not reasoned about, in each state as it shipped.
+With `LOAD_BEFORE_CONSENT` false: before any decision, zero requests to
+googletagmanager, google-analytics or clarity.ms; after "Only necessary" and a
+reload, still zero; after "Accept", both load. With it true and
+`ANALYTICS_ALWAYS_ON` false: both load with no decision, the warning fires, and
+a stored refusal still produces zero on the next load. With
+`ANALYTICS_ALWAYS_ON` true, 9 Sep 2026: googletagmanager and clarity.ms load in
+all three states — no decision, after "Only necessary" plus a reload with
+`analytics:false` in the cookie, and after "Accept". Re-run all three after
+touching anything in `src/lib/consent/`, and read the REQUESTS rather than the
+stored cookie: the cookie still records the refusal that the category ignores,
+so trusting it would report a gate that is not there.
 
 **Clarity masking: done, confirmed by the owner 23 Aug 2026.** The privacy page
 says session recording masks what a visitor types; masking is a per-project
@@ -1074,6 +1112,14 @@ submission whose delivery failed sends nothing; a success return with a stash
 sends exactly one event with the right three parameters; a reload sends
 nothing; another form's stash is not consumed; and consent gates it — accepted
 one, declined zero.
+
+**The sixth case is suspended while `ANALYTICS_ALWAYS_ON` is set.** This event
+asks `hasConsent("analytics")` like everything else, so it now fires for a
+visitor who declined as well. That follows the owner's 9 Sep 2026 instruction
+and is not a defect here — the constant is the single place it is decided, and
+flipping it back restores the measured behaviour above with no edit to this
+file. The other five cases are untouched: the stash is what makes the event
+fire once, and none of that depends on consent.
 
 ## The change list
 
