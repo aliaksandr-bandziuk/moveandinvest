@@ -256,7 +256,13 @@
     "toCountry": "Read the jurisdiction →",
     "toFaq": "Fifty-two questions, answered from the law →",
     "toCalculator": "What it actually costs, fees included →",
-    "toChanges": "What changed in the rules, and by which act →"
+    "toChanges": "What changed in the rules, and by which act →",
+    "citizenshipHeading": "Citizenship by investment in Europe: what no longer exists",
+    "citizenshipBody": "A golden visa grants residence, not a passport. The distinction is not terminological: none of our five jurisdictions sells citizenship. Portugal, Greece, Cyprus and the UAE grant a residence permit, after which citizenship comes by naturalisation — on the ordinary periods and with the ordinary examination.",
+    "citizenshipMalta": "Malta was the last EU member state where citizenship by investment existed. It is not suspended but repealed: after the Court of Justice's judgment in case C-181/23, Act XXI of 2025 and L.N. 159 of 2025 removed the relevant part of the regulations entirely. Pages still quoting contribution amounts in 2026 are selling something that has been deleted.",
+    "toPortugalCitizenship": "Portuguese citizenship: what changed on 19 May 2026 →",
+    "toGreeceCitizenship": "Greek citizenship: three periods, not one →",
+    "toMaltaCitizenship": "Maltese citizenship: what exactly was repealed →"
   },
   "enquiry": {
     "stepsHeading": "What happens after you press send",

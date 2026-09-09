@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getPathname, Link } from "@/i18n/navigation";
 import { SectionHead } from "@/components/ui";
 import { GOLDEN_VISA_NAMES } from "@/lib/goldenVisaNames";
-import { slugHref } from "@/lib/routes";
+import { entryHref, slugHref } from "@/lib/routes";
+import { getSlugMap } from "@/lib/slugMap";
 import { buildMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/site";
 import { routeUrl } from "@/lib/urls";
@@ -70,6 +71,18 @@ export async function generateMetadata({
   return buildMetadata({ seo: page.seo, locale, href: ROUTE });
 }
 
+/** THE THREE CITIZENSHIP ENTRIES THE BLOCK LINKS DOWN TO, by translation key
+ *  rather than by path — their slugs differ per language, exactly as the
+ *  footer's do. Malta has no Russian version yet (plan item F6), and a language
+ *  with no published entry is simply absent from the list: an inline link to a
+ *  page nobody wrote is worse than a shorter list. Same rule the footer has
+ *  followed since launch. */
+const CITIZENSHIP_ENTRIES = [
+  { key: "article-portugal-citizenship", label: "toPortugalCitizenship" },
+  { key: "article-greece-citizenship", label: "toGreeceCitizenship" },
+  { key: "article-malta-citizenship", label: "toMaltaCitizenship" },
+] as const;
+
 export default async function GoldenVisa({
   params,
 }: {
@@ -78,7 +91,7 @@ export default async function GoldenVisa({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [page, countries, t] = await Promise.all([
+  const [page, countries, t, slugMap] = await Promise.all([
     sanityFetch<GoldenVisaPageDoc | null>(
       GOLDEN_VISA_PAGE_QUERY,
       { locale },
@@ -89,6 +102,9 @@ export default async function GoldenVisa({
     // and what its threshold is; every page inherits both.
     sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, HOME_TAGS),
     getTranslations({ locale, namespace: "goldenVisa" }),
+    // The same map the layout reads for the footer. An entry's slug is data and
+    // differs per language, so a link to one cannot be written by hand here.
+    getSlugMap(),
   ]);
 
   if (!page) {
@@ -193,6 +209,41 @@ export default async function GoldenVisa({
               </tbody>
             </table>
           </div>
+        </section>
+
+        {/* ГРАЖДАНСТВО ЗА ИНВЕСТИЦИИ — БЛОК, ДОБАВЛЕННЫЙ 9 СЕНТЯБРЯ 2026, и он
+            стоит здесь, между перечнем документов и таблицей стоимости,
+            намеренно: страница объясняет, что такое золотая виза, и ровно в
+            этом месте читатель путает её с тем, чем она не является.
+
+            ПОЧЕМУ РАЗДЕЛ, А НЕ ОТДЕЛЬНАЯ СТРАНИЦА. Пункт F3 плана предполагал
+            хаб под запрос «гражданство за инвестиции». Выдача по нему —
+            глобальный листикл на шестнадцать стран (Вануату, Науру, Сан-Томе,
+            Карибы, Турция, Египет), и ни одной из наших пяти в нём нет; из
+            3 320 схлопнутых показов на наши юрисдикции приходится около 240.
+            Своей формы у нас там нет. А хаб над русским кластером уже
+            существует — это данная страница, построенная под определительный
+            запрос 4 сентября. Новый адрес стоил бы места в очереди обхода на
+            домене, где показы хоть раз были у 37 адресов из 93; раздел на уже
+            обойдённой странице не стоит ничего. */}
+        <section className={styles.block}>
+          <h2 className={styles.blockHeading}>{t("citizenshipHeading")}</h2>
+          <p className={styles.blockIntro}>{t("citizenshipBody")}</p>
+          <p className={styles.blockIntro}>{t("citizenshipMalta")}</p>
+          <nav className={styles.onward} aria-label={t("citizenshipHeading")}>
+            {CITIZENSHIP_ENTRIES.map(({ key, label }) => {
+              const slug = slugMap.entriesByKey[key]?.[locale];
+              if (!slug) return null;
+              return (
+                <Link
+                  key={key}
+                  href={entryHref(slug, slugMap.entryKinds[slug] ?? "research")}
+                >
+                  {t(label)}
+                </Link>
+              );
+            })}
+          </nav>
         </section>
 
         <section className={styles.block}>

@@ -256,7 +256,13 @@
     "toCountry": "Strona jurysdykcji →",
     "toFaq": "Pięćdziesiąt dwa pytania z odpowiedziami z ustawy →",
     "toCalculator": "Ile to naprawdę kosztuje, z opłatami →",
-    "toChanges": "Co zmieniło się w przepisach i jakim aktem →"
+    "toChanges": "Co zmieniło się w przepisach i jakim aktem →",
+    "citizenshipHeading": "Obywatelstwo za inwestycje w Europie: czego już nie ma",
+    "citizenshipBody": "Złota wiza daje pobyt, a nie paszport. Różnica nie jest terminologiczna: żadna z naszych pięciu jurysdykcji nie sprzedaje obywatelstwa. Portugalia, Grecja, Cypr i ZEA wydają zezwolenie na pobyt, po którym obywatelstwo uzyskuje się przez naturalizację — na zwykłych terminach i z egzaminem.",
+    "citizenshipMalta": "Malta była ostatnim państwem UE, w którym obywatelstwo za inwestycje istniało. Nie zostało zawieszone, lecz uchylone: po wyroku Trybunału Sprawiedliwości w sprawie C-181/23 Akt XXI z 2025 roku i L.N. 159 z 2025 roku usunęły odpowiednią część rozporządzenia w całości. Strony, które w 2026 roku wciąż podają kwoty wpłat, sprzedają to, czego już nie ma.",
+    "toPortugalCitizenship": "Obywatelstwo Portugalii: co zmieniło się 19 maja 2026 →",
+    "toGreeceCitizenship": "Obywatelstwo Grecji: trzy terminy, nie jeden →",
+    "toMaltaCitizenship": "Obywatelstwo Malty: co dokładnie uchylono →"
   },
   "enquiry": {
     "stepsHeading": "Co się dzieje po wysłaniu",

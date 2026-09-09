@@ -1305,7 +1305,7 @@ const L = {
     // different date in it is a sentence that will eventually disagree with
     // itself in one language and not the others.
     checked: (date) => `Все цифры сверены с первоисточником ${date}`,
-    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года", greeceLiving: "5 сентября 2026 года", portugalMove: "5 сентября 2026 года", portugalCitizenship: "7 сентября 2026 года" },
+    dates: { property: "23 августа 2026 года", income: "28 августа 2026 года" , portugal: "28 августа 2026 года", greece: "28 августа 2026 года"  , uae: "30 августа 2026 года", malta: "1 сентября 2026 года", greeceLiving: "5 сентября 2026 года", portugalMove: "5 сентября 2026 года", portugalCitizenship: "7 сентября 2026 года", greeceCitizenshipRu: "9 сентября 2026 года", maltaCitizenshipRu: "9 сентября 2026 года" },
     ptCols: { visa: "Нужна виза", income: "Проверка дохода" },
     ptRoutes: {
       d7: "D7, собственный доход",
@@ -1537,7 +1537,93 @@ const L = {
       ask: "Объявления, диапазон",
       signed: "Заключённые договоры, среднее",
     },
+    // КИРИЛЛИЦА ШИРЕ ЛАТИНИЦЫ при том же числе знаков, поэтому подписи ниже
+    // короче английских, а не переведены слово в слово. Потолок подписи ряда от
+    // x=300 — около 95 знаков, у английских версий было 90–98.
+    mtChainHeads: { when: "Когда", what: "Что сделали" },
+    mtChainDates: {
+      judgment: "29 апреля 2025",
+      act: "24 июля 2025",
+      notice: "29 июля 2025",
+      page: "И всё же, в 2026",
+    },
+    mtChainWhat: {
+      judgment: "Дело C-181/23, Комиссия против Мальты",
+      act: "Акт XXI/2025",
+      notice: "L.N. 159/2025 — часть IV удалена",
+      page: "Страницы фирм по-прежнему предлагают маршрут",
+    },
+    // Потолок подписи ряда у английской версии — около 88 знаков; кириллица
+    // шире, поэтому здесь короче. Мерено margins.mjs, не прикинуто.
+    mtChainNote: {
+      judgment: "Суд ЕС, Большая палата. На дело не ссылается почти никто",
+      act: "Газета 21 474. Заменена статья 10(9) главы 188",
+      notice: "Газета 21 478. S.L. 188.06 переписан под заслуги",
+      page: "Три заголовка на первом экране датированы 2026 годом",
+    },
+    mtRouteHeads: { merit: "Натурализация за заслуги", ordinary: "Обычная натурализация" },
+    mtRouteLabels: {
+      residence: "Требуется проживание",
+      shows: "Заявление должно показать",
+      grounds: "Решается по",
+      decidedBy: "Надзор",
+      fee: "Сбор в самом акте",
+    },
+    mtRouteMerit: {
+      residence: "Не менее восьми месяцев",
+      shows: "Жильё и язык",
+      grounds: "Шесть названных оснований",
+      decidedBy: "Отдельный Регулятор",
+      fee: "Не опубликован",
+    },
+    mtRouteOrdinary: {
+      // От colB 780 до правого поля 1152 — 372px, и на 15px кириллицей это
+      // около тридцати знаков, а не сорока: строка в 44 знака ушла на 151px.
+      // Английская версия здесь длиннее и помещается — латиница уже.
+      residence: "12 месяцев + 4 года из 6",
+      shows: "Обычные условия главы 188",
+      grounds: "Длительности проживания",
+      decidedBy: "Обычная процедура",
+      fee: "Вне этого регламента",
+    },
+    grNatTierBars: {
+      three: "Три непрерывных года",
+      seven: "Семь непрерывных лет",
+      twelve: "Двенадцать непрерывных лет",
+    },
+    grNatTierNotes: {
+      three: "Граждане ЕС; супруг грека С РЕБЁНКОМ; опека над ребёнком-греком; апатриды",
+      seven: "Все прочие с титулом из закрытого перечня ст. 5(1)(ε) — инвесторский там, подпункт αθ",
+      twelve: "Любой другой действующий титул, кроме временных — ст. 5(3)",
+    },
+    grSplitHeads: { art: "Статья", holds: "Что в ней" },
+    grSplitWhat: {
+      five: "Формальные условия",
+      fiveA: "Существенные условия",
+      fiveB: "Основания безопасности",
+    },
+    grSplitNote: {
+      five: "Совершеннолетие, отсутствие приговора за десятилетие, срок проживания, титул",
+      fiveA: "Достаточный греческий; история, география, культура; интеграция",
+      fiveB: "Оцениваются отдельно от всего перечисленного выше",
+    },
     figures: {
+      mtChain: {
+        title: "Что отменили и чем: четыре даты",
+        note: "Девяносто один день от решения суда до опубликованного текста регламента.",
+      },
+      mtRoutes: {
+        title: "Два маршрута, которые остались",
+        note: "Гражданства за инвестиции среди них нет: соответствующая часть регламента удалена.",
+      },
+      grNatTiers: {
+        title: "Три срока по одному закону",
+        note: "Все три — «συνεχή», непрерывные. Окна для сложения разорванных периодов Кодекс не даёт.",
+      },
+      grNatSplit: {
+        title: "Натурализация — это две статьи, а не одна",
+        note: "Экзамен сидит в статье 5Α, и никакого уровня CEFR она не называет.",
+      },
       ptMoveRent: {
         title: "Сколько стоит аренда по подписанным договорам",
         note: "Муниципалитет Лиссабон — 17,42 €/м², самая высокая медиана в стране.",
@@ -4149,7 +4235,7 @@ function mtChain(L) {
   return frame(
     width, height,
     L.figures.mtChain.title, L.eyebrow,
-    L.checked(L.dates.maltaCitizenship), body,
+    L.checked(L.dates.maltaCitizenshipRu ?? L.dates.maltaCitizenship), body,
     L.figures.mtChain.note,
   );
 }
@@ -4194,7 +4280,7 @@ function mtRoutes(L) {
   return frame(
     width, height,
     L.figures.mtRoutes.title, L.eyebrow,
-    L.checked(L.dates.maltaCitizenship), body,
+    L.checked(L.dates.maltaCitizenshipRu ?? L.dates.maltaCitizenship), body,
     L.figures.mtRoutes.note,
   );
 }
@@ -4639,7 +4725,7 @@ function grNatTiers(L) {
   return frame(
     width, height,
     L.figures.grNatTiers.title, L.eyebrow,
-    L.checked(L.dates.greeceCitizenship), body,
+    L.checked(L.dates.greeceCitizenshipRu ?? L.dates.greeceCitizenship), body,
     L.figures.grNatTiers.note,
   );
 }
@@ -4679,7 +4765,7 @@ function grNatSplit(L) {
   return frame(
     width, height,
     L.figures.grNatSplit.title, L.eyebrow,
-    L.checked(L.dates.greeceCitizenship), body,
+    L.checked(L.dates.greeceCitizenshipRu ?? L.dates.greeceCitizenship), body,
     L.figures.grNatSplit.note,
   );
 }
@@ -5042,6 +5128,14 @@ function ptNatLimbs(L) {
 
 const PLAN = {
   ru: [
+    // Гражданство Греции по-русски, 9 сентября 2026. Те же две схемы, что у
+    // английской C4, но подписи не перевод: кириллица шире при том же числе
+    // знаков, и потолки строк здесь другие.
+    ["gr-nat-tiers", grNatTiers],
+    ["gr-nat-split", grNatSplit],
+    // Гражданство Мальты по-русски, 9 сентября 2026. Те же две схемы, что у C3.
+    ["mt-chain", mtChain],
+    ["mt-routes", mtRoutes],
     ["qualifies", qualifies],
     ["cost", cost],
     ["zones", zones],
