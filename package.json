@@ -29,7 +29,10 @@
     "articles": "tsx --env-file=.env.local scripts/articles.ts",
     "enquiries": "tsx --env-file=.env.local scripts/enquiries.ts",
     "mailcheck": "tsx --env-file=.env.local scripts/mailcheck.ts",
-    "dfs:whoami": "tsx --env-file=.env.local scripts/dataforseo/whoami.ts"
+    "dfs:whoami": "tsx --env-file=.env.local scripts/dataforseo/whoami.ts",
+    "dfs:locations": "tsx --env-file=.env.local scripts/dataforseo/locations.ts",
+    "dfs:competitors": "tsx --env-file=.env.local scripts/dataforseo/competitors.ts",
+    "dfs:terms": "tsx --env-file=.env.local scripts/dataforseo/terms.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.16.0",

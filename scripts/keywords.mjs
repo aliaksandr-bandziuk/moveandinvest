@@ -27,90 +27,17 @@
 // совпадение по-прежнему ошибка: двух хозяев у одной строки быть не может.
 //
 // Запуск: node scripts/keywords.mjs
-import { readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
+import { readArticles } from "./articleTerms.mjs";
 
-const DIR = "docs";
-const HEADINGS = new Set([
-  "keywords",
-  "słowa kluczowe",
-  "ключевые слова",
-  "semantyka",
-  "семантика",
-]);
-// ТОЛЬКО СТРОКИ ПОД ИЗВЕСТНОЙ ПОДПИСЬЮ — И ЭТО ТРЕТЬЯ ИТЕРАЦИЯ РАЗБОРА.
-//
-// Раньше скрипт брал в блоке ключей всё, что не начинается с «**», «#» или
-// «---». 6 сентября 2026 в блок были дописаны абзацы прозы с объяснением, что
-// с этой страницы снято и почему, — и парсер разобрал прозу как ключи, по
-// запятым. Пар «пересекаются по смыслу» стало больше, и выглядело это как
-// содержательная находка, а не как мусор. Ровно тот же класс отказа, что и два
-// предыдущих: разбор, который молча берёт лишнее или молча пропускает нужное.
-//
-// Поэтому теперь ключи берутся ИСКЛЮЧИТЕЛЬНО со строки, идущей сразу за
-// известной подписью уровня «**Head terms:**». Проза в блоке безопасна где
-// угодно. Файл, не давший ни одного ключа, — ошибка, а не тихий ноль.
-const LABELS = new Set([
-  "head terms", "mid-tail", "long tail",
-  "головные запросы", "средний хвост", "длинный хвост",
-  "высокочастотные", "среднечастотные", "низкочастотные (длинный хвост)",
-  "zapytania główne", "środni ogon", "długi ogon",
-  "wysokoczęstotliwościowe", "średnie",
-  "primary", "secondary", "questions targeted",
-  "ключи, вынесенные в подзаголовки", "ключевые слова, вынесенные в подзаголовки",
-]);
-
-const pages = [];
-for (const file of readdirSync(DIR).sort()) {
-  const m = /^article-([a-z]{2})-(.+)\.md$/.exec(file);
-  if (!m) continue;
-  const [, locale, key] = m;
-  const text = readFileSync(join(DIR, file), "utf8");
-
-  let block = null;
-  for (const part of text.split("\n## ").slice(1)) {
-    const head = part.split("\n", 1)[0].trim().toLowerCase();
-    if (HEADINGS.has(head)) block = part.slice(part.indexOf("\n") + 1);
-  }
-  if (block === null) {
-    console.error(`${file}: no keyword block. Add one, or add its heading to HEADINGS.`);
-    process.exitCode = 1;
-    continue;
-  }
-
-  const terms = new Set();
-  const lines = block.split("\n");
-  for (let n = 0; n < lines.length; n += 1) {
-    // Две формы записи, обе живут в docs/ и обе законны:
-    //   **Head terms:**              — список на следующей строке
-    //   **Primary:** a, b, c         — список на той же строке
-    // Мальтийские статьи в ru и pl написаны второй; ловится тем же выражением.
-    const label = /^\*\*([^*]+?):?\*\*(.*)$/.exec(lines[n].trim());
-    if (!label || !LABELS.has(label[1].trim().toLowerCase())) continue;
-
-    let row = label[2].trim();
-    if (!row) {
-      let m = n + 1;
-      while (m < lines.length && lines[m].trim() === "") m += 1;
-      row = (lines[m] ?? "").trim();
-      if (row.startsWith("**")) row = "";
-    }
-    if (!row) continue;
-
-    for (const term of row.split(",")) {
-      const k = term.trim().replace(/\.$/, "").toLowerCase();
-      if (k) terms.add(k);
-    }
-  }
-  if (terms.size === 0) {
-    console.error(
-      `${file}: keyword block found but no terms read. Every list must sit on the ` +
-        `line after a label like "**Head terms:**" — add the label, or add it to LABELS.`,
-    );
-    process.exitCode = 1;
-    continue;
-  }
-  pages.push({ locale, key, terms });
+// РАЗБОР ЖИВЁТ В articleTerms.mjs, и там же записано, почему он вынесен:
+// потребителей у этих блоков стало двое. Здесь остаётся то, ради чего скрипт
+// написан, — сравнение страниц между собой, — и обработка претензий разборщика
+// как ОШИБОК: пропущенный файл выглядит как чистый прогон, и это единственная
+// причина, по которой скрипт вообще существует.
+const { pages, problems } = readArticles();
+for (const problem of problems) {
+  console.error(problem.message);
+  process.exitCode = 1;
 }
 
 // Служебные слова выбрасываются перед сравнением множеств: «in», «for», «the»
