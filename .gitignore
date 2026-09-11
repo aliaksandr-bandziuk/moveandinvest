@@ -95,3 +95,10 @@ docs/partners-*.md
 # the scripts in scripts/dataforseo/ for a few cents. The dossiers written from
 # it live in docs/; the raw JSON is large, dated and of no use to a reader.
 /.dfs/
+
+# SEO dossiers: they name competitors, say which of their positions we intend
+# to take, and quote our own standing. Same reason docs/partners-*.md stays
+# out — the repository is PUBLIC and docs/ is tracked, so committing these
+# publishes a competitive plan to the domains it names. Regenerating one costs
+# under a dollar from the scripts in scripts/dataforseo/.
+docs/seo-*.md
