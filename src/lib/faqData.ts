@@ -393,6 +393,21 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
         },
       },
       {
+        key: "portugal-buy-house",
+        countries: ["country-pt"],
+        sources: ["pt"],
+        q: {
+          en: "Can I buy a house in Portugal and get residency?",
+          ru: "Можно ли купить дом в Португалии и получить ВНЖ?",
+          pl: "Czy można kupić dom w Portugalii i dostać pobyt?",
+        },
+        a: {
+          en: "No, and not since 2023. Art. 53 of Lei 56/2023, the “Mais Habitação” act, repealed subparagraphs i, iii and iv of art. 3(1) of Lei 23/2007 — both property options and the capital transfer. Then art. 3(5) bars any investment aimed, even indirectly, at real estate, and that second clause is the one to read twice: it closes the fund that holds property, which is what a fair amount of what is still being marketed amounts to. What remains at €500,000 is a subscription to a fund that is not a property fund. Buying a house in Portugal is still perfectly possible. It simply no longer buys a permit, and anyone telling you otherwise in 2026 is describing a law that was repealed three years ago.",
+          ru: "Нет, и с 2023 года. Ст. 53 Lei 56/2023, закона «Mais Habitação», отменила подпункты i, iii и iv ст. 3(1) Lei 23/2007 — оба варианта с недвижимостью и перевод капитала. А ст. 3(5) запрещает любую инвестицию, направленную на недвижимость даже косвенно, и вот это стоит прочитать дважды: она закрывает фонд, держащий недвижимость, а именно к этому сводится заметная часть того, что до сих пор продают. При 500 000 евро остаётся подписка на фонд, который фондом недвижимости не является. Купить дом в Португалии по-прежнему можно. Просто он больше не покупает ВНЖ, и тот, кто говорит иначе в 2026 году, описывает норму, отменённую три года назад.",
+          pl: "Nie, i tak jest od 2023 roku. Art. 53 Lei 56/2023, ustawy „Mais Habitação”, uchylił podpunkty i, iii oraz iv art. 3(1) Lei 23/2007 — obie opcje nieruchomościowe i transfer kapitału. A art. 3(5) zakazuje każdej inwestycji skierowanej, choćby pośrednio, na nieruchomości, i właśnie ten przepis warto przeczytać dwa razy: zamyka fundusz trzymający nieruchomości, a do tego sprowadza się spora część tego, co nadal bywa sprzedawane. Przy 500 000 euro zostaje subskrypcja funduszu, który funduszem nieruchomości nie jest. Kupić dom w Portugalii wciąż można. Po prostu nie kupuje się już nim zezwolenia, a kto mówi inaczej w 2026 roku, opisuje przepis uchylony trzy lata temu.",
+        },
+      },
+      {
         key: "where-property-works",
         countries: [],
         sources: ["pt", "gr", "mt", "ae"],
@@ -496,6 +511,21 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
           en: "In Portugal, four more, and they are the least-written-about part of the whole comparison. Ten jobs created — eight in a low-density area — with no capital threshold at all. €500,000 into research, or €400,000 in a low-density area. €250,000 into cultural heritage, or €220,000 in a low-density area. €500,000 into a company that creates five permanent jobs. The route people still ask for, the €1.5 million capital transfer, no longer exists: it was repealed along with the property options in 2023. The jobs route is the one worth a second look — it is the only entry on this site with no money threshold written into it.",
           ru: "В Португалии их ещё четыре, и это самая незаписанная часть всего сравнения. Десять созданных рабочих мест — восемь в малонаселённом районе — вообще без порога по капиталу. €500 000 в научные исследования, или €400 000 в малонаселённом районе. €250 000 в культурное наследие, или €220 000 в малонаселённом. €500 000 в компанию, создающую пять постоянных рабочих мест. Маршрут, который до сих пор спрашивают, — перевод капитала €1,5 млн — больше не существует: его отменили вместе с недвижимостью в 2023 году. Стоит второго взгляда маршрут через рабочие места: это единственная позиция на сайте, в которой вообще нет денежного порога.",
           pl: "W Portugalii jeszcze cztery, i to najsłabiej opisana część całego porównania. Dziesięć utworzonych miejsc pracy — osiem na obszarze o niskiej gęstości — bez żadnego progu kapitałowego. €500 000 na badania naukowe albo €400 000 na obszarze o niskiej gęstości. €250 000 na dziedzictwo kulturowe albo €220 000 na obszarze o niskiej gęstości. €500 000 w spółkę tworzącą pięć stałych etatów. Ścieżka, o którą wciąż się pyta — transfer kapitału €1,5 mln — już nie istnieje: uchylono ją razem z nieruchomościami w 2023 roku. Drugiego spojrzenia wart jest wariant z miejscami pracy: to jedyna pozycja na tej stronie bez wpisanego progu pieniężnego.",
+        },
+      },
+      {
+        key: "portugal-d8-income",
+        countries: ["country-pt"],
+        sources: ["pt"],
+        q: {
+          en: "What is the minimum income for Portugal's digital nomad visa?",
+          ru: "Какой доход нужен для визы цифрового кочевника в Португалии?",
+          pl: "Jaki dochód jest wymagany do portugalskiej wizy dla cyfrowych nomadów?",
+        },
+        a: {
+          en: "Four times the guaranteed minimum monthly wage, averaged over the last three months — €3,680 at the 2026 RMMG of €920, and a different number every January. The requirement sits in Decreto Regulamentar 4/2022: art. 18-B(c) for the temporary-stay visa and art. 31-A(1)(c) for the residence visa, both wording it as average monthly income over the last three months of at least four guaranteed minimum wages. The act itself, art. 61-B of Lei 23/2007, names no figure at all, which is why the number circulates so freely without one. We got this wrong ourselves: we published in six places that the multiplier was in no instrument, and corrected it on 7 September 2026 after opening the regulation rather than only the statute. What survives the correction is the more useful half — the law fixes a multiplier, not a euro amount, so any page quoting a fixed sum is quoting a year.",
+          ru: "Четыре минимальные месячные зарплаты, по среднему за последние три месяца, — это 3 680 евро при RMMG 2026 года в 920 евро и другое число каждый январь. Требование лежит в Decreto Regulamentar 4/2022: ст. 18-B(c) для визы временного пребывания и ст. 31-A(1)(c) для резидентской визы, обе формулируют его как средний месячный доход за последние три месяца не ниже четырёх гарантированных минимальных зарплат. В самом законе, ст. 61-B Lei 23/2007, суммы нет вовсе, — поэтому цифра так свободно ходит без источника. Мы сами ошиблись здесь: в шести файлах было напечатано, что кратности нет ни в одном акте, и 7 сентября 2026 года это исправлено, после того как был открыт регламент, а не только закон. Уцелела более полезная половина: закон фиксирует кратность, а не сумму в евро, поэтому страница с фиксированной суммой называет год, а не норму.",
+          pl: "Czterokrotność gwarantowanej płacy minimalnej, liczona ze średniej z ostatnich trzech miesięcy — 3 680 euro przy RMMG 2026 wynoszącej 920 euro, i inna liczba każdego stycznia. Wymóg znajduje się w Decreto Regulamentar 4/2022: art. 18-B(c) dla wizy pobytu czasowego i art. 31-A(1)(c) dla wizy rezydenckiej, oba ujmują go jako średni dochód miesięczny z ostatnich trzech miesięcy nie niższy niż cztery gwarantowane płace minimalne. Sama ustawa, art. 61-B Lei 23/2007, kwoty nie podaje wcale — i dlatego liczba krąży tak swobodnie bez źródła. Sami się tu pomyliliśmy: w sześciu plikach napisaliśmy, że krotności nie ma w żadnym akcie, i poprawiliśmy to 7 września 2026 roku, otworzywszy rozporządzenie, a nie tylko ustawę. Przetrwała pożyteczniejsza połowa: prawo ustala krotność, a nie kwotę w euro, więc strona podająca stałą sumę podaje rok, nie normę.",
         },
       },
       {
@@ -807,6 +837,36 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
           en: "In Greece yes, with a wrinkle worth knowing about. The Ministry of the Interior's own codified Citizenship Code lists the investment-activity residence permit among the categories that count as qualifying lawful residence — but the cross-reference still points at article 16 of Law 4251/2014, a law repealed and replaced in 2023. It is a gap in the state's own legislative housekeeping rather than an exclusion on the merits, and it is the kind of thing worth having in writing before relying on it. Everywhere the years counted are years of actual residence, not years of holding a card: a status requiring a few days a year accrues nothing on its own.",
           ru: "В Греции — да, с оговоркой, о которой стоит знать. Сводка Кодекса о гражданстве, изданная самим МВД, перечисляет разрешение на инвестиционную деятельность среди категорий, засчитываемых как законное проживание, — но ссылка по-прежнему указывает на ст. 16 закона 4251/2014, отменённого и заменённого в 2023 году. Это пробел в законодательной уборке самого государства, а не отказ по существу, и это как раз то, что стоит иметь письменно, прежде чем на это опираться. Везде считаются годы фактического проживания, а не годы владения картой: статус, требующий нескольких дней в году, сам по себе не копит ничего.",
           pl: "W Grecji tak, z zastrzeżeniem wartym poznania. Ujednolicony Kodeks Obywatelstwa wydany przez samo MSW wymienia zezwolenie na działalność inwestycyjną wśród kategorii liczonych jako legalny pobyt — ale odesłanie wciąż wskazuje na art. 16 ustawy 4251/2014, uchylonej i zastąpionej w 2023 roku. To luka w porządkach legislacyjnych samego państwa, a nie wykluczenie co do istoty, i właśnie taką rzecz warto mieć na piśmie, zanim się na niej oprze. Wszędzie liczą się lata faktycznego pobytu, a nie lata posiadania karty: status wymagający kilku dni w roku sam z siebie nie nalicza nic.",
+        },
+      },
+      {
+        key: "portugal-years",
+        countries: ["country-pt"],
+        sources: ["citizenship"],
+        q: {
+          en: "Is it ten years or five years for citizenship in Portugal?",
+          ru: "Гражданство Португалии — это пять лет или десять?",
+          pl: "Obywatelstwo Portugalii — pięć lat czy dziesięć?",
+        },
+        a: {
+          en: "Neither, since 19 May 2026. Lei Orgânica 1/2026, published in the Diário da República on 18 May, rewrote art. 6(1)(b) of Lei 37/81: seven years for nationals of Portuguese-speaking countries and of the EU, ten years for everybody else. Five was the law until 18 May, which is why most pages still say five. The same act added an examination in the language and in culture, history and state symbols, and a solemn declaration of adherence to the rule of law. It is not retroactive: art. 7(2) leaves a file lodged before it came into force to be decided under the previous text, so the date on your own application is the first thing to establish and the last thing most guides mention.",
+          ru: "Ни то ни другое — с 19 мая 2026 года. Lei Orgânica 1/2026, опубликованный в Diário da República 18 мая, переписал ст. 6(1)(b) Lei 37/81: семь лет для граждан португалоязычных стран и ЕС, десять лет для всех остальных. Пять лет были нормой до 18 мая, поэтому пять до сих пор написано почти везде. Тот же закон добавил экзамен по языку и по культуре, истории и государственным символам и торжественную декларацию о приверженности принципам правового государства. Обратной силы у него нет: по ст. 7(2) дело, поданное до вступления закона в силу, решается по прежней редакции. Поэтому первое, что нужно установить, — дата вашей собственной подачи, и именно о ней большинство справок не говорит.",
+          pl: "Ani jedno, ani drugie — od 19 maja 2026 roku. Lei Orgânica 1/2026, ogłoszona w Diário da República 18 maja, przepisała art. 6(1)(b) Lei 37/81: siedem lat dla obywateli krajów portugalskojęzycznych i UE, dziesięć lat dla pozostałych. Pięć było prawem do 18 maja i dlatego pięć wciąż widnieje niemal wszędzie. Ta sama ustawa dodała egzamin z języka oraz z kultury, historii i symboli państwowych, a także uroczystą deklarację przywiązania do zasad państwa prawa. Nie działa wstecz: art. 7(2) pozostawia sprawę złożoną przed wejściem w życie do rozstrzygnięcia według poprzedniego brzmienia. Pierwszą rzeczą do ustalenia jest więc data własnego wniosku, i akurat o niej większość poradników milczy.",
+        },
+      },
+      {
+        key: "portugal-clock-start",
+        countries: ["country-pt"],
+        sources: ["citizenship", "pt"],
+        q: {
+          en: "How long does it actually take to get Portuguese nationality?",
+          ru: "Сколько на самом деле идти до гражданства Португалии?",
+          pl: "Ile naprawdę trwa droga do obywatelstwa Portugalii?",
+        },
+        a: {
+          en: "Seven or ten years of lawful residence, plus however long the residence permit itself takes — and since 19 May 2026 that second part is dead time. Art. 5 of Lei Orgânica 1/2026 repealed art. 15(4) of Lei 37/81, the paragraph Lei Orgânica 1/2024 had inserted so that the wait for a permit counted once the permit was granted. What is left is art. 15(1), lawful presence under a title, visa or authorisation, which does not reach back over a queue. A file pending on 19 May 2026 still counts from the date the permit was requested; after that date the AIMA queue counts for nothing, and it runs one to three years. Of everything the 2026 act changed this has the largest effect on a real timeline, and it is the part least often mentioned.",
+          ru: "Семь или десять лет законного проживания плюс то время, которое занимает сам вид на жительство, — и с 19 мая 2026 года вторая часть в срок не идёт. Ст. 5 Lei Orgânica 1/2026 отменила ст. 15(4) Lei 37/81 — пункт, внесённый Lei Orgânica 1/2024, по которому ожидание ВНЖ засчитывалось задним числом после его выдачи. Осталась ст. 15(1): законное присутствие по титулу, визе или разрешению, а оно очередь назад не покрывает. По делу, поданному до 19 мая 2026 года, срок по-прежнему идёт с даты подачи заявления на ВНЖ; после этой даты очередь AIMA не даёт ничего, а идёт она от года до трёх лет. Из всего, что изменил закон 2026 года, это сильнее всего влияет на реальный срок и упоминается реже всего.",
+          pl: "Siedem albo dziesięć lat legalnego pobytu plus tyle, ile trwa samo zezwolenie — a od 19 maja 2026 roku ta druga część do stażu nie wchodzi. Art. 5 Lei Orgânica 1/2026 uchylił art. 15(4) Lei 37/81, przepis wprowadzony przez Lei Orgânica 1/2024, dzięki któremu oczekiwanie na zezwolenie liczyło się wstecz po jego wydaniu. Zostaje art. 15(1): legalna obecność na podstawie tytułu, wizy lub zezwolenia, która kolejki wstecz nie obejmuje. Sprawa w toku 19 maja 2026 wciąż liczy się od dnia złożenia wniosku o zezwolenie; po tej dacie kolejka AIMA nie daje nic, a trwa od roku do trzech lat. Ze wszystkiego, co zmieniła ustawa z 2026 roku, to najmocniej przesuwa realny termin i najrzadziej bywa wspominane.",
         },
       },
       {
