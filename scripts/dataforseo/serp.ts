@@ -400,9 +400,33 @@ async function run(): Promise<void> {
   );
   if (wanted.length === 0) throw new Error(`No market matches "${marketKey ?? lang ?? ""}"`);
 
+  const listAt = args.indexOf("--from-list");
+  const listPath = listAt >= 0 ? args[listAt + 1] : null;
   const fromSeeds = args.includes("--seeds");
   let queries: Query[];
-  if (fromSeeds) {
+  if (listPath) {
+    // A list written by another script — dfs:compare produces one. The capture
+    // logic, the retry policy and the AI Overview flag all live here and are
+    // not worth a second copy somewhere else: a sweep that measured the same
+    // pages by slightly different rules would be uncomparable with this one
+    // and would not look it.
+    const rows = JSON.parse(readFileSync(listPath, "utf8")) as {
+      market: string;
+      keyword: string;
+      volume?: number;
+      difficulty?: number | null;
+    }[];
+    queries = rows.flatMap((row) => {
+      const market = MARKETS.find((m) => m.key === row.market);
+      if (!market) {
+        console.error(`  ! ${row.keyword}: no market "${row.market}", skipped`);
+        return [];
+      }
+      return [{ market, keyword: row.keyword, volume: row.volume ?? 0, difficulty: row.difficulty ?? null }];
+    });
+    if (top) queries = queries.slice(0, top);
+    console.log(`terms from ${listPath}`);
+  } else if (fromSeeds) {
     queries = queriesFromSeeds(wanted);
     if (top) queries = queries.slice(0, top);
     console.log(`terms from the article keyword blocks (no volume asked)`);
@@ -411,9 +435,12 @@ async function run(): Promise<void> {
     queries = queriesFrom(data, wanted, all, top);
     console.log(`terms from ${file}`);
   }
+  const used = listPath
+    ? [...new Set(queries.map((q) => q.market))]
+    : wanted;
   console.log(
-    `${queries.length} queries across ${wanted.map((m) => m.key).join(", ")}` +
-      `${fromSeeds ? " (every declared head term)" : all ? " (every term with volume)" : ` (volume ${MIN_VOLUME}+, difficulty ${MAX_DIFFICULTY} or under)`}`,
+    `${queries.length} queries across ${used.map((m) => m.key).join(", ")}` +
+      `${listPath ? "" : fromSeeds ? " (every declared head term)" : all ? " (every term with volume)" : ` (volume ${MIN_VOLUME}+, difficulty ${MAX_DIFFICULTY} or under)`}`,
   );
   if (queries.length === 0) return;
 
@@ -424,7 +451,7 @@ async function run(): Promise<void> {
   // The market keys are in the filename because a run over Polish must not
   // overwrite the English sweep of the same day, and the questions reader
   // picks the newest file by name.
-  const name = `serp-${stamp}-${wanted.map((m) => m.key).join("+")}.json`;
+  const name = `serp-${stamp}-${(listPath ? "compare" : "") || used.map((m) => m.key).join("+")}.json`;
   writeFileSync(
     join(OUT, name),
     JSON.stringify({ measured: new Date().toISOString(), captures }, null, 2),
@@ -438,7 +465,7 @@ async function run(): Promise<void> {
     }
   }
 
-  for (const market of wanted) {
+  for (const market of used) {
     const rows = captures.filter((row) => row.market === market.key && !row.failed);
     if (rows.length === 0) continue;
 
@@ -473,7 +500,7 @@ async function run(): Promise<void> {
     console.log(`\n  ${questions.size} distinct "people also ask" questions harvested`);
   }
 
-  compareProxies(captures, wanted);
+  compareProxies(captures, used);
 
   console.log(`\nraw -> ${join(OUT, name)}`);
   reportSpend();

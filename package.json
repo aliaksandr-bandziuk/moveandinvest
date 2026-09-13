@@ -34,7 +34,8 @@
     "dfs:competitors": "tsx --env-file=.env.local scripts/dataforseo/competitors.ts",
     "dfs:terms": "tsx --env-file=.env.local scripts/dataforseo/terms.ts",
     "dfs:serp": "tsx --env-file=.env.local scripts/dataforseo/serp.ts",
-    "dfs:onpage": "tsx --env-file=.env.local scripts/dataforseo/onpage.ts"
+    "dfs:onpage": "tsx --env-file=.env.local scripts/dataforseo/onpage.ts",
+    "dfs:compare": "tsx --env-file=.env.local scripts/dataforseo/compare.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.16.0",
