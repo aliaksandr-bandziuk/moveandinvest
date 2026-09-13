@@ -34,7 +34,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     seo: {
       metaTitle: "Sources: every figure, checked and dated — moveandinvest",
       metaDescription:
-        "The full working behind the comparison: 33 checks against statutes and ministry tariffs on 23 August 2026, 14 of which corrected a figure. Citations, links and what could not be verified.",
+        "The full working behind the comparison: 46 checks against statutes and ministry tariffs, 18 of which corrected a figure. Citations, links and what could not be verified.",
     },
   },
   ru: {
@@ -47,7 +47,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     seo: {
       metaTitle: "Источники: каждая цифра, сверенная и датированная — moveandinvest",
       metaDescription:
-        "Полные выкладки за сравнением: 33 сверки с законами и тарифами ведомств 23 августа 2026 года, четырнадцать из которых исправили цифру. Ссылки на законы и то, что подтвердить не удалось.",
+        "Полные выкладки за сравнением: 46 сверок с законами и тарифами ведомств, восемнадцать из которых исправили цифру. Ссылки на законы и то, что подтвердить не удалось.",
     },
   },
   pl: {
@@ -60,7 +60,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     seo: {
       metaTitle: "Źródła: każda liczba, sprawdzona i z datą — moveandinvest",
       metaDescription:
-        "Pełne wyliczenia stojące za porównaniem: 33 sprawdzenia wobec ustaw i taryf ministerialnych 23 sierpnia 2026, z czego czternaście poprawiło liczbę. Odesłania do przepisów i to, czego nie udało się potwierdzić.",
+        "Pełne wyliczenia stojące za porównaniem: 46 sprawdzeń wobec ustaw i taryf ministerialnych, z czego osiemnaście poprawiło liczbę. Odesłania do przepisów i to, czego nie udało się potwierdzić.",
     },
   },
 };

@@ -192,6 +192,18 @@ const CHECKED_2026_09_07: Record<Locale, string> = {
   pl: "7 września 2026",
 };
 
+// 13 September 2026 carries no row of its own, and that is the point of having
+// two dates at the foot. Nothing was re-read that day; what happened is that
+// the D7 working, verified on 28 August and left in docs/ for a fortnight,
+// finally reached this page. The rows keep the date the statutes were read.
+// REVISED_ON moves, because a reader who was here last week is owed the fact
+// that the page changed.
+const CHECKED_2026_09_13: Record<Locale, string> = {
+  en: "13 September 2026",
+  ru: "13 сентября 2026 года",
+  pl: "13 września 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
@@ -202,6 +214,7 @@ export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-09-01": CHECKED_2026_09_01,
   "2026-09-05": CHECKED_2026_09_05,
   "2026-09-07": CHECKED_2026_09_07,
+  "2026-09-13": CHECKED_2026_09_13,
 };
 
 /** The date that governs every row not carrying its own. */
@@ -231,12 +244,12 @@ export const CHECKED_ON: Record<Locale, string> = CHECKED_2026_08_23;
 // re-verification may move a check date — which is the discipline the whole
 // page exists to demonstrate, and the exact discipline the "last updated"
 // stamps this page audits other sites for are failing.
-export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_07;
+export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_13;
 
 /** The ISO form of REVISED_ON, for the page's `dateModified`. Kept beside it so
  *  the two cannot drift; the rendered strings are hand-written because Intl
  *  abbreviates the Russian. */
-export const REVISED_ON_ISO = "2026-09-07";
+export const REVISED_ON_ISO = "2026-09-13";
 
 const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // --- Portugal -------------------------------------------------------------
@@ -362,8 +375,127 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Opublikowaliśmy w sześciu plikach, że szeroko cytowany próg \u201eczterokrotność płacy minimalnej\u201d dla D8 nie da się wywieść z żadnej portarii, dekretu ani despacho, i wskazaliśmy dwa serwisy jako drukujące liczbę, która normą nie jest. Jest normą. Decreto Regulamentar 4/2022 z 30 września 2022, art. 18-B(c) dla wizy pobytu czasowego i art. 31-A(1)(c) dla wizy rezydenckiej, oba wymagają \u201erendimentos médios mensais … nos últimos três meses de valor mínimo equivalente a quatro remunerações mínimas mensais garantidas\u201d. Prawdą pozostaje jedno: sam art. 61-B Lei 23/2007 kwoty nie podaje. Przeczytaliśmy ustawę, zobaczyliśmy milczenie i nie otworzyliśmy wykonującego ją rozporządzenia. Ustalenie, które przetrwało, jest lepsze od utraconego: prawo ustala KROTNOŚĆ liczoną ze średniej z trzech miesięcy, a nie kwotę w euro — 3680 euro przy RMMG 920 euro na 2026 rok i inna liczba każdego stycznia.",
         },
       },
+      // --- The D7, published 13 September 2026 ---------------------------------
+      //
+      // Verified on 28 August 2026 and left in docs/ for a fortnight, which is
+      // to say nowhere a reader could reach. The page carried thirty-three
+      // checks and not one about the route a 4 800-word article on this site
+      // is entirely about. The rows below are dated to the day the statutes
+      // were read, not to the day they were published here: this is the
+      // dossier reaching the page, not a fresh reading of the law.
+      {
+        subject: {
+          en: "What income a D7 applicant must show",
+          ru: "Какой доход должен показать заявитель на D7",
+          pl: "Jaki dochód musi wykazać wnioskodawca D7",
+        },
+        verdict: "added",
+        checked: "2026-08-28",
+        finding: {
+          en: "A percentage of the guaranteed minimum monthly wage, not a sum: 100% for the main applicant, 50% for a second adult, 30% for a child under 18 — €920, €460 and €276 at the 2026 RMMG. The scale is art. 2(2) of Portaria 1563/2007 and art. 13 of the same instrument updates it with the wage automatically, so the euro figure changes every January without any rule changing. The 2026 RMMG is set by art. 3 of Decreto-Lei 139/2025. It is indexed to the RMMG and NOT to the IAS (€537.13 in 2026), which is the anchor most often quoted for immigration income tests and is the wrong one; both values are given so the error is checkable.",
+          ru: "Процент от гарантированной минимальной месячной зарплаты, а не сумма: 100% на основного заявителя, 50% на второго взрослого, 30% на ребёнка до 18 лет — 920, 460 и 276 евро при RMMG 2026 года. Шкала — ст. 2(2) Portaria 1563/2007, а ст. 13 того же акта обновляет её вслед за зарплатой автоматически, так что сумма в евро меняется каждый январь без изменения нормы. RMMG на 2026 год установлена ст. 3 Decreto-Lei 139/2025. Привязка идёт к RMMG, а НЕ к IAS (537,13 евро в 2026 году), который чаще всего называют якорем миграционных тестов на доход и который здесь не тот; обе величины приведены, чтобы ошибку можно было проверить.",
+          pl: "Procent gwarantowanej minimalnej płacy miesięcznej, a nie kwota: 100% na głównego wnioskodawcę, 50% na drugą osobę dorosłą, 30% na dziecko poniżej 18 lat — 920, 460 i 276 euro przy RMMG na 2026 rok. Skalę podaje art. 2(2) Portaria 1563/2007, a art. 13 tego samego aktu aktualizuje ją automatycznie wraz z płacą, więc kwota w euro zmienia się każdego stycznia bez zmiany przepisu. RMMG na 2026 rok ustala art. 3 Decreto-Lei 139/2025. Wskaźnikiem jest RMMG, a NIE IAS (537,13 euro w 2026), najczęściej przywoływany jako podstawa migracyjnych testów dochodu i będący tu niewłaściwym; obie wartości podano, by błąd dało się sprawdzić.",
+        },
+      },
+      {
+        subject: {
+          en: "There is no article of Lei 23/2007 devoted to the D7",
+          ru: "В Lei 23/2007 нет статьи, посвящённой D7",
+          pl: "W Lei 23/2007 nie ma artykułu poświęconego D7",
+        },
+        verdict: "added",
+        checked: "2026-08-28",
+        finding: {
+          en: "The route rests on the general residence visa at art. 58, the general permit conditions at art. 77 and the Portaria 1563/2007 scale. Arts. 59 to 64 cover the SPECIFIC visas — subordinate work, independent work, research, study, student mobility, family reunification — and none of them covers a holder of own income. Art. 58 gives two entries, four months in Portugal and a 60-day statutory decision on the visa. The AIMA appointment is not a separate clock: art. 14 of Decreto Regulamentar 84/2007 puts it inside AIMA's favourable opinion where the applicant states a travel date, and requires it to fall within the visa's own validity. The flat “120 days” published by most guides is not a rule of its own.",
+          ru: "Маршрут опирается на общую резидентскую визу по ст. 58, общие условия разрешения по ст. 77 и шкалу Portaria 1563/2007. Ст. 59–64 покрывают СПЕЦИАЛЬНЫЕ визы — наёмный труд, независимый труд, исследования, учёба, студенческая мобильность, воссоединение семьи — и ни одна не покрывает держателя собственного дохода. Ст. 58 даёт два въезда, четыре месяца в Португалии и 60 дней на решение по визе. Запись в AIMA — не отдельный отсчёт: ст. 14 Decreto Regulamentar 84/2007 помещает её внутрь положительного заключения AIMA, если заявитель указал дату поездки, и требует, чтобы она попадала в срок действия самой визы. Плоские «120 дней», которые печатает большинство справок, отдельной нормой не являются.",
+          pl: "Ścieżka opiera się na ogólnej wizie rezydenckiej z art. 58, ogólnych warunkach zezwolenia z art. 77 i skali Portaria 1563/2007. Art. 59–64 obejmują wizy SZCZEGÓLNE — praca najemna, praca niezależna, badania, studia, mobilność studencka, łączenie rodzin — i żadna nie obejmuje osoby utrzymującej się z własnego dochodu. Art. 58 daje dwa wjazdy, cztery miesiące w Portugalii i 60 dni na decyzję wizową. Termin w AIMA nie jest osobnym zegarem: art. 14 Decreto Regulamentar 84/2007 umieszcza go w pozytywnej opinii AIMA, gdy wnioskodawca wskaże datę podróży, i wymaga, by mieścił się w okresie ważności samej wizy. Płaskie „120 dni” drukowane przez większość poradników nie są odrębnym przepisem.",
+        },
+      },
+      {
+        subject: {
+          en: "How long the permit lasts, and what five years buys",
+          ru: "Сколько действует разрешение и что даёт пятилетний срок",
+          pl: "Jak długo obowiązuje zezwolenie i co daje pięć lat",
+        },
+        verdict: "added",
+        checked: "2026-08-28",
+        finding: {
+          en: "Two years from the issue of the title, renewable for successive three-year periods, art. 75(1). At five years of temporary residence art. 80(1) opens permanent residence, on four further conditions: no sentence or sentences exceeding one year over those five years, means of subsistence on the same Portaria scale, accommodation, and basic Portuguese. So the income test does not end when the permit becomes permanent. Art. 76(1) gives the permanent permit no expiry; the card is renewed every five years. No CEFR level appears in the statute — art. 80(1)(e) says “Português básico” and nothing more, and the A2 everyone publishes is regulation-level. The current wording of art. 75 was reachable only on a secondary compilation; the primary corroboration that it stands is Lei 61/2025, which re-enacts art. 75 and rewrites only its n.º 2.",
+          ru: "Два года с даты выдачи титула, продление последовательными трёхлетними периодами — ст. 75(1). На пяти годах временного проживания ст. 80(1) открывает постоянное, ещё при четырёх условиях: отсутствие приговоров суммарно свыше года за эти пять лет, средства к существованию по той же шкале Portaria, жильё и базовый португальский. То есть тест на доход не заканчивается, когда разрешение становится постоянным. Ст. 76(1) не даёт постоянному разрешению срока годности; карта обновляется каждые пять лет. Уровня CEFR в законе нет: ст. 80(1)(e) говорит «Português básico» и больше ничего, а A2, который печатают все, — уровень подзаконного акта. Действующая редакция ст. 75 была доступна только в стороннем своде; первичное подтверждение того, что она в силе, — Lei 61/2025, которая переиздаёт ст. 75 и переписывает только её п. 2.",
+          pl: "Dwa lata od wydania tytułu, odnawialne na kolejne okresy trzyletnie — art. 75(1). Po pięciu latach pobytu czasowego art. 80(1) otwiera pobyt stały, przy czterech dalszych warunkach: brak kar przekraczających łącznie rok w tym pięcioleciu, środki utrzymania według tej samej skali Portaria, zakwaterowanie i podstawowy portugalski. Test dochodowy nie kończy się więc wraz z uzyskaniem stałego zezwolenia. Art. 76(1) nie nadaje stałemu zezwoleniu terminu ważności; karta jest odnawiana co pięć lat. W ustawie nie ma poziomu CEFR: art. 80(1)(e) mówi „Português básico” i nic więcej, a A2 drukowane wszędzie pochodzi z aktu wykonawczego. Aktualne brzmienie art. 75 było dostępne tylko w zbiorze wtórnym; pierwotnym potwierdzeniem jego obowiązywania jest Lei 61/2025, która art. 75 przyjmuje ponownie i przepisuje wyłącznie jego ust. 2.",
+        },
+      },
+      {
+        subject: {
+          en: "Where a D7 application is actually filed",
+          ru: "Куда на самом деле подаётся заявление на D7",
+          pl: "Gdzie faktycznie składa się wniosek o D7",
+        },
+        verdict: "unverified",
+        checked: "2026-08-28",
+        finding: {
+          en: "Not established. Whether the file goes to the consulate directly or through VFS Global is stated only on vistos.mne.gov.pt, the consulate sites and gov.pt, and every mne.gov.pt host failed across this research. The consular fee is €110, the single “national visas” line of Portaria 91/2025/1 amending the emoluments table of Portaria 229/2021 — and a D7-specific line elsewhere in the consolidated table could not be ruled out, because that table on DRE is JavaScript-gated. Every competing page states a filing route flatly. We do not.",
+          ru: "Не установлено. Подаётся ли дело прямо в консульство или через VFS Global, сказано только на vistos.mne.gov.pt, на сайтах консульств и на gov.pt, а все узлы mne.gov.pt за время этой работы не открылись. Консульский сбор — 110 евро, единственная строка «Vistos nacionais» в Portaria 91/2025/1, меняющей таблицу сборов Portaria 229/2021; отдельную строку под D7 в сводной таблице исключить не удалось, потому что эта таблица на DRE закрыта JavaScript. Каждая конкурирующая страница называет маршрут подачи прямо. Мы — нет.",
+          pl: "Nieustalone. Czy wniosek składa się bezpośrednio w konsulacie, czy przez VFS Global, podają wyłącznie vistos.mne.gov.pt, strony konsulatów i gov.pt, a wszystkie hosty mne.gov.pt były w trakcie tych prac niedostępne. Opłata konsularna wynosi 110 euro — jedyna pozycja „Vistos nacionais” w Portaria 91/2025/1 zmieniającej tabelę opłat Portaria 229/2021; osobnej pozycji dla D7 w tabeli skonsolidowanej nie dało się wykluczyć, bo ta tabela w DRE jest zamknięta JavaScriptem. Każda konkurencyjna strona podaje ścieżkę składania wprost. My nie.",
+        },
+      },
     ],
     sources: [
+      {
+        id: "lei-23-2007",
+        citation:
+          "Lei 23/2007, de 4 de julho — arts. 58 (residence visa), 75 (validity and renewal), 76, 77 (permit conditions) and 80 (permanent residence)",
+        url: "https://files.diariodarepublica.pt/1s/2007/07/12700/42904330.pdf",
+        kind: "official",
+        caveat: {
+          en: "The 2007 original, in the gazette's own PDF. The consolidated text on DRE is JavaScript-gated and PGD Lisboa truncates this law around art. 31, so arts. 75 and 77 were read here and corroborated against Lei 61/2025's re-enactment rather than against a current consolidation.",
+          ru: "Оригинал 2007 года, в собственном PDF официального вестника. Сводный текст на DRE закрыт JavaScript, а PGD Lisboa обрывает закон около ст. 31, поэтому ст. 75 и 77 прочитаны здесь и сверены с переизданием в Lei 61/2025, а не со сводной редакцией.",
+          pl: "Oryginał z 2007 roku, we własnym PDF dziennika urzędowego. Tekst ujednolicony w DRE jest zamknięty JavaScriptem, a PGD Lisboa urywa tę ustawę około art. 31, więc art. 75 i 77 przeczytano tutaj i skonfrontowano z ponownym uchwaleniem w Lei 61/2025, a nie z obowiązującym tekstem jednolitym.",
+        },
+      },
+      {
+        id: "portaria-1563-2007",
+        citation:
+          "Portaria 1563/2007, de 11 de dezembro — art. 2(2), the means-of-subsistence scale, and art. 13, its automatic annual update",
+        url: "https://vistos.mne.gov.pt/images/schengen/portaria1563_2007_meios_de_subsist.pdf",
+        kind: "official",
+        caveat: {
+          en: "Presumed in force, not proven. No repealing or replacing instrument was found and the DRE status line could not be read. The positive evidence is Decreto Regulamentar 1/2024, which refers to this portaria in its operative text — a January 2024 regulation would not cross-refer to a repealed one.",
+          ru: "Считается действующей, но это не доказано. Отменяющего или заменяющего акта не найдено, строку статуса на DRE прочитать не удалось. Положительное свидетельство — Decreto Regulamentar 1/2024, который ссылается на эту portaria в своей нормативной части: регламент января 2024 года не стал бы ссылаться на отменённую.",
+          pl: "Domniemanie obowiązywania, nie dowód. Nie znaleziono aktu uchylającego ani zastępującego, a wiersza statusu w DRE nie dało się odczytać. Dowodem pozytywnym jest Decreto Regulamentar 1/2024, które odsyła do tej portarii w części normatywnej — rozporządzenie ze stycznia 2024 nie odsyłałoby do uchylonej.",
+        },
+      },
+      {
+        id: "dl-139-2025",
+        citation:
+          "Decreto-Lei 139/2025, de 29 de dezembro — art. 3, the guaranteed minimum monthly wage for 2026 (€920.00), effective 1 January 2026 per art. 7",
+        url: "https://files.diariodarepublica.pt/1s/2025/12/24900/0001400016.pdf",
+        kind: "official",
+      },
+      {
+        id: "portaria-91-2025",
+        citation:
+          "Portaria 91/2025/1, de 10 de março — amending the consular emoluments table of Portaria 229/2021; the “Vistos nacionais” line, €110",
+        url: "https://files.diariodarepublica.pt/1s/2025/03/04800/0000900017.pdf",
+        kind: "official",
+        caveat: {
+          en: "The single “national visas” entry. The consolidated table on DRE is JavaScript-gated, so a D7-specific line elsewhere in it could not be ruled out.",
+          ru: "Единственная строка «национальные визы». Сводная таблица на DRE закрыта JavaScript, поэтому отдельную строку под D7 в ней исключить не удалось.",
+          pl: "Jedyna pozycja „wizy krajowe”. Tabela skonsolidowana w DRE jest zamknięta JavaScriptem, więc osobnej pozycji dla D7 nie dało się wykluczyć.",
+        },
+      },
+      {
+        id: "dr-84-2007-art-14",
+        citation:
+          "Decreto Regulamentar 84/2007, art. 14 — the AIMA appointment is set inside the favourable opinion and must fall within the residence visa's validity",
+        url: "https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=940&tabela=leis",
+        kind: "reproduction",
+        caveat: {
+          en: "PGD Lisboa reproduces the text faithfully but is a legal database, not the gazette. It is cited because it is where this article can actually be read: the consolidated regulation on DRE is JavaScript-gated.",
+          ru: "PGD Lisboa воспроизводит текст точно, но это правовая база, а не официальный вестник. Ссылка стоит потому, что именно там эту статью можно прочитать: сводный регламент на DRE закрыт JavaScript.",
+          pl: "PGD Lisboa odtwarza tekst wiernie, ale jest bazą prawną, nie dziennikiem urzędowym. Cytowana, bo właśnie tam ten artykuł da się przeczytać: rozporządzenie ujednolicone w DRE jest zamknięte JavaScriptem.",
+        },
+      },
       {
         // id БЕЗ ПРЕФИКСА СЕКЦИИ: якорь строится как `${section.key}-${id}`,
         // и "pt-dr-4-2022" дал бы /sources#pt-pt-dr-4-2022.

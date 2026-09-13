@@ -1,5 +1,6 @@
 import type { Locale } from "@/i18n/routing";
 import { tightenDeep } from "./typography";
+import { SOURCE_SECTIONS } from "./sourceData";
 
 // The /faq page's questions and answers, in three languages.
 //
@@ -315,6 +316,21 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
         },
       },
       {
+        key: "portugal-d7-cost",
+        countries: ["country-pt"],
+        sources: ["pt"],
+        q: {
+          en: "How much does a Portugal D7 visa cost?",
+          ru: "Сколько стоит виза D7 в Португалию?",
+          pl: "Ile kosztuje portugalska wiza D7?",
+        },
+        a: {
+          en: "€110 for the visa, and we will not give you a total. The consular fee is the single “national visas” line of Portaria 91/2025/1, which amends the emoluments table of Portaria 229/2021 — and even that carries a caveat: the consolidated table on the gazette's site is behind JavaScript we could not open, so a D7-specific line elsewhere in it cannot be ruled out. What we could not establish at all is where the application is actually filed, consulate or VFS Global. That is stated only on the ministry's own hosts, and every one of them failed while we were checking. Every competing page prints a filing route and a neat all-in figure. We print the fee we could read, and say plainly that the rest was not verifiable.",
+          ru: "110 евро за визу, и итоговой суммы мы не назовём. Консульский сбор — единственная строка «национальные визы» в Portaria 91/2025/1, которая меняет таблицу сборов Portaria 229/2021, и даже у неё есть оговорка: сводная таблица на сайте официального вестника закрыта JavaScript, который нам не открылся, поэтому отдельную строку под D7 в ней исключить нельзя. Чего установить не удалось вовсе — куда заявление подаётся на самом деле, в консульство или через VFS Global. Это сказано только на узлах самого министерства, и ни один из них за время проверки не открылся. Каждая конкурирующая страница печатает и маршрут подачи, и аккуратную сумму «всё включено». Мы печатаем сбор, который смогли прочитать, и прямо говорим, что остальное подтвердить не вышло.",
+          pl: "110 euro za wizę, a łącznej kwoty nie podamy. Opłata konsularna to jedyna pozycja „wizy krajowe” w Portaria 91/2025/1, zmieniającej tabelę opłat Portaria 229/2021 — i nawet ona ma zastrzeżenie: tabela skonsolidowana na stronie dziennika urzędowego jest za JavaScriptem, którego nie udało się otworzyć, więc osobnej pozycji dla D7 nie da się wykluczyć. Czego nie ustaliliśmy w ogóle, to gdzie wniosek faktycznie się składa: w konsulacie czy przez VFS Global. Podają to wyłącznie serwery samego ministerstwa, a żaden z nich nie odpowiadał w trakcie sprawdzania. Każda konkurencyjna strona drukuje i ścieżkę składania, i zgrabną kwotę „wszystko wliczone”. My drukujemy opłatę, którą dało się przeczytać, i wprost mówimy, że reszty nie udało się potwierdzić.",
+        },
+      },
+      {
         key: "per-person-or-family",
         countries: [],
         sources: ["pt", "gr", "mt", "ae"],
@@ -511,6 +527,36 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
           en: "In Portugal, four more, and they are the least-written-about part of the whole comparison. Ten jobs created — eight in a low-density area — with no capital threshold at all. €500,000 into research, or €400,000 in a low-density area. €250,000 into cultural heritage, or €220,000 in a low-density area. €500,000 into a company that creates five permanent jobs. The route people still ask for, the €1.5 million capital transfer, no longer exists: it was repealed along with the property options in 2023. The jobs route is the one worth a second look — it is the only entry on this site with no money threshold written into it.",
           ru: "В Португалии их ещё четыре, и это самая незаписанная часть всего сравнения. Десять созданных рабочих мест — восемь в малонаселённом районе — вообще без порога по капиталу. €500 000 в научные исследования, или €400 000 в малонаселённом районе. €250 000 в культурное наследие, или €220 000 в малонаселённом. €500 000 в компанию, создающую пять постоянных рабочих мест. Маршрут, который до сих пор спрашивают, — перевод капитала €1,5 млн — больше не существует: его отменили вместе с недвижимостью в 2023 году. Стоит второго взгляда маршрут через рабочие места: это единственная позиция на сайте, в которой вообще нет денежного порога.",
           pl: "W Portugalii jeszcze cztery, i to najsłabiej opisana część całego porównania. Dziesięć utworzonych miejsc pracy — osiem na obszarze o niskiej gęstości — bez żadnego progu kapitałowego. €500 000 na badania naukowe albo €400 000 na obszarze o niskiej gęstości. €250 000 na dziedzictwo kulturowe albo €220 000 na obszarze o niskiej gęstości. €500 000 w spółkę tworzącą pięć stałych etatów. Ścieżka, o którą wciąż się pyta — transfer kapitału €1,5 mln — już nie istnieje: uchylono ją razem z nieruchomościami w 2023 roku. Drugiego spojrzenia wart jest wariant z miejscami pracy: to jedyna pozycja na tej stronie bez wpisanego progu pieniężnego.",
+        },
+      },
+      {
+        key: "portugal-d7-income",
+        countries: ["country-pt"],
+        sources: ["pt"],
+        q: {
+          en: "Who is eligible for the Portugal D7 visa?",
+          ru: "Кто подходит под визу D7 в Португалии?",
+          pl: "Kto kwalifikuje się do portugalskiej wizy D7?",
+        },
+        a: {
+          en: "Anyone who can show passive or own income at the statutory scale, and the scale is a percentage rather than a sum: 100% of the guaranteed minimum monthly wage for the main applicant, 50% for a second adult, 30% for a child under 18 — €920, €460 and €276 at the 2026 wage. It is art. 2(2) of Portaria 1563/2007, and art. 13 of the same instrument moves it with the wage every January, so a page quoting a fixed euro figure is quoting a year. Two things worth knowing beyond the number. It is indexed to the minimum wage and not to the IAS, which is the anchor most guides reach for and the wrong one. And there is no article of the immigration act devoted to the D7 at all: the route is the general residence visa at art. 58 plus the general permit conditions at art. 77, which is why the requirements are so often described differently by different people.",
+          ru: "Тот, кто может показать пассивный или собственный доход по установленной шкале, а шкала задана процентом, а не суммой: 100% гарантированной минимальной месячной зарплаты на основного заявителя, 50% на второго взрослого, 30% на ребёнка до 18 лет — 920, 460 и 276 евро при зарплате 2026 года. Это ст. 2(2) Portaria 1563/2007, и ст. 13 того же акта двигает шкалу вслед за зарплатой каждый январь, так что страница с фиксированной суммой в евро называет год, а не норму. Две вещи стоит знать помимо цифры. Привязка идёт к минимальной зарплате, а не к IAS, за который хватается большинство справок и который здесь не тот. И отдельной статьи под D7 в миграционном законе нет вовсе: маршрут складывается из общей резидентской визы по ст. 58 и общих условий разрешения по ст. 77, — отсюда и расхождения в описаниях требований у разных авторов.",
+          pl: "Ten, kto wykaże dochód pasywny lub własny według ustawowej skali, a skala jest procentem, nie kwotą: 100% gwarantowanej minimalnej płacy miesięcznej na głównego wnioskodawcę, 50% na drugą osobę dorosłą, 30% na dziecko poniżej 18 lat — 920, 460 i 276 euro przy płacy na 2026 rok. To art. 2(2) Portaria 1563/2007, a art. 13 tego samego aktu przesuwa skalę wraz z płacą każdego stycznia, więc strona podająca stałą kwotę w euro podaje rok, nie przepis. Dwie rzeczy warte uwagi poza liczbą. Wskaźnikiem jest płaca minimalna, a nie IAS, po który sięga większość poradników i który jest tu niewłaściwy. I w ustawie migracyjnej nie ma w ogóle artykułu poświęconego D7: ścieżkę tworzy ogólna wiza rezydencka z art. 58 plus ogólne warunki zezwolenia z art. 77, stąd tak różne opisy wymogów u różnych autorów.",
+        },
+      },
+      {
+        key: "portugal-d7-after-five",
+        countries: ["country-pt"],
+        sources: ["pt", "citizenship"],
+        q: {
+          en: "What happens after five years on a D7 visa?",
+          ru: "Что происходит после пяти лет по визе D7?",
+          pl: "Co dzieje się po pięciu latach na wizie D7?",
+        },
+        a: {
+          en: "Permanent residence becomes available, and citizenship does not. The permit itself runs two years from issue and renews for successive three-year periods under art. 75(1), so five years is two renewals in. Art. 80(1) then opens permanent residence on four conditions beyond the five years: no sentence or sentences exceeding one year across them, means of subsistence on the same scale as at the start, accommodation, and basic Portuguese. That first condition surprises people — the income test does not end when the permit becomes permanent. The permanent permit has no expiry under art. 76(1); the card is renewed every five years. Citizenship is a separate clock and a longer one: seven years for nationals of Portuguese-speaking countries and of the EU, ten for everybody else, since 19 May 2026.",
+          ru: "Открывается постоянное проживание, но не гражданство. Само разрешение действует два года с выдачи и продлевается последовательными трёхлетними периодами по ст. 75(1), так что пять лет — это два продления. Дальше ст. 80(1) открывает постоянное проживание при четырёх условиях сверх пяти лет: отсутствие приговоров суммарно свыше года за этот срок, средства к существованию по той же шкале, что и на входе, жильё и базовый португальский. Первое условие обычно удивляет: тест на доход не заканчивается, когда разрешение становится постоянным. У постоянного разрешения нет срока годности по ст. 76(1), карта обновляется каждые пять лет. Гражданство — отдельный и более длинный отсчёт: семь лет для граждан португалоязычных стран и ЕС, десять для всех остальных, с 19 мая 2026 года.",
+          pl: "Otwiera się pobyt stały, a nie obywatelstwo. Samo zezwolenie obowiązuje dwa lata od wydania i odnawia się na kolejne okresy trzyletnie zgodnie z art. 75(1), więc pięć lat to dwa odnowienia. Art. 80(1) otwiera następnie pobyt stały przy czterech warunkach ponad te pięć lat: brak kar przekraczających łącznie rok w tym okresie, środki utrzymania według tej samej skali co na wejściu, zakwaterowanie i podstawowy portugalski. Pierwszy warunek zwykle zaskakuje: test dochodowy nie kończy się, gdy zezwolenie staje się stałe. Stałe zezwolenie nie ma terminu ważności zgodnie z art. 76(1), karta jest odnawiana co pięć lat. Obywatelstwo to osobny i dłuższy zegar: siedem lat dla obywateli krajów portugalskojęzycznych i UE, dziesięć dla pozostałych, od 19 maja 2026 roku.",
         },
       },
       {
@@ -1039,9 +1085,9 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
           pl: "Skąd pochodzą wasze liczby?",
         },
         a: {
-          en: "From the statute, the ministry tariff or the official fee schedule each one is supposed to rest on, read back one at a time on 23 August 2026, with every citation published on our sources page: law number, article, gazette issue and date. Thirty-three checks. Fourteen came back wrong and were corrected. Four could not be established from any primary source and are therefore published as figures nowhere on this site. Where the only readable copy of a text is a legal database rather than the gazette itself, the source is labelled a reproduction rather than official, because the difference matters on a page whose whole argument is primary sources.",
-          ru: "Из закона, тарифа ведомства или официальной таблицы сборов, на которых каждая должна стоять; перечитаны по одной 23 августа 2026 года, и каждая ссылка опубликована на нашей странице источников — номер закона, статья, номер и дата официальной газеты. Тридцать три проверки. Четырнадцать вернулись неверными и были исправлены. Четыре не удалось установить ни по одному первоисточнику — и поэтому они нигде на сайте цифрами не публикуются. Там, где единственный читаемый текст лежит в правовой базе, а не в самой газете, источник помечен как воспроизведение, а не официальный: на странице, весь довод которой — первоисточники, эта разница существенна.",
-          pl: "Z ustawy, taryfy ministerialnej albo oficjalnej tabeli opłat, na których każda ma się opierać; odczytane po kolei 23 sierpnia 2026, a każde odesłanie opublikowane na naszej stronie źródeł — numer ustawy, artykuł, numer i data dziennika urzędowego. Trzydzieści trzy sprawdzenia. Czternaście wróciło błędnych i zostało poprawionych. Czterech nie dało się ustalić z żadnego źródła pierwotnego — i dlatego nigdzie na stronie nie publikujemy ich jako liczb. Tam, gdzie jedyny czytelny tekst leży w bazie prawnej, a nie w samym dzienniku, źródło oznaczono jako reprodukcję, a nie oficjalne: na stronie, której cały argument to źródła pierwotne, ta różnica ma znaczenie.",
+          en: "From the statute, the ministry tariff or the official fee schedule each one is supposed to rest on, read back one at a time, with every citation published on our sources page: law number, article, gazette issue and date. Forty-six checks. Eighteen came back wrong and were corrected. Five could not be established from any primary source and are therefore published as figures nowhere on this site. The first sitting was 23 August 2026 and rows have been re-read since; each carries its own date on the page. Where the only readable copy of a text is a legal database rather than the gazette itself, the source is labelled a reproduction rather than official, because the difference matters on a page whose whole argument is primary sources.",
+          ru: "Из закона, тарифа ведомства или официальной таблицы сборов, на которых каждая должна стоять; перечитаны по одной, и каждая ссылка опубликована на нашей странице источников — номер закона, статья, номер и дата официальной газеты. Сорок шесть проверок. Восемнадцать вернулись неверными и были исправлены. Пять не удалось установить ни по одному первоисточнику — и поэтому они нигде на сайте цифрами не публикуются. Первый заход был 23 августа 2026 года, с тех пор строки перечитывались, и у каждой на странице стоит своя дата. Там, где единственный читаемый текст лежит в правовой базе, а не в самой газете, источник помечен как воспроизведение, а не официальный: на странице, весь довод которой — первоисточники, эта разница существенна.",
+          pl: "Z ustawy, taryfy ministerialnej albo oficjalnej tabeli opłat, na których każda ma się opierać; odczytane po kolei, a każde odesłanie opublikowane na naszej stronie źródeł — numer ustawy, artykuł, numer i data dziennika urzędowego. Czterdzieści sześć sprawdzeń. Osiemnaście wróciło błędnych i zostało poprawionych. Pięciu nie dało się ustalić z żadnego źródła pierwotnego — i dlatego nigdzie na stronie nie publikujemy ich jako liczb. Pierwsze posiedzenie było 23 sierpnia 2026, od tego czasu wiersze były czytane ponownie, a każdy nosi na stronie własną datę. Tam, gdzie jedyny czytelny tekst leży w bazie prawnej, a nie w samym dzienniku, źródło oznaczono jako reprodukcję, a nie oficjalne: na stronie, której cały argument to źródła pierwotne, ta różnica ma znaczenie.",
         },
       },
       {
@@ -1054,9 +1100,9 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
           pl: "Jak często je sprawdzacie ponownie?",
         },
         a: {
-          en: "Not on a schedule, and we would rather say that than claim one. Everything was checked in a single sitting on 23 August 2026, and that date is printed at the top of the sources page precisely so you can judge how stale it is without asking us. Competitors in this market publish methodology sentences — one promises to recheck every programme against its regulator every 30 to 120 days — and there is no way for you to verify any of them. We could write the same sentence in a minute and it would be worth exactly as much. When a rolling recheck exists here, it will be visible as dated entries rather than as a promise.",
-          ru: "Не по расписанию — и мы предпочтём сказать это, чем заявить расписание. Всё проверено за один заход 23 августа 2026 года, и эта дата стоит вверху страницы источников именно затем, чтобы вы могли сами судить, насколько она устарела, ни о чём нас не спрашивая. Конкуренты в этом рынке публикуют фразы про методологию — один обещает перепроверять каждую программу по её регулятору каждые 30–120 дней, — и проверить эти обещания вам нечем. Мы можем написать такую же фразу за минуту, и стоить она будет ровно столько же. Когда регулярная перепроверка здесь появится, она будет видна как датированные записи, а не как обещание.",
-          pl: "Nie według harmonogramu — i wolimy to powiedzieć, niż deklarować harmonogram. Wszystko sprawdzono za jednym posiedzeniem 23 sierpnia 2026, a data ta stoi u góry strony źródeł właśnie po to, byś sam ocenił, jak bardzo się zestarzała, nie pytając nas. Konkurenci na tym rynku publikują zdania o metodologii — jeden obiecuje sprawdzać każdy program u jego regulatora co 30 do 120 dni — a ty nie masz jak tego zweryfikować. Moglibyśmy napisać takie samo zdanie w minutę i byłoby warte dokładnie tyle samo. Gdy powstanie tu regularne sprawdzanie, będzie widoczne jako datowane wpisy, a nie jako obietnica.",
+          en: "Not on a schedule, and we would rather say that than claim one. The first sitting was 23 August 2026, and rows have been re-read on seven dated occasions since, most recently on 7 September. Each of those rows carries its own date on the sources page, beside the baseline, precisely so you can judge how stale any one figure is without asking us. Competitors in this market publish methodology sentences — one promises to recheck every programme against its regulator every 30 to 120 days — and there is no way for you to verify any of them. We could write the same sentence in a minute and it would be worth exactly as much. We said, when this page had one date on it, that a rolling recheck would be visible here as dated entries rather than as a promise. That is what the per-row dates now are.",
+          ru: "Не по расписанию — и мы предпочтём сказать это, чем заявить расписание. Первый заход был 23 августа 2026 года, и с тех пор строки перечитывались семь раз, последний — 7 сентября. У каждой такой строки на странице источников стоит своя дата рядом с общей, именно затем, чтобы вы могли сами судить, насколько устарела конкретная цифра, ни о чём нас не спрашивая. Конкуренты в этом рынке публикуют фразы про методологию — один обещает перепроверять каждую программу по её регулятору каждые 30–120 дней, — и проверить эти обещания вам нечем. Мы можем написать такую же фразу за минуту, и стоить она будет ровно столько же. Когда на этой странице стояла одна дата, мы написали, что регулярная перепроверка будет видна как датированные записи, а не как обещание. Даты по строкам — это она и есть.",
+          pl: "Nie według harmonogramu — i wolimy to powiedzieć, niż deklarować harmonogram. Pierwsze posiedzenie było 23 sierpnia 2026, a od tego czasu wiersze czytano ponownie siedmiokrotnie, ostatnio 7 września. Każdy taki wiersz nosi na stronie źródeł własną datę obok bazowej, właśnie po to, byś sam ocenił, jak bardzo zestarzała się konkretna liczba, nie pytając nas. Konkurenci na tym rynku publikują zdania o metodologii — jeden obiecuje sprawdzać każdy program u jego regulatora co 30 do 120 dni — a ty nie masz jak tego zweryfikować. Moglibyśmy napisać takie samo zdanie w minutę i byłoby warte dokładnie tyle samo. Gdy ta strona miała jedną datę, napisaliśmy, że regularne sprawdzanie będzie tu widoczne jako datowane wpisy, a nie jako obietnica. Daty przy wierszach są właśnie tym.",
         },
       },
       {
@@ -1099,9 +1145,9 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
           pl: "Czego celowo nie publikujecie?",
         },
         a: {
-          en: "Four figures, and naming them is the point of this answer. Malta's processing time — no primary source publishes one, so the widely quoted four to six months appears nowhere on this site. Whether off-plan property qualifies in the UAE — rechecked across four authorities on 25 August 2026, still nothing in either direction. And two Cypriot figures: the threshold in its regulation 6(2) and the reduced VAT rate with its limits. Each of those is a question we get asked and could answer plausibly in one sentence. A plausible answer is what everyone else publishes, and it is indistinguishable from a true one right up until it costs somebody money.",
-          ru: "Четыре цифры — и назвать их и есть смысл этого ответа. Срок рассмотрения на Мальте: его не публикует ни один первоисточник, поэтому ходовые «четыре-шесть месяцев» на этом сайте не встречаются нигде. Годится ли в ОАЭ объект на стадии строительства: перепроверено по четырём ведомствам 25 августа 2026 года — по-прежнему ничего ни за, ни против. И две кипрские: порог в регламенте 6(2) и пониженная ставка НДС с её пределами. Каждый из этих вопросов нам задают, и на каждый можно правдоподобно ответить одной фразой. Правдоподобный ответ — это то, что публикуют все остальные, и он неотличим от верного ровно до того момента, когда обойдётся кому-то в деньги.",
-          pl: "Czterech liczb — a ich nazwanie jest sensem tej odpowiedzi. Czas rozpatrywania na Malcie: nie publikuje go żadne źródło pierwotne, więc obiegowe „cztery do sześciu miesięcy” nie pojawia się na tej stronie nigdzie. Czy w ZEA kwalifikuje się nieruchomość w budowie: sprawdzone ponownie w czterech urzędach 25 sierpnia 2026 — nadal nic ani za, ani przeciw. I dwie cypryjskie: próg z rozporządzenia 6(2) oraz obniżona stawka VAT wraz z jej limitami. O każde z tych pytań nas pytają i na każde da się prawdopodobnie odpowiedzieć jednym zdaniem. Prawdopodobna odpowiedź to właśnie to, co publikują wszyscy inni, i jest nie do odróżnienia od prawdziwej dokładnie do chwili, gdy kogoś kosztuje pieniądze.",
+          en: "Five, and naming them is the point of this answer. Malta's processing time — no primary source publishes one, so the widely quoted four to six months appears nowhere on this site. Whether off-plan property qualifies in the UAE — rechecked across four authorities on 25 August 2026, still nothing in either direction. Two Cypriot figures: the threshold in its regulation 6(2) and the reduced VAT rate with its limits. And where a Portugal D7 application is actually filed, consulate or VFS Global, which is stated only on ministry hosts that did not answer. Each of those is a question we get asked and could answer plausibly in one sentence. A plausible answer is what everyone else publishes, and it is indistinguishable from a true one right up until it costs somebody money.",
+          ru: "Пять — и назвать их и есть смысл этого ответа. Срок рассмотрения на Мальте: его не публикует ни один первоисточник, поэтому ходовые «четыре-шесть месяцев» на этом сайте не встречаются нигде. Годится ли в ОАЭ объект на стадии строительства: перепроверено по четырём ведомствам 25 августа 2026 года — по-прежнему ничего ни за, ни против. Две кипрские: порог в регламенте 6(2) и пониженная ставка НДС с её пределами. И куда подаётся заявление на португальскую D7, в консульство или через VFS Global: это сказано только на узлах министерства, которые не отвечали. Каждый из этих вопросов нам задают, и на каждый можно правдоподобно ответить одной фразой. Правдоподобный ответ — это то, что публикуют все остальные, и он неотличим от верного ровно до того момента, когда обойдётся кому-то в деньги.",
+          pl: "Pięciu — a ich nazwanie jest sensem tej odpowiedzi. Czas rozpatrywania na Malcie: nie publikuje go żadne źródło pierwotne, więc obiegowe „cztery do sześciu miesięcy” nie pojawia się na tej stronie nigdzie. Czy w ZEA kwalifikuje się nieruchomość w budowie: sprawdzone ponownie w czterech urzędach 25 sierpnia 2026 — nadal nic ani za, ani przeciw. Dwie cypryjskie: próg z rozporządzenia 6(2) oraz obniżona stawka VAT wraz z jej limitami. I gdzie faktycznie składa się wniosek o portugalską D7, w konsulacie czy przez VFS Global: podają to wyłącznie serwery ministerstwa, które nie odpowiadały. O każde z tych pytań nas pytają i na każde da się prawdopodobnie odpowiedzieć jednym zdaniem. Prawdopodobna odpowiedź to właśnie to, co publikują wszyscy inni, i jest nie do odróżnienia od prawdziwej dokładnie do chwili, gdy kogoś kosztuje pieniądze.",
         },
       },
     ],
@@ -1122,6 +1168,55 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
 // them at a jurisdiction section would be a false citation. They are listed by
 // key, so adding an exemption stays a deliberate act rather than a side effect.
 const SELF_REFERENTIAL = new Set(["where-figures-from", "how-often-rechecked"]);
+
+// ⚠ WHAT THOSE TWO ANSWERS CURRENTLY SAY ABOUT THIS SITE, AND A TRIPWIRE.
+//
+// They state, in three languages and in words rather than digits, that the
+// sources page carries thirty-three checks of which fourteen came back wrong
+// and four could not be established. Those numbers were true on 23 August
+// 2026. The page has been added to seven times since — Greek law 5307, the
+// Maltese cost dossier, the Portuguese D8 correction, the UAE and UK work, the
+// transfer tax, and the D7 rows published on 13 September — and nobody
+// rewrote the sentences.
+//
+// This is precisely the failure the sources page audits other sites for. Three
+// of its own entries name a stale "last updated" stamp as the pattern; the
+// FAQ was carrying one about itself.
+//
+// The numbers are not computed into the prose, and deliberately not: they are
+// spelled as words, inflected differently in Russian and Polish, and a
+// template that produced "четырнадцать" from 14 would be more machinery than
+// the problem is worth. What is here instead is a tripwire. When the real
+// counts move, the build stops and a person rewrites six sentences — which is
+// the correct amount of work, done at the correct time, rather than never.
+//
+// TO UPDATE: change the numbers in the two answers and in
+// scripts/copy/sourcesPage.ts, then change them here. All three or none.
+const STATED_COUNTS = { checks: 46, corrected: 18, unverified: 5 };
+
+function assertStatedCountsHold(sections: readonly { claims: { verdict: string }[] }[]): void {
+  const claims = sections.flatMap((section) => section.claims);
+  const actual = {
+    checks: claims.length,
+    corrected: claims.filter((claim) => claim.verdict === "corrected").length,
+    unverified: claims.filter((claim) => claim.verdict === "unverified").length,
+  };
+
+  const drifted = (Object.keys(STATED_COUNTS) as (keyof typeof STATED_COUNTS)[]).filter(
+    (key) => STATED_COUNTS[key] !== actual[key],
+  );
+  if (drifted.length === 0) return;
+
+  throw new Error(
+    "[moveandinvest] The FAQ describes this site's own working with numbers " +
+      `that no longer match it: ${drifted
+        .map((key) => `${key} says ${STATED_COUNTS[key]}, is ${actual[key]}`)
+        .join("; ")}. Rewrite "where-figures-from" and "what-we-dont-publish" ` +
+      "in all three languages, update scripts/copy/sourcesPage.ts, then update " +
+      "STATED_COUNTS. A stale self-description is the exact fault /sources " +
+      "holds against three of the pages it audits.",
+  );
+}
 
 function assertEveryFigureIsSourced(items: FaqItem[]): void {
   const unsourced = items.filter(
@@ -1155,6 +1250,7 @@ export const FAQ_ALL: FaqItem[] = FAQ_SECTIONS.flatMap(
 );
 
 assertEveryFigureIsSourced(FAQ_ALL);
+assertStatedCountsHold(SOURCE_SECTIONS);
 
 /** The subset the home page's own FAQ section publishes. The text is not
  *  duplicated anywhere — scripts/copy/faq.ts reads it from here. */
