@@ -102,3 +102,8 @@ docs/partners-*.md
 # publishes a competitive plan to the domains it names. Regenerating one costs
 # under a dollar from the scripts in scripts/dataforseo/.
 docs/seo-*.md
+
+# Outreach drafts: they name a target publication or firm and say what we
+# want from it. Same reason docs/partners-*.md and docs/seo-*.md stay out —
+# the repository is PUBLIC, and the people named would be the ones to find it.
+docs/outreach-*.md
