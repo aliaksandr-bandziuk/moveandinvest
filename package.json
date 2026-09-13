@@ -38,7 +38,8 @@
     "dfs:compare": "tsx --env-file=.env.local scripts/dataforseo/compare.ts",
     "dfs:coverage": "tsx scripts/dataforseo/coverage.ts",
     "dfs:backlinks": "tsx --env-file=.env.local scripts/dataforseo/backlinks.ts",
-    "dfs:questions": "tsx scripts/dataforseo/questions.ts"
+    "dfs:questions": "tsx scripts/dataforseo/questions.ts",
+    "dfs:linksources": "tsx --env-file=.env.local scripts/dataforseo/linksources.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.16.0",
