@@ -28,7 +28,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     eyebrow: "The working",
     heading: "Every figure on this site, and where it came from",
     intro:
-      "On 23 August 2026 each headline figure here was read back from the statute, the ministry tariff or the official fee schedule it is supposed to rest on. Thirty-three checks. Fourteen came back wrong, four could not be established from any primary source at all, and those four are not published as figures anywhere on this site. Below is all of it, including the parts that do not flatter us.",
+      "Each headline figure here has been read back from the statute, the ministry tariff or the official fee schedule it is supposed to rest on. Forty-six checks. Eighteen came back wrong, five could not be established from any primary source at all, and those five are not published as figures anywhere on this site. The first sitting was 23 August 2026; every row re-read since carries its own date. Below is all of it, including the parts that do not flatter us.",
     howToRead:
       "Each row is one thing the site states, what the source actually says, and the mark for how the two compared. Citations are given in full — statute, article, gazette and date — because a link can rot and a citation cannot; the link beside it is where the text can be read today, and it says whether it is the authority's own page or a database reproducing it.",
     seo: {
@@ -41,7 +41,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     eyebrow: "Выкладки",
     heading: "Каждая цифра на этом сайте и откуда она взята",
     intro:
-      "23 августа 2026 года каждая заголовочная цифра здесь была перечитана из закона, тарифа ведомства или официальной таблицы сборов, на которых она должна стоять. Тридцать три проверки. Четырнадцать вернулись неверными, четыре не удалось установить ни по одному первоисточнику — и эти четыре нигде на сайте цифрами не публикуются. Ниже всё, включая то, что нас не красит.",
+      "Каждая заголовочная цифра здесь перечитана из закона, тарифа ведомства или официальной таблицы сборов, на которых она должна стоять. Сорок шесть проверок. Восемнадцать вернулись неверными, пять не удалось установить ни по одному первоисточнику — и эти пять нигде на сайте цифрами не публикуются. Первый заход был 23 августа 2026 года; у каждой перечитанной с тех пор строки стоит своя дата. Ниже всё, включая то, что нас не красит.",
     howToRead:
       "Каждая строка — это то, что утверждает сайт, то, что говорит источник, и пометка о том, как одно сошлось с другим. Ссылка на закон дана полностью — номер, статья, номер и дата официальной газеты, — потому что URL протухает, а такая ссылка нет; адрес рядом — это где текст можно прочитать сегодня, и у него написано, страница это самого ведомства или база, воспроизводящая текст.",
     seo: {
@@ -54,7 +54,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     eyebrow: "Wyliczenia",
     heading: "Każda liczba na tej stronie i skąd pochodzi",
     intro:
-      "23 sierpnia 2026 każda główna liczba została tu odczytana na nowo z ustawy, taryfy ministerialnej albo oficjalnej tabeli opłat, na których ma się opierać. Trzydzieści trzy sprawdzenia. Czternaście wróciło błędnych, czterech nie udało się ustalić z żadnego źródła pierwotnego — i tych czterech nigdzie na stronie nie publikujemy jako liczb. Poniżej wszystko, łącznie z tym, co nas nie zdobi.",
+      "Każda główna liczba została tu odczytana na nowo z ustawy, taryfy ministerialnej albo oficjalnej tabeli opłat, na których ma się opierać. Czterdzieści sześć sprawdzeń. Osiemnaście wróciło błędnych, pięciu nie udało się ustalić z żadnego źródła pierwotnego — i tych pięciu nigdzie na stronie nie publikujemy jako liczb. Pierwsze posiedzenie było 23 sierpnia 2026; każdy czytany od tego czasu wiersz nosi własną datę. Poniżej wszystko, łącznie z tym, co nas nie zdobi.",
     howToRead:
       "Każdy wiersz to jedno twierdzenie strony, to, co faktycznie mówi źródło, i oznaczenie, jak jedno wypadło wobec drugiego. Odesłanie do prawa podano w całości — numer, artykuł, numer i data dziennika urzędowego — bo URL się psuje, a takie odesłanie nie; adres obok to miejsce, gdzie tekst można przeczytać dziś, i jest przy nim zaznaczone, czy to strona samego urzędu, czy baza reprodukująca tekst.",
     seo: {
