@@ -57,6 +57,7 @@ export function AskBlock({
   labels,
   locale,
   slug,
+  entryKind,
   countryCode,
   privacyHref,
   longFormHref,
@@ -66,6 +67,9 @@ export function AskBlock({
   /** The guide's own slug. Comes back here after submission — see `safeReturnTo`
    *  in the route handler for why it is validated rather than trusted. */
   slug: string;
+  /** Which of an entry's two addresses the slug lives at — see `entryPath` in
+   *  the route handler. */
+  entryKind: "research" | "reference";
   /** ISO alpha-2, only when the guide is about exactly one jurisdiction. */
   countryCode?: string;
   privacyHref: string;
@@ -105,6 +109,7 @@ export function AskBlock({
         <input type="hidden" name="kind" value="article" />
         <input type="hidden" name="locale" value={locale} />
         <input type="hidden" name="returnTo" value={slug} />
+        <input type="hidden" name="entryKind" value={entryKind} />
         {/* Only when the guide is about exactly one jurisdiction, and the line
             under the fields says so in words. The server checks it against the
             same allow-list every other form's jurisdiction goes through. */}

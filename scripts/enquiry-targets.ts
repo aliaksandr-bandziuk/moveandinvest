@@ -38,6 +38,16 @@ const CASES: Case[] = [
     label: "article — guide foot",
     fields: { kind: "article", returnTo: "greece-residency" },
   },
+  // A reference entry lives at /<slug>, not under /blog. Until 14 September
+  // 2026 this row would have printed /blog/<slug> — a 404.
+  {
+    label: "article — reference entry foot",
+    fields: { kind: "article", returnTo: "golden-visa-portugal", entryKind: "reference" },
+  },
+  {
+    label: "article — reference entry, slug rejected",
+    fields: { kind: "article", returnTo: "../../evil", entryKind: "reference" },
+  },
   {
     label: "article — slug rejected",
     fields: { kind: "article", returnTo: "../../evil" },

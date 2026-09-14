@@ -428,20 +428,33 @@ export async function POST(request: NextRequest) {
   const readerPage =
     field(form, "from") === "enquiry" ? segment("/enquiry", locale) : "";
 
+  // WHICH OF AN ENTRY'S TWO ADDRESSES THE GUIDE BLOCK WAS SENT FROM. Since 8
+  // September 2026 one `article` document lives either at /blog/<slug> or, as a
+  // reference entry, at /<slug> beside the jurisdiction pages. This used to
+  // assume the first, so every enquiry sent from a reference entry was
+  // delivered and then landed its reader on a 404 — the one page that tells a
+  // person their message went nowhere, straight after it went somewhere.
+  //
+  // A CLOSED PAIR again, for the reason `from` is one: the form names which of
+  // two shapes it is, never a path. Anything but "reference" means /blog.
+  //
+  // A slug that failed `safeReturnTo` leaves `returnTo` empty. Under /blog the
+  // fallback is the guides index rather than "/blog/" with nothing after it;
+  // for a reference entry it is the home page. The enquiry has already been
+  // delivered by the time this runs, and landing somewhere real beats an error.
+  const entryPath =
+    field(form, "entryKind") === "reference"
+      ? returnTo
+      : // /blog is the one section whose URL is deliberately untranslated, but
+        // it is still read from the config rather than written out — see
+        // `segment`.
+        `${segment("/blog", locale)}${returnTo ? `/${returnTo}` : ""}`;
+
   const readerTarget = (fragment: string) =>
     kind === "brief"
       ? `${returnTo}#brief-${fragment}`
       : kind === "article"
-        ? // The guide it was sent from. /blog is the one section whose URL is
-          // deliberately untranslated, but it is still read from the config
-          // rather than written out — see `segment`.
-          //
-          // A slug that failed `safeReturnTo` leaves `returnTo` empty, and the
-          // fallback is the guides index rather than "/blog/" with nothing
-          // after it: the enquiry has already been delivered by the time this
-          // runs, and landing somewhere real beats a trailing slash and a
-          // redirect.
-          `${segment("/blog", locale)}${returnTo ? `/${returnTo}` : ""}#ask-${fragment}`
+        ? `${entryPath}#ask-${fragment}`
         : kind === "calc"
           ? // Back into the dialog it was sent from. Its panels carry their own
             // ids, so the calculator's control can tell a return from a

@@ -232,6 +232,7 @@ export async function EntryView({
     <AskBlock
       locale={locale}
       slug={slug}
+      entryKind={kind}
       {...(only ? { countryCode: only.code } : {})}
       privacyHref={getPathname({ href: "/privacy", locale })}
       longFormHref={getPathname({ href: "/enquiry", locale })}
