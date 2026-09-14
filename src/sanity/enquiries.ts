@@ -45,10 +45,30 @@ export interface EnquiryPayload {
    *  An "article" enquiry carries less than the other two by design: an address,
    *  a sentence, and whichever jurisdiction the guide was about. Asking a reader
    *  who is still reading for a budget is how a foot-of-page form gets skipped. */
-  kind?: "enquiry" | "brief" | "article" | "calc";
-  /** Calculator dialog only: a phone number, a messenger handle, or whatever
-   *  else the reader offered. Free text on purpose — see the field's note. */
+  kind?: "enquiry" | "brief" | "article" | "calc" | "residence";
+  /** Calculator dialog and residence form: a phone number, a messenger handle,
+   *  or whatever else the reader offered. Free text on purpose — see the
+   *  field's note on the calculator form. */
   reach?: string;
+  /** THE RESIDENCE FORM ONLY, added 14 September 2026: a person already living
+   *  in Poland with a case at a voivode's office. Not a sixth jurisdiction —
+   *  `where` stays empty on these, because the five-country allow-list is a
+   *  question about a move and this form is about a stay.
+   *
+   *  Four stable tokens, each checked against an allow-list in the route and
+   *  decoded in sender.ts. Every one is optional: an address and the consent
+   *  box are enough to answer, same as every other enquiry. */
+  residence?: {
+    /** ua / by / ru / other. */
+    citizenship: string;
+    /** What the stay rests on today: ukr / card / pending / visa / unsure. */
+    status: string;
+    /** What the case is about: waiting / refusal / cukr / temporary /
+     *  permanent / citizenship / other. */
+    matter: string;
+    /** Whether a term is already running: soon / months / none / unsure. */
+    deadline: string;
+  };
   /** Calculator dialog only. Permission to be contacted about this enquiry,
    *  which is NOT `consentToShare` and must never be read as it: nothing from
    *  that dialog goes to a partner until there has been a conversation. */
@@ -72,7 +92,7 @@ export interface EnquiryPayload {
     /** The address that reproduces their screen. */
     href: string;
   };
-  /** Article enquiries only: the slug of the guide it was sent from.
+  /** Article and residence enquiries: the slug of the entry it was sent from.
    *
    *  WORTH CARRYING FOR ONE REASON. Five guides now exist and more are coming,
    *  and nothing else on this site can answer "which of them is earning its

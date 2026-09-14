@@ -312,6 +312,68 @@
       "body": "Zapytanie do nas nie dotarło i nie chodzi o to, co wypełniłeś. Napisz na {email}, zajmiemy się tym."
     }
   },
+  "residence": {
+    "heading": "Jeśli błąd w Twojej sprawie może kosztować status",
+    "body": "Ta strona to badanie, a nie porada: nie zna Twoich terminów ani dokumentów. Opisz sprawę, a przekażemy ją jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców. Przekazanie jest dla Ciebie bezpłatne i tylko za Twoją zgodą; usługi firmy są płatne na jej warunkach.",
+    "citizenshipLegend": "Obywatelstwo",
+    "citizenship": {
+      "ua": "Ukraina",
+      "by": "Białoruś",
+      "ru": "Rosja",
+      "other": "Inne"
+    },
+    "statusLegend": "Na jakiej podstawie przebywasz teraz w Polsce",
+    "status": {
+      "ukr": "Status UKR",
+      "card": "Ważna karta pobytu",
+      "pending": "Wniosek złożony, czekam na decyzję",
+      "visa": "Wiza lub ruch bezwizowy",
+      "unsure": "Nie wiem"
+    },
+    "matterLegend": "Czego dotyczy sprawa",
+    "matter": {
+      "waiting": "Sprawa trwa zbyt długo",
+      "refusal": "Odmowa lub pozostawienie bez rozpoznania",
+      "cukr": "Przejście na CUKR",
+      "temporary": "Karta pobytu czasowego",
+      "permanent": "Pobyt stały lub rezydent UE",
+      "citizenship": "Obywatelstwo polskie",
+      "other": "Inne"
+    },
+    "deadlineLegend": "Czy biegnie jakiś termin",
+    "deadlineHint": "Wezwanie w MOS, 14 dni na odwołanie, ostatni dzień legalnego pobytu.",
+    "deadline": {
+      "soon": "Upływa w ciągu 14 dni",
+      "months": "W ciągu dwóch miesięcy",
+      "none": "Nie ma pilnego terminu",
+      "unsure": "Nie wiem"
+    },
+    "situationLabel": "Co dzieje się ze sprawą",
+    "situationPlaceholder": "Kiedy i jaki wniosek złożono, co przyszło od wojewody, czego boisz się przegapić.",
+    "nameLabel": "Imię",
+    "namePlaceholder": "Jak się do Ciebie zwracać",
+    "emailLabel": "Twój e-mail",
+    "emailPlaceholder": "ty@przyklad.pl",
+    "reachLabel": "Telefon lub Telegram, jeśli tak wygodniej",
+    "reachPlaceholder": "+48…, @telegram",
+    "consentLabel": "Zgadzam się, aby moje zgłoszenie zostało przekazane jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców",
+    "honeypotLabel": "Zostaw to pole puste",
+    "submitLabel": "Wyślij",
+    "fine": "Nie jesteśmy prawnikami ani doradcami i sami nie prowadzimy spraw. Zgłoszenie trafia do jednej firmy, nie na listę, i nie jest odsprzedawane.",
+    "privacyLabel": "Jak obchodzimy się z danymi",
+    "sent": {
+      "title": "Wysłane.",
+      "body": "Zgłoszenie jest u nas i przeczyta je człowiek. Jeśli termin już biegnie, nie czekaj na naszą odpowiedź: na wezwanie w MOS odpowiedz w terminie."
+    },
+    "error": {
+      "title": "Nie wysłało się.",
+      "body": "Adres e-mail i pole zgody to dwie rzeczy, bez których się nie da. Cała reszta jest nieobowiązkowa."
+    },
+    "broke": {
+      "title": "To po naszej stronie.",
+      "body": "Zgłoszenie do nas nie dotarło i nie chodzi o to, co wypełniłeś. Napisz na {email}, zajmiemy się tym."
+    }
+  },
   "faq": {
     "breadcrumb": "Pytania",
     "sourcesLabel": "Sprawdzone z",

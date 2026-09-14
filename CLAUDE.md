@@ -1085,6 +1085,44 @@ and fixed in both stylesheets the same day.
 the type system, the linter or the build can see this one; the only thing that
 catches it is navigating to the fragment and looking.
 
+## The residence form (Poland)
+
+Built 14 Sep 2026. `ResidenceCaseForm` posts `kind=residence` to the same
+route. It ends an entry instead of the guide block when the entry's `sources`
+include `pl-legal` — Poland is not in the country registry, so the evidence an
+entry cites is the signal, not a second field that could disagree with it.
+
+- **Four optional chip groups** — citizenship, what the stay rests on, what the
+  case is about, whether a term is running — plus the situation, name, email,
+  phone/Telegram and consent. Email and consent are required, nothing else. The
+  tokens live once in `src/lib/residence.ts`; the route's allow-list and the
+  chips both read that list, so the two cannot drift. The Russian decode maps in
+  `sender.ts` are still typed by hand.
+- **The consent is `consentToShare` and names the recipient's kind**: one
+  consultancy in Poland that handles residence cases. Not "a lawyer", not "a
+  licensed firm" — the partner is neither. The partner is never named.
+- **`where` is forced empty** on this kind whatever is posted.
+- **The confirmation letter does not say "nothing to do in the meantime".** For
+  this reader it is false: a summons in MOS or an appeal window runs while they
+  wait for us. The residence version says to act within the term.
+- **The internal subject leads with `СРОК ≤14 ДНЕЙ`** when that chip was
+  picked, because that is the one to open first.
+- **`LeadKind` "residence" names the form.** Nothing picked inside it is sent to
+  analytics — same rule as the jurisdiction.
+
+**⚠ IT MUST NOT COLLECT A LEAD UNTIL THE PRIVACY POLICY COVERS IT.** The
+policy's "what we collect" names email, name, jurisdiction, budget, timeline,
+goals and free text; it does not name citizenship, residence status or a phone
+number, and its "who receives it" says a lawyer or adviser in the jurisdiction
+you chose. The policy is frozen by the owner's instruction. So the form ships
+in the code and is reachable only from an entry citing `pl-legal`, and **no such
+entry may be published until the owner lifts the freeze for this paragraph and
+the policy gains it in three languages.** Do not word the policy as a side
+effect of publishing the entry.
+
+Not yet measured in a browser: the three `#residence-*` panels at their
+fragments. Check them on the first render of a real entry.
+
 ## Measuring a lead
 
 `src/lib/analytics/lead.ts` and `components/layout/LeadTracking`, built 24 Aug

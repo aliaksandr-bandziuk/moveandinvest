@@ -49,6 +49,22 @@ const CASES: Case[] = [
     fields: { kind: "article", returnTo: "../../evil", entryKind: "reference" },
   },
   {
+    label: "residence — research entry",
+    fields: { kind: "residence", returnTo: "karta-pobytu-dolgo-rassmatrivayut" },
+  },
+  {
+    label: "residence — reference entry",
+    fields: {
+      kind: "residence",
+      returnTo: "karta-pobytu-dolgo-rassmatrivayut",
+      entryKind: "reference",
+    },
+  },
+  {
+    label: "residence — slug rejected",
+    fields: { kind: "residence", returnTo: "https://evil.example" },
+  },
+  {
     label: "article — slug rejected",
     fields: { kind: "article", returnTo: "../../evil" },
   },

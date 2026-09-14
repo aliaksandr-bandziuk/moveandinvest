@@ -144,6 +144,40 @@ const ORGANISATION: Record<string, string> = {
   "estate-agent": "Агентство недвижимости",
 };
 
+// The residence form's four questions. Same rule as the maps above: in step
+// with ALLOWED in the route, and a missing entry prints the raw token.
+const CITIZENSHIP: Record<string, string> = {
+  ua: "Украина",
+  by: "Беларусь",
+  ru: "Россия",
+  other: "другое",
+};
+
+const STAY_STATUS: Record<string, string> = {
+  ukr: "статус UKR",
+  card: "действующая карта побыту",
+  pending: "заявление подано, ждёт решения",
+  visa: "виза или безвиз",
+  unsure: "не знает, законно ли сейчас",
+};
+
+const MATTER: Record<string, string> = {
+  waiting: "дело рассматривают слишком долго",
+  refusal: "отказ или оставили без рассмотрения",
+  cukr: "переход на CUKR",
+  temporary: "временное пребывание",
+  permanent: "постоянное пребывание или резидент ЕС",
+  citizenship: "гражданство Польши",
+  other: "другое",
+};
+
+const DEADLINE: Record<string, string> = {
+  soon: "истекает в ближайшие 14 дней",
+  months: "в ближайшие два месяца",
+  none: "срочного срока нет",
+  unsure: "не знает",
+};
+
 const LOCALE_LABEL: Record<Locale, string> = {
   en: "английская",
   ru: "русская",
@@ -227,6 +261,10 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
   // rule the guide block follows, for the same reason: a row reading "—" for
   // a question nobody was asked makes the sender look evasive.
   const isCalc = payload.kind === "calc";
+  // The residence form. A case in Poland rather than a move to one of the
+  // five, so none of the long form's rows apply and four of its own do.
+  const isResidence = payload.kind === "residence";
+  const residence = payload.residence;
 
   return {
     // The subject and the heading say which form it came from, because the
@@ -241,19 +279,34 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         ? "Заявка из гайда"
         : isCalc
           ? "Заявка из калькулятора"
-          : "Новая заявка с сайта",
+          : isResidence
+            ? "Пребывание в Польше"
+            : "Новая заявка с сайта",
     openingLine: payload.name
       ? `${payload.name} — ${payload.email}`
       : `Без имени — ${payload.email}`,
     primaryBlock: {
       heading: isBrief ? "Что ищет" : isCalc ? "Расчёт и случай" : "Случай",
       lines: [
+        // THE TERM FIRST. A summons in MOS or a fourteen-day appeal window is
+        // the one fact here that decides whether this is answered today, so it
+        // leads the block rather than trailing the citizenship.
+        ...(isResidence
+          ? [
+              { label: "Срок", value: decode(DEADLINE, residence?.deadline ?? "") },
+              { label: "С чем", value: decode(MATTER, residence?.matter ?? "") },
+              { label: "Основание пребывания", value: decode(STAY_STATUS, residence?.status ?? "") },
+              { label: "Гражданство", value: decode(CITIZENSHIP, residence?.citizenship ?? "") },
+            ]
+          : []),
         // WHAT THEY SAW, FIRST. On an enquiry from the dialog this is the
         // substance rather than the context: it is the only thing in the
         // message that came from the site rather than from the person, and it
         // is what the call starts from.
         ...(isCalc ? calcLines(payload.calc) : []),
-        ...(isCalc ? [] : [{ label: "Юрисдикция", value: decode(WHERE, payload.where) }]),
+        ...(isCalc || isResidence
+          ? []
+          : [{ label: "Юрисдикция", value: decode(WHERE, payload.where) }]),
         // Only the brief asks these. Included conditionally rather than shown
         // as "—", so the internal email has no rows that mean nothing.
         ...(isBrief
@@ -265,13 +318,13 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         // The short form asks for none of these three, so it prints none of
         // them: a row reading "не указан" for a question nobody was asked is a
         // row that makes the sender look evasive rather than brief.
-        ...(isArticle || isCalc
+        ...(isArticle || isCalc || isResidence
           ? []
           : [{ label: "Бюджет", value: decode(BUDGET, payload.budget) }]),
-        ...(isBrief || isArticle || isCalc
+        ...(isBrief || isArticle || isCalc || isResidence
           ? []
           : [{ label: "Срок", value: decode(TIMELINE, payload.timeline) }]),
-        ...(isBrief || isArticle || isCalc
+        ...(isBrief || isArticle || isCalc || isResidence
           ? []
           : [{ label: "Цели", value: goals || "—" }]),
         {
@@ -297,8 +350,12 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         // recorded. It is deliberately not sent to analytics — see the note on
         // `source` in src/sanity/enquiries.ts — so if it is not in this email
         // it is nowhere.
+        //
+        // THE SLUG, NOT A PATH. This printed `/blog/<slug>`, which stopped being
+        // true for every entry once reference entries moved to the root on 8
+        // September 2026. The slug identifies the entry in either place.
         ...(payload.source
-          ? [{ label: "Со страницы", value: `/blog/${payload.source}` }]
+          ? [{ label: "Со страницы", value: payload.source }]
           : []),
         // TWO DIFFERENT PERMISSIONS, and the line says which one was given.
         // Reading "согласие на передачу партнёру: да" off an enquiry where the
@@ -359,18 +416,31 @@ function buildPartnerInternal(payload: PartnerEnquiryPayload): EmailContent {
 // calculator's dialog named nothing and agreed only to be contacted — telling
 // that reader their enquiry is on its way to a lawyer would be describing a
 // permission they did not give.
-const NEXT_STEP: Record<Locale, { standard: string; calc: string }> = {
+//
+// THE RESIDENCE FORM SAYS "CONSULTANCY", NOT "LAWYER", because that is who
+// receives it: a firm that handles residence cases in Poland and is not a law
+// office. A confirmation that promised a lawyer would widen the terms exactly
+// the way the paragraph above forbids. It also says the firm's own work is paid
+// on its own terms — the introduction is free, the case is not, and a reader
+// who learns that on the first call has been misled by this letter.
+const NEXT_STEP: Record<Locale, { standard: string; calc: string; residence: string }> = {
   ru: {
+    residence:
+      "Дальше мы передадим её одной консультационной фирме в Польше, которая ведёт дела о пребывании иностранцев, — одной, и только ей. Для вас передача бесплатна; если вы решите работать с фирмой, её услуги оплачиваются по её собственным условиям. Заявку мы не перепродаём.",
     standard:
       "Дальше мы передадим её юристу или консультанту, который работает именно в выбранной вами юрисдикции — одному, и только ему. Заявку мы не перепродаём и процента со сделки не берём.",
     calc: "Сначала я напишу или позвоню сам: калькулятор считает типовой вход, а про вашу семью, гражданство и сроки он ничего не знает. Юристу или консультанту в нужной юрисдикции заявка уйдёт после этого разговора и только с вашего согласия. Мы её не перепродаём и процента со сделки не берём.",
   },
   pl: {
+    residence:
+      "Przekażemy je jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców — jednej i tylko jej. Przekazanie jest dla Pana/Pani bezpłatne; jeśli zdecyduje się Pan/Pani na współpracę z firmą, jej usługi są płatne na jej własnych warunkach. Zgłoszeń nie odsprzedajemy.",
     standard:
       "Przekażemy je prawnikowi lub doradcy pracującemu dokładnie w wybranej przez Pana/Panią jurysdykcji — jednemu i tylko jemu. Zgłoszeń nie odsprzedajemy i nie bierzemy procentu od transakcji.",
     calc: "Najpierw odezwę się osobiście — mailem albo telefonicznie: kalkulator liczy typowe wejście i nic nie wie o Pana/Pani rodzinie, obywatelstwie ani terminach. Do prawnika lub doradcy w odpowiedniej jurysdykcji zgłoszenie trafi po tej rozmowie i tylko za Pana/Pani zgodą. Nie odsprzedajemy zgłoszeń i nie bierzemy procentu od transakcji.",
   },
   en: {
+    residence:
+      "We will pass it to one consultancy in Poland that handles foreigners' residence cases — one of them, and only them. The introduction costs you nothing; if you decide to work with the firm, its services are paid on its own terms. We do not resell enquiries.",
     standard:
       "We will pass it to the lawyer or adviser who works in the jurisdiction you chose — one of them, and only them. We do not resell enquiries and take no percentage of any transaction.",
     calc: "I will write or call first: the calculator prices a typical entry and knows nothing about your family, your citizenship or your deadlines. It goes to a lawyer or adviser in the right jurisdiction after that conversation, and only with your agreement. We do not resell enquiries and take no percentage of any transaction.",
@@ -379,7 +449,31 @@ const NEXT_STEP: Record<Locale, { standard: string; calc: string }> = {
 
 function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): EmailContent {
   const name = payload.name.trim();
-  const next = NEXT_STEP[locale][payload.kind === "calc" ? "calc" : "standard"];
+  const next =
+    NEXT_STEP[locale][
+      payload.kind === "calc"
+        ? "calc"
+        : payload.kind === "residence"
+          ? "residence"
+          : "standard"
+    ];
+  const residence = payload.kind === "residence";
+
+  // "THERE IS NOTHING YOU NEED TO DO IN THE MEANTIME" IS FALSE FOR THIS READER.
+  // Somebody with a summons in MOS or an appeal window running loses the case
+  // by waiting for our reply, and the entry they came from says so in its
+  // longest section. The letter must not undo that.
+  const meantime: Record<Locale, string> = {
+    ru: residence
+      ? "Обычно ответ приходит в течение рабочего дня. Если по вашему делу уже идёт срок — вызов в MOS или срок на жалобу, — не ждите ответа и действуйте в срок."
+      : "Обычно ответ приходит в течение рабочего дня. Ничего делать в это время не нужно.",
+    pl: residence
+      ? "Odpowiedź zwykle przychodzi w ciągu jednego dnia roboczego. Jeśli w Pana/Pani sprawie biegnie już termin — wezwanie w MOS albo termin na odwołanie — proszę nie czekać na odpowiedź i działać w terminie."
+      : "Odpowiedź zwykle przychodzi w ciągu jednego dnia roboczego. W międzyczasie nie trzeba nic robić.",
+    en: residence
+      ? "A reply usually comes within one working day. If a deadline is already running in your case — a summons in MOS, or the time to appeal — do not wait for it: act within the deadline."
+      : "A reply usually comes within one working day. There is nothing you need to do in the meantime.",
+  };
 
   if (locale === "ru") {
     return {
@@ -388,7 +482,7 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
       bodyParagraphs: [
         "Пишу подтвердить, что заявка дошла. Её читает человек, автоответчика между нами нет.",
         next,
-        "Обычно ответ приходит в течение рабочего дня. Ничего делать в это время не нужно.",
+        meantime.ru,
       ],
       footNote:
         "Вы можете в любой момент попросить удалить заявку — ответьте на это письмо одной строкой, и мы её сотрём. " +
@@ -403,7 +497,7 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
       bodyParagraphs: [
         "Piszę, żeby potwierdzić, że zgłoszenie dotarło. Czyta je człowiek — między nami nie ma automatu.",
         next,
-        "Odpowiedź zwykle przychodzi w ciągu jednego dnia roboczego. W międzyczasie nie trzeba nic robić.",
+        meantime.pl,
       ],
       footNote:
         "W każdej chwili można poprosić o usunięcie zgłoszenia — wystarczy jedna linijka w odpowiedzi na ten e-mail. " +
@@ -417,7 +511,7 @@ function buildReaderConfirmation(payload: EnquiryPayload, locale: Locale): Email
     bodyParagraphs: [
       "Writing to confirm your enquiry arrived. A person reads these — there is no autoresponder in between.",
       next,
-      "A reply usually comes within one working day. There is nothing you need to do in the meantime.",
+      meantime.en,
     ],
     footNote:
       "You can ask us to delete your enquiry at any time — one line in reply to this email is enough. " +
@@ -640,7 +734,9 @@ export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendRe
         ? "Заявка из гайда"
         : payload.kind === "calc"
           ? "Заявка из калькулятора"
-          : "Заявка с сайта";
+          : payload.kind === "residence"
+            ? "Польша, пребывание"
+            : "Заявка с сайта";
   // WHAT GOES AFTER THE DASH. Normally the jurisdiction, which is what a
   // subject line is for — you can triage a mailbox on it. A guide covering
   // several countries sends no jurisdiction at all, and "Заявка из гайда — —"
@@ -650,19 +746,31 @@ export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendRe
   // makes one of these worth opening before the others: the country says which
   // partner it is for and the figure says whether it clears their floor, and
   // both fit in a subject line.
+  //
+  // A RESIDENCE ENQUIRY CARRIES WHAT IT IS ABOUT AND WHETHER A TERM IS RUNNING.
+  // There is no country to triage on — all of them are Poland — and the thing
+  // that decides which one to open first is a deadline inside fourteen days.
+  const residence = payload.residence;
   const about =
-    payload.kind === "calc"
-      ? // No jurisdiction was asked for, so the figure carries the line on its
-        // own. It still triages: it says whether the case clears anybody's
-        // floor before the message is opened.
-        payload.calc
+    payload.kind === "residence"
+      ? [
+          residence?.deadline === "soon" ? "СРОК ≤14 ДНЕЙ" : "",
+          residence?.matter ? decode(MATTER, residence.matter) : "",
+        ]
+          .filter(Boolean)
+          .join(" · ") || "без подробностей"
+      : payload.kind === "calc"
+        ? // No jurisdiction was asked for, so the figure carries the line on
+          // its own. It still triages: it says whether the case clears
+          // anybody's floor before the message is opened.
+          payload.calc
           ? eur(payload.calc.budget)
           : "без расчёта"
-      : payload.calc
-        ? `${decode(WHERE, payload.where)} · ${eur(payload.calc.budget)}`
-        : payload.where || !payload.source
-          ? decode(WHERE, payload.where)
-          : payload.source;
+        : payload.calc
+          ? `${decode(WHERE, payload.where)} · ${eur(payload.calc.budget)}`
+          : payload.where || !payload.source
+            ? decode(WHERE, payload.where)
+            : payload.source;
 
   const result = await notify(
     `${label} — ${about}`,

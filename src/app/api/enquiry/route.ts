@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { summarise } from "@/lib/calcSummary";
 import { isRateLimited } from "@/lib/enquiry/rateLimit";
+import { RESIDENCE_TOKENS } from "@/lib/residence";
 import {
   sendEnquiryEmails,
   sendPartnerEmails,
@@ -20,7 +21,7 @@ import {
 
 // Receives EVERY form on the site. A hidden `kind` field decides which, and
 // everything before that branch — honeypot, rate limit, locale, the redirect
-// helper — is shared. As of 31 August 2026 there are five:
+// helper — is shared. As of 14 September 2026 there are seven:
 //
 //   reader    the long form: the home page's section 08 and /enquiry, which
 //             are one component with two mount points and are told apart by a
@@ -29,10 +30,13 @@ import {
 //   brief     the property brief, on twelve property pages
 //   subscribe the change list, on jurisdiction pages, /changes and /sources
 //   question  the question form, on /contacts and /faq
+//   calc      the calculator's dialog (4 September 2026)
+//   residence the form at the foot of entries about staying in Poland
+//             (14 September 2026)
 //
 // This comment used to say "BOTH forms" and name two of them, which had been
 // wrong for three of the five since the week each was added. It is worth
-// keeping accurate for one reason: somebody adding the sixth needs to know
+// keeping accurate for one reason: somebody adding the next one needs to know
 // that the honeypot, the allow-lists and the 303-with-a-fragment answer are
 // shared, or they will write a second route with a private copy of all three
 // — the copy that gets forgotten the next time one of them is fixed.
@@ -87,6 +91,13 @@ const ALLOWED = {
   // first, or the server silently drops it.
   jurisdiction: new Set(["pt", "gr", "cy", "mt", "ae", "several"]),
   organisation: new Set(["law-firm", "relocation", "developer", "estate-agent"]),
+  // The residence form, for people already living in Poland. Read from the
+  // same list the form renders its chips from, so unlike the lists above these
+  // cannot fall out of step with the form — see src/lib/residence.ts.
+  citizenship: new Set<string>(RESIDENCE_TOKENS.citizenship),
+  status: new Set<string>(RESIDENCE_TOKENS.status),
+  matter: new Set<string>(RESIDENCE_TOKENS.matter),
+  deadline: new Set<string>(RESIDENCE_TOKENS.deadline),
 };
 
 const MAX_SITUATION = 4000;
@@ -396,7 +407,16 @@ export async function POST(request: NextRequest) {
                 // among them either way — the calculator has it to the euro.
                 rawKind === "calc"
                 ? "calc"
-                : "reader";
+                : // The residence form, added 14 September 2026, at the foot
+                  // of entries about staying in Poland. A branch of the reader
+                  // path for the reasons the other two are, and its consent is
+                  // the long form's — permission to be passed to one firm —
+                  // because that is what happens to it. It differs in asking
+                  // four questions about a case rather than a move, and in
+                  // carrying no jurisdiction: Poland is not one of the five.
+                  rawKind === "residence"
+                  ? "residence"
+                  : "reader";
 
   // The brief is submitted from a property page and returns to it. Everything
   // else about it is a reader enquiry — same honeypot, same rate limit, same
@@ -409,6 +429,7 @@ export async function POST(request: NextRequest) {
     kind === "brief" ||
     kind === "subscribe" ||
     kind === "article" ||
+    kind === "residence" ||
     kind === "question"
       ? safeReturnTo(field(form, "returnTo"))
       : "";
@@ -455,12 +476,14 @@ export async function POST(request: NextRequest) {
       ? `${returnTo}#brief-${fragment}`
       : kind === "article"
         ? `${entryPath}#ask-${fragment}`
-        : kind === "calc"
-          ? // Back into the dialog it was sent from. Its panels carry their own
-            // ids, so the calculator's control can tell a return from a
-            // submission apart from an ordinary visit.
-            `${segment("/calculator", locale)}#calc-${fragment}`
-          : `${readerPage}#enquiry-${fragment}`;
+        : kind === "residence"
+          ? `${entryPath}#residence-${fragment}`
+          : kind === "calc"
+            ? // Back into the dialog it was sent from. Its panels carry their
+              // own ids, so the calculator's control can tell a return from a
+              // submission apart from an ordinary visit.
+              `${segment("/calculator", locale)}#calc-${fragment}`
+            : `${readerPage}#enquiry-${fragment}`;
   const subscribeTarget = (fragment: string) => `${returnTo}#alerts-${fragment}`;
   // The question form is on TWO pages since 31 August 2026 — /contacts, where
   // it started, and /faq, where a reader who has read fifty-two answers and not
@@ -588,7 +611,11 @@ export async function POST(request: NextRequest) {
   const calc = summarise(field(form, "calc"));
 
   const payload: EnquiryPayload = {
-    where: oneOf(field(form, "where"), ALLOWED.where),
+    // Never on a residence enquiry, whatever was posted: that form sends no
+    // jurisdiction, and one arriving on it was put there by something other
+    // than the form — it would otherwise reach the stored document as a
+    // country the reader never named.
+    where: kind === "residence" ? "" : oneOf(field(form, "where"), ALLOWED.where),
     budget: oneOf(field(form, "budget"), ALLOWED.budget),
     timeline: oneOf(field(form, "timeline"), ALLOWED.timeline),
     goals: form
@@ -610,10 +637,24 @@ export async function POST(request: NextRequest) {
           ? "article"
           : kind === "calc"
             ? "calc"
-            : "enquiry",
+            : kind === "residence"
+              ? "residence"
+              : "enquiry",
     // Spread rather than `source: undefined`, so the stored document has no
-    // key at all for the two forms that have no such thing.
-    ...(kind === "article" && returnTo ? { source: returnTo } : {}),
+    // key at all for the forms that have no such thing.
+    ...((kind === "article" || kind === "residence") && returnTo
+      ? { source: returnTo }
+      : {}),
+    ...(kind === "residence"
+      ? {
+          residence: {
+            citizenship: oneOf(field(form, "citizenship"), ALLOWED.citizenship),
+            status: oneOf(field(form, "status"), ALLOWED.status),
+            matter: oneOf(field(form, "matter"), ALLOWED.matter),
+            deadline: oneOf(field(form, "deadline"), ALLOWED.deadline),
+          },
+        }
+      : {}),
     ...(calc
       ? {
           calc: {
@@ -642,9 +683,13 @@ export async function POST(request: NextRequest) {
       : {}),
     name: field(form, "name").slice(0, MAX_SHORT),
     email,
-    // A phone number, a Telegram handle, or nothing. Free text and only from
-    // the calculator's dialog — see the note on the field itself.
-    ...(isCalc ? { reach: field(form, "reach").slice(0, MAX_SHORT) } : {}),
+    // A phone number, a Telegram handle, or nothing. Free text, from the
+    // calculator's dialog and the residence form — see the note on the field
+    // in the calculator's form. A reader in Poland with a summons running is
+    // somebody a phone call reaches faster than a letter.
+    ...(isCalc || kind === "residence"
+      ? { reach: field(form, "reach").slice(0, MAX_SHORT) }
+      : {}),
     ...(isCalc ? { consentToContact: consent } : {}),
     consentToShare: isCalc ? false : consent,
     locale,

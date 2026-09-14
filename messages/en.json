@@ -312,6 +312,68 @@
       "body": "The enquiry did not reach us — the fault is at our end. Write to {email} and it will be picked up."
     }
   },
+  "residence": {
+    "heading": "If a mistake in your case could cost you your status",
+    "body": "This page is research, not advice: it does not know your deadlines or your documents. Describe the case and we pass it to one consultancy in Poland that handles foreigners' residence cases. The introduction is free to you and happens only with your consent; the firm's own services are paid on its terms.",
+    "citizenshipLegend": "Citizenship",
+    "citizenship": {
+      "ua": "Ukraine",
+      "by": "Belarus",
+      "ru": "Russia",
+      "other": "Other"
+    },
+    "statusLegend": "What your stay in Poland rests on now",
+    "status": {
+      "ukr": "UKR status",
+      "card": "A valid residence card",
+      "pending": "Application filed, awaiting a decision",
+      "visa": "Visa or visa-free entry",
+      "unsure": "I don't know"
+    },
+    "matterLegend": "What the case is about",
+    "matter": {
+      "waiting": "It is taking too long",
+      "refusal": "Refused, or left unexamined",
+      "cukr": "Moving to CUKR",
+      "temporary": "Temporary residence card",
+      "permanent": "Permanent residence or EU long-term resident",
+      "citizenship": "Polish citizenship",
+      "other": "Other"
+    },
+    "deadlineLegend": "Is a deadline running",
+    "deadlineHint": "A summons in MOS, 14 days to appeal, the last day of lawful stay.",
+    "deadline": {
+      "soon": "Within 14 days",
+      "months": "Within two months",
+      "none": "No urgent deadline",
+      "unsure": "I don't know"
+    },
+    "situationLabel": "What is happening with the case",
+    "situationPlaceholder": "When and what you applied for, what the voivode sent, what you are afraid of missing.",
+    "nameLabel": "Name",
+    "namePlaceholder": "What to call you",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "you@example.com",
+    "reachLabel": "Phone or Telegram, if that is easier",
+    "reachPlaceholder": "+48…, @telegram",
+    "consentLabel": "I agree that my enquiry may be passed to one consultancy in Poland that handles foreigners' residence cases",
+    "honeypotLabel": "Leave this field empty",
+    "submitLabel": "Send",
+    "fine": "We are neither lawyers nor consultants and do not handle cases ourselves. Your enquiry goes to one firm, not to a list, and is never resold.",
+    "privacyLabel": "How we handle your data",
+    "sent": {
+      "title": "Sent.",
+      "body": "It is with us, and a person will read it. If a deadline is already running, do not wait for our reply: answer the MOS summons on time."
+    },
+    "error": {
+      "title": "That did not go through.",
+      "body": "An email address and the consent box are the two things we cannot do without. Everything else is optional."
+    },
+    "broke": {
+      "title": "That is on us.",
+      "body": "The enquiry did not reach us — the fault is at our end. Write to {email} and it will be picked up."
+    }
+  },
   "faq": {
     "breadcrumb": "FAQ",
     "sourcesLabel": "Checked against",

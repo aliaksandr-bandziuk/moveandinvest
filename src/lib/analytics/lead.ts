@@ -34,7 +34,18 @@ const STASH_KEY = "mi_lead";
 // about the submission rather than its contents, and what the reader CHOSE
 // inside a form is still never measured. Stated here so the next person to read
 // the warning does not have to decide it again.
-export type LeadKind = "enquiry" | "brief" | "partner" | "subscribe" | "article";
+//
+// "residence" is the form at the foot of entries about staying in Poland, its
+// own kind for the same reason. The label names the FORM, not the country: what
+// the reader picked inside it — their citizenship, their status, their case —
+// is never sent, exactly like the jurisdiction below.
+export type LeadKind =
+  | "enquiry"
+  | "brief"
+  | "partner"
+  | "subscribe"
+  | "article"
+  | "residence";
 
 export interface LeadDetail {
   kind: LeadKind;
@@ -83,7 +94,14 @@ export function takeLead(): LeadDetail | null {
     if (!raw) return null;
     sessionStorage.removeItem(STASH_KEY);
     const parsed = JSON.parse(raw) as Partial<LeadDetail>;
-    const KINDS: LeadKind[] = ["enquiry", "brief", "partner", "subscribe", "article"];
+    const KINDS: LeadKind[] = [
+      "enquiry",
+      "brief",
+      "partner",
+      "subscribe",
+      "article",
+      "residence",
+    ];
     if (!KINDS.includes(parsed.kind as LeadKind)) return null;
     return {
       kind: parsed.kind as LeadKind,

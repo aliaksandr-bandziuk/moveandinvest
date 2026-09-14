@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArticleBody } from "@/components/content";
-import { AskBlock } from "@/components/marketing";
+import { AskBlock, ResidenceCaseForm } from "@/components/marketing";
 import { Breadcrumbs, type Crumb } from "@/components/ui";
 import { getPathname } from "@/i18n/navigation";
 import { CONTROLLER } from "@/lib/controller";
@@ -15,6 +15,7 @@ import {
 } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { readingTimeMinutes } from "@/lib/readingTime";
+import { RESIDENCE_SOURCE_KEY, RESIDENCE_TOKENS } from "@/lib/residence";
 import { authorCopy } from "@/lib/author";
 import { categoryLabel } from "@/lib/categories";
 import { entryHref } from "@/lib/routes";
@@ -166,7 +167,10 @@ export async function EntryView({
     getTranslations({ locale, namespace: "nav" }),
   ]);
 
-  const tAsk = await getTranslations({ locale, namespace: "ask" });
+  const [tAsk, tResidence] = await Promise.all([
+    getTranslations({ locale, namespace: "ask" }),
+    getTranslations({ locale, namespace: "residence" }),
+  ]);
 
   if (!entry) notFound();
   // ONE DOCUMENT, ONE ADDRESS. Without this a reference entry would also answer
@@ -228,7 +232,63 @@ export async function EntryView({
   // sends on their behalf.
   const only = entry.countries?.length === 1 ? entry.countries[0] : undefined;
 
-  const ask = (
+  // AN ENTRY ABOUT STAYING IN POLAND ENDS WITH A DIFFERENT FORM, and the signal
+  // is the evidence it cites rather than a new field on the document. Poland is
+  // not in the country registry — it is not one of the five — so `countries`
+  // cannot say it, and an entry is only allowed to cite the `pl-legal` section
+  // of /sources if that is what it is about. A second field saying the same
+  // thing would be a second place for the two to disagree.
+  //
+  // It REPLACES the guide block rather than joining it. Two consent boxes on one
+  // page, one promising a licensed firm in a jurisdiction and one a consultancy
+  // in Poland, is a reader asked to work out which of our promises applies.
+  const isResidence = entry.sources.includes(RESIDENCE_SOURCE_KEY);
+  const option = (group: keyof typeof RESIDENCE_TOKENS) =>
+    RESIDENCE_TOKENS[group].map((value) => ({
+      value,
+      label: tResidence(`${group}.${value}`),
+    }));
+
+  const ask = isResidence ? (
+    <ResidenceCaseForm
+      locale={locale}
+      slug={slug}
+      entryKind={kind}
+      privacyHref={getPathname({ href: "/privacy", locale })}
+      labels={{
+        heading: tResidence("heading"),
+        body: tResidence("body"),
+        citizenshipLegend: tResidence("citizenshipLegend"),
+        citizenship: option("citizenship"),
+        statusLegend: tResidence("statusLegend"),
+        status: option("status"),
+        matterLegend: tResidence("matterLegend"),
+        matter: option("matter"),
+        deadlineLegend: tResidence("deadlineLegend"),
+        deadlineHint: tResidence("deadlineHint"),
+        deadline: option("deadline"),
+        situationLabel: tResidence("situationLabel"),
+        situationPlaceholder: tResidence("situationPlaceholder"),
+        nameLabel: tResidence("nameLabel"),
+        namePlaceholder: tResidence("namePlaceholder"),
+        emailLabel: tResidence("emailLabel"),
+        emailPlaceholder: tResidence("emailPlaceholder"),
+        reachLabel: tResidence("reachLabel"),
+        reachPlaceholder: tResidence("reachPlaceholder"),
+        consentLabel: tResidence("consentLabel"),
+        honeypotLabel: tResidence("honeypotLabel"),
+        submitLabel: tResidence("submitLabel"),
+        fine: tResidence("fine"),
+        privacyLabel: tResidence("privacyLabel"),
+        sent: { title: tResidence("sent.title"), body: tResidence("sent.body") },
+        error: { title: tResidence("error.title"), body: tResidence("error.body") },
+        broke: {
+          title: tResidence("broke.title"),
+          body: tResidence("broke.body", { email: CONTROLLER.email }),
+        },
+      }}
+    />
+  ) : (
     <AskBlock
       locale={locale}
       slug={slug}
