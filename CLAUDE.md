@@ -54,6 +54,44 @@ wrong sends the build in the wrong direction for days.
   Portugal and Greece are workable. Non-lawyer partners — relocation agencies,
   developers, estate agents — are outside the bar codes entirely. Research, not
   advice; get a local opinion before signing anything in MT/AE/CY.
+- **Poland: legalisation for people already living there, decided 14 Sep 2026.**
+  Russian-speaking and Ukrainian readers who need a karta pobytu, permanent
+  residence or citizenship, sent to one partner — a legalisation consultancy,
+  not an adwokat or radca, so the bar-code constraint above does not arise in
+  its Malta/UAE form (confirm with a Polish lawyer before paid leads start).
+  This reverses `docs/poland-assessment-2026-09-02.md` on lead economics only:
+  that assessment priced the service at a mass-market list price the partner's
+  complex cases exceed several times over. Its findings on investment Poland
+  still stand. The partner's terms and the demand measurement are in a
+  gitignored dossier, because this file is public.
+  - **It is a section, not a sixth jurisdiction.** The registry, the comparison
+    table, the map, the PDF and the footer stay at five. `article.countries` is
+    optional, which is what lets Poland exist as articles without touching any
+    of them. Its readers are not relocating or investing, so cross-links to the
+    Portugal or Malta pages would help neither side.
+  - **Paid per qualified enquiry, a fixed fee. Never a percentage.** The partner
+    works each lead however she likes; what happens after delivery is not ours
+    to price or to track. A share of her fee would contradict the home page's
+    "take no percentage of any transaction" and would make our income depend on
+    her own report of who signed.
+  - **Before the first lead:** the form will ask citizenship, type of case and
+    current status, which the published privacy policy does not describe — so
+    the 23 Aug freeze on that policy has to be lifted for this, deliberately.
+    And the pilot records, per lead, whether she made contact, held a
+    consultation, and signed: her feel for conversion comes entirely from
+    referral clients, and a cold enquiry from search converts at a rate nobody
+    knows yet.
+- **Offered and NOT accepted: half of a property commission, 14 Sep 2026.** The
+  same partner plans to broker property and offered half her commission on any
+  sale that closes. Deferred until she actually brokers. Accepting it later is
+  allowed, but only as an explicit decision that rewrites the "no percentage of
+  any transaction" promise sitewide, in all three languages, in the same step —
+  never as income that arrives while the site still says otherwise.
+- **Parked, not adopted: more partner categories around the same reader**
+  (insurance, movers, company formation, tax, car leasing for expats), liked by
+  the owner on 14 Sep 2026. Adopting it means revisiting three things written
+  down elsewhere in this file: one partner per jurisdiction, a consent worded for
+  one recipient, and a frozen privacy policy.
 
 ## Known gaps, against the concept rather than the code
 
