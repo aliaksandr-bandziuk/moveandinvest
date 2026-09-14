@@ -37,6 +37,11 @@ export interface Market {
   languageCode: string;
   /** Whether this market stands for the audience itself or only proxies it. */
   proxy: boolean;
+  /** False where DataForSEO Labs does not carry this pairing at all. Labs has
+   *  Poland with Polish only, so a Russian or Ukrainian reading of Poland
+   *  exists for the SERP and Google Ads endpoints and for nothing that asks
+   *  Labs. Scripts that call Labs skip these rather than fail on them. */
+  labs?: boolean;
 }
 
 export const MARKETS: Market[] = [
@@ -45,6 +50,11 @@ export const MARKETS: Market[] = [
   { key: "pl-PL", locationCode: 2616, locationName: "Poland", languageCode: "pl", proxy: false },
   { key: "ru-KZ", locationCode: 2398, locationName: "Kazakhstan", languageCode: "ru", proxy: true },
   { key: "ru-UA", locationCode: 2804, locationName: "Ukraine", languageCode: "ru", proxy: true },
+  // ADDED 14 SEPTEMBER 2026 for the Polish legalisation question. These are
+  // not proxies: the readers are in Poland and search in these languages. Ads
+  // keyword data and the SERP API both accept the pairing; Labs does not.
+  { key: "ru-PL", locationCode: 2616, locationName: "Poland", languageCode: "ru", proxy: false, labs: false },
+  { key: "uk-PL", locationCode: 2616, locationName: "Poland", languageCode: "uk", proxy: false, labs: false },
 ];
 
 /** The site's own domain, without protocol or www — the form Labs expects. */

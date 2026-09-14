@@ -1,5 +1,5 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import { post, firstResult, reportSpend } from "./client";
 import { MARKETS, type Market } from "./markets";
 import { readArticles } from "../articleTerms.mjs";
@@ -451,7 +451,7 @@ async function run(): Promise<void> {
   // The market keys are in the filename because a run over Polish must not
   // overwrite the English sweep of the same day, and the questions reader
   // picks the newest file by name.
-  const name = `serp-${stamp}-${(listPath ? "compare" : "") || used.map((m) => m.key).join("+")}.json`;
+  const name = `serp-${stamp}-${(listPath ? basename(listPath, ".json") : "") || used.map((m) => m.key).join("+")}.json`;
   writeFileSync(
     join(OUT, name),
     JSON.stringify({ measured: new Date().toISOString(), captures }, null, 2),

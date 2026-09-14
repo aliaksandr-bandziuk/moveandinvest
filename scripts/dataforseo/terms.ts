@@ -90,7 +90,7 @@ async function run(): Promise<void> {
   mkdirSync(OUT, { recursive: true });
   const dump: Record<string, unknown> = { measured: new Date().toISOString(), markets: {} };
 
-  for (const market of MARKETS) {
+  for (const market of MARKETS.filter((m) => m.labs !== false)) {
     const keywords = seeds.get(market.languageCode) ?? [];
     if (keywords.length === 0) continue;
 

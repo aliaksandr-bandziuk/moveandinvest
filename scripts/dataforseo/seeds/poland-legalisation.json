@@ -1,0 +1,35 @@
+{
+  "_about": "Seeds for measuring whether people already living in Poland search the web for help with legalisation, in the languages they actually use. Russian covers Russians, Belarusians and Kazakhs; Ukrainian and Russian both cover Ukrainians; Polish is what a helper, an employer or a bilingual reader types. Grouped by the kind of case, because a consultancy's price depends on the case, not on the reader.",
+  "location": 2616,
+  "languages": {
+    "ru": [
+      "карта побыту", "карта побыту польша", "как получить карту побыту", "карта побыту документы",
+      "карта побыту сроки", "долго рассматривают карту побыту", "отказ в карте побыту",
+      "отказ карта побыту что делать", "обжалование отказа карта побыту", "апелляция карта побыту",
+      "карта сталого побыту", "постоянный вид на жительство польша", "резидент ес польша",
+      "гражданство польши", "как получить гражданство польши", "гражданство польши по проживанию",
+      "внж польша", "вид на жительство в польше", "легализация в польше", "легализация пребывания в польше",
+      "голубая карта польша", "карта побыту для белорусов", "карта побыту для украинцев",
+      "cukr", "карта cukr", "статус ukr", "карта побыту по работе", "карта побыту по бизнесу",
+      "карта побыту на основании брака", "воссоединение семьи польша", "mos 2.0 карта побыту",
+      "юрист по легализации в польше", "помощь в легализации польша", "переезд в польшу"
+    ],
+    "uk": [
+      "карта побиту", "карта побиту польща", "як отримати карту побиту", "карта побиту документи",
+      "карта побиту терміни", "відмова карта побиту", "оскарження відмови карта побиту",
+      "карта сталого побиту", "постійне проживання польща", "резидент єс польща",
+      "громадянство польщі", "як отримати громадянство польщі", "карта побиту для українців",
+      "cukr", "карта cukr", "статус ukr", "статус ukr карта побиту", "легалізація в польщі",
+      "карта побиту на підставі роботи", "карта побиту по бізнесу", "возз'єднання сім'ї польща",
+      "допомога з легалізацією польща", "юрист карта побиту"
+    ],
+    "pl": [
+      "karta pobytu", "karta pobytu dla ukraińców", "karta pobytu dla białorusinów", "karta pobytu czas oczekiwania",
+      "odmowa karty pobytu", "odwołanie od decyzji karta pobytu", "karta stałego pobytu",
+      "rezydent długoterminowy ue", "obywatelstwo polskie", "obywatelstwo polskie dla cudzoziemca",
+      "karta cukr", "status ukr", "legalizacja pobytu", "legalizacja pobytu cudzoziemca",
+      "niebieska karta ue", "zezwolenie na pobyt czasowy", "mos 2.0", "pomoc w legalizacji pobytu"
+    ]
+  },
+  "topic": "побыт|побит|карт|внж|жительств|гражданств|громадянств|легализ|легаліз|резидент|отказ|відмов|обжал|оскарж|апелляц|cukr|ukr|голуб|воссоедин|возз|пребыван|проживан|pobyt|obywatel|legaliz|odmow|odwoł|niebiesk|zezwolen|rezydent|mos"
+}
