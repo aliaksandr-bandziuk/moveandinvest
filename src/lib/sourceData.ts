@@ -204,6 +204,13 @@ const CHECKED_2026_09_13: Record<Locale, string> = {
   pl: "13 września 2026",
 };
 
+// The Polish legalisation section was read on this day.
+const CHECKED_2026_09_14: Record<Locale, string> = {
+  en: "14 September 2026",
+  ru: "14 сентября 2026 года",
+  pl: "14 września 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
@@ -215,6 +222,7 @@ export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-09-05": CHECKED_2026_09_05,
   "2026-09-07": CHECKED_2026_09_07,
   "2026-09-13": CHECKED_2026_09_13,
+  "2026-09-14": CHECKED_2026_09_14,
 };
 
 /** The date that governs every row not carrying its own. */
@@ -244,12 +252,12 @@ export const CHECKED_ON: Record<Locale, string> = CHECKED_2026_08_23;
 // re-verification may move a check date — which is the discipline the whole
 // page exists to demonstrate, and the exact discipline the "last updated"
 // stamps this page audits other sites for are failing.
-export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_13;
+export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_14;
 
 /** The ISO form of REVISED_ON, for the page's `dateModified`. Kept beside it so
  *  the two cannot drift; the rendered strings are hand-written because Intl
  *  abbreviates the Russian. */
-export const REVISED_ON_ISO = "2026-09-13";
+export const REVISED_ON_ISO = "2026-09-14";
 
 const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // --- Portugal -------------------------------------------------------------
@@ -1726,6 +1734,338 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       en: "No source is listed because none could be reached. gov.cy answers 403, the certificate on mip.gov.cy has expired, and the tax department's PDF is closed by robots. That is why Cyprus stands in the comparison table with dashes rather than figures and has no page of its own: a permanent-residency threshold published without being read from the law is exactly the claim that circulates, gets forwarded and cannot be corrected in place. When a primary source becomes reachable, Cyprus gets its figures and its page in the same week.",
       ru: "Ни одного источника не указано, потому что ни один не удалось открыть. gov.cy отвечает 403, у mip.gov.cy истёк сертификат, а PDF налогового ведомства закрыт robots. Поэтому Кипр стоит в таблице сравнения с прочерками вместо цифр и не имеет своей страницы: порог ПМЖ, опубликованный без чтения закона, — ровно то утверждение, которое расходится, пересылается и не отзывается. Как только первоисточник станет доступен, у Кипра появятся и цифры, и страница, в одну и ту же неделю.",
       pl: "Nie wskazano żadnego źródła, ponieważ żadnego nie udało się otworzyć. gov.cy odpowiada 403, certyfikat mip.gov.cy wygasł, a PDF urzędu podatkowego jest zamknięty przez robots. Dlatego Cypr stoi w tabeli porównawczej z myślnikami zamiast liczb i nie ma własnej strony: próg stałego pobytu opublikowany bez przeczytania ustawy to dokładnie takie twierdzenie, które krąży, jest przesyłane dalej i nie daje się odwołać. Gdy źródło pierwotne stanie się dostępne, Cypr dostanie i liczby, i stronę w tym samym tygodniu.",
+    },
+  },
+  // --- Poland: residence for people already living there ---------------------
+  //
+  // NOT A JURISDICTION OF THE COMPARISON, and the heading and note say so on the
+  // page. These rows back a section for readers who already live in Poland and
+  // need a karta pobytu, permanent residence or citizenship — decided 14 Sep
+  // 2026, see CLAUDE.md. They are here rather than in a file of their own
+  // because the rule that every figure on a page stands on this page applies to
+  // them exactly as it does to Portugal.
+  //
+  // Every row was read in the text of the act in Dziennik Ustaw or Monitor
+  // Polski, fetched from the Sejm's ELI API, on 14 September 2026. Two official
+  // pages are cited as well, and one of them is cited BECAUSE it is wrong: the
+  // UdSC page on the suspension of time limits still named 4 March 2026 after
+  // the act had moved the date to 2027. The working, including the reading that
+  // page misled for half a day, is docs/poland-legalisation-verification-2026-09-14.md.
+  {
+    key: "pl-legal",
+    heading: {
+      en: "Poland: residence for people already living there",
+      ru: "Польша: легализация для тех, кто уже там живёт",
+      pl: "Polska: legalizacja pobytu dla osób już tu mieszkających",
+    },
+    claims: [
+      {
+        subject: {
+          en: "Time limits in residence cases at the voivode are suspended until 4 March 2027",
+          ru: "Сроки по делам о пребывании у воеводы приостановлены до 4 марта 2027 года",
+          pl: "Terminy w sprawach pobytowych u wojewody są zawieszone do 4 marca 2027",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Art. 100d of the Act of 12 March 2022 on assistance to citizens of Ukraine: time limits for granting, changing and withdrawing temporary residence, permanent residence and EU long-term resident permits in proceedings before the voivode do not start, and those started are suspended. The inactivity rules do not apply and a delay in that period cannot ground a remedy. The date was 30 September 2025, moved to 4 March 2026 by Dz.U. 2025 poz. 1301 art. 10 pkt 1, and to 4 March 2027 by Dz.U. 2026 poz. 203 art. 17 pkt 50, in force since 5 March 2026 (art. 54). The article speaks of any foreigner, not only citizens of Ukraine. The UdSC page on this suspension still named 4 March 2026 when read on 14 September 2026.",
+          ru: "Ст. 100d закона от 12 марта 2022 года о помощи гражданам Украины: сроки на выдачу, изменение и отзыв разрешений на временное и постоянное пребывание и статуса резидента ЕС в производствах у воеводы не начинаются, а начатые приостанавливаются. Нормы о бездействии не применяются, и задержка в этот период не может быть основанием средств защиты. Дата была 30 сентября 2025 года, заменена на 4 марта 2026 года законом Dz.U. 2025 poz. 1301, ст. 10 п. 1, и на 4 марта 2027 года законом Dz.U. 2026 poz. 203, ст. 17 п. 50, в силе с 5 марта 2026 года (ст. 54). Статья говорит о любом иностранце, а не только о гражданах Украины. Страница UdSC об этой приостановке на 14 сентября 2026 года всё ещё называла 4 марта 2026 года.",
+          pl: "Art. 100d ustawy z 12 marca 2022 o pomocy obywatelom Ukrainy: terminy na udzielenie, zmianę i cofnięcie zezwoleń na pobyt czasowy, stały i rezydenta długoterminowego UE w postępowaniach u wojewody nie rozpoczynają się, a rozpoczęte ulegają zawieszeniu. Przepisów o bezczynności nie stosuje się, a zwłoka w tym okresie nie może być podstawą środków prawnych. Data brzmiała 30 września 2025, zmieniona na 4 marca 2026 ustawą Dz.U. 2025 poz. 1301 art. 10 pkt 1 i na 4 marca 2027 ustawą Dz.U. 2026 poz. 203 art. 17 pkt 50, w mocy od 5 marca 2026 (art. 54). Przepis mówi o każdym cudzoziemcu, nie tylko o obywatelach Ukrainy. Strona UdSC o tym zawieszeniu 14 września 2026 wciąż podawała 4 marca 2026.",
+        },
+      },
+      {
+        subject: {
+          en: "Ponaglenie, the 14-day appeal and the body that hears both",
+          ru: "Ponaglenie, 14 дней на жалобу и орган, который их рассматривает",
+          pl: "Ponaglenie, 14 dni na odwołanie i organ, który je rozpatruje",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Code of Administrative Procedure, consolidated Dz.U. 2025 poz. 1691: a case needing inquiry within a month, a particularly complex one within two (art. 35 § 3); a ponaglenie for inactivity or protraction goes to the higher body through the one conducting the case, and one filed before the time limit expires is left unexamined (art. 37); an unremedied formal defect leaves an application unexamined, on at least 7 days' notice (art. 64 § 2); an appeal lies within 14 days of service (art. 127, 129). The higher body for a voivode in these cases is the head of UdSC, art. 22 ust. 2 of the Act on Foreigners. The special limit for a temporary residence decision is 60 days, art. 112a, counted since 27 April 2026 from a complete application or from the documents the voivode requested.",
+          ru: "Кодекс административного производства, сводный текст Dz.U. 2025 poz. 1691: дело, требующее выяснения, — за месяц, особенно сложное — за два (ст. 35 § 3); ponaglenie на бездействие или затягивание подаётся в вышестоящий орган через ведущий дело, а поданное до истечения срока оставляется без рассмотрения (ст. 37); неустранённый формальный недостаток оставляет заявление без рассмотрения, срок на устранение не меньше 7 дней (ст. 64 § 2); жалоба — в течение 14 дней со дня доставки (ст. 127, 129). Вышестоящий орган для воеводы в этих делах — руководитель UdSC, ст. 22 ч. 2 закона об иностранцах. Специальный срок решения о временном пребывании — 60 дней, ст. 112a, с 27 апреля 2026 года считается от полного заявления или от документов, которые затребовал воевода.",
+          pl: "Kodeks postępowania administracyjnego, tekst jednolity Dz.U. 2025 poz. 1691: sprawa wymagająca postępowania wyjaśniającego w ciągu miesiąca, szczególnie skomplikowana w ciągu dwóch (art. 35 § 3); ponaglenie na bezczynność lub przewlekłość wnosi się do organu wyższego stopnia za pośrednictwem organu prowadzącego, a wniesione przed upływem terminu pozostawia się bez rozpoznania (art. 37); nieusunięcie braków formalnych w terminie nie krótszym niż 7 dni skutkuje pozostawieniem podania bez rozpoznania (art. 64 § 2); odwołanie w terminie 14 dni od doręczenia (art. 127, 129). Organem wyższego stopnia wobec wojewody jest Szef UdSC, art. 22 ust. 2 ustawy o cudzoziemcach. Termin szczególny dla decyzji o pobycie czasowym to 60 dni, art. 112a, liczony od 27 kwietnia 2026 od kompletnego wniosku lub dokumentów wezwanych przez wojewodę.",
+        },
+      },
+      {
+        subject: {
+          en: "Stay is lawful while a temporary residence application is pending",
+          ru: "Пребывание законно, пока рассматривается заявление о временном пребывании",
+          pl: "Pobyt jest legalny w trakcie postępowania o zezwolenie na pobyt czasowy",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "If the application is filed no later than the last day of lawful stay (art. 105 ust. 1 as amended by Dz.U. 2025 poz. 1794) and has no formal defects or they were remedied in time, stay is lawful from filing until the decision becomes final, which includes an appeal (art. 108 ust. 1 pkt 2). Not while the proceedings are suspended at the party's own request (art. 108 ust. 2). Since 27 April 2026 the passport stamp is replaced by an electronic zaświadczenie with a QR code, delivered through MOS and free of charge (art. 108 ust. 1 pkt 1 and ust. 3–6 as amended). Summonses: personal appearance on at least 7 days' notice (art. 106e), documents on at least 14 (art. 106f).",
+          ru: "Если заявление подано не позже последнего дня законного пребывания (ст. 105 ч. 1 в редакции Dz.U. 2025 poz. 1794) и в нём нет формальных недостатков или они устранены в срок, пребывание законно со дня подачи до дня, когда решение станет окончательным, включая обжалование (ст. 108 ч. 1 п. 2). Но не на время приостановки производства по просьбе самой стороны (ст. 108 ч. 2). С 27 апреля 2026 года штамп в паспорте заменён электронным zaświadczenie с QR-кодом, через MOS и бесплатно (ст. 108 ч. 1 п. 1 и ч. 3–6 в новой редакции). Вызовы: личная явка — не раньше чем через 7 дней (ст. 106e), документы — не меньше 14 дней (ст. 106f).",
+          pl: "Jeżeli wniosek złożono nie później niż w ostatnim dniu legalnego pobytu (art. 105 ust. 1 w brzmieniu Dz.U. 2025 poz. 1794) i nie zawiera braków formalnych lub uzupełniono je w terminie, pobyt jest legalny od dnia złożenia wniosku do dnia, w którym decyzja stanie się ostateczna, a więc także w toku odwołania (art. 108 ust. 1 pkt 2). Nie w razie zawieszenia postępowania na wniosek strony (art. 108 ust. 2). Od 27 kwietnia 2026 stempel w paszporcie zastępuje elektroniczne zaświadczenie z kodem QR, doręczane przez MOS, bez opłaty (art. 108 ust. 1 pkt 1 i ust. 3–6 w nowym brzmieniu). Wezwania: osobiste stawiennictwo w terminie nie krótszym niż 7 dni (art. 106e), dokumenty — nie krótszym niż 14 dni (art. 106f).",
+        },
+      },
+      {
+        subject: {
+          en: "Applications only through MOS from 27 April 2026",
+          ru: "Заявления только через MOS с 27 апреля 2026 года",
+          pl: "Wnioski wyłącznie przez MOS od 27 kwietnia 2026",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Announcement of the Minister of the Interior and Administration of 10 April 2026, Monitor Polski 2026 poz. 370, under art. 17 ust. 1 of the amendment Dz.U. 2025 poz. 1794: the implementation date is 27 April 2026 for, among others, art. 105–106l, 108, 112a in part, 120a ust. 1–3, 202–203i (permanent residence) and 218a–219i (EU long-term resident) of the Act on Foreigners. One exception worth knowing: an application to change a temporary residence and work permit is filed on paper, art. 120a ust. 1 as amended.",
+          ru: "Сообщение Министра внутренних дел и администрации от 10 апреля 2026 года, Monitor Polski 2026 poz. 370, на основании ст. 17 ч. 1 поправки Dz.U. 2025 poz. 1794: дата внедрения — 27 апреля 2026 года, в том числе для ст. 105–106l, 108, части 112a, 120a ч. 1–3, 202–203i (постоянное пребывание) и 218a–219i (резидент ЕС) закона об иностранцах. Одно исключение стоит знать: заявление об изменении разрешения на временное пребывание и работу подаётся на бумаге, ст. 120a ч. 1 в новой редакции.",
+          pl: "Komunikat Ministra Spraw Wewnętrznych i Administracji z 10 kwietnia 2026, Monitor Polski 2026 poz. 370, na podstawie art. 17 ust. 1 nowelizacji Dz.U. 2025 poz. 1794: dzień wdrożenia to 27 kwietnia 2026, m.in. dla art. 105–106l, 108, części art. 112a, art. 120a ust. 1–3, 202–203i (pobyt stały) i 218a–219i (rezydent długoterminowy UE) ustawy o cudzoziemcach. Jeden wyjątek wart uwagi: wniosek o zmianę zezwolenia na pobyt czasowy i pracę składa się w postaci papierowej, art. 120a ust. 1 w nowym brzmieniu.",
+        },
+      },
+      {
+        subject: {
+          en: "The CUKR card: who may apply, until when, for how long",
+          ru: "Карта CUKR: кто может подать, до какого числа, на сколько",
+          pl: "Karta CUKR: kto może złożyć wniosek, do kiedy i na jak długo",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Art. 42c of the Act on assistance to citizens of Ukraine: UKR status on 4 June 2025 (date set by Dz.U. 2025 poz. 1301 art. 10 pkt 18), on the day of the application, and continuously for at least 365 days. The card is valid for 3 years from issue (art. 42p); the decision is due within 180 days of a complete application (art. 42l as amended by Dz.U. 2026 poz. 203 art. 17 pkt 27); stay is lawful until the card is collected or a refusal becomes final if the application is filed by 4 March 2027 (art. 42x, date set by art. 17 pkt 31); the fee is not refunded if the case ends without a card (art. 42s ust. 3). Start date 4 May 2026: Monitor Polski 2026 poz. 371. The UdSC procedure page states the same conditions and dates.",
+          ru: "Ст. 42c закона о помощи гражданам Украины: статус UKR на 4 июня 2025 года (дата установлена законом Dz.U. 2025 poz. 1301, ст. 10 п. 18), на день заявления и непрерывно не менее 365 дней. Карта действует 3 года со дня выдачи (ст. 42p); решение — в течение 180 дней от полного заявления (ст. 42l в редакции Dz.U. 2026 poz. 203, ст. 17 п. 27); пребывание законно до получения карты или окончательного отказа, если заявление подано до 4 марта 2027 года (ст. 42x, дата установлена ст. 17 п. 31); сбор не возвращается, если дело кончилось без карты (ст. 42s ч. 3). Дата начала — 4 мая 2026 года: Monitor Polski 2026 poz. 371. Страница процедуры UdSC называет те же условия и даты.",
+          pl: "Art. 42c ustawy o pomocy obywatelom Ukrainy: status UKR w dniu 4 czerwca 2025 (data ustalona ustawą Dz.U. 2025 poz. 1301 art. 10 pkt 18), w dniu złożenia wniosku i nieprzerwanie przez co najmniej 365 dni. Karta jest ważna 3 lata od wydania (art. 42p); decyzja w terminie 180 dni od kompletnego wniosku (art. 42l w brzmieniu Dz.U. 2026 poz. 203 art. 17 pkt 27); pobyt jest legalny do odbioru karty lub ostatecznej odmowy, jeżeli wniosek złożono do 4 marca 2027 (art. 42x, data ustalona art. 17 pkt 31); opłata nie podlega zwrotowi, jeśli postępowanie zakończy się bez wydania karty (art. 42s ust. 3). Data startu 4 maja 2026: Monitor Polski 2026 poz. 371. Strona procedury UdSC podaje te same warunki i daty.",
+        },
+      },
+      {
+        subject: {
+          en: "Leaving Poland while a case is pending, and the 30-day rule",
+          ru: "Выезд из Польши во время дела и правило 30 дней",
+          pl: "Wyjazd z Polski w trakcie postępowania i reguła 30 dni",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "The Mazowiecki voivodeship office's official answers (BIP, 14 August 2020): the stamp confirming an application does not entitle the holder to travel; one may leave for the country of origin but may not re-enter Poland on it. That answer concerns the stamp. The zaświadczenie that replaced it on 27 April 2026 lists, under art. 108 ust. 3, the holder's data, the filing and the text on lawful stay, and no right to cross a border — a reading of its content, not an express provision. For temporary protection: it ends if the person has left Poland for more than 30 days, and on the day a temporary or permanent residence or EU long-term resident permit is granted, art. 109b of the Act on granting protection, added by Dz.U. 2026 poz. 203 art. 4 pkt 5.",
+          ru: "Официальные ответы Мазовецкого воеводского управления (BIP, 14 августа 2020 года): штамп о подаче заявления не даёт права на поездки; выехать в страну происхождения можно, вернуться в Польшу по нему нельзя. Этот ответ — о штампе. Заменившее его с 27 апреля 2026 года zaświadczenie по ст. 108 ч. 3 содержит данные держателя, факт подачи и текст о законности пребывания и не содержит права пересекать границу — это чтение состава документа, а не прямая норма. Для временной защиты: она прекращается, если человек покинул Польшу больше чем на 30 дней, а также в день выдачи разрешения на временное или постоянное пребывание или статуса резидента ЕС, ст. 109b закона о защите иностранцев, добавленная законом Dz.U. 2026 poz. 203, ст. 4 п. 5.",
+          pl: "Oficjalne odpowiedzi Mazowieckiego Urzędu Wojewódzkiego (BIP, 14 sierpnia 2020): stempel potwierdzający złożenie wniosku nie uprawnia do podróżowania; można wyjechać do kraju pochodzenia, ale nie uprawnia do ponownego wjazdu do Polski. Odpowiedź dotyczy stempla. Zaświadczenie, które zastąpiło go 27 kwietnia 2026, zawiera zgodnie z art. 108 ust. 3 dane posiadacza, fakt złożenia wniosku i treść o legalności pobytu, a nie zawiera uprawnienia do przekraczania granicy — to odczytanie treści dokumentu, a nie wyraźny przepis. Ochrona czasowa wygasa, jeżeli cudzoziemiec opuścił Polskę na okres powyżej 30 dni, oraz w dniu udzielenia zezwolenia na pobyt czasowy, stały lub rezydenta długoterminowego UE, art. 109b ustawy o udzielaniu cudzoziemcom ochrony, dodany ustawą Dz.U. 2026 poz. 203 art. 4 pkt 5.",
+        },
+      },
+      {
+        subject: {
+          en: "Five years in Poland lead to the EU long-term resident permit, not to “permanent residence”",
+          ru: "Пять лет в Польше ведут к статусу резидента ЕС, а не к «постоянному пребыванию»",
+          pl: "Pięć lat w Polsce prowadzi do zezwolenia rezydenta długoterminowego UE, a nie do „pobytu stałego”",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Art. 211 of the Act on Foreigners: EU long-term resident status after 5 years of lawful, continuous stay immediately before the application, with stable and regular income, health insurance and Polish at B1 or a Polish school or degree taught in Polish. Income must exceed the social-assistance threshold for the applicant and each dependant (art. 140 ust. 2, via art. 211 ust. 2) and have been met for the last 3 years; the threshold from 1 January 2025 is 1010 zł for a single-person household and 823 zł per person in a family, Council of Ministers regulation Dz.U. 2024 poz. 1044. The permanent residence permit of art. 195 is granted on specific grounds instead — among them Polish descent, a valid Karta Polaka, three years of marriage to a Polish citizen plus two years of temporary residence on that basis, or five years as a refugee.",
+          ru: "Ст. 211 закона об иностранцах: статус резидента ЕС после 5 лет законного непрерывного пребывания непосредственно перед заявлением, при стабильном и регулярном доходе, медицинской страховке и польском на уровне B1 либо польской школе или вузе с польским языком. Доход должен быть выше порога социальной помощи на заявителя и каждого иждивенца (ст. 140 ч. 2, через ст. 211 ч. 2) и соблюдаться последние 3 года; порог с 1 января 2025 года — 1010 zł для одиноко ведущего хозяйство и 823 zł на человека в семье, распоряжение Совета министров Dz.U. 2024 poz. 1044. Разрешение на постоянное пребывание ст. 195 даётся по особым основаниям — среди них польское происхождение, действительная Карта поляка, три года брака с гражданином Польши плюс два года временного пребывания на этом основании, пять лет в статусе беженца.",
+          pl: "Art. 211 ustawy o cudzoziemcach: zezwolenie rezydenta długoterminowego UE po 5 latach legalnego i nieprzerwanego pobytu bezpośrednio przed wnioskiem, przy stabilnym i regularnym dochodzie, ubezpieczeniu zdrowotnym i znajomości polskiego na poziomie B1 lub polskiej szkole albo studiach po polsku. Dochód musi przekraczać próg z pomocy społecznej na wnioskodawcę i każdego członka rodziny na utrzymaniu (art. 140 ust. 2 przez art. 211 ust. 2) i być spełniany przez ostatnie 3 lata; próg od 1 stycznia 2025 wynosi 1010 zł dla osoby samotnie gospodarującej i 823 zł na osobę w rodzinie, rozporządzenie Rady Ministrów Dz.U. 2024 poz. 1044. Zezwolenie na pobyt stały z art. 195 udzielane jest z określonych podstaw — m.in. polskie pochodzenie, ważna Karta Polaka, trzy lata małżeństwa z obywatelem polskim i dwa lata pobytu czasowego z tego tytułu, pięć lat ze statusem uchodźcy.",
+        },
+      },
+      {
+        subject: {
+          en: "Citizenship: three years now, and what the ten-year bills would change",
+          ru: "Гражданство: сейчас три года, и что изменили бы проекты о десяти годах",
+          pl: "Obywatelstwo: dziś trzy lata i co zmieniłyby projekty o dziesięciu latach",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Art. 30 ust. 1 pkt 1 of the Act on Polish Citizenship, consolidated Dz.U. 2025 poz. 1611: recognition after 3 years of continuous stay on a permanent residence or EU long-term resident permit, with stable income and a legal title to housing; 2 years with 3 years of marriage to a Polish citizen or statelessness (pkt 2); 1 year on permanent residence obtained through Polish descent or a Karta Polaka (pkt 7). Polish at B1 by official certificate or a school in Poland (ust. 2). Sejm data: the deputies' bill, print 1888, raising 3 years to 10 and lengthening the other periods of art. 30 as well, was rejected at first reading on 9 January 2026, 240 to 200. The President's bill, print 1759, submitted 29 September 2025, changes only pkt 1 from 3 years to 10 and, in its art. 2, keeps proceedings already begun under the current text; referred to committee on 4 November 2025 and still open. The fee for the decision is 1000 zł, stamp duty act Dz.U. 2025 poz. 1154, annex item 26.",
+          ru: "Ст. 30 ч. 1 п. 1 закона о польском гражданстве, сводный текст Dz.U. 2025 poz. 1611: признание после 3 лет непрерывного пребывания на постоянном разрешении или статусе резидента ЕС, при стабильном доходе и праве на жильё; 2 года — при трёх годах брака с гражданином Польши или без гражданства (п. 2); 1 год — на постоянном разрешении, полученном из-за польского происхождения или Карты поляка (п. 7). Польский на уровне B1 по официальному сертификату или школа в Польше (ч. 2). Данные Сейма: депутатский проект, друк 1888, поднимавший срок с 3 до 10 лет и удлинявший остальные сроки ст. 30, отклонён в первом чтении 9 января 2026 года, 240 против 200. Проект Президента, друк 1759, внесён 29 сентября 2025 года, меняет только п. 1 с 3 лет на 10 и в своей ст. 2 сохраняет прежний текст для уже начатых дел; направлен в комиссию 4 ноября 2025 года, процесс открыт. Сбор за решение — 1000 zł, закон о гербовом сборе Dz.U. 2025 poz. 1154, приложение, п. 26.",
+          pl: "Art. 30 ust. 1 pkt 1 ustawy o obywatelstwie polskim, tekst jednolity Dz.U. 2025 poz. 1611: uznanie po 3 latach nieprzerwanego pobytu na podstawie zezwolenia na pobyt stały lub rezydenta długoterminowego UE, przy stabilnym dochodzie i tytule prawnym do lokalu; 2 lata przy trzech latach małżeństwa z obywatelem polskim lub bezpaństwowości (pkt 2); 1 rok na pobycie stałym uzyskanym w związku z polskim pochodzeniem lub Kartą Polaka (pkt 7). Polski na poziomie B1 poświadczony urzędowo lub szkoła w Polsce (ust. 2). Dane Sejmu: poselski projekt, druk 1888, wydłużający okres z 3 do 10 lat oraz pozostałe okresy z art. 30, odrzucony w pierwszym czytaniu 9 stycznia 2026, 240 do 200. Projekt Prezydenta, druk 1759, wniesiony 29 września 2025, zmienia tylko pkt 1 z 3 na 10 lat i w art. 2 zachowuje dotychczasowe brzmienie dla postępowań już wszczętych; skierowany do komisji 4 listopada 2025, proces otwarty. Opłata za decyzję to 1000 zł, ustawa o opłacie skarbowej Dz.U. 2025 poz. 1154, załącznik, poz. 26.",
+        },
+      },
+      {
+        subject: {
+          en: "Stamp duty on residence permits",
+          ru: "Гербовый сбор за разрешения на пребывание",
+          pl: "Opłata skarbowa od zezwoleń pobytowych",
+        },
+        verdict: "added",
+        checked: "2026-09-14",
+        finding: {
+          en: "Stamp duty act, consolidated Dz.U. 2025 poz. 1154 (11 August 2025), annex part III: temporary residence 340 zł; temporary residence and work, the EU Blue Card and several other purposes 440 zł; permanent residence 640 zł, with exemptions including a Karta Polaka holder intending to settle; EU long-term resident 640 zł. Later amendments to the stamp duty act were not found in the 2025 and 2026 acts read for this section, and were not searched for separately.",
+          ru: "Закон о гербовом сборе, сводный текст Dz.U. 2025 poz. 1154 (11 августа 2025 года), приложение, часть III: временное пребывание — 340 zł; временное пребывание и работа, Голубая карта ЕС и ряд других целей — 440 zł; постоянное пребывание — 640 zł, с освобождениями, среди них держатель Карты поляка, намеренный поселиться; статус резидента ЕС — 640 zł. Более поздних поправок к закону о гербовом сборе в актах 2025 и 2026 годов, прочитанных для этой секции, не найдено, отдельно они не искались.",
+          pl: "Ustawa o opłacie skarbowej, tekst jednolity Dz.U. 2025 poz. 1154 (11 sierpnia 2025), załącznik, część III: pobyt czasowy 340 zł; pobyt czasowy i praca, Niebieska Karta UE i kilka innych celów 440 zł; pobyt stały 640 zł, ze zwolnieniami, m.in. dla posiadacza Karty Polaka zamierzającego osiedlić się na stałe; rezydent długoterminowy UE 640 zł. Późniejszych zmian ustawy o opłacie skarbowej nie znaleziono w aktach z 2025 i 2026 czytanych dla tej sekcji i nie szukano ich osobno.",
+        },
+      },
+      {
+        subject: {
+          en: "“Nine to fourteen months in Mazowieckie”",
+          ru: "«Девять–четырнадцать месяцев в Мазовецком»",
+          pl: "„Dziewięć–czternaście miesięcy na Mazowszu”",
+        },
+        verdict: "unverified",
+        checked: "2026-09-14",
+        finding: {
+          en: "The figure circulates in consultancy blogs. No current official average processing time by voivodeship was found. What official sources publish is historical: the Supreme Audit Office's inspection of five voivodeship offices for 2021–2023 found 60% of cases handled in breach of the rules and a longest case of about 2,700 days; the Ombudsman's letter of 29 December 2020 gave up to 363 days in Pomorskie and 397 in Dolnośląskie for 2019. Neither is a 2026 figure, so none is printed as one.",
+          ru: "Цифра ходит по блогам консалтинговых фирм. Официальных текущих средних сроков по воеводствам не найдено. Официальные источники публикуют исторические данные: проверка NIK пяти воеводских управлений за 2021–2023 годы — 60% дел с нарушениями и самое долгое дело около 2700 дней; письмо Уполномоченного по правам человека от 29 декабря 2020 года — до 363 дней в Поморском и 397 в Нижнесилезском за 2019 год. Ни то ни другое не цифра 2026 года, и как таковая ни одна не публикуется.",
+          pl: "Liczba krąży po blogach firm doradczych. Aktualnych oficjalnych średnich czasów rozpatrywania według województw nie znaleziono. Źródła oficjalne publikują dane historyczne: kontrola NIK w pięciu urzędach wojewódzkich za lata 2021–2023 wykazała 60% spraw z naruszeniem przepisów i najdłuższą sprawę około 2700 dni; pismo RPO z 29 grudnia 2020 podawało do 363 dni w pomorskim i 397 w dolnośląskim za 2019. Żadna z tych liczb nie dotyczy 2026 i żadna nie jest tak publikowana.",
+        },
+      },
+      {
+        subject: {
+          en: "The fee for a CUKR permit",
+          ru: "Сбор за разрешение при CUKR",
+          pl: "Opłata za zezwolenie przy karcie CUKR",
+        },
+        verdict: "unverified",
+        checked: "2026-09-14",
+        finding: {
+          en: "The UdSC procedure page states 100 zł for the card and 340 zł for the temporary residence permit. The consolidated stamp duty act, Dz.U. 2025 poz. 1154, exempts a temporary residence permit granted to a foreigner benefiting from temporary protection. Whether that exemption reaches a CUKR applicant, whose temporary protection ends when the permit is granted, was not established, so no amount is published for it.",
+          ru: "Страница процедуры UdSC называет 100 zł за карту и 340 zł за разрешение на временное пребывание. Сводный текст закона о гербовом сборе, Dz.U. 2025 poz. 1154, освобождает от сбора разрешение на временное пребывание для иностранца, пользующегося временной защитой. Распространяется ли это освобождение на заявителя CUKR, чья временная защита прекращается в день выдачи разрешения, не установлено, поэтому сумма не публикуется.",
+          pl: "Strona procedury UdSC podaje 100 zł za kartę i 340 zł za zezwolenie na pobyt czasowy. Tekst jednolity ustawy o opłacie skarbowej, Dz.U. 2025 poz. 1154, zwalnia z opłaty zezwolenie na pobyt czasowy udzielane cudzoziemcowi korzystającemu z ochrony czasowej. Czy zwolnienie obejmuje wnioskodawcę karty CUKR, którego ochrona czasowa wygasa w dniu udzielenia zezwolenia, nie ustalono, dlatego kwota nie jest publikowana.",
+        },
+      },
+    ],
+    sources: [
+      {
+        id: "cudzoziemcy",
+        citation:
+          "Ustawa z dnia 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 — art. 22, 105, 108, 112a, 140, 195, 211, 212",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001079",
+        kind: "official",
+        caveat: {
+          en: "The consolidated text of July 2025 predates two amendments, Dz.U. 2025 poz. 1794 and Dz.U. 2026 poz. 203. Every provision cited here was checked against both.",
+          ru: "Сводный текст июля 2025 года старше двух поправок, Dz.U. 2025 poz. 1794 и Dz.U. 2026 poz. 203. Каждая названная здесь норма сверена с обеими.",
+          pl: "Tekst jednolity z lipca 2025 poprzedza dwie nowelizacje, Dz.U. 2025 poz. 1794 i Dz.U. 2026 poz. 203. Każdy przywołany tu przepis sprawdzono z obiema.",
+        },
+      },
+      {
+        id: "nowelizacja-mos",
+        citation:
+          "Ustawa z dnia 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794 — art. 1 pkt 13–15 (art. 105–106l, 108, 112a), art. 17, art. 19",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001794",
+        kind: "official",
+      },
+      {
+        id: "komunikat-mos",
+        citation:
+          "Komunikat Ministra Spraw Wewnętrznych i Administracji z dnia 10 kwietnia 2026 r., Monitor Polski 2026 poz. 370 — dzień wdrożenia MOS: 27 kwietnia 2026",
+        url: "https://api.sejm.gov.pl/eli/acts/MP/2026/370/text.pdf",
+        kind: "official",
+      },
+      {
+        id: "kpa",
+        citation:
+          "Kodeks postępowania administracyjnego, tekst jednolity Dz.U. 2025 poz. 1691 — art. 35, 36, 37, 64, 73, 127, 129",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001691",
+        kind: "official",
+      },
+      {
+        id: "pomoc-ukraina",
+        citation:
+          "Ustawa z dnia 12 marca 2022 r. o pomocy obywatelom Ukrainy w związku z konfliktem zbrojnym na terytorium tego państwa, tekst jednolity Dz.U. 2025 poz. 337 — art. 42c, 42d, 42p, 100d",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250000337",
+        kind: "official",
+      },
+      {
+        id: "ustawa-2025-1301",
+        citation:
+          "Ustawa z dnia 12 września 2025 r. o zmianie niektórych ustaw w celu weryfikacji prawa do świadczeń na rzecz rodziny dla cudzoziemców…, Dz.U. 2025 poz. 1301 — art. 10 pkt 1, 18, 19",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001301",
+        kind: "official",
+      },
+      {
+        id: "ustawa-2026-203",
+        citation:
+          "Ustawa z dnia 23 stycznia 2026 r. o wygaszeniu rozwiązań wynikających z ustawy o pomocy obywatelom Ukrainy…, Dz.U. 2026 poz. 203 — art. 4 pkt 5 (art. 109b), art. 17 pkt 27, 29, 31, 50, art. 54",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20260000203",
+        kind: "official",
+      },
+      {
+        id: "komunikat-cukr",
+        citation:
+          "Komunikat Ministra Spraw Wewnętrznych i Administracji z dnia 10 kwietnia 2026 r., Monitor Polski 2026 poz. 371 — dzień wdrożenia art. 42c–42w: 4 maja 2026",
+        url: "https://api.sejm.gov.pl/eli/acts/MP/2026/371/text.pdf",
+        kind: "official",
+      },
+      {
+        id: "obywatelstwo",
+        citation:
+          "Ustawa z dnia 2 kwietnia 2009 r. o obywatelstwie polskim, tekst jednolity Dz.U. 2025 poz. 1611 — art. 30",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001611",
+        kind: "official",
+      },
+      {
+        id: "druk-1759",
+        citation:
+          "Sejm RP, X kadencja — druk nr 1759, prezydencki projekt ustawy o zmianie ustawy o obywatelstwie polskim; przebieg procesu",
+        url: "https://api.sejm.gov.pl/sejm/term10/processes/1759",
+        kind: "official",
+        caveat: {
+          en: "sejm.gov.pl answers automated reads with a captcha; the Sejm's own API was used instead.",
+          ru: "sejm.gov.pl отвечает автоматическому чтению капчей; использован собственный API Сейма.",
+          pl: "sejm.gov.pl odpowiada na automatyczne odczyty captchą; użyto własnego API Sejmu.",
+        },
+      },
+      {
+        id: "druk-1888",
+        citation:
+          "Sejm RP, X kadencja — druk nr 1888, poselski projekt ustawy o zmianie ustawy o obywatelstwie polskim; odrzucony w pierwszym czytaniu 9 stycznia 2026",
+        url: "https://api.sejm.gov.pl/sejm/term10/processes/1888",
+        kind: "official",
+      },
+      {
+        id: "oplata-skarbowa",
+        citation:
+          "Ustawa z dnia 16 listopada 2006 r. o opłacie skarbowej, tekst jednolity Dz.U. 2025 poz. 1154 — załącznik, część I poz. 26 i 27a, część III poz. 2–4",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001154",
+        kind: "official",
+      },
+      {
+        id: "kryteria-dochodowe",
+        citation:
+          "Rozporządzenie Rady Ministrów z dnia 12 lipca 2024 r. w sprawie zweryfikowanych kryteriów dochodowych oraz kwot świadczeń pieniężnych z pomocy społecznej, Dz.U. 2024 poz. 1044",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20240001044",
+        kind: "official",
+      },
+      {
+        id: "udsc-cukr",
+        citation: "Urząd do Spraw Cudzoziemców — procedura wydania karty pobytu CUKR",
+        url: "https://www.gov.pl/web/udsc/CUKR-procedura",
+        kind: "official",
+        caveat: {
+          en: "An official page ranks below the act. This one agrees with it on every condition and date checked.",
+          ru: "Официальная страница стоит ниже текста закона. Эта совпадает с ним по всем проверенным условиям и датам.",
+          pl: "Strona urzędu stoi niżej niż tekst ustawy. Ta zgadza się z nią we wszystkich sprawdzonych warunkach i datach.",
+        },
+      },
+      {
+        id: "udsc-zawieszenie",
+        citation: "Urząd do Spraw Cudzoziemców — zawieszenie biegu terminów załatwiania spraw cudzoziemskich (6 października 2025)",
+        url: "https://www.gov.pl/web/udsc/zawieszenie-biegu-terminow-zalatwiania-spraw-cudzoziemskich",
+        kind: "official",
+        caveat: {
+          en: "Cited because it is out of date. It names 4 March 2026, correct when written; Dz.U. 2026 poz. 203 has since moved the date to 4 March 2027.",
+          ru: "Приведена потому, что устарела. Называет 4 марта 2026 года, что было верно на момент написания; закон Dz.U. 2026 poz. 203 с тех пор перенёс дату на 4 марта 2027 года.",
+          pl: "Przywołana, bo jest nieaktualna. Podaje 4 marca 2026, co było prawdą w chwili publikacji; ustawa Dz.U. 2026 poz. 203 przesunęła tę datę na 4 marca 2027.",
+        },
+      },
+      {
+        id: "muw-podroze",
+        citation: "Mazowiecki Urząd Wojewódzki, BIP — pytania i odpowiedzi, praca i pobyt (14 sierpnia 2020)",
+        url: "https://bip.mazowieckie.pl/artykul/358-25668-pytania-i-odpowiedzi-praca-i-pobyt",
+        kind: "official",
+        caveat: {
+          en: "Written about the passport stamp, before MOS replaced it with a zaświadczenie on 27 April 2026.",
+          ru: "Написано о штампе в паспорте, до того как с 27 апреля 2026 года MOS заменил его на zaświadczenie.",
+          pl: "Dotyczy stempla w paszporcie, sprzed zastąpienia go zaświadczeniem w MOS 27 kwietnia 2026.",
+        },
+      },
+      {
+        id: "nik-cudzoziemcy",
+        citation: "Najwyższa Izba Kontroli — obsługa cudzoziemców w urzędach wojewódzkich, kontrola za lata 2021–2023",
+        url: "https://www.nik.gov.pl/aktualnosci/obsluga-paszportowa-cudzoziemcow-wroclaw.html",
+        kind: "official",
+      },
+      {
+        id: "rpo-2020",
+        citation: "Rzecznik Praw Obywatelskich — pismo do Prezesa Rady Ministrów w sprawie przewlekłości procedur wobec cudzoziemców, 29 grudnia 2020",
+        url: "https://bip.brpo.gov.pl/pl/content/rpo-do-premiera-o-przewleklosci-procedur-wobec-cudzoziemcow",
+        kind: "official",
+      },
+    ],
+    note: {
+      en: "Poland is not one of the five jurisdictions in the comparison. This section backs pages for people who already live in Poland and need a residence permit or citizenship, which is a different question from where to move. Three of the rules above carry an expiry: the suspension of time limits and the CUKR filing deadline both run to 4 March 2027, and the income threshold is reviewed every three years. The rows will be re-read before those dates.",
+      ru: "Польша не входит в пять юрисдикций сравнения. Эта секция подкрепляет страницы для тех, кто уже живёт в Польше и оформляет разрешение на пребывание или гражданство, — это другой вопрос, чем выбор страны для переезда. У трёх норм выше есть срок: приостановка сроков и срок подачи на CUKR действуют до 4 марта 2027 года, а порог дохода пересматривается раз в три года. Строки будут перечитаны до этих дат.",
+      pl: "Polska nie należy do pięciu jurysdykcji porównania. Ta sekcja stoi za stronami dla osób, które już mieszkają w Polsce i starają się o zezwolenie pobytowe lub obywatelstwo — to inne pytanie niż wybór kraju przeprowadzki. Trzy z powyższych reguł mają termin: zawieszenie terminów i termin składania wniosków o kartę CUKR biegną do 4 marca 2027, a próg dochodowy jest weryfikowany co trzy lata. Wiersze zostaną przeczytane ponownie przed tymi datami.",
     },
   },
 ];
