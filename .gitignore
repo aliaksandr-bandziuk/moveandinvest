@@ -107,3 +107,9 @@ docs/seo-*.md
 # want from it. Same reason docs/partners-*.md and docs/seo-*.md stay out —
 # the repository is PUBLIC, and the people named would be the ones to find it.
 docs/outreach-*.md
+
+# Search Console exports: the site's own queries, impressions and positions.
+# Business figures, not personal data, but the repository is PUBLIC. Removed
+# from unpushed history on 14 September 2026 before it could be published;
+# the exports stay on disk, where they are read by hand.
+docs/gsc/
