@@ -79,7 +79,7 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
       {
         heading: "What we collect",
         body:
-          "Only what you type into the enquiry form: your email address, and optionally your name, the jurisdiction you are interested in, a budget range, a timeline, what you are after, and anything you write in your own words. Nothing else about you is collected — there is no account, no profile and no tracking. Our server also records the IP address of a request that trips the form's spam protection or its rate limit, which is the only way to tell an attack from a busy afternoon.",
+          "Only what you type into the enquiry form: your email address, and optionally your name, the jurisdiction you are interested in, a budget range, a timeline, what you are after, and anything you write in your own words. The form that opens from the cost calculator may also take a phone number or messenger handle, if you choose to give one, so that we can reach you the way you prefer. Nothing else about you is collected — there is no account, no profile and no tracking. Our server also records the IP address of a request that trips the form's spam protection or its rate limit, which is the only way to tell an attack from a busy afternoon.",
       },
       {
         heading: "Why, and on what legal basis",
@@ -163,7 +163,7 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
       {
         heading: "Что мы собираем",
         body:
-          "Только то, что вы сами вписали в форму заявки: адрес почты и, по желанию, имя, интересующую юрисдикцию, диапазон бюджета, срок, цели и всё, что вы написали своими словами. Больше о вас не собирается ничего — здесь нет ни аккаунтов, ни профилей, ни слежки. Сервер дополнительно записывает IP-адрес запроса, который сработал на защите от спама или упёрся в ограничение частоты: иначе не отличить атаку от оживлённого дня.",
+          "Только то, что вы сами вписали в форму заявки: адрес почты и, по желанию, имя, интересующую юрисдикцию, диапазон бюджета, срок, цели и всё, что вы написали своими словами. Форма, которая открывается из калькулятора стоимости, может также принять телефон или имя в мессенджере, если вы сами решите их указать, — чтобы связаться с вами так, как вам удобнее. Больше о вас не собирается ничего — здесь нет ни аккаунтов, ни профилей, ни слежки. Сервер дополнительно записывает IP-адрес запроса, который сработал на защите от спама или упёрся в ограничение частоты: иначе не отличить атаку от оживлённого дня.",
       },
       {
         heading: "Зачем и на каком основании",
@@ -243,7 +243,7 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
       {
         heading: "Co zbieramy",
         body:
-          "Wyłącznie to, co sam wpiszesz w formularz: adres e-mail oraz opcjonalnie imię, interesującą Cię jurysdykcję, przedział budżetu, termin, cele i wszystko, co napiszesz własnymi słowami. Nic więcej o Tobie nie jest zbierane — nie ma tu kont, profili ani śledzenia. Serwer zapisuje dodatkowo adres IP żądania, które uruchomiło zabezpieczenie przed spamem albo limit częstotliwości: inaczej nie da się odróżnić ataku od ruchliwego dnia.",
+          "Wyłącznie to, co sam wpiszesz w formularz: adres e-mail oraz opcjonalnie imię, interesującą Cię jurysdykcję, przedział budżetu, termin, cele i wszystko, co napiszesz własnymi słowami. Formularz otwierany z kalkulatora kosztów może też przyjąć numer telefonu lub nazwę w komunikatorze, jeśli sam zdecydujesz się je podać — żebyśmy mogli skontaktować się z Tobą tak, jak Ci wygodniej. Nic więcej o Tobie nie jest zbierane — nie ma tu kont, profili ani śledzenia. Serwer zapisuje dodatkowo adres IP żądania, które uruchomiło zabezpieczenie przed spamem albo limit częstotliwości: inaczej nie da się odróżnić ataku od ruchliwego dnia.",
       },
       {
         heading: "Po co i na jakiej podstawie",

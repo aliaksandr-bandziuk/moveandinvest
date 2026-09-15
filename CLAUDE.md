@@ -1119,8 +1119,9 @@ and the consent constants stay frozen. If the form ever asks something new or
 goes to a different kind of recipient, that section changes first — and the
 freeze has to be lifted for it again, by the owner.
 
-Still not covered, and not part of that permission: the calculator dialog's
-phone/messenger field (`reach`) is not named in "What we collect".
+The calculator dialog's phone/messenger field (`reach`) was named in "What we
+collect" the same day, by a second permission from the owner for that one
+sentence.
 
 Not yet measured in a browser: the three `#residence-*` panels at their
 fragments. Check them on the first render of a real entry.
