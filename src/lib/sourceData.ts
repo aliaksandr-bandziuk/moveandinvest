@@ -1894,11 +1894,43 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Karta CUKR: kto może złożyć wniosek, do kiedy i na jak długo",
         },
         verdict: "added",
-        checked: "2026-09-14",
+        checked: "2026-09-15",
         finding: {
-          en: "Art. 42c of the Act on assistance to citizens of Ukraine: UKR status on 4 June 2025 (date set by Dz.U. 2025 poz. 1301 art. 10 pkt 18), on the day of the application, and continuously for at least 365 days. The card is valid for 3 years from issue (art. 42p); the decision is due within 180 days of a complete application (art. 42l as amended by Dz.U. 2026 poz. 203 art. 17 pkt 27); stay is lawful until the card is collected or a refusal becomes final if the application is filed by 4 March 2027 (art. 42x, date set by art. 17 pkt 31); the fee is not refunded if the case ends without a card (art. 42s ust. 3). Start date 4 May 2026: Monitor Polski 2026 poz. 371. The UdSC procedure page states the same conditions and dates.",
-          ru: "Ст. 42c закона о помощи гражданам Украины: статус UKR на 4 июня 2025 года (дата установлена законом Dz.U. 2025 poz. 1301, ст. 10 п. 18), на день заявления и непрерывно не менее 365 дней. Карта действует 3 года со дня выдачи (ст. 42p); решение — в течение 180 дней от полного заявления (ст. 42l в редакции Dz.U. 2026 poz. 203, ст. 17 п. 27); пребывание законно до получения карты или окончательного отказа, если заявление подано до 4 марта 2027 года (ст. 42x, дата установлена ст. 17 п. 31); сбор не возвращается, если дело кончилось без карты (ст. 42s ч. 3). Дата начала — 4 мая 2026 года: Monitor Polski 2026 poz. 371. Страница процедуры UdSC называет те же условия и даты.",
-          pl: "Art. 42c ustawy o pomocy obywatelom Ukrainy: status UKR w dniu 4 czerwca 2025 (data ustalona ustawą Dz.U. 2025 poz. 1301 art. 10 pkt 18), w dniu złożenia wniosku i nieprzerwanie przez co najmniej 365 dni. Karta jest ważna 3 lata od wydania (art. 42p); decyzja w terminie 180 dni od kompletnego wniosku (art. 42l w brzmieniu Dz.U. 2026 poz. 203 art. 17 pkt 27); pobyt jest legalny do odbioru karty lub ostatecznej odmowy, jeżeli wniosek złożono do 4 marca 2027 (art. 42x, data ustalona art. 17 pkt 31); opłata nie podlega zwrotowi, jeśli postępowanie zakończy się bez wydania karty (art. 42s ust. 3). Data startu 4 maja 2026: Monitor Polski 2026 poz. 371. Strona procedury UdSC podaje te same warunki i daty.",
+          en: "Art. 42c of the Act on assistance to citizens of Ukraine: a citizen of Ukraine whose stay is lawful as a temporary protection beneficiary (art. 106 of the Act on granting protection, reference set by Dz.U. 2026 poz. 203 art. 17 pkt 22) with UKR status on 4 June 2025 (date set by Dz.U. 2025 poz. 1301 art. 10 pkt 18), on the day of the application, and continuously for at least 365 days; a child born in Poland whose mother holds the card (art. 42d). The application is electronic only, through the UdSC system, and signed by the applicant with a qualified or trusted signature (art. 42f ust. 5); one filed any other way is left unexamined (ust. 7). It counts as filed only if the PESEL register holds complete passport data and the register holds fingerprints and a signature (art. 42g). Filing ends by law any pending temporary residence case of the same person (art. 42i as amended). The competent voivode is fixed at filing (art. 42o). The card is valid for 3 years from issue (art. 42p); the decision is due within 180 days of a complete application (art. 42l as amended by Dz.U. 2026 poz. 203 art. 17 pkt 27); stay is lawful until the card is collected or a refusal becomes final if the application is filed by 4 March 2027 (art. 42x, date set by art. 17 pkt 31). Start date 4 May 2026: Monitor Polski 2026 poz. 371. The Gdańsk voivodeship FAQ also names certain family members and a personal signature of the applicant, neither of which is in the text of art. 42c or 42f.",
+          ru: "Ст. 42c закона о помощи гражданам Украины: гражданин Украины, чьё пребывание законно как получателя временной защиты (ст. 106 закона о защите иностранцев, отсылка установлена Dz.U. 2026 poz. 203, ст. 17 п. 22), со статусом UKR на 4 июня 2025 года (дата установлена законом Dz.U. 2025 poz. 1301, ст. 10 п. 18), на день заявления и непрерывно не менее 365 дней; ребёнок, рождённый в Польше, если карта выдана матери (ст. 42d). Заявление только электронно, через систему UdSC, заявитель подписывает квалифицированной подписью или профилем доверенным (ст. 42f ч. 5); поданное иначе оставляется без рассмотрения (ч. 7). Заявление считается поданным, только если в реестре PESEL полные данные паспорта, а в реестре — отпечатки и подпись (ст. 42g). Подача прекращает с силу закона незаконченное дело того же лица о временном пребывании (ст. 42i в новой редакции). Воевода определяется на момент подачи (ст. 42o). Карта действует 3 года со дня выдачи (ст. 42p); решение — в течение 180 дней от полного заявления (ст. 42l в редакции Dz.U. 2026 poz. 203, ст. 17 п. 27); пребывание законно до получения карты или окончательного отказа, если заявление подано до 4 марта 2027 года (ст. 42x, дата установлена ст. 17 п. 31). Дата начала — 4 мая 2026 года: Monitor Polski 2026 poz. 371. FAQ гданьского воеводства называет ещё некоторых членов семьи и личную подпись самого заявителя — ни того ни другого в тексте ст. 42c и 42f нет.",
+          pl: "Art. 42c ustawy o pomocy obywatelom Ukrainy: obywatel Ukrainy przebywający legalnie jako beneficjent ochrony czasowej (art. 106 ustawy o udzielaniu cudzoziemcom ochrony, odesłanie ustalone Dz.U. 2026 poz. 203 art. 17 pkt 22), ze statusem UKR w dniu 4 czerwca 2025 (data ustalona ustawą Dz.U. 2025 poz. 1301 art. 10 pkt 18), w dniu złożenia wniosku i nieprzerwanie przez co najmniej 365 dni; dziecko urodzone w Polsce, jeżeli kartę wydano matce (art. 42d). Wniosek wyłącznie elektronicznie, w systemie Szefa UdSC, podpisany przez wnioskodawcę kwalifikowanym podpisem elektronicznym lub podpisem zaufanym (art. 42f ust. 5); złożony inaczej pozostawia się bez rozpoznania (ust. 7). Uznaje się go za złożony tylko przy kompletnych danych paszportowych w rejestrze PESEL oraz odciskach palców i podpisie w rejestrze (art. 42g). Złożenie wniosku umarza z mocy prawa niezakończone postępowanie tej osoby o pobyt czasowy (art. 42i w nowym brzmieniu). Właściwość wojewody ustala się w chwili złożenia wniosku (art. 42o). Karta jest ważna 3 lata od wydania (art. 42p); decyzja w terminie 180 dni od kompletnego wniosku (art. 42l w brzmieniu Dz.U. 2026 poz. 203 art. 17 pkt 27); pobyt jest legalny do odbioru karty lub ostatecznej odmowy, jeżeli wniosek złożono do 4 marca 2027 (art. 42x, data ustalona art. 17 pkt 31). Data startu 4 maja 2026: Monitor Polski 2026 poz. 371. FAQ Pomorskiego Urzędu Wojewódzkiego wymienia też niektórych członków rodziny i podpis osobisty wnioskodawcy — żadnego z nich nie ma w treści art. 42c ani 42f.",
+        },
+      },
+      {
+        subject: {
+          en: "The CUKR card after collection, and how the permit is lost",
+          ru: "Карта CUKR после получения и как потерять разрешение",
+          pl: "Karta CUKR po odbiorze i jak utracić zezwolenie",
+        },
+        verdict: "added",
+        checked: "2026-09-15",
+        finding: {
+          en: "Art. 42r: on collecting the card, the right of stay becomes by law a temporary residence permit for the card's validity; a card not collected within 60 days of the notice is cancelled and neither fee is refunded. Art. 42t: the permit is withdrawn if the holder has left Poland for at least 6 months, or on security grounds or an entry in the register of undesirable foreigners. Art. 42u: every change of place of stay is reported to the issuing voivode within 15 working days, or letters in a later case count as delivered to the old address. Art. 42v and 42w: no work permit is needed, and a business may be run on the terms that apply to Polish citizens. Temporary protection ends when a temporary residence permit is granted (art. 109b ust. 1 pkt 4 of the Act on granting protection). From official pages rather than the acts: time on the card counts towards the five years for EU long-term residence from the day of collection and UKR time does not (Gdańsk and Poznań voivodeship offices); the next permit follows the general rules (Gdańsk).",
+          ru: "Ст. 42r: с получением карты право пребывания с силу закона становится разрешением на временное пребывание на срок действия карты; карта, не полученная в течение 60 дней от уведомления, аннулируется, и ни плата, ни сбор не возвращаются. Ст. 42t: разрешение отзывают, если держатель покинул Польшу на срок не меньше 6 месяцев, а также по соображениям безопасности или при записи в списке нежелательных иностранцев. Ст. 42u: о каждой смене места пребывания сообщают выдавшему карту воеводе в течение 15 рабочих дней, иначе письма по последующему делу считаются доставленными по старому адресу. Ст. 42v и 42w: разрешение на работу не нужно, бизнес можно вести на условиях граждан Польши. Временная защита прекращается с выдачей разрешения на временное пребывание (ст. 109b ч. 1 п. 4 закона о защите иностранцев). С официальных страниц, а не из актов: время на карте засчитывается в пять лет для статуса резидента ЕС со дня получения, время со статусом UKR — нет (воеводские управления Гданьска и Познани); следующее разрешение — на общих основаниях (Гданьск).",
+          pl: "Art. 42r: z dniem odbioru karty uprawnienie do pobytu staje się z mocy prawa zezwoleniem na pobyt czasowy na okres ważności karty; karta nieodebrana w ciągu 60 dni od powiadomienia jest unieważniana, a ani opłata za kartę, ani opłata skarbowa nie podlegają zwrotowi. Art. 42t: zezwolenie cofa się, jeżeli posiadacz opuścił Polskę na okres co najmniej 6 miesięcy, a także ze względów bezpieczeństwa lub przy wpisie do wykazu cudzoziemców niepożądanych. Art. 42u: o każdej zmianie miejsca pobytu zawiadamia się wojewodę, który wydał kartę, w terminie 15 dni roboczych, inaczej pisma w późniejszym postępowaniu uważa się za doręczone pod dotychczasowym adresem. Art. 42v i 42w: zezwolenie na pracę nie jest wymagane, a działalność gospodarczą można prowadzić na zasadach obywateli polskich. Ochrona czasowa wygasa z udzieleniem zezwolenia na pobyt czasowy (art. 109b ust. 1 pkt 4 ustawy o udzielaniu cudzoziemcom ochrony). Ze stron urzędów, nie z ustaw: okres na karcie wlicza się do pięciu lat wymaganych do pobytu rezydenta długoterminowego UE od dnia odbioru, a okres ze statusem UKR — nie (urzędy wojewódzkie w Gdańsku i Poznaniu); kolejne zezwolenie na zasadach ogólnych (Gdańsk).",
+        },
+      },
+      // THE ONE ROW ON THIS PAGE THAT IS A READING OF A CROSS-REFERENCE RATHER
+      // THAN OF A DATE PRINTED IN AN ACT, and it says so. Kept because the
+      // voivodeship pages still print 4 March 2027 for UKR stay while the act
+      // they apply now points at the EU decision, which UdSC reports extended.
+      {
+        subject: {
+          en: "UKR stay: 4 March 2027 or 4 March 2028",
+          ru: "Пребывание со статусом UKR: до 4 марта 2027 или до 4 марта 2028 года",
+          pl: "Pobyt ze statusem UKR: do 4 marca 2027 czy do 4 marca 2028",
+        },
+        verdict: "added",
+        checked: "2026-09-15",
+        finding: {
+          en: "Art. 106 ust. 1 of the Act on granting protection, as worded by Dz.U. 2026 poz. 203 art. 4: a temporary protection beneficiary's stay is lawful from entry until the day the EU Council decision on mass influx remains in force, unless an act provides otherwise; art. 1–4a of the Act on assistance to citizens of Ukraine, which carried the earlier end date, were repealed (art. 17 pkt 1). The UdSC page of 6 August 2026: Council Implementing Decision (EU) 2026/1912 of 30 July 2026, in force from 5 August 2026, extends temporary protection to 4 March 2028, and new grants require fulfilled military obligations in Ukraine, except for those protected on 4 August 2026 who keep protection without a break; the Mazowieckie voivodeship's copy of the same notice gives 31 and 30 July. No other end date for the stay itself was found in the acts read, so by the text lawful UKR stay runs with the decision; this is a reading of the cross-reference, not a date printed in the act. The Gdańsk voivodeship FAQ still names 4 March 2027. The CUKR filing deadline of 4 March 2027 is a separate, express provision (art. 42x) and the EU extension does not move it. EUR-Lex refused automated reads.",
+          ru: "Ст. 106 ч. 1 закона о защите иностранцев в редакции Dz.U. 2026 poz. 203, ст. 4: пребывание получателя временной защиты законно со дня въезда до дня, пока действует решение Совета ЕС о массовом притоке, если закон не устанавливает иначе; ст. 1–4a закона о помощи гражданам Украины, где стоял прежний срок, отменены (ст. 17 п. 1). Страница UdSC от 6 августа 2026 года: исполнительное решение Совета (ЕС) 2026/1912 от 30 июля 2026 года, в силе с 5 августа 2026 года, продлевает временную защиту до 4 марта 2028 года, а новым получателям её дают только при выполненных воинских обязанностях в Украине, кроме тех, кто пользовался защитой на 4 августа 2026 года и сохраняет её без перерыва; копия того же сообщения на сайте мазовецкого воеводы называет 31 и 30 июля. Иного срока для самого пребывания в прочитанных актах не найдено, поэтому по тексту законность пребывания UKR идёт вместе с решением; это чтение отсылки, а не дата, напечатанная в законе. FAQ гданьского воеводства всё ещё называет 4 марта 2027 года. Срок подачи на CUKR, 4 марта 2027 года, — отдельная прямая норма (ст. 42x), и продление ЕС его не переносит. EUR-Lex автоматическое чтение не пропустил.",
+          pl: "Art. 106 ust. 1 ustawy o udzielaniu cudzoziemcom ochrony w brzmieniu Dz.U. 2026 poz. 203 art. 4: pobyt beneficjenta ochrony czasowej uznaje się za legalny od dnia wjazdu do dnia, w którym decyzja Rady UE o masowym napływie zachowuje moc, chyba że ustawa stanowi inaczej; art. 1–4a ustawy o pomocy obywatelom Ukrainy, gdzie był wcześniejszy termin, uchylono (art. 17 pkt 1). Strona UdSC z 6 sierpnia 2026: decyzja wykonawcza Rady (UE) 2026/1912 z 30 lipca 2026, w mocy od 5 sierpnia 2026, przedłuża ochronę czasową do 4 marca 2028, a nowym beneficjentom przyznaje się ją tylko po wypełnieniu obowiązków wojskowych w Ukrainie, z wyjątkiem osób korzystających z ochrony 4 sierpnia 2026 i zachowujących ją nieprzerwanie; kopia tego komunikatu na stronie Mazowieckiego Urzędu Wojewódzkiego podaje 31 i 30 lipca. W przeczytanych ustawach nie znaleziono innego terminu samego pobytu, więc według tekstu legalny pobyt UKR biegnie razem z decyzją; to odczytanie odesłania, a nie data wydrukowana w ustawie. FAQ Pomorskiego Urzędu Wojewódzkiego wciąż podaje 4 marca 2027. Termin złożenia wniosku o kartę CUKR, 4 marca 2027, to odrębny, wyraźny przepis (art. 42x) i przedłużenie unijne go nie przesuwa. EUR-Lex odrzucił automatyczny odczyt.",
         },
       },
       {
@@ -1977,12 +2009,16 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           ru: "Сбор за разрешение при CUKR",
           pl: "Opłata za zezwolenie przy karcie CUKR",
         },
-        verdict: "unverified",
-        checked: "2026-09-14",
+        // WAS "unverified" UNTIL 15 SEPTEMBER 2026, and the reason it moved is
+        // in the finding: the special provisions of the Ukrainian act were read
+        // and they make the fee a condition of the card, which the general
+        // exemption in the stamp duty annex does not undo in practice.
+        verdict: "added",
+        checked: "2026-09-15",
         finding: {
-          en: "The UdSC procedure page states 100 zł for the card and 340 zł for the temporary residence permit. The consolidated stamp duty act, Dz.U. 2025 poz. 1154, exempts a temporary residence permit granted to a foreigner benefiting from temporary protection. Whether that exemption reaches a CUKR applicant, whose temporary protection ends when the permit is granted, was not established, so no amount is published for it.",
-          ru: "Страница процедуры UdSC называет 100 zł за карту и 340 zł за разрешение на временное пребывание. Сводный текст закона о гербовом сборе, Dz.U. 2025 poz. 1154, освобождает от сбора разрешение на временное пребывание для иностранца, пользующегося временной защитой. Распространяется ли это освобождение на заявителя CUKR, чья временная защита прекращается в день выдачи разрешения, не установлено, поэтому сумма не публикуется.",
-          pl: "Strona procedury UdSC podaje 100 zł za kartę i 340 zł za zezwolenie na pobyt czasowy. Tekst jednolity ustawy o opłacie skarbowej, Dz.U. 2025 poz. 1154, zwalnia z opłaty zezwolenie na pobyt czasowy udzielane cudzoziemcowi korzystającemu z ochrony czasowej. Czy zwolnienie obejmuje wnioskodawcę karty CUKR, którego ochrona czasowa wygasa w dniu udzielenia zezwolenia, nie ustalono, dlatego kwota nie jest publikowana.",
+          en: "Art. 42s ust. 1–2 of the Act on assistance to citizens of Ukraine levies the stamp duty for a CUKR permit at the rate in part III item 2 of the stamp duty annex, 340 zł, due on filing; art. 42f ust. 3 makes proof of both payments a required attachment, and art. 42e ust. 1 pkt 5–6 makes non-payment of either a ground for refusal. Neither is refunded if the case ends without a card (art. 42s ust. 3, art. 42r ust. 2). The annex to the stamp duty act, Dz.U. 2025 poz. 1154, does list an exemption for a permit granted to a foreigner benefiting from temporary protection; the UdSC procedure page and the Gdańsk voivodeship FAQ both state that both fees are mandatory and no exemption applies. The card fee of 100 zł is set by a regulation under art. 239 of the Act on Foreigners, which was not read; the amount is as UdSC and the voivodeship publish it.",
+          ru: "Ст. 42s ч. 1–2 закона о помощи гражданам Украины устанавливает гербовый сбор за разрешение при CUKR по ставке части III п. 2 приложения к закону о гербовом сборе — 340 zł, обязанность возникает при подаче; ст. 42f ч. 3 делает подтверждения обеих оплат обязательными приложениями, а ст. 42e ч. 1 п. 5–6 — неуплату любой из них основанием отказа. Если дело кончилось без карты, ни то ни другое не возвращается (ст. 42s ч. 3, ст. 42r ч. 2). В приложении к закону о гербовом сборе, Dz.U. 2025 poz. 1154, есть освобождение для разрешения, выдаваемого пользующемуся временной защитой; страница процедуры UdSC и FAQ гданьского воеводства обе пишут, что оба платежа обязательны и освобождения нет. Плата за карту, 100 zł, установлена распоряжением по ст. 239 закона об иностранцах, которое не читалось; сумма — как её публикуют UdSC и воеводство.",
+          pl: "Art. 42s ust. 1–2 ustawy o pomocy obywatelom Ukrainy nakłada opłatę skarbową za zezwolenie przy karcie CUKR w wysokości z części III ust. 2 załącznika do ustawy o opłacie skarbowej — 340 zł, z obowiązkiem powstającym przy złożeniu wniosku; art. 42f ust. 3 czyni potwierdzenia obu wpłat obowiązkowymi załącznikami, a art. 42e ust. 1 pkt 5–6 nieuiszczenie którejkolwiek podstawą odmowy. Żadna nie podlega zwrotowi, gdy postępowanie kończy się bez karty (art. 42s ust. 3, art. 42r ust. 2). Załącznik do ustawy o opłacie skarbowej, Dz.U. 2025 poz. 1154, przewiduje zwolnienie dla zezwolenia udzielanego cudzoziemcowi korzystającemu z ochrony czasowej; strona procedury UdSC i FAQ Pomorskiego Urzędu Wojewódzkiego podają, że obie opłaty są obowiązkowe i zwolnienie nie ma zastosowania. Opłata za kartę, 100 zł, wynika z rozporządzenia wydanego na podstawie art. 239 ustawy o cudzoziemcach, którego nie czytano; kwota jak w publikacji UdSC i urzędu.",
         },
       },
     ],
@@ -2106,7 +2142,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "pomoc-ukraina",
         citation:
-          "Ustawa z dnia 12 marca 2022 r. o pomocy obywatelom Ukrainy w związku z konfliktem zbrojnym na terytorium tego państwa, tekst jednolity Dz.U. 2025 poz. 337 — art. 42c, 42d, 42p, 100d",
+          "Ustawa z dnia 12 marca 2022 r. o pomocy obywatelom Ukrainy w związku z konfliktem zbrojnym na terytorium tego państwa, tekst jednolity Dz.U. 2025 poz. 337 — art. 42c–42w, 100d",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250000337",
         kind: "official",
       },
@@ -2120,9 +2156,37 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "ustawa-2026-203",
         citation:
-          "Ustawa z dnia 23 stycznia 2026 r. o wygaszeniu rozwiązań wynikających z ustawy o pomocy obywatelom Ukrainy…, Dz.U. 2026 poz. 203 — art. 4 pkt 5 (art. 109b), art. 17 pkt 27, 29, 31, 50, art. 54",
+          "Ustawa z dnia 23 stycznia 2026 r. o wygaszeniu rozwiązań wynikających z ustawy o pomocy obywatelom Ukrainy…, Dz.U. 2026 poz. 203 — art. 4 (art. 106, 109a, 109b ustawy o udzielaniu cudzoziemcom ochrony), art. 17 pkt 1, 22–31, 50, art. 54",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20260000203",
         kind: "official",
+      },
+      {
+        id: "puw-cukr-faq",
+        citation: "Pomorski Urząd Wojewódzki w Gdańsku, Wydział Spraw Cudzoziemców — Karta pobytu CUKR: pytania i odpowiedzi",
+        url: "https://wsc.gdansk.uw.gov.pl/pl/cukr-faq",
+        kind: "official",
+        caveat: {
+          en: "An official page ranks below the act. This one agrees with it on most points and departs from it on three: it still names 4 March 2027 for UKR stay, and it adds family members and a personal signature that art. 42c and 42f do not name.",
+          ru: "Официальная страница стоит ниже текста закона. Эта совпадает с ним в большинстве пунктов и расходится в трёх: всё ещё называет 4 марта 2027 года для пребывания UKR и добавляет членов семьи и личную подпись, которых нет в ст. 42c и 42f.",
+          pl: "Strona urzędu stoi niżej niż tekst ustawy. Ta zgadza się z nią w większości punktów i rozchodzi w trzech: wciąż podaje 4 marca 2027 dla pobytu UKR oraz dodaje członków rodziny i podpis osobisty, których nie wymieniają art. 42c i 42f.",
+        },
+      },
+      {
+        id: "wuw-cukr",
+        citation: "Wielkopolski Urząd Wojewódzki w Poznaniu — „Masz PESEL UKR? Wybierz kartę pobytu CUKR zamiast standardowego pobytu czasowego”",
+        url: "https://migrant.poznan.uw.gov.pl/pl/komunikaty/masz-pesel-ukr-wybierz-karte-pobytu-cukr-zamiast-standardowego-pobytu-czasowego",
+        kind: "official",
+      },
+      {
+        id: "udsc-2028",
+        citation: "Urząd do Spraw Cudzoziemców — Przedłużenie ochrony czasowej do 4 marca 2028 r. (6 sierpnia 2026), decyzja wykonawcza Rady (UE) 2026/1912",
+        url: "https://www.gov.pl/web/udsc/przedluzenie-ochrony-czasowej-do-4-marca-2028-r",
+        kind: "official",
+        caveat: {
+          en: "The Council decision itself was not read: EUR-Lex refused automated reads. The Mazowieckie voivodeship copy of this notice gives different dates for the military-obligation rule.",
+          ru: "Само решение Совета не прочитано: EUR-Lex отказал автоматическому чтению. Копия этого сообщения на сайте мазовецкого воеводы называет другие даты правила о воинской обязанности.",
+          pl: "Samej decyzji Rady nie przeczytano: EUR-Lex odrzucił automatyczny odczyt. Kopia tego komunikatu na stronie Mazowieckiego Urzędu Wojewódzkiego podaje inne daty reguły o obowiązkach wojskowych.",
+        },
       },
       {
         id: "komunikat-cukr",

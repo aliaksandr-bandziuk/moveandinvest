@@ -702,6 +702,23 @@ const ENTRIES: Record<string, EntryConfig> = {
     // Research, а не reference: это датированная находка с нормой, которая
     // истекает 4 марта 2027 года.
   },
+  "poland-cukr": {
+    key: "article-poland-cukr",
+    sources: {
+      ru: "article-ru-poland-cukr.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-15T15:00:00.000Z",
+    // "rules": предмет — статьи 42c–42x и 106, что они требуют и что меняют.
+    category: "rules",
+    // Пусто намеренно, как у poland-waiting: Польша — раздел, не юрисдикция
+    // реестра. Страну и форму задаёт источник pl-legal.
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. «cukr» 4 400 в русском и украинском интерфейсе — один
+    // латинский запрос; украинской локали на сайте нет. Выбрана первой из
+    // четырёх польских тем 15 сентября 2026 по спросу и по сроку подачи до
+    // 4 марта 2027 года.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {
