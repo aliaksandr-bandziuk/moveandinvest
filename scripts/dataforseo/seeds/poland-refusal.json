@@ -1,0 +1,27 @@
+{
+  "_about": "Seeds for the Poland entry on a refused karta pobytu, the appeal and what follows, 15 Sep 2026. Location Poland, the readers already live there.",
+  "location": 2616,
+  "languages": {
+    "ru": [
+      "отказ в карте побыту", "отказ в карте побыта", "негативная децизия карта побыту", "негативная децизия", "децизия отказ",
+      "жалоба на отказ в карте побыту", "апелляция карта побыту", "odwołanie карта побыту",
+      "причины отказа в карте побыту", "что делать после отказа в карте побыту", "повторная подача на карту побыту после отказа",
+      "депортация из польши", "обязательство вернуться польша", "сколько дней на выезд после отказа польша",
+      "запрет на въезд в польшу", "запрет на въезд в шенген польша", "суд по карте побыту",
+      "umorzenie карта побыту", "прекращение дела карта побыту", "оставление без рассмотрения карта побыту"
+    ],
+    "uk": [
+      "відмова в карті побиту", "негативна децизія карта побиту", "негативна децизія", "оскарження відмови карта побиту",
+      "апеляція карта побиту", "причини відмови в карті побиту", "що робити після відмови в карті побиту",
+      "депортація з польщі", "заборона на в'їзд до польщі", "скільки днів на виїзд після відмови"
+    ],
+    "pl": [
+      "odmowa karty pobytu", "odwołanie od decyzji karta pobytu", "odwołanie od decyzji karta pobytu wzór",
+      "negatywna decyzja karta pobytu", "odwołanie do szefa urzędu do spraw cudzoziemców", "skarga do sądu administracyjnego karta pobytu",
+      "umorzenie postępowania karta pobytu", "pozostawienie wniosku bez rozpoznania karta pobytu",
+      "zobowiązanie cudzoziemca do powrotu", "decyzja o zobowiązaniu do powrotu", "30 dni na opuszczenie polski",
+      "zakaz wjazdu do polski", "wykaz cudzoziemców niepożądanych", "ponowny wniosek o kartę pobytu po odmowie"
+    ]
+  },
+  "topic": "отказ|відмов|odmow|odwoła|жалоб|оскарж|апел|децизи|decyzj|депорт|powrot|zobowiązan|запрет|заборон|zakaz|niepożądan|umorzen|прекращ|без рассмотр|bez rozpozn|суд|skarg|выезд|виїзд|opuszcz|повторн|ponown"
+}
