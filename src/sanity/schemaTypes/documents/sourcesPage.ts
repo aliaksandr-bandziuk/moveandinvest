@@ -37,7 +37,7 @@ export const sourcesPage = defineType({
     }),
     textField("intro", "Deck", {
       description:
-        "LEAD WITH THE NUMBER OF CORRECTIONS. Nineteen of seventy-five checks came back wrong, and the instinct to bury that is exactly backwards: no competitor publishes such a number, and a comparison that has never found itself wrong has never checked. Four to seven lines.",
+        "LEAD WITH THE NUMBER OF CORRECTIONS. Nineteen of seventy-eight checks came back wrong, and the instinct to bury that is exactly backwards: no competitor publishes such a number, and a comparison that has never found itself wrong has never checked. Four to seven lines.",
       max: 600,
       rows: 6,
     }),

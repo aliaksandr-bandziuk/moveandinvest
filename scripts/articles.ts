@@ -810,6 +810,35 @@ const ENTRIES: Record<string, EntryConfig> = {
     // восемь ситуаций на одной странице под «депортация из польши» 110 и
     // «депортація з польщі» 100, а не восемь тонких страниц.
   },
+  "poland-employer": {
+    key: "article-poland-employer",
+    sources: {
+      ru: "article-ru-poland-employer.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-15T15:30:00.000Z",
+    // "rules": предмет — ст. 118–123, 303 ч. 2 закона об иностранцах и ст. 3 закона 621.
+    category: "rules",
+    // Пусто намеренно: Польша задаётся источником pl-legal.
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. Вторая страница «по ситуациям». ru ~100, pl ~500
+    // («wniosek o zmianę zezwolenia» 260, «zmiana pracodawcy karta pobytu» 170).
+  },
+  "poland-renewal": {
+    key: "article-poland-renewal",
+    sources: {
+      ru: "article-ru-poland-renewal.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-15T15:35:00.000Z",
+    // "rules": предмет — ст. 98–108, 230–248, 465 закона об иностранцах и ст. 42 закона о помощи.
+    category: "rules",
+    // Пусто намеренно: Польша задаётся источником pl-legal.
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. Третья страница «по ситуациям». ru 90, uk 70, pl ~500
+    // («przedłużenie karty pobytu» 170). Нашла продление для граждан Украины
+    // до 4 марта 2027 года, ст. 42, — оно же поправило статью о депортации.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {
