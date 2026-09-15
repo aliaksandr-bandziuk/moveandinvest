@@ -719,6 +719,21 @@ const ENTRIES: Record<string, EntryConfig> = {
     // четырёх польских тем 15 сентября 2026 по спросу и по сроку подачи до
     // 4 марта 2027 года.
   },
+  "poland-permanent": {
+    key: "article-poland-permanent",
+    sources: {
+      ru: "article-ru-poland-permanent.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-15T11:30:00.000Z",
+    // "rules": предмет — ст. 195–219 и 243 закона об иностранцах.
+    category: "rules",
+    // Пусто намеренно: Польша задаётся источником pl-legal.
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. Спрос русский и украинский ~2 400 («карта резидента єс»
+    // 480, «карта сталого побиту» 390, «карта сталего побыту» 210); украинской
+    // локали нет. Вторая тема по спросу после CUKR, 15 сентября 2026.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {

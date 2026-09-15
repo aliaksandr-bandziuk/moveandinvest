@@ -1963,6 +1963,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       },
       {
         subject: {
+          en: "Permanent residence and EU long-term resident: filing, breaks, loss and the card",
+          ru: "Постоянное пребывание и резидент ЕС: подача, перерывы, потеря и карта",
+          pl: "Pobyt stały i rezydent długoterminowy UE: wniosek, przerwy, utrata i karta",
+        },
+        verdict: "added",
+        checked: "2026-09-15",
+        finding: {
+          en: "Act on Foreigners, consolidated Dz.U. 2025 poz. 1079, with the MOS amendment Dz.U. 2025 poz. 1794. Permanent residence (art. 195) is granted on named grounds, among them a child of a Polish citizen or of a permanent or long-term resident, Polish descent, a valid Karta Polaka, 3 years of marriage to a Polish citizen with 2 continuous years on a marriage-based temporary permit immediately before, 4 years on a temporary residence and work permit for a profession desirable for the Polish economy (art. 114 ust. 1a) with stable income, 5 years as a refugee or 10 on tolerated stay. A stay counts as continuous if no break exceeded 6 months and all breaks together 10 months, with exceptions for work for a Polish employer abroad and similar (art. 195 ust. 4, art. 212 ust. 3–4). Applications are filed through MOS only, signed with a qualified or trusted signature (art. 203c–d, 219c–d); a long-term resident applicant shows a current legal title to housing, a loan-for-use agreement counting only from close family (art. 219a). Failing to appear, give fingerprints or a signature, or show the passport ends the case (art. 203i, 219i). The decision is due within 6 months, the appeal within 90 days (art. 210, applied to both by art. 223); at the voivode the time limit is suspended until 4 March 2027 (art. 100d). An application cannot be filed while on temporary protection or studies (art. 213), and permanent residence cannot be sought while holding long-term resident status (art. 196); permanent residence expires when long-term resident status is granted (art. 200). Loss: permanent residence after more than 6 years outside Poland, a sentence of at least 3 years, or divorce within 2 years of a marriage-based grant (art. 199); long-term residence after more than 6 years outside Poland or 12 consecutive months outside the EU (art. 215). The permits are indefinite; the card is valid 10 years for permanent residence and 5 for long-term residence (art. 243). Both give free access to the labour market (Dz.U. 2025 poz. 621, art. 3 ust. 1 pkt 6–7). Whether past UKR time counts towards the five years is not stated in art. 212; the Gdańsk and Poznań voivodeship pages say it does not.",
+          ru: "Закон об иностранцах, сводный текст Dz.U. 2025 poz. 1079, с поправкой о MOS Dz.U. 2025 poz. 1794. Постоянное пребывание (ст. 195) дают по перечисленным основаниям, среди них ребёнок гражданина Польши или держателя постоянного разрешения или статуса резидента, польское происхождение, действительная Карта поляка, 3 года брака с гражданином Польши и 2 года непрерывно на временном разрешении по браку непосредственно перед подачей, 4 года на разрешении на пребывание и работу по профессии, желательной для польской экономики (ст. 114 ч. 1a), со стабильным доходом, 5 лет беженцем или 10 на толерируемом пребывании. Пребывание непрерывно, если ни один перерыв не дольше 6 месяцев и все вместе не больше 10, с исключениями для работы у польского работодателя за границей и похожих случаев (ст. 195 ч. 4, ст. 212 ч. 3–4). Заявление — только через MOS, с квалифицированной подписью или профилем доверенным (ст. 203c–d, 219c–d); заявитель на резидента показывает актуальный правовой титул на жильё, договор безвозмездного пользования — только от близких родственников (ст. 219a). Неявка, несданные отпечатки или подпись, непоказанный паспорт — дело прекращают (ст. 203i, 219i). Решение — 6 месяцев, жалоба — 90 дней (ст. 210, для обоих через ст. 223); у воеводы срок приостановлен до 4 марта 2027 года (ст. 100d). Нельзя подать, находясь на временной защите или учёбе (ст. 213), и нельзя просить постоянное, имея статус резидента (ст. 196); постоянное разрешение прекращается при выдаче статуса резидента (ст. 200). Потеря: постоянное — больше 6 лет вне Польши, приговор не меньше 3 лет, развод в течение 2 лет при разрешении по браку (ст. 199); резидент — больше 6 лет вне Польши или 12 месяцев подряд вне ЕС (ст. 215). Разрешения бессрочные; карта — 10 лет для постоянного и 5 для резидента (ст. 243). Оба дают свободный доступ к рынку труда (Dz.U. 2025 poz. 621, ст. 3 ч. 1 п. 6–7). Засчитывается ли в пять лет прошлое время со статусом UKR, ст. 212 не говорит; воеводства Гданьска и Познани пишут, что нет.",
+          pl: "Ustawa o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079, z nowelizacją MOS Dz.U. 2025 poz. 1794. Zezwolenia na pobyt stały (art. 195) udziela się z wymienionych podstaw, m.in. dziecku obywatela polskiego lub posiadacza pobytu stałego albo rezydenta, osobie polskiego pochodzenia, posiadaczowi ważnej Karty Polaka, po 3 latach małżeństwa z obywatelem polskim i 2 latach nieprzerwanego pobytu czasowego z tego tytułu bezpośrednio przed wnioskiem, po 4 latach na zezwoleniu na pobyt czasowy i pracę w zawodzie pożądanym dla polskiej gospodarki (art. 114 ust. 1a) ze stabilnym dochodem, po 5 latach ze statusem uchodźcy lub 10 na pobycie tolerowanym. Pobyt jest nieprzerwany, jeżeli żadna przerwa nie przekroczyła 6 miesięcy, a łącznie 10 miesięcy, z wyjątkami m.in. dla pracy u polskiego pracodawcy za granicą (art. 195 ust. 4, art. 212 ust. 3–4). Wniosek wyłącznie przez MOS, z kwalifikowanym podpisem elektronicznym lub podpisem zaufanym (art. 203c–d, 219c–d); wnioskodawca o pobyt rezydenta przedstawia aktualny tytuł prawny do lokalu, a umowa użyczenia liczy się tylko od bliskiej rodziny (art. 219a). Niestawiennictwo, niezłożenie odcisków lub podpisu, nieokazanie paszportu — umorzenie postępowania (art. 203i, 219i). Decyzja w 6 miesięcy, odwołanie w 90 dni (art. 210, dla obu przez art. 223); u wojewody termin zawieszony do 4 marca 2027 (art. 100d). Nie można złożyć wniosku, przebywając na ochronie czasowej lub studiach (art. 213), ani ubiegać się o pobyt stały, mając status rezydenta (art. 196); pobyt stały wygasa z udzieleniem zezwolenia rezydenta (art. 200). Utrata: pobyt stały — ponad 6 lat poza Polską, skazanie na co najmniej 3 lata, rozwód w ciągu 2 lat przy zezwoleniu z tytułu małżeństwa (art. 199); rezydent — ponad 6 lat poza Polską lub 12 kolejnych miesięcy poza UE (art. 215). Zezwolenia są bezterminowe; karta ważna 10 lat dla pobytu stałego i 5 dla rezydenta (art. 243). Oba dają swobodny dostęp do rynku pracy (Dz.U. 2025 poz. 621, art. 3 ust. 1 pkt 6–7). Czy do pięciu lat wlicza się dawny okres ze statusem UKR, art. 212 nie mówi; strony urzędów w Gdańsku i Poznaniu podają, że nie.",
+        },
+      },
+      {
+        subject: {
           en: "Citizenship: three years now, and what the ten-year bills would change",
           ru: "Гражданство: сейчас три года, и что изменили бы проекты о десяти годах",
           pl: "Obywatelstwo: dziś trzy lata i co zmieniłyby projekty o dziesięciu latach",
@@ -2026,7 +2040,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "cudzoziemcy",
         citation:
-          "Ustawa z dnia 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 — art. 10, 22, 104, 105, 108, 112a, 140, 195, 211, 212",
+          "Ustawa z dnia 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 — art. 10, 22, 104, 105, 108, 112a, 140, 195–219, 243",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001079",
         kind: "official",
         caveat: {
@@ -2038,7 +2052,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "nowelizacja-mos",
         citation:
-          "Ustawa z dnia 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794 — art. 1 pkt 10 (art. 104), pkt 13–15 (art. 105–106l, 108, 112a), art. 11, 12, 17, 19",
+          "Ustawa z dnia 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794 — art. 1 pkt 10 (art. 104), pkt 13–15 (art. 105–106l, 108, 112a), pkt 28–37 (art. 196, 202–203i, 206, 210, 213, 218a–219i), art. 11, 12, 17, 19",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001794",
         kind: "official",
       },
@@ -2059,7 +2073,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "praca-cudzoziemcow",
         citation:
-          "Ustawa z dnia 20 marca 2025 r. o warunkach dopuszczalności powierzania pracy cudzoziemcom na terytorium Rzeczypospolitej Polskiej, Dz.U. 2025 poz. 621 — art. 3 ust. 1 pkt 18 i ust. 3 pkt 2",
+          "Ustawa z dnia 20 marca 2025 r. o warunkach dopuszczalności powierzania pracy cudzoziemcom na terytorium Rzeczypospolitej Polskiej, Dz.U. 2025 poz. 621 — art. 3 ust. 1 pkt 6, 7, 18 i ust. 3 pkt 2",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250000621",
         kind: "official",
         caveat: {
