@@ -15,7 +15,12 @@ import {
 } from "@/lib/jsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { readingTimeMinutes } from "@/lib/readingTime";
-import { RESIDENCE_SOURCE_KEY, RESIDENCE_TOKENS } from "@/lib/residence";
+import {
+  entryRegionNames,
+  entryRegionNodes,
+  RESIDENCE_SOURCE_KEY,
+  RESIDENCE_TOKENS,
+} from "@/lib/residence";
 import { authorCopy } from "@/lib/author";
 import { categoryLabel } from "@/lib/categories";
 import { entryHref } from "@/lib/routes";
@@ -214,6 +219,9 @@ export async function EntryView({
     citations: entry.sources.map(
       (key) => `${routeUrl("/sources", locale)}#${key}`,
     ),
+    // The country a non-registry entry is about, in machine form — the same
+    // fact the "Jurisdictions" line now prints for Poland.
+    spatialCoverage: entryRegionNodes(entry.sources),
   });
 
   // The questions this entry ends with, marked up as a FAQPage. Null when the
@@ -362,6 +370,7 @@ export async function EntryView({
             updatedAt={entry._updatedAt}
 
             countries={entry.countries}
+            regions={entryRegionNames(entry.sources, locale)}
             sources={entry.sources}
             body={entry.body}
             formatDate={formatDate}

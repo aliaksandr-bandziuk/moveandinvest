@@ -305,6 +305,9 @@ interface ArticleJsonLdArgs {
   /** The localised /about URL. Built by the caller, which is the only place
    *  that knows the locale's own path for it. */
   authorUrl: string;
+  /** Countries outside the registry the entry is about, as schema.org Country
+   *  nodes. Omitted from the output when empty. */
+  spatialCoverage?: { "@type": "Country"; name: string; identifier: string }[] | undefined;
 }
 
 // One entry in Guides & Research, as a BlogPosting.
@@ -338,6 +341,7 @@ export function buildArticleJsonLd({
   dateModified,
   authorUrl,
   citations,
+  spatialCoverage,
 }: ArticleJsonLdArgs) {
   const origin = new URL(url).origin;
 
@@ -365,5 +369,6 @@ export function buildArticleJsonLd({
     ...(citations.length > 0
       ? { citation: citations.map((id) => ({ "@type": "WebPage", "@id": id })) }
       : {}),
+    ...(spatialCoverage && spatialCoverage.length > 0 ? { spatialCoverage } : {}),
   };
 }

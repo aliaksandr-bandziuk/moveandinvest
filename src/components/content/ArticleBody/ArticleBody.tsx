@@ -33,6 +33,10 @@ interface ArticleBodyProps {
   publishedAt: string;
   updatedAt: string;
   countries?: EntryCountry[] | null;
+  /** Countries outside the registry this entry is about, already named in the
+   *  reader's language — Poland, for the residence entries. Printed on the same
+   *  line as the jurisdictions. See entryRegionNames in lib/residence.ts. */
+  regions?: string[];
   /** Keys into SOURCE_SECTIONS. Never empty — the schema requires one. */
   sources: string[];
   body: unknown;
@@ -83,6 +87,7 @@ export function ArticleBody({
   publishedAt,
   updatedAt,
   countries,
+  regions,
   sources,
   body,
   labels,
@@ -90,6 +95,7 @@ export function ArticleBody({
   ask,
 }: ArticleBodyProps) {
   const revised = updatedAt.slice(0, 10) !== publishedAt.slice(0, 10);
+  const places = [...(countries ?? []).map((country) => country.name), ...(regions ?? [])];
   const headings = extractHeadings(body);
   const components = buildArticleComponents(headingIds(headings));
 
@@ -140,12 +146,12 @@ export function ArticleBody({
             ))}
           </p>
 
-          {countries && countries.length > 0 ? (
+          {places.length > 0 ? (
             <p className={styles.countries}>
               <span className={styles.countriesLabel}>
                 {labels.jurisdictionsLabel}
               </span>{" "}
-              {countries.map((country) => country.name).join(" · ")}
+              {places.join(" · ")}
             </p>
           ) : null}
         </header>

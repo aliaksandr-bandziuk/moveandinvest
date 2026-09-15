@@ -24,3 +24,43 @@ export const RESIDENCE_TOKENS = {
  *  staying in Poland — and therefore ends it with the residence form rather
  *  than the guide block. See the note in blog/[slug]/entry.tsx. */
 export const RESIDENCE_SOURCE_KEY = "pl-legal";
+
+// THE COUNTRY AN ENTRY IS ABOUT WHEN IT IS NOT A JURISDICTION OF THE REGISTRY.
+//
+// Added 15 September 2026 because the first Poland entry named Poland nowhere
+// but in its prose: `countries` is empty by design — Poland is a section, not a
+// sixth jurisdiction — so the "Jurisdictions" line under the title and on the
+// listing card simply did not render, and a reader scanning the list could not
+// tell which country a page about "karta pobytu" was about.
+//
+// Derived from the source section for the same reason the form is: the
+// evidence an entry cites is what it is about, and a second field saying so
+// would be a second place to disagree. Adding the registry's `country` document
+// instead would put Poland in the comparison table, the map, the PDF and the
+// footer, which CLAUDE.md rules out.
+const REGIONS_BY_SOURCE: Record<string, { code: string; name: Record<"en" | "ru" | "pl", string> }> = {
+  [RESIDENCE_SOURCE_KEY]: {
+    code: "PL",
+    name: { en: "Poland", ru: "Польша", pl: "Polska" },
+  },
+};
+
+/** Country names, in the reader's language, for the non-registry countries an
+ *  entry cites. Empty for every entry about the five jurisdictions. */
+export function entryRegionNames(sources: readonly string[], locale: string): string[] {
+  const lang = locale === "ru" || locale === "pl" ? locale : "en";
+  return sources.flatMap((key) => {
+    const region = REGIONS_BY_SOURCE[key];
+    return region ? [region.name[lang]] : [];
+  });
+}
+
+/** The same countries as schema.org Country nodes, English names, for JSON-LD. */
+export function entryRegionNodes(sources: readonly string[]) {
+  return sources.flatMap((key) => {
+    const region = REGIONS_BY_SOURCE[key];
+    return region
+      ? [{ "@type": "Country" as const, name: region.name.en, identifier: region.code }]
+      : [];
+  });
+}

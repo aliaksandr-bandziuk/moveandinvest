@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { entryHref } from "@/lib/routes";
 import { categoryLabel } from "@/lib/categories";
+import { entryRegionNames } from "@/lib/residence";
 import type { ArticleSummary } from "@/sanity/types";
 
 import styles from "./ArticleList.module.scss";
@@ -80,14 +81,23 @@ export function ArticleList({
 
             <p className={styles.standfirst}>{entry.standfirst}</p>
 
-            {entry.countries && entry.countries.length > 0 ? (
-              <p className={styles.countries}>
-                <span className={styles.countriesLabel}>
-                  {labels.jurisdictionsLabel}
-                </span>{" "}
-                {entry.countries.map((country) => country.name).join(" · ")}
-              </p>
-            ) : null}
+            {/* Registry jurisdictions plus any country the entry's sources name
+                outside the registry — Poland, for the residence entries, which
+                otherwise showed no country at all on the card. */}
+            {(() => {
+              const places = [
+                ...(entry.countries ?? []).map((country) => country.name),
+                ...entryRegionNames(entry.sources ?? [], locale),
+              ];
+              return places.length > 0 ? (
+                <p className={styles.countries}>
+                  <span className={styles.countriesLabel}>
+                    {labels.jurisdictionsLabel}
+                  </span>{" "}
+                  {places.join(" · ")}
+                </p>
+              ) : null;
+            })()}
           </article>
         </li>
       ))}

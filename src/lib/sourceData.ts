@@ -211,6 +211,15 @@ const CHECKED_2026_09_14: Record<Locale, string> = {
   pl: "14 września 2026",
 };
 
+// Part 4 of the Polish working: status services, where summonses arrive, work
+// while waiting. It corrected the site's own entry of the same morning, which
+// said summonses come through MOS.
+const CHECKED_2026_09_15: Record<Locale, string> = {
+  en: "15 September 2026",
+  ru: "15 сентября 2026 года",
+  pl: "15 września 2026",
+};
+
 /** Every date on which any row of this page was read against its source. A
  *  claim's `checked` key indexes this. */
 export const CHECK_DATES: Record<string, Record<Locale, string>> = {
@@ -223,6 +232,7 @@ export const CHECK_DATES: Record<string, Record<Locale, string>> = {
   "2026-09-07": CHECKED_2026_09_07,
   "2026-09-13": CHECKED_2026_09_13,
   "2026-09-14": CHECKED_2026_09_14,
+  "2026-09-15": CHECKED_2026_09_15,
 };
 
 /** The date that governs every row not carrying its own. */
@@ -252,12 +262,12 @@ export const CHECKED_ON: Record<Locale, string> = CHECKED_2026_08_23;
 // re-verification may move a check date — which is the discipline the whole
 // page exists to demonstrate, and the exact discipline the "last updated"
 // stamps this page audits other sites for are failing.
-export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_14;
+export const REVISED_ON: Record<Locale, string> = CHECKED_2026_09_15;
 
 /** The ISO form of REVISED_ON, for the page's `dateModified`. Kept beside it so
  *  the two cannot drift; the rendered strings are hand-written because Intl
  *  abbreviates the Russian. */
-export const REVISED_ON_ISO = "2026-09-14";
+export const REVISED_ON_ISO = "2026-09-15";
 
 const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // --- Portugal -------------------------------------------------------------
@@ -1766,11 +1776,11 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Terminy w sprawach pobytowych u wojewody są zawieszone do 4 marca 2027",
         },
         verdict: "added",
-        checked: "2026-09-14",
+        checked: "2026-09-15",
         finding: {
-          en: "Art. 100d of the Act of 12 March 2022 on assistance to citizens of Ukraine: time limits for granting, changing and withdrawing temporary residence, permanent residence and EU long-term resident permits in proceedings before the voivode do not start, and those started are suspended. The inactivity rules do not apply and a delay in that period cannot ground a remedy. The date was 30 September 2025, moved to 4 March 2026 by Dz.U. 2025 poz. 1301 art. 10 pkt 1, and to 4 March 2027 by Dz.U. 2026 poz. 203 art. 17 pkt 50, in force since 5 March 2026 (art. 54). The article speaks of any foreigner, not only citizens of Ukraine. The UdSC page on this suspension still named 4 March 2026 when read on 14 September 2026.",
-          ru: "Ст. 100d закона от 12 марта 2022 года о помощи гражданам Украины: сроки на выдачу, изменение и отзыв разрешений на временное и постоянное пребывание и статуса резидента ЕС в производствах у воеводы не начинаются, а начатые приостанавливаются. Нормы о бездействии не применяются, и задержка в этот период не может быть основанием средств защиты. Дата была 30 сентября 2025 года, заменена на 4 марта 2026 года законом Dz.U. 2025 poz. 1301, ст. 10 п. 1, и на 4 марта 2027 года законом Dz.U. 2026 poz. 203, ст. 17 п. 50, в силе с 5 марта 2026 года (ст. 54). Статья говорит о любом иностранце, а не только о гражданах Украины. Страница UdSC об этой приостановке на 14 сентября 2026 года всё ещё называла 4 марта 2026 года.",
-          pl: "Art. 100d ustawy z 12 marca 2022 o pomocy obywatelom Ukrainy: terminy na udzielenie, zmianę i cofnięcie zezwoleń na pobyt czasowy, stały i rezydenta długoterminowego UE w postępowaniach u wojewody nie rozpoczynają się, a rozpoczęte ulegają zawieszeniu. Przepisów o bezczynności nie stosuje się, a zwłoka w tym okresie nie może być podstawą środków prawnych. Data brzmiała 30 września 2025, zmieniona na 4 marca 2026 ustawą Dz.U. 2025 poz. 1301 art. 10 pkt 1 i na 4 marca 2027 ustawą Dz.U. 2026 poz. 203 art. 17 pkt 50, w mocy od 5 marca 2026 (art. 54). Przepis mówi o każdym cudzoziemcu, nie tylko o obywatelach Ukrainy. Strona UdSC o tym zawieszeniu 14 września 2026 wciąż podawała 4 marca 2026.",
+          en: "Art. 100d of the Act of 12 March 2022 on assistance to citizens of Ukraine: time limits for granting, changing and withdrawing temporary residence, permanent residence and EU long-term resident permits in proceedings before the voivode do not start, and those started are suspended. The inactivity rules do not apply, the authority is neither fined nor ordered to pay sums to complainants (ust. 3), and a delay in that period cannot ground any legal remedy for inactivity, protraction or breach of the right to have a case heard without undue delay — not only a ponaglenie (ust. 4). The date was 30 September 2025, moved to 4 March 2026 by Dz.U. 2025 poz. 1301 art. 10 pkt 1, and to 4 March 2027 by Dz.U. 2026 poz. 203 art. 17 pkt 50, in force since 5 March 2026 (art. 54). The article speaks of any foreigner, not only citizens of Ukraine. The UdSC page on this suspension still named 4 March 2026 when read on 14 September 2026.",
+          ru: "Ст. 100d закона от 12 марта 2022 года о помощи гражданам Украины: сроки на выдачу, изменение и отзыв разрешений на временное и постоянное пребывание и статуса резидента ЕС в производствах у воеводы не начинаются, а начатые приостанавливаются. Нормы о бездействии не применяются, органу не назначают штраф и не присуждают сумм в пользу жалобщиков (ч. 3), а задержка в этот период не может быть основанием никаких правовых средств против бездействия, затягивания или нарушения права на рассмотрение дела без лишней задержки — не только ponaglenie (ч. 4). Дата была 30 сентября 2025 года, заменена на 4 марта 2026 года законом Dz.U. 2025 poz. 1301, ст. 10 п. 1, и на 4 марта 2027 года законом Dz.U. 2026 poz. 203, ст. 17 п. 50, в силе с 5 марта 2026 года (ст. 54). Статья говорит о любом иностранце, а не только о гражданах Украины. Страница UdSC об этой приостановке на 14 сентября 2026 года всё ещё называла 4 марта 2026 года.",
+          pl: "Art. 100d ustawy z 12 marca 2022 o pomocy obywatelom Ukrainy: terminy na udzielenie, zmianę i cofnięcie zezwoleń na pobyt czasowy, stały i rezydenta długoterminowego UE w postępowaniach u wojewody nie rozpoczynają się, a rozpoczęte ulegają zawieszeniu. Przepisów o bezczynności nie stosuje się, organowi nie wymierza się grzywny ani nie zasądza się od niego sum pieniężnych (ust. 3), a zwłoka w tym okresie nie może być podstawą żadnych środków prawnych dotyczących bezczynności, przewlekłości lub naruszenia prawa do rozpoznania sprawy bez zbędnej zwłoki — nie tylko ponaglenia (ust. 4). Data brzmiała 30 września 2025, zmieniona na 4 marca 2026 ustawą Dz.U. 2025 poz. 1301 art. 10 pkt 1 i na 4 marca 2027 ustawą Dz.U. 2026 poz. 203 art. 17 pkt 50, w mocy od 5 marca 2026 (art. 54). Przepis mówi o każdym cudzoziemcu, nie tylko o obywatelach Ukrainy. Strona UdSC o tym zawieszeniu 14 września 2026 wciąż podawała 4 marca 2026.",
         },
       },
       {
@@ -1799,6 +1809,68 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           en: "If the application is filed no later than the last day of lawful stay (art. 105 ust. 1 as amended by Dz.U. 2025 poz. 1794) and has no formal defects or they were remedied in time, stay is lawful from filing until the decision becomes final, which includes an appeal (art. 108 ust. 1 pkt 2). Not while the proceedings are suspended at the party's own request (art. 108 ust. 2). Since 27 April 2026 the passport stamp is replaced by an electronic zaświadczenie with a QR code, delivered through MOS and free of charge (art. 108 ust. 1 pkt 1 and ust. 3–6 as amended). Summonses: personal appearance on at least 7 days' notice (art. 106e), documents on at least 14 (art. 106f).",
           ru: "Если заявление подано не позже последнего дня законного пребывания (ст. 105 ч. 1 в редакции Dz.U. 2025 poz. 1794) и в нём нет формальных недостатков или они устранены в срок, пребывание законно со дня подачи до дня, когда решение станет окончательным, включая обжалование (ст. 108 ч. 1 п. 2). Но не на время приостановки производства по просьбе самой стороны (ст. 108 ч. 2). С 27 апреля 2026 года штамп в паспорте заменён электронным zaświadczenie с QR-кодом, через MOS и бесплатно (ст. 108 ч. 1 п. 1 и ч. 3–6 в новой редакции). Вызовы: личная явка — не раньше чем через 7 дней (ст. 106e), документы — не меньше 14 дней (ст. 106f).",
           pl: "Jeżeli wniosek złożono nie później niż w ostatnim dniu legalnego pobytu (art. 105 ust. 1 w brzmieniu Dz.U. 2025 poz. 1794) i nie zawiera braków formalnych lub uzupełniono je w terminie, pobyt jest legalny od dnia złożenia wniosku do dnia, w którym decyzja stanie się ostateczna, a więc także w toku odwołania (art. 108 ust. 1 pkt 2). Nie w razie zawieszenia postępowania na wniosek strony (art. 108 ust. 2). Od 27 kwietnia 2026 stempel w paszporcie zastępuje elektroniczne zaświadczenie z kodem QR, doręczane przez MOS, bez opłaty (art. 108 ust. 1 pkt 1 i ust. 3–6 w nowym brzmieniu). Wezwania: osobiste stawiennictwo w terminie nie krótszym niż 7 dni (art. 106e), dokumenty — nie krótszym niż 14 dni (art. 106f).",
+        },
+      },
+      // CORRECTED, AND THE ERROR WAS OURS. The first version of the Russian
+      // entry on waiting, published on the morning of 15 September 2026, said
+      // the voivode sends summonses through MOS and told readers to keep
+      // checking MOS. No provision says so, and MOS's own page says the portal
+      // does not handle an application after it is filed. The row says what
+      // was wrong rather than quietly carrying the right answer.
+      {
+        subject: {
+          en: "Where summonses arrive, and when an uncollected letter counts as delivered",
+          ru: "Куда приходят вызовы и когда непринятое письмо считается доставленным",
+          pl: "Dokąd trafiają wezwania i kiedy nieodebrane pismo uznaje się za doręczone",
+        },
+        verdict: "corrected",
+        checked: "2026-09-15",
+        finding: {
+          en: "This row corrects our own entry of 15 September 2026, which said summonses come through MOS. MOS delivers only the zaświadczenie confirming the application (art. 108 ust. 6 of the Act on Foreigners as amended by Dz.U. 2025 poz. 1794), and the official MOS page says the portal does not currently handle the application any further. Summonses are served under the Code: to an electronic delivery address, or failing one by registered post (art. 39 KPA). A letter not collected from the post office counts as delivered on the last day of 14 days' storage (art. 44 § 4 KPA); an electronic one not opened within 14 days counts as delivered the day after (art. 41 ust. 1 pkt 3 and art. 42 ust. 2 of the Act on electronic delivery, Dz.U. 2024 poz. 1045). A change of address must be reported, or delivery to the old one stands (art. 41 KPA). The Mazowiecki voivodeship office sends summonses, fingerprint appointments and the card collection date through e-Doręczenia.",
+          ru: "Эта строка поправляет нашу же статью от 15 сентября 2026 года, где было сказано, что вызовы приходят через MOS. Через MOS доставляется только zaświadczenie о подаче (ст. 108 ч. 6 закона об иностранцах в редакции Dz.U. 2025 poz. 1794), а официальная страница MOS пишет, что дальнейшего ведения заявления портал сейчас не обеспечивает. Вызовы доставляются по кодексу: на адрес для электронных доручений, а если его нет — заказным письмом (ст. 39 KPA). Не забранное на почте письмо считается доставленным в последний день 14-дневного хранения (ст. 44 § 4 KPA); электронное, не открытое за 14 дней, — на следующий день после них (ст. 41 ч. 1 п. 3 и ст. 42 ч. 2 закона об электронных доручениях, Dz.U. 2024 poz. 1045). О смене адреса нужно сообщить органу, иначе доставка по старому адресу действительна (ст. 41 KPA). Мазовецкое воеводское управление присылает вызовы, даты явки для отпечатков и дату получения карты через e-Doręczenia.",
+          pl: "Ten wiersz poprawia nasz własny wpis z 15 września 2026, według którego wezwania przychodzą przez MOS. Przez MOS doręcza się wyłącznie zaświadczenie o złożeniu wniosku (art. 108 ust. 6 ustawy o cudzoziemcach w brzmieniu Dz.U. 2025 poz. 1794), a oficjalna strona MOS podaje, że portal obecnie nie zapewnia dalszej obsługi wniosku. Wezwania doręcza się według Kodeksu: na adres do doręczeń elektronicznych, a w jego braku przesyłką rejestrowaną (art. 39 KPA). Pismo nieodebrane z placówki pocztowej uznaje się za doręczone z upływem ostatniego dnia 14-dniowego przechowania (art. 44 § 4 KPA); elektroniczne nieodebrane w ciągu 14 dni — w dniu następującym po ich upływie (art. 41 ust. 1 pkt 3 i art. 42 ust. 2 ustawy o doręczeniach elektronicznych, Dz.U. 2024 poz. 1045). Zmianę adresu trzeba zgłosić, inaczej doręczenie pod dotychczasowy adres jest skuteczne (art. 41 KPA). Mazowiecki Urząd Wojewódzki wysyła wezwania, terminy pobrania odcisków i termin odbioru karty przez e-Doręczenia.",
+        },
+      },
+      {
+        subject: {
+          en: "Working while the application is pending",
+          ru: "Работа, пока рассматривается заявление",
+          pl: "Praca w trakcie postępowania",
+        },
+        verdict: "added",
+        checked: "2026-09-15",
+        finding: {
+          en: "Art. 3 ust. 3 pkt 2 of the Act of 20 March 2025 on the conditions for entrusting work to foreigners, Dz.U. 2025 poz. 621, as amended by art. 11 of Dz.U. 2025 poz. 1794: a foreigner whose stay is lawful under art. 108 ust. 1 pkt 2 of the Act on Foreigners may work on a work permit or a registered declaration if entitled to work in Poland immediately before filing. Art. 3 ust. 1 pkt 18: free access to the labour market continues while waiting if the conditions of pkt 14–17 were met immediately before filing. Cases begun before 27 April 2026 keep the earlier wording, which sets the same condition (art. 12 of the amendment). Lawful stay alone is not a right to work. The rules for UKR status were not examined here.",
+          ru: "Ст. 3 ч. 3 п. 2 закона от 20 марта 2025 года об условиях допустимости поручения работы иностранцам, Dz.U. 2025 poz. 621, в редакции ст. 11 Dz.U. 2025 poz. 1794: иностранец, чьё пребывание законно по ст. 108 ч. 1 п. 2 закона об иностранцах, может работать по разрешению на работу или зарегистрированному заявлению о поручении работы, если непосредственно перед подачей заявления имел право работать в Польше. Ст. 3 ч. 1 п. 18: свободный доступ к рынку труда на время ожидания сохраняется, если непосредственно перед подачей выполнялись условия п. 14–17. Для дел, начатых до 27 апреля 2026 года, действует прежняя редакция с тем же условием (ст. 12 поправки). Законность пребывания сама по себе права на работу не даёт. Правила для статуса UKR здесь не рассматривались.",
+          pl: "Art. 3 ust. 3 pkt 2 ustawy z 20 marca 2025 o warunkach dopuszczalności powierzania pracy cudzoziemcom, Dz.U. 2025 poz. 621, w brzmieniu art. 11 Dz.U. 2025 poz. 1794: cudzoziemiec przebywający legalnie na podstawie art. 108 ust. 1 pkt 2 ustawy o cudzoziemcach może wykonywać pracę na podstawie zezwolenia na pracę lub oświadczenia wpisanego do ewidencji, jeżeli bezpośrednio przed złożeniem wniosku był uprawniony do pracy w Polsce. Art. 3 ust. 1 pkt 18: swobodny dostęp do rynku pracy trwa w okresie oczekiwania, jeżeli bezpośrednio przed złożeniem wniosku spełniano warunki pkt 14–17. Do spraw wszczętych przed 27 kwietnia 2026 stosuje się dotychczasowe brzmienie z tym samym warunkiem (art. 12 nowelizacji). Sam legalny pobyt nie jest prawem do pracy. Zasad dla statusu UKR tu nie badano.",
+        },
+      },
+      {
+        subject: {
+          en: "Checking a case's status: which voivode, and which official services exist",
+          ru: "Статус дела: какой воевода ведёт и какие есть официальные сервисы",
+          pl: "Stan sprawy: który wojewoda i jakie są oficjalne usługi",
+        },
+        verdict: "added",
+        checked: "2026-09-15",
+        finding: {
+          en: "A temporary residence permit is granted by the voivode competent for the foreigner's place of stay (art. 104 ust. 1 as amended by Dz.U. 2025 poz. 1794). Read on the offices' official sites on 15 September 2026: Poznań runs a service taking a case number and an access code the applicant can obtain alone; Opole one for applications filed after 1 January 2024, taking the date of birth and the phone number given to the office; Gdańsk and Wrocław run services on the offices' own domains whose requirements could not be read without JavaScript; the Warsaw office names its inPOL system for tracking status; Kraków's general case search excludes foreigners' cases and refers them to its INFO.OPT line. No status service was found on the official pages for Łódź, Katowice, Szczecin, Lublin or Bydgoszcz. No official glossary of status names was found. A party may inspect the case file (art. 73 KPA).",
+          ru: "Разрешение на временное пребывание выдаёт воевода по месту пребывания иностранца (ст. 104 ч. 1 в редакции Dz.U. 2025 poz. 1794). Прочитано на официальных сайтах управлений 15 сентября 2026 года: в Познани сервис принимает номер дела и код доступа, который можно получить самостоятельно; в Ополе — для заявлений, поданных после 1 января 2024 года, по дате рождения и номеру телефона, переданному управлению; у Гданьска и Вроцлава сервисы на доменах самих управлений, их требования без JavaScript прочитать не удалось; варшавское управление называет для статуса свою систему inPOL; общий поиск дел краковского управления дела иностранцев не охватывает и отсылает к линии INFO.OPT. Для Лодзи, Катовице, Щецина, Люблина и Быдгоща сервис на официальных страницах не найден. Официального словаря названий статусов не найдено. Сторона вправе смотреть материалы дела (ст. 73 KPA).",
+          pl: "Zezwolenia na pobyt czasowy udziela wojewoda właściwy ze względu na miejsce pobytu cudzoziemca (art. 104 ust. 1 w brzmieniu Dz.U. 2025 poz. 1794). Odczytane na oficjalnych stronach urzędów 15 września 2026: Poznań prowadzi usługę przyjmującą numer sprawy i kod dostępu, który można uzyskać samodzielnie; Opole — dla wniosków złożonych po 1 stycznia 2024, na podstawie daty urodzenia i numeru telefonu przekazanego urzędowi; Gdańsk i Wrocław prowadzą usługi w domenach urzędów, których wymagań nie dało się odczytać bez JavaScriptu; urząd w Warszawie wskazuje do śledzenia statusu system inPOL; ogólna wyszukiwarka spraw urzędu w Krakowie nie obejmuje spraw cudzoziemców i odsyła do infolinii INFO.OPT. Na oficjalnych stronach urzędów w Łodzi, Katowicach, Szczecinie, Lublinie i Bydgoszczy usługi nie znaleziono. Oficjalnego słownika nazw statusów nie znaleziono. Strona ma prawo wglądu w akta (art. 73 KPA).",
+        },
+      },
+      {
+        subject: {
+          en: "Before a refusal, the voivode must say what is missing",
+          ru: "Перед отказом воевода обязан назвать, чего не хватает",
+          pl: "Przed odmową wojewoda musi wskazać, czego brakuje",
+        },
+        verdict: "added",
+        checked: "2026-09-15",
+        finding: {
+          en: "Art. 10 § 1 KPA: before a decision the party must be able to comment on the evidence gathered. Art. 79a KPA: in a case begun on the party's request, when informing of that, the authority must name the conditions dependent on the party that are not met or not shown and may lead to a decision against the request; within the time set for comments the party may submit further evidence. Art. 10 ust. 1 of the Act on Foreigners: where the foreigner is abroad and has appointed no representative living in Poland, art. 73 § 1 and 1a, 79 and 81 KPA do not apply.",
+          ru: "Ст. 10 § 1 KPA: до решения сторона должна иметь возможность высказаться о собранных доказательствах. Ст. 79a KPA: в деле, начатом по заявлению стороны, сообщая об этом, орган обязан назвать зависящие от стороны условия, которые не выполнены или не доказаны и могут привести к решению против заявления; в срок, назначенный для высказывания, сторона может представить дополнительные доказательства. Ст. 10 ч. 1 закона об иностранцах: если иностранец за границей и не назначил представителя, живущего в Польше, ст. 73 § 1 и 1a, 79 и 81 KPA не применяются.",
+          pl: "Art. 10 § 1 KPA: przed wydaniem decyzji strona musi mieć możliwość wypowiedzenia się co do zebranych dowodów. Art. 79a KPA: w postępowaniu wszczętym na żądanie strony organ, informując o tym, wskazuje przesłanki zależne od strony, które nie zostały spełnione lub wykazane i mogą skutkować decyzją niezgodną z żądaniem; w wyznaczonym terminie strona może przedłożyć dodatkowe dowody. Art. 10 ust. 1 ustawy o cudzoziemcach: gdy cudzoziemiec przebywa za granicą i nie ustanowił pełnomocnika zamieszkałego w Polsce, art. 73 § 1 i 1a, 79 i 81 KPA nie stosuje się.",
         },
       },
       {
@@ -1918,7 +1990,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "cudzoziemcy",
         citation:
-          "Ustawa z dnia 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 — art. 22, 105, 108, 112a, 140, 195, 211, 212",
+          "Ustawa z dnia 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 — art. 10, 22, 104, 105, 108, 112a, 140, 195, 211, 212",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001079",
         kind: "official",
         caveat: {
@@ -1930,7 +2002,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "nowelizacja-mos",
         citation:
-          "Ustawa z dnia 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794 — art. 1 pkt 13–15 (art. 105–106l, 108, 112a), art. 17, art. 19",
+          "Ustawa z dnia 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794 — art. 1 pkt 10 (art. 104), pkt 13–15 (art. 105–106l, 108, 112a), art. 11, 12, 17, 19",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001794",
         kind: "official",
       },
@@ -1944,8 +2016,91 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "kpa",
         citation:
-          "Kodeks postępowania administracyjnego, tekst jednolity Dz.U. 2025 poz. 1691 — art. 35, 36, 37, 64, 73, 127, 129",
+          "Kodeks postępowania administracyjnego, tekst jednolity Dz.U. 2025 poz. 1691 — art. 10, 35, 36, 37, 39, 41, 44, 64, 73, 79a, 127, 129",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001691",
+        kind: "official",
+      },
+      {
+        id: "praca-cudzoziemcow",
+        citation:
+          "Ustawa z dnia 20 marca 2025 r. o warunkach dopuszczalności powierzania pracy cudzoziemcom na terytorium Rzeczypospolitej Polskiej, Dz.U. 2025 poz. 621 — art. 3 ust. 1 pkt 18 i ust. 3 pkt 2",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250000621",
+        kind: "official",
+        caveat: {
+          en: "Both provisions cited were rewritten by art. 11 of Dz.U. 2025 poz. 1794, in force from 27 April 2026; the condition quoted is the same in both wordings.",
+          ru: "Обе нормы переписаны ст. 11 Dz.U. 2025 poz. 1794, в силе с 27 апреля 2026 года; приведённое условие одинаково в обеих редакциях.",
+          pl: "Oba przepisy otrzymały nowe brzmienie art. 11 Dz.U. 2025 poz. 1794, obowiązujące od 27 kwietnia 2026; przytoczony warunek jest taki sam w obu brzmieniach.",
+        },
+      },
+      {
+        id: "doreczenia",
+        citation:
+          "Ustawa z dnia 18 listopada 2020 r. o doręczeniach elektronicznych, tekst jednolity Dz.U. 2024 poz. 1045 — art. 41, 42",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20240001045",
+        kind: "official",
+        caveat: {
+          en: "Consolidated text of June 2024; later amendments were not searched for.",
+          ru: "Сводный текст июня 2024 года; более поздние поправки не искались.",
+          pl: "Tekst jednolity z czerwca 2024; późniejszych zmian nie szukano.",
+        },
+      },
+      {
+        id: "mos-jak-zaczac",
+        citation:
+          "Urząd do Spraw Cudzoziemców, Moduł Obsługi Spraw — „Jak zacząć?”: MOS nie zapewnia obecnie dalszej elektronicznej obsługi wniosku",
+        url: "https://mos.cudzoziemcy.gov.pl/jak-zaczac/",
+        kind: "official",
+      },
+      {
+        id: "muw-wsc",
+        citation:
+          "Mazowiecki Urząd Wojewódzki, Wydział Spraw Cudzoziemców — strona główna (systemy MOS, e-Doręczenia, inPOL) i komunikat „Załóż konto do e-Doręczeń”",
+        url: "https://migrant.wsc.mazowieckie.pl/pl/komunikaty/zaloz-konto-do-e-doreczen-niezbedne-do-doreczania-pism-i-komunikacji-z-nami",
+        kind: "official",
+        caveat: {
+          en: "inpol.mazowieckie.pl itself answered automated reads with a block; what it asks for was not read.",
+          ru: "Сам inpol.mazowieckie.pl ответил автоматическому чтению блокировкой; что он запрашивает, не прочитано.",
+          pl: "Sam inpol.mazowieckie.pl odpowiedział na automatyczny odczyt blokadą; nie odczytano, czego wymaga.",
+        },
+      },
+      {
+        id: "wuw-stan-sprawy",
+        citation: "Wielkopolski Urząd Wojewódzki w Poznaniu — Cudzoziemcy: sprawdź stan sprawy",
+        url: "https://www.poznan.uw.gov.pl/cudzoziemcy-stan/",
+        kind: "official",
+      },
+      {
+        id: "ouw-stan-sprawy",
+        citation: "Opolski Urząd Wojewódzki w Opolu, Migrant OUW — stan sprawy (wnioski złożone po 1 stycznia 2024)",
+        url: "https://stansprawy.e-wojewoda.pl/",
+        kind: "official",
+      },
+      {
+        id: "puw-stan-sprawy",
+        citation: "Pomorski Urząd Wojewódzki w Gdańsku, Wydział Spraw Cudzoziemców — „Sprawdź stan sprawy”",
+        url: "https://klient.gdansk.uw.gov.pl/",
+        kind: "official",
+        caveat: {
+          en: "Linked from the office's foreigners' site; the service works only with JavaScript and its requirements were not read.",
+          ru: "Ссылка с сайта отдела по делам иностранцев; сервис работает только с JavaScript, его требования не прочитаны.",
+          pl: "Odnośnik ze strony wydziału spraw cudzoziemców; usługa działa tylko z JavaScriptem, jej wymagań nie odczytano.",
+        },
+      },
+      {
+        id: "duw-przybysz",
+        citation: "Dolnośląski Urząd Wojewódzki we Wrocławiu — Przybysz, portal informacji o sprawie",
+        url: "https://pio-przybysz.duw.pl/",
+        kind: "official",
+        caveat: {
+          en: "On the office's own domain; works only with JavaScript, and its requirements were not read.",
+          ru: "На собственном домене управления; работает только с JavaScript, требования не прочитаны.",
+          pl: "W domenie urzędu; działa tylko z JavaScriptem, wymagań nie odczytano.",
+        },
+      },
+      {
+        id: "muw-krakow-stan-sprawy",
+        citation: "Małopolski Urząd Wojewódzki w Krakowie — sprawdź stan sprawy (nie obejmuje spraw cudzoziemców; infolinia INFO.OPT)",
+        url: "https://www.malopolska.uw.gov.pl/default.aspx?page=StanSprawy",
         kind: "official",
       },
       {
