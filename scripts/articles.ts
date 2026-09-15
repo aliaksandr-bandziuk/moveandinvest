@@ -734,6 +734,20 @@ const ENTRIES: Record<string, EntryConfig> = {
     // 480, «карта сталого побиту» 390, «карта сталего побыту» 210); украинской
     // локали нет. Вторая тема по спросу после CUKR, 15 сентября 2026.
   },
+  "poland-citizenship": {
+    key: "article-poland-citizenship",
+    sources: {
+      ru: "article-ru-poland-citizenship.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-15T12:00:00.000Z",
+    // "citizenship": предмет — признание и предоставление гражданства.
+    category: "citizenship",
+    // Пусто намеренно: Польша задаётся источником pl-legal.
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. ~1 500 русских и украинских запросов; четвёртая
+    // польская тема, 15 сентября 2026.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {
