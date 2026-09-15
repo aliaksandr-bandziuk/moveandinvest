@@ -1123,8 +1123,9 @@ The calculator dialog's phone/messenger field (`reach`) was named in "What we
 collect" the same day, by a second permission from the owner for that one
 sentence.
 
-Not yet measured in a browser: the three `#residence-*` panels at their
-fragments. Check them on the first render of a real entry.
+Measured 15 Sep 2026 on the live `/ru/blog/karta-pobytu`, headless Chromium
+over the DevTools protocol: at each `#residence-*` fragment that panel is
+`block` and the other two `none`, and `#residence-sent` hides the form.
 
 ## Measuring a lead
 

@@ -779,6 +779,21 @@ const ENTRIES: Record<string, EntryConfig> = {
     // 1 000 и «депортация из польши» 110; главное — это дела, которые берёт
     // партнёр, и срок на жалобу 14 дней. 15 сентября 2026.
   },
+  "poland-documents": {
+    key: "article-poland-documents",
+    sources: {
+      ru: "article-ru-poland-documents.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-15T14:30:00.000Z",
+    // "rules": предмет — ст. 106–106f закона об иностранцах и перечни MOS.
+    category: "rules",
+    // Пусто намеренно: Польша задаётся источником pl-legal.
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. ~3 600 русских и ~2 300 украинских запросов («які
+    // документи потрібні на карту побиту» 880, «документы на карту побыту» 480,
+    // «залончник 1» 320 + «залончник» 170). 15 сентября 2026.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {
