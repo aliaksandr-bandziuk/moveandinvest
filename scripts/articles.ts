@@ -826,6 +826,10 @@ function entryPath(config: EntryConfig, slug: string): string {
   return (config.kind ?? "research") === "reference" ? `/${slug}` : `/blog/${slug}`;
 }
 
+/** The ids of the two blocks src/app/[locale]/blog/[slug]/entry.tsx can end an
+ *  entry with: the guide block (AskBlock) and the residence form. */
+const IN_PAGE_ANCHORS = new Set(["#ask", "#residence"]);
+
 function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, string>>) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
 
@@ -873,9 +877,19 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
       return kind === "reference" ? `${prefix}/${slug}` : `${prefix}/blog/${slug}`;
     }
 
+    // THE FORM AT THE FOOT OF THIS SAME PAGE, and nothing else in-page. Added 15
+    // September 2026 so a long entry can point at its conversion block from the
+    // middle of the text, where a reader recognises their own situation, rather
+    // than only from the end. A closed set: the two ids the entry page actually
+    // renders. Any other bare fragment would be a link to an anchor nothing
+    // guarantees exists.
+    if (IN_PAGE_ANCHORS.has(raw)) {
+      return raw;
+    }
+
     if (!raw.startsWith("/")) {
       throw new Error(
-        `Link href "${raw}" is neither a route (starting "/") nor "entry:<key>".`,
+        `Link href "${raw}" is neither a route (starting "/"), "entry:<key>", nor one of ${[...IN_PAGE_ANCHORS].join(", ")}.`,
       );
     }
 

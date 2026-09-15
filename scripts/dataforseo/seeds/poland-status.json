@@ -1,0 +1,39 @@
+{
+  "_about": "Seeds for the Poland entry on checking the status of a residence case and waiting past the term, 15 Sep 2026: the status cluster, the waiting cluster, and the same questions per city, because every voivode's office runs its own status service and readers search by city.",
+  "location": 2616,
+  "languages": {
+    "ru": [
+      "проверка статуса карты побыту", "статус карты побыту", "статусы карты побыту", "как проверить статус карты побыту",
+      "статус дела карта побыту", "номер дела карта побыту", "analiza materiału dowodowego что значит",
+      "карта побыту mos статус", "mos карта побыту", "карта побыту готова", "получение карты побыту",
+      "сколько ждать карту побыту", "сроки рассмотрения карты побыту", "долго рассматривают карту побыту",
+      "ponaglenie карта побыту", "жалоба на затягивание карты побыту", "карта побыту новые правила",
+      "можно ли работать пока делается карта побыту", "можно ли выехать из польши пока делается карта побыту",
+      "карта побыту варшава", "карта побыту краков", "карта побыту вроцлав", "карта побыту познань",
+      "карта побыту гданьск", "карта побыту лодзь", "карта побыту катовице", "карта побыту люблин",
+      "карта побыту щецин", "карта побыту быдгощ", "карта побыту белосток", "карта побыту жешув",
+      "карта побыту ольштын", "карта побыту ополе", "карта побыту кельце", "карта побыту зелёна гура",
+      "статус карты побыту варшава", "статус карты побыту вроцлав", "статус карты побыту краков",
+      "статус карты побыту познань", "статус карты побыту гданьск", "статус карты побыту лодзь"
+    ],
+    "uk": [
+      "статус карти побиту", "перевірити статус карти побиту", "як перевірити статус карти побиту",
+      "номер справи карта побиту", "карта побиту mos", "скільки чекати карту побиту",
+      "терміни розгляду карти побиту", "ponaglenie карта побиту", "карта побиту готова",
+      "чи можна виїхати з польщі коли робиться карта побиту", "чи можна працювати поки робиться карта побиту",
+      "карта побиту варшава", "карта побиту краків", "карта побиту вроцлав", "карта побиту познань",
+      "карта побиту гданськ", "карта побиту лодзь", "карта побиту катовіце", "карта побиту люблін",
+      "статус карти побиту варшава", "статус карти побиту вроцлав", "статус карти побиту краків"
+    ],
+    "pl": [
+      "status sprawy karta pobytu", "sprawdzenie statusu karty pobytu", "stan sprawy karta pobytu",
+      "stan sprawy cudzoziemca", "karta pobytu status", "mos status sprawy", "numer sprawy karta pobytu",
+      "analiza materiału dowodowego karta pobytu", "ile czeka się na kartę pobytu", "karta pobytu do odbioru",
+      "stan sprawy warszawa cudzoziemcy", "stan sprawy wrocław cudzoziemcy", "stan sprawy kraków cudzoziemcy",
+      "stan sprawy poznań cudzoziemcy", "stan sprawy gdańsk cudzoziemcy", "stan sprawy łódź cudzoziemcy",
+      "stan sprawy katowice cudzoziemcy", "stan sprawy lublin cudzoziemcy", "stan sprawy szczecin cudzoziemcy",
+      "stan sprawy bydgoszcz cudzoziemcy", "stan sprawy opole", "przybysz duw", "e-wojewoda stan sprawy"
+    ]
+  },
+  "topic": "побыт|побит|pobyt|статус|status|stan spraw|mos|справ|дела|номер|numer|ponaglen|затягив|рассмотр|розгляд|ждать|чекати|czeka|odbior|odbiór|готов|analiza|cudzoziem|przybysz|wojewod|ужонд|urząd|воевод|воєвод"
+}
