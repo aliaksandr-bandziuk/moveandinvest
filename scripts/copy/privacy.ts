@@ -70,7 +70,7 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
     intro:
       "This site takes enquiries and passes them to one lawyer or adviser per jurisdiction. That is the only reason it holds anyone's personal data, and this page says exactly what it holds, who else sees it and how to make it go away. It is written to be read rather than to be survived — if something here is unclear, that is a fault worth writing to us about.",
     updatedLabel: "Last updated",
-    updated: "24 August 2026",
+    updated: "15 September 2026",
     sections: [
       {
         heading: "Who is responsible",
@@ -105,6 +105,15 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
         heading: "Who else sees it",
         body:
           "One partner — the lawyer or adviser who works in the jurisdiction you chose — and only if you ticked the consent box. One partner per jurisdiction: your enquiry is never sent to several firms, never resold and never listed anywhere. Three suppliers process data on our behalf simply to run the site: Vercel Inc. hosts it, Hostinger handles the mailbox your enquiry arrives in, and Sanity serves the images. None of the measurement or advertising tools is ever sent what you wrote.",
+      },
+      // Added 15 September 2026, when the owner lifted the freeze on this
+      // policy for this one section: the residence form asks things the rest
+      // of this page does not describe, and sends them to a recipient that is
+      // not "the lawyer or adviser in the jurisdiction you chose".
+      {
+        heading: "If you write to us about staying in Poland",
+        body:
+          "Pages about residence in Poland end with a form of their own, for people who already live there. Besides what is listed above, it may ask your citizenship, what your stay in Poland rests on today, what your case is about, whether a deadline is already running, and a phone number or messenger handle — every one of them optional. The consent box on that form passes the enquiry to one consultancy in Poland that handles foreigners' residence cases — not a law office and not a partner in any of the five jurisdictions — and to nobody else. The legal basis, how long it is kept, how to have it deleted and your rights are the same as for any enquiry, and none of these answers is ever sent to a measurement or advertising tool.",
       },
       {
         heading: "The change list",
@@ -145,7 +154,7 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
     intro:
       "Сайт принимает заявки и передаёт их одному юристу или консультанту на юрисдикцию. Это единственная причина, по которой он вообще хранит чьи-то персональные данные, и на этой странице написано, что именно хранится, кто ещё это видит и как всё удалить. Она написана, чтобы её прочли, а не чтобы её пережили: если что-то здесь непонятно — это наша недоработка, и о ней стоит нам написать.",
     updatedLabel: "Обновлено",
-    updated: "24 августа 2026",
+    updated: "15 сентября 2026",
     sections: [
       {
         heading: "Кто отвечает",
@@ -180,6 +189,11 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
         heading: "Кто ещё это видит",
         body:
           "Один партнёр — юрист или консультант, который работает в выбранной вами юрисдикции, — и только если вы поставили галочку согласия. Один партнёр на юрисдикцию: заявка не уходит в несколько фирм, не перепродаётся и нигде не публикуется. Три подрядчика обрабатывают данные по нашему поручению просто для работы сайта: Vercel Inc. его хостит, Hostinger обслуживает почтовый ящик, куда приходит заявка, Sanity отдаёт изображения. Ни одному инструменту измерения или рекламы то, что вы написали, не передаётся никогда.",
+      },
+      {
+        heading: "Если вы пишете нам о пребывании в Польше",
+        body:
+          "Страницы о пребывании в Польше заканчиваются отдельной формой — для тех, кто уже там живёт. Помимо перечисленного выше, она может спросить ваше гражданство, на чём сейчас держится ваше пребывание в Польше, с чем ваше дело, идёт ли уже какой-то срок, а также телефон или имя в мессенджере. Всё это необязательно. Галочка согласия в этой форме передаёт заявку одной консультационной фирме в Польше, которая ведёт дела о пребывании иностранцев, — не адвокатской конторе и не партнёру ни в одной из пяти юрисдикций, — и больше никому. Основание обработки, срок хранения, удаление и ваши права те же, что для любой заявки, и ни один из этих ответов никогда не передаётся инструментам измерения или рекламы.",
       },
       {
         heading: "Список изменений",
@@ -220,7 +234,7 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
     intro:
       "Ta strona przyjmuje zgłoszenia i przekazuje je jednemu prawnikowi lub doradcy na jurysdykcję. To jedyny powód, dla którego w ogóle przechowuje czyjekolwiek dane osobowe, a poniżej napisane jest dokładnie co przechowuje, kto jeszcze to widzi i jak to usunąć. Napisaliśmy to tak, żeby dało się przeczytać, a nie przetrwać — jeśli coś jest niejasne, to nasza wina i warto nam o tym napisać.",
     updatedLabel: "Aktualizacja",
-    updated: "24 sierpnia 2026",
+    updated: "15 września 2026",
     sections: [
       {
         heading: "Kto odpowiada",
@@ -255,6 +269,11 @@ export const PRIVACY_COPY: Record<Locale, PrivacyCopy> = {
         heading: "Kto jeszcze to widzi",
         body:
           "Jeden partner — prawnik lub doradca pracujący w wybranej przez Ciebie jurysdykcji — i tylko wtedy, gdy zaznaczyłeś zgodę. Jeden partner na jurysdykcję: zgłoszenie nie trafia do kilku firm, nie jest odsprzedawane ani nigdzie publikowane. Trzej dostawcy przetwarzają dane na nasze zlecenie po prostu po to, by strona działała: Vercel Inc. ją hostuje, Hostinger obsługuje skrzynkę, do której trafia zgłoszenie, Sanity serwuje obrazy. Żadnemu narzędziu pomiarowemu ani reklamowemu to, co napisałeś, nie jest przekazywane nigdy.",
+      },
+      {
+        heading: "Jeśli piszesz do nas w sprawie pobytu w Polsce",
+        body:
+          "Strony o pobycie w Polsce kończą się osobnym formularzem — dla osób, które już tu mieszkają. Oprócz tego, co wymieniono wyżej, może on zapytać o Twoje obywatelstwo, o to, na jakiej podstawie przebywasz teraz w Polsce, czego dotyczy Twoja sprawa i czy biegnie już jakiś termin, a także o numer telefonu lub nazwę w komunikatorze. Wszystko to jest nieobowiązkowe. Zgoda zaznaczona w tym formularzu przekazuje zgłoszenie jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców — nie kancelarii adwokackiej i nie partnerowi w żadnej z pięciu jurysdykcji — i nikomu innemu. Podstawa prawna, okres przechowywania, usunięcie i Twoje prawa są takie same jak przy każdym zgłoszeniu, a żadna z tych odpowiedzi nigdy nie trafia do narzędzi pomiarowych ani reklamowych.",
       },
       {
         heading: "Lista zmian",

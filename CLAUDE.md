@@ -1110,15 +1110,17 @@ entry cites is the signal, not a second field that could disagree with it.
 - **`LeadKind` "residence" names the form.** Nothing picked inside it is sent to
   analytics — same rule as the jurisdiction.
 
-**⚠ IT MUST NOT COLLECT A LEAD UNTIL THE PRIVACY POLICY COVERS IT.** The
-policy's "what we collect" names email, name, jurisdiction, budget, timeline,
-goals and free text; it does not name citizenship, residence status or a phone
-number, and its "who receives it" says a lawyer or adviser in the jurisdiction
-you chose. The policy is frozen by the owner's instruction. So the form ships
-in the code and is reachable only from an entry citing `pl-legal`, and **no such
-entry may be published until the owner lifts the freeze for this paragraph and
-the policy gains it in three languages.** Do not word the policy as a side
-effect of publishing the entry.
+**The privacy policy covers it since 15 Sep 2026.** The owner lifted the
+freeze for ONE section, "If you write to us about staying in Poland", placed
+after "Who else sees it" in `scripts/copy/privacy.ts`: the four questions, the
+phone or messenger handle, the consultancy as the only recipient, and the same
+basis, retention and rights as any enquiry. The rest of the policy, the banner
+and the consent constants stay frozen. If the form ever asks something new or
+goes to a different kind of recipient, that section changes first — and the
+freeze has to be lifted for it again, by the owner.
+
+Still not covered, and not part of that permission: the calculator dialog's
+phone/messenger field (`reach`) is not named in "What we collect".
 
 Not yet measured in a browser: the three `#residence-*` panels at their
 fragments. Check them on the first render of a real entry.
