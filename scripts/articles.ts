@@ -708,7 +708,7 @@ const ENTRIES: Record<string, EntryConfig> = {
       ru: "article-ru-poland-cukr.md",
     },
     figures: {},
-    publishedAt: "2026-09-15T15:00:00.000Z",
+    publishedAt: "2026-09-15T11:00:00.000Z",
     // "rules": предмет — статьи 42c–42x и 106, что они требуют и что меняют.
     category: "rules",
     // Пусто намеренно, как у poland-waiting: Польша — раздел, не юрисдикция
