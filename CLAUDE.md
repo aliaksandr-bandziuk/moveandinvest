@@ -81,6 +81,36 @@ wrong sends the build in the wrong direction for days.
     consultation, and signed: her feel for conversion comes entirely from
     referral clients, and a cold enquiry from search converts at a rate nobody
     knows yet.
+  - **The section widened beyond legalisation, 16 Sep 2026, on the owner's
+    instruction.** The partner told him what else her clients come with: she
+    checks documents before a property purchase, gets the MSWiA permit for land
+    and houses, and helps with a mortgage, insurance and taxes. The owner's
+    words: "все эти темы нам подходят. делаем." So Poland's pages now cover
+    living in Poland and improving that life, not only a residence permit.
+    Measured the same day before agreeing an order (`.dfs/volume-poland-property-2026-09-16.json`,
+    `.dfs/volume-poland-life-2026-09-16.json`, $1.08): her flagship topics are
+    searched in POLISH, not in Russian — the permit for a foreigner's purchase
+    2,180 pl against 90 ru, checking a property and the land register 16,920 pl
+    against 0, work permits for an employer 11,780 pl against 0. What the
+    Russian and Ukrainian reader searches instead: a driving licence exchange
+    1,500, a company of one's own 1,400, PESEL 1,400, meldunek 710, taxes 390.
+    Write the Russian pages against the second list and the partner's own
+    subjects; a Polish page is a separate product decision, because its reader
+    is an employer or a seller, not our reader.
+  - **Poland may become a sixth jurisdiction later**, once those pages exist —
+    the owner allowed it on 16 Sep 2026 ("после всех этих статей можно будет и
+    юрисдикцию сделать"). It is NOT one today: the registry, the comparison
+    table, the map, the PDF and the footer stay at five until that is decided,
+    and the five figures it would need have never been verified for Poland.
+  - **⚠ THE PAYMENT MODEL WITH THIS PARTNER IS NOT AGREED, 16 Sep 2026.** She
+    asked for a percentage of each deal ("треба домовитися який твій % від
+    сделки"); the owner's answer was "по моему вознаграждению мы пока не
+    договорились. позже разберемся." Until it is settled, nothing on the site
+    changes: the pages still say we take no percentage of any transaction, and
+    that sentence has to stay true. A percentage may only be accepted as an
+    explicit decision that rewrites that promise sitewide in all three
+    languages in the same step — the rule already written below for her offer
+    of half a property commission.
 - **Offered and NOT accepted: half of a property commission, 14 Sep 2026.** The
   same partner plans to broker property and offered half her commission on any
   sale that closes. Deferred until she actually brokers. Accepting it later is
