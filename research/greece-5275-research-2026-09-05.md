@@ -83,7 +83,7 @@
 
 **Денежного порога для заявителя нет.** Порог есть, но он зарплатный и лежит на работодателе. «250 000 €», «33%» и «два рабочих места» в норме отсутствуют полностью.
 
-**Статья написана:** `archive/article-en-greece-process.md`, слаг `greece-golden-visa-process`, entry `greece-process`, диаграмма `gr-process-compare-en`.
+**Статья написана:** `research/article-en-greece-process.md`, слаг `greece-golden-visa-process`, entry `greece-process`, диаграмма `gr-process-compare-en`.
 
 ## Что осталось открытым
 

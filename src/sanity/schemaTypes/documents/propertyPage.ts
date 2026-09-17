@@ -32,7 +32,7 @@ import { languageField } from "../lib/languageField";
 // byte-identical section headings. An editor who could retitle "Who may buy"
 // on the Greece page alone would break the one promise these pages make.
 //
-// EVERY CLAIM IN THESE FIELDS COMES FROM archive/property-verification-2026-08-24.md.
+// EVERY CLAIM IN THESE FIELDS COMES FROM research/property-verification-2026-08-24.md.
 // A sentence may not change here without that document changing in the same
 // commit — the same rule that governs the figures.
 export const propertyPage = defineType({

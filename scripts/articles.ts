@@ -16,7 +16,7 @@ import { SOURCE_SECTIONS } from "../src/lib/sourceData";
 // Without --write it parses, converts and validates everything and uploads
 // nothing. The entry is named rather than defaulted; see selectEntry.
 //
-// THE MARKDOWN IN docs/ OR archive/ IS THE SOURCE, not a draft that was then re-typed into
+// THE MARKDOWN IN research/ IS THE SOURCE, not a draft that was then re-typed into
 // a copy module. Those three files are what was written, checked against the
 // statutes and read end to end; a second copy of 90 000 characters in
 // scripts/copy/ would be a second thing to proofread and the first place the
@@ -33,22 +33,17 @@ import { SOURCE_SECTIONS } from "../src/lib/sourceData";
 // are not the same thing. A localisation may carry a different diagram in the
 // same position, or the same three in a different order.
 
-// TWO FOLDERS SINCE 17 SEPTEMBER 2026, on the owner's instruction: docs/ holds
-// what is being worked on now, archive/ holds the sources of entries already
-// published. A draft is written in docs/ and moved to archive/ once it is
-// live; this looks in docs/ first, so a file being revised can be copied back
-// there without the archived one getting in the way.
-const SOURCE_DIRS = [
-  join(import.meta.dirname, "../docs"),
-  join(import.meta.dirname, "../archive"),
-];
+// research/ SINCE 17 SEPTEMBER 2026, on the owner's instruction. Articles are
+// drafted, published and revised there, and never moved out; docs/ is left for
+// the gitignored working files.
+const SOURCES = join(import.meta.dirname, "../research");
 
 function sourcePath(file: string): string {
-  const found = SOURCE_DIRS.map((dir) => join(dir, file)).find((path) => existsSync(path));
-  if (!found) {
-    throw new Error(`Source ${file} is in neither docs/ nor archive/.`);
+  const path = join(SOURCES, file);
+  if (!existsSync(path)) {
+    throw new Error(`Source ${file} is not in research/.`);
   }
-  return found;
+  return path;
 }
 // THE SELF-CONTAINED SVGs, not the PNGs beside them. See
 // scripts/figures/embed.mjs for the measurement that moved this: the raster
@@ -69,7 +64,7 @@ interface EntryConfig {
    *  the plugin's translation-metadata document. One value so that renaming an
    *  entry cannot rename two of the three. */
   key: string;
-  /** The source file per language, under docs/ or archive/.
+  /** The source file per language, under research/.
    *
    *  PARTIAL SINCE 4 SEPTEMBER 2026. Until then every entry had to exist in all
    *  three languages, which was true of the first six and stopped being true

@@ -3,7 +3,7 @@ import type { Locale } from "./jurisdictions";
 
 // The prose on each jurisdiction page, in three languages.
 //
-// EVERY CLAIM HERE COMES FROM archive/figures-verification-2026-08-23.md. Nothing
+// EVERY CLAIM HERE COMES FROM research/figures-verification-2026-08-23.md. Nothing
 // was written from memory and nothing was rounded up for rhythm: the dossier
 // has the statute, the article and the date behind every sentence below, and
 // the same rule that governs the figures governs these paragraphs — a claim

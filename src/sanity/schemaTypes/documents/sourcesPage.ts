@@ -11,7 +11,7 @@ import { languageField } from "../lib/languageField";
 // The evidence — 33 checks, their findings and their citations — lives in
 // src/lib/sourceData.ts, in code. The project's standing rule is that a figure
 // may not change in copy/jurisdictions.ts without
-// archive/figures-verification-2026-08-23.md changing in the same commit. A
+// research/figures-verification-2026-08-23.md changing in the same commit. A
 // dataset editable in Studio routes straight around that rule: somebody
 // corrects a threshold in a text field, the dossier still says the old thing,
 // and the one page whose entire purpose is provable sourcing quietly stops

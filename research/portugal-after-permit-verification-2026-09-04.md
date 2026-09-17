@@ -1,8 +1,8 @@
 # Проверка цифр: этап после получения ВНЖ Португалии
 
 **Дата:** 4 сентября 2026
-**Для статьи:** `archive/article-en-portugal-after-permit.md` (не написана)
-**Бриф:** `archive/portugal-after-permit-brief-2026-09-04.md`
+**Для статьи:** `research/article-en-portugal-after-permit.md` (не написана)
+**Бриф:** `research/portugal-after-permit-brief-2026-09-04.md`
 
 Большая часть уже была проверена 28 августа. Здесь — только то, что добиралось сегодня, плюс статус того, что переносится.
 

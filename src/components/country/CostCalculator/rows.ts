@@ -10,7 +10,7 @@ import { slices, type GroupSlice } from "./groups";
 // it solved backwards for what the money could buy, so every figure in the row
 // moved whenever the budget moved, and the bar changed length on every
 // keystroke. Nobody could connect an action to a result, and the calculator
-// was unreadable — see archive/calculator-spec-2026-09-03.md.
+// was unreadable — see research/calculator-spec-2026-09-03.md.
 //
 // Here a row is a fact about the programme and nothing else. The budget is not
 // an input to it. It decides only two things, both outside this function: the

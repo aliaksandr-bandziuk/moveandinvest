@@ -31,7 +31,7 @@ import { languageField } from "../lib/languageField";
 // it back into an About page — most easily by deleting the section that says
 // what is NOT verified, which is the one section a competitor does not have.
 //
-// THE FIGURES QUOTED IN `method` COME FROM archive/figures-verification-2026-08-23.md.
+// THE FIGURES QUOTED IN `method` COME FROM research/figures-verification-2026-08-23.md.
 // The claim that five of six headline numbers were wrong is checkable against
 // that document, and it may not change here without changing there.
 export const aboutPage = defineType({

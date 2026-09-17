@@ -59,7 +59,7 @@ wrong sends the build in the wrong direction for days.
   residence or citizenship, sent to one partner — a legalisation consultancy,
   not an adwokat or radca, so the bar-code constraint above does not arise in
   its Malta/UAE form (confirm with a Polish lawyer before paid leads start).
-  This reverses `archive/poland-assessment-2026-09-02.md` on lead economics only:
+  This reverses `research/poland-assessment-2026-09-02.md` on lead economics only:
   that assessment priced the service at a mass-market list price the partner's
   complex cases exceed several times over. Its findings on investment Poland
   still stand. The partner's terms and the demand measurement are in a
@@ -134,7 +134,7 @@ wrong sends the build in the wrong direction for days.
   email service behind them.
 - ~~The figures are seeded, not verified.~~ **Verified 23 August 2026** against
   statutes, ministry tariffs and official fee schedules; the working, with a
-  source and a date per figure, is `archive/figures-verification-2026-08-23.md`.
+  source and a date per figure, is `research/figures-verification-2026-08-23.md`.
   Five of the six headline numbers were wrong — Greece was on a threshold
   superseded in September 2024, Malta on one superseded in January 2025, the
   UAE on a stale exchange rate, and Portugal's five-year naturalisation had
@@ -156,29 +156,27 @@ A dependency is never installed without first naming it and its purpose.
 The working tree is authoritative. Never revert or overwrite existing code that
 looks intentional without asking — manual edits by the owner are expected.
 
-## docs/ is current work, archive/ is what is already published
+## Articles and dossiers live in research/, and stay there
 
-Decided by the owner on 17 Sep 2026. `docs/` holds what is being worked on now;
-`archive/` holds the markdown sources of published entries and the
-verification dossiers behind them. A new article is drafted in `docs/` and
-moved to `archive/` once it is live.
+Decided by the owner on 17 Sep 2026. `research/` holds the markdown source of
+every article and every verification dossier. A new article is written there,
+published from there and revised there — **nothing is ever moved in or out of
+it**. `docs/` is left for the gitignored working files.
 
-The files stay in the repository rather than being deleted, because tools still
+The files are tracked rather than deleted once a page is live, because tools
 read them:
 
-- `npm run articles` looks for an entry's source in `docs/` first, then
-  `archive/` — so revising a published entry means editing it where it is, or
-  copying it back to `docs/` while it is being reworked;
-- `scripts/articleTerms.mjs` reads the keyword blocks from both folders, with
-  the same precedence, for `keywords.mjs` and the DataForSEO scripts;
+- `npm run articles` reads an entry's source from `research/`;
+- `scripts/articleTerms.mjs` reads the keyword blocks there, for
+  `keywords.mjs` and the DataForSEO scripts;
 - the standing rule that a figure may not change without its dossier changing
-  in the same commit now points at `archive/…-verification-*.md`. The rule is
-  unchanged; only the folder moved.
+  in the same commit points at `research/…-verification-*.md`.
 
 The gitignored working files — `docs/partners-*`, `docs/seo-*`,
 `docs/outreach-*`, `docs/gsc/` — stay in `docs/`, and the ignore rules only
-cover them there. Do not move them to `archive/`: the repository is public and
-`archive/` is tracked.
+cover them there. Never put them in `research/`: the repository is public and
+`research/` is tracked. (`/contents/` in `.gitignore` is a different,
+untracked folder; the near-identical name is a coincidence.)
 
 ## Design direction
 
@@ -856,7 +854,7 @@ over an empty column.
 Four rules govern that file, and they are the reason the pages are worth
 having:
 
-1. **Every claim comes from `archive/figures-verification-2026-08-23.md`.** A
+1. **Every claim comes from `research/figures-verification-2026-08-23.md`.** A
    sentence may not change here without that document changing in the same
    commit. The alternative — essays written from memory under a site whose
    position is "the figures are checked" — would undo the verification work
@@ -1040,7 +1038,7 @@ retitle "Who may buy" on the Greece page alone would break the one promise
 these pages make. The bodies are Portable Text in Sanity; the headings are not
 editable content.
 
-**Every claim traces to `archive/property-verification-2026-08-24.md`** — same
+**Every claim traces to `research/property-verification-2026-08-24.md`** — same
 rule as the figures: a sentence may not change without that document changing
 in the same commit. That dossier marks its own gaps as NOT CONFIRMED, and a
 NOT CONFIRMED claim either does not reach the page or reaches it with the
@@ -1486,7 +1484,7 @@ sections: pt, gr, mt, ae, citizenship, cy.
 **It is the proof of /about's claim.** /about states the method — primary
 sources only, a date on every figure, nothing published where no primary source
 exists. Until this page that had no evidence attached: the working lived in
-`archive/figures-verification-2026-08-23.md`, in git, which is to say nowhere a
+`research/figures-verification-2026-08-23.md`, in git, which is to say nowhere a
 reader can reach. A method described but never shown is an assertion.
 
 **THE DATASET IS CODE-OWNED, AND THAT IS INTEGRITY RATHER THAN CONVENIENCE.**

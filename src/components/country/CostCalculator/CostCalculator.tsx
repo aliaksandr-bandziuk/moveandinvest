@@ -142,7 +142,7 @@ const PRESETS = [250_000, 500_000, 800_000, 1_000_000];
 // THE CALCULATOR. One number in; four programmes, each with the figure it
 // advertises beside the figure it actually costs.
 //
-// The whole design is in archive/calculator-spec-2026-09-03.md, written after a
+// The whole design is in research/calculator-spec-2026-09-03.md, written after a
 // day of building without one. Two rules from it govern this file:
 //
 // 1. A ROW IS A FACT ABOUT A PROGRAMME, NOT ABOUT THE READER'S MONEY. Its
