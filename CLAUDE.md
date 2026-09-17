@@ -723,6 +723,38 @@ Both states verified against a real build: without the variable, `Disallow: /`
 plus `noindex, nofollow` and one warning; with it, the named-bot rules,
 `index, follow`, and `https://moveandinvest.com/…` throughout.
 
+## The host is www, and the other spellings of a route are 308s
+
+**The canonical host is `https://www.moveandinvest.com`, measured 17 Sep
+2026.** The paragraph above records the apex as it stood on 25 Aug; it is no
+longer the state. Vercel answers `moveandinvest.com` with a single 308 to www
+(`http://` apex takes two hops), and `NEXT_PUBLIC_SITE_URL` is set to www, so
+the sitemap (120 URLs), robots.txt, every canonical, hreflang and JSON-LD `@id`
+say www and nothing rendered says the apex. **Do not move it back.** The two
+must always agree: a canonical pointing at a host that redirects away is the
+contradiction Google reports as a redirect error.
+
+That is the likely cause of Search Console's 17 "Redirect error" pages, exported
+to `docs/gsc/` on 17 Sep 2026 — 13 of them apex URLs last crawled 9–13 Sep.
+Likely, not proven: the variable's history lives on Vercel, not in git. On the
+day of the export every one of them was a clean single redirect to a 200 with
+a www canonical.
+
+**The other four were `/ru/about`, `/pl/about`, `/ru/kontakt`, `/pl/kontakty`**
+— the English slugs these pages had until the routes were translated on 26 Aug,
+and the neighbouring language's spelling. next-intl redirected them with a
+**307**, which tells a crawler the move is temporary. `next.config.ts` now
+answers every non-native spelling of every translated route in ru and pl with
+a **308**, generated from `routing.pathnames` (45 on 17 Sep 2026, each measured
+as one 308 to a 200 on a local production build). Renaming a route there
+renames its redirect; nobody edits the list by hand. English is excluded on
+purpose — its routes share the unprefixed URL space with `/[slug]`.
+
+The two "Blocked by robots.txt" pages were `http://` home pages last crawled on
+24 June and 13 July 2026, before this site served that domain. Nothing to fix;
+they clear on recrawl. "Discovered/Crawled – currently not indexed" (45 + 7)
+came without URL lists and has not been analysed.
+
 ## robots.txt and the sitemap
 
 Both ported from the sibling `giuseppeiannone` project. `src/app/robots.ts`
