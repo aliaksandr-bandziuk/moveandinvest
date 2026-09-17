@@ -313,8 +313,8 @@
     }
   },
   "residence": {
-    "heading": "Jeśli błąd w Twojej sprawie może kosztować status",
-    "body": "Ta strona to badanie, a nie porada: nie zna Twoich terminów ani dokumentów. Opisz sprawę, a przekażemy ją jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców. Przekazanie jest dla Ciebie bezpłatne i tylko za Twoją zgodą; usługi firmy są płatne na jej warunkach.",
+    "heading": "Jeśli błąd może kosztować status, pieniądze albo transakcję",
+    "body": "Ta strona to badanie, a nie porada: nie zna Twoich terminów ani dokumentów. Opisz sprawę — pobyt, zakup nieruchomości, własną firmę albo konto w banku — a przekażemy ją jednej firmie doradczej w Polsce, która prowadzi sprawy cudzoziemców. Przekazanie jest dla Ciebie bezpłatne i tylko za Twoją zgodą; usługi firmy są płatne na jej warunkach.",
     "citizenshipLegend": "Obywatelstwo",
     "citizenship": {
       "ua": "Ukraina",
@@ -338,10 +338,13 @@
       "temporary": "Karta pobytu czasowego",
       "permanent": "Pobyt stały lub rezydent UE",
       "citizenship": "Obywatelstwo polskie",
+      "property": "Zakup nieruchomości: sprawdzenie dokumentów, zezwolenie MSWiA",
+      "business": "Własna firma: JDG albo sp. z o.o.",
+      "bank": "Konto w banku: założenie albo odblokowanie",
       "other": "Inne"
     },
     "deadlineLegend": "Czy biegnie jakiś termin",
-    "deadlineHint": "Wezwanie w MOS, 14 dni na odwołanie, ostatni dzień legalnego pobytu.",
+    "deadlineHint": "Wezwanie w MOS, 14 dni na odwołanie, ostatni dzień legalnego pobytu, termin podpisania u notariusza.",
     "deadline": {
       "soon": "Upływa w ciągu 14 dni",
       "months": "W ciągu dwóch miesięcy",
@@ -349,21 +352,21 @@
       "unsure": "Nie wiem"
     },
     "situationLabel": "Co dzieje się ze sprawą",
-    "situationPlaceholder": "Kiedy i jaki wniosek złożono, co przyszło od wojewody, czego boisz się przegapić.",
+    "situationPlaceholder": "Co i kiedy złożono lub podpisano, co przyszło od wojewody, sprzedawcy albo banku, czego boisz się przegapić.",
     "nameLabel": "Imię",
     "namePlaceholder": "Jak się do Ciebie zwracać",
     "emailLabel": "Twój e-mail",
     "emailPlaceholder": "ty@przyklad.pl",
     "reachLabel": "Telefon lub Telegram, jeśli tak wygodniej",
     "reachPlaceholder": "+48…, @telegram",
-    "consentLabel": "Zgadzam się, aby moje zgłoszenie zostało przekazane jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców",
+    "consentLabel": "Zgadzam się, aby moje zgłoszenie zostało przekazane jednej firmie doradczej w Polsce, która prowadzi sprawy cudzoziemców: pobyt, nieruchomości, firmę i konto bankowe",
     "honeypotLabel": "Zostaw to pole puste",
     "submitLabel": "Wyślij",
     "fine": "Nie jesteśmy prawnikami ani doradcami i sami nie prowadzimy spraw. Zgłoszenie trafia do jednej firmy, nie na listę, i nie jest odsprzedawane.",
     "privacyLabel": "Jak obchodzimy się z danymi",
     "sent": {
       "title": "Wysłane.",
-      "body": "Zgłoszenie jest u nas i przeczyta je człowiek. Jeśli termin już biegnie, nie czekaj na naszą odpowiedź: na wezwanie w MOS odpowiedz w terminie."
+      "body": "Zgłoszenie jest u nas i przeczyta je człowiek. Jeśli termin już biegnie — wezwanie w MOS, prośba banku, data transakcji — nie czekaj na naszą odpowiedź i działaj w terminie."
     },
     "error": {
       "title": "Nie wysłało się.",

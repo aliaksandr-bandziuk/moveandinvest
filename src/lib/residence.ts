@@ -16,7 +16,7 @@
 export const RESIDENCE_TOKENS = {
   citizenship: ["ua", "by", "ru", "other"],
   status: ["ukr", "card", "pending", "visa", "unsure"],
-  matter: ["waiting", "refusal", "cukr", "temporary", "permanent", "citizenship", "other"],
+  matter: ["waiting", "refusal", "cukr", "temporary", "permanent", "citizenship", "property", "business", "bank", "other"],
   deadline: ["soon", "months", "none", "unsure"],
 } as const;
 

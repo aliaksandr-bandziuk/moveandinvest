@@ -313,8 +313,8 @@
     }
   },
   "residence": {
-    "heading": "If a mistake in your case could cost you your status",
-    "body": "This page is research, not advice: it does not know your deadlines or your documents. Describe the case and we pass it to one consultancy in Poland that handles foreigners' residence cases. The introduction is free to you and happens only with your consent; the firm's own services are paid on its terms.",
+    "heading": "If a mistake could cost you your status, your money or the deal",
+    "body": "This page is research, not advice: it does not know your deadlines or your documents. Describe the case — your stay, a property purchase, a company of your own or a bank account — and we pass it to one consultancy in Poland that handles foreigners' cases. The introduction is free to you and happens only with your consent; the firm's own services are paid on its terms.",
     "citizenshipLegend": "Citizenship",
     "citizenship": {
       "ua": "Ukraine",
@@ -338,10 +338,13 @@
       "temporary": "Temporary residence card",
       "permanent": "Permanent residence or EU long-term resident",
       "citizenship": "Polish citizenship",
+      "property": "Buying property: document checks, the MSWiA permit",
+      "business": "A company of my own: JDG or sp. z o.o.",
+      "bank": "A bank account: opening one or getting it unblocked",
       "other": "Other"
     },
     "deadlineLegend": "Is a deadline running",
-    "deadlineHint": "A summons in MOS, 14 days to appeal, the last day of lawful stay.",
+    "deadlineHint": "A summons in MOS, 14 days to appeal, the last day of lawful stay, a signing date at the notary.",
     "deadline": {
       "soon": "Within 14 days",
       "months": "Within two months",
@@ -349,21 +352,21 @@
       "unsure": "I don't know"
     },
     "situationLabel": "What is happening with the case",
-    "situationPlaceholder": "When and what you applied for, what the voivode sent, what you are afraid of missing.",
+    "situationPlaceholder": "What was filed or signed and when, what the voivode, the seller or the bank sent, what you are afraid of missing.",
     "nameLabel": "Name",
     "namePlaceholder": "What to call you",
     "emailLabel": "Your email",
     "emailPlaceholder": "you@example.com",
     "reachLabel": "Phone or Telegram, if that is easier",
     "reachPlaceholder": "+48…, @telegram",
-    "consentLabel": "I agree that my enquiry may be passed to one consultancy in Poland that handles foreigners' residence cases",
+    "consentLabel": "I agree that my enquiry may be passed to one consultancy in Poland that handles foreigners' cases: residence, property, a company and a bank account",
     "honeypotLabel": "Leave this field empty",
     "submitLabel": "Send",
     "fine": "We are neither lawyers nor consultants and do not handle cases ourselves. Your enquiry goes to one firm, not to a list, and is never resold.",
     "privacyLabel": "How we handle your data",
     "sent": {
       "title": "Sent.",
-      "body": "It is with us, and a person will read it. If a deadline is already running, do not wait for our reply: answer the MOS summons on time."
+      "body": "It is with us, and a person will read it. If a deadline is already running — a summons in MOS, a request from the bank, a signing date — do not wait for our reply: act within it."
     },
     "error": {
       "title": "That did not go through.",

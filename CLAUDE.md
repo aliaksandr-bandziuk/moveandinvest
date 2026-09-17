@@ -1232,6 +1232,17 @@ and the consent constants stay frozen. If the form ever asks something new or
 goes to a different kind of recipient, that section changes first — and the
 freeze has to be lifted for it again, by the owner.
 
+**Widened 17 Sep 2026 to the partner's other subjects**, on the owner's
+instruction ("включая новую форму заявки"). The case question gained
+`property`, `business` and `bank` (before `other`, so no existing token moved);
+the heading, deck, consent, placeholder and hints now name residence, property,
+a company and a bank account; the consent names "one consultancy in Poland
+that handles foreigners' cases" on those subjects. The same permission covered
+that one privacy section only — now "If you write to us about a case in
+Poland" — and nothing else in the policy, the banner or the consent constants.
+It is still ONE form on every `pl-legal` entry, with nothing preselected: a
+property reader picks the chip themselves.
+
 The calculator dialog's phone/messenger field (`reach`) was named in "What we
 collect" the same day, by a second permission from the owner for that one
 sentence.

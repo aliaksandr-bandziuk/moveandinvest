@@ -168,6 +168,9 @@ const MATTER: Record<string, string> = {
   temporary: "временное пребывание",
   permanent: "постоянное пребывание или резидент ЕС",
   citizenship: "гражданство Польши",
+  property: "покупка недвижимости: документы, разрешение MSWiA",
+  business: "своя фирма: JDG или sp. z o.o.",
+  bank: "счёт в банке: открыть или разблокировать",
   other: "другое",
 };
 
@@ -280,7 +283,7 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         : isCalc
           ? "Заявка из калькулятора"
           : isResidence
-            ? "Пребывание в Польше"
+            ? "Дело в Польше"
             : "Новая заявка с сайта",
     openingLine: payload.name
       ? `${payload.name} — ${payload.email}`
@@ -426,21 +429,21 @@ function buildPartnerInternal(payload: PartnerEnquiryPayload): EmailContent {
 const NEXT_STEP: Record<Locale, { standard: string; calc: string; residence: string }> = {
   ru: {
     residence:
-      "Дальше мы передадим её одной консультационной фирме в Польше, которая ведёт дела о пребывании иностранцев, — одной, и только ей. Для вас передача бесплатна; если вы решите работать с фирмой, её услуги оплачиваются по её собственным условиям. Заявку мы не перепродаём.",
+      "Дальше мы передадим её одной консультационной фирме в Польше, которая ведёт дела иностранцев — о пребывании, недвижимости, фирме и банковском счёте, — одной, и только ей. Для вас передача бесплатна; если вы решите работать с фирмой, её услуги оплачиваются по её собственным условиям. Заявку мы не перепродаём.",
     standard:
       "Дальше мы передадим её юристу или консультанту, который работает именно в выбранной вами юрисдикции — одному, и только ему. Заявку мы не перепродаём и процента со сделки не берём.",
     calc: "Сначала я напишу или позвоню сам: калькулятор считает типовой вход, а про вашу семью, гражданство и сроки он ничего не знает. Юристу или консультанту в нужной юрисдикции заявка уйдёт после этого разговора и только с вашего согласия. Мы её не перепродаём и процента со сделки не берём.",
   },
   pl: {
     residence:
-      "Przekażemy je jednej firmie doradczej w Polsce, która prowadzi sprawy pobytowe cudzoziemców — jednej i tylko jej. Przekazanie jest dla Pana/Pani bezpłatne; jeśli zdecyduje się Pan/Pani na współpracę z firmą, jej usługi są płatne na jej własnych warunkach. Zgłoszeń nie odsprzedajemy.",
+      "Przekażemy je jednej firmie doradczej w Polsce, która prowadzi sprawy cudzoziemców — pobytowe, nieruchomości, firmy i konta bankowego — jednej i tylko jej. Przekazanie jest dla Pana/Pani bezpłatne; jeśli zdecyduje się Pan/Pani na współpracę z firmą, jej usługi są płatne na jej własnych warunkach. Zgłoszeń nie odsprzedajemy.",
     standard:
       "Przekażemy je prawnikowi lub doradcy pracującemu dokładnie w wybranej przez Pana/Panią jurysdykcji — jednemu i tylko jemu. Zgłoszeń nie odsprzedajemy i nie bierzemy procentu od transakcji.",
     calc: "Najpierw odezwę się osobiście — mailem albo telefonicznie: kalkulator liczy typowe wejście i nic nie wie o Pana/Pani rodzinie, obywatelstwie ani terminach. Do prawnika lub doradcy w odpowiedniej jurysdykcji zgłoszenie trafi po tej rozmowie i tylko za Pana/Pani zgodą. Nie odsprzedajemy zgłoszeń i nie bierzemy procentu od transakcji.",
   },
   en: {
     residence:
-      "We will pass it to one consultancy in Poland that handles foreigners' residence cases — one of them, and only them. The introduction costs you nothing; if you decide to work with the firm, its services are paid on its own terms. We do not resell enquiries.",
+      "We will pass it to one consultancy in Poland that handles foreigners' cases — residence, property, a company or a bank account — one of them, and only them. The introduction costs you nothing; if you decide to work with the firm, its services are paid on its own terms. We do not resell enquiries.",
     standard:
       "We will pass it to the lawyer or adviser who works in the jurisdiction you chose — one of them, and only them. We do not resell enquiries and take no percentage of any transaction.",
     calc: "I will write or call first: the calculator prices a typical entry and knows nothing about your family, your citizenship or your deadlines. It goes to a lawyer or adviser in the right jurisdiction after that conversation, and only with your agreement. We do not resell enquiries and take no percentage of any transaction.",
