@@ -884,6 +884,22 @@ const ENTRIES: Record<string, EntryConfig> = {
     // раздела, если он будет, делается под «легализация в польше» (260 + 260).
     kind: "reference",
   },
+  "poland-incubator": {
+    key: "article-poland-incubator",
+    sources: {
+      ru: "article-ru-poland-incubator.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-17T11:20:00.000Z",
+    category: "rules",
+    countries: [],
+    // РУССКАЯ ТОЛЬКО. Вторая узкая статья под пилларом «Бизнес в Польше».
+    // «бизнес инкубатор польша» 260, кластер ≈580 ru + 110 uk, CPC $6–11.
+    // Поводы: академический инкубатор по ст. 148 закона о высшем образовании
+    // против договорной схемы; право на работу по ст. 1 ч. 4 закона о работе
+    // иностранцев; с 8 июля 2026 года инспектор труда решением признаёт
+    // договор трудовым (Dz.U. 2026 poz. 473).
+  },
   "poland-business": {
     key: "article-poland-business",
     sources: {
