@@ -1,0 +1,23 @@
+{
+  "_about": "Seeds for the partner's business services, 17 Sep 2026: a company account at a Polish bank for a foreigner, and setting up a company (JDG, sp. z o.o.). Location Poland. Decides whether this is one page or two.",
+  "location": 2616,
+  "languages": {
+    "ru": [
+      "открыть счет в польше", "открыть фирменный счет в польше", "счет для фирмы в польше", "банковский счет в польше для иностранца",
+      "открыть счет в польском банке", "банк отказал в открытии счета польша", "заблокировали счет в польше",
+      "открыть фирму в польше", "открыть бизнес в польше", "регистрация фирмы в польше", "jdg польша", "sp z o o польша",
+      "открыть ип в польше", "как открыть фирму в польше иностранцу"
+    ],
+    "uk": [
+      "відкрити рахунок в польщі", "відкрити фірмовий рахунок в польщі", "рахунок для фірми в польщі", "банк відмовив у відкритті рахунку польща",
+      "заблокували рахунок в польщі", "відкрити фірму в польщі", "відкрити фоп в польщі", "реєстрація фірми в польщі", "jdg польща",
+      "як відкрити бізнес в польщі"
+    ],
+    "pl": [
+      "konto firmowe dla cudzoziemca", "konto firmowe dla obcokrajowca", "konto firmowe dla ukraińca", "konto bankowe dla cudzoziemca",
+      "bank odmówił otwarcia konta", "blokada konta aml", "zamrożenie konta bankowego",
+      "założenie firmy przez cudzoziemca", "działalność gospodarcza cudzoziemiec", "jdg dla obcokrajowca", "spółka z o.o. cudzoziemiec"
+    ]
+  },
+  "topic": "счет|счёт|рахун|konto|банк|bank|блок|blokad|zamroż|фирм|фірм|firm|бизнес|бізнес|jdg|фоп|ип |sp z|spółk|działalno|регистрац|реєстрац|założen|aml"
+}
