@@ -4,6 +4,13 @@
   @include mixins.section-rhythm;
 
   display: grid;
+  // `minmax(0, 1fr)`, not the implicit `auto` track. An auto track is as wide
+  // as its item's min-content, and a table's min-content is the whole table —
+  // so at 390px the column grew to 406–649px, `.tableScroll` never had a
+  // narrower box to scroll inside, and `overflow-x: clip` on the body cut the
+  // right edge off every paragraph, the TOC and the form. Measured on the live
+  // Poland entries, 17 Sep 2026.
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
 
   // NARROWER THAN THE REST OF THE SITE, and set HERE rather than on the article
