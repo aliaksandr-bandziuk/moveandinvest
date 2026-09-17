@@ -349,7 +349,7 @@ No. Article 6 of the Annex sets seven categories and has never been amended. Tho
 
 ### What else here bears on this
 
-The Emirates is the one jurisdiction in this set where a purchase is the route in full and the permit asks for no presence at all. Greece is the other, and how differently it is built — four thresholds, one property each, and permanent residence that counts days — is in [the Greece guide](entry:greece-residency). Portugal removed the property route altogether in 2023, which is worked through in [the Portugal guide](entry:portugal-residency). What a purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). Every act named above, with the date each was read, is on [the sources page](/sources).
+The Emirates is the one jurisdiction in this set where a purchase is the route in full and the permit asks for no presence at all. Greece is the other, and how differently it is built — four thresholds, one property each, and permanent residence that counts days — is in [the Greece guide](entry:greece-residency). Portugal removed the property route altogether in 2023, which is worked through in [the Portugal guide](entry:portugal-residency). What a purchase achieves in each of the five, read against the statute, is in [the property piece](entry:property-residency). What changed in Dubai on 28 February 2026, and what the British government says about it now, is in [its own piece](entry:uae-changed); the move itself, for a reader coming from Britain, is in [moving to Dubai from the UK](entry:uae-uk). Every act named above, with the date each was read, is on [the sources page](/sources).
 
 ### Sources: where each figure comes from
 
