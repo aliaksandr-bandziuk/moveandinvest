@@ -167,7 +167,7 @@ console.log("\n\n=== AGAINST WHAT A HUMAN VERIFIED ===\n");
 
 check(
   "GR transfer tax at €400,000",
-  "docs/property-verification-2026-08-24.md — ΦΜΑ 3% plus a municipal surcharge of 3% of the tax = 3.09%",
+  "archive/property-verification-2026-08-24.md — ΦΜΑ 3% plus a municipal surcharge of 3% of the tax = 3.09%",
   sumOf(gr, ["transfer-tax"]),
   12_360,
   1,
@@ -175,7 +175,7 @@ check(
 
 check(
   "GR extras at the €800,000 tier",
-  "docs/figures-verification-2026-08-23.md — «На уровне €800 000 тот же набор даёт ≈€67 000»",
+  "archive/figures-verification-2026-08-23.md — «На уровне €800 000 тот же набор даёт ≈€67 000»",
   gr800.extras,
   67_000,
   1_000,
@@ -183,7 +183,7 @@ check(
 
 check(
   "PT AIMA fees, one applicant to the first renewal",
-  "docs/figures-verification-2026-08-23.md — «Один заявитель до первого продления — ≈€13 470 только пошлин»",
+  "archive/figures-verification-2026-08-23.md — «Один заявитель до первого продления — ≈€13 470 только пошлин»",
   sumOf(pt, ["aima-analysis", "aima-grant", "aima-renewal"]),
   13_470,
   5,
@@ -191,7 +191,7 @@ check(
 
 check(
   "MT extras on the purchase route",
-  "docs/figures-verification-2026-08-23.md — «≈€126 000 сверх стоимости объекта»",
+  "archive/figures-verification-2026-08-23.md — «≈€126 000 сверх стоимости объекта»",
   mt.extras,
   126_000,
   1,
@@ -199,7 +199,7 @@ check(
 
 check(
   "MT lease route, first year",
-  "docs/figures-verification-2026-08-23.md — «Аренда: ≈€113 500 в первый год без гербового сбора»",
+  "archive/figures-verification-2026-08-23.md — «Аренда: ≈€113 500 в первый год без гербового сбора»",
   mtRent1.extras,
   113_500,
   1,
@@ -233,14 +233,14 @@ check(
 // dossier says €190–205k. The gap is roughly a second administrative fee, so
 // the likeliest explanation is that the range prices a renewal the lines do
 // not — but that is a guess, and a guess does not become a figure here.
-// docs/costmodel-verification-2026-09-02.md records it as unresolved.
+// archive/costmodel-verification-2026-09-02.md records it as unresolved.
 console.log(
   `\n  open   MT lease over five years                        ${exact
     .format(mtRent5.extras)
     .padStart(14)}  vs   €190,000–205,000`,
 );
 console.log(
-  "        docs/figures-verification-2026-08-23.md — «≈€190–205 тыс. за пять лет аренды». Unresolved;",
+  "        archive/figures-verification-2026-08-23.md — «≈€190–205 тыс. за пять лет аренды». Unresolved;",
 );
 console.log("        no five-year lease figure is published anywhere on the site.");
 

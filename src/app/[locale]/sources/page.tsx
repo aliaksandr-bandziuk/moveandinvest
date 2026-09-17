@@ -30,7 +30,7 @@ import styles from "./page.module.scss";
 // primary source exists. This is the proof of that statement, and proof is
 // long — thirty-three checks and twenty-eight citations. Folding it into
 // /about would bury the argument under the evidence; leaving it in
-// docs/figures-verification-2026-08-23.md, where it lived until now, meant a
+// archive/figures-verification-2026-08-23.md, where it lived until now, meant a
 // method described but never shown.
 //
 // ONE PATH FOR ALL THREE LOCALES, like /about and /privacy: this URL goes into

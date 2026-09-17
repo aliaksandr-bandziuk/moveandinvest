@@ -1687,5 +1687,5 @@ Dz.U. 2025 poz. 1073. В перечне документов она требуе
 документы — **86 проверок** (было 83). Шесть новых источников:
 `kierujacy-pojazdami`, `nowelizacja-2025-1676`, `wydawanie-prawa-jazdy`,
 `oplata-prawo-jazdy`, `kodeks-wykroczen`, `govpl-prawo-jazdy`. Статья —
-`docs/article-ru-poland-driving-licence.md`, слаг `zamena-prav-v-polshe`,
+`archive/article-ru-poland-driving-licence.md`, слаг `zamena-prav-v-polshe`,
 3183 слова, 14 h2, 7 таблиц, 15 вопросов FAQ.

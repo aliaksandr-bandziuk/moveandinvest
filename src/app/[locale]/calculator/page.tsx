@@ -50,7 +50,7 @@ import styles from "./page.module.scss";
 // They live in messages/, beside every other UI string on the site.
 //
 // WHAT IT DOES NOT ASK FOR. Family composition — see the note at the head of
-// the component, and docs/costmodel-verification-2026-09-02.md for the data
+// the component, and archive/costmodel-verification-2026-09-02.md for the data
 // that does not exist to support it.
 const ROUTE = "/calculator";
 
@@ -92,7 +92,7 @@ function buildLabels(t: Translator): CostCalculatorLabels {
     bandTitle: t("bandTitle"),
     bandNote: t("bandNote"),
 
-    // THE ONLY QUESTION. See docs/calculator-spec-2026-09-03.md: a programme's
+    // THE ONLY QUESTION. See archive/calculator-spec-2026-09-03.md: a programme's
     // variants are a sentence under its own row, not a control at the top.
     qValue: t("qValue"),
     valueAria: t("valueAria"),
@@ -412,7 +412,7 @@ export default async function Calculator({
         </section>
       </div>
 
-      {/* THE DATE, DERIVED. docs/competitors-strengths-2026-09-02.md names the
+      {/* THE DATE, DERIVED. archive/competitors-strengths-2026-09-02.md names the
           home page's hardcoded "Updated 15 Aug 2026" as the most awkward gap on
           a site whose own copy says an answer expires. This one is the newest
           date on which any line above was read against its source, computed

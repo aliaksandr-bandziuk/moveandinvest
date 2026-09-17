@@ -6,7 +6,7 @@ import type { Locale } from "./jurisdictions";
 // mixing 40 lines of metadata with 3,000 words of prose is a file nobody
 // proofreads.
 //
-// EVERY CLAIM HERE COMES FROM docs/property-verification-2026-08-24.md, and a
+// EVERY CLAIM HERE COMES FROM archive/property-verification-2026-08-24.md, and a
 // sentence may not change without that document changing in the same commit.
 //
 // THE INTRO IS NOT A WELCOME. It states the one thing that most changes a

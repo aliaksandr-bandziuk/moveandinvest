@@ -15,7 +15,7 @@
 //
 // --- THE THREE LEVELS OF CONFIDENCE, AND WHY THEY ARE NOT TWO ---------------
 //
-// docs/property-verification-2026-08-24.md separates three things that a
+// archive/property-verification-2026-08-24.md separates three things that a
 // single "verified / unverified" flag would flatten into one, and the
 // flattening would misinform in both directions:
 //
@@ -62,10 +62,10 @@
 // documentation and legal work, for which no published tariff exists. One
 // sourced line does not make a route, so the route stays out and the tier
 // labels below say "restoration or change of use" so the two cannot be
-// confused. See docs/greece-5307-verification-2026-09-05.md.
+// confused. See archive/greece-5307-verification-2026-09-05.md.
 //
-// EVERY FIGURE HERE IS TRACEABLE TO docs/property-verification-2026-08-24.md,
-// docs/figures-verification-2026-08-23.md or the per-jurisdiction dossiers,
+// EVERY FIGURE HERE IS TRACEABLE TO archive/property-verification-2026-08-24.md,
+// archive/figures-verification-2026-08-23.md or the per-jurisdiction dossiers,
 // and may not change without one of those changing in the same commit — the
 // same rule that governs scripts/copy/costs.ts.
 
@@ -625,7 +625,7 @@ export function compute(code: CalcCode, input: CalcInput): Computed {
  * was a prose string beside it, and the two were kept in step by whoever
  * remembered. They had already drifted: the Greek literal said €36,000, its
  * own prose said a flat 1.5% notary fee that no tariff supports, and
- * docs/figures-verification-2026-08-23.md — the dossier the literal is
+ * archive/figures-verification-2026-08-23.md — the dossier the literal is
  * supposed to derive from — scored €34,000 as the correct figure at the
  * €400,000 level. Three numbers, one of them published.
  *
@@ -655,7 +655,7 @@ export const CALC_CODES: CalcCode[] = ["gr", "pt", "mt", "ae"];
  * The newest date on which any line in the model was read against its source.
  *
  * THE PAGE'S "UPDATED" STAMP, and derived rather than typed for the reason
- * docs/competitors-strengths-2026-09-02.md gives about the home page: the
+ * archive/competitors-strengths-2026-09-02.md gives about the home page: the
  * stamp there is the string "Updated 15 Aug 2026", connected to nothing, and
  * it was three weeks stale the day it was read. A date computed from the
  * figures it describes cannot go stale while they change, and cannot be

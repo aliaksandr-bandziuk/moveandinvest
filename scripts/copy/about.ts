@@ -47,7 +47,7 @@ import { blocks } from "./portable";
 // reader's real question — "who is paying you to tell me this" — without
 // answering the one that is not the reader's business.
 //
-// FIGURES CITED HERE COME FROM docs/figures-verification-2026-08-23.md. The
+// FIGURES CITED HERE COME FROM archive/figures-verification-2026-08-23.md. The
 // claim that five of six headline numbers were wrong is checkable against that
 // document, section by section, and may not change here without changing
 // there.

@@ -31,7 +31,7 @@ export const roundPublished = (value: number) =>
   Math.round(value / CALC_ROUND_TO) * CALC_ROUND_TO;
 
 /** The basis, fixed rather than asked: every published figure on this site
- *  counts the first cycle once. See docs/calculator-spec-2026-09-03.md. */
+ *  counts the first cycle once. See archive/calculator-spec-2026-09-03.md. */
 export const CALC_YEARS = 1;
 
 export interface Totals {

@@ -3,7 +3,7 @@ import type { Locale } from "./jurisdictions";
 
 // The six sections of each property page, in three languages.
 //
-// EVERY CLAIM HERE COMES FROM docs/property-verification-2026-08-24.md. That
+// EVERY CLAIM HERE COMES FROM archive/property-verification-2026-08-24.md. That
 // dossier carries the statute, the article and the date behind every sentence
 // below, and marks its own gaps: where it says NOT CONFIRMED, this file either
 // says nothing or says that nobody publishes the answer. A claim may not change

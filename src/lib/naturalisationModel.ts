@@ -42,18 +42,18 @@
 // rule, art. 15(1) for what counts as legal residence, art. 15(3) for the
 // aggregation windows, and art. 5 of that law for the repeal of art. 15(4).
 // Read at the Diário da República PDF, 7 September 2026.
-// docs/portugal-verification-2026-08-28.md
+// archive/portugal-verification-2026-08-28.md
 //
 // Greece: Law 3284/2004, the Citizenship Code, art. 5(1)(δ) for the seven
 // continuous years, art. 5(1)(ε) for the exhaustive list of qualifying titles
 // (the investor permit is item αθ), art. 5(3) excluding temporary titles, and
 // art. 5Α for the language and history conditions. Read at the Ministry of the
 // Interior's consolidated text to 17 September 2025, on 7 September 2026.
-// docs/greece-citizenship-verification-2026-09-07.md
+// archive/greece-citizenship-verification-2026-09-07.md
 //
 // Malta: Cap. 188, the Maltese Citizenship Act — twelve continuous months
 // immediately before the application plus four years within the six preceding
-// them. docs/malta-verification-2026-09-01.md
+// them. archive/malta-verification-2026-09-01.md
 
 import type { Locale } from "@/i18n/routing";
 

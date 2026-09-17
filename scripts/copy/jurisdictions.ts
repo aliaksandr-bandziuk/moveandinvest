@@ -7,7 +7,7 @@
 //
 // Every figure here was checked against a primary source on 23 August 2026.
 // The working — statute, ministry tariff or official fee schedule, with its
-// date — is in docs/figures-verification-2026-08-23.md. Do not edit a number
+// date — is in archive/figures-verification-2026-08-23.md. Do not edit a number
 // in this file without updating that document in the same commit; a figure
 // with no traceable source is exactly what this site exists not to publish.
 

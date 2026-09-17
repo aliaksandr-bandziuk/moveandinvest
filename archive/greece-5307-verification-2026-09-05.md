@@ -103,17 +103,17 @@ instruments, two of them fused and one of them misdated.
 
 ## What was changed on the site
 
-- `docs/article-en-greece-process.md` — H1, meta title, meta description,
+- `archive/article-en-greece-process.md` — H1, meta title, meta description,
   excerpt, alt text, the startup section rewritten, the Tech Visa section given
   the 79Α title quote, the FAQ rewritten with a second question added, the
   conversion block rewritten, the gaps section rewritten, four source lines
   added, keywords extended.
 - `scripts/figures/build.mjs` — `grProcessCompare` rebuilt from two columns to
   three: art. 100, art. 100Α, art. 79Α. Rendered, embedded, pixel-checked.
-- `docs/article-en-greece-residency.md` — lead corrected from two routes to
+- `archive/article-en-greece-residency.md` — lead corrected from two routes to
   three, Β.6 row added to the options table, a subsection on art. 100Α, sources
   line extended.
-- `docs/article-ru-greece-residency.md`, `docs/article-pl-greece-residency.md` —
+- `archive/article-ru-greece-residency.md`, `archive/article-pl-greece-residency.md` —
   a parallel subsection each, sources line extended. The Russian one records
   that whether the 2022 suspension reaches type Β.6 is not established: the
   announcements are framed around investment permits and art. 100Α did not exist

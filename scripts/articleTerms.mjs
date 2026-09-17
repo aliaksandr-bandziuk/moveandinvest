@@ -1,4 +1,4 @@
-// Один разборщик ключевых блоков в docs/article-*.md, на всех потребителей.
+// Один разборщик ключевых блоков в docs/ и archive/article-*.md, на всех потребителей.
 //
 // ПОЧЕМУ ОН ВЫНЕСЕН ИЗ keywords.mjs. Разбор этих блоков переписывался трижды,
 // и каждый раз ошибка была одна и та же по классу: он молча брал лишнее или
@@ -16,10 +16,13 @@
 //
 // ОН НИЧЕГО НЕ ПЕЧАТАЕТ И НИЧЕГО НЕ РОНЯЕТ. Претензии возвращаются списком,
 // и каждый потребитель решает сам, ошибка это у него или предупреждение.
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-const DIR = "docs";
+// ДВЕ ПАПКИ С 17 СЕНТЯБРЯ 2026: docs/ — то, над чем работаем сейчас,
+// archive/ — исходники уже опубликованных статей. Файл, который есть в обеих,
+// читается из docs/: туда его кладут обратно, когда правят.
+const DIRS = ["docs", "archive"];
 
 const HEADINGS = new Set([
   "keywords",
@@ -58,11 +61,20 @@ const HEAD_LABELS = new Set([
  *   problems: { file: string, message: string }[],
  * }}
  */
-export function readArticles(dir = DIR) {
+export function readArticles(dirs = DIRS) {
   const pages = [];
   const problems = [];
 
-  for (const file of readdirSync(dir).sort()) {
+  const located = new Map();
+  for (const dir of [dirs].flat()) {
+    if (!existsSync(dir)) continue;
+    for (const file of readdirSync(dir)) {
+      if (!located.has(file)) located.set(file, dir);
+    }
+  }
+
+  for (const file of [...located.keys()].sort()) {
+    const dir = located.get(file);
     const m = /^article-([a-z]{2})-(.+)\.md$/.exec(file);
     if (!m) continue;
     const [, locale, key] = m;
@@ -85,7 +97,7 @@ export function readArticles(dir = DIR) {
     const head = new Set();
     const lines = block.split("\n");
     for (let n = 0; n < lines.length; n += 1) {
-      // Две формы записи, обе живут в docs/ и обе законны:
+      // Две формы записи, обе встречаются в статьях и обе законны:
       //   **Head terms:**              — список на следующей строке
       //   **Primary:** a, b, c         — список на той же строке
       const label = /^\*\*([^*]+?):?\*\*(.*)$/.exec(lines[n].trim());

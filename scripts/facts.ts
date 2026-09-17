@@ -37,7 +37,7 @@ import { FACTS } from "./copy/costs";
 // name says "seed". Dry-run is the default for the same reason.
 //
 // The numbers below were VERIFIED against primary sources on 23 August 2026.
-// The working is in docs/figures-verification-2026-08-23.md, one section per
+// The working is in archive/figures-verification-2026-08-23.md, one section per
 // jurisdiction, with the statute or the ministry page and its date. Five of
 // the six headline figures the site had before that date were wrong.
 //

@@ -16,7 +16,7 @@ import { SOURCE_SECTIONS } from "../src/lib/sourceData";
 // Without --write it parses, converts and validates everything and uploads
 // nothing. The entry is named rather than defaulted; see selectEntry.
 //
-// THE MARKDOWN IN docs/ IS THE SOURCE, not a draft that was then re-typed into
+// THE MARKDOWN IN docs/ OR archive/ IS THE SOURCE, not a draft that was then re-typed into
 // a copy module. Those three files are what was written, checked against the
 // statutes and read end to end; a second copy of 90 000 characters in
 // scripts/copy/ would be a second thing to proofread and the first place the
@@ -33,7 +33,23 @@ import { SOURCE_SECTIONS } from "../src/lib/sourceData";
 // are not the same thing. A localisation may carry a different diagram in the
 // same position, or the same three in a different order.
 
-const DOCS = join(import.meta.dirname, "../docs");
+// TWO FOLDERS SINCE 17 SEPTEMBER 2026, on the owner's instruction: docs/ holds
+// what is being worked on now, archive/ holds the sources of entries already
+// published. A draft is written in docs/ and moved to archive/ once it is
+// live; this looks in docs/ first, so a file being revised can be copied back
+// there without the archived one getting in the way.
+const SOURCE_DIRS = [
+  join(import.meta.dirname, "../docs"),
+  join(import.meta.dirname, "../archive"),
+];
+
+function sourcePath(file: string): string {
+  const found = SOURCE_DIRS.map((dir) => join(dir, file)).find((path) => existsSync(path));
+  if (!found) {
+    throw new Error(`Source ${file} is in neither docs/ nor archive/.`);
+  }
+  return found;
+}
 // THE SELF-CONTAINED SVGs, not the PNGs beside them. See
 // scripts/figures/embed.mjs for the measurement that moved this: the raster
 // path resampled every diagram twice and the 12px labels in them showed it.
@@ -53,7 +69,7 @@ interface EntryConfig {
    *  the plugin's translation-metadata document. One value so that renaming an
    *  entry cannot rename two of the three. */
   key: string;
-  /** The source file per language, under docs/.
+  /** The source file per language, under docs/ or archive/.
    *
    *  PARTIAL SINCE 4 SEPTEMBER 2026. Until then every entry had to exist in all
    *  three languages, which was true of the first six and stopped being true
@@ -979,7 +995,7 @@ function entrySlugs(): Record<string, Record<Locale, string>> {
   for (const [name, config] of Object.entries(ENTRIES)) {
     const perLocale = {} as Record<Locale, string>;
     for (const locale of localesOf(config)) {
-      const raw = readFileSync(join(DOCS, sourceOf(config, locale)), "utf8");
+      const raw = readFileSync(sourcePath(sourceOf(config, locale)), "utf8");
       const header = raw
         .split("\n")
         .slice(1, 12)
@@ -1177,7 +1193,7 @@ async function assertNoSlugCollision(
   for (const [other, config] of Object.entries(ENTRIES)) {
     if (other === name || (config.kind ?? "research") !== "reference") continue;
     for (const locale of localesOf(config)) {
-      const raw = readFileSync(join(DOCS, sourceOf(config, locale)), "utf8");
+      const raw = readFileSync(sourcePath(sourceOf(config, locale)), "utf8");
       const header = raw.split("\n").slice(1, 12).filter((l) => l.startsWith("**"));
       taken.set(backticked(header[0] ?? "", "slug"), `entry "${other}"`);
     }
@@ -1249,7 +1265,7 @@ function backticked(line: string, what: string): string {
 
 function parse(locale: Locale, config: EntryConfig): Parsed {
   const source = sourceOf(config, locale);
-  const raw = readFileSync(join(DOCS, source), "utf8");
+  const raw = readFileSync(sourcePath(source), "utf8");
   const lines = raw.split("\n");
 
   const title = lines[0]?.replace(/^# /, "").trim();

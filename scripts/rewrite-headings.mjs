@@ -40,7 +40,9 @@ import { join } from "node:path";
 const WRITE = process.argv.includes("--write");
 // --keys-only пересобирает ТОЛЬКО перечни ключей, не трогая заголовки.
 const KEYS_ONLY = process.argv.includes("--keys-only");
-const DOCS = "docs";
+// Статьи, которые этот скрипт правил, опубликованы и с 17 сентября 2026 лежат
+// в archive/.
+const DOCS = "archive";
 const MESSAGES = "messages";
 
 // Метки блока, перечисляющего ключи в подзаголовках. Перечень ПЕРЕСОБИРАЕТСЯ из

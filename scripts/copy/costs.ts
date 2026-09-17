@@ -13,10 +13,10 @@ import { published } from "../../src/lib/costModel";
 // The reason is not tidiness. This file used to carry a literal `extras` and a
 // prose `breakdown` describing it, and they had already drifted apart: the
 // Greek literal said €36,000, its own prose priced notaries at a flat 1.5%
-// that no tariff supports, and docs/figures-verification-2026-08-23.md — the
+// that no tariff supports, and archive/figures-verification-2026-08-23.md — the
 // dossier the literal is supposed to derive from — scored €34,000 as correct
 // at the €400,000 level. A calculator built on top of that would have had a
-// fourth number. See docs/costmodel-verification-2026-09-02.md.
+// fourth number. See archive/costmodel-verification-2026-09-02.md.
 //
 // So the rule this file has always stated now holds mechanically: a figure
 // lives in ONE place, and everything that needs it imports from there.
@@ -25,10 +25,10 @@ import { published } from "../../src/lib/costModel";
 // disagree with the others.
 //
 // EVERY NUMBER BEHIND THEM WAS CHECKED AGAINST A PRIMARY SOURCE, and the
-// working is in docs/figures-verification-2026-08-23.md,
-// docs/property-verification-2026-08-24.md and the per-jurisdiction dossiers,
+// working is in archive/figures-verification-2026-08-23.md,
+// archive/property-verification-2026-08-24.md and the per-jurisdiction dossiers,
 // with the corrections of 2 September 2026 in
-// docs/costmodel-verification-2026-09-02.md. A rate may not change in
+// archive/costmodel-verification-2026-09-02.md. A rate may not change in
 // costModel.ts without one of those changing in the same commit.
 //
 // BASIS: one main applicant, no dependants. Family members are priced

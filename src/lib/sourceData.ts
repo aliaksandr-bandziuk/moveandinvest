@@ -6,7 +6,7 @@ import { tightenDeep } from "./typography";
 // IN src/lib AND NOT IN THE CMS, deliberately, and this is the one page where
 // that is a matter of integrity rather than convenience. The project's standing
 // rule is that a figure may not change in copy/jurisdictions.ts without
-// docs/figures-verification-2026-08-23.md changing in the same commit. A
+// archive/figures-verification-2026-08-23.md changing in the same commit. A
 // dataset editable in Studio routes straight around that rule: somebody
 // corrects a threshold in a text field, the dossier still says the old thing,
 // and the page whose whole purpose is provable sourcing quietly stops being
@@ -19,7 +19,7 @@ import { tightenDeep } from "./typography";
 // WHY THIS PAGE EXISTS. /about makes a claim: every number carries the law it
 // came from and the date it was checked, and where no primary source exists
 // nothing is published. Until this file, that claim had no evidence attached —
-// the working lived in docs/figures-verification-2026-08-23.md, in git, which
+// the working lived in archive/figures-verification-2026-08-23.md, in git, which
 // is to say nowhere a reader can reach. A method described but never shown is
 // an assertion.
 //
@@ -1760,7 +1760,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
   // pages are cited as well, and one of them is cited BECAUSE it is wrong: the
   // UdSC page on the suspension of time limits still named 4 March 2026 after
   // the act had moved the date to 2027. The working, including the reading that
-  // page misled for half a day, is docs/poland-legalisation-verification-2026-09-14.md.
+  // page misled for half a day, is archive/poland-legalisation-verification-2026-09-14.md.
   {
     key: "pl-legal",
     heading: {
