@@ -873,7 +873,7 @@ const ENTRIES: Record<string, EntryConfig> = {
       ru: "article-ru-poland-business-pillar.md",
     },
     figures: {},
-    publishedAt: "2026-09-17T14:30:00.000Z",
+    publishedAt: "2026-09-17T11:05:00.000Z",
     category: "rules",
     countries: [],
     // REFERENCE — ПИЛЛАР. Постоянная карта темы в корне (/ru/biznes-v-polshe),
@@ -890,7 +890,7 @@ const ENTRIES: Record<string, EntryConfig> = {
       ru: "article-ru-poland-business.md",
     },
     figures: {},
-    publishedAt: "2026-09-17T14:00:00.000Z",
+    publishedAt: "2026-09-17T11:00:00.000Z",
     // "rules": предмет — статья 4 закона об иностранных предпринимателях и
     // регистрация по закону, а не бизнес-идеи.
     category: "rules",

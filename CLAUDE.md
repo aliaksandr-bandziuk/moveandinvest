@@ -97,6 +97,18 @@ wrong sends the build in the wrong direction for days.
     Write the Russian pages against the second list and the partner's own
     subjects; a Polish page is a separate product decision, because its reader
     is an employer or a seller, not our reader.
+  - **Pillar pages, decided 17 Sep 2026.** Besides narrow blog entries, the
+    section gets standing overview pages at the root — `kind: "reference"` in
+    `scripts/articles.ts`, so `/ru/biznes-v-polshe` rather than `/ru/blog/…` —
+    that link down to the narrow entries and are linked back from each of them.
+    The first is «Бизнес в Польше» over «Как открыть фирму в Польше». A pillar
+    is written for a head term with measured demand: «жизнь в польше» is 10–30
+    a month and gets none; «легализация в польше» (260 ru + 260 uk) is the term
+    if the section ever gets one entry page. A pillar is how Poland gets an
+    entrance without becoming a jurisdiction — the registry stays at five.
+  - **`publishedAt` must be in the past when the entry is written.** An entry
+    dated later than now is published and reachable by URL but missing from
+    the /blog listing until that hour. It has happened twice in this section.
   - **Poland may become a sixth jurisdiction later**, once those pages exist —
     the owner allowed it on 16 Sep 2026 ("после всех этих статей можно будет и
     юрисдикцию сделать"). It is NOT one today: the registry, the comparison
