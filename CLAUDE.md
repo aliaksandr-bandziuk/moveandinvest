@@ -178,6 +178,23 @@ cover them there. Never put them in `research/`: the repository is public and
 `research/` is tracked. (`/contents/` in `.gitignore` is a different,
 untracked folder; the near-identical name is a coincidence.)
 
+## Table cells in an article carry bold and links, and nothing else
+
+Fixed 17 Sep 2026. A table cell is stored as a plain string; until that day
+the article renderer printed it verbatim, and 18 entries showed `**2%**` and
+`[text](entry:…)` on the live page — 145 rows and 24 links. Nothing failed,
+because markdown inside a string is a valid string.
+
+- `richBlocks()` runs every table through `withInlineCells()` in
+  `scripts/copy/portable.ts`: hrefs go through the same resolver as running
+  text (so `entry:key` becomes this locale's path and a bad link throws at the
+  dry run), and an unclosed bold throws.
+- `articleComponents.tsx` parses `**bold**` and `[text](href)` in cells, and
+  makes a link only of a site path or an in-page fragment — a cell is a field an
+  editor can type into.
+- **Measure the rendered cell, not the source.** The check that caught this
+  counts `**` and `](` in the text of every `<td>`/`<th>` on the live page.
+
 ## Design direction
 
 "Data desk / Oxblood", chosen 15 Aug 2026 after comparing four accents on an
