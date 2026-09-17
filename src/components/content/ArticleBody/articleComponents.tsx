@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { PortableTextComponents } from "next-sanity";
+import type { ReactNode } from "react";
 import type { Image as SanityImage } from "sanity";
 import { imageDimensions, urlFor } from "@/sanity/image";
 import { FaqAccordion } from "../FaqAccordion/FaqAccordion";
@@ -14,6 +15,44 @@ interface FaqValue {
 interface TableValue {
   caption?: string;
   rows?: { _key: string; cells?: string[] }[];
+}
+
+// A TABLE CELL IS A STRING THAT MAY CARRY "**bold**" AND "[text](href)", the
+// same two marks a paragraph has. The converter (withInlineCells in
+// scripts/copy/portable.ts) has already resolved and validated every href;
+// this only draws them. Until 17 September 2026 cells were printed verbatim
+// and eighteen entries showed their asterisks and brackets.
+//
+// ONLY A SITE PATH OR AN IN-PAGE FRAGMENT BECOMES A LINK. A cell is a plain
+// string field an editor can type into in Studio, and this is the one place
+// that turns such a string into an href — so anything else, "javascript:"
+// included, stays text rather than being trusted.
+const CELL_MARKUP = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g;
+const SAFE_HREF = /^(\/(?!\/)|#)/;
+
+function renderCell(cell: string, linkClass: string | undefined): ReactNode {
+  const out: ReactNode[] = [];
+  let cursor = 0;
+  for (const match of cell.matchAll(CELL_MARKUP)) {
+    const at = match.index;
+    if (at > cursor) out.push(cell.slice(cursor, at));
+    const [whole, bold, label, href] = match;
+    if (bold !== undefined) {
+      out.push(<strong key={at}>{bold}</strong>);
+    } else if (label !== undefined && href !== undefined && SAFE_HREF.test(href)) {
+      out.push(
+        <a key={at} href={href} className={linkClass}>
+          {label}
+        </a>,
+      );
+    } else {
+      out.push(label ?? whole);
+    }
+    cursor = at + whole.length;
+  }
+  if (cursor === 0) return cell;
+  if (cursor < cell.length) out.push(cell.slice(cursor));
+  return out;
 }
 
 /** The image block as the schema stores it. `SanityImage` rather than a
@@ -72,7 +111,7 @@ export function buildArticleComponents(
                   <tr>
                     {(header.cells ?? []).map((cell, i) => (
                       <th key={i} scope="col">
-                        {cell}
+                        {renderCell(cell, styles.bodyLink)}
                       </th>
                     ))}
                   </tr>
@@ -86,10 +125,10 @@ export function buildArticleComponents(
                         // this a screen reader reads six values with no subject.
                         i === 0 ? (
                           <th key={i} scope="row">
-                            {cell}
+                            {renderCell(cell, styles.bodyLink)}
                           </th>
                         ) : (
-                          <td key={i}>{cell}</td>
+                          <td key={i}>{renderCell(cell, styles.bodyLink)}</td>
                         ),
                       )}
                     </tr>

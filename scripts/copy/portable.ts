@@ -365,6 +365,43 @@ function spansOf(
   return { spans, markDefs };
 }
 
+/** TABLE CELLS IN AN ARTICLE CARRY THE SAME TWO MARKS AS A PARAGRAPH, since
+ *  17 September 2026.
+ *
+ *  A cell is stored as a plain string — the schema's table has no rich cells —
+ *  and until that date the renderer printed it as one. So "**2%**" and
+ *  "[Карта CUKR](entry:poland-cukr)" reached eighteen live entries with their
+ *  asterisks and brackets showing: 145 table rows and 24 links. Nothing failed,
+ *  because a string with markdown in it is a valid string.
+ *
+ *  The cell stays a string, and the markup stays in it; the renderer in
+ *  src/components/content/ArticleBody/articleComponents.tsx parses the same two
+ *  patterns. What happens HERE is everything that must happen before publish:
+ *  every href goes through the same resolver as a paragraph's — so entry:key
+ *  becomes this locale's real path, and an unknown entry or an external link
+ *  throws exactly as it would in running text — and an unclosed bold throws.
+ *  spansOf() does both checks; its spans are discarded and only the rewritten
+ *  string is kept. */
+function withInlineCells(
+  table: PortableTable,
+  resolveHref?: HrefResolver,
+): PortableTable {
+  return {
+    ...table,
+    rows: table.rows.map((row) => ({
+      ...row,
+      cells: row.cells.map((cell) => {
+        spansOf(cell, `${row._key}c`, resolveHref);
+        return cell.replace(
+          /\[([^\]]+)\]\(([^)\s]+)\)/g,
+          (_whole, label: string, raw: string) =>
+            `[${label}](${resolveHref ? resolveHref(raw) : raw})`,
+        );
+      }),
+    })),
+  };
+}
+
 /**
  * The article converter: everything `blocks()` does, plus bold and lists.
  *
@@ -389,7 +426,7 @@ export function richBlocks(
 
     const table = asTable(trimmed, `${prefix}t${i}`);
     if (table) {
-      out.push(table);
+      out.push(withInlineCells(table, resolveHref));
       return;
     }
 
