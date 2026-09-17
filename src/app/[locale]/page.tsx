@@ -20,6 +20,8 @@ import {
   HomeHero,
   MethodSection,
   PartnerTeaser,
+  RegionBand,
+  type RegionBandLink,
 } from "@/components/marketing";
 import { enquiryFormProps } from "@/lib/enquiryForm";
 import { buildMetadata } from "@/lib/metadata";
@@ -183,6 +185,19 @@ export default async function HomePage({
       ? { label: home.hero.secondaryCta.label, href: secondaryHref }
       : null;
 
+  // The Poland band renders only where its document carries a heading and at
+  // least one link — the Russian home page. The slugs are top-level reference
+  // pages, so they go through the same "/[slug]" route as a jurisdiction and
+  // come out prefixed for the locale.
+  const band = home.polandBand;
+  const bandLinks: RegionBandLink[] = (band?.links ?? []).map((link) => ({
+    key: link._key,
+    label: link.label,
+    description: link.description,
+    href: getPathname({ href: slugHref(link.slug), locale }),
+  }));
+  const showBand = Boolean(band?.heading && band.eyebrow && bandLinks.length > 0);
+
   const faqEntries: FaqEntry[] = faq.map((item) => ({
     id: item._id,
     question: item.question,
@@ -317,6 +332,15 @@ export default async function HomePage({
         // fields that would have to say the same thing in three languages.
         labels={home.hero.columns}
       />
+
+      {showBand && band?.eyebrow && band.heading ? (
+        <RegionBand
+          eyebrow={band.eyebrow}
+          heading={band.heading}
+          intro={band.intro}
+          links={bandLinks}
+        />
+      ) : null}
 
       <CostComparison
         index="04"

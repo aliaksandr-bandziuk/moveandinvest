@@ -443,8 +443,22 @@ async function run() {
           partnerTeaser: copy.partnerTeaser,
           enquiry: copy.enquiry,
           seo: { _type: "seo", ...copy.seo, noIndex: false },
+          // Russian only. Where the copy has no band the field is unset
+          // below, so a band written by hand in Studio on another language
+          // does not linger after the next content run.
+          ...(copy.polandBand
+            ? {
+                polandBand: {
+                  ...copy.polandBand,
+                  links: keyed(
+                    copy.polandBand.links.map((link) => ({ _type: "bandLink", ...link })),
+                    "pb",
+                  ),
+                },
+              }
+            : {}),
         },
-        unset: RETIRED_HOME,
+        unset: copy.polandBand ? RETIRED_HOME : [...RETIRED_HOME, "polandBand"],
       });
     } else {
       const copy = PARTNERS_COPY[locale as (typeof LOCALES)[number]];

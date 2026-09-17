@@ -52,6 +52,14 @@ export interface HomePageResult {
     points: { title: string; body: string }[];
   };
   map: { eyebrow: string; heading: string; intro: string; note: string };
+  /** Unnumbered band pointing at the Poland pillar pages. Filled in the
+   *  Russian document only; absent or empty elsewhere, and then not rendered. */
+  polandBand?: {
+    eyebrow?: string;
+    heading?: string;
+    intro?: string;
+    links?: { _key: string; label: string; description: string; slug: string }[];
+  } | null;
   cost: {
     eyebrow: string;
     heading: string;

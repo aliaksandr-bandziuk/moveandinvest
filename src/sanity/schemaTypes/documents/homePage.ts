@@ -184,6 +184,53 @@ export const homePage = defineType({
       ],
     ),
 
+    // --- 03a — not a numbered section ---------------------------------------
+    //
+    // POLAND IS A SECTION OF THE SITE, NOT A SIXTH JURISDICTION (see CLAUDE.md),
+    // so it cannot join the cards above and must not take a number: numbering
+    // it would shift 04–08 and make it read as a jurisdiction. It is a band
+    // that points at the section's two pillar pages, written for the Russian
+    // home page only — the Polish section has no English or Polish pages. Left
+    // empty, it renders nothing.
+    defineField({
+      name: "polandBand",
+      title: "03a. Poland band (unnumbered, Russian only)",
+      description:
+        "A pointer to the Poland pillar pages for readers who already live there. Fill in the Russian document only; leave it empty in English and Polish and nothing renders.",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        stringField("eyebrow", "Eyebrow", { max: 40, required: false }),
+        stringField("heading", "Heading", { max: 80, required: false }),
+        textField("intro", "Deck", { max: 500, rows: 5, required: false }),
+        defineField({
+          name: "links",
+          title: "Pillar pages",
+          description:
+            "The slug of a top-level page (a reference entry), without the locale prefix — e.g. legalizaciya-v-polshe.",
+          type: "array",
+          validation: (Rule) => Rule.max(4),
+          of: [
+            defineField({
+              name: "bandLink",
+              type: "object",
+              fields: [
+                stringField("label", "Label", { max: 60 }),
+                textField("description", "One line under it", { max: 160, rows: 2 }),
+                defineField({
+                  name: "slug",
+                  title: "Slug",
+                  type: "string",
+                  validation: (Rule) =>
+                    Rule.required().regex(/^[a-z0-9-]{1,96}$/, { name: "slug" }),
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }),
+
     // --- 04 -----------------------------------------------------------------
     sectionField(
       "cost",

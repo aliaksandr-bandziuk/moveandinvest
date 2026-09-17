@@ -14,6 +14,7 @@ export const HOME_PAGE_QUERY = groq`
     },
     method{ eyebrow, heading, intro, points[]{ title, body } },
     map{ eyebrow, heading, intro, note },
+    polandBand{ eyebrow, heading, intro, links[]{ _key, label, description, slug } },
     cost{ eyebrow, heading, intro, advertisedLabel, extrasLabel, realLabel, noteLabel, note },
     routeFinder{
       eyebrow, heading, intro,

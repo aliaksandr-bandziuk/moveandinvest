@@ -1,0 +1,79 @@
+@use "../../../styles/mixins";
+
+// Light plane with a hairline on top, like the partner teaser: an aside, not
+// a second hero. The links sit in one bordered row of cells rather than as
+// cards — rounded, filled cards are what turn this site's tables back into
+// marketing.
+.section {
+  @include mixins.section-rhythm;
+  border-top: var(--border-hairline) solid var(--color-hairline);
+}
+
+.links {
+  margin: 0;
+  margin-top: var(--space-6);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  border: var(--border-hairline) solid var(--color-text);
+
+  @include mixins.breakpoint-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.item {
+  min-width: 0;
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  @include mixins.breakpoint-up(md) {
+    border-top: 0;
+    border-inline-start: var(--border-hairline) solid var(--color-hairline);
+
+    &:first-child {
+      border-inline-start: 0;
+    }
+  }
+}
+
+.link {
+  @include mixins.tap-target;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5);
+  color: var(--color-text);
+  text-decoration: none;
+
+  @include mixins.breakpoint-up(lg) {
+    padding: var(--space-6);
+  }
+}
+
+.link:focus-visible {
+  @include mixins.focus-ring;
+}
+
+// The accent is a rule under the label, as on the partner teaser's link —
+// well inside the 5% the accent is allowed on a screen.
+.label {
+  font-weight: var(--font-weight-medium);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.15rem;
+}
+
+.link:hover .label {
+  color: var(--color-accent);
+}
+
+.description {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
