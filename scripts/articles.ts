@@ -884,6 +884,22 @@ const ENTRIES: Record<string, EntryConfig> = {
     // раздела, если он будет, делается под «легализация в польше» (260 + 260).
     kind: "reference",
   },
+  "poland-legalisation-pillar": {
+    key: "article-poland-legalisation-pillar",
+    sources: {
+      ru: "article-ru-poland-legalisation-pillar.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-17T11:30:00.000Z",
+    category: "rules",
+    countries: [],
+    // REFERENCE — ПИЛЛАР И ВХОД ВО ВЕСЬ ПОЛЬСКИЙ РАЗДЕЛ, /ru/legalizaciya-v-polshe.
+    // Главный запрос раздела — «легализация в польше» 260 + «легалізація в
+    // польщі» 260; «жизнь в польше» — 10–30. Все десять статей о легализации
+    // ссылаются на него, он — на них и на жизнь после легализации (права,
+    // недвижимость, бизнес). Именно на эту страницу ведёт русская главная.
+    kind: "reference",
+  },
   "poland-incubator": {
     key: "article-poland-incubator",
     sources: {
