@@ -1,0 +1,29 @@
+{
+  "_about": "Polish-language demand for every Poland page, 17 Sep 2026, before writing the Polish versions. One seed group per entry. Location Poland.",
+  "location": 2616,
+  "languages": {
+    "pl": [
+      "legalizacja pobytu", "legalizacja pobytu cudzoziemca",
+      "karta pobytu", "zezwolenie na pobyt czasowy", "karta pobytu rodzaje",
+      "dokumenty do karty pobytu", "wniosek o kartę pobytu mos",
+      "status sprawy karta pobytu", "przewlekłość postępowania karta pobytu", "ponaglenie karta pobytu",
+      "odmowa karty pobytu", "odwołanie od decyzji wojewody", "umorzenie postępowania karta pobytu",
+      "zmiana pracodawcy karta pobytu", "utrata pracy karta pobytu",
+      "przedłużenie karty pobytu", "wymiana karty pobytu",
+      "karta cukr", "status ukr", "cukr wniosek",
+      "karta stałego pobytu", "rezydent długoterminowy ue", "zezwolenie na pobyt stały",
+      "obywatelstwo polskie", "uznanie za obywatela polskiego", "nadanie obywatelstwa polskiego",
+      "decyzja o zobowiązaniu cudzoziemca do powrotu", "deportacja z polski", "dobrowolny wyjazd cudzoziemca",
+      "zakup nieruchomości przez cudzoziemca", "zezwolenie mswia na zakup nieruchomości", "zakup mieszkania przez cudzoziemca",
+      "działalność gospodarcza cudzoziemiec", "jdg cudzoziemiec", "firma w polsce dla obcokrajowca", "założenie spółki z o.o.",
+      "inkubator przedsiębiorczości",
+      "wymiana prawa jazdy", "wymiana ukraińskiego prawa jazdy", "wymiana zagranicznego prawa jazdy na polskie",
+      "pesel dla cudzoziemca", "jak uzyskać pesel cudzoziemiec", "pesel ukr",
+      "zameldowanie cudzoziemca", "meldunek cudzoziemca", "zameldowanie na pobyt czasowy cudzoziemiec",
+      "podatki cudzoziemiec", "rezydencja podatkowa", "ulga na powrót karta polaka", "ulga dla młodych",
+      "kredyt hipoteczny dla cudzoziemca", "kredyt hipoteczny dla ukraińca", "kredyt hipoteczny karta pobytu",
+      "zawieszenie działalności gospodarczej", "likwidacja spółki z o.o.", "gotowa spółka z o.o."
+    ]
+  },
+  "topic": "pobyt|legaliz|kart|zezwol|wniosek|mos|sprawy|odmow|odwoła|umorz|pracodaw|prac|przedłuż|wymian|cukr|ukr|stał|rezydent|obywatel|powrot|deport|wyjazd|nieruchom|mieszka|mswia|działaln|jdg|firm|spółk|spolk|inkubat|prawo jazdy|prawa jazdy|pesel|zameld|meldun|podat|rezydencj|ulga|kredyt|hipote|zawiesz|likwid|cudzoziem|obcokraj"
+}
