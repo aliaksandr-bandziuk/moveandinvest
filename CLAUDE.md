@@ -125,7 +125,11 @@ wrong sends the build in the wrong direction for days.
     reservation contracts, suspending a business, employing a foreigner): their
     facts are either taken from already-verified pages or read fresh and
     recorded in the dossier (part 26), with a /sources row — the same bar, just
-    without a Russian original. Only Polish bodies may link to them. Measured on the day: the
+    without a Russian original. Only Polish bodies may link to them.
+    **The partner takes Polish clients and employers**, the owner confirmed on
+    18 Sep 2026 («с поляками она будет работать. с работодателями тоже
+    работает») — so a Polish buyer, seller or employer filling in the form is
+    a lead, not noise. Measured on the day: the
     Polish demand is an order larger than the Russian (karta pobytu 9,900,
     obywatelstwo polskie 6,600, karta cukr 4,400), and its reader includes the
     employer and the seller as well as the foreigner.
