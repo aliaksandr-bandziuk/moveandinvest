@@ -308,6 +308,19 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       heading: "For law firms and relocation advisers",
       body: "An enquiry arrives with its questions already answered — jurisdiction, budget, timing, goal — and with what the person wrote in their own words. Before sending it they went through the four-question comparison and a jurisdiction page, so they are asking already knowing what they are asking about. Paid per qualified lead where your profession permits it, and free where it does not — on Malta, in the UAE and in Portugal a lawyer may not pay for an introduction, and there we ask for nothing. We take no part in your fee either way.",
     },
+    polandBand: {
+      eyebrow: "Already living in Poland",
+      heading: "Residence, work and business in Poland",
+      intro:
+        "For people who already live in Poland, the site has a separate section: not a sixth jurisdiction in the table above, but explanations built on the articles of Polish statutes. The temporary residence card and work, permanent residence and EU long-term residence, Polish citizenship, the PESEL number and a company of your own. Every figure is checked at its source and dated on the sources page.",
+      links: [
+        {
+          label: "Residence in Poland for foreigners",
+          description: "The residence card, permanent residence, citizenship, PESEL and a company: conditions, fees and deadlines in 2026.",
+          slug: "residence-in-poland-for-foreigners",
+        },
+      ],
+    },
     seo: {
       metaTitle: "Golden visa programs: five compared, every figure sourced",
       metaDescription: "Compare residency routes, minimum investment, time to a first permit and tax regimes across Portugal, Greece, Malta, the UAE and Cyprus.",

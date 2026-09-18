@@ -123,6 +123,28 @@ wrong sends the build in the wrong direction for days.
     Polish demand is an order larger than the Russian (karta pobytu 9,900,
     obywatelstwo polskie 6,600, karta cukr 4,400), and its reader includes the
     employer and the seller as well as the foreigner.
+  - **Six Poland pages are in English too, decided 18 Sep 2026**, from the
+    English demand measured in Poland (`.dfs/volume-poland-en-all-2026-09-18.json`,
+    `.dfs/serp-2026-09-18-list-poland-en-2026-09-18.json`, the `en-PL` market
+    in `scripts/dataforseo/markets.ts`, on demand only): the residence card
+    (~2,600 plus the work-permit and Blue Card clusters), citizenship (~1,360),
+    permanent residence (~960), a company (~780), PESEL (~760), and the
+    legalisation pillar as the entrance. The other fourteen had 10–120 English
+    searches each and stay Russian and Polish. Latin-script Polish terms
+    ("karta pobytu", "meldunek") are searched in every language and are not
+    English demand. An English body may link only to Poland entries that have
+    an English version; the rest are named in plain text.
+  - **English-speaking readers go to a DIFFERENT partner**, the owner's words on
+    18 Sep 2026: «на англоязычных товарищей у меня будет другой партнер». Poland
+    therefore has one partner per LANGUAGE, not one per section — the rule
+    above ("one partner per jurisdiction") holds per enquiry, since each
+    enquiry still goes to one firm. The English form's consent and the privacy
+    section "If you write to us about a case in Poland" describe the recipient
+    as "one consultancy in Poland"; that stays true only while the English
+    partner is also a consultancy. **If it is a law firm or of another kind,
+    the English consent and that privacy section must change first — with the
+    owner lifting the freeze for them again.** Enquiries still arrive in the
+    one mailbox and are routed by hand, so no code routes by language.
   - **Poland may become a sixth jurisdiction later**, once those pages exist —
     the owner allowed it on 16 Sep 2026 ("после всех этих статей можно будет и
     юрисдикцию сделать"). It is NOT one today: the registry, the comparison

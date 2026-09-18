@@ -737,6 +737,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-permanent.md",
       pl: "article-pl-poland-permanent.md",
+      en: "article-en-poland-permanent.md",
     },
     figures: {},
     publishedAt: "2026-09-15T11:30:00.000Z",
@@ -753,6 +754,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-citizenship.md",
       pl: "article-pl-poland-citizenship.md",
+      en: "article-en-poland-citizenship.md",
     },
     figures: {},
     publishedAt: "2026-09-15T12:00:00.000Z",
@@ -768,6 +770,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-karta-pobytu.md",
       pl: "article-pl-poland-karta-pobytu.md",
+      en: "article-en-poland-karta-pobytu.md",
     },
     figures: {},
     publishedAt: "2026-09-15T13:30:00.000Z",
@@ -901,6 +904,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-legalisation-pillar.md",
       pl: "article-pl-poland-legalisation-pillar.md",
+      en: "article-en-poland-legalisation-pillar.md",
     },
     figures: {},
     publishedAt: "2026-09-17T11:30:00.000Z",
@@ -935,6 +939,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-business.md",
       pl: "article-pl-poland-business.md",
+      en: "article-en-poland-business.md",
     },
     figures: {},
     publishedAt: "2026-09-17T11:00:00.000Z",
@@ -974,6 +979,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-pesel.md",
       pl: "article-pl-poland-pesel.md",
+      en: "article-en-poland-pesel.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:00:00.000Z",
