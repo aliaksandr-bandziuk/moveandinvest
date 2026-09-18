@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { routing } from "@/i18n/routing";
+import { routing, SITE_LOCALES } from "@/i18n/routing";
 import { UPDATED_ON } from "@/lib/costModel";
 import { PT_REFORM_DATE } from "@/lib/naturalisationModel";
 import { CHECKED_PT } from "@/lib/transferTaxModel";
@@ -189,12 +189,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // declared in three languages in routing.ts — so the hreflang set is complete
   // and needs no document lookup to assemble.
   for (const route of CODE_ROUTES) {
+    // SITE_LOCALES: the code-owned routes exist in the three site languages.
+    // Under /uk/ they are redirects to /ru/ — see src/lib/ukSection.ts.
     const languages: Record<string, string> = Object.fromEntries(
-      routing.locales.map((locale) => [locale, routeUrl(route.href, locale)]),
+      SITE_LOCALES.map((locale) => [locale, routeUrl(route.href, locale)]),
     );
     languages["x-default"] = routeUrl(route.href, routing.defaultLocale);
 
-    for (const locale of routing.locales) {
+    for (const locale of SITE_LOCALES) {
       entries.push({
         url: routeUrl(route.href, locale),
         lastModified: route.lastModified,

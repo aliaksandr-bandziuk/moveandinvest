@@ -187,6 +187,33 @@ const LOCALE_LABEL: Record<Locale, string> = {
   pl: "польская",
 };
 
+// UKRAINIAN IS NOT A SITE LOCALE, and it is not added to Locale above: it
+// serves the Poland section only (see RouteLocale in src/i18n/routing.ts), and
+// the only form on a Ukrainian page is the residence form. So it gets exactly
+// two things here — its own line in our notification, and its own confirmation
+// letter — and every other map in this file stays three languages wide.
+function pageLanguage(raw: string, locale: Locale): string {
+  return raw === "uk" ? "украинская" : LOCALE_LABEL[locale];
+}
+
+const UK_CONFIRMATION_SUBJECT = "Заявку отримано — moveandinvest";
+
+function buildUkrainianConfirmation(payload: EnquiryPayload): EmailContent {
+  const name = payload.name.trim();
+  return {
+    heading: "Заявку отримано",
+    openingLine: name ? `${name}, добрий день.` : "Добрий день.",
+    bodyParagraphs: [
+      "Пишу, щоб підтвердити: заявка дійшла. Її читає людина, автовідповідача між нами немає.",
+      "Далі ми передамо її одній консультаційній фірмі в Польщі, яка веде справи іноземців — щодо перебування, нерухомості, фірми та банківського рахунку, — одній, і тільки їй. Для вас передача безкоштовна; якщо ви вирішите працювати з фірмою, її послуги оплачуються на її власних умовах. Заявку ми не перепродаємо.",
+      "Зазвичай відповідь приходить протягом робочого дня. Якщо у вашій справі вже спливає строк — виклик до MOS або строк на оскарження, — не чекайте відповіді й дійте в строк.",
+    ],
+    footNote:
+      "Ви можете будь-коли попросити видалити заявку — відповідайте на цей лист одним рядком, і ми її зітремо. " +
+      "moveandinvest не є юридичною фірмою і не надає юридичних, податкових чи інвестиційних консультацій.",
+  };
+}
+
 function decode(map: Record<string, string>, value: string): string {
   return value ? (map[value] ?? value) : "—";
 }
@@ -348,7 +375,7 @@ function buildReaderInternal(payload: EnquiryPayload): EmailContent {
         // Free text and printed as given — a handle is not a number and this
         // site does not pretend to know which it is.
         ...(payload.reach ? [{ label: "Как связаться", value: payload.reach }] : []),
-        { label: "Язык страницы", value: LOCALE_LABEL[locale] },
+        { label: "Язык страницы", value: pageLanguage(payload.locale, locale) },
         // WHICH GUIDE IT CAME OFF, and the only place this fact is ever
         // recorded. It is deliberately not sent to analytics — see the note on
         // `source` in src/sanity/enquiries.ts — so if it is not in this email
@@ -550,7 +577,7 @@ function buildSubscribeInternal(payload: SubscribePayload): EmailContent {
       heading: "Подписка",
       lines: [
         { label: "Юрисдикции", value: picked },
-        { label: "Язык страницы", value: LOCALE_LABEL[locale] },
+        { label: "Язык страницы", value: pageLanguage(payload.locale, locale) },
         { label: "Время", value: formatSubmittedAt(payload.submittedAt) },
       ],
     },
@@ -667,7 +694,7 @@ function buildQuestionInternal(payload: QuestionPayload): EmailContent {
     secondaryBlock: {
       heading: "Контекст",
       lines: [
-        { label: "Язык страницы", value: LOCALE_LABEL[locale] },
+        { label: "Язык страницы", value: pageLanguage(payload.locale, locale) },
         { label: "Время", value: formatSubmittedAt(payload.submittedAt) },
       ],
     },
@@ -785,11 +812,14 @@ export async function sendEnquiryEmails(payload: EnquiryPayload): Promise<SendRe
 
   try {
     const locale = isLocale(payload.locale) ? payload.locale : "en";
-    const content = buildReaderConfirmation(payload, locale);
+    const ukrainian = payload.locale === "uk";
+    const content = ukrainian
+      ? buildUkrainianConfirmation(payload)
+      : buildReaderConfirmation(payload, locale);
     await transporter().sendMail({
       from: EMAIL_USER,
       to: payload.email,
-      subject: CONFIRMATION_SUBJECT[locale],
+      subject: ukrainian ? UK_CONFIRMATION_SUBJECT : CONFIRMATION_SUBJECT[locale],
       html: renderEmailHtml(content),
       text: renderEmailText(content),
     });

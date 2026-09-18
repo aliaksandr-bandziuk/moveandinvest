@@ -83,6 +83,15 @@ export const CATEGORY_LABELS: Record<string, Record<CategoryKey, string>> = {
     relocation: "Przeprowadzka",
     citizenship: "Obywatelstwo",
   },
+  // Ukrainian, for the Poland section only — see src/lib/ukSection.ts.
+  uk: {
+    rules: "Правила",
+    costs: "Вартість",
+    property: "Нерухомість",
+    taxes: "Податки",
+    relocation: "Переїзд",
+    citizenship: "Громадянство",
+  },
 };
 
 /**

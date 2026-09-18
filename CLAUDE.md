@@ -144,6 +144,40 @@ wrong sends the build in the wrong direction for days.
     ("karta pobytu", "meldunek") are searched in every language and are not
     English demand. An English body may link only to Poland entries that have
     an English version; the rest are named in plain text.
+  - **Eleven Poland pages are in Ukrainian, under a partial `/uk/`, decided
+    18 Sep 2026** («даю разрешение. делаем.»), from the Ukrainian demand
+    measured in Poland (`.dfs/volume-poland-uk-all-2026-09-18.json`: «карта
+    побиту» 14,800 against 2,400 for the Russian spelling). **uk is a locale of
+    the router, not of the site.** What that means in code:
+    - `routing.locales` has `uk`; its fixed-route segments are the Russian
+      spellings. `Locale` (en/ru/pl) is still the SITE type and every
+      `Record<Locale, …>` copy map stays three wide; `RouteLocale` includes uk.
+      Iterate `SITE_LOCALES`, not `routing.locales`, wherever a route is
+      assumed to exist in every language (fixed-route hreflang, the sitemap's
+      code routes, layout static params). `contentLocale()` maps uk → ru for
+      the chrome, registry labels and JSON-LD links.
+    - `src/lib/ukSection.ts` is the list of Ukrainian addresses, and
+      `src/proxy.ts` 308s every other `/uk/…` to the same path under `/ru/`
+      (`/uk` itself 307s to the pillar). **A new Ukrainian entry must be added
+      to that list first** — `npm run articles` refuses otherwise, because an
+      unlisted one would redirect to a Russian 404.
+    - Ukrainian bodies link `entry:` targets without a uk version, and every
+      fixed route but /privacy, straight to the Russian page, with
+      «(російською)» in the link text.
+    - `messages/uk.json` holds only what a Ukrainian page shows; it is merged
+      over `ru.json` in `src/i18n/request.ts`.
+    - `/uk/konfidentsialnost` is the Russian policy with ONE section — "If you
+      write to us about a case in Poland" — in Ukrainian (`src/lib/privacyUk.ts`),
+      noindex. That translation is the only thing the owner's permission
+      covered; the rest of the policy, the banner and the consent constants
+      stay frozen. The residence confirmation letter has a Ukrainian version
+      in `sender.ts`.
+    Same rule as the other languages: a Ukrainian file may not carry a fact
+    its Russian source does not (dossier part 27). **When rewriting
+    `src/proxy.ts`, check the matcher's `\\.` survived** — a shell heredoc
+    once turned it into `\.`, which excludes nearly every path from the proxy
+    and 404s the whole site outside `/en/`; it was caught on a local
+    `next start`, not by the build.
   - **English-speaking readers go to a DIFFERENT partner**, the owner's words on
     18 Sep 2026: «на англоязычных товарищей у меня будет другой партнер». Poland
     therefore has one partner per LANGUAGE, not one per section — the rule

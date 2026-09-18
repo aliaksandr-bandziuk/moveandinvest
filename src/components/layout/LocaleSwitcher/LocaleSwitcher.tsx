@@ -139,6 +139,18 @@ export function LocaleSwitcher({
         {routing.locales.map((locale) => {
           if (locale === currentLocale) return null;
 
+          // UKRAINIAN IS OFFERED ONLY WHERE IT EXISTS. It is a section, not a
+          // site (src/lib/ukSection.ts): a Poland entry with a Ukrainian
+          // version, and the privacy page its form links to. Everywhere else a
+          // UK row would be a link to the Russian page the reader is already
+          // on, by way of a redirect — so it is not rendered at all, rather
+          // than greyed out on every page of the site.
+          if (
+            locale === "uk" &&
+            !(siblings ? siblings.uk !== undefined : route === "/privacy")
+          )
+            return null;
+
           // Two kinds of page, and only one of them needs the map. A fixed
           // route is the same route in every language — the router spells it
           // differently, which is precisely what it is for — so the current

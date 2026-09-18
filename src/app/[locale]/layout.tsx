@@ -10,7 +10,7 @@ import {
   ScrollDivider,
   type FooterJurisdiction,
 } from "@/components/layout";
-import { routing } from "@/i18n/routing";
+import { contentLocale, routing, SITE_LOCALES } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
 import { getSiteUrl, isProductionDeployment } from "@/lib/site";
 import { getSlugMap } from "@/lib/slugMap";
@@ -30,8 +30,14 @@ import { slugHref } from "@/lib/routes";
 // next-intl reads the locale from request headers and the whole segment
 // opts into dynamic rendering, which would defeat the SEO/AEO rule in
 // CLAUDE.md.
+//
+// uk IS NOT PRE-RENDERED HERE. Every fixed route under /uk/ is a redirect to
+// /ru/ (src/proxy.ts), so building them would only build nine 404s and print
+// nine "no document" errors into every build log. The Ukrainian entries are
+// still pre-rendered — blog/[slug] lists its own locales — and the pillar and
+// the privacy page render on first request and are cached like any page.
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return SITE_LOCALES.map((locale) => ({ locale }));
 }
 
 // A TIME FLOOR UNDER EVERY PAGE IN THIS TREE, and it closes a real hole rather
@@ -79,6 +85,13 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
+  // THE CHROME READS IN THE SITE LANGUAGE, which for uk is Russian: the
+  // Ukrainian section is the Poland pages and nothing else, and every page the
+  // header and the footer link to is Russian for this reader (src/proxy.ts
+  // sends them there). A Russian footer that says so honestly beats Ukrainian
+  // labels over Russian pages. Only the catalogue strings are Ukrainian.
+  const chrome = contentLocale(locale);
+
   // The same two queries the home page runs, so Next's fetch cache serves the
   // second caller rather than hitting Sanity twice. The footer lists the five
   // jurisdictions from the registry rather than from a hand-written list —
@@ -86,10 +99,10 @@ export default async function LocaleLayout({
   const [settings, countries, slugMap] = await Promise.all([
     sanityFetch<SiteSettingsResult | null>(
       SITE_SETTINGS_QUERY,
-      { locale },
+      { locale: chrome },
       HOME_TAGS,
     ),
-    sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale }, HOME_TAGS),
+    sanityFetch<CountryRowResult[]>(COUNTRY_ROWS_QUERY, { locale: chrome }, HOME_TAGS),
     // Language-neutral on purpose: it maps every localised slug onto its
     // siblings, so it is the same object whichever locale is rendering. One
     // fetch in the layout rather than one per page — see src/lib/slugMap.ts
@@ -125,7 +138,9 @@ export default async function LocaleLayout({
   // a link that promised a Polish one.
   const entrySlugs: Record<string, string> = {};
   for (const [key, siblings] of Object.entries(slugMap.entriesByKey)) {
-    const slug = siblings[locale];
+    // A guide with no Ukrainian version is linked by its Russian slug: the
+    // proxy sends /uk/blog/<that> to /ru/blog/<that>, which is the page.
+    const slug = siblings[locale] ?? siblings[chrome];
     if (slug) entrySlugs[key] = slug;
   }
 

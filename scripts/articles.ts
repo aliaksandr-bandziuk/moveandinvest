@@ -2,10 +2,18 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@sanity/client";
 import { richBlocks, type PortableContent } from "./copy/portable";
-import { LOCALES, type Locale } from "./copy/home";
+import { LOCALES as SITE_LOCALES, type Locale as SiteLocale } from "./copy/home";
 import { FOOTER_GROUPS } from "../src/lib/footerNav";
 import { routing } from "../src/i18n/routing";
 import { SOURCE_SECTIONS } from "../src/lib/sourceData";
+import { UK_REFERENCE_SLUGS, UK_RESEARCH_SLUGS } from "../src/lib/ukSection";
+
+// AN ENTRY MAY ALSO BE WRITTEN IN UKRAINIAN, since 18 September 2026 — but only
+// a Poland entry, because uk is a section of the site and not a language of it
+// (src/lib/ukSection.ts). The site-wide copy this script imports stays three
+// languages wide; only the entry itself gets a fourth.
+type Locale = SiteLocale | "uk";
+const LOCALES: Locale[] = [...SITE_LOCALES, "uk"];
 
 // Writes one Guides & Research entry — its three language versions and their
 // figures — into Sanity.
@@ -697,6 +705,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-waiting.md",
       pl: "article-pl-poland-waiting.md",
+      uk: "article-uk-poland-waiting.md",
     },
     figures: {},
     publishedAt: "2026-09-15T09:00:00.000Z",
@@ -719,6 +728,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-cukr.md",
       pl: "article-pl-poland-cukr.md",
+      uk: "article-uk-poland-cukr.md",
     },
     figures: {},
     publishedAt: "2026-09-15T11:00:00.000Z",
@@ -737,6 +747,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-permanent.md",
       pl: "article-pl-poland-permanent.md",
+      uk: "article-uk-poland-permanent.md",
       en: "article-en-poland-permanent.md",
     },
     figures: {},
@@ -754,6 +765,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-citizenship.md",
       pl: "article-pl-poland-citizenship.md",
+      uk: "article-uk-poland-citizenship.md",
       en: "article-en-poland-citizenship.md",
     },
     figures: {},
@@ -770,6 +782,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-karta-pobytu.md",
       pl: "article-pl-poland-karta-pobytu.md",
+      uk: "article-uk-poland-karta-pobytu.md",
       en: "article-en-poland-karta-pobytu.md",
     },
     figures: {},
@@ -804,6 +817,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-documents.md",
       pl: "article-pl-poland-documents.md",
+      uk: "article-uk-poland-documents.md",
     },
     figures: {},
     publishedAt: "2026-09-15T14:30:00.000Z",
@@ -904,6 +918,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-legalisation-pillar.md",
       pl: "article-pl-poland-legalisation-pillar.md",
+      uk: "article-uk-poland-legalisation-pillar.md",
       en: "article-en-poland-legalisation-pillar.md",
     },
     figures: {},
@@ -939,6 +954,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-business.md",
       pl: "article-pl-poland-business.md",
+      uk: "article-uk-poland-business.md",
       en: "article-en-poland-business.md",
     },
     figures: {},
@@ -979,6 +995,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-pesel.md",
       pl: "article-pl-poland-pesel.md",
+      uk: "article-uk-poland-pesel.md",
       en: "article-en-poland-pesel.md",
     },
     figures: {},
@@ -1012,6 +1029,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-taxes.md",
       pl: "article-pl-poland-taxes.md",
+      uk: "article-uk-poland-taxes.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:20:00.000Z",
@@ -1028,6 +1046,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-mortgage.md",
       pl: "article-pl-poland-mortgage.md",
+      uk: "article-uk-poland-mortgage.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:30:00.000Z",
@@ -1233,6 +1252,12 @@ const IN_PAGE_ANCHORS = new Set(["#ask", "#residence"]);
 
 function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, string>>) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+  // WHERE A UKRAINIAN BODY LINKS WHEN THE TARGET IS NOT UKRAINIAN. The rest of
+  // the site is Russian for this reader (src/lib/ukSection.ts), so a link to a
+  // fixed route or to an entry with no Ukrainian version goes straight to the
+  // Russian page, rather than through /uk/ and a redirect. The one fixed route
+  // the section has in Ukrainian is the privacy page.
+  const fallback = locale === "uk" ? "ru" : null;
 
   return (raw: string): string => {
     if (/^[a-z]+:\/\//i.test(raw) || raw.startsWith("mailto:")) {
@@ -1261,7 +1286,9 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
       // slug, внешние ссылки в теле запрещены, руками slug писать нельзя. Так
       // что единственное правильное поведение — падать здесь и заставить автора
       // либо снять ссылку, либо завести версию на этом языке.
-      const slug = perLocale[locale];
+      const own = perLocale[locale];
+      const borrowed = own ? undefined : fallback ? perLocale[fallback] : undefined;
+      const slug = own ?? borrowed;
       if (!slug) {
         throw new Error(
           `Link to entry "${name}" from the ${locale} body, but that entry has no ${locale} version. ` +
@@ -1275,7 +1302,8 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
       // a wrong link inside somebody else's article.
       const target = ENTRIES[name];
       const kind = target?.kind ?? "research";
-      return kind === "reference" ? `${prefix}/${slug}` : `${prefix}/blog/${slug}`;
+      const base = borrowed && fallback ? `/${fallback}` : prefix;
+      return kind === "reference" ? `${base}/${slug}` : `${base}/blog/${slug}`;
     }
 
     // THE FORM AT THE FOOT OF THIS SAME PAGE, and nothing else in-page. Added 15
@@ -1332,16 +1360,19 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
       );
     }
 
+    // A Ukrainian body reaches every fixed route but /privacy in Russian.
+    const target = fallback && path !== "/privacy" ? fallback : locale;
     const localised =
       typeof declared === "string"
         ? declared
-        : ((declared as Record<string, string>)[locale] ?? (path as string));
+        : ((declared as Record<string, string>)[target] ?? (path as string));
 
     // "/" is the one route whose localised form is a bare slash, and
     // "/ru" + "/" would be "/ru/". The site's canonical form has no trailing
     // slash — see the long note in src/lib/urls.ts about the two spellings.
     const body = localised === "/" ? "" : localised;
-    return `${prefix}${body}${hash ? `#${hash}` : ""}` || "/";
+    const routePrefix = target === locale ? prefix : `/${target}`;
+    return `${routePrefix}${body}${hash ? `#${hash}` : ""}` || "/";
   };
 }
 
@@ -1364,6 +1395,23 @@ function selectEntry(): { name: string; config: EntryConfig } {
   }
 
   return { name, config };
+}
+
+/** REFUSE A UKRAINIAN VERSION THE PROXY DOES NOT KNOW. src/proxy.ts sends
+ *  every /uk/ address that is not on the list in src/lib/ukSection.ts to the
+ *  same path under /ru/, so a Ukrainian entry missing from that list would be
+ *  published and unreachable: its own URL would redirect to a Russian 404. */
+function assertUkListed(config: EntryConfig, parsedAll: Parsed[]): void {
+  const uk = parsedAll.find((parsed) => parsed.locale === "uk");
+  if (!uk) return;
+  const reference = (config.kind ?? "research") === "reference";
+  const list = reference ? UK_REFERENCE_SLUGS : UK_RESEARCH_SLUGS;
+  if (!list.includes(uk.slug)) {
+    throw new Error(
+      `The uk slug "${uk.slug}" is not in ${reference ? "UK_REFERENCE_SLUGS" : "UK_RESEARCH_SLUGS"} in src/lib/ukSection.ts. ` +
+        `Add it there first — until then the proxy redirects its URL to /ru/.`,
+    );
+  }
 }
 
 /** REFUSE A REFERENCE SLUG THAT IS ALREADY TAKEN.
@@ -1820,6 +1868,7 @@ async function run() {
   // articles -- --entry x` without --write is a real gate rather than a parse.
   if ((config.kind ?? "research") === "reference") {
     await assertNoSlugCollision(name, parsedAll, projectId, dataset);
+    assertUkListed(config, parsedAll);
   }
 
   if (!write) {

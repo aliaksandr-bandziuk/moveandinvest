@@ -5,9 +5,19 @@ import styles from "./LegalDocument.module.scss";
 export interface LegalSection {
   heading: string;
   body: string;
+  /** Set only when the section is in a different language from the page —
+   *  the Ukrainian privacy page is the Russian policy with one section in
+   *  Ukrainian (src/lib/privacyUk.ts), and a screen reader must switch voice
+   *  for it. */
+  lang?: string;
 }
 
 interface LegalDocumentProps {
+  /** The language of the document itself, when it differs from the page. */
+  lang?: string;
+  /** A line above the document in the PAGE language, for when the document
+   *  is not in it. */
+  note?: string;
   eyebrow: string;
   heading: string;
   intro: string;
@@ -39,6 +49,8 @@ interface LegalDocumentProps {
 // between a page maintained last week and one maintained two years ago is the
 // whole of what they are trying to find out.
 export function LegalDocument({
+  lang,
+  note,
   eyebrow,
   heading,
   intro,
@@ -49,6 +61,8 @@ export function LegalDocument({
   return (
     <section className={styles.section}>
       <div className="container">
+        {note ? <p className={styles.note}>{note}</p> : null}
+        <div lang={lang}>
         <SectionHead level={1} eyebrow={eyebrow} heading={heading} intro={intro}>
           <p className={styles.updated}>
             <span className={styles.updatedLabel}>{updatedLabel}</span>{" "}
@@ -60,7 +74,7 @@ export function LegalDocument({
 
         <ol className={styles.list}>
           {sections.map((section, i) => (
-            <li key={section.heading} className={styles.item}>
+            <li key={section.heading} className={styles.item} lang={section.lang}>
               {/* Decorative: the heading beside it already names the section,
                   and a screen reader announcing "zero three" adds nothing. */}
               <p className={styles.number} aria-hidden="true">
@@ -77,6 +91,7 @@ export function LegalDocument({
             </li>
           ))}
         </ol>
+        </div>
       </div>
     </section>
   );

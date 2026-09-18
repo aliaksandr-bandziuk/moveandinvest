@@ -10,7 +10,10 @@ import { defineRouting } from "next-intl/routing";
 // exists. Declaring a locale costs nothing; retrofitting one after the URL
 // structure is indexed costs redirects.
 export const routing = defineRouting({
-  locales: ["en", "ru", "pl"],
+  // uk added 18 September 2026 for the Poland section ONLY — see RouteLocale
+  // below and the uk rule in src/proxy.ts. Its URL segments reuse the Russian
+  // spellings, so /uk/<route> is /ru/<route> with the prefix swapped.
+  locales: ["en", "ru", "pl", "uk"],
   defaultLocale: "en",
   localePrefix: "as-needed",
   // URL structure alone decides the locale — no cookie or Accept-Language
@@ -52,13 +55,14 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/[slug]": "/[slug]",
-    "/about": { en: "/about", ru: "/o-nas", pl: "/o-nas" },
+    "/about": { en: "/about", ru: "/o-nas", pl: "/o-nas", uk: "/o-nas" },
     "/for-partners": {
       en: "/for-partners",
       ru: "/partneram",
       pl: "/dla-partnerow",
+      uk: "/partneram",
     },
-    "/faq": { en: "/faq", ru: "/voprosy", pl: "/faq" },
+    "/faq": { en: "/faq", ru: "/voprosy", pl: "/faq", uk: "/voprosy" },
     // The explainer. Transliterated in Russian for the reason stated above —
     // a Cyrillic slug percent-encodes the moment anyone pastes it into a chat,
     // which is most of how a link to this site travels.
@@ -66,6 +70,7 @@ export const routing = defineRouting({
       en: "/golden-visa",
       ru: "/zolotaya-viza",
       pl: "/zlota-wiza",
+      uk: "/zolotaya-viza",
     },
     // THE ONE SECTION WHOSE URL IS NOT TRANSLATED, and that is the decision
     // rather than an omission. "Blog" is the same word in Russian and Polish,
@@ -74,7 +79,7 @@ export const routing = defineRouting({
     // produce three spellings of a word that has one, to no one's benefit.
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",
-    "/contacts": { en: "/contacts", ru: "/kontakty", pl: "/kontakt" },
+    "/contacts": { en: "/contacts", ru: "/kontakty", pl: "/kontakt", uk: "/kontakty" },
     // THE ENQUIRY, WITH AN ADDRESS OF ITS OWN since 31 August 2026.
     //
     // It was a fragment before that — section 08 of the home page, reached as
@@ -95,7 +100,7 @@ export const routing = defineRouting({
     // reader who has just come through eight sections is the highest intent on
     // the site, and making them click first would be paying for tidiness in
     // leads.
-    "/enquiry": { en: "/enquiry", ru: "/zayavka", pl: "/zgloszenie" },
+    "/enquiry": { en: "/enquiry", ru: "/zayavka", pl: "/zgloszenie", uk: "/zayavka" },
     // THE CALCULATOR, 2 September 2026. Its own address rather than a section
     // of the home page: a tool is the thing other people link to, and a
     // fragment cannot carry a title, be counted separately, or be handed to a
@@ -107,7 +112,7 @@ export const routing = defineRouting({
     // The Polish takes its own spelling: "kalkulator" is the word, and
     // borrowing the Russian transliteration would produce a slug that is
     // neither language's.
-    "/calculator": { en: "/calculator", ru: "/kalkulyator", pl: "/kalkulator" },
+    "/calculator": { en: "/calculator", ru: "/kalkulyator", pl: "/kalkulator", uk: "/kalkulyator" },
     // THE NATURALISATION CLOCK, 7 September 2026. Its own address for the same
     // reason the calculator has one: a tool is the thing other people link to,
     // and this is the first tool on the site that answers a question about a
@@ -120,6 +125,7 @@ export const routing = defineRouting({
       en: "/naturalisation-clock",
       ru: "/chasy-naturalizatsii",
       pl: "/zegar-naturalizacji",
+      uk: "/chasy-naturalizatsii",
     },
     // THE TRANSFER-TAX CALCULATOR, 9 September 2026. Third tool, third address,
     // and the reason it has one is not the reason the other two do.
@@ -143,18 +149,49 @@ export const routing = defineRouting({
       en: "/property-transfer-tax-calculator",
       ru: "/kalkulyator-naloga-pri-pokupke",
       pl: "/kalkulator-podatku-od-zakupu",
+      uk: "/kalkulyator-naloga-pri-pokupke",
     },
-    "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc" },
-    "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla" },
+    "/privacy": { en: "/privacy", ru: "/konfidentsialnost", pl: "/prywatnosc", uk: "/konfidentsialnost" },
+    "/sources": { en: "/sources", ru: "/istochniki", pl: "/zrodla", uk: "/istochniki" },
     // The rule-change log. Translated like every other fixed route, and the
     // Russian is transliterated for the reason this file already gives about
     // /ru/gretsiya: a Cyrillic slug percent-encodes the moment anyone pastes
     // it into an email, which is most of how a link to this site travels.
-    "/changes": { en: "/changes", ru: "/izmeneniya", pl: "/zmiany" },
+    "/changes": { en: "/changes", ru: "/izmeneniya", pl: "/zmiany", uk: "/izmeneniya" },
     // Internal, noindex, and deliberately the same word everywhere: read by
     // whoever is building the site, not by a reader.
     "/styleguide": "/styleguide",
   },
 });
 
-export type Locale = (typeof routing.locales)[number];
+/** Every locale the router serves, uk included. */
+export type RouteLocale = (typeof routing.locales)[number];
+
+/**
+ * The locales the WHOLE site is written in. uk is deliberately not one of them:
+ * it serves only the Poland section (the Poland entries, their pillar and the
+ * privacy page), and everything else under /uk/ is redirected to /ru/ by the
+ * proxy. Keeping it out of this type is what keeps the 27 Record<Locale, …>
+ * copy maps from needing a Ukrainian site they are not going to get.
+ */
+export type Locale = Exclude<RouteLocale, "uk">;
+
+/** The site locales, as a value. Iterate THIS, not routing.locales, anywhere a
+ *  route is assumed to exist in every language — hreflang for a fixed route,
+ *  the sitemap's code-owned routes. routing.locales includes uk, and a fixed
+ *  route under /uk/ is a redirect, not a page. */
+export const SITE_LOCALES = ["en", "ru", "pl"] as const satisfies readonly Locale[];
+
+export function isSiteLocale(locale: string): locale is Locale {
+  return locale === "en" || locale === "ru" || locale === "pl";
+}
+
+/** The language a page's SITE-WIDE content is read in: the header, the
+ *  footer, the registry labels, the author line. A site locale reads itself;
+ *  uk reads Russian, because every page those parts link to is Russian for a
+ *  Ukrainian reader — see the proxy. Anything else (which the middleware does
+ *  not let through) reads English. */
+export function contentLocale(locale: string): Locale {
+  if (isSiteLocale(locale)) return locale;
+  return locale === "uk" ? "ru" : "en";
+}

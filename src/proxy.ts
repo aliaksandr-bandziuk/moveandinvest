@@ -1,11 +1,37 @@
 import createMiddleware from "next-intl/middleware";
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
+import { isUkSectionPath, UK_ENTRY_PATH } from "./lib/ukSection";
 
 const intlMiddleware = createMiddleware(routing);
 
+/** THE UKRAINIAN SECTION IS A LIST, and every other /uk/ address is the same
+ *  page in Russian. The header, the footer and the language switcher link
+ *  under /uk/ like any locale does; this is what turns those links into the
+ *  Russian pages they stand for, rather than into Ukrainian pages that do not
+ *  exist. See src/lib/ukSection.ts.
+ *
+ *  308 for a Russian page, because /uk/o-nas will never be anything else.
+ *  307 for /uk itself, because the section may one day get a home page and a
+ *  permanent redirect to the pillar would be cached against it. */
+function ukRedirect(request: NextRequest): NextResponse | null {
+  const { pathname } = request.nextUrl;
+  if (pathname !== "/uk" && !pathname.startsWith("/uk/")) return null;
+
+  const rest = pathname.slice("/uk".length);
+  if (rest !== "" && rest !== "/" && isUkSectionPath(rest)) return null;
+
+  const url = request.nextUrl.clone();
+  if (rest === "" || rest === "/") {
+    url.pathname = UK_ENTRY_PATH;
+    return NextResponse.redirect(url, 307);
+  }
+  url.pathname = `/ru${rest}`;
+  return NextResponse.redirect(url, 308);
+}
+
 export default function proxy(request: NextRequest) {
-  const response = intlMiddleware(request);
+  const response = ukRedirect(request) ?? intlMiddleware(request);
 
   // Hard rule: any *.vercel.app host is always noindex, regardless of
   // environment. This specifically catches the production deployment's own

@@ -18,6 +18,16 @@
   --container-max-width: 76rem;
 }
 
+// The page-language line above a document that is not in the page language —
+// the Ukrainian privacy page. Quiet, and above the head rather than inside it,
+// because it describes the page and is not part of the policy.
+.note {
+  max-width: var(--measure-wide);
+  margin-bottom: var(--space-6);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
 // The date, sitting under the deck in the head's right column.
 .updated {
   margin-top: var(--space-4);

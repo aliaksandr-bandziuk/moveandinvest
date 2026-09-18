@@ -2,7 +2,7 @@ import { buildMetadata } from "@/lib/metadata";
 import { articleHref, slugHref } from "@/lib/routes";
 import type { AppPathname } from "@/lib/routes";
 import { routeUrl } from "@/lib/urls";
-import { routing } from "@/i18n/routing";
+import { routing, SITE_LOCALES } from "@/i18n/routing";
 
 // WHAT EVERY PAGE SAYS ITS OWN ADDRESS IS. A report, like scripts/routes.ts and
 // scripts/enquiry-targets.ts, and written for the same reason: `next build`
@@ -55,7 +55,9 @@ let failures = 0;
 function check(label: string, href: AppPathname) {
   console.log(`  ${label}`);
 
-  for (const locale of routing.locales) {
+  // SITE_LOCALES: a fixed route has no Ukrainian page — /uk/ is a section
+  // (src/lib/ukSection.ts) and its fixed routes are redirects to /ru/.
+  for (const locale of SITE_LOCALES) {
     const meta = buildMetadata({ seo: SEO, locale, href });
     const expected = routeUrl(href, locale);
 
@@ -79,7 +81,7 @@ function check(label: string, href: AppPathname) {
 
     console.log(`    ${locale}  ${canonical}`);
     console.log(
-      `        hreflang: ${routing.locales
+      `        hreflang: ${SITE_LOCALES
         .map((l) => `${l}=${languages[l] ?? "(none)"}`)
         .join("  ")}  x-default=${xDefault ?? "(none)"}`,
     );

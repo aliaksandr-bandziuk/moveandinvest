@@ -6,7 +6,7 @@ import { AskBlock, ResidenceCaseForm } from "@/components/marketing";
 import { Breadcrumbs, type Crumb } from "@/components/ui";
 import { getPathname } from "@/i18n/navigation";
 import { CONTROLLER } from "@/lib/controller";
-import { routing } from "@/i18n/routing";
+import { contentLocale, routing } from "@/i18n/routing";
 import {
   buildArticleJsonLd,
   buildBreadcrumbListJsonLd,
@@ -185,13 +185,18 @@ export async function EntryView({
 
   const url = routeUrl(entryHref(slug, kind), locale);
   const formatDate = dateFormatter(locale);
+  // The language of the pages this one points AT — home, the index, /about,
+  // /sources. For uk that is Russian: those pages have no Ukrainian version,
+  // and a JSON-LD url through /uk/ would be a redirect (src/lib/ukSection.ts).
+  const site = contentLocale(locale);
 
   // A source section is either one of the five jurisdictions, whose name comes
   // from the registry, or a cross-cutting section that carries its own heading.
   const sectionNames: Record<string, string> = {};
   for (const section of SOURCE_SECTIONS) {
     const country = countries.find((row) => row.code === section.key);
-    const heading = section.heading?.[locale as "en" | "ru" | "pl"];
+    const heading =
+      (locale === "uk" ? section.heading?.uk : undefined) ?? section.heading?.[site];
     sectionNames[section.key] = country?.name ?? heading ?? section.key;
   }
 
@@ -213,11 +218,11 @@ export async function EntryView({
     description: entry.standfirst,
     datePublished: entry.publishedAt,
     dateModified: entry._updatedAt,
-    authorUrl: routeUrl("/about", locale),
+    authorUrl: routeUrl("/about", site),
     // The machine-readable half of the line the reader sees. Same array, so the
     // two cannot say different things.
     citations: entry.sources.map(
-      (key) => `${routeUrl("/sources", locale)}#${key}`,
+      (key) => `${routeUrl("/sources", site)}#${key}`,
     ),
     // The country a non-registry entry is about, in machine form — the same
     // fact the "Jurisdictions" line now prints for Poland.
@@ -336,10 +341,10 @@ export async function EntryView({
   // two cannot disagree about who the page's parent is.
   const breadcrumbJsonLd = buildBreadcrumbListJsonLd(
     kind === "reference"
-      ? [{ name: t("home"), url: routeUrl("/", locale) }, { name: entry.title, url }]
+      ? [{ name: t("home"), url: routeUrl("/", site) }, { name: entry.title, url }]
       : [
-          { name: t("home"), url: routeUrl("/", locale) },
-          { name: tNav("links.research"), url: routeUrl("/blog", locale) },
+          { name: t("home"), url: routeUrl("/", site) },
+          { name: tNav("links.research"), url: routeUrl("/blog", site) },
           { name: entry.title, url },
         ],
   );

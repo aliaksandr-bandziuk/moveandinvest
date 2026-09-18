@@ -64,6 +64,11 @@ export default defineConfig({
         { id: "en", title: "English" },
         { id: "ru", title: "Russian" },
         { id: "pl", title: "Polish" },
+        // For the Poland entries only (src/lib/ukSection.ts). The plugin has
+        // no per-type language list, so Studio offers it on every translatable
+        // type; a Ukrainian home or jurisdiction page would not be served —
+        // the proxy sends those addresses to /ru/.
+        { id: "uk", title: "Ukrainian" },
       ],
       schemaTypes: [...TRANSLATABLE_TYPES],
     }),

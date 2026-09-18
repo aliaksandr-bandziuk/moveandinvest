@@ -38,17 +38,17 @@ export const RESIDENCE_SOURCE_KEY = "pl-legal";
 // would be a second place to disagree. Adding the registry's `country` document
 // instead would put Poland in the comparison table, the map, the PDF and the
 // footer, which CLAUDE.md rules out.
-const REGIONS_BY_SOURCE: Record<string, { code: string; name: Record<"en" | "ru" | "pl", string> }> = {
+const REGIONS_BY_SOURCE: Record<string, { code: string; name: Record<"en" | "ru" | "pl" | "uk", string> }> = {
   [RESIDENCE_SOURCE_KEY]: {
     code: "PL",
-    name: { en: "Poland", ru: "Польша", pl: "Polska" },
+    name: { en: "Poland", ru: "Польша", pl: "Polska", uk: "Польща" },
   },
 };
 
 /** Country names, in the reader's language, for the non-registry countries an
  *  entry cites. Empty for every entry about the five jurisdictions. */
 export function entryRegionNames(sources: readonly string[], locale: string): string[] {
-  const lang = locale === "ru" || locale === "pl" ? locale : "en";
+  const lang = locale === "ru" || locale === "pl" || locale === "uk" ? locale : "en";
   return sources.flatMap((key) => {
     const region = REGIONS_BY_SOURCE[key];
     return region ? [region.name[lang]] : [];

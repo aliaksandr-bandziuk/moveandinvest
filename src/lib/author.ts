@@ -65,7 +65,9 @@ export interface AuthorCopy {
   by: string;
 }
 
-const COPY: Record<Locale, AuthorCopy> = {
+// Plus uk, which is a locale of the Poland section only (src/lib/ukSection.ts):
+// the byline sits on every Ukrainian entry, so it is written in Ukrainian.
+const COPY: Record<Locale | "uk", AuthorCopy> = {
   en: {
     role: "Founder, moveandinvest",
     line: "Checks every threshold, fee and deadline on this site against the instrument that states it, and publishes the instrument alongside the figure.",
@@ -76,6 +78,12 @@ const COPY: Record<Locale, AuthorCopy> = {
     role: "Основатель moveandinvest",
     line: "Сверяет каждый порог, сбор и срок на этом сайте с документом, который его устанавливает, и публикует документ рядом с цифрой.",
     more: "Как проверяются эти цифры",
+    by: "Автор:",
+  },
+  uk: {
+    role: "Засновник moveandinvest",
+    line: "Звіряє кожен поріг, збір і строк на цьому сайті з документом, який його встановлює, і публікує документ поруч із цифрою.",
+    more: "Як перевіряються ці цифри",
     by: "Автор:",
   },
   pl: {
@@ -95,5 +103,5 @@ const COPY: Record<Locale, AuthorCopy> = {
  *  here through the middleware, and if one ever does, an entry with an English
  *  byline is a better page than a 500. */
 export function authorCopy(locale: string): AuthorCopy {
-  return COPY[locale as Locale] ?? COPY.en;
+  return COPY[locale as Locale | "uk"] ?? COPY.en;
 }

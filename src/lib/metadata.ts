@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { routing } from "@/i18n/routing";
+import { routing, SITE_LOCALES } from "@/i18n/routing";
 import type { SeoResult } from "@/sanity/types";
 import { getSiteUrl, resolveRobots } from "./site";
 import type { AppPathname } from "./routes";
@@ -63,8 +63,11 @@ export function buildMetadata({
   // A fixed route is the same route in every language, so its alternates are
   // derivable; a dataset-slugged page hands them in. The default covers the
   // first case and keeps every existing caller unchanged.
+  //
+  // SITE_LOCALES, not routing.locales: a fixed route under /uk/ is a redirect
+  // to /ru/, and an hreflang pointing at a redirect is an error in Search Console.
   const hrefs: Record<string, AppPathname> =
-    perLanguage ?? Object.fromEntries(routing.locales.map((l) => [l, href]));
+    perLanguage ?? Object.fromEntries(SITE_LOCALES.map((l) => [l, href]));
 
   const languages = Object.fromEntries(
     Object.entries(hrefs).map(([l, h]) => [l, routeUrl(h, l)]),

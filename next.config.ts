@@ -35,6 +35,11 @@ function localisedRouteRedirects() {
   const redirects: { source: string; destination: string; permanent: true }[] = [];
   for (const locale of routing.locales) {
     if (locale === routing.defaultLocale) continue;
+    // uk is left out as well: every /uk/ address that is not a page of the
+    // Ukrainian section is redirected to /ru/ by src/proxy.ts, and the Russian
+    // rules below then correct the spelling. A second set here would only add
+    // a hop in front of that one.
+    if (locale === "uk") continue;
     const live = new Set(localised.map(([, spellings]) => spellings[locale]));
     for (const [route, spellings] of localised) {
       const target = spellings[locale];
