@@ -42,6 +42,9 @@ export interface Market {
    *  exists for the SERP and Google Ads endpoints and for nothing that asks
    *  Labs. Scripts that call Labs skip these rather than fail on them. */
   labs?: boolean;
+  /** True where a market is read only when named — by key or in a --from-list
+   *  file — and never by a default "all English" sweep. */
+  onDemand?: boolean;
 }
 
 export const MARKETS: Market[] = [
@@ -55,6 +58,10 @@ export const MARKETS: Market[] = [
   // keyword data and the SERP API both accept the pairing; Labs does not.
   { key: "ru-PL", locationCode: 2616, locationName: "Poland", languageCode: "ru", proxy: false, labs: false },
   { key: "uk-PL", locationCode: 2616, locationName: "Poland", languageCode: "uk", proxy: false, labs: false },
+  // ADDED 18 SEPTEMBER 2026 to decide which Poland pages get an English version:
+  // foreigners in Poland who search in English. On demand only, so the default
+  // English sweep for the five jurisdictions keeps measuring the US and the UK.
+  { key: "en-PL", locationCode: 2616, locationName: "Poland", languageCode: "en", proxy: false, labs: false, onDemand: true },
 ];
 
 /** The site's own domain, without protocol or www — the form Labs expects. */

@@ -396,7 +396,7 @@ async function run(): Promise<void> {
   const wanted = MARKETS.filter((market) =>
     marketKey
       ? market.key === marketKey
-      : market.languageCode === (lang ?? "en"),
+      : market.languageCode === (lang ?? "en") && !market.onDemand,
   );
   if (wanted.length === 0) throw new Error(`No market matches "${marketKey ?? lang ?? ""}"`);
 
