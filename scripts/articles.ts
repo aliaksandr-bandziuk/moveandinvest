@@ -1040,6 +1040,69 @@ const ENTRIES: Record<string, EntryConfig> = {
     // 2030 года без условия гражданства. Пиллар «Недвижимость в Польше» не
     // делаем: «недвижимость в польше» — 50 в месяц.
   },
+  "poland-deposit": {
+    key: "article-poland-deposit",
+    sources: {
+      pl: "article-pl-deposit.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-18T06:00:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU, rynek polski, decyzja 18 września 2026 roku.
+    // „zadatek a zaliczka” 9900 + „zaliczka a zadatek” 8100. Fakty z artykułu o
+    // zakupie nieruchomości (art. 394 KC, ustawa deweloperska), bez nowych.
+  },
+  "poland-property-contracts": {
+    key: "article-poland-property-contracts",
+    sources: {
+      pl: "article-pl-property-contracts.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-18T06:10:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU. „umowa przedwstępna sprzedaży nieruchomości” 5400,
+    // „umowa rezerwacyjna mieszkania” 1300. Fakty: art. 389–390 KC i ustawa deweloperska.
+  },
+  "poland-land-register": {
+    key: "article-poland-land-register",
+    sources: {
+      pl: "article-pl-land-register.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-18T06:20:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU. „sprawdzenie księgi wieczystej” 6600 — zapytanie w dużej
+    // części nawigacyjne; strona daje to, czego wyszukiwarka EKW nie mówi.
+  },
+  "poland-suspension": {
+    key: "article-poland-suspension",
+    sources: {
+      pl: "article-pl-suspension.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-18T06:30:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU. „zawieszenie działalności gospodarczej” 6600, „a zus” 1300.
+    // Nowe fakty: art. 13 pkt 4 i 4a ustawy o sus, art. 69 ust. 1a ustawy o
+    // świadczeniach — dossier, część 26.
+  },
+  "poland-employer-work": {
+    key: "article-poland-employer-work",
+    sources: {
+      pl: "article-pl-employer-work.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-18T06:40:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU, czytelnik: pracodawca. „oświadczenie o powierzeniu
+    // wykonywania pracy cudzoziemcowi” 1600, „zezwolenie na pracę” 1300. Nowe
+    // fakty: ustawa Dz.U. 2025 poz. 621, rozporządzenia 1617 i 1622, art. 5a.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {

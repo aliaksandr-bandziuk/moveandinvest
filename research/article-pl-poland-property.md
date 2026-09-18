@@ -243,6 +243,8 @@ Dla nieruchomości mieszkalnych taksa jest **dzielona na pół**: sprzedaż loka
 
 ### Umowa rezerwacyjna mieszkania i umowa przedwstępna sprzedaży nieruchomości
 
+Osobno i szczegółowo — w [artykule o umowie rezerwacyjnej i przedwstępnej](entry:poland-property-contracts).
+
 Przed notariuszem kupujący zwykle podpisuje jeszcze jeden lub dwa dokumenty i przekazuje pieniądze. To ich treść rozstrzyga, czy te pieniądze wrócą, jeżeli transakcja się nie uda.
 
 **Umowa rezerwacyjna z deweloperem** jest uregulowana wprost — [ustawą o ochronie praw nabywcy lokalu mieszkalnego lub domu jednorodzinnego oraz o Deweloperskim Funduszu Gwarancyjnym](/sources#pl-legal-ustawa-deweloperska), art. 29–34:
@@ -277,6 +279,8 @@ Roszczenia z umowy przedwstępnej przedawniają się z upływem **roku** od dnia
 
 ### Zadatek a zaliczka przy zakupie mieszkania
 
+Pełne porównanie — w [artykule „Zadatek a zaliczka”](entry:poland-deposit).
+
 Jedno słowo w umowie zmienia los pieniędzy. Art. 394 Kodeksu cywilnego opisuje **zadatek**:
 
 | Sytuacja | Co z zadatkiem |
@@ -308,6 +312,8 @@ Te zasady obowiązują, jeżeli umowa nie stanowi inaczej — strony mogą je zm
 **Czego badanie stanu prawnego nie obejmuje — stanu technicznego.** Wilgoć, konstrukcję, instalacje ocenia specjalista budowlany na oględzinach. Sprawdzenie dokumentów odpowiada na inne pytanie: czy sprzedający może sprzedać i co dostajesz razem z nieruchomością.
 
 ### Sprawdzenie księgi wieczystej przed zakupem nieruchomości
+
+Co znaczy każdy wpis i każda wzmianka — w [artykule o sprawdzaniu księgi wieczystej](entry:poland-land-register).
 
 [Ustawa o księgach wieczystych i hipotece](/sources#pl-legal-ksiegi-wieczyste) jest skonstruowana tak, że sprawdzenie to nie usługa, tylko twój obowiązek. Art. 2: księgi są jawne i **nie można zasłaniać się nieznajomością wpisów** ani wniosków, o których uczyniono wzmiankę w księdze.
 

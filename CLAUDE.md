@@ -119,7 +119,13 @@ wrong sends the build in the wrong direction for days.
     verify the Russian text, and a Polish-only claim would be unverified. New
     Poland entries are written in both languages from now on — an `entry:` link
     from a Polish body to an entry without a Polish version fails the dry run.
-    The Polish home page carries the Poland band too. Measured on the day: the
+    The Polish home page carries the Poland band too.
+    **Polish-only pages, 18 Sep 2026**, for large Polish demand with no Russian
+    counterpart (zadatek a zaliczka, the land register, preliminary and
+    reservation contracts, suspending a business, employing a foreigner): their
+    facts are either taken from already-verified pages or read fresh and
+    recorded in the dossier (part 26), with a /sources row — the same bar, just
+    without a Russian original. Only Polish bodies may link to them. Measured on the day: the
     Polish demand is an order larger than the Russian (karta pobytu 9,900,
     obywatelstwo polskie 6,600, karta cukr 4,400), and its reader includes the
     employer and the seller as well as the foreigner.

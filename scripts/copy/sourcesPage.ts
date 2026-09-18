@@ -34,7 +34,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     seo: {
       metaTitle: "Sources: every figure, checked and dated — moveandinvest",
       metaDescription:
-        "The full working behind the comparison: 98 checks against statutes and ministry tariffs, 19 of which corrected a figure. Citations, links and what could not be verified.",
+        "The full working behind the comparison: 99 checks against statutes and ministry tariffs, 19 of which corrected a figure. Citations, links and what could not be verified.",
     },
   },
   ru: {
@@ -47,7 +47,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     seo: {
       metaTitle: "Источники: каждая цифра, сверенная и датированная — moveandinvest",
       metaDescription:
-        "Полные выкладки за сравнением: 98 сверок с законами и тарифами ведомств, девятнадцать из которых исправили цифру. Ссылки на законы и то, что подтвердить не удалось.",
+        "Полные выкладки за сравнением: 99 сверок с законами и тарифами ведомств, девятнадцать из которых исправили цифру. Ссылки на законы и то, что подтвердить не удалось.",
     },
   },
   pl: {
@@ -60,7 +60,7 @@ export const SOURCES_PAGE_COPY: Record<Locale, SourcesPageCopy> = {
     seo: {
       metaTitle: "Źródła: każda liczba, sprawdzona i z datą — moveandinvest",
       metaDescription:
-        "Pełne wyliczenia stojące za porównaniem: 98 sprawdzeń wobec ustaw i taryf ministerialnych, z czego dziewiętnaście poprawiło liczbę. Odesłania do przepisów i to, czego nie udało się potwierdzić.",
+        "Pełne wyliczenia stojące za porównaniem: 99 sprawdzeń wobec ustaw i taryf ministerialnych, z czego dziewiętnaście poprawiło liczbę. Odesłania do przepisów i to, czego nie udało się potwierdzić.",
     },
   },
 };

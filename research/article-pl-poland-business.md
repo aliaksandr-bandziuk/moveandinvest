@@ -238,6 +238,8 @@ Ze statusem UKR zwykłe zezwolenie można uzyskać tylko na pięciu podstawach, 
 
 ### Zawieszenie działalności gospodarczej: JDG i spółka z o.o.
 
+ZUS i ubezpieczenie zdrowotne w czasie zawieszenia, grzywny sądu rejestrowego i porównanie z zamknięciem firmy — w [artykule o zawieszeniu działalności](entry:poland-suspension).
+
 Zawiesić działalność zamiast zamykać firmę pozwala [Prawo przedsiębiorców](/sources#pl-legal-prawo-przedsiebiorcow), art. 22–25. Warunki i terminy są inne dla JDG i dla spółki:
 
 | | JDG (CEIDG) | Spółka z o.o. (KRS) |

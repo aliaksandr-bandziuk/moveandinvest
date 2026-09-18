@@ -88,6 +88,7 @@ Legalizacja nie jest ostatnim dokumentem. Po niej zaczynają się sprawy, które
 | Sprawa | Szczegóły |
 | --- | --- |
 | Zameldowanie — najpóźniej 4. dnia dla obywateli państw spoza UE | [Zameldowanie cudzoziemca](entry:poland-meldunek) |
+| Zatrudnienie cudzoziemca: oświadczenie, zezwolenie typu A, powiadomienie przy ochronie czasowej | [Dla pracodawców](entry:poland-employer-work) |
 | Numer PESEL — automatycznie przy zameldowaniu lub na wniosek | [PESEL dla cudzoziemca](entry:poland-pesel) |
 | Podatek dochodowy, ulgi do 26 lat i dla posiadaczy Karty Polaka, zwrot | [Podatki w Polsce](entry:poland-taxes) |
 | Wymiana prawa jazdy — 6 miesięcy od dnia rozpoczęcia pobytu | [Wymiana prawa jazdy](entry:poland-driving) |

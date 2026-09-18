@@ -31,6 +31,8 @@ Poniżej sześć sytuacji, w których znajdują się pracownicy z kartą pobytu 
 
 ### W skrócie: zmiana pracodawcy na karcie pobytu w 2026 roku
 
+Jeżeli jesteś pracodawcą i zastanawiasz się, czy wystarczy oświadczenie o powierzeniu pracy, czy potrzebne jest zezwolenie typu A — zobacz [artykuł dla pracodawców](entry:poland-employer-work).
+
 - **Nowy pracodawca, inne stanowisko, niższa pensja lub mniejszy wymiar** — potrzebna jest zmiana zezwolenia.
 - **Adres lub nazwa firmy, przejęcie zakładu pracy, więcej godzin z proporcjonalnie wyższą pensją, umowa o pracę zamiast cywilnoprawnej** — zmiana nie jest potrzebna, pracodawca zawiadamia wojewodę w ciągu 15 dni roboczych.
 - **Jak złożyć.** Na papierze, do wojewody właściwego ze względu na obecne miejsce pobytu; załącznik nr 1 od nowego pracodawcy; opłata skarbowa **220 zł**.
