@@ -96,7 +96,8 @@ wrong sends the build in the wrong direction for days.
     1,500, a company of one's own 1,400, PESEL 1,400, meldunek 710, taxes 390.
     Write the Russian pages against the second list and the partner's own
     subjects; a Polish page is a separate product decision, because its reader
-    is an employer or a seller, not our reader.
+    is an employer or a seller, not our reader. *(Taken on 17 Sep 2026: every
+    Poland page now has a Polish version — see below.)*
   - **Pillar pages, decided 17 Sep 2026.** Besides narrow blog entries, the
     section gets standing overview pages at the root — `kind: "reference"` in
     `scripts/articles.ts`, so `/ru/biznes-v-polshe` rather than `/ru/blog/…` —
@@ -109,6 +110,19 @@ wrong sends the build in the wrong direction for days.
   - **`publishedAt` must be in the past when the entry is written.** An entry
     dated later than now is published and reachable by URL but missing from
     the /blog listing until that hour. It has happened twice in this section.
+  - **Every Poland page is in Polish too, decided 17 Sep 2026** ("делаем все
+    страницы про Польшу на польском языке"). The Polish version is the same
+    article adapted, not a new one: same sections, facts, statutes and links,
+    with its own Polish keyword and competitor research (`.dfs/volume-poland-pl-all-2026-09-17.json`,
+    `.dfs/serp-2026-09-17-list-poland-pl-all-2026-09-17.json`). **A Polish file
+    may not carry a fact its Russian source does not**: the dossier and /sources
+    verify the Russian text, and a Polish-only claim would be unverified. New
+    Poland entries are written in both languages from now on — an `entry:` link
+    from a Polish body to an entry without a Polish version fails the dry run.
+    The Polish home page carries the Poland band too. Measured on the day: the
+    Polish demand is an order larger than the Russian (karta pobytu 9,900,
+    obywatelstwo polskie 6,600, karta cukr 4,400), and its reader includes the
+    employer and the seller as well as the foreigner.
   - **Poland may become a sixth jurisdiction later**, once those pages exist —
     the owner allowed it on 16 Sep 2026 ("после всех этих статей можно будет и
     юрисдикцию сделать"). It is NOT one today: the registry, the comparison

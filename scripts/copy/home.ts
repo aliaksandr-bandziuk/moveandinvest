@@ -682,6 +682,24 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       heading: "Dla kancelarii i doradców relokacyjnych",
       body: "Zgłoszenie przychodzi z już odpowiedzianymi pytaniami — jurysdykcja, budżet, termin, cel — i z tym, co człowiek napisał własnymi słowami. Wcześniej przeszedł porównanie według czterech pytań i stronę jurysdykcji, więc pyta, już wiedząc, o co pyta. Płatność za kwalifikowany lead tam, gdzie pozwala na to twój zawód, i bezpłatnie tam, gdzie nie pozwala: na Malcie, w ZEA i w Portugalii prawnik nie może płacić za skierowanie i tam nie prosimy o nic. W twoim honorarium nie uczestniczymy w żadnym wypadku.",
     },
+    polandBand: {
+      eyebrow: "Mieszkasz już w Polsce",
+      heading: "Legalizacja, biznes i życie w Polsce",
+      intro:
+        "Dla osób, które już mieszkają w Polsce, serwis ma osobną sekcję — nie szóstą jurysdykcję w tabeli powyżej, lecz omówienia oparte na artykułach polskich ustaw. Karta pobytu i CUKR, pobyt stały i obywatelstwo, odmowa i terminy, własna firma, zakup mieszkania i kredyt. Każda liczba jest sprawdzona w źródle i ma na stronie źródeł datę weryfikacji.",
+      links: [
+        {
+          label: "Legalizacja pobytu w Polsce",
+          description: "Karta pobytu, CUKR, pobyt stały i obywatelstwo: warunki, opłaty i terminy w 2026 roku.",
+          slug: "legalizacja-pobytu-w-polsce",
+        },
+        {
+          label: "Biznes w Polsce dla cudzoziemca",
+          description: "JDG czy spółka z o.o., podatki i ZUS, rachunek firmowy i karta pobytu na działalność.",
+          slug: "biznes-w-polsce-dla-cudzoziemca",
+        },
+      ],
+    },
     seo: {
       metaTitle: "Relokacja i nieruchomości w pięciu jurysdykcjach — moveandinvest",
       metaDescription: "Porównanie ścieżek rezydencji, minimalnych inwestycji, czasu do pierwszego zezwolenia i reżimów podatkowych: Portugalia, Grecja, Malta, ZEA, Cypr.",

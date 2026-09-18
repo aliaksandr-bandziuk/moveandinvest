@@ -186,7 +186,8 @@ export default async function HomePage({
       : null;
 
   // The Poland band renders only where its document carries a heading and at
-  // least one link — the Russian home page. The slugs are top-level reference
+  // least one link — the Russian and Polish home pages (Polish since 18 Sep
+  // 2026, when every Poland page got a Polish version). The slugs are top-level reference
   // pages, so they go through the same "/[slug]" route as a jurisdiction and
   // come out prefixed for the locale.
   const band = home.polandBand;

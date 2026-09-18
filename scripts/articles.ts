@@ -696,6 +696,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-waiting",
     sources: {
       ru: "article-ru-poland-waiting.md",
+      pl: "article-pl-poland-waiting.md",
     },
     figures: {},
     publishedAt: "2026-09-15T09:00:00.000Z",
@@ -717,6 +718,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-cukr",
     sources: {
       ru: "article-ru-poland-cukr.md",
+      pl: "article-pl-poland-cukr.md",
     },
     figures: {},
     publishedAt: "2026-09-15T11:00:00.000Z",
@@ -734,6 +736,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-permanent",
     sources: {
       ru: "article-ru-poland-permanent.md",
+      pl: "article-pl-poland-permanent.md",
     },
     figures: {},
     publishedAt: "2026-09-15T11:30:00.000Z",
@@ -749,6 +752,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-citizenship",
     sources: {
       ru: "article-ru-poland-citizenship.md",
+      pl: "article-pl-poland-citizenship.md",
     },
     figures: {},
     publishedAt: "2026-09-15T12:00:00.000Z",
@@ -763,6 +767,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-karta-pobytu",
     sources: {
       ru: "article-ru-poland-karta-pobytu.md",
+      pl: "article-pl-poland-karta-pobytu.md",
     },
     figures: {},
     publishedAt: "2026-09-15T13:30:00.000Z",
@@ -779,6 +784,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-refusal",
     sources: {
       ru: "article-ru-poland-refusal.md",
+      pl: "article-pl-poland-refusal.md",
     },
     figures: {},
     publishedAt: "2026-09-15T14:00:00.000Z",
@@ -794,6 +800,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-documents",
     sources: {
       ru: "article-ru-poland-documents.md",
+      pl: "article-pl-poland-documents.md",
     },
     figures: {},
     publishedAt: "2026-09-15T14:30:00.000Z",
@@ -809,6 +816,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-deportation",
     sources: {
       ru: "article-ru-poland-deportation.md",
+      pl: "article-pl-poland-deportation.md",
     },
     figures: {},
     publishedAt: "2026-09-15T15:00:00.000Z",
@@ -825,6 +833,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-employer",
     sources: {
       ru: "article-ru-poland-employer.md",
+      pl: "article-pl-poland-employer.md",
     },
     figures: {},
     publishedAt: "2026-09-15T15:30:00.000Z",
@@ -839,6 +848,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-renewal",
     sources: {
       ru: "article-ru-poland-renewal.md",
+      pl: "article-pl-poland-renewal.md",
     },
     figures: {},
     publishedAt: "2026-09-15T15:35:00.000Z",
@@ -854,6 +864,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-property",
     sources: {
       ru: "article-ru-poland-property.md",
+      pl: "article-pl-poland-property.md",
     },
     figures: {},
     publishedAt: "2026-09-16T08:00:00.000Z",
@@ -871,6 +882,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-business-pillar",
     sources: {
       ru: "article-ru-poland-business-pillar.md",
+      pl: "article-pl-poland-business-pillar.md",
     },
     figures: {},
     publishedAt: "2026-09-17T11:05:00.000Z",
@@ -888,6 +900,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-legalisation-pillar",
     sources: {
       ru: "article-ru-poland-legalisation-pillar.md",
+      pl: "article-pl-poland-legalisation-pillar.md",
     },
     figures: {},
     publishedAt: "2026-09-17T11:30:00.000Z",
@@ -904,6 +917,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-incubator",
     sources: {
       ru: "article-ru-poland-incubator.md",
+      pl: "article-pl-poland-incubator.md",
     },
     figures: {},
     publishedAt: "2026-09-17T11:20:00.000Z",
@@ -920,6 +934,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-business",
     sources: {
       ru: "article-ru-poland-business.md",
+      pl: "article-pl-poland-business.md",
     },
     figures: {},
     publishedAt: "2026-09-17T11:00:00.000Z",
@@ -938,6 +953,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-driving",
     sources: {
       ru: "article-ru-poland-driving-licence.md",
+      pl: "article-pl-poland-driving-licence.md",
     },
     figures: {},
     publishedAt: "2026-09-16T14:00:00.000Z",
@@ -957,6 +973,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-pesel",
     sources: {
       ru: "article-ru-poland-pesel.md",
+      pl: "article-pl-poland-pesel.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:00:00.000Z",
@@ -972,6 +989,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-meldunek",
     sources: {
       ru: "article-ru-poland-meldunek.md",
+      pl: "article-pl-poland-meldunek.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:10:00.000Z",
@@ -987,6 +1005,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-taxes",
     sources: {
       ru: "article-ru-poland-taxes.md",
+      pl: "article-pl-poland-taxes.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:20:00.000Z",
@@ -1002,6 +1021,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     key: "article-poland-mortgage",
     sources: {
       ru: "article-ru-poland-mortgage.md",
+      pl: "article-pl-poland-mortgage.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:30:00.000Z",
