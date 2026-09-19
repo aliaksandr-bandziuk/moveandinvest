@@ -706,6 +706,7 @@ const ENTRIES: Record<string, EntryConfig> = {
       ru: "article-ru-poland-waiting.md",
       pl: "article-pl-poland-waiting.md",
       uk: "article-uk-poland-waiting.md",
+      en: "article-en-poland-waiting.md",
     },
     figures: {},
     publishedAt: "2026-09-15T09:00:00.000Z",
@@ -1030,6 +1031,7 @@ const ENTRIES: Record<string, EntryConfig> = {
       ru: "article-ru-poland-taxes.md",
       pl: "article-pl-poland-taxes.md",
       uk: "article-uk-poland-taxes.md",
+      en: "article-en-poland-taxes.md",
     },
     figures: {},
     publishedAt: "2026-09-17T12:20:00.000Z",
@@ -1058,6 +1060,20 @@ const ENTRIES: Record<string, EntryConfig> = {
     // кредит 2% закрыт поправкой Dz.U. 2025 poz. 1077; семейный кредит до
     // 2030 года без условия гражданства. Пиллар «Недвижимость в Польше» не
     // делаем: «недвижимость в польше» — 50 в месяц.
+  },
+  "poland-tax-residence": {
+    key: "article-poland-tax-residence",
+    sources: {
+      pl: "article-pl-tax-residence-certificate.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-19T08:00:00.000Z",
+    category: "taxes",
+    countries: [],
+    // TYLKO PO POLSKU, pod polski popyt, 19 września 2026 roku: „certyfikat
+    // rezydencji podatkowej” 2900, „rezydencja podatkowa” 1600. Fakty przeczytane
+    // tego dnia w Ordynacji, ustawie o opłacie skarbowej i ustawie o PIT —
+    // dossier, część 28.
   },
   "poland-deposit": {
     key: "article-poland-deposit",

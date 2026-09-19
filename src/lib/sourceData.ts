@@ -2532,6 +2532,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Art. 42s ust. 1–2 ustawy o pomocy obywatelom Ukrainy nakłada opłatę skarbową za zezwolenie przy karcie CUKR w wysokości z części III ust. 2 załącznika do ustawy o opłacie skarbowej — 340 zł, z obowiązkiem powstającym przy złożeniu wniosku; art. 42f ust. 3 czyni potwierdzenia obu wpłat obowiązkowymi załącznikami, a art. 42e ust. 1 pkt 5–6 nieuiszczenie którejkolwiek podstawą odmowy. Żadna nie podlega zwrotowi, gdy postępowanie kończy się bez karty (art. 42s ust. 3, art. 42r ust. 2). Załącznik do ustawy o opłacie skarbowej, Dz.U. 2025 poz. 1154, przewiduje zwolnienie dla zezwolenia udzielanego cudzoziemcowi korzystającemu z ochrony czasowej; strona procedury UdSC i FAQ Pomorskiego Urzędu Wojewódzkiego podają, że obie opłaty są obowiązkowe i zwolnienie nie ma zastosowania. Opłata za kartę, 100 zł, wynika z rozporządzenia wydanego na podstawie art. 239 ustawy o cudzoziemcach, którego nie czytano; kwota jak w publikacji UdSC i urzędu.",
         },
       },
+    {
+        subject: {
+          en: "The Polish tax residence certificate: who issues it, when, and for how much",
+          ru: "Польский сертификат налогового резидентства: кто выдаёт, в какой срок и сколько стоит",
+          pl: "Polski certyfikat rezydencji podatkowej: kto wydaje, w jakim terminie i za ile",
+        },
+        verdict: "added",
+        checked: "2026-09-19",
+        finding: {
+          en: "Art. 306l of the Tax Ordinance: the tax authority issues, on the taxpayer's application, a certificate of his place of residence for tax purposes in Poland (certyfikat rezydencji); art. 13 § 1 pkt 1 makes the head of the tax office the first-instance authority. Art. 306a § 3–5: it confirms the state on the day of issue, within the limits of the request, within 7 days; art. 306c: a refusal is a postanowienie open to zażalenie. Stamp duty: art. 3b of the stamp duty act exempts a certificate applied for through an account in e-Urząd Skarbowy; otherwise part II item 21 of the annex, 17 zł — as podatki.gov.pl also states (updated 7 August 2026), with paper and e-Doręczenia as the other channels. For a foreign certificate the PIT Act defines it in art. 5a pkt 21 and requires it for treaty relief on a non-resident's income (art. 29 ust. 2), for joint filing with an EU spouse (art. 6 ust. 3a) and in a non-resident's return (art. 45 ust. 7a); a payer uses one without a stated validity for 12 months from issue, and a change of residence must be documented with a new one at the taxpayer's risk (art. 41 ust. 9a–9c).",
+          ru: "Ст. 306l Налогового кодекса: налоговый орган по заявлению налогоплательщика выдаёт справку о его месте жительства для налоговых целей в Польше (certyfikat rezydencji); по ст. 13 § 1 п. 1 орган первой инстанции — начальник налоговой инспекции. Ст. 306a § 3–5: справка подтверждает состояние на день выдачи, в пределах заявления, в срок 7 дней; ст. 306c: отказ — постановление, на которое подаётся жалоба. Гербовый сбор: ст. 3b закона о гербовом сборе освобождает справку, запрошенную через аккаунт в e-Urząd Skarbowy; иначе часть II п. 21 приложения, 17 zł — так же пишет podatki.gov.pl (обновлено 7 августа 2026), называя другими способами бумагу и e-Doręczenia. Иностранный сертификат закон о PIT определяет в ст. 5a п. 21 и требует его для льготы по договору на доход нерезидента (ст. 29 ч. 2), для совместной декларации с супругом из ЕС (ст. 6 ч. 3a) и в декларации нерезидента (ст. 45 ч. 7a); сертификат без срока плательщик учитывает 12 месяцев с даты выдачи, а смену резидентства налогоплательщик подтверждает новым под свою ответственность (ст. 41 ч. 9a–9c).",
+          pl: "Art. 306l Ordynacji podatkowej: organ podatkowy na wniosek podatnika wydaje zaświadczenie o jego miejscu zamieszkania dla celów podatkowych na terytorium RP (certyfikat rezydencji); organem pierwszej instancji jest naczelnik urzędu skarbowego (art. 13 § 1 pkt 1). Art. 306a § 3–5: potwierdza stan z dnia wydania, w granicach żądania, w terminie 7 dni; art. 306c: odmowa następuje postanowieniem, na które służy zażalenie. Opłata skarbowa: art. 3b ustawy o opłacie skarbowej zwalnia zaświadczenie wydane na wniosek złożony przez konto w e-Urzędzie Skarbowym; w pozostałych przypadkach część II poz. 21 załącznika, 17 zł — tak samo podaje podatki.gov.pl (aktualizacja 7 sierpnia 2026), wskazując jako pozostałe drogi wniosek papierowy i e-Doręczenia. Certyfikat zagraniczny definiuje art. 5a pkt 21 ustawy o PIT i wymaga go do zastosowania umowy przy dochodzie nierezydenta (art. 29 ust. 2), do wspólnego rozliczenia z małżonkiem z UE (art. 6 ust. 3a) i w zeznaniu nierezydenta (art. 45 ust. 7a); certyfikat bez okresu ważności płatnik uwzględnia przez 12 miesięcy od wydania, a zmianę rezydencji podatnik dokumentuje nowym na własne ryzyko (art. 41 ust. 9a–9c).",
+        },
+      },
     ],
     sources: [
       {
@@ -2747,7 +2761,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "oplata-skarbowa",
         citation:
-          "Ustawa z dnia 16 listopada 2006 r. o opłacie skarbowej, tekst jednolity Dz.U. 2025 poz. 1154 — załącznik, część I poz. 26, 27 i 27a, część II poz. 21, część III poz. 2, 2b, 2d, 3, 4 i 8",
+          "Ustawa z dnia 16 listopada 2006 r. o opłacie skarbowej, tekst jednolity Dz.U. 2025 poz. 1154 — art. 3b; załącznik, część I poz. 26, 27 i 27a, część II poz. 21, część III poz. 2, 2b, 2d, 3, 4 i 8",
         url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001154",
         kind: "official",
       },
@@ -2960,9 +2974,16 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         kind: "official",
       },
       {
+        id: "podatki-cfr",
+        citation:
+          "Krajowa Administracja Skarbowa, podatki.gov.pl — „Certyfikat rezydencji podatkowej (CFR)”, karta usługi: wniosek osobiście lub przez pełnomocnika, przez eUrząd Skarbowy, papierowo lub przez e-Doręczenia; bez opłaty skarbowej przez eUrząd Skarbowy, 17 zł w pozostałych przypadkach; 7 dni (aktualizacja 7 sierpnia 2026 r.)",
+        url: "https://www.podatki.gov.pl/zaswiadczenia/certyfikat-rezydencji-podatkowej-cfr",
+        kind: "official",
+      },
+      {
         id: "ordynacja",
         citation:
-          "Ustawa z dnia 29 sierpnia 1997 r. – Ordynacja podatkowa, tekst jednolity Dz.U. 2026 poz. 622 — art. 77 § 1 pkt 5 i 5a, art. 306l; zmiana Dz.U. 2026 poz. 846 (od 1 października 2026 r.) tych przepisów nie dotyczy",
+          "Ustawa z dnia 29 sierpnia 1997 r. – Ordynacja podatkowa, tekst jednolity Dz.U. 2026 poz. 622 — art. 13 § 1 pkt 1, art. 77 § 1 pkt 5 i 5a, art. 306a § 3–5, art. 306b § 2, art. 306c, art. 306l; zmiana Dz.U. 2026 poz. 846 (od 1 października 2026 r.) tych przepisów nie dotyczy",
         url: "https://api.sejm.gov.pl/eli/acts/DU/2026/622/text.pdf",
         kind: "official",
       },
@@ -3029,7 +3050,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "pit",
         citation:
-          "Ustawa z dnia 26 lipca 1991 r. o podatku dochodowym od osób fizycznych, tekst jednolity Dz.U. 2026 poz. 592 — art. 3, 4a, 6 ust. 2–3a, 9a, 21 ust. 1 pkt 148 i 152 oraz ust. 43–44, 22 ust. 2, 27, 27f, 30c, 32, 38 ust. 1, 39 ust. 1–2, 42g, 45 ust. 1; zmiany Dz.U. 2026 poz. 779, 846 i 1079 tych przepisów nie dotyczą",
+          "Ustawa z dnia 26 lipca 1991 r. o podatku dochodowym od osób fizycznych, tekst jednolity Dz.U. 2026 poz. 592 — art. 3, 4a, 5a pkt 21, 6 ust. 2–3a, 9a, 21 ust. 1 pkt 148 i 152 oraz ust. 43–44, 22 ust. 2, 27, 27f, 29 ust. 2, 30c, 32, 38 ust. 1, 39 ust. 1–2, 41 ust. 9a–9c, 42g, 45 ust. 1 i 7a; zmiany Dz.U. 2026 poz. 779, 846 i 1079 tych przepisów nie dotyczą",
         url: "https://api.sejm.gov.pl/eli/acts/DU/2026/592/text.pdf",
         kind: "official",
       },

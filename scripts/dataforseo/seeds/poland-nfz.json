@@ -1,0 +1,22 @@
+{
+  "_about": "Demand in Poland for health insurance and NFZ, in Russian, Ukrainian and Polish, 19 Sep 2026: whether an insurance/NFZ page is worth writing for the Poland section. Location Poland.",
+  "location": 2616,
+  "languages": {
+    "ru": [
+      "страховка в польше", "медицинская страховка в польше", "nfz", "нфз польша", "страховка для карты побыту",
+      "добровольное страхование nfz", "страховка для иностранцев в польше", "как получить страховку nfz",
+      "бесплатная медицина в польше", "ehic польша"
+    ],
+    "uk": [
+      "страховка в польщі", "медичне страхування в польщі", "нфз польща", "страховка для карти побиту",
+      "добровільне страхування nfz", "страховка для іноземців в польщі", "як отримати страховку nfz",
+      "безкоштовна медицина в польщі", "страховка nfz для українців"
+    ],
+    "pl": [
+      "dobrowolne ubezpieczenie zdrowotne nfz", "ubezpieczenie zdrowotne dla cudzoziemca", "ubezpieczenie do karty pobytu",
+      "ubezpieczenie zdrowotne cudzoziemca karta pobytu", "umowa z nfz dobrowolne ubezpieczenie",
+      "ile kosztuje dobrowolne ubezpieczenie zdrowotne", "ewuś cudzoziemiec", "ubezpieczenie zdrowotne ukraińcy"
+    ]
+  },
+  "topic": "страх|nfz|нфз|медиц|ehic|ubezpiecz|ewuś|ewus|zdrowot"
+}

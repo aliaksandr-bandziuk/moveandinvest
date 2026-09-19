@@ -122,7 +122,8 @@ wrong sends the build in the wrong direction for days.
     The Polish home page carries the Poland band too.
     **Polish-only pages, 18 Sep 2026**, for large Polish demand with no Russian
     counterpart (zadatek a zaliczka, the land register, preliminary and
-    reservation contracts, suspending a business, employing a foreigner): their
+    reservation contracts, suspending a business, employing a foreigner, and —
+    19 Sep 2026 — the certyfikat rezydencji podatkowej, 2,900): their
     facts are either taken from already-verified pages or read fresh and
     recorded in the dossier (part 26), with a /sources row — the same bar, just
     without a Russian original. Only Polish bodies may link to them.
@@ -143,7 +144,12 @@ wrong sends the build in the wrong direction for days.
     searches each and stay Russian and Polish. Latin-script Polish terms
     ("karta pobytu", "meldunek") are searched in every language and are not
     English demand. An English body may link only to Poland entries that have
-    an English version; the rest are named in plain text.
+    an English version; the rest are named in plain text. **Two more on 19 Sep
+    2026:** case status (poland-waiting) and taxes (poland-taxes). Their real
+    English demand is smaller than it first looked — about 130 and 270 a month
+    once the portal name "mos poland" and the Latin-script Polish terms are
+    taken out. English mortgage stays unwritten: its readers search for rates,
+    which the site does not publish.
   - **Eleven Poland pages are in Ukrainian, under a partial `/uk/`, decided
     18 Sep 2026** («даю разрешение. делаем.»), from the Ukrainian demand
     measured in Poland (`.dfs/volume-poland-uk-all-2026-09-18.json`: «карта
