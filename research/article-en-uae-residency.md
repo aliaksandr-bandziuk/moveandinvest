@@ -222,7 +222,7 @@ The distinction that decides whether the certificate is any use:
 - a **domestic-purpose** certificate is issued on the Cabinet Decision 85/2022 criteria alone;
 - a **treaty-purpose** certificate names a specific double tax agreement, and getting it means satisfying **that treaty's own residence article**, which may test something different.
 
-**The practical consequence.** A person who qualifies on the 90-day domestic test can hold a perfectly valid UAE certificate and still be refused treaty benefits abroad, because the other country applies its own treaty's rules. A domestic certificate is not a shield against another country's residency assertion, and it is sold as though it were.
+**The practical consequence.** A person who qualifies on the 90-day domestic test can hold a perfectly valid UAE certificate and still be refused treaty benefits abroad, because the other country applies its own treaty's rules. A domestic certificate is not a shield against another country's residency assertion, and it is sold as though it were. Who qualifies, which documents each test needs and how long it takes: [the UAE tax residency certificate, step by step](entry:uae-trc).
 
 ### Do you pay tax in Dubai? What the "no tax" claim leaves out
 

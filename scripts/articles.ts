@@ -1062,6 +1062,21 @@ const ENTRIES: Record<string, EntryConfig> = {
     // 2030 года без условия гражданства. Пиллар «Недвижимость в Польше» не
     // делаем: «недвижимость в польше» — 50 в месяц.
   },
+  "uae-trc": {
+    key: "article-uae-trc",
+    sources: {
+      en: "article-en-uae-trc.md",
+      ru: "article-ru-uae-trc.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-19T19:00:00.000Z",
+    category: "taxes",
+    countries: ["country-ae"],
+    // THE UAE TAX RESIDENCY CERTIFICATE FOR INDIVIDUALS, 19 September 2026.
+    // English demand in the UAE ("tax residency certificate uae" 1,600, "trc
+    // certificate uae" 390); Russian impressions in Search Console from outside
+    // the UAE. Every figure from research/uae-trc-verification-2026-09-19.md.
+  },
   "poland-tax-residence": {
     key: "article-poland-tax-residence",
     sources: {

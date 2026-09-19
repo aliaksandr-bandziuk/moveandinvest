@@ -1192,7 +1192,7 @@ const SELF_REFERENTIAL = new Set(["where-figures-from", "how-often-rechecked"]);
 //
 // TO UPDATE: change the numbers in the two answers and in
 // scripts/copy/sourcesPage.ts, then change them here. All three or none.
-const STATED_COUNTS = { checks: 100, corrected: 19, unverified: 6 };
+const STATED_COUNTS = { checks: 101, corrected: 19, unverified: 6 };
 
 function assertStatedCountsHold(sections: readonly { claims: { verdict: string }[] }[]): void {
   const claims = sections.flatMap((section) => section.claims);

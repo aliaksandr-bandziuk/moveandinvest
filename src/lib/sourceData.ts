@@ -1438,6 +1438,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           pl: "Poprzednie brzmienie było błędne podwójnie. Opłata rejestracyjna 4% nie jest praktyką rynkową: ustanawia ją Rezolucja Rady Wykonawczej nr 30 z 2013 roku, pozycja 1 załącznika, jako „4% wartości umowy sprzedaży”, czyli AED 80 000 przy nieruchomości za AED 2 000 000. Artykuł 3 tej samej rezolucji dzieli ją po połowie między kupującego i sprzedającego, „o ile nie uzgodniono inaczej” — to, że płaci ją w całości kupujący, jest zwyczajem, nie normą. Do tego dochodzą akt własności AED 250, opłaty za wiedzę i innowacje AED 20 oraz centrum rejestracyjne AED 4 200 z VAT. Sama złota wiza to AED 9 884,75 (badanie 700, Emirates ID 1 153, pobyt 2 856,75, DLD 4 020, administracyjna 1 155), plus AED 5 774,50 za osobę zależną i jednorazowe AED 318,75 za otwarcie akt rodziny. Prowizja pośrednika 2% jest jedynym składnikiem bez jakiejkolwiek podstawy urzędowej: własny FAQ DLD pozostawia stawkę umowie, a w jej braku przyjętemu zwyczajowi, i żadne prawo ani przepis RERA jej nie ogranicza. Koszty ustalone urzędowo dają około €22 000; €31 000 w tabeli zawiera te 2%, a drugim błędem było twierdzenie, że ich nie zawiera.",
         },
       },
+      {
+        subject: {
+          en: "The UAE tax residency certificate for an individual: who qualifies, what to upload, the fee and the time",
+          ru: "Сертификат налогового резидентства ОАЭ для физлица: кто получает, что загрузить, сколько стоит и сколько ждать",
+          pl: "Certyfikat rezydencji podatkowej ZEA dla osoby fizycznej: kto go dostaje, co załączyć, ile kosztuje i ile trwa",
+        },
+        verdict: "added",
+        checked: "2026-09-19",
+        finding: {
+          en: "Art. 4 of Cabinet Decision 85/2022 gives three independent tests: the usual residence and centre of interests, 183 days in 12 consecutive months, or 90 days with UAE or GCC nationality or a valid residence permit plus a permanent place of residence or employment or business; art. 5 lets a resident apply, and art. 6 defers to a treaty's own residence rule. Ministerial Decision 27/2023 counts every part-day, not necessarily consecutive (art. 3), lets the FTA disregard days of exceptional circumstances (art. 4), and defines a rented home as a permanent place of residence (art. 5). Ministerial Decision 247/2023 sets the treaty certificate, which names the agreement and its dates. The FTA guide TPGTR1 (October 2024, not legally binding) and the FTA service page (updated 11 August 2026) give the procedure: EmaraTax; a calendar year or other 12-month period, current or past, never future; AED 50 on submission, AED 1,000 for a natural person without a corporate tax number or AED 500 with one, AED 250 per printed copy; generally 10 business days; document sets per test; stamping of a foreign country's own form.",
+          ru: "Ст. 4 постановления правительства 85/2022 даёт три независимых теста: обычное место жительства и центр интересов, 183 дня за 12 месяцев подряд, или 90 дней при гражданстве ОАЭ или стран ССАГПЗ либо действующем разрешении на жительство плюс постоянное жильё, работа или бизнес; ст. 5 позволяет резиденту подать заявление, ст. 6 отсылает к правилу резидентства конкретного договора. Решение министра 27/2023 считает каждую часть дня, не обязательно подряд (ст. 3), разрешает FTA не учитывать дни исключительных обстоятельств (ст. 4) и признаёт постоянным жильём и арендованное (ст. 5). Решение министра 247/2023 вводит сертификат для договора, где названы соглашение и сроки. Руководство FTA TPGTR1 (октябрь 2024, юридической силы не имеет) и страница услуги FTA (обновлена 11 августа 2026) описывают порядок: EmaraTax; календарный год или другие 12 месяцев, текущий или прошлый период, не будущий; 50 AED при подаче, 1 000 AED для физлица без номера корпоративного налога или 500 AED с номером, 250 AED за бумажную копию; обычно 10 рабочих дней; набор документов под каждый тест; заверение формы другой страны.",
+          pl: "Art. 4 decyzji rządu 85/2022 przewiduje trzy niezależne testy: zwykłe miejsce zamieszkania i ośrodek interesów, 183 dni w 12 kolejnych miesiącach albo 90 dni przy obywatelstwie ZEA lub państwa GCC albo ważnym zezwoleniu na pobyt oraz stałym mieszkaniu, zatrudnieniu lub działalności; art. 5 pozwala rezydentowi złożyć wniosek, a art. 6 odsyła do reguły rezydencji danej umowy. Decyzja ministra 27/2023 liczy każdą część dnia, niekoniecznie kolejne (art. 3), pozwala FTA pominąć dni wyjątkowych okoliczności (art. 4) i uznaje za stałe mieszkanie także wynajmowane (art. 5). Decyzja ministra 247/2023 wprowadza certyfikat dla umowy, wskazujący umowę i daty. Przewodnik FTA TPGTR1 (październik 2024, niewiążący) i strona usługi FTA (aktualizacja 11 sierpnia 2026) opisują procedurę: EmaraTax; rok kalendarzowy albo inne 12 miesięcy, bieżący lub miniony, nigdy przyszły; 50 AED przy złożeniu, 1000 AED dla osoby fizycznej bez numeru podatku od osób prawnych albo 500 AED z numerem, 250 AED za wydruk; zwykle 10 dni roboczych; zestaw dokumentów dla każdego testu; poświadczanie formularza innego państwa.",
+        },
+      },
     ],
     sources: [
       // ADDED 30 AUGUST 2026 for the Emirati relocation guide. The first two
@@ -1472,15 +1486,36 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "cd-85-2022",
         citation:
-          "Cabinet Decision No. 85 of 2022 on Determination of Tax Residency, art. 4 — in force 01.03.2023",
+          "Cabinet Decision No. 85 of 2022 on Determination of Tax Residency, arts. 1, 4, 5 and 6 — in force 01.03.2023 (FTA unofficial translation)",
         url: "https://tax.gov.ae/Datafolder/Files/Legislation/Corporate%20Tax/Cabinet%20Decision%2085%20of%202022%20-%20For%20publishing.pdf",
         kind: "official",
       },
       {
         id: "md-27-2023",
         citation:
-          "Ministerial Decision No. 27 of 2023, arts. 3 to 6 — how days, homes and employment are counted",
+          "Ministerial Decision No. 27 of 2023, arts. 2 to 6 — residence and centre of interests, how days, homes and employment are counted",
         url: "https://mof.gov.ae/wp-content/uploads/2023/03/Ministerial-Decision-27-of-2023-of-Tax-Residency.pdf",
+        kind: "official",
+      },
+      {
+        id: "md-247-2023",
+        citation:
+          "Ministerial Decision No. 247 of 2023 on the Issuance of Tax Residency Certificate for the Purposes of International Agreements, art. 2 and the attached form — issued 16.10.2023, in force from 01.03.2023",
+        url: "https://mof.gov.ae/wp-content/uploads/2023/10/Ministerial-Decision-No247-of-2023-on-the-Issuance-of-Tax-Residency-Certificate-for-the-Purposes-of-International-Agreements.pdf",
+        kind: "official",
+      },
+      {
+        id: "fta-trc-guide",
+        citation:
+          "Federal Tax Authority — Tax Resident and Tax Residency Certificate, Tax Procedures Guide TPGTR1, October 2024, sections 7 and 8 (not legally binding, by its own statement)",
+        url: "https://tax.gov.ae/Datafolder/Files/Guides/VAT/VAT%20Guides/Tax-Resident-and-TRC--18-10-2024.pdf",
+        kind: "official",
+      },
+      {
+        id: "fta-trc-service",
+        citation:
+          "Federal Tax Authority — Issuance of Tax Certificates for Tax Residency, service page: fees, time and documents (updated 11.08.2026)",
+        url: "https://tax.gov.ae/en/services/issuance.of.tax.certificates.aspx",
         kind: "official",
       },
       {

@@ -62,6 +62,11 @@ export const MARKETS: Market[] = [
   // foreigners in Poland who search in English. On demand only, so the default
   // English sweep for the five jurisdictions keeps measuring the US and the UK.
   { key: "en-PL", locationCode: 2616, locationName: "Poland", languageCode: "en", proxy: false, labs: false, onDemand: true },
+  // ADDED 19 SEPTEMBER 2026 for the UAE tax residency certificate page: the
+  // demand is English searches made in the UAE ('tax residency certificate uae'
+  // 1,600). On demand only, like en-PL.
+  { key: "en-AE", locationCode: 2784, locationName: "United Arab Emirates", languageCode: "en", proxy: false, labs: false, onDemand: true },
+  { key: "ru-AE", locationCode: 2784, locationName: "United Arab Emirates", languageCode: "ru", proxy: false, labs: false, onDemand: true },
 ];
 
 /** The site's own domain, without protocol or www — the form Labs expects. */
