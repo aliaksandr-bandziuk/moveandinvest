@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (57 characters):**
-`Golden visa income requirements: which routes test income`
+**Meta title (58 characters):**
+`Golden visa income requirements 2026: who checks, how much`
 
-**Meta description (154 characters):**
-`Three of four investment routes ask nothing about your income. Portugal is the exception. Every threshold here is quoted from the instrument that sets it.`
+**Meta description (147 characters):**
+`Greece, Malta and the UAE test an investor's income not at all; Portugal does. Income routes from €920 to €3,500 a month, each quoted from the law.`
 
 **Excerpt:**
 `The routes that cost the most money test income the least. Greece, Malta and the UAE ask investors to prove nothing about their income; Portugal is the one exception and almost nobody writing about it says so. Every threshold below is quoted from the instrument that sets it, and the cost-of-living half explains why one comparison table would be a lie.`

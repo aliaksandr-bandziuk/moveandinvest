@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (55 characters):**
-`Greece golden visa requirements and citizenship in 2026`
+**Meta title (54 characters):**
+`Greece golden visa 2026: €250k, €400k or €800k by area`
 
-**Meta description (155 characters):**
-`The €800,000, €400,000 and €250,000 tiers, the €3,500 income route, and the rule nobody states: permanent residence counts days in Greece, not permit type.`
+**Meta description (157 characters):**
+`Which areas cost €800,000, where €400,000 still works, the two €250,000 exceptions, the 7% tax regime and why permanent residency counts your days in Greece.`
 
 **Excerpt:**
 `Greece asks €800,000 in Attica and €400,000 elsewhere, and the two €250,000 exceptions carry no minimum floor area at all. It asks a person living on their own income to prove €3,500 a month under a ministerial decision no competitor page cites. And whether either route ever reaches permanent residence turns on something almost nobody writes down: not which permit you hold, but how many days you spend in the country.`

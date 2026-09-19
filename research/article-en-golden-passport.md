@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (53 characters):**
-`Golden passport: what a golden visa actually leads to`
+**Meta title (60 characters):**
+`Citizenship by investment 2026: how many years to a passport`
 
-**Meta description (150 characters):**
-`No state here sells a passport, and the one that did was stopped by a court. What each naturalisation clock counts, and where it quietly does not run.`
+**Meta description (153 characters):**
+`Portugal 10 years (7 for EU and Portuguese-speaking citizens), Greece 7, Malta at least 5, the UAE none. What each naturalisation clock counts, and when.`
 
 **Excerpt:**
 `Golden passport is a phrase with no legal referent anywhere in these four jurisdictions. What each of them actually offers is a residence permit and a clock, and the clocks do not count what most people think they count. Three separate periods get collapsed into one in almost every comparison table: the permit's own renewal conditions, the presence test for long-term residence, and the naturalisation period. They are different lengths, they count different things, and only one of them ends in a passport.`

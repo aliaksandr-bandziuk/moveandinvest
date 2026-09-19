@@ -11,10 +11,10 @@
 ## Metadata
 
 **Meta title (57 characters):**
-`Koszty życia i wymagany dochód: Portugalia, Grecja, Malta`
+`Płaca minimalna w Portugalii 920 € a dochód na pobyt 2026`
 
-**Meta description (159 characters):**
-`Ile realnie kosztuje życie w Portugalii, Grecji, na Malcie i w Dubaju oraz jaki dochód trzeba udokumentować, żeby dostać pobyt. Ze wskazaniem podstawy prawnej.`
+**Meta description (147 characters):**
+`Portugalia wymaga dochodu równego płacy minimalnej, 920 € w 2026; Grecja 3500 €, nomadzi na Malcie 42 000 € rocznie. Koszty życia w pięciu krajach.`
 
 **Excerpt:**
 `Nie o wakacje tu chodzi, tylko o przeprowadzkę na stałe. Portugalia i Grecja są około 14 procent poniżej średniego poziomu cen w Unii, Malta około 8 procent. Do tego progi dochodowe: od 920 euro miesięcznie w Portugalii do 3500 euro w Grecji, a przy trasach inwestycyjnych najczęściej zero. Każda liczba z aktu, który ją ustanawia.`

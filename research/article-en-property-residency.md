@@ -10,11 +10,11 @@
 
 ## Metadata
 
-**Meta title (59 characters):**
-`Property investment visa in 2026: which countries grant one`
+**Meta title (60 characters):**
+`Golden visa by buying property in 2026: where it still works`
 
 **Meta description (157 characters):**
-`Property is the route in two of five jurisdictions, abolished in one, part of a package in one. Thresholds, full cost and real timelines, with statute cites.`
+`Portugal dropped property in 2023, Greece asks €800,000 across half the country, Malta counts it as one of five payments. Thresholds, extra costs, timelines.`
 
 **Excerpt:**
 `Buying property gets you residency in far fewer places than the advertising suggests. Portugal removed property from its qualifying routes in 2023, Greece raised the threshold to €800,000 across half the country, and on Malta the property is one of five payments rather than the route itself. Five jurisdictions read against the statute: thresholds, the full cost on top of the threshold, real processing times, and the restrictions that get a permit revoked.`
