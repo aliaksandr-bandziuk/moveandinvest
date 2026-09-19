@@ -55,12 +55,19 @@ export function generateStaticParams() {
 // so a cached listing never learns that Monday came. The query was promising
 // something only a time floor can deliver.
 //
-// SIXTY SECONDS, and the cost is bounded by traffic rather than by page count:
-// a cached page revalidates at most once a minute, only when somebody asks for
-// it, and serves the stale copy while it refreshes. The webhook stays — when it
-// fires the update is instant and this floor is never reached — but it is no
-// longer the only thing between a publish and a reader.
-export const revalidate = 60;
+// ONE HOUR, since 19 September 2026. It was sixty seconds, on the argument that
+// the cost is bounded by traffic — and traffic turned out to be the problem:
+// crawlers ask for every page, so nearly every page re-rendered once a minute.
+// On Vercel's free plan that came to 368K ISR writes against a 200K limit and
+// 4 h 57 min of CPU against 4 h, and a project over its limits stops deploying
+// (a push on 18 September sat unbuilt until storage was freed). An hour cuts
+// the timed re-renders about sixty-fold.
+//
+// What it costs: an entry dated in the future appears in the /blog listing
+// within an hour of its date instead of within a minute. Edits are unaffected —
+// the Sanity webhook still revalidates by tag the moment a document changes,
+// and this floor is only reached when nothing edits anything.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
