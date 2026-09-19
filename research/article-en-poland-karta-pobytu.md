@@ -209,7 +209,7 @@ Since 27 April 2026 an application for a temporary residence permit is filed **o
 7. **Attend when summoned** — no earlier than 7 days after the summons is delivered — with your passport, to give fingerprints and a specimen signature, art. 106e.
 8. **Present documents** when summoned, within a time limit of at least 14 days, art. 106f — including the originals of those you attached as scans.
 
-**The main risk is step 7.** If you do not attend on a proper summons, do not give fingerprints or a signature, or do not show your passport, **the proceedings are discontinued**, art. 106i. Summonses do not arrive in MOS but through e-Doręczenia (electronic delivery) or by registered letter, and a letter not collected is treated as delivered after 14 days — see the entry on checking your case status.
+**The main risk is step 7.** If you do not attend on a proper summons, do not give fingerprints or a signature, or do not show your passport, **the proceedings are discontinued**, art. 106i. Summonses do not arrive in MOS but through e-Doręczenia (electronic delivery) or by registered letter, and a letter not collected is treated as delivered after 14 days — see [how to check your case status](entry:poland-waiting).
 
 Children under 6 give no fingerprints and need not attend; under 13 they give no signature. The voivode's office is obliged to help you file the application.
 
@@ -244,7 +244,7 @@ Amounts and exemptions follow the annex to the [Stamp Duty Act](/sources#pl-lega
 
 Under the act, a decision on temporary residence is issued within **60 days** — counted from a complete application, or from the documents the voivode requested, art. 112a.
 
-But at the voivode **time limits in residence cases are suspended until 4 March 2027**, art. 100d of the Act on assistance to citizens of Ukraine. This applies to all foreigners, not only Ukrainians, and a complaint about delay has no basis during this period. How to check your case status and what to do if it has stalled is covered in a separate entry.
+But at the voivode **time limits in residence cases are suspended until 4 March 2027**, art. 100d of the Act on assistance to citizens of Ukraine. This applies to all foreigners, not only Ukrainians, and a complaint about delay has no basis during this period. How to check your case status and what to do if it has stalled is covered in [a separate entry](entry:poland-waiting).
 
 ### What a residence card gives you: travel, work, further status
 

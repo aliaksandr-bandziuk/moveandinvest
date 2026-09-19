@@ -55,7 +55,7 @@ This page is a map. Each section answers the main question briefly and points to
 - **At filing** you must attach the application, a photo, a scan of every page of your passport and, for a work-based permit, **annex no. 1** (*załącznik nr 1*) from your employer.
 - **Other documents** — on the voivode's summons, with a deadline of no less than **14 days**; they must be valid **on the day the decision is issued**.
 - **Processing time** — 60 days under the statute, but until 4 March 2027 deadlines at the voivode are suspended.
-- **Case status** is checked with the voivode for your place of stay; there is no single service, and MOS does not show the status once the application is filed.
+- **Case status** is checked with the voivode for your place of stay; there is no single service, and MOS does not show the status once the application is filed — [how to check your case status](entry:poland-waiting).
 
 The grounds, conditions and fees for each type of card are in the detailed page on the [karta pobytu](entry:poland-karta-pobytu).
 
@@ -91,7 +91,7 @@ Legalisation is not the last document. After it come the matters that also depen
 | --- | --- |
 | Address registration (*zameldowanie*, "meldunek") — no later than the 4th day for citizens of non-EU countries | — |
 | PESEL number — automatically on address registration, or on application | [PESEL in Poland](entry:poland-pesel) |
-| Income tax, reliefs for people under 26 and for holders of the Pole's Card, refunds | — |
+| Income tax, reliefs for people under 26 and for holders of the Pole's Card, refunds | [Taxes in Poland for foreigners](entry:poland-taxes) |
 | Exchanging a driving licence — 6 months from the day your stay began | — |
 | Buying a flat, a house or land, and the MSWiA permit | — |
 | Mortgage: down payment, loan currency, family loan | — |
@@ -104,7 +104,7 @@ Legalisation is not the last document. After it come the matters that also depen
 | --- | --- |
 | Types of card, grounds, conditions, fees | [Karta pobytu in Poland](entry:poland-karta-pobytu) |
 | Documents and filing through MOS | This page, the section on applying |
-| Case status and waiting | This page, the section on applying |
+| Case status and waiting | [How to check your case status](entry:poland-waiting) |
 | Renewal and the next card | This page, the table on refusals and deadlines |
 | Changing employer and losing a job | This page, the table on refusals and deadlines |
 | Refusal and appeal | This page, the table on refusals and deadlines |

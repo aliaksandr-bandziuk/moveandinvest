@@ -27,6 +27,7 @@ export const UK_RESEARCH_SLUGS: readonly string[] = [
   "yak-vidkryty-firmu-v-polshchi",
   "podatky-v-polshchi",
   "ipoteka-v-polshchi",
+  "kupivlia-nerukhomosti-v-polshchi",
 ];
 
 /** Ukrainian reference (pillar) entries, served at /uk/<slug>. */

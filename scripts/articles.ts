@@ -883,6 +883,7 @@ const ENTRIES: Record<string, EntryConfig> = {
     sources: {
       ru: "article-ru-poland-property.md",
       pl: "article-pl-poland-property.md",
+      uk: "article-uk-poland-property.md",
     },
     figures: {},
     publishedAt: "2026-09-16T08:00:00.000Z",

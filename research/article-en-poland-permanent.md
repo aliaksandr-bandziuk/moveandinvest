@@ -146,7 +146,7 @@ MOS is the Office for Foreigners' online case system (*Moduł Obsługi Spraw*).
 6. **Attend when summoned** — no earlier than 7 days after the summons is delivered — with your passport, and for EU long-term residence with your title to housing, to give fingerprints and a specimen signature, art. 203e and art. 219e.
 7. **Submit documents** when asked — within a deadline of at least 14 days, art. 203f and art. 219f.
 
-**The main risk in the procedure is step 6.** If you do not attend on a properly served summons, do not give fingerprints or a signature, or do not show your passport or housing title, **the case is discontinued**, art. 203i and art. 219i. Summonses arrive through e-Doręczenia (the state electronic delivery service) or by registered letter, and a letter you do not collect is treated as delivered after 14 days.
+**The main risk in the procedure is step 6.** If you do not attend on a properly served summons, do not give fingerprints or a signature, or do not show your passport or housing title, **the case is discontinued**, art. 203i and art. 219i. Summonses arrive through e-Doręczenia (the state electronic delivery service) or by registered letter, and a letter you do not collect is treated as delivered after 14 days — more in [how to check your case status](entry:poland-waiting).
 
 ### How long a decision takes
 
