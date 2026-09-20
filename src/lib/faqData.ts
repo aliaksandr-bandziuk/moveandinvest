@@ -80,6 +80,7 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
         key: "what-is",
         countries: [],
         sources: [],
+        home: true,
         q: {
           en: "What is a golden visa, exactly?",
           ru: "Что такое золотая виза, если по существу?",
@@ -177,6 +178,7 @@ const FAQ_SECTIONS_RAW: FaqSection[] = [
         key: "cheapest-entry",
         countries: [],
         sources: ["pt", "gr", "mt", "ae", "cy"],
+        home: true,
         q: {
           en: "Where is the entry threshold lowest?",
           ru: "Где самый низкий порог входа?",

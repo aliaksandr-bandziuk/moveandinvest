@@ -149,19 +149,19 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       sourcePending: "Sources are added as each jurisdiction page is verified.",
       pendingLabel: "In fact-checking",
       pendingNote: "Every figure is verified against a primary source before it appears here. The table goes live one jurisdiction at a time, as each is confirmed.",
-      heading: "Where to move, and what it actually costs",
+      heading: "Golden visa, compared: where to move and what it actually costs",
       intro: "Residency routes, tax regimes and property rules in five jurisdictions — compared on the same four questions, sourced, and dated. No brochures, no brokers.",
       primaryCta: { label: "Compare jurisdictions", href: "#enquiry" },
       secondaryCta: { label: "For partners", href: "/for-partners" },
       contentsLabel: "On this page",
-      tableEyebrow: "Comparison",
-      tableHeading: "Residency by investment, 2026",
+      tableEyebrow: "Golden visa comparison",
+      tableHeading: "Five golden visa routes in 2026, on four figures each",
       tableIntro: "One row per jurisdiction and the same four columns for all of them: the route, the entry threshold, the time to a first permit and the tax regime. Where a threshold varies by region or property type, that jurisdiction's own page says so and this table carries the lower bound. Cyprus is listed without figures — we do not publish what we have not checked against a primary source.",
       tableDetailLabel: "Full comparison",
       tableScrollHint: "Two more columns: first permit and tax",
     },
     method: {
-      eyebrow: "Method",
+      eyebrow: "How we check figures",
       heading: "How the comparison is built",
       intro: "Four questions, one method, applied the same way to five jurisdictions. We take no percentage of any transaction and sell no property, so no developer can buy a better place in the table. The figures come from statutes and official tariffs rather than agency brochures, and they are revised when a rule changes, not on a schedule.",
       points: [
@@ -172,14 +172,14 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       ],
     },
     map: {
-      eyebrow: "Jurisdictions",
-      heading: "Five jurisdictions, five different bets",
+      eyebrow: "Five jurisdictions",
+      heading: "Portugal, Greece, Malta, the UAE and Cyprus: five different bets",
       intro: "The same four questions for each of them. Which one fits depends less on the entry threshold than on what you are actually buying: time, a passport, or a tax position. Greece is the cheapest to enter and the more expensive to hold; the UAE is the fastest and offers no route to a European passport. Below is one card per jurisdiction, each leading to its own page.",
       note: "Each outline is drawn to the size of its card, so Malta appears as large as Portugal: these are identifying marks, not a map. Boundaries are simplified for legibility and are not a statement about any border.",
     },
     cost: {
-      eyebrow: "The real number",
-      heading: "The threshold is not the price",
+      eyebrow: "What it really costs",
+      heading: "What a golden visa costs in the first year, not the threshold",
       intro: "Every comparison in this niche publishes the entry threshold. Almost nobody publishes what it costs to get through it: transfer taxes, legal and registration fees, government charges and the first renewal are not optional — everyone pays them, every time. Below, both figures stand side by side, jurisdiction by jurisdiction, and the third is what you will actually spend in the first year.",
       advertisedLabel: "Advertised",
       extrasLabel: "Everything else",
@@ -188,7 +188,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       note: "All figures in euro, converted where a jurisdiction sets its threshold in another currency, and checked against primary sources. A jurisdiction appears here only once both of its figures have been verified.",
     },
     routeFinder: {
-      eyebrow: "Find your route",
+      eyebrow: "Which route fits you",
       heading: "Three questions instead of an hour-long consultation",
       intro: "We ask for no name, no address and nothing about what is in your account. Three questions — the budget ceiling, how soon you need a first permit, and what matters most to you — and the summary rebuilds here: the real first-year cost, the timings and the tax position. Its figures are the ones in the table above, from the same primary sources. Nothing is sent anywhere until you press the button yourself.",
       questions: {
@@ -236,8 +236,8 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       unverified: "not verified",
     },
     faq: {
-      eyebrow: "Common questions",
-      heading: "Six questions usually answered evasively",
+      eyebrow: "Golden visa questions",
+      heading: "Golden visa questions this niche answers evasively",
       intro: "These are the questions this niche usually answers evasively: what the threshold includes, who pays for renewals, whether we take a commission, and why one country is not in the table yet. The answers are short, checked against primary sources, and each carries the date it was verified. None of them is legal advice — rules change, and your case may not reduce to them.",
       allLabel: "All",
       filterLegend: "Filter questions by jurisdiction",
@@ -245,7 +245,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       note: "Answers are checked against primary sources and dated. None of them is legal advice — rules change, and your case may not reduce to them.",
     },
     enquiry: {
-      eyebrow: "Enquiry",
+      eyebrow: "Leave an enquiry",
       heading: "Do you know the country — or not yet?",
       intro: "The form sits at the foot of the page rather than in a pop-up, and that is deliberate: figures first, conversation after. Only one field is required — an address to reply to. The rest is there so we can hand you to a lawyer who works on cases like yours rather than to a call centre: the more specific the case, the shorter the first answer. An enquiry goes only to a partner working in the chosen jurisdiction, and only if the consent box is ticked.",
       fork: {
@@ -340,19 +340,19 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       sourcePending: "Источники добавляются по мере проверки каждой страницы юрисдикции.",
       pendingLabel: "Идёт проверка фактов",
       pendingNote: "Каждая цифра сверяется с первоисточником, прежде чем появится здесь. Таблица выходит по одной юрисдикции, по мере подтверждения.",
-      heading: "Куда переехать и сколько это стоит на самом деле",
+      heading: "Золотая виза и ВНЖ за инвестиции: куда переехать и сколько это стоит",
       intro: "Маршруты резидентства, налоговые режимы и правила покупки недвижимости в пяти юрисдикциях — сравнение по одним и тем же четырём вопросам, со ссылками на источники и датой проверки. Без брошюр и посредников.",
       primaryCta: { label: "Сравнить юрисдикции", href: "#enquiry" },
       secondaryCta: { label: "Партнёрам", href: "/for-partners" },
       contentsLabel: "На этой странице",
-      tableEyebrow: "Сравнение",
-      tableHeading: "Резидентство за инвестиции, 2026",
+      tableEyebrow: "Сравнение золотых виз",
+      tableHeading: "Пять маршрутов ВНЖ за инвестиции в 2026 году, по четыре цифры на каждый",
       tableIntro: "Одна строка на юрисдикцию, одни и те же четыре колонки для всех: маршрут, порог входа, срок до первого пермита и налоговый режим. Если порог зависит от региона или типа объекта, об этом сказано на странице самой юрисдикции, а здесь стоит нижняя граница. Кипр в таблице есть, но без цифр — мы не публикуем то, чего не сверили с первоисточником.",
       tableDetailLabel: "Полное сравнение",
       tableScrollHint: "Ещё две колонки: пермит и налоги",
     },
     method: {
-      eyebrow: "Метод",
+      eyebrow: "Как мы проверяем цифры",
       heading: "Как устроено сравнение",
       intro: "Четыре вопроса, один метод, одинаково применённый к пяти юрисдикциям. Мы не берём процент со сделки и не продаём недвижимость, поэтому ни один застройщик не может купить себе место повыше в таблице. Цифры приходят из текстов законов и официальных тарифов, а не из брошюр агентств, и пересматриваются тогда, когда меняется правило, а не по календарю.",
       points: [
@@ -363,14 +363,14 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       ],
     },
     map: {
-      eyebrow: "Юрисдикции",
-      heading: "Пять юрисдикций, пять разных ставок",
+      eyebrow: "Пять юрисдикций",
+      heading: "Португалия, Греция, Мальта, ОАЭ и Кипр: пять разных ставок",
       intro: "Одни и те же четыре вопроса для каждой. Какая подходит, зависит не столько от порога входа, сколько от того, что вы на самом деле покупаете: время, паспорт или налоговую позицию. Греция дешевле всех на входе и дороже в удержании; ОАЭ быстрее всех и не дают пути к европейскому паспорту. Ниже — по карточке на юрисдикцию, каждая ведёт на свою страницу.",
       note: "Каждый контур приведён к размеру своей карточки, поэтому Мальта выглядит не меньше Португалии: это опознавательный знак, а не масштаб. Границы упрощены ради читаемости и не являются утверждением о чьих-либо рубежах.",
     },
     cost: {
-      eyebrow: "Настоящая цифра",
-      heading: "Порог входа — это не цена",
+      eyebrow: "Сколько стоит на самом деле",
+      heading: "Сколько стоит золотая виза в первый год, а не порог входа",
       intro: "Каждое сравнение в этой нише публикует порог входа. Почти никто не публикует, во сколько обходится его пройти: налоги на переход права, юридические и регистрационные сборы, государственные пошлины и первое продление не являются необязательными — их платят все и всегда. Ниже обе цифры стоят рядом, юрисдикция за юрисдикцией, и третьей идёт сумма, которую вы действительно потратите за первый год.",
       advertisedLabel: "Заявлено",
       extrasLabel: "Всё остальное",
@@ -379,7 +379,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       note: "Все суммы в евро, с пересчётом там, где порог установлен в другой валюте, и сверены с первоисточниками. Юрисдикция появляется здесь только после проверки обеих цифр.",
     },
     routeFinder: {
-      eyebrow: "Подбор маршрута",
+      eyebrow: "Какой маршрут подходит",
       heading: "Три вопроса вместо часовой консультации",
       intro: "Мы не спрашиваем ни имени, ни почты, ни того, сколько у вас на счету. Три вопроса — потолок бюджета, срок до первого пермита и то, что для вас важнее всего, — и сводка пересобирается прямо здесь: реальная стоимость первого года, сроки и налоговая позиция. Цифры в ней те же, что в таблице выше, и взяты из тех же первоисточников. Ничего никуда не отправляется, пока вы сами не нажмёте кнопку.",
       questions: {
@@ -427,8 +427,8 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       unverified: "не сверено",
     },
     faq: {
-      eyebrow: "Частые вопросы",
-      heading: "Шесть вопросов, на которые обычно отвечают уклончиво",
+      eyebrow: "Вопросы о золотой визе",
+      heading: "Вопросы о золотой визе, на которые обычно отвечают уклончиво",
       intro: "Здесь собраны вопросы, на которые в этой нише обычно отвечают уклончиво: что входит в порог, кто платит за продление, берём ли мы комиссию и почему одной страны в таблице пока нет. Ответы короткие, сверены с первоисточниками, и у каждого стоит дата проверки. Ни один из них не является юридической консультацией — правила меняются, а ваш случай может к ним не сводиться.",
       allLabel: "Все",
       filterLegend: "Фильтр вопросов по юрисдикции",
@@ -436,7 +436,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       note: "Ответы сверяются с первоисточниками и датируются. Ни один из них не является юридической консультацией — правила меняются, а ваш случай может к ним не сводиться.",
     },
     enquiry: {
-      eyebrow: "Заявка",
+      eyebrow: "Оставить заявку",
       heading: "Знаете страну — или пока нет?",
       intro: "Форма стоит внизу страницы, а не во всплывающем окне, и это осознанно: сначала цифры, потом разговор. Обязательное здесь одно — почта для ответа. Всё остальное нужно затем, чтобы передать вас профильному юристу, а не в общий колл-центр: чем конкретнее случай, тем короче будет первый ответ. Заявку передаём только партнёру, работающему в выбранной юрисдикции, и только если стоит галочка согласия.",
       fork: {
@@ -518,7 +518,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       ],
     },
     seo: {
-      metaTitle: "ВНЖ за инвестиции и недвижимость: пять юрисдикций — moveandinvest",
+      metaTitle: "Золотая виза и ВНЖ за инвестиции: пять юрисдикций",
       metaDescription: "Сравнение маршрутов резидентства, минимальных инвестиций, сроков до первого пермита и налоговых режимов: Португалия, Греция, Мальта, ОАЭ, Кипр.",
     },
   },
@@ -536,19 +536,19 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       sourcePending: "Źródła są dodawane w miarę weryfikacji kolejnych stron jurysdykcji.",
       pendingLabel: "W trakcie weryfikacji",
       pendingNote: "Każda liczba jest sprawdzana ze źródłem pierwotnym, zanim się tu pojawi. Tabela pojawia się po jednej jurysdykcji, w miarę potwierdzania.",
-      heading: "Dokąd się przeprowadzić i ile to naprawdę kosztuje",
+      heading: "Złota wiza i pobyt za inwestycje: dokąd się przeprowadzić i ile to kosztuje",
       intro: "Ścieżki rezydencji, reżimy podatkowe i zasady nabywania nieruchomości w pięciu jurysdykcjach — porównane według tych samych czterech pytań, ze źródłami i datą weryfikacji. Bez broszur i pośredników.",
       primaryCta: { label: "Porównaj jurysdykcje", href: "#enquiry" },
       secondaryCta: { label: "Dla partnerów", href: "/for-partners" },
       contentsLabel: "Na tej stronie",
-      tableEyebrow: "Porównanie",
-      tableHeading: "Rezydencja za inwestycję, 2026",
+      tableEyebrow: "Porównanie złotych wiz",
+      tableHeading: "Pięć ścieżek złotej wizy w 2026 roku, po cztery liczby na każdą",
       tableIntro: "Jeden wiersz na jurysdykcję i te same cztery kolumny dla wszystkich: ścieżka, próg wejścia, czas do pierwszego pozwolenia i reżim podatkowy. Jeśli próg zależy od regionu lub rodzaju nieruchomości, mówi o tym strona danej jurysdykcji, a tutaj podana jest dolna granica. Cypr jest na liście bez liczb — nie publikujemy tego, czego nie potwierdziliśmy u źródła.",
       tableDetailLabel: "Pełne porównanie",
       tableScrollHint: "Jeszcze dwie kolumny: pozwolenie i podatki",
     },
     method: {
-      eyebrow: "Metoda",
+      eyebrow: "Jak sprawdzamy liczby",
       heading: "Jak zbudowane jest porównanie",
       intro: "Cztery pytania, jedna metoda, zastosowana tak samo do pięciu jurysdykcji. Nie bierzemy procentu od transakcji i nie sprzedajemy nieruchomości, więc żaden deweloper nie kupi sobie wyższego miejsca w tabeli. Liczby pochodzą z tekstów ustaw i oficjalnych taryf, a nie z broszur agencji, i są aktualizowane wtedy, gdy zmienia się przepis, a nie według kalendarza.",
       points: [
@@ -559,14 +559,14 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       ],
     },
     map: {
-      eyebrow: "Jurysdykcje",
-      heading: "Pięć jurysdykcji, pięć różnych zakładów",
+      eyebrow: "Pięć jurysdykcji",
+      heading: "Portugalia, Grecja, Malta, ZEA i Cypr: pięć różnych zakładów",
       intro: "Te same cztery pytania dla każdej. To, która pasuje, zależy mniej od progu wejścia niż od tego, co naprawdę kupujesz: czas, paszport albo pozycję podatkową. Grecja jest najtańsza na wejściu i droższa w utrzymaniu; ZEA są najszybsze i nie dają drogi do paszportu europejskiego. Poniżej jedna karta na jurysdykcję, każda prowadzi na własną stronę.",
       note: "Każdy kontur dopasowano do rozmiaru swojej karty, więc Malta wygląda na nie mniejszą niż Portugalia: to znak rozpoznawczy, nie mapa. Granice są uproszczone dla czytelności i nie stanowią stanowiska wobec jakiejkolwiek granicy.",
     },
     cost: {
-      eyebrow: "Prawdziwa liczba",
-      heading: "Próg wejścia to nie cena",
+      eyebrow: "Ile to naprawdę kosztuje",
+      heading: "Ile złota wiza kosztuje w pierwszym roku, a nie ile wynosi próg",
       intro: "Każde porównanie w tej niszy publikuje próg wejścia. Prawie nikt nie publikuje, ile kosztuje jego przejście: podatki od przeniesienia praw, opłaty prawne i rejestracyjne, opłaty urzędowe oraz pierwsze przedłużenie nie są opcjonalne — płacą je wszyscy i zawsze. Poniżej obie liczby stoją obok siebie, jurysdykcja po jurysdykcji, a trzecia to kwota, którą naprawdę wydasz w pierwszym roku.",
       advertisedLabel: "Deklarowane",
       extrasLabel: "Cała reszta",
@@ -575,7 +575,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       note: "Wszystkie kwoty w euro, przeliczone tam, gdzie próg ustalono w innej walucie, i zweryfikowane ze źródłami pierwotnymi. Jurysdykcja pojawia się tu dopiero po sprawdzeniu obu liczb.",
     },
     routeFinder: {
-      eyebrow: "Dobór ścieżki",
+      eyebrow: "Która ścieżka pasuje",
       heading: "Trzy pytania zamiast godzinnej konsultacji",
       intro: "Nie pytamy o imię, o adres ani o to, ile masz na koncie. Trzy pytania — pułap budżetu, termin pierwszego pozwolenia i to, co jest dla ciebie najważniejsze — i podsumowanie składa się właśnie tutaj: rzeczywisty koszt pierwszego roku, terminy i pozycja podatkowa. Liczby są te same co w tabeli powyżej i z tych samych źródeł. Nic nigdzie nie wychodzi, dopóki sam nie naciśniesz przycisku.",
       questions: {
@@ -623,8 +623,8 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       unverified: "niezweryfikowane",
     },
     faq: {
-      eyebrow: "Częste pytania",
-      heading: "Sześć pytań, na które zwykle odpowiada się wymijająco",
+      eyebrow: "Pytania o złotą wizę",
+      heading: "Pytania o złotą wizę, na które zwykle odpowiada się wymijająco",
       intro: "Zebrane tu pytania to te, na które w tej branży zwykle odpowiada się wymijająco: co wchodzi w próg, kto płaci za przedłużenie, czy bierzemy prowizję i dlaczego jednego kraju jeszcze nie ma w tabeli. Odpowiedzi są krótkie, sprawdzone u źródeł, a przy każdej stoi data weryfikacji. Żadna z nich nie jest poradą prawną — przepisy się zmieniają, a twój przypadek może się do nich nie sprowadzać.",
       allLabel: "Wszystkie",
       filterLegend: "Filtruj pytania według jurysdykcji",
@@ -632,7 +632,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       note: "Odpowiedzi są weryfikowane ze źródłami pierwotnymi i datowane. Żadna z nich nie jest poradą prawną — przepisy się zmieniają, a Twoja sprawa może się do nich nie sprowadzać.",
     },
     enquiry: {
-      eyebrow: "Zgłoszenie",
+      eyebrow: "Zostaw zgłoszenie",
       heading: "Znasz kraj — czy jeszcze nie?",
       intro: "Formularz stoi na dole strony, a nie w wyskakującym okienku, i to jest celowe: najpierw liczby, potem rozmowa. Obowiązkowe jest jedno pole — adres do odpowiedzi. Reszta służy temu, żeby przekazać cię prawnikowi od takich spraw, a nie do call center: im konkretniejszy przypadek, tym krótsza pierwsza odpowiedź. Zgłoszenie trafia tylko do partnera pracującego w wybranej jurysdykcji i tylko jeśli zaznaczona jest zgoda.",
       fork: {
@@ -714,7 +714,7 @@ export const HOME_COPY: Record<Locale, HomeCopy> = {
       ],
     },
     seo: {
-      metaTitle: "Relokacja i nieruchomości w pięciu jurysdykcjach — moveandinvest",
+      metaTitle: "Złota wiza i pobyt za inwestycje: pięć jurysdykcji",
       metaDescription: "Porównanie ścieżek rezydencji, minimalnych inwestycji, czasu do pierwszego zezwolenia i reżimów podatkowych: Portugalia, Grecja, Malta, ZEA, Cypr.",
     },
   },
