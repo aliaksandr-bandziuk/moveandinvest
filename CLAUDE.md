@@ -892,6 +892,43 @@ The two "Blocked by robots.txt" pages were `http://` home pages last crawled on
 they clear on recrawl. "Discovered/Crawled – currently not indexed" (45 + 7)
 came without URL lists and has not been analysed.
 
+## hreflang lives in the HTML only
+
+**next-intl's `Link:` header is off (`alternateLinks: false` in
+`src/i18n/routing.ts`), and it stays off.** The middleware builds that header
+by taking the CURRENT path and prefixing each locale, which is right for a
+fixed route and wrong for every page whose slug is translated — most of this
+site. Measured on 20 September 2026: `/ru/blog/karta-pobytu` advertised
+`hreflang="en"` pointing at `/blog/karta-pobytu`, which is a 404; the English
+page is `/blog/temporary-residence-permit-poland`, which is what the HTML said.
+Every localized page carried the same contradiction.
+
+The HTML `<link rel="alternate">` set is the only hreflang set, and it is built
+from the documents that exist (`buildMetadata`, and the sitemap's own grouping).
+Two hreflang sets that disagree are worse than one: Search Console reports the
+pair as an error, and the header named URLs that do not exist at all.
+
+## The three tools carry WebApplication, and nothing else on the site does
+
+`/calculator`, `/naturalisation-clock` and `/property-transfer-tax-calculator`
+were the only routes emitting no structured data at all until 20 September 2026.
+`buildToolJsonLd` gives them `WebApplication` with `isAccessibleForFree: true`
+— the claim worth making explicitly, because the competitor survey that day
+found exactly one interactive tool in the whole English niche and it demands an
+email before it shows a number. No `offers` node and no price: a price of zero
+is a commercial claim about a thing that is not sold.
+
+`/calculator` had no `<main>` either — its content was in no landmark, so the
+skip link had nowhere to land. Any page that renders its own shell rather than a
+section needs the landmark written out.
+
+**A FAILED DRY RUN LEAVES A PAGE UNPUBLISHED FOR EVER, and nothing says so.**
+Two Russian entries — Malta and Greece citizenship — were written on 9 and 17
+September and were still absent from the site on 20 September: each linked
+`entry:` a page with no Russian version, `npm run articles` refused the whole
+entry, and the refusal scrolled past. The check is right; what was missing was
+looking at its output. After publishing a language, confirm the URL answers 200.
+
 ## robots.txt and the sitemap
 
 Both ported from the sibling `giuseppeiannone` project. `src/app/robots.ts`
