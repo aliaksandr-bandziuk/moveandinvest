@@ -1,0 +1,107 @@
+@use "../../../styles/mixins";
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: var(--border-hairline) solid var(--color-hairline);
+
+  @include mixins.breakpoint-up(md) {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// "Page 2 of 5". Quiet, and set in the figure face so the two numerals line up
+// with every other figure on the site.
+.position {
+  @include mixins.figure-text;
+
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+}
+
+// One shared box for every cell of the pager, so the current page, a link and
+// a disabled step are the same size and the row does not shift as it is walked.
+%cell {
+  @include mixins.tap-target;
+  @include mixins.figure-text;
+  @include mixins.focus-ring;
+
+  justify-content: center;
+  min-inline-size: 2.75rem;
+  padding-inline: var(--space-3);
+  border: var(--border-hairline) solid transparent;
+  border-radius: var(--radius-s);
+  font-size: var(--fs-small);
+  text-decoration: none;
+}
+
+.page {
+  @extend %cell;
+
+  color: var(--color-text);
+  border-color: var(--color-hairline);
+
+  &:hover {
+    border-color: var(--color-text);
+  }
+}
+
+.current {
+  @extend %cell;
+
+  color: var(--color-on-dark);
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.gap {
+  @extend %cell;
+
+  min-inline-size: auto;
+  padding-inline: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+// Previous and next carry a word rather than an arrow: an arrow alone is a
+// control whose meaning a reader has to infer, and the words are two of the
+// few strings on this site that every visitor already knows.
+.step {
+  @extend %cell;
+
+  color: var(--color-text);
+  border-color: var(--color-hairline);
+
+  &:hover {
+    border-color: var(--color-text);
+  }
+}
+
+// The ends of the range keep their cell so the row does not resize on the
+// first and last page. Hidden from screen readers — a step that goes nowhere
+// is not something to announce.
+.stepOff {
+  @extend %cell;
+
+  color: var(--color-text-muted);
+  opacity: 0.45;
+}

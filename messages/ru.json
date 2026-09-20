@@ -403,7 +403,14 @@
     "empty": "На этом языке пока ничего не опубликовано.",
     "contents": "Содержание",
     "progressLabel": "Прогресс чтения",
-    "home": "Главная"
+    "home": "Главная",
+    "paginationLabel": "Страницы гайдов и исследований",
+    "previous": "Назад",
+    "next": "Вперёд",
+    "pagePosition": "Страница {page} из {total}",
+    "pageLink": "Страница {page}",
+    "pageTitle": "{title} — страница {page}",
+    "pageDescription": "{description} Страница {page} из {total}."
   },
   "calculator": {
     "metaTitle": "Сколько на самом деле стоит вход в программу ВНЖ",

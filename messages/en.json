@@ -403,7 +403,14 @@
     "empty": "Nothing has been published in this language yet.",
     "contents": "Contents",
     "progressLabel": "Reading progress",
-    "home": "Home"
+    "home": "Home",
+    "paginationLabel": "Guides & Research pages",
+    "previous": "Previous",
+    "next": "Next",
+    "pagePosition": "Page {page} of {total}",
+    "pageLink": "Page {page}",
+    "pageTitle": "{title} — page {page}",
+    "pageDescription": "{description} Page {page} of {total}."
   },
   "calculator": {
     "metaTitle": "What entry to a residency programme actually costs",

@@ -290,6 +290,45 @@ export const BLOG_ENTRIES_QUERY = groq`
   }
 `;
 
+// THE SAME LISTING, ONE PAGE OF IT. The filter is repeated rather than shared
+// through a template because a GROQ string assembled from fragments cannot be
+// evaluated against groq-js as the text the app actually sends — see the note
+// on fixtures in CLAUDE.md. Keep the three in step: a condition added here
+// belongs in BLOG_ENTRIES_QUERY and in the count below as well.
+export const BLOG_ENTRIES_PAGE_QUERY = groq`
+  *[_type == "article"
+    && language == $locale
+    && defined(slug.current)
+    && defined(publishedAt)
+    && publishedAt <= now()
+  ] | order(publishedAt desc) [$from...$to] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    standfirst,
+    category,
+    sources,
+    // The listing shows BOTH kinds and links each to where it actually lives.
+    // A "reference" entry kept out of this listing would be reachable only
+    // from another entry's body — an orphan, which is the crawl problem the
+    // top-level address exists to fix, reintroduced one level up.
+    "pageKind": coalesce(pageKind, "research"),
+    "countries": countries[]->{ _id, "code": code, "name": coalesce(name[$locale], name.en, code) }
+  }
+`;
+
+/** How many entries this language has, for the number of pages. */
+export const BLOG_ENTRIES_COUNT_QUERY = groq`
+  count(*[_type == "article"
+    && language == $locale
+    && defined(slug.current)
+    && defined(publishedAt)
+    && publishedAt <= now()
+  ])
+`;
+
+
 // THE ALTERNATES ARE PART OF THE ENTRY, in the same projection and the same
 // round trip, exactly as a jurisdiction page carries its own. They feed
 // hreflang: three translations of one entry that do not declare each other

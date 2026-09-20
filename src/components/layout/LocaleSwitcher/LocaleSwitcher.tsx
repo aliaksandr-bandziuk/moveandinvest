@@ -73,7 +73,7 @@ export function LocaleSwitcher({
 }: LocaleSwitcherProps) {
   const ref = useRef<HTMLDetailsElement | null>(null);
   const route = usePathname();
-  const params = useParams<{ slug?: string }>();
+  const params = useParams<{ slug?: string; page?: string }>();
   const t = useTranslations("localeSwitcher");
 
   // THE SLUG COMES FROM THE ROUTE PARAMS, NOT FROM THE PATH, and that changed
@@ -95,6 +95,11 @@ export function LocaleSwitcher({
   // entry in Guides & Research. Their slug spaces are unrelated, so the map is two lookups
   // and the route picks which one — see slugMap.ts.
   const slug = params.slug;
+  // The listing past page one is a fixed route WITH a parameter, so it cannot
+  // be handed back as bare `route` the way /faq can: the router needs the
+  // number to spell /blog/page/3. A reader who switches language on page three
+  // stays on page three, which is the whole point of the pager being crawlable.
+  const listingPage = route === "/blog/page/[page]" ? params.page : undefined;
   const isEntry = route === "/blog/[slug]";
   const siblings = slug
     ? isEntry
@@ -157,7 +162,9 @@ export function LocaleSwitcher({
           // route is handed straight back. A Sanity page has a slug of its own
           // per language, and that is what the map holds.
           const sibling = siblings?.[locale];
-          const href: AppHref | undefined = siblings
+          const href: AppHref | undefined = listingPage
+            ? { pathname: "/blog/page/[page]", params: { page: listingPage } }
+            : siblings
             ? sibling === undefined
               ? undefined
               : isEntry
@@ -167,7 +174,12 @@ export function LocaleSwitcher({
               // language only, and there is nowhere to send the reader. A fixed
               // route is the same route everywhere, so it is handed back as is
               // and the router spells it for the language chosen.
-              route === "/[slug]" || route === "/blog/[slug]"
+              route === "/[slug]" ||
+                route === "/blog/[slug]" ||
+                // Handled above; narrowing it here as well is what tells the
+                // type checker the fallback never hands back a route that
+                // still needs a parameter.
+                route === "/blog/page/[page]"
               ? undefined
               : route;
 

@@ -403,7 +403,14 @@
     "empty": "W tym języku nic jeszcze nie opublikowano.",
     "contents": "Spis treści",
     "progressLabel": "Postęp czytania",
-    "home": "Strona główna"
+    "home": "Strona główna",
+    "paginationLabel": "Strony poradników i badań",
+    "previous": "Wstecz",
+    "next": "Dalej",
+    "pagePosition": "Strona {page} z {total}",
+    "pageLink": "Strona {page}",
+    "pageTitle": "{title} — strona {page}",
+    "pageDescription": "{description} Strona {page} z {total}."
   },
   "calculator": {
     "metaTitle": "Ile naprawdę kosztuje wejście do programu pobytowego",

@@ -78,6 +78,11 @@ export const routing = defineRouting({
     // "blog" at all — it is Guides & Research. Translating the address would
     // produce three spellings of a word that has one, to no one's benefit.
     "/blog": "/blog",
+    // PAGE TWO ONWARDS OF THE LISTING. A path segment rather than ?page=2:
+    // reading searchParams in a server component makes the route dynamic for
+    // every visitor, which is what the rendering rule in CLAUDE.md forbids.
+    // Page one stays at /blog and is never /blog/page/1.
+    "/blog/page/[page]": "/blog/page/[page]",
     "/blog/[slug]": "/blog/[slug]",
     "/contacts": { en: "/contacts", ru: "/kontakty", pl: "/kontakt", uk: "/kontakty" },
     // THE ENQUIRY, WITH AN ADDRESS OF ITS OWN since 31 August 2026.

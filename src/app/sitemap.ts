@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing, SITE_LOCALES } from "@/i18n/routing";
+import { blogPageHref, pageCount } from "@/lib/blogPagination";
 import { UPDATED_ON } from "@/lib/costModel";
 import { PT_REFORM_DATE } from "@/lib/naturalisationModel";
 import { CHECKED_PT } from "@/lib/transferTaxModel";
@@ -200,6 +201,51 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: routeUrl(route.href, locale),
         lastModified: route.lastModified,
+        alternates: { languages },
+      });
+    }
+  }
+
+  // --- The listing past page one ---------------------------------------------
+  // /blog is already listed above, with the blogPage document that owns it.
+  // Pages two onwards exist only if this language has the entries for them, so
+  // they are counted here from the same rows the entry URLs below come from —
+  // one source, and no chance of advertising a page that 404s.
+  //
+  // An hreflang set per PAGE NUMBER rather than one for the section: page two
+  // in English and page two in Russian are the same position in two lists, and
+  // a language whose list is shorter simply has no page there.
+  const entriesPerLanguage = new Map<string, { count: number; latest: string }>();
+  for (const doc of articleDocs) {
+    if (!doc.slug || !isLocale(doc.language) || doc.noIndex === true) continue;
+    const row = entriesPerLanguage.get(doc.language) ?? { count: 0, latest: doc._updatedAt };
+    row.count += 1;
+    if (doc._updatedAt > row.latest) row.latest = doc._updatedAt;
+    entriesPerLanguage.set(doc.language, row);
+  }
+
+  const maxPages = Math.max(
+    1,
+    ...[...entriesPerLanguage.values()].map((row) => pageCount(row.count)),
+  );
+
+  for (let page = 2; page <= maxPages; page += 1) {
+    const href = blogPageHref(page);
+    const present = SITE_LOCALES.filter(
+      (locale) => pageCount(entriesPerLanguage.get(locale)?.count ?? 0) >= page,
+    );
+    if (present.length === 0) continue;
+
+    const languages: Record<string, string> = Object.fromEntries(
+      present.map((locale) => [locale, routeUrl(href, locale)]),
+    );
+    const defaultUrl = languages[routing.defaultLocale];
+    if (defaultUrl) languages["x-default"] = defaultUrl;
+
+    for (const locale of present) {
+      entries.push({
+        url: routeUrl(href, locale),
+        lastModified: entriesPerLanguage.get(locale)?.latest,
         alternates: { languages },
       });
     }

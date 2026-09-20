@@ -10,3 +10,4 @@ export { ChangeLog, type ChangeLogLabels } from "./ChangeLog";
 export { FaqAccordion, type FaqAccordionLabels } from "./FaqAccordion";
 export { ArticleList, type ArticleListLabels } from "./ArticleList";
 export { ArticleBody, type ArticleBodyLabels } from "./ArticleBody";
+export { Pagination, type PaginationLabels } from "./Pagination";
