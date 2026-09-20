@@ -82,12 +82,12 @@ export interface RuleChange {
 }
 
 /** When the whole log was last gone through, row by row. */
-export const CHANGES_REVIEWED_ON: IsoDate = "2026-09-01";
+export const CHANGES_REVIEWED_ON: IsoDate = "2026-09-20";
 
 /** When a row last actually changed. Deliberately separate from the above: a
  *  quiet month is not an abandoned page, and the reader is entitled to tell
  *  the difference. */
-export const CHANGES_UPDATED_ON: IsoDate = "2026-09-05";
+export const CHANGES_UPDATED_ON: IsoDate = "2026-09-20";
 
 // Newest first, and the order is ASSERTED below rather than trusted. A row
 // added in the wrong place is invisible: the page renders it wherever it sits,
@@ -145,6 +145,60 @@ const RULE_CHANGES_RAW: RuleChange[] = [
     },
     section: "citizenship",
   },
+  // --- POLAND, ADDED 20 SEPTEMBER 2026 ---------------------------------------
+  //
+  // Poland is a SECTION of this site and not a sixth jurisdiction: the registry,
+  // the comparison table, the map, the PDF and the footer stay at five, and this
+  // log is none of those. It records what the law did, and the Poland pages are
+  // the part of this site whose law moves fastest — three of the five rows took
+  // effect in 2026, and one of them changed how every residence application in
+  // the country is filed. The rows sit in date order among the others, because
+  // a log grouped by country is a log a reader has to search rather than read.
+  //
+  // The filter chip reads "Poland" from the message catalogue rather than from
+  // the registry, because there is no Poland document to read a label from.
+  {
+    id: "pl-cukr-window-opens",
+    effective: "2026-05-04",
+    country: "pl",
+    what: {
+      en: "The CUKR card opened: a three-year residence permit for citizens of Ukraine holding UKR status, applied for through MOS. Applications are accepted from 4 May 2026 and only until 4 March 2027 — a window rather than a standing route, and the card's own statute closes it on that date.",
+      ru: "Открылась карта CUKR — трёхлетнее разрешение на пребывание для граждан Украины со статусом UKR, подаётся через MOS. Заявления принимают с 4 мая 2026 года и только до 4 марта 2027 года: это окно, а не постоянный маршрут, и закрывает его сам закон.",
+      pl: "Otworzyła się karta CUKR — trzyletnie zezwolenie na pobyt dla obywateli Ukrainy ze statusem UKR, składane przez MOS. Wnioski przyjmowane są od 4 maja 2026 i tylko do 4 marca 2027: to okno, a nie stała ścieżka, i zamyka je sama ustawa.",
+    },
+    instrument: {
+      en: "Act on assistance to citizens of Ukraine, art. 42a–42x, in the wording of the amendment Dz.U. 2026 poz. 203 — art. 42x sets the 4 March 2027 cut-off",
+      ru: "Закон о помощи гражданам Украины, art. 42a–42x в редакции поправки Dz.U. 2026 poz. 203 — срок 4 марта 2027 года установлен art. 42x",
+      pl: "Ustawa o pomocy obywatelom Ukrainy, art. 42a–42x w brzmieniu nowelizacji Dz.U. 2026 poz. 203 — termin 4 marca 2027 wynika z art. 42x",
+    },
+    moved: {
+      en: "The CUKR page in three languages, and the deadline every Poland page now repeats.",
+      ru: "Страницу о CUKR на трёх языках и срок, который повторяет теперь каждая польская страница.",
+      pl: "Stronę o karcie CUKR w trzech językach i termin powtarzany teraz na każdej stronie o Polsce.",
+    },
+    section: "pl-legal",
+  },
+  {
+    id: "pl-mos-only",
+    effective: "2026-04-27",
+    country: "pl",
+    what: {
+      en: "Poland closed every other channel for residence applications. Since 27 April 2026 an application for a temporary or permanent residence permit, or for EU long-term resident status, is filed only through MOS, the interior ministry's case module — not on paper at the voivodeship office. The confirmation of filing changed with it: what used to be a stamp in the passport is now a zaświadczenie issued by the voivode.",
+      ru: "Польша закрыла все остальные каналы подачи. С 27 апреля 2026 года заявление о временном или постоянном пребывании и о статусе резидента ЕС подаётся только через MOS — модуль ведения дел МВД, а не на бумаге в воеводстве. Вместе с этим изменилось подтверждение подачи: вместо штампа в паспорте воевода выдаёт zaświadczenie.",
+      pl: "Polska zamknęła pozostałe drogi składania wniosków. Od 27 kwietnia 2026 wniosek o zezwolenie na pobyt czasowy lub stały oraz o status rezydenta długoterminowego UE składa się wyłącznie przez MOS — moduł obsługi spraw MSWiA, a nie papierowo w urzędzie wojewódzkim. Zmieniło się z tym potwierdzenie złożenia: zamiast stempla w paszporcie wojewoda wydaje zaświadczenie.",
+    },
+    instrument: {
+      en: "Amendment Dz.U. 2025 poz. 1794; the date was set by the announcement of the Minister of the Interior of 10 April 2026, Monitor Polski 2026 poz. 370, under art. 17 ust. 1 of that amendment. The provisions brought into force on that date include art. 105–106l, art. 108 ust. 1 pkt 1 and ust. 3–10, art. 202–203i and art. 218a–219i of the Act on Foreigners",
+      ru: "Поправка Dz.U. 2025 poz. 1794; дату установило сообщение министра внутренних дел от 10 апреля 2026 года, Monitor Polski 2026 poz. 370, на основании art. 17 ust. 1 этой поправки. В эту дату вступили в силу, среди прочего, art. 105–106l, art. 108 ust. 1 pkt 1 и ust. 3–10, art. 202–203i и art. 218a–219i закона об иностранцах",
+      pl: "Nowelizacja Dz.U. 2025 poz. 1794; datę wyznaczyło obwieszczenie Ministra Spraw Wewnętrznych z 10 kwietnia 2026, M.P. 2026 poz. 370, na podstawie art. 17 ust. 1 tej nowelizacji. W tej dacie weszły w życie m.in. art. 105–106l, art. 108 ust. 1 pkt 1 i ust. 3–10, art. 202–203i oraz art. 218a–219i ustawy o cudzoziemcach",
+    },
+    moved: {
+      en: "The filing steps on every Poland page, and the whole section on what arrives instead of a stamp.",
+      ru: "Шаги подачи на всех польских страницах и весь раздел о том, что выдают вместо штампа.",
+      pl: "Kroki składania wniosku na wszystkich stronach o Polsce i cała sekcja o tym, co wydaje się zamiast stempla.",
+    },
+    section: "pl-legal",
+  },
   {
     id: "ae-investor-visa-no-minimum",
     effective: "2026-04-01",
@@ -184,6 +238,27 @@ const RULE_CHANGES_RAW: RuleChange[] = [
       pl: "Próg z art. 144: 12 880 euro rocznie albo 14 168 przy dowolnej liczbie osób na utrzymaniu. Oba policzone na czternastu wypłatach, co jest konwencją samego ministerstwa, a nie normą artykułu migracyjnego.",
     },
     section: "gr",
+  },
+  {
+    id: "pl-deadlines-suspended-2027",
+    effective: "2026-03-05",
+    country: "pl",
+    what: {
+      en: "Poland suspended the statutory deadlines for residence cases at the voivode until 4 March 2027 — for every foreigner, not only citizens of Ukraine. While they are suspended a complaint about delay has no basis, which is the fact that most changes what a waiting applicant can actually do.",
+      ru: "Польша приостановила сроки рассмотрения дел о пребывании у воеводы до 4 марта 2027 года — для всех иностранцев, а не только для граждан Украины. Пока сроки не текут, жалоба на затягивание не имеет основания, и это главное, что меняет положение ожидающего.",
+      pl: "Polska zawiesiła ustawowe terminy w sprawach pobytowych u wojewody do 4 marca 2027 — wobec wszystkich cudzoziemców, nie tylko obywateli Ukrainy. Dopóki terminy nie biegną, ponaglenie nie ma podstawy, i to najbardziej zmienia sytuację oczekującego.",
+    },
+    instrument: {
+      en: "Act on assistance to citizens of Ukraine, art. 100d ust. 1–4; the date was moved to 4 March 2027 by Dz.U. 2026 poz. 203, art. 17 pkt 50, in force 5 March 2026",
+      ru: "Закон о помощи гражданам Украины, art. 100d ust. 1–4; дату на 4 марта 2027 года заменил Dz.U. 2026 poz. 203, art. 17 pkt 50, в силе с 5 марта 2026 года",
+      pl: "Ustawa o pomocy obywatelom Ukrainy, art. 100d ust. 1–4; datę na 4 marca 2027 zmienił Dz.U. 2026 poz. 203, art. 17 pkt 50, w życie od 5 marca 2026",
+    },
+    moved: {
+      en: "Every sentence on this site about how long a Polish case takes, and the answer to \u201cwhat can I do about the delay\u201d: until that date, nothing at the voivode.",
+      ru: "Каждую фразу на сайте о сроках польских дел и ответ на вопрос «что делать с затягиванием»: до этой даты у воеводы — ничего.",
+      pl: "Każde zdanie na tej stronie o długości polskich spraw i odpowiedź na pytanie „co zrobić z przewlekłością”: do tej daty u wojewody nic.",
+    },
+    section: "pl-legal",
   },
   {
     id: "ae-golden-visa-no-prepayment",
@@ -255,6 +330,27 @@ const RULE_CHANGES_RAW: RuleChange[] = [
       pl: "920, 460 i 276 euro miesięcznie. Uwaga na zakotwiczenie: są indeksowane do płacy minimalnej, a nie do IAS, który na 2026 rok wynosi 537,13 euro — różnica 383 euro miesięcznie dla kogoś czytającego niewłaściwy akt.",
     },
     section: "pt",
+  },
+  {
+    id: "pl-oswiadczenie-2025",
+    effective: "2025-12-01",
+    country: "pl",
+    what: {
+      en: "The declaration route for short employment was re-regulated: which nationalities it covers, and what filing one costs. Two regulations took effect on the same day, one naming the states and one setting the fees.",
+      ru: "Переписан режим oświadczenie — упрощённого поручения работы: каких гражданств он касается и сколько стоит подача. В один день вступили два распоряжения: одно называет государства, другое устанавливает сборы.",
+      pl: "Na nowo uregulowano oświadczenie o powierzeniu pracy: których obywatelstw dotyczy i ile kosztuje złożenie. Tego samego dnia weszły w życie dwa rozporządzenia — jedno wskazuje państwa, drugie ustala opłaty.",
+    },
+    instrument: {
+      en: "Regulations of the Minister of Family, Labour and Social Policy of 21 and 20 November 2025, Dz.U. 2025 poz. 1617 (the states, § 2, 3 and 5) and Dz.U. 2025 poz. 1622 (the fees, § 2); both in force 1 December 2025",
+      ru: "Распоряжения министра семьи, труда и социальной политики от 21 и 20 ноября 2025 года, Dz.U. 2025 poz. 1617 (государства, § 2, 3 и 5) и Dz.U. 2025 poz. 1622 (сборы, § 2); оба в силе с 1 декабря 2025 года",
+      pl: "Rozporządzenia Ministra Rodziny, Pracy i Polityki Społecznej z 21 i 20 listopada 2025, Dz.U. 2025 poz. 1617 (państwa, § 2, 3 i 5) i Dz.U. 2025 poz. 1622 (opłaty, § 2); oba w życie od 1 grudnia 2025",
+    },
+    moved: {
+      en: "The fee table on the employer page, and the list of nationalities the declaration route is open to.",
+      ru: "Таблицу сборов на странице для работодателей и перечень гражданств, которым доступен этот путь.",
+      pl: "Tabelę opłat na stronie dla pracodawców i listę obywatelstw, którym ta droga przysługuje.",
+    },
+    section: "pl-legal",
   },
   {
     id: "ae-work-mission-visit-visa",
@@ -355,6 +451,27 @@ const RULE_CHANGES_RAW: RuleChange[] = [
       pl: "Rozbicie kosztów Malty na tej stronie — około €126 000 ponad cenę nieruchomości. Odczytano ponownie 1 września 2026 i bez zmian.",
     },
     section: "mt",
+  },
+  {
+    id: "pl-work-act-2025",
+    effective: "2025-06-01",
+    country: "pl",
+    what: {
+      en: "Poland replaced the law on employing foreigners. The new act rewrote who has free access to the labour market, what an employer must file and what it costs, and it is the instrument the work-based residence routes now hang on.",
+      ru: "Польша заменила закон о трудоустройстве иностранцев. Новый закон переписал, у кого свободный доступ к рынку труда, что подаёт работодатель и сколько это стоит; именно на нём теперь держатся рабочие основания пребывания.",
+      pl: "Polska zastąpiła ustawę o zatrudnianiu cudzoziemców. Nowa ustawa na nowo określiła, kto ma wolny dostęp do rynku pracy, co składa pracodawca i ile to kosztuje; to na niej opierają się dziś pobytowe podstawy pracownicze.",
+    },
+    instrument: {
+      en: "Act of 20 March 2025 on the conditions for entrusting work to foreigners, Dz.U. 2025 poz. 621 — art. 3 ust. 1 pkt 6–7 on free access to the labour market, and art. 99 ust. 3a as added by it; in force 1 June 2025",
+      ru: "Закон от 20 марта 2025 года об условиях допустимости поручения работы иностранцам, Dz.U. 2025 poz. 621 — art. 3 ust. 1 pkt 6–7 о свободном доступе к рынку труда и добавленная им art. 99 ust. 3a; в силе с 1 июня 2025 года",
+      pl: "Ustawa z 20 marca 2025 o warunkach dopuszczalności powierzania pracy cudzoziemcom, Dz.U. 2025 poz. 621 — art. 3 ust. 1 pkt 6–7 o wolnym dostępie do rynku pracy oraz dodany nią art. 99 ust. 3a; w życie od 1 czerwca 2025",
+    },
+    moved: {
+      en: "The work sections of the residence-card pages, and the page written for employers.",
+      ru: "Разделы о работе на страницах о карте побыту и страницу для работодателей.",
+      pl: "Sekcje o pracy na stronach o karcie pobytu i stronę pisaną dla pracodawców.",
+    },
+    section: "pl-legal",
   },
   {
     id: "mt-cjeu-c-181-23",

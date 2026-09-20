@@ -244,7 +244,8 @@
     "updatedOn": "A row last changed on {date}.",
     "cadence": "It is reviewed in full whenever a jurisdiction is researched for a guide, which is the cadence this project can actually keep rather than a month it cannot.",
     "citeIntro": "Citing one of these rules? Each row carries its own address — the # beside it — and the whole log is published as data at",
-    "citeTerms": "Free to quote and to build on, with attribution. The instrument named in each row is the authority; this page is a record of it."
+    "citeTerms": "Free to quote and to build on, with attribution. The instrument named in each row is the authority; this page is a record of it.",
+    "poland": "Poland"
   },
   "goldenVisa": {
     "columns": {

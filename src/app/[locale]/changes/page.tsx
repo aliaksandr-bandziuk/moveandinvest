@@ -121,6 +121,13 @@ export default async function Changes({
     countries.map((country) => [country.code, country.name]),
   );
 
+  // POLAND IS NOT IN THE REGISTRY, and this is the one place that needs its
+  // name anyway. Poland is a section of this site rather than a sixth
+  // jurisdiction (CLAUDE.md), so there is no country document to read a label
+  // from — and without this the filter chip would read "PL", which is how the
+  // fallback spells a code it does not know.
+  countryNames.set("pl", t("poland"));
+
   // ONE FORMATTER FOR TWO PRECISIONS. A row whose day is not established prints
   // its month and no day, because a precision we do not have is a precision we
   // must not print — the same rule that keeps four unverified figures off this
