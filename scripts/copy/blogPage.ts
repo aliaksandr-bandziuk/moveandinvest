@@ -85,46 +85,46 @@ Przepisanych newsów. Tekstów pisanych pod frazę wyszukiwania. I w ogóle nicz
 export const BLOG_PAGE_COPY: Record<Locale, BlogPageCopy> = {
   en: {
     eyebrow: "Guides & Research",
-    heading: "Worked through, sourced, and dated",
+    heading: "Golden visa and citizenship by investment: guides with sources",
     intro:
-      "Guides that follow one decision to the end, and research on what has changed in the rules of the five jurisdictions this site covers. Every entry lists the sections of our sources page its figures were checked against, and carries the date it was written — because a threshold that was right in August may not be in March, and an article that does not say when it was written is asking to be believed on trust.",
+      "Guides that follow one decision to the end, and research on what has changed in the rules: the golden visa and citizenship routes of five jurisdictions, and living in Poland as a foreigner. Every entry lists the sections of our sources page its figures were checked against, and carries the date it was written — because a threshold that was right in August may not be in March, and an article that does not say when it was written is asking to be believed on trust.",
     editorial: blocks(EDITORIAL_EN, "blog-en-"),
     empty:
       "Nothing has been published here in English yet. The first three are already named in the footer — rule changes, moving guides and cost of living — and they will appear here as they are written rather than on a schedule.",
     seo: {
-      metaTitle: "Guides & Research: residency by investment, sourced — moveandinvest",
+      metaTitle: "Golden visa guides: checked figures, with dates and statutes",
       metaDescription:
-        "Guides and research on residency by investment in Portugal, Greece, Malta, the UAE and Cyprus. Every entry names the statutes its figures were checked against and carries the date it was written.",
+        "Guides on the golden visa and citizenship by investment in Portugal, Greece, Malta, the UAE and Cyprus, and on living in Poland. Every figure names its statute and its date.",
     },
   },
 
   ru: {
     eyebrow: "Гайды и исследования",
-    heading: "Разобрано, со ссылками и с датой",
+    heading: "Золотая виза, ВНЖ за инвестиции и жизнь в Польше: гайды с источниками",
     intro:
-      "Гайды, доводящие одно решение до конца, и исследования того, что изменилось в правилах пяти юрисдикций, которые покрывает этот сайт. У каждой записи перечислены разделы нашей страницы источников, по которым сверены её цифры, и стоит дата написания — потому что порог, верный в августе, может быть неверен в марте, а текст без даты просит верить ему на слово.",
+      "Гайды, доводящие одно решение до конца, и исследования того, что изменилось в правилах: золотая виза и ВНЖ за инвестиции в пяти юрисдикциях, а также жизнь иностранца в Польше — карта побыту, документы, фирма, налоги и недвижимость. У каждой записи перечислены разделы нашей страницы источников, по которым сверены её цифры, и стоит дата написания — потому что порог, верный в августе, может быть неверен в марте, а текст без даты просит верить ему на слово.",
     editorial: blocks(EDITORIAL_RU, "blog-ru-"),
     empty:
       "На русском здесь пока ничего не опубликовано. Первые три темы уже названы в подвале — изменения правил, гайды по переезду и стоимость жизни, — и они появятся здесь по мере написания, а не по расписанию.",
     seo: {
-      metaTitle: "Гайды и исследования: ВНЖ за инвестиции со ссылками — moveandinvest",
+      metaTitle: "Гайды: золотая виза, ВНЖ, налоги и Польша — со ссылками",
       metaDescription:
-        "Гайды и исследования о ВНЖ за инвестиции в Португалии, Греции, на Мальте, в ОАЭ и на Кипре. У каждой записи названы законы, по которым сверены цифры, и стоит дата написания.",
+        "Гайды о золотой визе и ВНЖ за инвестиции в Португалии, Греции, на Мальте, в ОАЭ и на Кипре и о жизни в Польше. У каждой цифры назван закон и дата проверки.",
     },
   },
 
   pl: {
     eyebrow: "Poradniki i badania",
-    heading: "Rozłożone na czynniki, ze źródłami i z datą",
+    heading: "Złota wiza, pobyt za inwestycje i życie w Polsce: poradniki ze źródłami",
     intro:
-      "Poradniki prowadzące jedną decyzję do końca oraz badania nad tym, co zmieniło się w przepisach pięciu jurysdykcji, które obejmuje ten serwis. Każdy wpis wymienia sekcje naszej strony źródeł, względem których sprawdzono jego liczby, i nosi datę napisania — bo próg słuszny w sierpniu może nie być słuszny w marcu, a tekst bez daty prosi, by wierzyć mu na słowo.",
+      "Poradniki prowadzące jedną decyzję do końca oraz badania nad tym, co zmieniło się w przepisach: złota wiza i pobyt za inwestycje w pięciu jurysdykcjach, a także życie cudzoziemca w Polsce — karta pobytu, dokumenty, firma, podatki i nieruchomości. Każdy wpis wymienia sekcje naszej strony źródeł, względem których sprawdzono jego liczby, i nosi datę napisania — bo próg słuszny w sierpniu może nie być słuszny w marcu, a tekst bez daty prosi, by wierzyć mu na słowo.",
     editorial: blocks(EDITORIAL_PL, "blog-pl-"),
     empty:
       "Po polsku nie opublikowaliśmy tu jeszcze niczego. Pierwsze trzy tematy są już wymienione w stopce — zmiany przepisów, poradniki przeprowadzkowe i koszty życia — i pojawią się tutaj w miarę pisania, a nie według harmonogramu.",
     seo: {
-      metaTitle: "Poradniki i badania: rezydencja za inwestycje ze źródłami — moveandinvest",
+      metaTitle: "Poradniki: złota wiza, pobyt i życie w Polsce ze źródłami",
       metaDescription:
-        "Poradniki i badania o rezydencji za inwestycje w Portugalii, Grecji, na Malcie, w ZEA i na Cyprze. Każdy wpis wskazuje przepisy, względem których sprawdzono liczby, i nosi datę napisania.",
+        "Poradniki o złotej wizie i pobycie za inwestycje w Portugalii, Grecji, na Malcie, w ZEA i na Cyprze oraz o życiu w Polsce. Przy każdej liczbie stoi przepis i data.",
     },
   },
 };
