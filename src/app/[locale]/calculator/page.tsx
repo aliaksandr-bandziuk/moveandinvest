@@ -22,6 +22,9 @@ import {
 } from "@/components/country/CostCalculator/format";
 import { buildRow, type Row } from "@/components/country/CostCalculator/rows";
 import { baseInputs } from "@/lib/calcSummary";
+import { buildToolJsonLd } from "@/lib/jsonLd";
+import { routeUrl } from "@/lib/urls";
+import { getSiteUrl } from "@/lib/site";
 import { buildMetadata } from "@/lib/metadata";
 import { ENQUIRY_HREF, SOURCES_HREF, slugHref } from "@/lib/routes";
 import { CalcEnquiryForm } from "@/components/marketing";
@@ -320,8 +323,27 @@ export default async function Calculator({
   const figures = bodyFigures(locale);
   const b = (key: string) => t(`body.${key}`, figures);
 
+  const toolJsonLd = buildToolJsonLd({
+    url: routeUrl(ROUTE, locale),
+    name: t("metaTitle"),
+    description: t("metaDescription"),
+    origin: getSiteUrl(),
+    locale,
+  });
+
   return (
-    <>
+    // A <main> rather than a fragment: this page had none, so its content was
+    // not in a landmark at all — the skip link had nowhere to land and an
+    // extractor had no main region to read.
+    <main>
+      {/* The tool as a WebApplication. These three routes carried no structured
+          data at all until 20 September 2026 — see buildToolJsonLd. */}
+      <script
+        type="application/ld+json"
+        // Serialised from an object built above, never from user input.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolJsonLd) }}
+      />
+
       <CostCalculator
         // Единственный заголовок этой страницы, поэтому h1. Геройского блока у неё
         // нет, и без этого /calculator оставался страницей без h1 вовсе — с четырьмя
@@ -422,6 +444,6 @@ export default async function Calculator({
         <p className={styles.updated}>{t("updated", { date: UPDATED_ON })}</p>
         <p className={styles.method}>{t("method")}</p>
       </div>
-    </>
+    </main>
   );
 }

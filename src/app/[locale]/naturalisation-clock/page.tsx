@@ -7,6 +7,9 @@ import {
 } from "@/components/country";
 import { DEFAULT_INPUT, type CaveatKey } from "@/lib/naturalisationModel";
 import { getPathname } from "@/i18n/navigation";
+import { buildToolJsonLd } from "@/lib/jsonLd";
+import { routeUrl } from "@/lib/urls";
+import { getSiteUrl } from "@/lib/site";
 import { buildMetadata } from "@/lib/metadata";
 import { SOURCES_HREF } from "@/lib/routes";
 import type { Locale } from "@/i18n/routing";
@@ -122,8 +125,24 @@ export default async function NaturalisationClockPage({
     },
   };
 
+  const toolJsonLd = buildToolJsonLd({
+    url: routeUrl(ROUTE, locale),
+    name: t("metaTitle"),
+    description: t("metaDescription"),
+    origin: getSiteUrl(),
+    locale,
+  });
+
   return (
     <main className={styles.main}>
+      {/* The tool as a WebApplication. These three routes carried no structured
+          data at all until 20 September 2026 — see buildToolJsonLd. */}
+      <script
+        type="application/ld+json"
+        // Serialised from an object built above, never from user input.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolJsonLd) }}
+      />
+
       <NaturalisationClockControl labels={labels} locale={locale as Locale}>
         <NaturalisationClock
           labels={labels}

@@ -124,6 +124,47 @@ interface BreadcrumbStep {
   url: string;
 }
 
+/** A calculator or clock: a page whose substance is a tool rather than prose.
+ *
+ *  WebApplication, not WebPage. The three tools on this site were the only
+ *  routes carrying no structured data at all (measured 20 September 2026), and
+ *  a WebPage node would have described them as documents — which is what an
+ *  answer engine would then treat them as. `isAccessibleForFree` is the claim
+ *  worth making explicitly: every competitor tool found in the same survey
+ *  asks for an email before it shows a number, and this one does not.
+ *
+ *  No `offers` node and no price: the tool is free, and a price of zero is a
+ *  commercial claim about a thing that is not sold. */
+export function buildToolJsonLd({
+  url,
+  name,
+  description,
+  origin,
+  locale,
+}: {
+  url: string;
+  name: string;
+  description: string;
+  origin: string;
+  locale: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": url,
+    url,
+    name,
+    description,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript for the interactive answer; the figures are in the HTML without it.",
+    isAccessibleForFree: true,
+    inLanguage: locale,
+    isPartOf: { "@id": `${origin}/#website` },
+    publisher: organizationRef(origin),
+  };
+}
+
 export function buildBreadcrumbListJsonLd(trail: BreadcrumbStep[]) {
   return {
     "@context": "https://schema.org",

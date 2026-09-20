@@ -284,6 +284,12 @@ export default async function GoldenVisa({
         <nav className={styles.onward} aria-label={t("namesHeading")}>
           <Link href="/faq">{t("toFaq")}</Link>
           <Link href="/calculator">{t("toCalculator")}</Link>
+          {/* The other two tools were reachable from the footer and from nowhere
+              else in any page body — measured 20 September 2026. This hub is
+              where a reader who has just read what a golden visa is looks
+              next. */}
+          <Link href="/property-transfer-tax-calculator">{t("toTransferTax")}</Link>
+          <Link href="/naturalisation-clock">{t("toClock")}</Link>
           <Link href="/changes">{t("toChanges")}</Link>
         </nav>
       </div>

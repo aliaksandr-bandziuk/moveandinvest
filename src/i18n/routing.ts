@@ -22,6 +22,21 @@ export const routing = defineRouting({
   // the English page a partner just linked to.
   localeDetection: false,
 
+  // THE Link: HEADER IS OFF, AND THE HTML ALTERNATES ARE THE ONLY hreflang SET.
+  //
+  // next-intl emits a Link header of alternates by taking the CURRENT path and
+  // prefixing each locale. That is right for a fixed route and wrong for every
+  // page whose slug is translated, which is most of this site: measured on
+  // 20 Sep 2026, /ru/blog/karta-pobytu advertised hreflang="en" pointing at
+  // /blog/karta-pobytu — a 404. The Russian page is /blog/temporary-residence-permit-poland,
+  // which is what the <link rel="alternate"> set in the HTML says, built from
+  // the documents that actually exist (src/lib/metadata.ts and the sitemap).
+  //
+  // Two hreflang sets that disagree are worse than one: Search Console reports
+  // the pair as an error, and the header names URLs that do not exist at all.
+  // So the header goes and the HTML stays.
+  alternateLinks: false,
+
   // TRANSLATED URLS FOR THE FIXED ROUTES, since 26 August 2026.
   //
   // Until then this block did not exist, and the consequence was visible from
