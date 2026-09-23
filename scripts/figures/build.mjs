@@ -2975,7 +2975,42 @@ const L = {
     eyebrow: "Poradniki i badania",
     checked: (date) => `Każda liczba sprawdzona ze źródłem pierwotnym ${date}`,
     pct: (v) => `${v.toFixed(1).replace(".", ",")} %`,
-    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  , uae: "30 sierpnia 2026 roku", malta: "1 września 2026 roku" },
+    dates: { property: "23 sierpnia 2026 roku", income: "28 sierpnia 2026 roku" , portugal: "28 sierpnia 2026 roku", greece: "28 sierpnia 2026 roku"  , uae: "30 sierpnia 2026 roku", malta: "1 września 2026 roku", rental: "20 września 2026 roku" },
+    // --- Najem krótkoterminowy (tylko wersja polska) -------------------------
+    strRyczaltRows: {
+      single: "Jedna osoba",
+      joint: "Małżonkowie, rozliczenie wspólne",
+    },
+    strRyczaltNotes: {
+      single: "Próg 100 000 zł przychodu w roku",
+      joint: "Ten sam próg podniesiony do 200 000 zł",
+    },
+    strRyczaltAxis: "Przychód w roku, zł",
+    strTaxBars: {
+      home: "Budynek mieszkalny",
+      business: "Lokal zajęty na działalność gospodarczą",
+    },
+    strTaxNotes: {
+      home: "Najem długoterminowy na cele mieszkaniowe",
+      business: "Najem na dobę — uchwała NSA III FPS 2/24",
+    },
+    strTaxAxis: "Maksymalna stawka na 2026 rok, zł za m²",
+    strTaxRatio: "28 razy więcej za ten sam metr",
+    strWhen: {
+      now: "Już obowiązuje",
+      eu: "20 maja 2026",
+      law: "Po ogłoszeniu ustawy",
+    },
+    strWhat: {
+      now: "Ewidencja w gminie",
+      eu: "Numer w ofercie portalu",
+      law: "Centralny wykaz CWTON",
+    },
+    strWho: {
+      now: "Zgłoszenie przed pierwszym gościem",
+      eu: "Rozporządzenie (UE) 2024/1028",
+      law: "Projekt UC135, przyjęty 14 lipca 2026",
+    },
     ptCols: { visa: "Wiza potrzebna", income: "Badanie dochodu" },
     ptRoutes: {
       d7: "D7, dochód własny",
@@ -3183,6 +3218,18 @@ const L = {
       note: "Obywatel UE ma swobodę przepływu osób. Polska karta pobytu nie daje prawa zamieszkania w innym państwie członkowskim.",
     },
     figures: {
+      strRyczalt: {
+        title: "Ryczałt od najmu krótkoterminowego: dwie stawki, jeden próg",
+        note: "Ryczałt liczy się od przychodu — prowizji portalu, sprzątania ani amortyzacji nie odlicza się wcale.",
+      },
+      strPodatek: {
+        title: "Podatek od nieruchomości: mieszkanie a lokal na doby",
+        note: "Górne granice stawek na 2026 rok. Rada gminy może ustalić niższe, wyższych nie.",
+      },
+      strTerminy: {
+        title: "Obowiązki wynajmującego: co działa dziś, a co dopiero wejdzie",
+        note: "Linia przerywana to przepisy projektu, który 20 września 2026 nie był jeszcze ogłoszony w Dzienniku Ustaw.",
+      },
       mtCost: {
         title: "Ile kosztuje pobyt na Malcie ponad cenę lokalu",
         note: "Wiersze zakupu dają 118 250 €; notariusz i prawnik, dla których nie ma taryfy, podnoszą to do około 126 000 €.",
@@ -5339,6 +5386,147 @@ function ptNatLimbs(L) {
   );
 }
 
+// --- Najem krótkoterminowy: dwie stawki ryczałtu na jednej osi ---------------
+// TWO BANDS ON ONE AXIS, because the reader arrives asking "which rate do I
+// pay" and the answer is "both". Two separate bars would read as alternatives;
+// segments of one revenue line say what the statute says — the higher rate
+// applies to the surplus and to nothing else. The second row is there because
+// the spouses' threshold is the most misquoted number in this subject.
+const STR_RATES = { lower: 8.5, upper: 12.5, single: 100000, joint: 200000, max: 260000 };
+
+function strRyczalt(L) {
+  const width = 1200;
+  // 640: the axis labels sit at 506 and the frame prints its note at height-92,
+  // so anything shorter puts the ticks on top of it. The checker catches that.
+  const height = 640;
+  const x0 = 380;
+  const x1 = width - 120;
+  const px = (v) => x0 + (v / STR_RATES.max) * (x1 - x0);
+  const fmt = (v) => v.toLocaleString("pl-PL").replace(/ /g, " ");
+
+  let body = "";
+  [
+    { key: "single", split: STR_RATES.single },
+    { key: "joint", split: STR_RATES.joint },
+  ].forEach((row, i) => {
+    const y = 230 + i * 130;
+    body += text(48, y, L.strRyczaltRows[row.key], { size: 17, weight: 600 });
+    body += text(48, y + 26, L.strRyczaltNotes[row.key], { size: 13, fill: C.muted });
+
+    const top = y + 44;
+    const h = 38;
+    // Accent for the band taxed at the lower rate, line colour for the surplus.
+    // Colour says which side of the threshold, and nothing else.
+    body += `<rect x="${px(0)}" y="${top}" width="${px(row.split) - px(0)}" height="${h}" fill="${C.accent}"/>`;
+    body += `<rect x="${px(row.split)}" y="${top}" width="${px(STR_RATES.max) - px(row.split)}" height="${h}" fill="${C.line}"/>`;
+    body += text(px(row.split / 2), top + 25, `${String(STR_RATES.lower).replace(".", ",")}%`, {
+      size: 18, weight: 600, family: FONT_MONO, fill: C.onAccent, anchor: "middle",
+    });
+    body += text(px((row.split + STR_RATES.max) / 2), top + 25, `${String(STR_RATES.upper).replace(".", ",")}%`, {
+      size: 18, weight: 600, family: FONT_MONO, fill: C.text, anchor: "middle",
+    });
+    body += `<line x1="${px(row.split)}" y1="${top - 12}" x2="${px(row.split)}" y2="${top + h + 12}" stroke="${C.dark}" stroke-width="2"/>`;
+    body += text(px(row.split), top - 20, `${fmt(row.split)} zł`, {
+      size: 14, weight: 600, family: FONT_MONO, anchor: "middle",
+    });
+  });
+
+  const axisY = 480;
+  body += `<line x1="${px(0)}" y1="${axisY}" x2="${px(STR_RATES.max)}" y2="${axisY}" stroke="${C.line}" stroke-width="1"/>`;
+  for (let v = 0; v <= STR_RATES.max; v += 50000) {
+    body += `<line x1="${px(v)}" y1="${axisY}" x2="${px(v)}" y2="${axisY + 7}" stroke="${C.line}" stroke-width="1"/>`;
+    body += text(px(v), axisY + 26, fmt(v), { size: 13, fill: C.muted, anchor: "middle", family: FONT_MONO });
+  }
+  body += text(48, axisY + 26, L.strRyczaltAxis, { size: 13, fill: C.muted });
+
+  return frame(
+    width, height,
+    L.figures.strRyczalt.title, L.eyebrow,
+    L.checked(L.dates.rental), body,
+    L.figures.strRyczalt.note,
+  );
+}
+
+// --- Najem krótkoterminowy: podatek od nieruchomości -------------------------
+// THE FIGURE IS THE RATIO, so both bars share one axis and the multiple is
+// printed rather than left to be judged from two lengths — 28× is exactly the
+// kind of difference an eye underreads on a chart.
+const STR_TAX = { home: 1.25, business: 35.53 };
+
+function strPodatek(L) {
+  const width = 1200;
+  const height = 640;
+  const x0 = 430;
+  const x1 = width - 200;
+  const px = (v) => x0 + (v / 40) * (x1 - x0);
+
+  let body = "";
+  [
+    { key: "home", value: STR_TAX.home, accent: false },
+    { key: "business", value: STR_TAX.business, accent: true },
+  ].forEach((bar, i) => {
+    const y = 240 + i * 130;
+    body += text(48, y, L.strTaxBars[bar.key], { size: 17, weight: 600, fill: bar.accent ? C.accent : C.text });
+    body += text(48, y + 26, L.strTaxNotes[bar.key], { size: 13, fill: C.muted });
+    const top = y + 42;
+    body += `<rect x="${px(0)}" y="${top}" width="${Math.max(2, px(bar.value) - px(0))}" height="36" fill="${bar.accent ? C.accent : C.line}"/>`;
+    body += text(px(bar.value) + 16, top + 25, `${String(bar.value).replace(".", ",")} zł`, {
+      size: 19, weight: 600, family: FONT_MONO, fill: bar.accent ? C.accent : C.text,
+    });
+  });
+
+  const axisY = 480;
+  body += `<line x1="${px(0)}" y1="${axisY}" x2="${px(40)}" y2="${axisY}" stroke="${C.line}" stroke-width="1"/>`;
+  for (let v = 0; v <= 40; v += 10) {
+    body += `<line x1="${px(v)}" y1="${axisY}" x2="${px(v)}" y2="${axisY + 7}" stroke="${C.line}" stroke-width="1"/>`;
+    body += text(px(v), axisY + 26, `${v}`, { size: 13, fill: C.muted, anchor: "middle", family: FONT_MONO });
+  }
+  body += text(48, axisY + 26, L.strTaxAxis, { size: 13, fill: C.muted });
+  body += text(width - 48, 200, L.strTaxRatio, { size: 16, weight: 600, fill: C.accent, anchor: "end" });
+
+  return frame(
+    width, height,
+    L.figures.strPodatek.title, L.eyebrow,
+    L.checked(L.dates.rental), body,
+    L.figures.strPodatek.note,
+  );
+}
+
+// --- Najem krótkoterminowy: co i od kiedy obowiązuje -------------------------
+// A DATED LINE, NOT A CHECKLIST. Two of these duties already bind and one does
+// not yet, and a checklist would flatten that difference into one list of
+// things to do. The dashed segment is the part that waits on a law that has
+// not been published.
+function strTerminy(L) {
+  const width = 1200;
+  const height = 500;
+  const y = 290;
+  const stops = ["now", "eu", "law"];
+  const xs = [220, 600, 980];
+
+  let body = "";
+  body += `<line x1="110" y1="${y}" x2="${xs[1]}" y2="${y}" stroke="${C.accent}" stroke-width="3"/>`;
+  body += `<line x1="${xs[1]}" y1="${y}" x2="${width - 110}" y2="${y}" stroke="${C.pending}" stroke-width="3" stroke-dasharray="8 8"/>`;
+
+  stops.forEach((key, i) => {
+    const cx = xs[i];
+    const live = i < 2;
+    body += `<circle cx="${cx}" cy="${y}" r="11" fill="${live ? C.accent : C.bg}" stroke="${live ? C.accent : C.pending}" stroke-width="3"/>`;
+    body += text(cx, y - 40, L.strWhen[key], {
+      size: 15, weight: 600, family: FONT_MONO, anchor: "middle", fill: live ? C.accent : C.pending,
+    });
+    body += text(cx, y + 54, L.strWhat[key], { size: 16, weight: 600, anchor: "middle" });
+    body += text(cx, y + 84, L.strWho[key], { size: 13, fill: C.muted, anchor: "middle" });
+  });
+
+  return frame(
+    width, height,
+    L.figures.strTerminy.title, L.eyebrow,
+    L.checked(L.dates.rental), body,
+    L.figures.strTerminy.note,
+  );
+}
+
 const PLAN = {
   ru: [
     // Гражданство Греции по-русски, 9 сентября 2026. Те же две схемы, что у
@@ -5488,6 +5676,11 @@ const PLAN = {
     ["mt-cost", mtCost],
     ["mt-presence", mtPresence],
     ["mt-tests", mtTests],
+    // Najem krótkoterminowy, 20 września 2026. Tylko po polsku: rosyjski i
+    // ukraiński popyt na ten temat w Polsce to 40 i 0 zapytań miesięcznie.
+    ["str-ryczalt", strRyczalt],
+    ["str-podatek", strPodatek],
+    ["str-terminy", strTerminy],
   ],
 };
 
