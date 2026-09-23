@@ -1154,6 +1154,31 @@ const ENTRIES: Record<string, EntryConfig> = {
     // wykonywania pracy cudzoziemcowi” 1600, „zezwolenie na pracę” 1300. Nowe
     // fakty: ustawa Dz.U. 2025 poz. 621, rozporządzenia 1617 i 1622, art. 5a.
   },
+  "poland-epc": {
+    key: "article-poland-epc",
+    sources: {
+      pl: "article-pl-epc.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-23T09:00:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU, i to jest pomiar, nie preferencja: „świadectwo
+    // energetyczne” 18 100 i „świadectwo charakterystyki energetycznej” 9 900
+    // miesięcznie, przy 50 zapytaniach po rosyjsku i ukraińsku w Polsce razem
+    // (.dfs/volume-listing-duties-poland-2026-09-20.json,
+    // .dfs/volume-epc-ru-uk-poland-2026-09-20.json).
+    //
+    // Kąt strony bierze się z tego, czego nie ma u sprzedawców świadectw,
+    // którzy zajmują całą pierwszą dziesiątkę: numer artykułu przy każdym
+    // twierdzeniu, kwota grzywny z art. 24 § 1 Kodeksu wykroczeń zamiast
+    // „do 5000 zł z ustawy” (ustawa kwoty nie podaje wcale), i to, że we
+    // wzorze świadectwa z Dz.U. 2015 poz. 376 nie ma klasy A–G.
+    //
+    // Dyrektywa (UE) 2024/1275 NIE jest tu opisana: 23 września 2026 eur-lex
+    // nie wydał tekstu ani przeglądarce, ani curlowi. Strona mówi tylko to, co
+    // przeczytano u źródła — część 29 dossier.
+  },
   "poland-rental": {
     key: "article-poland-rental",
     sources: {

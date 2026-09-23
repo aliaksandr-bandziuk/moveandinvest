@@ -2775,6 +2775,20 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         kind: "official",
       },
       {
+        id: "charakterystyka-energetyczna",
+        citation:
+          "Ustawa z dnia 29 sierpnia 2014 r. o charakterystyce energetycznej budynków, tekst jednolity Dz.U. 2024 poz. 101 — art. 3 ust. 1, 2 i 4, art. 4 ust. 2–3, art. 5, art. 11 ust. 1, 4–6, art. 12, art. 13, art. 14, art. 17, art. 31 ust. 1 i 3, art. 41, art. 42",
+        url: "https://api.sejm.gov.pl/eli/acts/DU/2024/101/text.pdf",
+        kind: "official",
+      },
+      {
+        id: "metodologia-2015-376",
+        citation:
+          "Rozporządzenie Ministra Infrastruktury i Rozwoju z dnia 27 lutego 2015 r. w sprawie metodologii wyznaczania charakterystyki energetycznej budynku lub części budynku oraz świadectw charakterystyki energetycznej, Dz.U. 2015 poz. 376 — wzór świadectwa: numer z rejestru, data ważności, wskaźniki EU, EK i EP, emisja CO₂, udział OZE; klasa literowa nie występuje",
+        url: "https://api.sejm.gov.pl/eli/acts/DU/2015/376/text.pdf",
+        kind: "official",
+      },
+      {
         id: "puw-cukr-faq",
         citation: "Pomorski Urząd Wojewódzki w Gdańsku, Wydział Spraw Cudzoziemców — Karta pobytu CUKR: pytania i odpowiedzi",
         url: "https://wsc.gdansk.uw.gov.pl/pl/cukr-faq",
@@ -2942,7 +2956,7 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
       {
         id: "kodeks-wykroczen",
         citation:
-          "Ustawa z dnia 20 maja 1971 r. – Kodeks wykroczeń, tekst jednolity Dz.U. 2025 poz. 734 — art. 24 § 1, art. 94 § 1 i § 3, art. 95 § 1, art. 147 (uchylony)",
+          "Ustawa z dnia 20 maja 1971 r. – Kodeks wykroczeń, tekst jednolity Dz.U. 2025 poz. 734 — art. 24 § 1 (grzywna od 20 do 5000 zł, o ile ustawa nie stanowi inaczej) i § 1a (limit 30 000 zł tylko dla wyliczonych tam wykroczeń), art. 94 § 1 i § 3, art. 95 § 1, art. 147 (uchylony)",
         url: "https://api.sejm.gov.pl/eli/acts/DU/2025/734/text.pdf",
         kind: "official",
       },
