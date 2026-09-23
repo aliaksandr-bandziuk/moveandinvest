@@ -1,0 +1,9 @@
+{
+  "_about": "Polish and Russian demand for short-term letting rules and direct bookings, 20 Sep 2026.",
+  "location": 2616,
+  "languages": {
+    "pl": ["najem krótkoterminowy", "wynajem krótkoterminowy przepisy", "podatek od najmu krótkoterminowego", "airbnb podatek", "własna strona rezerwacji", "wynajem mieszkania turystom"],
+    "ru": ["посуточная аренда квартиры", "сдать квартиру посуточно", "аренда жилья туристам", "прямое бронирование", "комиссия airbnb"]
+  },
+  "topic": "najem|wynajem|krótkotermin|krotkotermin|podatek|airbnb|rezerwacj|strona|turyst|mieszkan|посуточн|аренд|сдат|жиль|бронирован|комисс|квартир"
+}
