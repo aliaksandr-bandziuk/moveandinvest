@@ -147,14 +147,26 @@ function subset(source, characters, out) {
   // Cyrillic file. Handled here rather than left to throw: an exception here
   // lands in the caller's catch, which exists for a missing FILE, and the two
   // would then be indistinguishable in the one place it matters.
+  //
+  // CODEPOINTS, NOT CHARACTERS, and that is a Windows bug rather than a
+  // preference. Python writes stdout in the console's own encoding — cp1252
+  // here — while Node decodes it as UTF-8, so “ and ” came back mangled and
+  // the Dubai figure was reported as having no glyph for two characters the
+  // latin subset demonstrably carries. Integers survive any code page.
   const mapped = execFileSync("python3", [
     "-c",
     "import sys;from fontTools.ttLib import TTFont;" +
-      "print(''.join(chr(c) for c in (TTFont(sys.argv[1]).getBestCmap() or {})))",
+      "print(' '.join(str(c) for c in (TTFont(sys.argv[1]).getBestCmap() or {})))",
     out,
   ]).toString();
 
-  const covered = new Set([...mapped].filter((char) => characters.includes(char)));
+  const mappedChars = new Set(
+    mapped
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((code) => String.fromCodePoint(Number(code))),
+  );
+  const covered = new Set([...mappedChars].filter((char) => characters.includes(char)));
   return covered.size > 0 ? { data: readFileSync(out), covered } : null;
 }
 

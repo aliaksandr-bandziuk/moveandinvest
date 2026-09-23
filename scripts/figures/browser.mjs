@@ -30,13 +30,20 @@ const require = createRequire(import.meta.url);
 const MODULE_ENV = "PLAYWRIGHT_CORE_PATH";
 const BROWSER_ENV = "PLAYWRIGHT_CHROMIUM_PATH";
 
+/** playwright-core is CommonJS, so where `chromium` lands depends on who
+ *  transpiled the import. 1.55 in a container put it on the namespace; 1.61
+ *  out of the npx cache puts it on `default` and leaves the namespace without
+ *  it. Reading one of the two produced "Cannot read properties of undefined",
+ *  three frames away from the module that was actually fine. */
+const chromiumOf = (mod) => mod.chromium ?? mod.default?.chromium;
+
 async function loadChromium() {
   const explicit = process.env[MODULE_ENV];
   if (explicit) {
     const url = explicit.startsWith("file:")
       ? explicit
       : pathToFileURL(explicit).href;
-    return (await import(url)).chromium;
+    return chromiumOf(await import(url));
   }
 
   // Normal resolution, from this file outwards: the project's own
@@ -45,7 +52,7 @@ async function loadChromium() {
   for (const name of ["playwright-core", "playwright", "@playwright/test"]) {
     try {
       require.resolve(name);
-      return (await import(name)).chromium;
+      return chromiumOf(await import(name));
     } catch {
       // Not installed here. Try the next one.
     }
