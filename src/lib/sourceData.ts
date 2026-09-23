@@ -610,6 +610,26 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         url: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/selo/Pages/ccod-selo-tabgiselo.aspx",
         kind: "official",
       },
+      // ADDED 20 SEPTEMBER 2026 for the short-term letting entry.
+      {
+        id: "al-regime",
+        citation:
+          "Decreto-Lei n.º 128/2014 (regime jurídico da exploração dos estabelecimentos de alojamento local), consolidated, as amended by Decreto-Lei n.º 76/2024 of 23 October 2024 — registration through the Balcão Único Eletrónico, transferability, obligatory insurance, condominium opposition, revocation of the CEAL",
+        url: "https://business.turismodeportugal.pt/pt/Planear_Iniciar/Como_comecar/Alojamento_Local/Paginas/alteracao-regime-juridico-alojamento-local.aspx",
+        kind: "official",
+        caveat: {
+          en: "Read on Turismo de Portugal's own summary of the amended regime; the consolidated text at dre.pt would not serve its articles to us, so the entry names duties and dates rather than article numbers.",
+          ru: "Прочитано в собственном изложении Turismo de Portugal; сводный текст на dre.pt не отдал статьи, поэтому в статье названы обязанности и даты, а не номера статей.",
+          pl: "Odczytano z własnego omówienia Turismo de Portugal; tekst jednolity na dre.pt nie udostępnił artykułów, więc wpis podaje obowiązki i daty, a nie numery artykułów.",
+        },
+      },
+      {
+        id: "eu-str",
+        citation:
+          "Regulation (EU) 2024/1028 of 11 April 2024 on data collection and sharing relating to short-term accommodation rental services — host declarations, registration numbers in listings, random platform checks, monthly data transmission; applies from 20 May 2026, penalties in place by the same date",
+        url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1028",
+        kind: "official",
+      },
     ],
     note: {
       en: "The 2026 fees are the one weak point on this jurisdiction. AIMA's March revision of the fee table does not answer an automated request, so the figures to the cent come from two independent reports of that table rather than from the table itself. Treat them as secondary until the PDF can be read directly.",
@@ -975,6 +995,19 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         url: "https://www.gov.uk/hmrc-internal-manuals/double-taxation-relief/dt8252",
         kind: "official",
       },
+      // ADDED 20 SEPTEMBER 2026 for the short-term letting entry.
+      {
+        id: "str-registry",
+        citation:
+          "Independent Authority for Public Revenue (AADE) — short-term rental: Register of Short-Term Property Lets, the eleven-digit Property Registry Number (AMA) shown in every listing and advertisement, the Statement of Short-Term Stay by the twentieth of the following month, and Article 111 of Law 4446/2016 as amended by Law 5073/2023 (climate crisis resilience fee)",
+        url: "https://www.aade.gr/en/short-term-rental",
+        kind: "official",
+        caveat: {
+          en: "The current amounts of the climate crisis resilience fee are not in the entry: AADE serves its fee pages and FAQ PDFs only to a browser, and the figures have changed since introduction, so the entry points a reader at the authority instead of naming a number we could not read.",
+          ru: "Суммы сбора за климатическую устойчивость в статье не названы: AADE отдаёт эти страницы и PDF только браузеру, а суммы менялись с момента введения — поэтому читателя отправляем к источнику.",
+          pl: "Wpis nie podaje kwot opłaty na rzecz odporności klimatycznej: AADE udostępnia te strony i PDF-y tylko przeglądarce, a kwoty zmieniały się od wprowadzenia, więc odsyłamy czytelnika do źródła.",
+        },
+      },
     ],
     note: {
       en: "The migration ministry's own golden-visa pages were out of date when this was checked: they still cited the repealed art. 20B of Law 4251/2014 and the €250,000 figure. That is why the thresholds here come from stegasi.gov.gr and from the statute, and not from the page a reader would most naturally land on.",
@@ -1285,6 +1318,14 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         citation:
           "HMRC DT12906 — Malta: notes, including the phrase omitted from the published SI text",
         url: "https://www.gov.uk/hmrc-internal-manuals/double-taxation-relief/dt12906",
+        kind: "official",
+      },
+      // ADDED 20 SEPTEMBER 2026 for the short-term letting entry.
+      {
+        id: "sl-409-24",
+        citation:
+          "Malta Tourism Authority — holiday furnished premises and short lets under the Tourism Accommodation Regulations, S.L. 409.24: licence held by the proprietor in title, planning permission and architect certification, third-party insurance, waste plan, notice with the licence number and a 24/7 contact outside the property, three-year disqualification for operating unlicensed",
+        url: "https://mta.com.mt/licenses-applications/holiday-furnished-premises/",
         kind: "official",
       },
     ],
@@ -1605,6 +1646,19 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
         citation: "DLD — frequently asked questions, broker commission",
         url: "https://dubailand.gov.ae/en/frequently-asked-questions/",
         kind: "official",
+      },
+      // ADDED 20 SEPTEMBER 2026 for the short-term letting entry.
+      {
+        id: "holiday-homes",
+        citation:
+          "Dubai Department of Economy and Tourism — holiday homes: Decree No. 41 of 2013, Executive Council Resolution No. 49 of 2014, Administrative Resolution No. 1 of 2020 and the 2022 regulation guide; permit application and renewal services",
+        url: "https://www.dubaidet.gov.ae/en/legislative-news/holiday-homes-regulation-guide-2022",
+        kind: "official",
+        caveat: {
+          en: "DET serves these pages only to a browser; they were read through their published titles and the department service descriptions. The duty to put the Unit Holiday Home Permit Number in a listing and the Tourism Dirham of AED 15 (Deluxe) and AED 10 (Standard) per occupied bedroom per night, remitted by the fifteenth of the month, were read on Airbnb's own Dubai hosting page, which restates the DET rules to hosts.",
+          ru: "DET отдаёт эти страницы только браузеру; они прочитаны по опубликованным заголовкам и описаниям услуг департамента. Обязанность указывать номер разрешения в объявлении и туристический дирхам 15 AED (Deluxe) и 10 AED (Standard) за занятую спальню в сутки с перечислением до 15-го числа прочитаны на собственной странице Airbnb для хозяев в Дубае, которая пересказывает правила DET.",
+          pl: "DET udostępnia te strony tylko przeglądarce; odczytano je z opublikowanych tytułów i opisów usług departamentu. Obowiązek podania numeru zezwolenia w ofercie oraz dirham turystyczny 15 AED (Deluxe) i 10 AED (Standard) za zajętą sypialnię na dobę, odprowadzany do 15. dnia miesiąca, odczytano na stronie Airbnb dla gospodarzy w Dubaju, która powtarza zasady DET.",
+        },
       },
     ],
   },
@@ -3095,6 +3149,59 @@ const SOURCE_SECTIONS_RAW: SourceSection[] = [
           "Ustawa z dnia 20 listopada 1998 r. o zryczałtowanym podatku dochodowym od niektórych przychodów osiąganych przez osoby fizyczne, tekst jednolity Dz.U. 2025 poz. 843 — art. 9, 12",
         url: "https://api.sejm.gov.pl/eli/acts/DU/2025/843/text.pdf",
         kind: "official",
+      },
+      // ADDED 20 SEPTEMBER 2026 for the short-term letting entry.
+      {
+        id: "uslugi-hotelarskie",
+        citation:
+          "Ustawa z dnia 29 sierpnia 1997 r. o usługach hotelarskich oraz usługach pilotów wycieczek i przewodników turystycznych, Dz.U. 1997 nr 133 poz. 884 ze zmianami — ewidencja innych obiektów, w których świadczone są usługi hotelarskie; wymagania minimalne określa rozporządzenie Ministra Gospodarki i Pracy z dnia 19 sierpnia 2004 r.",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=wdu19971330884",
+        kind: "official",
+        caveat: {
+          en: "The duty, the free registration and the building, fire-safety and sanitary conditions were read on the state service description at biznes.gov.pl (ou1130); the article numbers of the penalty were not confirmed against the consolidated text, so the entry does not name them.",
+          ru: "Обязанность, бесплатная регистрация и требования (строительные, противопожарные, санитарные) прочитаны в описании услуги на biznes.gov.pl (ou1130); номера статей о наказании по сводному тексту не проверены, поэтому в статье они не названы.",
+          pl: "Obowiązek, bezpłatne zgłoszenie oraz wymagania budowlane, przeciwpożarowe i sanitarne odczytano z opisu usługi na biznes.gov.pl (ou1130); numerów artykułów o karze nie zweryfikowano w tekście jednolitym, więc wpis ich nie podaje.",
+        },
+      },
+      {
+        id: "podatki-lokalne",
+        citation:
+          "Ustawa z dnia 12 stycznia 1991 r. o podatkach i opłatach lokalnych, tekst jednolity Dz.U. 2025 poz. 707 — art. 5 ust. 1, art. 19, art. 20 ust. 2; górne granice stawek na 2026 r.: obwieszczenie Ministra Finansów i Gospodarki z dnia 1 sierpnia 2025 r., M.P. 2025 poz. 726",
+        url: "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WMP20250000726",
+        kind: "official",
+      },
+      {
+        id: "nsa-fps-2-24",
+        citation:
+          "Uchwała Naczelnego Sądu Administracyjnego w składzie siedmiu sędziów z dnia 21 października 2024 r., sygn. III FPS 2/24 — stawka podatku od nieruchomości dla lokali mieszkalnych przeznaczonych na wynajem; o najmie na dobę w uzasadnieniu",
+        url: "https://orzeczenia.nsa.gov.pl/doc/0A93F0B5AB",
+        kind: "official",
+      },
+      {
+        id: "sn-csk-20-21",
+        citation:
+          "Wyrok Sądu Najwyższego z dnia 12 stycznia 2021 r., sygn. IV CSKP 20/21 — granice uchwał wspólnoty mieszkaniowej wobec prawa odrębnej własności lokalu",
+        url: "https://www.sn.pl/sites/orzecznictwo/orzeczenia3/iv%20cskp%2020-21.pdf",
+        kind: "official",
+      },
+      {
+        id: "ue-najem",
+        citation:
+          "Rozporządzenie Parlamentu Europejskiego i Rady (UE) 2024/1028 z dnia 11 kwietnia 2024 r. w sprawie gromadzenia i udostępniania danych dotyczących usług najmu krótkoterminowego — art. 4, 5, 7, 9, 15 ust. 4, 19; stosuje się od 20 maja 2026 r.",
+        url: "https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:32024R1028",
+        kind: "official",
+      },
+      {
+        id: "uc135",
+        citation:
+          "Projekt ustawy o zmianie ustawy o usługach hotelarskich oraz usługach pilotów wycieczek i przewodników turystycznych oraz niektórych innych ustaw (UC135, Ministerstwo Sportu i Turystyki) — przyjęty przez Radę Ministrów 14 lipca 2026 r. wraz z autopoprawką",
+        url: "https://www.gov.pl/web/sport/ustawa-o-najmie-krotkoterminowym",
+        kind: "official",
+        caveat: {
+          en: "A bill, not law: on 20 September 2026 it had not been published in Dziennik Ustaw. Everything it introduces — the 30-day definition, CWTON, the object number in listings, the gmina zones — is written in the entry as pending.",
+          ru: "Это законопроект: на 20 сентября 2026 года он не опубликован в Dziennik Ustaw. Всё, что он вводит — определение «до 30 дней», реестр CWTON, номер объекта в объявлении, зоны гмины, — в статье описано как будущее.",
+          pl: "To projekt, nie ustawa: 20 września 2026 nie był ogłoszony w Dzienniku Ustaw. Wszystko, co wprowadza — definicja 30 dni, CWTON, numer obiektu w ofercie, strefy gminne — opisano we wpisie jako stan przyszły.",
+        },
       },
       {
         id: "vat-2026-limit",

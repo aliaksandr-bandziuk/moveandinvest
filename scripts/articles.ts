@@ -1154,6 +1154,40 @@ const ENTRIES: Record<string, EntryConfig> = {
     // wykonywania pracy cudzoziemcowi” 1600, „zezwolenie na pracę” 1300. Nowe
     // fakty: ustawa Dz.U. 2025 poz. 621, rozporządzenia 1617 i 1622, art. 5a.
   },
+  "poland-rental": {
+    key: "article-poland-rental",
+    sources: {
+      pl: "article-pl-rental.md",
+    },
+    figures: {
+      pl: ["str-ryczalt-pl", "str-podatek-pl", "str-terminy-pl"],
+    },
+    publishedAt: "2026-09-20T09:00:00.000Z",
+    category: "rules",
+    countries: [],
+    // TYLKO PO POLSKU: „najem krótkoterminowy” 4400, „wynajem krótkoterminowy
+    // przepisy” 140, a rosyjski i ukraiński popyt w Polsce to 40 i 0 zapytań
+    // (.dfs/volume-rental-pl-ru-2026-09-20.json). Nowe źródła: ustawa o
+    // usługach hotelarskich, podatki lokalne z obwieszczeniem M.P. 2025 poz.
+    // 726, uchwała NSA III FPS 2/24, wyrok SN IV CSKP 20/21, rozporządzenie
+    // (UE) 2024/1028 i projekt UC135. Pierwszy wpis z odnośnikiem zewnętrznym
+    // — patrz ALLOWED_EXTERNAL wyżej.
+  },
+  "rental-rules": {
+    key: "article-rental-rules",
+    sources: {
+      en: "article-en-rental.md",
+    },
+    figures: {},
+    publishedAt: "2026-09-20T10:00:00.000Z",
+    category: "rules",
+    countries: ["country-pt", "country-gr", "country-cy", "country-mt", "country-ae"],
+    // ENGLISH ONLY. The demand is in the UAE — "short term rental dubai" 1900,
+    // "dtcm permit" 1000 — with "licença alojamento local" 320 in Portugal and
+    // 40-70 each in Greece, Cyprus and Malta; Russian and Polish measured 40
+    // and 0 for the whole subject. The Polish reader gets poland-rental, which
+    // is a different article about a different set of duties.
+  },
   "greece-process": {
     key: "article-greece-process",
     sources: {
@@ -1282,6 +1316,20 @@ function entryPath(config: EntryConfig, slug: string): string {
  *  entry with: the guide block (AskBlock) and the residence form. */
 const IN_PAGE_ANCHORS = new Set(["#ask", "#residence"]);
 
+/** THE ONLY DOMAINS AN ARTICLE BODY MAY LINK TO, added 20 September 2026 on the
+ *  owner's instruction. Every other external link still throws, and the rule
+ *  behind that has not changed: a source is named in running text and its
+ *  document goes on /sources, so a reader checking a claim lands on the statute
+ *  rather than on somebody's commentary.
+ *
+ *  These two are different in kind. They are the owner's own sites, linked
+ *  where an article reaches the edge of what this site does — a host who has
+ *  read what the law requires of a listing and now needs the page that takes
+ *  the booking. Kept as a list rather than a flag so that adding a third is a
+ *  decision someone makes in this file, with a name attached, and https + www
+ *  is required so the link cannot land on a redirect. */
+const ALLOWED_EXTERNAL = ["bandziuk.com", "tatsianabandziuk.com"];
+
 function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, string>>) {
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
   // WHERE A UKRAINIAN BODY LINKS WHEN THE TARGET IS NOT UKRAINIAN. The rest of
@@ -1293,8 +1341,11 @@ function makeResolver(locale: Locale, slugs: Record<string, Record<Locale, strin
 
   return (raw: string): string => {
     if (/^[a-z]+:\/\//i.test(raw) || raw.startsWith("mailto:")) {
+      if (ALLOWED_EXTERNAL.some((host) => raw.startsWith(`https://www.${host}/`))) {
+        return raw;
+      }
       throw new Error(
-        `External link "${raw}" in the ${locale} body. Name the source in running text instead — see the note above HrefResolver in scripts/copy/portable.ts.`,
+        `External link "${raw}" in the ${locale} body. Name the source in running text instead — see the note above HrefResolver in scripts/copy/portable.ts. The only exceptions are ${ALLOWED_EXTERNAL.join(" and ")}, https with www.`,
       );
     }
 

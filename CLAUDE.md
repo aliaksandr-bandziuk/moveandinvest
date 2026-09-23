@@ -276,6 +276,28 @@ cover them there. Never put them in `research/`: the repository is public and
 `research/` is tracked. (`/contents/` in `.gitignore` is a different,
 untracked folder; the near-identical name is a coincidence.)
 
+## An article body links out to two domains and no others
+
+Decided by the owner on 20 September 2026. Until that day `makeResolver` in
+`scripts/articles.ts` threw on every external link, and 147 entries were
+written that way: a source is named in running text and its document goes on
+`/sources`, so a reader checking a claim lands on the statute rather than on
+somebody's commentary. That rule stands.
+
+The exception is `ALLOWED_EXTERNAL` in the same file — `bandziuk.com` and
+`tatsianabandziuk.com`, the owner's own sites, linked where an entry reaches
+the edge of what this site does. The first use is the short-term letting entry,
+which ends with the arithmetic of platform commission and links the page about
+a booking site. Rules that come with it:
+
+- **https and `www.` are required**, so a link cannot land on a redirect.
+- **A third domain is a decision made in that file**, with a name attached —
+  not a flag, not a config value.
+- **Two links per entry at most, both earned by the section they sit in.** An
+  entry that would carry more of them is an advert, and reads as one.
+- The renderer already handles an absolute href: `target="_blank"` and
+  `rel="noopener noreferrer"`, no `nofollow`.
+
 ## Table cells in an article carry bold and links, and nothing else
 
 Fixed 17 Sep 2026. A table cell is stored as a plain string; until that day
