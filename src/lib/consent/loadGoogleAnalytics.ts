@@ -44,9 +44,22 @@ export function loadGoogleAnalytics(): void {
   loaded = true;
 
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args);
-  };
+  // `arguments`, NOT an array, and the difference is the whole tag working or
+  // silently doing nothing. gtag.js walks the dataLayer and treats a pushed
+  // Arguments object as a command; a real Array is data, so it is stored and
+  // never executed. This file pushed `args` from a rest parameter for a month:
+  // gtag.js loaded, the queue filled up with consent/js/config/page_view, not
+  // one of them ran, and Google Analytics reported no visitors at all while
+  // Clarity — which has its own loader — recorded them normally.
+  //
+  // Measured on the live site, 24 September 2026, headless Chromium: with the
+  // array push, zero requests to region1.google-analytics.com/g/collect after
+  // load; pushing the same commands as `arguments` from the console produced
+  // two, status 204.
+  window.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  } as (...args: unknown[]) => void;
 
   // Queued BEFORE js/config. Consent Mode applies whatever state is current
   // as each queued command is walked, so a "granted" pushed afterwards does

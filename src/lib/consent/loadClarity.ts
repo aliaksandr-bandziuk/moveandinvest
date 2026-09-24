@@ -32,9 +32,16 @@ export function loadClarity(): void {
   loaded = true;
 
   if (!window.clarity) {
-    const fn: ClarityFn = (...args: unknown[]) => {
-      (fn.q = fn.q || []).push(args);
-    };
+    // `arguments` rather than an array, for the same reason as the gtag stub
+    // in loadGoogleAnalytics: clarity.js drains this queue expecting the shape
+    // its own snippet produces. Nothing calls clarity() before the tag loads
+    // today — the lead events fire long after — so this queue has probably
+    // never held anything. It is corrected anyway, because the day something
+    // does call early, the failure is silent.
+    const fn = function clarity(this: unknown) {
+      // eslint-disable-next-line prefer-rest-params
+      (fn.q = fn.q || []).push(arguments);
+    } as ClarityFn;
     window.clarity = fn;
   }
 
